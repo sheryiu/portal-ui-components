@@ -1,0 +1,11 @@
+.ds-base-button {
+  @apply relative overflow-hidden;
+}
+
+.ds-base-button .ds-base-button-highlight {
+  @apply absolute inset-0 pointer-events-none bg-transparent transition-colors;
+}
+
+.ds-base-button:is(:hover, :focus-visible) .ds-base-button-highlight {
+  @apply bg-black/[0.07] dark:bg-white/[0.07];
+}
