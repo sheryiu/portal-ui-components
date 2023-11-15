@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-import { provideBreadcrumb } from './components/breadcrumbs/breadcrumbs.service';
+import { breadcrumbData } from './components/breadcrumbs/breadcrumbs.service';
 import { PaneLayoutComponent } from './components/pane-layout/pane-layout.component';
 import { providePaneNavigationTabs } from './components/pane-navigation/pane-navigation.service';
 import { RootLayoutComponent } from './components/root-layout/root-layout.component';
@@ -11,6 +11,12 @@ export const routes: Routes = [
   {
     path: 'design',
     component: RootLayoutComponent,
+    data: {
+      ...breadcrumbData({
+        id: 'home',
+        title: 'Home'
+      })
+    },
     providers: [
       provideRootNavigationTabs([
         {
@@ -39,10 +45,6 @@ export const routes: Routes = [
           route: ['test'],
         },
       ]),
-      provideBreadcrumb({
-        id: 'home',
-        title: 'Home',
-      }),
     ],
     children: [
       {
@@ -61,12 +63,14 @@ export const routes: Routes = [
       {
         path: 'demos',
         component: PaneLayoutComponent,
+        data: {
+          ...breadcrumbData({
+            id: 'demos',
+            title: 'Demos'
+          })
+        },
         providers: [
           providePaneNavigationTabs(DEMOS_TABS),
-          provideBreadcrumb({
-            id: 'demos',
-            title: 'Demos',
-          }),
         ],
         loadChildren: () => import('./modules/demos/demos.module').then(m => m.DemosModule),
       }

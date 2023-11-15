@@ -45,7 +45,7 @@ module.exports = {
     },
   },
   plugins: [
-    plugin(({ addUtilities, addComponents, addBase, theme }) => {
+    plugin(({ addUtilities, addComponents, addBase, matchVariant, matchUtilities, theme }) => {
       addComponents({
         '.material-icons': {},
         '.material-icons-outlined': {},
@@ -58,6 +58,15 @@ module.exports = {
           'text-transform': 'uppercase'
         }
       })
+      matchUtilities({
+        'view-transition': (value) => {
+          return {
+            'view-transition-name': value,
+          }
+        }
+      }, {
+        type: 'family-name'
+      });
     })
   ],
 }

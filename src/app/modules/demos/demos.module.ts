@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { provideBreadcrumb } from '../../components/breadcrumbs/breadcrumbs.service';
+import { breadcrumbData } from '../../components/breadcrumbs/breadcrumbs.service';
 
 export const DEMOS_TABS = [
   {
@@ -20,12 +20,12 @@ const ROUTES: Routes = [
   {
     path: 'list',
     loadComponent: () => import('./list-demo/list-demo.component').then(c => c.ListDemoComponent),
-    providers: [
-      provideBreadcrumb({
+    data: {
+      ...breadcrumbData({
         id: 'list-demo',
         title: 'List Demo'
       })
-    ]
+    }
   }
 ]
 

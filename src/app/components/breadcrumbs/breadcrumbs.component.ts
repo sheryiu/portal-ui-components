@@ -1,8 +1,9 @@
 import { CommonModule } from '@angular/common';
-import { Component, HostBinding, inject } from '@angular/core';
-import { RouterLink, RouterLinkActive } from '@angular/router';
+import { Component, Injector, inject } from '@angular/core';
+import { ActivatedRoute, RouterLink, RouterLinkActive } from '@angular/router';
+import { Observable, concatAll, isObservable, map, mergeMap, of, toArray } from 'rxjs';
 import { ButtonsModule } from '../atoms/buttons/buttons.module';
-import { BreadcrumbsService } from './breadcrumbs.service';
+import { Breadcrumb, getBreadcrumb } from './breadcrumbs.service';
 
 @Component({
   selector: 'app-breadcrumbs',
@@ -13,9 +14,42 @@ import { BreadcrumbsService } from './breadcrumbs.service';
 })
 export class BreadcrumbsComponent {
 
-  private service = inject(BreadcrumbsService);
-  breadcrumbs$ = this.service.breadcrumbs$;
+  breadcrumbs$!: Observable<(Breadcrumb & { route: ActivatedRoute })[]>;
 
-  @HostBinding('class') private hostClass = 'contents';
+  constructor() {
+    const breadcrumbs = [];
+    const route = inject(ActivatedRoute);
+    let parent: ActivatedRoute | null = route;
+    while (parent) {
+      const data = parent.routeConfig?.data;
+      const breadcrumb = getBreadcrumb(data);
+      if (breadcrumb) {
+        breadcrumbs.unshift({
+          ...breadcrumb,
+          route: parent,
+        });
+      }
+      parent = parent.parent;
+    }
+    this.breadcrumbs$ = of(breadcrumbs).pipe(
+      map((breadcrumbs) =>
+        breadcrumbs.map((b) => {
+          if (b.titleFn != null) {
+            const temp = b.titleFn();
+            if (isObservable(temp)) return temp.pipe(
+              map(title => ({ ...b, title }))
+            )
+            return of({
+              ...b, title: temp,
+            });
+          }
+          return of(b);
+        })
+      ),
+      mergeMap((b) => b),
+      concatAll(),
+      toArray()
+    )
+  }
 
 }

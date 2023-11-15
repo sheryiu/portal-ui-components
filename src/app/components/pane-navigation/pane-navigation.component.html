@@ -1,4 +1,4 @@
-<div class="sticky top-0 h-100vh min-w-20 bg-primary-1000 border-r border-primary-700">
+<div class="sticky top-0 h-100vh min-w-20 bg-primary-1000 border-r border-primary-700 view-transition-[paneNavigation]">
   <div class="flex flex-col">
     <!-- tabs -->
     <div class="flex flex-col grow">
@@ -16,10 +16,10 @@
               class="transition-[background-color,_border-radius] flex flex-col gap-1 px-1 justify-center items-center"
             >
               <div
-                class="transition-[background-color,_border-radius] w-8 aspect-square flex items-center justify-center text-xl"
+                class="transition-[background-color,_border-radius,_width] h-8 flex items-center justify-center text-xl"
                 [ngClass]="{
-                  'bg-primary-700 rounded-lg material-icons': active.isActive,
-                  'group-hover:bg-primary-900 group-focus-within:bg-primary-900 rounded material-icons-outlined': !active.isActive
+                  'bg-primary-700 w-12 aspect-video rounded-full material-icons': active.isActive,
+                  'group-hover:bg-primary-900 group-focus-within:bg-primary-900 w-8 rounded material-icons-outlined': !active.isActive
                 }"
               >
                 {{ tab.icon }}
