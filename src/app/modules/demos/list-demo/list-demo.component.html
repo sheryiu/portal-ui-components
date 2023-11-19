@@ -8,14 +8,14 @@
   </button>
 </div>
 <cdk-table
-  class="grid grid-cols-4"
+  class="grid-cols-4"
+  appBaseTable
   [dataSource]="dataSource"
   [trackBy]="trackingFn"
-  recycleRows
 >
   <ng-container cdkColumnDef="companyName">
-    <cdk-header-cell *cdkHeaderCellDef class="flex items-center px-2 pl-4 border-r border-primary-800">Company</cdk-header-cell>
-    <cdk-cell *cdkCellDef="let row" class="flex items-center px-2 pl-4 border-r border-primary-800">
+    <cdk-header-cell *cdkHeaderCellDef>Company</cdk-header-cell>
+    <cdk-cell *cdkCellDef="let row">
       <span class="line-clamp-1">{{
         row.companyName
       }}</span>
@@ -23,47 +23,47 @@
   </ng-container>
 
   <ng-container cdkColumnDef="transactionAmount">
-    <cdk-header-cell *cdkHeaderCellDef class="flex items-center px-2 border-r border-primary-800">Transaction Amount</cdk-header-cell>
-    <cdk-cell *cdkCellDef="let row" class="flex items-center px-2 border-r border-primary-800 line-clamp-1">
+    <cdk-header-cell *cdkHeaderCellDef>Transaction Amount</cdk-header-cell>
+    <cdk-cell *cdkCellDef="let row" flush>
       @if (row.transactionAmount > 0) {
-        <span class="text-green-600 font-bold flex items-center gap-1 w-full">
+        <span class="text-green-600 font-bold flex items-center gap-2 w-full">
           <span class="material-icons icon-4">trending_up</span>
-          <span class="w-[7ch]">{{ row.transactionAmount }}%</span>
+          <span class="w-[7ch] text-end">{{ row.transactionAmount }}%</span>
           <div class="grow"><div class="bg-current h-1 rounded-full" [style.width.%]="row.transactionAmount"></div></div>
         </span>
       } @else if (row.transactionAmount < 0) {
-        <span class="text-red-600 font-bold flex items-center gap-1 w-full">
+        <span class="text-red-600 font-bold flex items-center gap-2 w-full">
           <span class="material-icons icon-4">trending_down</span>
-          <span class="w-[7ch]">{{ row.transactionAmount }}%</span>
+          <span class="w-[7ch] text-end">{{ row.transactionAmount }}%</span>
           <div class="grow"><div class="bg-current h-1 rounded-full" [style.width.%]="row.transactionAmount * -1"></div></div>
         </span>
       } @else  {
-        <span class="text-blue-600 font-bold flex items-center gap-1">
+        <span class="text-blue-600 font-bold flex items-center gap-2">
           <span class="material-icons icon-4">trending_flat</span>
-          <span class="w-[7ch]">{{ row.transactionAmount }}%</span>
+          <span class="w-[7ch] text-end">{{ row.transactionAmount }}%</span>
         </span>
       }
     </cdk-cell>
   </ng-container>
 
   <ng-container cdkColumnDef="transactionBy">
-    <cdk-header-cell *cdkHeaderCellDef class="flex items-center px-2 border-r border-primary-800">User</cdk-header-cell>
-    <cdk-cell *cdkCellDef="let row" class="flex items-center px-2 border-r border-primary-800">{{
+    <cdk-header-cell *cdkHeaderCellDef>User</cdk-header-cell>
+    <cdk-cell *cdkCellDef="let row">{{
       row.transactionBy
     }}</cdk-cell>
   </ng-container>
 
   <ng-container cdkColumnDef="timestamp">
-    <cdk-header-cell *cdkHeaderCellDef class="flex items-center justify-end px-2 pr-4">Time</cdk-header-cell>
-    <cdk-cell *cdkCellDef="let row" class="flex items-center px-2 pr-4 justify-end">
+    <cdk-header-cell *cdkHeaderCellDef class="justify-end">Time</cdk-header-cell>
+    <cdk-cell *cdkCellDef="let row" class="justify-end">
       <span class="line-clamp-1">{{
         row.timestamp | date: 'short'
       }}</span>
     </cdk-cell>
   </ng-container>
 
-  <cdk-header-row *cdkHeaderRowDef="columnsToDisplay" class="grid-cols-subgrid grid col-span-full h-9 py-1 bg-primary-950 text-primary-200 border-b border-primary-900 text-sm/none sticky top-22 z-50"></cdk-header-row>
-  <a appBaseButton *cdkRowDef="let row; columns: columnsToDisplay" class="grid-cols-subgrid grid col-span-full even:bg-primary-950/20">
-    <cdk-row class="grid-cols-subgrid grid col-span-full border-b border-primary-900 h-9 py-1 text-sm/none"></cdk-row>
+  <cdk-header-row *cdkHeaderRowDef="columnsToDisplay" class="sticky top-22 z-50"></cdk-header-row>
+  <a appBaseButton *cdkRowDef="let row; columns: columnsToDisplay">
+    <cdk-row></cdk-row>
   </a>
 </cdk-table>

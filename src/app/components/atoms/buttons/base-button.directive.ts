@@ -21,9 +21,4 @@ export class BaseButtonDirective {
     }
   }
 
-  @HostListener('pointerenter')
-  private hostPointerenter() {
-
-  }
-
 }
