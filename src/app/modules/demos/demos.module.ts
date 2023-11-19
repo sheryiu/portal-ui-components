@@ -10,9 +10,10 @@ export const DEMOS_TABS = [
     route: ['list']
   },
   {
-    id: 'forms',
-    title: 'Forms',
-    icon: 'drive_file_rename_outline'
+    id: 'form',
+    title: 'Form',
+    icon: 'drive_file_rename_outline',
+    route: ['form']
   },
 ]
 
@@ -24,6 +25,16 @@ const ROUTES: Routes = [
       ...breadcrumbData({
         id: 'list-demo',
         title: 'List Demo'
+      })
+    }
+  },
+  {
+    path: 'form',
+    loadComponent: () => import('./form-demo/form-demo.component').then(c => c.FormDemoComponent),
+    data: {
+      ...breadcrumbData({
+        id: 'form-demo',
+        title: 'Form Demo'
       })
     }
   }

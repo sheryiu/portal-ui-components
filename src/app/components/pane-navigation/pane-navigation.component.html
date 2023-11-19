@@ -1,4 +1,4 @@
-<div class="sticky top-0 h-100vh min-w-20 bg-primary-1000 border-r border-primary-700 view-transition-[paneNavigation]">
+<div class="sticky top-0 h-100vh min-w-20 bg-primary-900 border-r border-primary-700 text-primary-50 view-transition-[paneNavigation]">
   <div class="flex flex-col">
     <!-- tabs -->
     <div class="flex flex-col grow">
@@ -19,12 +19,12 @@
                 class="transition-[background-color,_border-radius,_width] h-8 flex items-center justify-center text-xl"
                 [ngClass]="{
                   'bg-primary-700 w-12 aspect-video rounded-full material-icons': active.isActive,
-                  'group-hover:bg-primary-900 group-focus-within:bg-primary-900 w-8 rounded material-icons-outlined': !active.isActive
+                  'group-hover:bg-primary-700 group-focus-within:bg-primary-700 w-8 rounded material-icons-outlined': !active.isActive
                 }"
               >
                 {{ tab.icon }}
               </div>
-              <span class="text-base/tight">{{ tab.title }}</span>
+              <span class="text-sm/tight">{{ tab.title }}</span>
             </div>
           } @else {
             <div

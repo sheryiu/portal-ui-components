@@ -9,19 +9,23 @@ module.exports = {
     extend: {
       spacing: () => ({
         ...Array(20).fill(0).map((_, i) => (i + 1) * 5).reduce((acc, size) => ({ ...acc, [`${size}vh`]: `${size}svh`, [`${size}vw`]: `${size}svw` }), {}),
+        '22': '5.5rem'
       }),
+      gridTemplateColumns: {
+        'subgrid': 'subgrid'
+      },
       colors: {
         primary: {
-          '50': 'hsl(216, 33%, 97%)',
-          '100': 'hsl(220, 38%, 94%)',
-          '200': 'hsl(214, 35%, 86%)',
-          '300': 'hsl(212, 35%, 74%)',
-          '400': 'hsl(211, 34%, 60%)',
-          '500': 'hsl(212, 33%, 48%)',
-          '600': 'hsl(214, 36%, 39%)',
-          '700': 'hsl(215, 35%, 32%)',
-          '800': 'hsl(214, 33%, 27%)',
-          '900': 'hsl(215, 30%, 24%)',
+          '50': 'hsl(216, 33%, 95%)',
+          '100': 'hsl(220, 38%, 90%)',
+          '200': 'hsl(214, 35%, 80%)',
+          '300': 'hsl(212, 35%, 70%)',
+          '400': 'hsl(211, 34%, 55%)',
+          '500': 'hsl(212, 33%, 45%)',
+          '600': 'hsl(214, 36%, 36%)',
+          '700': 'hsl(215, 35%, 30%)',
+          '800': 'hsl(214, 33%, 23%)',
+          '900': 'hsl(215, 30%, 20%)',
           '950': 'hsl(217, 30%, 14%)', /** main */
           '1000': 'hsl(217, 25%, 9%)',
         },
@@ -40,6 +44,9 @@ module.exports = {
         },
       },
       minWidth: ({ theme }) => ({
+        ...theme('spacing')
+      }),
+      maxWidth: ({ theme }) => ({
         ...theme('spacing')
       })
     },
@@ -67,6 +74,19 @@ module.exports = {
       }, {
         type: 'family-name'
       });
+      matchUtilities({
+        'icon': (value) => {
+          return {
+            'display': 'inline-block',
+            'width': theme('spacing.' + value),
+            'height': theme('spacing.' + value),
+            'font-size': theme('spacing.' + value),
+          }
+        }
+      }, {
+        type: 'length',
+        values: { 4: 4, 5: 5, 6: 6 },
+      })
     })
   ],
 }

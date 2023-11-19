@@ -1,22 +1,69 @@
 <app-breadcrumbs></app-breadcrumbs>
-<p class="text-2xl/loose">
-  Minim in proident amet consectetur in reprehenderit minim. Ad est Lorem elit sint incididunt sit aute voluptate voluptate excepteur laboris velit ut. Deserunt adipisicing in enim esse dolore.
+<div class="bg-primary-950 h-14 px-2 flex items-center w-full sticky top-8 border-b border-primary-700 z-50">
+  <button appBaseButton class="rounded">
+    <div class="flex flex-col items-center gap-1 px-2 py-1">
+      <span class="material-icons icon-5 text-primary-50">refresh</span>
+      <span class="text-sm/none font-light text-primary-200 line-clamp-1 max-w-12">Refresh</span>
+    </div>
+  </button>
+</div>
+<cdk-table
+  class="grid grid-cols-4"
+  [dataSource]="dataSource"
+  [trackBy]="trackingFn"
+  recycleRows
+>
+  <ng-container cdkColumnDef="companyName">
+    <cdk-header-cell *cdkHeaderCellDef class="flex items-center px-2 pl-4 border-r border-primary-800">Company</cdk-header-cell>
+    <cdk-cell *cdkCellDef="let row" class="flex items-center px-2 pl-4 border-r border-primary-800">
+      <span class="line-clamp-1">{{
+        row.companyName
+      }}</span>
+    </cdk-cell>
+  </ng-container>
 
-Ut sit occaecat ad quis amet labore reprehenderit aute magna. Cupidatat proident in culpa quis proident magna pariatur commodo voluptate fugiat culpa aliqua officia deserunt. Voluptate sunt in officia labore ullamco minim consequat.
+  <ng-container cdkColumnDef="transactionAmount">
+    <cdk-header-cell *cdkHeaderCellDef class="flex items-center px-2 border-r border-primary-800">Transaction Amount</cdk-header-cell>
+    <cdk-cell *cdkCellDef="let row" class="flex items-center px-2 border-r border-primary-800 line-clamp-1">
+      @if (row.transactionAmount > 0) {
+        <span class="text-green-600 font-bold flex items-center gap-1 w-full">
+          <span class="material-icons icon-4">trending_up</span>
+          <span class="w-[7ch]">{{ row.transactionAmount }}%</span>
+          <div class="grow"><div class="bg-current h-1 rounded-full" [style.width.%]="row.transactionAmount"></div></div>
+        </span>
+      } @else if (row.transactionAmount < 0) {
+        <span class="text-red-600 font-bold flex items-center gap-1 w-full">
+          <span class="material-icons icon-4">trending_down</span>
+          <span class="w-[7ch]">{{ row.transactionAmount }}%</span>
+          <div class="grow"><div class="bg-current h-1 rounded-full" [style.width.%]="row.transactionAmount * -1"></div></div>
+        </span>
+      } @else  {
+        <span class="text-blue-600 font-bold flex items-center gap-1">
+          <span class="material-icons icon-4">trending_flat</span>
+          <span class="w-[7ch]">{{ row.transactionAmount }}%</span>
+        </span>
+      }
+    </cdk-cell>
+  </ng-container>
 
-Culpa nulla nostrud eiusmod ut amet Lorem ullamco. Sint nostrud reprehenderit do laborum duis labore ut exercitation. Dolor dolore proident veniam magna nostrud ut consectetur sit duis.
+  <ng-container cdkColumnDef="transactionBy">
+    <cdk-header-cell *cdkHeaderCellDef class="flex items-center px-2 border-r border-primary-800">User</cdk-header-cell>
+    <cdk-cell *cdkCellDef="let row" class="flex items-center px-2 border-r border-primary-800">{{
+      row.transactionBy
+    }}</cdk-cell>
+  </ng-container>
 
-Est sunt do laboris incididunt. Nisi ea cillum ut laboris tempor. Magna adipisicing deserunt consectetur minim. Est esse amet commodo consequat cupidatat. Nostrud sit nisi ut proident id est nulla sint quis deserunt. Aliquip dolore dolore reprehenderit ipsum.
+  <ng-container cdkColumnDef="timestamp">
+    <cdk-header-cell *cdkHeaderCellDef class="flex items-center justify-end px-2 pr-4">Time</cdk-header-cell>
+    <cdk-cell *cdkCellDef="let row" class="flex items-center px-2 pr-4 justify-end">
+      <span class="line-clamp-1">{{
+        row.timestamp | date: 'short'
+      }}</span>
+    </cdk-cell>
+  </ng-container>
 
-Ut voluptate do laborum proident adipisicing Lorem proident tempor. Eiusmod anim proident excepteur laborum reprehenderit consectetur id aliqua exercitation do eiusmod excepteur. Non non laborum qui irure occaecat et. Laborum non mollit quis adipisicing duis esse cillum laborum eu nisi fugiat consequat irure.
-
-Irure eu consectetur dolore commodo consectetur tempor magna tempor nulla commodo exercitation est. Adipisicing exercitation aute sit excepteur veniam enim ipsum veniam ad cillum veniam non culpa. Tempor enim ut incididunt do ipsum laboris nisi minim ipsum ad. Elit exercitation irure ea tempor pariatur ut laborum.
-
-Exercitation aute nisi fugiat occaecat irure occaecat quis irure. Deserunt officia elit ut voluptate velit culpa voluptate aliqua laborum cupidatat minim nostrud. Aliqua quis do magna ipsum do ipsum est veniam. Ipsum velit consequat nostrud elit anim eu laboris. Occaecat qui amet deserunt fugiat sint.
-
-Aliquip nostrud et occaecat sunt cupidatat officia. Esse cillum consectetur excepteur commodo labore nulla consectetur qui excepteur qui magna amet cupidatat eu. Enim velit deserunt tempor culpa. Anim qui eiusmod mollit mollit veniam laborum pariatur duis sint.
-
-Quis magna aliqua fugiat excepteur tempor amet dolore. Magna amet excepteur excepteur veniam sunt deserunt culpa veniam pariatur et anim. Cupidatat ut ut ex quis amet exercitation. Id sunt consequat amet aute amet irure excepteur exercitation adipisicing ipsum nisi eiusmod tempor. Laboris quis voluptate reprehenderit est laborum non esse labore et qui commodo labore. Fugiat pariatur proident commodo et quis sit tempor officia. Est quis consequat voluptate adipisicing.
-
-Velit proident pariatur elit excepteur exercitation irure do irure aute incididunt velit est ut. Sint amet fugiat in laborum reprehenderit culpa velit deserunt eu labore proident occaecat. Cillum irure reprehenderit labore non ex duis minim.
-</p>
+  <cdk-header-row *cdkHeaderRowDef="columnsToDisplay" class="grid-cols-subgrid grid col-span-full h-9 py-1 bg-primary-950 text-primary-200 border-b border-primary-900 text-sm/none sticky top-22 z-50"></cdk-header-row>
+  <a appBaseButton *cdkRowDef="let row; columns: columnsToDisplay" class="grid-cols-subgrid grid col-span-full even:bg-primary-950/20">
+    <cdk-row class="grid-cols-subgrid grid col-span-full border-b border-primary-900 h-9 py-1 text-sm/none"></cdk-row>
+  </a>
+</cdk-table>
