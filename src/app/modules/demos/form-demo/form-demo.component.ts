@@ -1,14 +1,30 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ButtonsModule } from '../../../components/atoms/buttons/buttons.module';
 import { BreadcrumbsComponent } from '../../../components/breadcrumbs/breadcrumbs.component';
 
 @Component({
   selector: 'app-form-demo',
   standalone: true,
-  imports: [CommonModule, BreadcrumbsComponent],
+  imports: [CommonModule, BreadcrumbsComponent, ButtonsModule, FormsModule, ReactiveFormsModule],
   templateUrl: './form-demo.component.html',
   styleUrl: './form-demo.component.css'
 })
 export class FormDemoComponent {
 
+  basicInformationForm = inject(FormBuilder).nonNullable.group({
+    firstName: ['John'],
+    middleName: [],
+    lastName: ['Appleseed'],
+  })
+
+  addressForm = inject(FormBuilder).nonNullable.group({
+    defaultAddress: inject(FormBuilder).nonNullable.group({
+      line1: ['Apple Inc. 1 Apple Park Way.'],
+      line2: ['Cupertino'],
+      city: ['CA'],
+      country: ['United States'],
+    })
+  })
 }

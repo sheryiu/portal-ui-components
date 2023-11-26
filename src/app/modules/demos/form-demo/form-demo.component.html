@@ -1,2 +1,109 @@
 <app-breadcrumbs></app-breadcrumbs>
-<p>form-demo works!</p>
+<div
+  class="bg-primary-950 h-14 px-2 flex items-center w-full sticky top-8 border-b border-primary-700 z-50"
+>
+  <button appBaseButton class="rounded">
+    <div class="flex flex-col items-center gap-1 px-2 py-1">
+      <span class="material-icons icon-5 text-primary-50">refresh</span>
+      <span
+        class="text-sm/none font-light text-primary-200 line-clamp-1 max-w-12"
+        >Refresh</span
+      >
+    </div>
+  </button>
+</div>
+<div class="fixed top-22 right-0">asada</div>
+<div class="w-full max-w-screen-lg p-4 grid grid-cols-2 gap-x-6 gap-y-4">
+  <a
+    class="bg-primary-600 rounded-lg flex flex-col gap-1 px-6 py-4"
+    appBaseButton
+  >
+    <span class="text-xl text-primary-200">Customer Information</span>
+    <span class="text-5xl font-bold">John Appleseed</span>
+  </a>
+  <a class="bg-primary-700 rounded-lg px-6 py-4" appBaseButton>
+    <div class="grid grid-cols-[max-content,_1fr] gap-x-2 gap-y-1">
+      <span
+        class="font-light text-primary-200 shrink-0 text-end justify-self-end"
+        >ID</span
+      >
+      <span class="text-primary-50 shrink-0 truncate"
+        >Nullanonadipisicingeuenimeuquiseu</span
+      >
+      <span
+        class="font-light text-primary-200 shrink-0 text-end justify-self-end"
+        >Last Login</span
+      >
+      <span class="text-primary-50 shrink-0 truncate">3 days ago</span>
+      <span
+        class="font-light text-primary-200 shrink-0 text-end justify-self-end"
+        >Account Status</span
+      >
+      <span
+        class="text-sm text-green-50 bg-green-600 shrink-0 truncate justify-self-start self-center px-3 rounded-lg"
+        >Normal</span
+      >
+    </div>
+  </a>
+</div>
+<div class="w-full max-w-screen-lg">
+  <div
+    class="sticky top-22 flex items-center border-y border-primary-900 bg-primary-950 text-primary-200 text-sm/none h-9 ps-4 py-1"
+    style="-webkit-mask-image: linear-gradient(to right, white, transparent)"
+  >
+    Basic Information
+  </div>
+  <dl class="grid grid-cols-2 gap-y-1 py-2" [formGroup]="basicInformationForm">
+    <dt class="px-4 py-1 flex flex-col self-center">
+      <p class="text-primary-200 font-medium leading-relaxed">First Name</p>
+    </dt>
+    <dd class="self-center">
+      <button class="w-full bg-primary-900 rounded-lg flex" appBaseButton>
+        <input formControlName="firstName" class="outline-none bg-transparent text-primary-50 px-4 py-2">
+      </button>
+    </dd>
+    <dt class="px-4 py-1 flex flex-col self-center">
+      <p class="text-primary-200 font-medium leading-relaxed">Middle Name</p>
+      <p class="text-primary-300 font-light text-sm/none italic">(Optional)</p>
+    </dt>
+    <dd class="self-center">
+      <button class="w-full bg-primary-900 rounded-lg flex" appBaseButton>
+        <input formControlName="middleName" class="outline-none bg-transparent text-primary-50 px-4 py-2">
+      </button>
+    </dd>
+    <dt class="px-4 py-1 flex flex-col self-center">
+      <p class="text-primary-200 font-medium leading-relaxed">Last Name</p>
+    </dt>
+    <dd class="self-center">
+      <button class="w-full bg-primary-900 rounded-lg flex" appBaseButton>
+        <input formControlName="lastName" class="outline-none bg-transparent text-primary-50 px-4 py-2">
+      </button>
+    </dd>
+  </dl>
+</div>
+
+<div class="w-full max-w-screen-lg mt-4">
+  <div
+    class="sticky top-22 flex items-center border-y border-primary-900 bg-primary-950 text-primary-200 text-sm/none h-9 ps-4 py-1"
+    style="-webkit-mask-image: linear-gradient(to right, white, transparent)"
+  >
+    Address
+  </div>
+  <dl class="grid grid-cols-2 gap-y-1 py-2" [formGroup]="addressForm">
+    <dt class="px-4 py-1 flex flex-col self-center">
+      <p class="text-primary-200 font-medium leading-relaxed">Default Address</p>
+    </dt>
+    <dd class="self-center" formGroupName="defaultAddress">
+      <button class="w-full bg-primary-900 rounded-lg grid grid-cols-[max-content,_1fr] gap-x-2 gap-y-1 items-center px-4 py-2" appBaseButton>
+        <div class="text-primary-200 text-sm/none justify-self-end">Line 1</div>
+        <input formControlName="line1" class="outline-none bg-transparent text-primary-50">
+        <div class="text-primary-200 text-sm/none justify-self-end">Line 2</div>
+        <input formControlName="line2" class="outline-none bg-transparent text-primary-50">
+        <div class="text-primary-200 text-sm/none justify-self-end">City</div>
+        <input formControlName="city" class="outline-none bg-transparent text-primary-50">
+        <div class="text-primary-200 text-sm/none justify-self-end">Country</div>
+        <input formControlName="country" class="outline-none bg-transparent text-primary-50">
+      </button>
+    </dd>
+  </dl>
+</div>

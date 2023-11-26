@@ -53,6 +53,11 @@ module.exports = {
   },
   plugins: [
     plugin(({ addUtilities, addComponents, addBase, matchVariant, matchUtilities, theme }) => {
+      addBase({
+        'body': {
+          fontFamily: '"Nunito"'
+        }
+      });
       addComponents({
         '.material-icons': {},
         '.material-icons-outlined': {},
@@ -85,7 +90,7 @@ module.exports = {
         }
       }, {
         type: 'length',
-        values: { 4: 4, 5: 5, 6: 6 },
+        values: { 4: 4, 5: 5, 6: 6, 8: 8, 10: 10 },
       })
     })
   ],
