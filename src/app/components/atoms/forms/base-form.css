@@ -1,0 +1,29 @@
+.ds-form-header {
+  @apply sticky top-22 flex items-center h-9 ps-4 py-1;
+  @apply border-y border-primary-900 bg-primary-950;
+  @apply text-primary-200 text-sm/none;
+  -webkit-mask-image: linear-gradient(to right, white, transparent);
+}
+
+.ds-base-form {
+  @apply grid grid-cols-2 items-stretch gap-y-1 py-2 px-4;
+}
+
+.ds-form-label {
+  @apply flex items-center rounded-l-lg transition-[padding,_background-color];
+}
+.ds-form-label:has(+ .ds-form-field.ds-form-field-dirty) {
+  @apply bg-accent-400/20 px-4;
+}
+
+.ds-form-label > label {
+  @apply grow flex flex-col py-1;
+}
+
+.ds-form-field {
+  // TODO decide on whether to center or stretch child
+  @apply flex items-center rounded-r-lg transition-[background-color];
+}
+.ds-form-field.ds-form-field-dirty {
+  @apply bg-accent-400/20;
+}

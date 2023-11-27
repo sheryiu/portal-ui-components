@@ -47,34 +47,31 @@
   </a>
 </div>
 <div class="w-full max-w-screen-lg">
-  <div
-    class="sticky top-22 flex items-center border-y border-primary-900 bg-primary-950 text-primary-200 text-sm/none h-9 ps-4 py-1"
-    style="-webkit-mask-image: linear-gradient(to right, white, transparent)"
-  >
+  <div appFormHeader>
     Basic Information
   </div>
-  <dl class="grid grid-cols-2 gap-y-1 py-2" [formGroup]="basicInformationForm">
-    <dt class="px-4 py-1 flex flex-col self-center">
+  <dl appBaseForm [formGroup]="basicInformationForm">
+    <dt appFormLabel>
       <p class="text-primary-200 font-medium leading-relaxed">First Name</p>
     </dt>
-    <dd class="self-center">
+    <dd appFormField [isDirty]="basicInformationForm.controls.firstName.dirty">
       <button class="w-full bg-primary-900 rounded-lg flex" appBaseButton>
         <input formControlName="firstName" class="outline-none bg-transparent text-primary-50 px-4 py-2">
       </button>
     </dd>
-    <dt class="px-4 py-1 flex flex-col self-center">
+    <dt appFormLabel>
       <p class="text-primary-200 font-medium leading-relaxed">Middle Name</p>
       <p class="text-primary-300 font-light text-sm/none italic">(Optional)</p>
     </dt>
-    <dd class="self-center">
+    <dd appFormField [isDirty]="basicInformationForm.controls.middleName.dirty">
       <button class="w-full bg-primary-900 rounded-lg flex" appBaseButton>
         <input formControlName="middleName" class="outline-none bg-transparent text-primary-50 px-4 py-2">
       </button>
     </dd>
-    <dt class="px-4 py-1 flex flex-col self-center">
+    <dt appFormLabel>
       <p class="text-primary-200 font-medium leading-relaxed">Last Name</p>
     </dt>
-    <dd class="self-center">
+    <dd appFormField [isDirty]="basicInformationForm.controls.lastName.dirty">
       <button class="w-full bg-primary-900 rounded-lg flex" appBaseButton>
         <input formControlName="lastName" class="outline-none bg-transparent text-primary-50 px-4 py-2">
       </button>
@@ -83,17 +80,14 @@
 </div>
 
 <div class="w-full max-w-screen-lg mt-4">
-  <div
-    class="sticky top-22 flex items-center border-y border-primary-900 bg-primary-950 text-primary-200 text-sm/none h-9 ps-4 py-1"
-    style="-webkit-mask-image: linear-gradient(to right, white, transparent)"
-  >
+  <div appFormHeader>
     Address
   </div>
-  <dl class="grid grid-cols-2 gap-y-1 py-2" [formGroup]="addressForm">
-    <dt class="px-4 py-1 flex flex-col self-center">
+  <dl appBaseForm [formGroup]="addressForm">
+    <dt appFormLabel>
       <p class="text-primary-200 font-medium leading-relaxed">Default Address</p>
     </dt>
-    <dd class="self-center" formGroupName="defaultAddress">
+    <dd appFormField formGroupName="defaultAddress">
       <button class="w-full bg-primary-900 rounded-lg grid grid-cols-[max-content,_1fr] gap-x-2 gap-y-1 items-center px-4 py-2" appBaseButton>
         <div class="text-primary-200 text-sm/none justify-self-end">Line 1</div>
         <input formControlName="line1" class="outline-none bg-transparent text-primary-50">
