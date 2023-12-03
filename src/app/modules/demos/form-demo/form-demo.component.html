@@ -52,46 +52,51 @@
   </div>
   <dl appBaseForm [formGroup]="basicInformationForm">
     <dt appFormLabel>
-      <p class="text-primary-200 font-medium leading-relaxed">First Name</p>
+      <p appFormLabelTitle>First Name</p>
     </dt>
     <dd appFormField [isDirty]="basicInformationForm.controls.firstName.dirty">
       <button class="w-full bg-primary-900 rounded-lg flex" appBaseButton>
-        <input formControlName="firstName" class="outline-none bg-transparent text-primary-50 px-4 py-2">
+        <input formControlName="firstName" class="outline-none bg-transparent text-primary-50 px-4 py-2 w-full">
       </button>
     </dd>
     <dt appFormLabel>
-      <p class="text-primary-200 font-medium leading-relaxed">Middle Name</p>
-      <p class="text-primary-300 font-light text-sm/none italic">(Optional)</p>
+      <p appFormLabelTitle>Middle Name</p>
+      <p appFormLabelDescription class="italic">(Optional)</p>
     </dt>
     <dd appFormField [isDirty]="basicInformationForm.controls.middleName.dirty">
       <button class="w-full bg-primary-900 rounded-lg flex" appBaseButton>
-        <input formControlName="middleName" class="outline-none bg-transparent text-primary-50 px-4 py-2">
+        <input formControlName="middleName" class="outline-none bg-transparent text-primary-50 px-4 py-2 w-full">
       </button>
     </dd>
     <dt appFormLabel>
-      <p class="text-primary-200 font-medium leading-relaxed">Last Name</p>
+      <p appFormLabelTitle>Last Name</p>
     </dt>
     <dd appFormField [isDirty]="basicInformationForm.controls.lastName.dirty">
       <button class="w-full bg-primary-900 rounded-lg flex" appBaseButton>
-        <input formControlName="lastName" class="outline-none bg-transparent text-primary-50 px-4 py-2">
+        <input formControlName="lastName" class="outline-none bg-transparent text-primary-50 px-4 py-2 w-full">
       </button>
     </dd>
     <dt appFormLabel>
-      <p class="text-primary-200 font-medium leading-relaxed">Gender</p>
+      <p appFormLabelTitle>Gender</p>
     </dt>
-    <dd appFormField>
+    <dd appFormField [isDirty]="basicInformationForm.controls.gender.dirty">
       <div class="w-full bg-primary-900 rounded-lg flex">
-        <div class="flex items-center w-full">
+        <app-radio-group class="w-full" formControlName="gender">
+          <div *appRadioOption="'male'">Male</div>
+          <div *appRadioOption="'female'">Female</div>
+          <div *appRadioOption="'nonbinary'">Non-binary</div>
+        </app-radio-group>
+        <!-- <div class="flex items-center w-full">
           <button appBaseButton class="grow px-2 py-2 bg-primary-900 rounded-md text-primary-50 transition-colors [&:has(:checked)]:bg-accent-700 [&:has(:checked)]:text-accent-50" (click)="radioMale.click()">
-            <input #radioMale type="radio" name="gender" value="male" class="hidden">Male
+            <input #radioMale formControlName="gender" type="radio" name="gender" value="male" class="hidden">Male
           </button>
           <button appBaseButton class="grow px-2 py-2 bg-primary-900 rounded-md text-primary-50 transition-colors [&:has(:checked)]:bg-accent-700 [&:has(:checked)]:text-accent-50" (click)="radioFemale.click()">
-            <input #radioFemale type="radio" name="gender" value="female" class="hidden">Female
+            <input #radioFemale formControlName="gender" type="radio" name="gender" value="female" class="hidden">Female
           </button>
           <button appBaseButton class="grow px-2 py-2 bg-primary-900 rounded-md text-primary-50 transition-colors [&:has(:checked)]:bg-accent-700 [&:has(:checked)]:text-accent-50" (click)="radioNonbinary.click()">
-            <input #radioNonbinary type="radio" name="gender" value="non" class="hidden">Non-binary
+            <input #radioNonbinary formControlName="gender" type="radio" name="gender" value="non" class="hidden">Non-binary
           </button>
-        </div>
+        </div> -->
       </div>
     </dd>
   </dl>
@@ -103,7 +108,7 @@
   </div>
   <dl appBaseForm [formGroup]="addressForm">
     <dt appFormLabel>
-      <p class="text-primary-200 font-medium leading-relaxed">Default Address</p>
+      <p appFormLabelTitle>Default Address</p>
     </dt>
     <dd appFormField formGroupName="defaultAddress">
       <button class="w-full bg-primary-900 rounded-lg grid grid-cols-[max-content,_1fr] gap-x-2 gap-y-1 items-center px-4 py-2" appBaseButton>

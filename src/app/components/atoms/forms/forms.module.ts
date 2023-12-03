@@ -3,7 +3,7 @@ import { FormsModule as NgForms, ReactiveFormsModule } from '@angular/forms';
 import { BaseFormDirective } from './base-form.directive';
 import { FormFieldDirective } from './form-field.directive';
 import { FormHeaderDirective } from './form-header.directive';
-import { FormLabelComponent } from './form-label.component';
+import { FormLabelComponent, FormLabelDescriptionDirective, FormLabelTitleDirective } from './form-label.component';
 
 @NgModule({
   declarations: [],
@@ -12,6 +12,8 @@ import { FormLabelComponent } from './form-label.component';
     FormLabelComponent,
     FormFieldDirective,
     FormHeaderDirective,
+    FormLabelTitleDirective,
+    FormLabelDescriptionDirective,
     NgForms,
     ReactiveFormsModule,
   ],
@@ -20,6 +22,8 @@ import { FormLabelComponent } from './form-label.component';
     FormLabelComponent,
     FormFieldDirective,
     FormHeaderDirective,
+    FormLabelTitleDirective,
+    FormLabelDescriptionDirective,
     NgForms,
     ReactiveFormsModule,
   ],

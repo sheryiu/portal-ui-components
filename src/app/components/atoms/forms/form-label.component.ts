@@ -1,5 +1,25 @@
-import { Component, Input, Optional } from '@angular/core';
+import { AfterContentChecked, Component, ContentChild, Directive, HostBinding, Input, Optional } from '@angular/core';
 import { BaseFormDirective } from './base-form.directive';
+
+@Directive({
+  selector: '[appFormLabelTitle]',
+  host: {
+    class: 'ds-form-label-title'
+  },
+  standalone: true,
+})
+export class FormLabelTitleDirective {
+}
+
+@Directive({
+  selector: '[appFormLabelDescription]',
+  host: {
+    class: 'ds-form-label-description'
+  },
+  standalone: true,
+})
+export class FormLabelDescriptionDirective {
+}
 
 @Component({
   selector: 'dt[appFormLabel], app-form-label',
@@ -13,7 +33,7 @@ import { BaseFormDirective } from './base-form.directive';
     </label>
   `
 })
-export class FormLabelComponent {
+export class FormLabelComponent implements AfterContentChecked {
 
   constructor(
     @Optional() private parent: BaseFormDirective,
@@ -22,4 +42,11 @@ export class FormLabelComponent {
   }
 
   @Input() for?: string | null = null;
+  @ContentChild(FormLabelTitleDirective) titleDirective?: FormLabelTitleDirective;
+  @ContentChild(FormLabelDescriptionDirective) descDirective?: FormLabelDescriptionDirective;
+  @HostBinding('class.ds-form-label-1-line') hostClass1Line: boolean = false;
+
+  ngAfterContentChecked(): void {
+    this.hostClass1Line = this.titleDirective != null && this.descDirective == null;
+  }
 }

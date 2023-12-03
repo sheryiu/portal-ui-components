@@ -1,0 +1,19 @@
+<div [formGroup]="formGroup">
+  @for (option of options; track $index) {
+    <button
+      appBaseButton
+      class="ds-radio-option"
+      (click)="radio.click()"
+    >
+      <input
+        #radio
+        type="radio"
+        [formControlName]="name"
+        [name]="name"
+        [value]="option.value"
+        tabindex="-1"
+        (change)="onToggle()">
+      <ng-container [ngTemplateOutlet]="option.template"></ng-container>
+    </button>
+  }
+</div>
