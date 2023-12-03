@@ -76,6 +76,24 @@
         <input formControlName="lastName" class="outline-none bg-transparent text-primary-50 px-4 py-2">
       </button>
     </dd>
+    <dt appFormLabel>
+      <p class="text-primary-200 font-medium leading-relaxed">Gender</p>
+    </dt>
+    <dd appFormField>
+      <div class="w-full bg-primary-900 rounded-lg flex">
+        <div class="flex items-center w-full">
+          <button appBaseButton class="grow px-2 py-2 bg-primary-900 rounded-md text-primary-50 transition-colors [&:has(:checked)]:bg-accent-700 [&:has(:checked)]:text-accent-50" (click)="radioMale.click()">
+            <input #radioMale type="radio" name="gender" value="male" class="hidden">Male
+          </button>
+          <button appBaseButton class="grow px-2 py-2 bg-primary-900 rounded-md text-primary-50 transition-colors [&:has(:checked)]:bg-accent-700 [&:has(:checked)]:text-accent-50" (click)="radioFemale.click()">
+            <input #radioFemale type="radio" name="gender" value="female" class="hidden">Female
+          </button>
+          <button appBaseButton class="grow px-2 py-2 bg-primary-900 rounded-md text-primary-50 transition-colors [&:has(:checked)]:bg-accent-700 [&:has(:checked)]:text-accent-50" (click)="radioNonbinary.click()">
+            <input #radioNonbinary type="radio" name="gender" value="non" class="hidden">Non-binary
+          </button>
+        </div>
+      </div>
+    </dd>
   </dl>
 </div>
 

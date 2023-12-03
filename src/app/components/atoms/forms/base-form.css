@@ -21,7 +21,7 @@
 }
 
 .ds-form-field {
-  // TODO decide on whether to center or stretch child
+  /** TODO decide on whether to center or stretch child */
   @apply flex items-center rounded-r-lg transition-[background-color];
 }
 .ds-form-field.ds-form-field-dirty {
