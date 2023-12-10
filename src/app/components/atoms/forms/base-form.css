@@ -25,7 +25,7 @@
 }
 
 .ds-form-label > label > .ds-form-label-title {
-  @apply text-primary-200 font-medium text-base/tight transition-colors;
+  @apply text-primary-200 font-medium text-sm/tight transition-colors;
 }
 .ds-form-label > label > .ds-form-label-description {
   @apply text-primary-300 font-light text-sm/tight transition-colors;

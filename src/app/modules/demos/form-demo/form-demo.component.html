@@ -86,18 +86,20 @@
           <div *appRadioOption="'female'">Female</div>
           <div *appRadioOption="'nonbinary'">Non-binary</div>
         </app-radio-group>
-        <!-- <div class="flex items-center w-full">
-          <button appBaseButton class="grow px-2 py-2 bg-primary-900 rounded-md text-primary-50 transition-colors [&:has(:checked)]:bg-accent-700 [&:has(:checked)]:text-accent-50" (click)="radioMale.click()">
-            <input #radioMale formControlName="gender" type="radio" name="gender" value="male" class="hidden">Male
-          </button>
-          <button appBaseButton class="grow px-2 py-2 bg-primary-900 rounded-md text-primary-50 transition-colors [&:has(:checked)]:bg-accent-700 [&:has(:checked)]:text-accent-50" (click)="radioFemale.click()">
-            <input #radioFemale formControlName="gender" type="radio" name="gender" value="female" class="hidden">Female
-          </button>
-          <button appBaseButton class="grow px-2 py-2 bg-primary-900 rounded-md text-primary-50 transition-colors [&:has(:checked)]:bg-accent-700 [&:has(:checked)]:text-accent-50" (click)="radioNonbinary.click()">
-            <input #radioNonbinary formControlName="gender" type="radio" name="gender" value="non" class="hidden">Non-binary
-          </button>
-        </div> -->
       </div>
+    </dd>
+    <dt appFormLabel>
+      <span appFormLabelTitle>Age Group</span>
+    </dt>
+    <dd appFormField [isDirty]="basicInformationForm.controls.ageGroup.dirty">
+      <button class="w-full bg-primary-900 rounded-lg flex" appBaseButton>
+        <app-dropdown class="grow">
+          <input formControlName="ageGroup" class="outline-none bg-transparent text-primary-50 px-4 py-2 w-full" appDropdown>
+          <div *appDropdownOption>&lt; 18</div>
+          <div *appDropdownOption>18-27</div>
+          <div *appDropdownOption>28-37</div>
+        </app-dropdown>
+      </button>
     </dd>
   </dl>
 </div>

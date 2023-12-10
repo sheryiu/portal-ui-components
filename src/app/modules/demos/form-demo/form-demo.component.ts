@@ -5,11 +5,13 @@ import { ButtonsModule } from '../../../components/atoms/buttons/buttons.module'
 import { FormsModule } from '../../../components/atoms/forms/forms.module';
 import { BreadcrumbsComponent } from '../../../components/breadcrumbs/breadcrumbs.component';
 import { RadioGroupModule } from '../../../components/molecules/radio-group/radio-group.module';
+import { DropdownOptionDirective } from './dropdown-panel/dropdown-option.directive';
+import { DropdownComponent } from './dropdown/dropdown.component';
 
 @Component({
   selector: 'app-form-demo',
   standalone: true,
-  imports: [CommonModule, BreadcrumbsComponent, ButtonsModule, FormsModule, RadioGroupModule],
+  imports: [CommonModule, BreadcrumbsComponent, ButtonsModule, FormsModule, RadioGroupModule, DropdownComponent, DropdownOptionDirective],
   templateUrl: './form-demo.component.html',
   styleUrl: './form-demo.component.css'
 })
@@ -20,6 +22,7 @@ export class FormDemoComponent {
     middleName: [],
     lastName: ['Appleseed'],
     gender: ['male'],
+    ageGroup: [''],
   })
 
   addressForm = inject(FormBuilder).nonNullable.group({

@@ -5,12 +5,15 @@
 .ds-radio-group .ds-radio-option {
   @apply grow px-2 py-2;
   @apply bg-primary-900 rounded-md text-primary-50;
-  @apply transition-colors [&:has(:checked)]:bg-accent-700 [&:has(:checked)]:text-accent-50;
+  @apply transition-colors ;
   @apply relative after:absolute;
   @apply last-of-type:after:border-r-0 after:transition-colors after:border-r after:border-primary-600 after:right-0 after:top-2 after:bottom-2;
-  @apply [&:has(:checked)]:after:border-transparent;
 }
 
-.ds-radio-group .ds-radio-option > input[type="radio"] {
+.ds-radio-group :checked + .ds-radio-option {
+  @apply bg-accent-700 text-accent-50 after:border-transparent;
+}
+
+.ds-radio-group > div > input[type="radio"] {
   @apply hidden;
 }
