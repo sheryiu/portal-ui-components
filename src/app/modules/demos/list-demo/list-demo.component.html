@@ -2,7 +2,7 @@
 <div class="bg-primary-950 h-14 px-2 flex items-center w-full sticky top-8 border-b border-primary-700 z-50">
   <button appBaseButton class="rounded">
     <div class="flex flex-col items-center gap-1 px-2 py-1">
-      <span class="material-icons icon-5 text-primary-50">refresh</span>
+      <span class="font-symbols icon-5 text-primary-50">refresh</span>
       <span class="text-sm/none font-light text-primary-200 line-clamp-1 max-w-12">Refresh</span>
     </div>
   </button>
@@ -15,7 +15,7 @@
   <a class="bg-primary-700 rounded-lg flex flex-col px-4 py-2" appBaseButton>
     <span class="text-xl text-primary-50">Market Volume</span>
     <div class="flex items-center gap-2 text-green-600">
-      <span class="material-icons icon-10">trending_up</span>
+      <span class="font-symbols icon-10">trending_up</span>
       <span class="text-5xl font-bold">34.2<span class="text-4xl font-medium">%</span></span>
     </div>
   </a>
@@ -40,19 +40,19 @@
     <cdk-cell *cdkCellDef="let row" flush>
       @if (row.transactionAmount > 0) {
         <span class="text-green-600 font-bold flex items-center gap-2 w-full">
-          <span class="material-icons icon-4">trending_up</span>
+          <span class="font-symbols icon-4">trending_up</span>
           <span class="w-[7ch] text-end">{{ row.transactionAmount }}%</span>
           <div class="grow"><div class="bg-current h-1 rounded-full" [style.width.%]="row.transactionAmount"></div></div>
         </span>
       } @else if (row.transactionAmount < 0) {
         <span class="text-red-600 font-bold flex items-center gap-2 w-full">
-          <span class="material-icons icon-4">trending_down</span>
+          <span class="font-symbols icon-4">trending_down</span>
           <span class="w-[7ch] text-end">{{ row.transactionAmount }}%</span>
           <div class="grow"><div class="bg-current h-1 rounded-full" [style.width.%]="row.transactionAmount * -1"></div></div>
         </span>
       } @else  {
         <span class="text-blue-600 font-bold flex items-center gap-2">
-          <span class="material-icons icon-4">trending_flat</span>
+          <span class="font-symbols icon-4">trending_flat</span>
           <span class="w-[7ch] text-end">{{ row.transactionAmount }}%</span>
         </span>
       }

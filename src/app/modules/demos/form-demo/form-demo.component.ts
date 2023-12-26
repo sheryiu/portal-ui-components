@@ -2,28 +2,35 @@ import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { ButtonsModule } from '../../../components/atoms/buttons/buttons.module';
-import { FormsModule } from '../../../components/atoms/forms/forms.module';
+import { FormsLayoutModule } from '../../../components/atoms/forms-layout/forms-layout.module';
 import { BreadcrumbsComponent } from '../../../components/breadcrumbs/breadcrumbs.component';
+import { DropdownModule } from '../../../components/molecules/dropdown/dropdown.module';
 import { RadioGroupModule } from '../../../components/molecules/radio-group/radio-group.module';
-import { DropdownOptionDirective } from './dropdown-panel/dropdown-option.directive';
-import { DropdownComponent } from './dropdown/dropdown.component';
+import { ToolbarModule } from '../../../components/molecules/toolbar/toolbar.module';
 
 @Component({
   selector: 'app-form-demo',
   standalone: true,
-  imports: [CommonModule, BreadcrumbsComponent, ButtonsModule, FormsModule, RadioGroupModule, DropdownComponent, DropdownOptionDirective],
+  imports: [
+    CommonModule,
+    BreadcrumbsComponent,
+    ButtonsModule,
+    FormsLayoutModule,
+    RadioGroupModule,
+    ToolbarModule,
+    DropdownModule,
+  ],
   templateUrl: './form-demo.component.html',
-  styleUrl: './form-demo.component.css'
+  styleUrl: './form-demo.component.css',
 })
 export class FormDemoComponent {
-
   basicInformationForm = inject(FormBuilder).nonNullable.group({
     firstName: ['John'],
     middleName: [],
     lastName: ['Appleseed'],
     gender: ['male'],
-    ageGroup: [''],
-  })
+    ageGroup: ['lt18'],
+  });
 
   addressForm = inject(FormBuilder).nonNullable.group({
     defaultAddress: inject(FormBuilder).nonNullable.group({
@@ -31,6 +38,11 @@ export class FormDemoComponent {
       line2: ['Cupertino'],
       city: ['CA'],
       country: ['United States'],
-    })
-  })
+    }),
+  });
+
+  onCancel() {
+    this.addressForm.reset();
+    this.basicInformationForm.reset();
+  }
 }

@@ -1,0 +1,20 @@
+<div>
+  @if (formGroup && formControlName) {
+    <div [formGroup]="formGroup">
+    @for (option of data?.options; track option) {
+      <input
+        #radio
+        type="radio"
+        [value]="option.value"
+        [name]="formControlName"
+        [formControlName]="formControlName"
+        tabindex="-1"
+        (change)="data.onChange?.()"
+      />
+      <button type="button" appBaseButton (click)="radio.click()">
+        <ng-container [ngTemplateOutlet]="option.templateRef"></ng-container>
+      </button>
+    }
+    </div>
+  }
+</div>

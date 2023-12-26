@@ -1,10 +1,10 @@
 import { Directive, TemplateRef, inject } from '@angular/core';
 
 @Directive({
-  selector: '[appDropdownOption]',
+  selector: '[appDropdownLabel]',
   standalone: true
 })
-export class DropdownOptionDirective {
+export class DropdownLabelDirective {
 
   templateRef = inject(TemplateRef);
 

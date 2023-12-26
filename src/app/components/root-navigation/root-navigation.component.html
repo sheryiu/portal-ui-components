@@ -25,9 +25,8 @@
             @if (tab.title) {
               {{ tab.title | slice : 0 : 2 }}
             } @else if (tab.icon) {
-              <i [ngClass]="{
-                'material-icons': active.isActive,
-                'material-icons-outlined': !active.isActive
+              <i class="font-symbols icon-6" [ngClass]="{
+                'font-variation-fill': active.isActive
               }">{{ tab.icon }}</i>
             }
           </div>

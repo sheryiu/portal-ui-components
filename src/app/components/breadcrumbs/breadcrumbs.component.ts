@@ -1,5 +1,5 @@
-import { CommonModule } from '@angular/common';
-import { Component, Injector, inject } from '@angular/core';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { Component, DestroyRef, ElementRef, Injector, PLATFORM_ID, ViewChild, inject } from '@angular/core';
 import { ActivatedRoute, RouterLink, RouterLinkActive } from '@angular/router';
 import { Observable, concatAll, isObservable, map, mergeMap, of, toArray } from 'rxjs';
 import { ButtonsModule } from '../atoms/buttons/buttons.module';
@@ -15,6 +15,11 @@ import { Breadcrumb, getBreadcrumb } from './breadcrumbs.service';
 export class BreadcrumbsComponent {
 
   breadcrumbs$!: Observable<(Breadcrumb & { route: ActivatedRoute })[]>;
+
+  @ViewChild('breadcrumbScrollable') breadcrumbScrollable!: ElementRef<HTMLElement>;
+  private ro: ResizeObserver | null = null;
+  private platformId = inject(PLATFORM_ID);
+  private destroyRef = inject(DestroyRef);
 
   constructor() {
     const breadcrumbs = [];
@@ -50,6 +55,24 @@ export class BreadcrumbsComponent {
       concatAll(),
       toArray()
     )
+  }
+
+  ngAfterViewInit(): void {
+    if (isPlatformBrowser(this.platformId)) {
+      this.ro = new ResizeObserver((entries) => {
+        this.detectWidth();
+      })
+      this.ro.observe(this.breadcrumbScrollable.nativeElement);
+      this.destroyRef.onDestroy(() => {
+        this.ro?.disconnect();
+        this.ro = null;
+      })
+    }
+  }
+
+  private detectWidth() {
+    if (!this.breadcrumbScrollable?.nativeElement) return;
+    this.breadcrumbScrollable.nativeElement.scroll({ left: Number.MAX_SAFE_INTEGER });
   }
 
 }

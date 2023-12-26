@@ -1,23 +1,24 @@
-<div
-  class="sticky top-0 bg-primary-950 border-b border-primary-700 h-8 text-primary-50 view-transition-[breadcrumbs] z-50"
->
-  <div class="flex items-center h-full">
+<div class="sticky top-0 bg-primary-950 border-b border-primary-700 h-8 text-primary-50 z-50">
+  <div class="flex items-stretch h-full overflow-hidden" #breadcrumbScrollable>
     @for (breadcrumb of breadcrumbs$ | async; track breadcrumb.id; let isLast = $last) {
-    <a
-      appBaseButton
-      [routerLink]="['./']"
-      [relativeTo]="breadcrumb.route"
-      routerLinkActive
-      [routerLinkActiveOptions]="{ exact: true }"
-      #active="routerLinkActive"
-      [ngClass]="{
-        'font-medium': active.isActive
-      }"
-      class="h-full flex items-center px-2 text-sm/none font-light"
-      >{{ breadcrumb.title }}</a
-    >
-    @if (!isLast) {
-    <i class="material-icons icon-4">chevron_right</i>
-    } }
+      <a
+        appBaseButton
+        [routerLink]="['./']"
+        [relativeTo]="breadcrumb.route"
+        routerLinkActive
+        [routerLinkActiveOptions]="{ exact: true }"
+        #active="routerLinkActive"
+        class="flex-none flex items-center px-2 text-sm/none"
+        [ngClass]="{
+        'font-light': !active.isActive,
+        'font-medium': active.isActive,
+        'italic text-description': breadcrumb.title == null || breadcrumb.title.length === 0
+        }"
+        >{{ breadcrumb.title || 'Empty' }}</a
+      >
+      @if (!isLast) {
+        <span class="flex-none font-symbols icon-4 self-center text-accent-300">chevron_right</span>
+      }
+    }
   </div>
 </div>

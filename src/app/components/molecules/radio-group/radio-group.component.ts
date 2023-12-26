@@ -8,10 +8,8 @@ import { ButtonsModule } from '../../atoms/buttons/buttons.module';
   standalone: true,
 })
 export class RadioOptionDirective<T = unknown> {
-
   @Input({ required: true, alias: 'appRadioOption' }) value!: T;
   template = inject(TemplateRef);
-
 }
 
 @Component({

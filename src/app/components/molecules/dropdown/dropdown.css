@@ -1,0 +1,34 @@
+.ds-dropdown {
+  @apply block;
+}
+
+.ds-dropdown > div {
+  @apply flex justify-between items-center gap-4;
+}
+
+.ds-dropdown-panel {
+  @apply w-full;
+}
+
+.ds-dropdown-panel > div {
+  @apply rounded-lg bg-accent-900 border-accent-700 border shadow-md shadow-accent-800/50;
+  @apply text-accent-50 text-sm font-light p-1;
+}
+
+.ds-dropdown-panel > div > div {
+  @apply flex flex-col gap-0.5 overflow-auto;
+}
+
+.ds-dropdown-panel input {
+  @apply hidden;
+}
+
+.ds-dropdown-panel button {
+  @apply text-accent-50 rounded-md text-start py-1.5 px-2.5 relative transition-colors;
+  @apply before:absolute before:w-1 before:h-5 before:rounded-sm before:left-0 before:transition-colors;
+}
+
+.ds-dropdown-panel input:checked + button {
+  @apply text-white bg-accent-50/5;
+  @apply before:bg-accent-600;
+}

@@ -12,6 +12,8 @@
       appBaseButton
       class="ds-radio-option"
       (click)="radio.click()"
+      type="button"
+      [disabled]="formGroup.disabled"
     >
       <ng-container [ngTemplateOutlet]="option.template"></ng-container>
     </button>

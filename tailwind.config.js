@@ -1,4 +1,5 @@
 const plugin = require('tailwindcss/plugin');
+const defaultTheme = require('tailwindcss/defaultTheme');
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
@@ -7,6 +8,10 @@ module.exports = {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        symbols: ["'Material Symbols Outlined'"],
+        display: ["'MuseoModerno'", ...defaultTheme.fontFamily.sans]
+      },
       spacing: () => ({
         ...Array(20).fill(0).map((_, i) => (i + 1) * 5).reduce((acc, size) => ({ ...acc, [`${size}vh`]: `${size}svh`, [`${size}vw`]: `${size}svw` }), {}),
         '22': '5.5rem'
@@ -58,10 +63,6 @@ module.exports = {
           fontFamily: '"Nunito"'
         }
       });
-      addComponents({
-        '.material-icons': {},
-        '.material-icons-outlined': {},
-      })
       addBase({
         'h1': {
           fontSize: theme('fontSize.3xl'),
@@ -82,16 +83,33 @@ module.exports = {
       matchUtilities({
         'icon': (value) => {
           return {
-            'display': 'inline-block',
+            'display': 'flex',
+            'align-items': 'center',
+            'justify-content': 'center',
             'width': theme('spacing.' + value),
             'height': theme('spacing.' + value),
             'font-size': theme('spacing.' + value),
+            'font-style': 'normal',
           }
         }
       }, {
         type: 'length',
         values: { 4: 4, 5: 5, 6: 6, 8: 8, 10: 10 },
-      })
+      });
+      addUtilities({
+        '.font-variation-fill': {
+          '--font-variation-fill': '"FILL" 1',
+          fontVariationSettings: 'var(--font-variation-weight, "wght" 400), var(--font-variation-fill, "FILL" 0)',
+        },
+        '.font-variation-weight-light': {
+          '--font-variation-weight': '"wght" 300',
+          fontVariationSettings: 'var(--font-variation-weight, "wght" 400), var(--font-variation-fill, "FILL" 0)',
+        },
+        '.font-variation-weight-bold': {
+          '--font-variation-weight': '"wght" 700',
+          fontVariationSettings: 'var(--font-variation-weight, "wght" 400), var(--font-variation-fill, "FILL" 0)',
+        },
+      });
     })
   ],
 }
