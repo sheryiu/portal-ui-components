@@ -1,5 +1,5 @@
 .ds-dropdown {
-  @apply block;
+  @apply block cursor-pointer;
 }
 
 .ds-dropdown > div {

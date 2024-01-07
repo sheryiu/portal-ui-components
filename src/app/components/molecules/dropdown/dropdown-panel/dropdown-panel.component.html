@@ -9,7 +9,7 @@
         [name]="formControlName"
         [formControlName]="formControlName"
         tabindex="-1"
-        (change)="data.onChange?.()"
+        (change)="data?.onChange?.()"
       />
       <button type="button" appBaseButton (click)="radio.click()">
         <ng-container [ngTemplateOutlet]="option.templateRef"></ng-container>

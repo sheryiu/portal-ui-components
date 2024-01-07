@@ -41,6 +41,11 @@ export class FormDemoComponent {
     }),
   });
 
+  recentHistory = {
+    timestamp: new Date('2024-01-01 07:59:00'),
+    message: 'Added $200 to Account'
+  }
+
   onCancel() {
     this.addressForm.reset();
     this.basicInformationForm.reset();
