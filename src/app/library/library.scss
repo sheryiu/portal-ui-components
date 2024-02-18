@@ -1,0 +1,72 @@
+@layer components {
+  .core-simple-header {
+    @apply overflow-hidden rounded-3 ps-6 pe-3 py-3 flex justify-between items-end -top-4 transition-all;
+    &[data-stuck=true] {
+      @apply -mx-2 rounded-none shadow-md;
+    }
+    &[data-color=primary] {
+      @apply bg-primary-700 text-primary-50;
+      .core-breadcrumbs {
+        @apply text-primary-200;
+      }
+    }
+    &[data-color=accent] {
+      @apply bg-accent-700 text-accent-50;
+      .core-breadcrumbs {
+        @apply text-accent-200;
+      }
+    }
+  }
+
+  .core-table {
+    @apply block;
+
+    .core-table-body {
+      @apply grid;
+    }
+
+    .core-table-row {
+      @apply col-span-full grid grid-cols-subgrid;
+      > a {
+        @apply col-span-full grid grid-cols-subgrid border-b relative;
+        &[data-active=true] {
+          @apply bg-hover before:absolute before:bg-primary-600 before:-left-0.5 before:top-[10%] before:bottom-[10%] before:w-1 before:rounded-full;
+        }
+      }
+    }
+
+    .core-table-header-row {
+      @apply col-span-full grid grid-cols-subgrid border-b h-12;
+    }
+
+    .core-table-footer-row {
+      @apply col-span-full grid grid-cols-1 items-center text-sm text-secondary uppercase h-12;
+    }
+
+    .core-table-cell {
+      @apply px-4 py-2 truncate line-clamp-1 flex items-center;
+    }
+
+    .core-table-header-cell {
+      @apply py-2 flex;
+      > button {
+        @apply grow truncate whitespace-nowrap font-medium text-sm text-primary-200 mx-0.5 px-3.5 py-2 rounded-full;
+      }
+    }
+  }
+
+  .core-breadcrumbs {
+    @apply flex gap-0.5 items-center text-sm font-display;
+  }
+
+  .core-form-submit {
+    @apply overflow-hidden sticky bottom-0 flex-none;
+  }
+
+  .core-search-input {
+    @apply flex items-center justify-between gap-2;
+    &[data-popupvisible=true] {
+      @apply bg-hover;
+    }
+  }
+}

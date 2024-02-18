@@ -1,0 +1,96 @@
+<form
+  class="h-full relative flex flex-col overflow-x-hidden overflow-y-auto"
+  cdkVirtualScrollingElement
+  cdkScrollable
+  (submit)="onSave()"
+>
+  <div class="bg-deep-glass grow p-2">
+    <div class="flex flex-col">
+      <core-simple-header coreStickyHeader color="accent">
+        <h2 *coreHeader>New</h2>
+      </core-simple-header>
+      <div class="flex flex-col gap-4 pt-4" [formGroup]="formGroup">
+        <core-form-fieldset>
+          <core-form-field>
+            <div *coreFormFieldLabel>Name</div>
+            <div *coreFormFieldDescription>Optional</div>
+            <core-multilingual-text-edit *coreFormFieldInput formControlName="name"></core-multilingual-text-edit>
+          </core-form-field>
+          <core-form-field>
+            <div *coreFormFieldLabel>Armor Set</div>
+            <core-search-input *coreFormFieldInput formControlName="armorSetId" coreHoverable class="ps-4 pe-2 py-2">
+
+            </core-search-input>
+          </core-form-field>
+          <core-form-field>
+            <div *coreFormFieldLabel>Equip Position</div>
+            <core-segmented-options *coreFormFieldInput formControlName="position" class="me-2">
+              <div *coreOption="'helm'">Helm</div>
+              <div *coreOption="'chest'">Chest</div>
+              <div *coreOption="'arms'">Arms</div>
+              <div *coreOption="'waist'">Waist</div>
+              <div *coreOption="'legs'">Legs</div>
+            </core-segmented-options>
+          </core-form-field>
+          <core-form-field>
+            <div *coreFormFieldLabel>Rarity</div>
+            <input *coreFormFieldInput formControlName="rarity" type="number" coreInputField class="px-4 py-2"/>
+          </core-form-field>
+          <core-form-field>
+            <div *coreFormFieldLabel>Rank</div>
+            <core-segmented-options *coreFormFieldInput formControlName="rank" class="me-2">
+              <div *coreOption="'low'">Low</div>
+              <div *coreOption="'high'">High</div>
+              <div *coreOption="'master'">Master</div>
+            </core-segmented-options>
+          </core-form-field>
+        </core-form-fieldset>
+        <span class="px-4 pt-2 font-display font-light text-primary-200 tracking-wider">Defense</span>
+        <core-form-fieldset>
+          <core-form-field>
+            <div *coreFormFieldLabel>Defense at Lv.1</div>
+            <input *coreFormFieldInput formControlName="baseDef" type="number" coreInputField class="px-4 py-2"/>
+          </core-form-field>
+          <core-form-field>
+            <div *coreFormFieldLabel>Maximum Level</div>
+            <div *coreFormFieldDescription>Without Custom Upgrades</div>
+            <input *coreFormFieldInput formControlName="maxLevel" type="number" coreInputField class="px-4 py-2"/>
+          </core-form-field>
+          <core-form-field>
+            <div *coreFormFieldLabel>Defense at Lv.Max</div>
+            <input *coreFormFieldInput formControlName="maxDef" type="number" coreInputField class="px-4 py-2"/>
+          </core-form-field>
+        </core-form-fieldset>
+        <span class="px-4 pt-2 font-display font-light text-primary-200 tracking-wider">Elemental Resistance</span>
+        <core-form-fieldset formGroupName="resistance">
+          <core-form-field>
+            <div *coreFormFieldLabel>Fire</div>
+            <input *coreFormFieldInput formControlName="fire" type="number" coreInputField class="px-4 py-2"/>
+          </core-form-field>
+          <core-form-field>
+            <div *coreFormFieldLabel>Water</div>
+            <input *coreFormFieldInput formControlName="water" type="number" coreInputField class="px-4 py-2"/>
+          </core-form-field>
+          <core-form-field>
+            <div *coreFormFieldLabel>Thunder</div>
+            <input *coreFormFieldInput formControlName="thunder" type="number" coreInputField class="px-4 py-2"/>
+          </core-form-field>
+          <core-form-field>
+            <div *coreFormFieldLabel>Ice</div>
+            <input *coreFormFieldInput formControlName="ice" type="number" coreInputField class="px-4 py-2"/>
+          </core-form-field>
+          <core-form-field>
+            <div *coreFormFieldLabel>Dragon</div>
+            <input *coreFormFieldInput formControlName="dragon" type="number" coreInputField class="px-4 py-2"/>
+          </core-form-field>
+        </core-form-fieldset>
+      </div>
+    </div>
+  </div>
+  <core-form-submit
+    [dirty]="true"
+    [disabled]="formGroup.disabled || formGroup.invalid"
+    (saveClick)="onSave()"
+    (cancelClick)="onCancel()"
+  ></core-form-submit>
+</form>

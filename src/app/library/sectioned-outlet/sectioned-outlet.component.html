@@ -1,0 +1,21 @@
+<div class="h-full relative">
+  <!-- <div
+    class="[&>*]:py-4 [&>*]:transition-all grow h-full"
+    [ngClass]="{
+      '[&>*]:pe-4': !showingSectionedSlot,
+      '[&>*]:me-4': showingSectionedSlot
+    }"
+  > -->
+  <div
+    class="[&>*]:py-4 [&>*]:pe-4 [&>*]:transition-all size-full"
+  >
+    <ng-content></ng-content>
+  </div>
+  <div
+    class="[&>*>*]:py-4 [&>*>*]:pe-4 absolute inset-0 left-1/2 [&:has(router-outlet:only-child)]:pointer-events-none"
+    #routerOutletContainer
+    [@routeAnimation]="getRouteAnimationData()"
+  >
+    <router-outlet></router-outlet>
+  </div>
+</div>

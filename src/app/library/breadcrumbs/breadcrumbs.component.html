@@ -1,0 +1,13 @@
+@for (breadcrumb of breadcrumbs$ | async; track breadcrumb.id) {
+  <a
+    coreHoverable
+    [routerLink]="['./']"
+    [relativeTo]="breadcrumb.route"
+    class="px-1.5 py-0.5 rounded justify-start"
+    >
+    <span class="truncate">{{ breadcrumb.title }}</span>
+  </a>
+  @if (!$last) {
+    <i class="icon-4 shrink-0">chevron_right</i>
+  }
+}

@@ -1,0 +1,24 @@
+@if (dirty) {
+<div class="shrink-0 bg-deep-glass p-2 sticky mt-4 bottom-0" @appear>
+  <div class="flex items-center gap-4">
+    <button
+      coreHoverable
+      class="grow rounded-full bg-accent-100 text-accent-800 px-4 py-2 font-bold disabled:opacity-70 disabled:font-normal"
+      type="button"
+      (click)="cancelClick.emit()"
+    >
+      Cancel
+    </button>
+    <button
+      coreHoverable
+      class="grow rounded-full bg-accent-400 text-black px-4 py-2 font-bold disabled:opacity-70 disabled:font-normal"
+      type="submit"
+      (click)="saveClick.emit()"
+      [disabled]="disabled"
+      [hoverableEnabled]="!disabled"
+    >
+      Save
+    </button>
+  </div>
+</div>
+}

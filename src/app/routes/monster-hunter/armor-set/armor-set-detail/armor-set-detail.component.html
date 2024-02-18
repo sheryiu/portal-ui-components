@@ -1,0 +1,43 @@
+<form
+  class="h-full relative flex flex-col overflow-x-hidden overflow-y-auto"
+  cdkVirtualScrollingElement
+  cdkScrollable
+  (submit)="onSave()"
+>
+  <div class="bg-deep-glass grow p-2">
+    <div class="flex flex-col">
+      <core-simple-header coreStickyHeader>
+        @if (data$ | async; as data) {
+          <h2 *coreHeader><core-multilingual-text-display [value]="data.name"></core-multilingual-text-display></h2>
+        }
+      </core-simple-header>
+      <div class="flex flex-col gap-4 pt-4" [formGroup]="formGroup">
+        <core-form-fieldset>
+          <core-form-field>
+            <div *coreFormFieldLabel>Name</div>
+            <div *coreFormFieldDescription>Optional</div>
+            <core-multilingual-text-edit *coreFormFieldInput formControlName="name"></core-multilingual-text-edit>
+          </core-form-field>
+          <core-form-field>
+            <div *coreFormFieldLabel>Rarity</div>
+            <input *coreFormFieldInput formControlName="rarity" type="number" coreInputField class="px-4 py-2"/>
+          </core-form-field>
+          <core-form-field>
+            <div *coreFormFieldLabel>Rank</div>
+            <core-segmented-options *coreFormFieldInput formControlName="rank" class="me-2">
+              <div *coreOption="'low'">Low</div>
+              <div *coreOption="'high'">High</div>
+              <div *coreOption="'master'">Master</div>
+            </core-segmented-options>
+          </core-form-field>
+        </core-form-fieldset>
+      </div>
+    </div>
+  </div>
+  <core-form-submit
+    [dirty]="formGroup.dirty"
+    [disabled]="formGroup.disabled"
+    (saveClick)="onSave()"
+    (cancelClick)="onCancel()"
+  ></core-form-submit>
+</form>

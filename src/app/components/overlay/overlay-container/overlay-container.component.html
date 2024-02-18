@@ -1,0 +1,9 @@
+@if (showing) {
+  <div @appear (@appear.done)="onAnimationEnd($event)" class="size-full">
+    @if (component) {
+      <ng-container [ngComponentOutlet]="component" [ngComponentOutletInjector]="injector"></ng-container>
+    } @else if (templateRef) {
+      <ng-container [ngTemplateOutlet]="templateRef" [ngTemplateOutletContext]="{ $implicit: data }"></ng-container>
+    }
+  </div>
+}
