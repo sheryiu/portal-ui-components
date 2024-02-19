@@ -29,7 +29,8 @@ export class ArmorSetService {
     if (this.data.isServer) return [];
     let filtered;
     if (filter?.name != null) {
-      filtered = this.data.armorSets.filter(obj => !!(obj.name.en?.includes(filter.name!) || obj.name.zh?.includes(filter.name!) || obj.name.jp?.includes(filter.name!)))
+      const name = filter.name.toLowerCase();
+      filtered = this.data.armorSets.filter(obj => !!(obj.name.en?.toLowerCase()?.includes(name) || obj.name.zh?.toLowerCase()?.includes(name) || obj.name.jp?.toLowerCase()?.includes(name)))
     } else if (filter?.rarityEqual != null) {
       filtered = this.data.armorSets.where('rarity').equals(filter.rarityEqual);
     } else if (filter?.rarityFrom != null && filter?.rarityTo != null) {

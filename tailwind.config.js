@@ -106,11 +106,11 @@ module.exports = {
       }) => {
         addBase({
           html: {
-            "min-height": "100%",
+            "min-height": "100svh",
             height: "100%",
           },
           body: {
-            "min-height": "100%",
+            "min-height": "100svh",
             height: "100%",
           },
           h1: {

@@ -2,12 +2,12 @@ import { Component, inject } from '@angular/core';
 import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { EffectFn } from '@ngneat/effects-ng';
-import { franc } from 'franc-min';
-import { EMPTY, catchError, concatMap, tap } from 'rxjs';
+import { EMPTY, catchError, concatMap, switchMap, tap } from 'rxjs';
 import { Armor } from '../../../../data/armor';
-import { ArmorSet } from '../../../../data/armor-set';
 import { LibraryModule } from '../../../../library/library.module';
+import { provideSearchSuggestions } from '../../../../library/search-input/search-input';
 import { SharedModule } from '../../../../shared/shared.module';
+import { ArmorSetService } from '../../../../store/armor-set.service';
 import { ArmorService } from '../../../../store/armor.service';
 
 @Component({
@@ -20,7 +20,18 @@ import { ArmorService } from '../../../../store/armor.service';
     ReactiveFormsModule,
   ],
   templateUrl: './armor-create.component.html',
-  styles: ``
+  styles: ``,
+  providers: [
+    provideSearchSuggestions({
+      name: 'armorSet',
+      source: (str$) => {
+        const service = inject(ArmorSetService);
+        return str$.pipe(
+          switchMap(str => service.list({ name: str ?? undefined }))
+        )
+      }
+    })
+  ]
 })
 export class ArmorCreateComponent extends EffectFn {
   private router = inject(Router);
