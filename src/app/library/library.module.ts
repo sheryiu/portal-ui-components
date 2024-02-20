@@ -6,6 +6,7 @@ import { MultilingualTextDisplayComponent } from './multilingual-text-display/mu
 import { MultilingualTextEditComponent } from './multilingual-text-edit/multilingual-text-edit.component';
 import { RootNavigationComponent } from './root-navigation/root-navigation.component';
 import { SearchInputLabelDirective } from './search-input/search-input-label.directive';
+import { SearchInputSuggestionItemDirective } from './search-input/search-input-suggestion-item.directive';
 import { SearchInputComponent } from './search-input/search-input.component';
 import { SectionedOutletComponent } from './sectioned-outlet/sectioned-outlet.component';
 import { OptionDirective } from './segmented-options/option.directive';
@@ -32,6 +33,7 @@ import { TableModule } from './table/table.module';
     OptionDirective,
     SearchInputComponent,
     SearchInputLabelDirective,
+    SearchInputSuggestionItemDirective,
   ],
   exports: [
     BackgroundGraphicsComponent,
@@ -49,6 +51,7 @@ import { TableModule } from './table/table.module';
     OptionDirective,
     SearchInputComponent,
     SearchInputLabelDirective,
+    SearchInputSuggestionItemDirective,
   ]
 })
 export class LibraryModule { }

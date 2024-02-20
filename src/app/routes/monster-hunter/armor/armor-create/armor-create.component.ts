@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { EffectFn } from '@ngneat/effects-ng';
 import { EMPTY, catchError, concatMap, switchMap, tap } from 'rxjs';
 import { Armor } from '../../../../data/armor';
+import { ArmorSet } from '../../../../data/armor-set';
 import { LibraryModule } from '../../../../library/library.module';
 import { provideSearchSuggestions } from '../../../../library/search-input/search-input';
 import { SharedModule } from '../../../../shared/shared.module';
@@ -70,4 +71,8 @@ export class ArmorCreateComponent extends EffectFn {
   onCancel = this.createEffectFn<void>((args$) => args$.pipe(
     tap(() => this.router.navigate(['../'], { relativeTo: this.route }))
   ))
+
+  pickArmorSet(item: ArmorSet) {
+    return item.id;
+  }
 }
