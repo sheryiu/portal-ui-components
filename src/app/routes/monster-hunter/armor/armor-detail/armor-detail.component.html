@@ -1,0 +1,68 @@
+<div
+  class="h-full relative flex flex-col overflow-x-hidden overflow-y-auto"
+  cdkVirtualScrollingElement
+  cdkScrollable
+>
+  <div class="bg-deep-glass grow p-2">
+    <div class="flex flex-col">
+      <core-simple-header
+        coreStickyHeader
+        checkFor="-168"
+        class="from-transparent to-primary-700/90 to-70% data-[stuck=true]:from-primary-700 data-[stuck=true]:to-primary-700 h-64 -top-[11.5rem] bg-cover bg-center"
+        style="background-image: linear-gradient(to bottom, var(--tw-gradient-stops)), url(https://www.monsterhunter.com/world/images/top/img_intro01.jpg)">
+        @if (data$ | async; as data) {
+          <h2 *coreHeader><core-multilingual-text-display [value]="data.name"></core-multilingual-text-display></h2>
+        }
+      </core-simple-header>
+      <div class="flex flex-col gap-4 pt-4">
+        <div coreStickyHeader checkFor="88" class="z-[100] flex gap-1 p-1 bg-primary-800 data-[stuck=true]:bg-primary-700 data-[stuck=true]:-mx-2 data-[stuck=true]:rounded-none data-[stuck=true]:border-0 transition-all border rounded-3 sticky top-18 before:absolute before:rounded-2 before:h-8 before:w-40 before:border before:bg-hover">
+          <button type="button" class="grow rounded-2 px-1 h-8 text-primary-50" coreHoverable>Tab 1</button>
+          <button type="button" class="grow rounded-2 px-1 h-8" coreHoverable>Tab 2</button>
+          <button type="button" class="grow rounded-2 px-1 h-8" coreHoverable>Tab 3</button>
+        </div>
+        <p class="leading-10">
+          Ad consectetur consectetur in enim culpa mollit irure et ea. Laboris nulla quis eu cupidatat adipisicing ea. Occaecat veniam occaecat adipisicing anim nostrud labore nostrud ullamco.
+
+  Ipsum duis in consectetur pariatur eu laboris anim officia fugiat qui exercitation dolor. Aliqua Lorem est excepteur deserunt et et laborum qui. Velit ut reprehenderit cupidatat adipisicing irure magna qui commodo ut magna quis ipsum elit. Proident fugiat consectetur ea minim veniam quis enim.
+
+  Proident laboris nostrud consequat Lorem quis duis velit fugiat ad. Amet ut adipisicing tempor occaecat. Quis deserunt sint aliquip exercitation.
+
+  Cupidatat nisi laborum voluptate velit culpa nisi cillum fugiat id nostrud quis minim excepteur. Sit veniam quis incididunt consequat magna voluptate. Adipisicing ad enim nostrud sint cupidatat. Laboris labore sint reprehenderit pariatur in sunt.
+
+  Velit ex officia excepteur nostrud dolor reprehenderit sunt. Nisi nulla pariatur ad irure ex elit ea velit quis. Enim labore adipisicing sint cillum dolore nulla.
+
+  Dolore et in ea ullamco tempor aliquip sint. Qui ipsum magna ipsum labore sint excepteur ipsum occaecat incididunt nostrud esse. Ad velit enim mollit mollit magna ullamco commodo veniam aliquip ex dolor do. In fugiat pariatur aliqua Lorem amet adipisicing nulla dolore quis mollit aute. Enim eiusmod eiusmod laborum ex Lorem nisi incididunt ad ipsum reprehenderit.
+
+  Est quis incididunt duis amet. Enim dolor occaecat occaecat eu ea mollit anim et excepteur. Non ex culpa officia nostrud laboris occaecat mollit non ad fugiat voluptate in sunt.
+
+  Adipisicing minim sit mollit excepteur ex excepteur magna. Sint in fugiat reprehenderit adipisicing velit dolore commodo pariatur veniam. Reprehenderit officia qui est sit laboris commodo veniam nisi ex laborum. Exercitation adipisicing occaecat aliquip magna aliqua ad mollit ut ut ad culpa consectetur aliqua esse. Consequat pariatur do consequat consequat Lorem minim aliqua Lorem ipsum veniam aute consequat incididunt. Qui aute sit ipsum voluptate sint esse Lorem.
+
+  Nulla irure adipisicing id veniam occaecat id culpa est. Nulla id irure veniam enim ad veniam commodo. Aliqua et dolor pariatur mollit. Exercitation elit eiusmod nisi reprehenderit amet eu et sint occaecat.
+
+  Veniam aute quis ipsum sit ipsum labore officia ipsum anim. Laborum velit sunt sunt laborum et quis velit cupidatat ad consequat dolor elit aliquip. Eiusmod fugiat tempor proident labore exercitation qui in aute. Id laborum elit ut aliquip irure consectetur in dolor labore. Irure incididunt elit do voluptate sunt in commodo qui deserunt non duis et.
+        </p>
+        <p class="leading-10">
+          Ad consectetur consectetur in enim culpa mollit irure et ea. Laboris nulla quis eu cupidatat adipisicing ea. Occaecat veniam occaecat adipisicing anim nostrud labore nostrud ullamco.
+
+  Ipsum duis in consectetur pariatur eu laboris anim officia fugiat qui exercitation dolor. Aliqua Lorem est excepteur deserunt et et laborum qui. Velit ut reprehenderit cupidatat adipisicing irure magna qui commodo ut magna quis ipsum elit. Proident fugiat consectetur ea minim veniam quis enim.
+
+  Proident laboris nostrud consequat Lorem quis duis velit fugiat ad. Amet ut adipisicing tempor occaecat. Quis deserunt sint aliquip exercitation.
+
+  Cupidatat nisi laborum voluptate velit culpa nisi cillum fugiat id nostrud quis minim excepteur. Sit veniam quis incididunt consequat magna voluptate. Adipisicing ad enim nostrud sint cupidatat. Laboris labore sint reprehenderit pariatur in sunt.
+
+  Velit ex officia excepteur nostrud dolor reprehenderit sunt. Nisi nulla pariatur ad irure ex elit ea velit quis. Enim labore adipisicing sint cillum dolore nulla.
+
+  Dolore et in ea ullamco tempor aliquip sint. Qui ipsum magna ipsum labore sint excepteur ipsum occaecat incididunt nostrud esse. Ad velit enim mollit mollit magna ullamco commodo veniam aliquip ex dolor do. In fugiat pariatur aliqua Lorem amet adipisicing nulla dolore quis mollit aute. Enim eiusmod eiusmod laborum ex Lorem nisi incididunt ad ipsum reprehenderit.
+
+  Est quis incididunt duis amet. Enim dolor occaecat occaecat eu ea mollit anim et excepteur. Non ex culpa officia nostrud laboris occaecat mollit non ad fugiat voluptate in sunt.
+
+  Adipisicing minim sit mollit excepteur ex excepteur magna. Sint in fugiat reprehenderit adipisicing velit dolore commodo pariatur veniam. Reprehenderit officia qui est sit laboris commodo veniam nisi ex laborum. Exercitation adipisicing occaecat aliquip magna aliqua ad mollit ut ut ad culpa consectetur aliqua esse. Consequat pariatur do consequat consequat Lorem minim aliqua Lorem ipsum veniam aute consequat incididunt. Qui aute sit ipsum voluptate sint esse Lorem.
+
+  Nulla irure adipisicing id veniam occaecat id culpa est. Nulla id irure veniam enim ad veniam commodo. Aliqua et dolor pariatur mollit. Exercitation elit eiusmod nisi reprehenderit amet eu et sint occaecat.
+
+  Veniam aute quis ipsum sit ipsum labore officia ipsum anim. Laborum velit sunt sunt laborum et quis velit cupidatat ad consequat dolor elit aliquip. Eiusmod fugiat tempor proident labore exercitation qui in aute. Id laborum elit ut aliquip irure consectetur in dolor labore. Irure incididunt elit do voluptate sunt in commodo qui deserunt non duis et.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>

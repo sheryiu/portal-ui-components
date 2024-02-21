@@ -2,7 +2,8 @@ import { Component, inject } from '@angular/core';
 import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { EffectFn } from '@ngneat/effects-ng';
-import { EMPTY, catchError, concatMap, switchMap, tap } from 'rxjs';
+import { EMPTY, catchError, concatMap, debounceTime, switchMap, tap } from 'rxjs';
+import { ArmorSetDataPipe } from '../../../../data-pipes/armor-set-data.pipe';
 import { Armor } from '../../../../data/armor';
 import { ArmorSet } from '../../../../data/armor-set';
 import { LibraryModule } from '../../../../library/library.module';
@@ -19,6 +20,7 @@ import { ArmorService } from '../../../../store/armor.service';
     LibraryModule,
     FormsModule,
     ReactiveFormsModule,
+    ArmorSetDataPipe,
   ],
   templateUrl: './armor-create.component.html',
   styles: ``,
@@ -58,6 +60,7 @@ export class ArmorCreateComponent extends EffectFn {
   })
 
   onSave = this.createEffectFn<void>((args$) => args$.pipe(
+    debounceTime(0),
     concatMap(() => {
       const value = this.formGroup.getRawValue();
       return this.service.create({

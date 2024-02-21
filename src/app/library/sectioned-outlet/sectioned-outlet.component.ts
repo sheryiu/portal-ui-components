@@ -1,4 +1,4 @@
-import { animate, keyframes, query, style, transition, trigger } from '@angular/animations';
+import { animate, group, keyframes, query, sequence, style, transition, trigger } from '@angular/animations';
 import { isPlatformBrowser } from '@angular/common';
 import { AfterViewInit, Component, DestroyRef, ElementRef, PLATFORM_ID, ViewChild, inject } from '@angular/core';
 import { ChildrenOutletContexts, RouterOutlet } from '@angular/router';
@@ -15,24 +15,32 @@ import { SharedModule } from '../../shared/shared.module';
   animations: [
     trigger('routeAnimation', [
       transition('* => *', [
-        query(':enter', [
-          style({
-            display: 'block',
-            height: '100%',
-            opacity: 0,
-            translate: '2rem 0',
-          }),
-          animate('175ms ease-in-out', style({ opacity: 1, translate: '0 0' })),
-        ], { optional: true, }),
-        query(':leave', [
-          style({
-            display: 'block',
-            height: '100%',
-            opacity: 1,
-            translate: '0 0',
-          }),
-          animate('175ms ease-in-out', style({ opacity: 0, translate: '2rem 0' })),
-        ], { optional: true, }),
+        group([
+          query(':enter', [
+            style({
+              position: 'absolute',
+              display: 'block',
+              height: '100%',
+              opacity: 0,
+              translate: '2rem 0',
+            }),
+            animate('175ms 100ms ease-out', style({ opacity: 1, translate: '0 0' })),
+          ], { optional: true, }),
+          query(':leave', [
+            style({
+              position: 'absolute',
+              display: 'block',
+              height: '100%',
+              opacity: 1,
+              translate: '0 0',
+              scale: 1,
+            }),
+            sequence([
+              animate('125ms ease-out', style({ scale: 0.98 })),
+              animate('200ms ease-in', style({ opacity: 0, translate: '2rem 0' })),
+            ])
+          ], { optional: true, }),
+        ])
       ])
     ])
   ]

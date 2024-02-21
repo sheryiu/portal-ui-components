@@ -3,7 +3,8 @@ import { Directive, ElementRef, HostBinding, Input, NgZone, inject, numberAttrib
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 /**
- * @param checkFor Defaults to 0 (in px)
+ * @param checkFor Defaults to -8 (in px)
+ * Calculated from -(height of header - 96 + 8)
  * @description Adds data-stuck=true attribute when element's y position equals to checkFor value
  */
 @Directive({
@@ -18,7 +19,7 @@ export class StickyHeaderDirective {
   private scrollDispatcher = inject(ScrollDispatcher);
   private zone = inject(NgZone);
   @HostBinding('attr.data-stuck') private hostDataStuck = false;
-  @Input({ transform: numberAttribute }) private checkFor = 0;
+  @Input({ transform: numberAttribute }) private checkFor = -8;
 
   constructor() {
     this.scrollDispatcher.scrolled().pipe(

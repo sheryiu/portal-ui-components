@@ -7,10 +7,10 @@
 @import './app/components/components.scss';
 @import './app/library/library.scss';
 
-* {
+*, *::before, *::after {
   @apply border-black/10;
 }
-:where(.dark *) {
+:where(.dark *), :where(.dark *::before), :where(.dark *::after) {
   @apply border-white/10;
 }
 

@@ -1,5 +1,7 @@
 import { Routes } from '@angular/router';
+import { map, switchMap } from 'rxjs';
 import { breadcrumb } from '../../../library/breadcrumbs/breadcrumbs';
+import { ArmorService } from '../../../store/armor.service';
 
 export const ROUTES: Routes = [
   {
@@ -21,21 +23,21 @@ export const ROUTES: Routes = [
           animation: 'armor-create'
         }
       },
-    //   {
-    //     path: ':armorSetId',
-    //     loadComponent: () => import('./armor-set-detail/armor-set-detail.component').then(c => c.ArmorSetDetailComponent),
-    //     data: {
-    //       ...breadcrumb({
-    //         deps: [ArmorSetService] as const,
-    //         titleFn: (route, service) => route.paramMap.pipe(
-    //           map(params => params.get('armorSetId')!),
-    //           switchMap(id => service.getOne(id)),
-    //           map(d => Object.values(d?.name ?? {}).find(v => v != null) ?? '---'),
-    //         )
-    //       }),
-    //       animation: 'armor-set-detail'
-    //     },
-    //   }
+      {
+        path: ':armorId',
+        loadComponent: () => import('./armor-detail/armor-detail.component').then(c => c.ArmorDetailComponent),
+        data: {
+          ...breadcrumb({
+            deps: [ArmorService] as const,
+            titleFn: (route, service) => route.paramMap.pipe(
+              map(params => params.get('armorId')!),
+              switchMap(id => service.getOne(id)),
+              map(d => Object.values(d?.name ?? {}).find(v => v != null) ?? '---'),
+            )
+          }),
+          animation: 'armor-detail'
+        },
+      }
     ]
   }
 ]

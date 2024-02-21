@@ -23,7 +23,12 @@
             <div *coreFormFieldLabel>Armor Set</div>
             <core-search-input *coreFormFieldInput formControlName="armorSetId" sourceName="armorSet" [pickWith]="pickArmorSet" coreHoverable class="ps-4 pe-2 py-2">
               <div *coreSearchInputLabel="let id">
-                {{ id }}
+                @if (id | armorSetData | async; as data) {
+                  <core-multilingual-text-display [value]="data.name"></core-multilingual-text-display>
+                } @else {
+                  <!-- TODO -->
+                  <span>Unable to resolve</span>
+                }
               </div>
               <div *coreSearchInputSuggestionItem="let item" class="px-4 py-0.5 truncate">
                 <core-multilingual-text-display [value]="item.name"></core-multilingual-text-display>
