@@ -6,12 +6,18 @@
     }
     &[data-color=primary] {
       @apply bg-primary-700 text-primary-50;
+      &[data-stuck=true] {
+        @apply bg-primary-950;
+      }
       .core-breadcrumbs {
         @apply text-primary-200;
       }
     }
     &[data-color=accent] {
       @apply bg-accent-700 text-accent-50;
+      &[data-stuck=true] {
+        @apply bg-accent-950;
+      }
       .core-breadcrumbs {
         @apply text-accent-200;
       }

@@ -8,14 +8,14 @@
       <core-simple-header
         coreStickyHeader
         checkFor="-168"
-        class="from-transparent to-primary-700/90 to-70% data-[stuck=true]:from-primary-700 data-[stuck=true]:to-primary-700 h-64 -top-[11.5rem] bg-cover bg-center"
+        class="from-transparent to-primary-700/90 to-70% data-[stuck=true]:from-primary-950 data-[stuck=true]:to-primary-950 h-64 -top-[11.5rem] bg-cover bg-center"
         style="background-image: linear-gradient(to bottom, var(--tw-gradient-stops)), url(https://www.monsterhunter.com/world/images/top/img_intro01.jpg)">
         @if (data$ | async; as data) {
           <h2 *coreHeader><core-multilingual-text-display [value]="data.name"></core-multilingual-text-display></h2>
         }
       </core-simple-header>
       <div class="flex flex-col gap-4 pt-4">
-        <div coreStickyHeader checkFor="88" class="z-[100] flex gap-1 p-1 bg-primary-800 data-[stuck=true]:bg-primary-700 data-[stuck=true]:-mx-2 data-[stuck=true]:rounded-none data-[stuck=true]:border-0 transition-all border rounded-3 sticky top-18 before:absolute before:rounded-2 before:h-8 before:w-40 before:border before:bg-hover">
+        <div coreStickyHeader checkFor="88" class="z-[100] flex gap-1 p-1 bg-primary-800 data-[stuck=true]:bg-primary-950 data-[stuck=true]:-mx-2 data-[stuck=true]:px-3 data-[stuck=true]:rounded-none data-[stuck=true]:border-transparent transition-all border rounded-3 sticky top-18 before:absolute before:rounded-2 before:h-8 before:w-40 before:border before:bg-hover">
           <button type="button" class="grow rounded-2 px-1 h-8 text-primary-50" coreHoverable>Tab 1</button>
           <button type="button" class="grow rounded-2 px-1 h-8" coreHoverable>Tab 2</button>
           <button type="button" class="grow rounded-2 px-1 h-8" coreHoverable>Tab 3</button>
