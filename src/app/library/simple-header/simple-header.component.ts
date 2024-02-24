@@ -47,12 +47,14 @@ export class HeaderActionsDirective {
 export class SimpleHeaderComponent {
   @ContentChild(HeaderDirective) header?: HeaderDirective;
   @ContentChild(HeaderActionsDirective) headerActions?: HeaderActionsDirective;
-  @HostBinding('attr.data-color') @Input() color: 'primary' | 'accent' = 'primary';
+  @HostBinding('attr.data-color') @Input() color: null | 'primary' | 'accent' = null;
   @Output() bgClick = new EventEmitter<void>();
 
   @HostListener('click', ['$event'])
   private hostClick(event: MouseEvent) {
-    if (event.target === event.currentTarget || event.target instanceof HTMLDivElement || event.target instanceof HTMLHeadingElement) {
+    if (event.target === event.currentTarget) {
+      this.bgClick.emit();
+    } else if (!(event.target as HTMLElement).closest('a, button')) {
       this.bgClick.emit();
     }
   }

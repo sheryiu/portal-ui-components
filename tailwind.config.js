@@ -16,10 +16,12 @@ module.exports = {
     fontSize: {
       sm: ["0.8125rem", "1rem"],
       base: ["0.875rem", "1.125rem"],
+      xl: ["1.25rem", "1.625rem"],
     },
     borderRadius: {
       'none': '0rem',
       'full': '9999px',
+      '1': '0.25rem',
       '2': '0.5rem',
       '3': '0.75rem',
       '4': '1rem'
@@ -81,8 +83,17 @@ module.exports = {
           '950': '#1b2d31',
         },
         'lunar-green': {
-          700: '#494C47',
-          950: '#030303'
+          '50': '#f7f8f7',
+          '100': '#e3e4e2',
+          '200': '#c7cac4',
+          '300': '#a3a6a0',
+          '400': '#7f837c',
+          '500': '#666a62',
+          '600': '#51544f',
+          '700': '#4a4c48',
+          '800': '#282a28',
+          '900': '#212220',
+          '950': '#0a0a0a',
         },
       },
       minWidth: ({ theme }) => ({
@@ -143,7 +154,7 @@ module.exports = {
             border: "1px solid rgba(255, 255, 255, 0.1)",
           },
           ".bg-deep-glass": {
-            background: "rgba(0, 0, 0, 0.25)",
+            background: "rgba(0, 0, 0, 0.20)",
             "border-radius": "16px",
             "box-shadow": "0 4px 30px rgba(0, 0, 0, 0.1)",
             "backdrop-filter": "blur(16px)",

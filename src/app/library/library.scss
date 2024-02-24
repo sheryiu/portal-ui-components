@@ -1,14 +1,15 @@
 @layer components {
   .core-simple-header {
     @apply overflow-hidden rounded-3 ps-6 pe-3 pt-5 pb-3 flex justify-between items-end -top-6 transition-all;
+    @apply bg-lunar-green-900 text-primary-600;
+    .core-breadcrumbs {
+      @apply text-primary-200;
+    }
     &[data-stuck=true] {
       @apply -mx-2 rounded-none shadow-md;
     }
     &[data-color=primary] {
       @apply bg-primary-700 text-primary-50;
-      &[data-stuck=true] {
-        @apply bg-primary-950;
-      }
       .core-breadcrumbs {
         @apply text-primary-200;
       }
@@ -74,5 +75,26 @@
     &[data-popupvisible=true] {
       @apply bg-hover;
     }
+  }
+
+  .core-tab-bar {
+    @apply block transition-all;
+    .core-tab-bar-tabs {
+      @apply w-full flex gap-1.5 transition-all sticky;
+    }
+    &[data-stuck=true] {
+      @apply bg-lunar-green-900 -mx-2 px-2 pb-2;
+    }
+    &[data-selected]:not([data-selected=""]) {
+      .core-tab-bar-tabs {
+        @apply before:transition-all before:absolute before:left-[--core-selected-tab-x] before:rounded-2 before:h-8 before:w-[--core-selected-tab-width] before:border before:bg-hover;
+      }
+    }
+  }
+
+  .core-tab-bar-header {
+    @apply bg-hover text-primary-500 text-base font-medium;
+    @apply border border-s-0 rounded-e-2 py-2 px-4;
+    @apply flex justify-between items-center gap-2;
   }
 }

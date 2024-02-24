@@ -1,6 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { map, switchMap } from 'rxjs';
+import { ArmorSetDataPipe } from '../../../../data-pipes/armor-set-data.pipe';
 import { LibraryModule } from '../../../../library/library.module';
 import { SharedModule } from '../../../../shared/shared.module';
 import { ArmorService } from '../../../../store/armor.service';
@@ -11,6 +12,7 @@ import { ArmorService } from '../../../../store/armor.service';
   imports: [
     SharedModule,
     LibraryModule,
+    ArmorSetDataPipe,
   ],
   templateUrl: './armor-detail.component.html',
   styles: ``

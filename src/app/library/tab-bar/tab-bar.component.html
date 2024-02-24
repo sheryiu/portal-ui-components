@@ -1,0 +1,17 @@
+<div class="core-tab-bar-tabs">
+  @if (tabs$ | async; as tabs) {
+    @for (tab of tabs; track tab.id) {
+      <button
+        #tabButton
+        type="button"
+        class="grow rounded-2 px-1 h-8 truncate"
+        [ngClass]="{
+          'text-primary-500': currentIndex === $index
+        }"
+        coreHoverable
+      >
+        {{ tab.label }}
+      </button>
+    }
+  }
+</div>

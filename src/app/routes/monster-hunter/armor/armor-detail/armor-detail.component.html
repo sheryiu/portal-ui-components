@@ -8,18 +8,62 @@
       <core-simple-header
         coreStickyHeader
         checkFor="-168"
-        class="from-transparent to-primary-700/90 to-70% data-[stuck=true]:from-primary-950 data-[stuck=true]:to-primary-950 h-64 -top-[11.5rem] bg-cover bg-center"
+        class="from-transparent to-lunar-green-900/90 to-70% data-[stuck=true]:from-lunar-green-900 data-[stuck=true]:to-lunar-green-900 h-64 -top-[11.5rem] bg-cover bg-center"
         style="background-image: linear-gradient(to bottom, var(--tw-gradient-stops)), url(https://www.monsterhunter.com/world/images/top/img_intro01.jpg)">
         @if (data$ | async; as data) {
           <h2 *coreHeader><core-multilingual-text-display [value]="data.name"></core-multilingual-text-display></h2>
         }
       </core-simple-header>
-      <div class="flex flex-col gap-4 pt-4">
-        <div coreStickyHeader checkFor="88" class="z-[100] flex gap-1 p-1 bg-primary-800 data-[stuck=true]:bg-primary-950 data-[stuck=true]:-mx-2 data-[stuck=true]:px-3 data-[stuck=true]:rounded-none data-[stuck=true]:border-transparent transition-all border rounded-3 sticky top-18 before:absolute before:rounded-2 before:h-8 before:w-40 before:border before:bg-hover">
-          <button type="button" class="grow rounded-2 px-1 h-8 text-primary-50" coreHoverable>Tab 1</button>
-          <button type="button" class="grow rounded-2 px-1 h-8" coreHoverable>Tab 2</button>
-          <button type="button" class="grow rounded-2 px-1 h-8" coreHoverable>Tab 3</button>
+      <div class="flex flex-col gap-4 pt-4" coreTabBarContainerElement>
+        <core-tab-bar coreStickyHeader checkFor="88" class="top-18"></core-tab-bar>
+        <div class="px-2 flex gap-2 items-center">
+          <!-- <span class="text-sm">
+            @if (data$ | async; as data) {
+              @if (data.armorSetId | armorSetData | async; as armorSet) {
+                <core-multilingual-text-display [value]="armorSet.name"></core-multilingual-text-display>
+              }
+            }
+          </span> -->
+          <span class="font-medium whitespace-nowrap shrink-0">Rare 9</span>
+          <div class="flex gap-0.5 shrink-0">
+            @if (data$ | async; as data) {
+              @for (i of data.rarity | array; track $index) {
+                <i class="icon-5 font-variation-fill text-yellow-500">star</i>
+              }
+            }
+          </div>
         </div>
+        <core-tab-bar-header class="-ms-2">
+          Stats
+        </core-tab-bar-header>
+        <div class="px-2 flex items-center gap-2">
+          <i class="icon-6 font-variation-fill text-primary-500 shrink-0">shield</i>
+          <div class="flex flex-col">
+            <span class="font-medium">
+              @if (data$ | async; as data) {
+                {{ data.maxDef }} at Lv.{{ data.maxLevel }}
+              }
+            </span>
+            <span class="text-sm text-secondary">
+              @if (data$ | async; as data) {
+                {{ data.baseDef }} at Lv.1
+              }
+            </span>
+          </div>
+        </div>
+        <div class="px-2 flex items-center gap-2">
+          <i class="icon-6 font-variation-fill text-primary-500 shrink-0">masked_transitions</i>
+          <div class="flex flex-col">
+            <span class="font-medium">
+              @if (data$ | async; as data) {
+                {{ data.slots }}
+              }
+            </span>
+          </div>
+        </div>
+        <core-tab-bar-header class="-ms-2">
+          Skills
+        </core-tab-bar-header>
         <p class="leading-10">
           Ad consectetur consectetur in enim culpa mollit irure et ea. Laboris nulla quis eu cupidatat adipisicing ea. Occaecat veniam occaecat adipisicing anim nostrud labore nostrud ullamco.
 
@@ -41,6 +85,9 @@
 
   Veniam aute quis ipsum sit ipsum labore officia ipsum anim. Laborum velit sunt sunt laborum et quis velit cupidatat ad consequat dolor elit aliquip. Eiusmod fugiat tempor proident labore exercitation qui in aute. Id laborum elit ut aliquip irure consectetur in dolor labore. Irure incididunt elit do voluptate sunt in commodo qui deserunt non duis et.
         </p>
+        <core-tab-bar-header class="-ms-2">
+          Crafting
+        </core-tab-bar-header>
         <p class="leading-10">
           Ad consectetur consectetur in enim culpa mollit irure et ea. Laboris nulla quis eu cupidatat adipisicing ea. Occaecat veniam occaecat adipisicing anim nostrud labore nostrud ullamco.
 
