@@ -1,21 +1,28 @@
 @if (tabs && tabs.length > 0) {
-  <div class="sticky top-0 h-100vh p-4">
-    <div class="bg-glass h-full flex">
+  <div
+    class="absolute max-sm:w-100vw max-sm:pointer-events-none data-[opened=true]:max-sm:pointer-events-auto data-[opened=true]:max-sm:bg-black/60 data-[opened=true]:max-sm:backdrop-blur max-sm:transition-colors sm:sticky top-0 h-100vh p-4 max-sm:pb-16 z-[200] group"
+    [attr.data-opened]="menuOpened"
+  >
+    <div class="bg-glass h-full flex max-sm:flex-col max-sm:-translate-x-full max-sm:opacity-0 group-data-[opened=true]:max-sm:translate-x-0 group-data-[opened=true]:max-sm:opacity-100 max-sm:transition max-sm:duration-300">
       <!-- left -->
-      <div class="p-2 flex flex-col border-e">
-        <button class="shrink-0 size-18 rounded-3" coreHoverable>
+      <div class="p-2 flex flex-col max-sm:gap-4 border-b sm:border-b-0 sm:border-e">
+        <button class="shrink-0 w-fit sm:w-18 rounded-3 sm:flex-col" coreHoverable>
           <img
-            src="../assets/logos/DesignAlpha-logos_white.png"
-            class="size-16 object-contain"
+            src="../assets/logos/logo_square.png"
+            class="size-12 sm:size-16 p-3 object-contain invert shrink-0"
           />
+          <div class="font-display uppercase leading-none flex flex-col max-sm:me-4 sm:mb-3">
+            <span class="text-primary-200 font-medium" style="font-size: 0.75rem;">Database</span>
+            <span class="text-primary-400" style="font-size: 0.6rem;">Dashboard</span>
+          </div>
         </button>
         <!-- TODO remove pb-20 once there are buttons on the bottom -->
         <div
-          class="grow flex flex-col justify-center items-center gap-2 overflow-auto pb-20"
+          class="grow flex sm:flex-col sm:justify-center items-center gap-2 overflow-auto sm:pb-20"
         >
           @for (tab of tabs; track tab.id) {
             <a
-              class="size-18 rounded-3 flex-col gap-1"
+              class="max-sm:grow w-18 h-12 sm:h-18 rounded-3 flex-col sm:gap-1"
               coreHoverable
               [routerLink]="tab.routerLink"
               routerLinkActive
@@ -24,7 +31,7 @@
                 'bg-hover border text-primary-500': active.isActive,
               }"
             >
-              <i class="icon-6 shrink-0" [class.font-variation-fill]="active.isActive">{{ tab.icon }}</i>
+              <i class="icon-5 sm:icon-6 shrink-0" [class.font-variation-fill]="active.isActive">{{ tab.icon }}</i>
               @if (tab.label) {
                 <span class="text-sm font-medium">{{ tab.label }}</span>
               }
@@ -33,7 +40,7 @@
         </div>
       </div>
       <!-- right -->
-      <div class="p-2 flex flex-col w-64 break-anywhere">
+      <div class="p-2 flex flex-col sm:w-64 break-anywhere">
         <div class="grow flex flex-col justify-center gap-1 overflow-auto">
           @if (currentTabChildren$ | async; as tabs) {
             @for (child of tabs; track child.id) {
@@ -47,6 +54,7 @@
                   [ngClass]="{
                     'bg-hover border text-primary-500': active.isActive,
                   }"
+                  (click)="closeMenu()"
                 >
                   @if (tabs | someChildrenHaveIcon) {
                     @if (child.icon) {
@@ -64,6 +72,13 @@
           }
         </div>
       </div>
+    </div>
+  </div>
+  <div class="absolute sm:hidden bottom-0 w-full bg-lunar-green-900 border-t h-12 z-[200] px-4 py-1">
+    <div class="flex items-center">
+      <button coreHoverable class="size-10 rounded-2 shrink-0" (click)="toggleMenu()">
+        <i class="icon-6">menu</i>
+      </button>
     </div>
   </div>
 } @else {

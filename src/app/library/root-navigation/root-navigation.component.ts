@@ -31,6 +31,16 @@ export class RootNavigationComponent {
   router = inject(Router);
   route = inject(ActivatedRoute);
 
+  menuOpened = false;
+
+  toggleMenu() {
+    this.menuOpened = !this.menuOpened;
+  }
+
+  closeMenu() {
+    this.menuOpened = false;
+  }
+
   currentTabChildren$ = this.router.events.pipe(
     filter((e): e is NavigationEnd => e instanceof NavigationEnd),
     map(event => {

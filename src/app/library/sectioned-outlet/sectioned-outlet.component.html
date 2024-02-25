@@ -1,11 +1,11 @@
 <div class="h-full relative">
   <div
-    class="[&>*]:py-4 [&>*]:pe-4 [&>*]:transition-all size-full"
+    class="[&>*]:py-4 sm:[&>*]:pe-4 max-sm:[&>*]:pb-16 [&>*]:transition-all size-full"
   >
     <ng-content></ng-content>
   </div>
   <div
-    class="[&>*>*]:py-4 [&>*>*]:pe-4 [&>*]:inset-0 absolute inset-0 left-1/2 [&:has(router-outlet:only-child)]:pointer-events-none"
+    class="[&>*>*]:py-4 sm:[&>*>*]:pe-4 max-sm:[&>*>*]:pb-16 [&>*]:inset-0 absolute inset-0 md:left-1/2 [&:has(router-outlet:only-child)]:pointer-events-none"
     #routerOutletContainer
     [@routeAnimation]="getRouteAnimationData()"
   >
