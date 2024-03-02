@@ -42,6 +42,7 @@ export class ArmorCreateComponent extends EffectFn {
   private service = inject(ArmorService);
   private formBuilder = inject(FormBuilder);
   formGroup = this.formBuilder.nonNullable.group({
+    image: [null as unknown as Armor['image']],
     name: [null as unknown as Armor['name']],
     armorSetId: [null as unknown as string, [Validators.required]],
     position: [null as unknown as Armor['position'], [Validators.required]],
@@ -69,6 +70,7 @@ export class ArmorCreateComponent extends EffectFn {
         catchError(() => EMPTY),
       );
     }),
+    tap((id) => this.router.navigate(['../', id], { relativeTo: this.route }))
   ))
 
   onCancel = this.createEffectFn<void>((args$) => args$.pipe(

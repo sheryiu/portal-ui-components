@@ -13,6 +13,7 @@
         <core-form-fieldset>
           <core-form-field>
             <div *coreFormFieldLabel>Image</div>
+            <core-image-upload-edit *coreFormFieldInput class="h-48" formControlName="image"></core-image-upload-edit>
           </core-form-field>
           <core-form-field>
             <div *coreFormFieldLabel>Name</div>
@@ -47,7 +48,7 @@
           </core-form-field>
           <core-form-field>
             <div *coreFormFieldLabel>Rarity</div>
-            <input *coreFormFieldInput formControlName="rarity" type="number" coreInputField class="px-4 py-2"/>
+            <core-rating-edit *coreFormFieldInput formControlName="rarity" max="12"></core-rating-edit>
           </core-form-field>
           <core-form-field>
             <div *coreFormFieldLabel>Rank</div>

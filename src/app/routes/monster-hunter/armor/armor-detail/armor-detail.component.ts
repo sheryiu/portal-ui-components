@@ -27,5 +27,11 @@ export class ArmorDetailComponent {
   data$ = this.id$.pipe(
     switchMap((id) => this.service.getOne(id)),
   )
+  headerImage$ = this.data$.pipe(
+    map(data => data?.image ?
+      URL.createObjectURL(data.image) :
+      'https://www.monsterhunter.com/world/images/top/img_intro01.jpg'),
+    map(url => `linear-gradient(to bottom, var(--tw-gradient-stops)), url(${ url })`),
+  )
 
 }

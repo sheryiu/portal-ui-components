@@ -24,4 +24,6 @@ export type Armor = {
     skillId: never;
     level: number;
   }[];
+  createdAt: Date;
+  updatedAt: Date;
 }

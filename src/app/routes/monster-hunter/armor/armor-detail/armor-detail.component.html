@@ -11,7 +11,7 @@
           coreStickyHeader
           checkFor="-168"
           class="from-transparent to-lunar-green-900/90 to-70% data-[stuck=true]:from-lunar-green-900 data-[stuck=true]:to-lunar-green-900 h-64 -top-[11.5rem] bg-cover bg-center"
-          style="background-image: linear-gradient(to bottom, var(--tw-gradient-stops)), url(https://www.monsterhunter.com/world/images/top/img_intro01.jpg)">
+          [style.backgroundImage]="headerImage$ | async">
           @if (data$ | async; as data) {
             <h2 *coreHeader><core-multilingual-text-display [value]="data.name"></core-multilingual-text-display></h2>
           }
@@ -19,7 +19,9 @@
         <div class="flex flex-col gap-4 pt-4">
           <core-tab-bar coreStickyHeader checkFor="88" class="top-18"></core-tab-bar>
           <div class="px-2 flex gap-2 items-center">
-            <span class="font-medium whitespace-nowrap shrink-0">Rare 9</span>
+            @if (data$ | async; as data) {
+              <span class="font-medium whitespace-nowrap shrink-0">Rare {{ data.rarity }}</span>
+            }
             <div class="flex gap-0.5 shrink-0">
               @if (data$ | async; as data) {
                 @for (i of data.rarity | array; track $index) {

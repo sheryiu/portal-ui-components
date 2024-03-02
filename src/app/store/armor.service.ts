@@ -65,17 +65,23 @@ export class ArmorService {
     return this.data.armors.get(id);
   })
 
-  create = (input: Omit<Armor, 'id'>) => {
+  create = (input: Omit<Armor, 'id' | 'createdAt' | 'updatedAt'>) => {
+    const now = new Date();
     return from(this.data.armors.add({
       id: nanoid(),
       ...input,
+      createdAt: now,
+      updatedAt: now,
     }))
   }
 
-  update = (id: string, input: Partial<Omit<Armor, 'id'>>) => {
+  update = (id: string, input: Partial<Omit<Armor, 'id' | 'createdAt' | 'updatedAt'>>) => {
     return from(this.data.armors.update(
       id,
-      input
+      {
+        ...input,
+        updatedAt: new Date(),
+      }
     ))
   }
 }

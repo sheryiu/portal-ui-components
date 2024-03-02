@@ -108,12 +108,12 @@
   }
 
   .core-tab-bar {
-    @apply block transition-all overflow-hidden;
+    @apply block transition-all overflow-hidden pb-2;
     .core-tab-bar-tabs {
       @apply w-full flex gap-1.5 transition-all sticky px-2;
     }
     &[data-stuck=true] {
-      @apply bg-lunar-green-900 -mx-2 pb-2;
+      @apply bg-lunar-green-900 -mx-2;
       .core-tab-bar-tabs {
         @apply px-4;
       }
@@ -129,5 +129,30 @@
     @apply bg-hover text-primary-500 text-base font-medium;
     @apply border border-s-0 rounded-e-2 py-1 ps-4 pe-2 min-h-11;
     @apply flex justify-between items-center gap-2;
+  }
+
+  .core-image-upload-edit {
+    @apply relative;
+    .core-image-upload-edit-upload-button {
+      @apply size-full p-2 text-secondary;
+    }
+    .core-image-upload-edit-cancel-button {
+      @apply absolute inset-0 p-2 text-red-500 opacity-0 transition-opacity;
+      &:hover {
+        @apply opacity-100;
+      }
+    }
+    img {
+      @apply transition-all size-full object-cover;
+      mask: linear-gradient(to right, black, rgb(0 0 0 / 0.4) 50%, rgb(0 0 0 / 0.1));
+      mask-size: 200%;
+      &:has(+ button:hover) {
+        mask-position: 100%;
+      }
+    }
+  }
+
+  .core-rating-edit {
+    @apply flex gap-0.5;
   }
 }

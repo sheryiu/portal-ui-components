@@ -1,0 +1,11 @@
+@for (i of max | array; track i) {
+  <i
+    class="icon-5 text-yellow-500"
+    [ngClass]="{
+      'font-variation-fill': i <= (hoveringValue ?? -1) || i <= (selectedValue ?? -1)
+    }"
+    tabindex="-1"
+    (pointerover)="onStarHover(i)"
+    (click)="onStarSelect(i)"
+  >star_rate</i>
+}

@@ -2,8 +2,10 @@ import { NgModule } from '@angular/core';
 import { BackgroundGraphicsComponent } from './background-graphics/background-graphics.component';
 import { BreadcrumbsComponent } from './breadcrumbs/breadcrumbs.component';
 import { FormModule } from './form/form.module';
+import { ImageUploadEditComponent } from './image-upload-edit/image-upload-edit.component';
 import { MultilingualTextDisplayComponent } from './multilingual-text-display/multilingual-text-display.component';
 import { MultilingualTextEditComponent } from './multilingual-text-edit/multilingual-text-edit.component';
+import { RatingEditComponent } from './rating-edit/rating-edit.component';
 import { RootNavigationComponent } from './root-navigation/root-navigation.component';
 import { SearchInputLabelDirective } from './search-input/search-input-label.directive';
 import { SearchInputSuggestionItemDirective } from './search-input/search-input-suggestion-item.directive';
@@ -36,6 +38,8 @@ import { TableModule } from './table/table.module';
     SearchInputLabelDirective,
     SearchInputSuggestionItemDirective,
     TabBarModule,
+    ImageUploadEditComponent,
+    RatingEditComponent,
   ],
   exports: [
     BackgroundGraphicsComponent,
@@ -55,6 +59,8 @@ import { TableModule } from './table/table.module';
     SearchInputLabelDirective,
     SearchInputSuggestionItemDirective,
     TabBarModule,
+    ImageUploadEditComponent,
+    RatingEditComponent,
   ]
 })
 export class LibraryModule { }

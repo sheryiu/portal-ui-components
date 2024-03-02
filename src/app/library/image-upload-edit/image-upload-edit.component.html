@@ -1,0 +1,24 @@
+<input #fileInput type="file" hidden (change)="onFileChange($event)">
+@if (blobDataUrl$ | async; as url) {
+  <img [src]="url">
+  <button
+    type="button"
+    coreHoverable
+    class="core-image-upload-edit-cancel-button"
+    (click)="onResetClick(fileInput)"
+    [disabled]="isDisabled"
+  >
+    <i class="icon-6">close</i>
+  </button>
+} @else {
+  <button
+    type="button"
+    coreHoverable
+    class="core-image-upload-edit-upload-button"
+    (click)="fileInput.click()"
+    [disabled]="isDisabled"
+  >
+    Upload
+    <i class="icon-4 ms-0.5">upload</i>
+  </button>
+}

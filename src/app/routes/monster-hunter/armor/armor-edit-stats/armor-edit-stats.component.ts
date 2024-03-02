@@ -1,8 +1,9 @@
 import { Component, inject } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { EffectFn } from '@ngneat/effects-ng';
-import { EMPTY, catchError, concatMap, debounceTime, map, tap, withLatestFrom } from 'rxjs';
+import { EMPTY, catchError, concatMap, debounceTime, map, switchMap, tap, withLatestFrom } from 'rxjs';
 import { LibraryModule } from '../../../../library/library.module';
 import { SharedModule } from '../../../../shared/shared.module';
 import { ArmorService } from '../../../../store/armor.service';
@@ -40,6 +41,28 @@ export class ArmorEditStatsComponent extends EffectFn {
     })
   })
 
+  constructor() {
+    super()
+    this.id$.pipe(
+      switchMap(id => this.service.getOne(id)),
+      tap(data => {
+        this.formGroup.setValue({
+          baseDef: data?.baseDef! ?? null,
+          maxLevel: data?.maxLevel! ?? null,
+          maxDef: data?.maxDef! ?? null,
+          resistance: {
+            fire: data?.resistance.fire! ?? null,
+            water: data?.resistance.water! ?? null,
+            thunder: data?.resistance.thunder! ?? null,
+            ice: data?.resistance.ice! ?? null,
+            dragon: data?.resistance.dragon! ?? null,
+          },
+        })
+      }),
+      takeUntilDestroyed(),
+    ).subscribe()
+  }
+
   onSave = this.createEffectFn<void>((args$) => args$.pipe(
     debounceTime(0),
     withLatestFrom(this.id$),
@@ -54,6 +77,7 @@ export class ArmorEditStatsComponent extends EffectFn {
         catchError(() => EMPTY),
       );
     }),
+    tap(() => this.router.navigate(['../'], { relativeTo: this.route }))
   ))
 
   onCancel = this.createEffectFn<void>((args$) => args$.pipe(
