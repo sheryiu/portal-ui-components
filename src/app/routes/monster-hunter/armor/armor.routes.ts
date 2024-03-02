@@ -20,7 +20,8 @@ export const ROUTES: Routes = [
           ...breadcrumb({
             title: '+ New'
           }),
-          animation: 'armor-create'
+          animation: 'armor-create',
+          displayType: 'half',
         }
       },
       {
@@ -35,8 +36,23 @@ export const ROUTES: Routes = [
               map(d => Object.values(d?.name ?? {}).find(v => v != null) ?? '---'),
             )
           }),
-          animation: 'armor-detail'
+          animation: 'armor-detail',
+          displayType: 'half',
         },
+        children: [
+          {
+            path: 'edit-stats',
+            loadComponent: () => import('./armor-edit-stats/armor-edit-stats.component').then(c => c.ArmorEditStatsComponent),
+            data: {
+              ...breadcrumb({
+                deps: [ArmorService] as const,
+                title: 'Edit Stats'
+              }),
+              animation: 'armor-edit-stats',
+              displayType: 'full',
+            },
+          }
+        ]
       }
     ]
   }

@@ -9,6 +9,7 @@
           'text-primary-500': currentIndex === $index
         }"
         coreHoverable
+        (click)="onTabClick(tab.id)"
       >
         {{ tab.label }}
       </button>

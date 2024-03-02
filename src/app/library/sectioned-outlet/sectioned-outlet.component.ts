@@ -11,6 +11,10 @@ import { SharedModule } from '../../shared/shared.module';
     SharedModule,
     RouterOutlet,
   ],
+  // Class cannot be placed here
+  // host: {
+  //   class: 'core-sectioned-outlet',
+  // },
   templateUrl: './sectioned-outlet.component.html',
   animations: [
     trigger('routeAnimation', [
@@ -51,32 +55,36 @@ export class SectionedOutletComponent implements AfterViewInit {
   private contexts = inject(ChildrenOutletContexts);
   private destroyRef = inject(DestroyRef);
 
-  showingSectionedSlot = false;
+  // showingSectionedSlot = false;
 
   ngAfterViewInit(): void {
     if (isPlatformBrowser(this.platformId)) {
-      const mo = new MutationObserver((entries) => {
-        if (entries[0].addedNodes.length > 0) {
-          this.showingSectionedSlot = true;
-        } else if (entries[0].removedNodes.length > 0) {
-          this.showingSectionedSlot = false;
-        }
-      })
-      mo.observe(this.routerOutletContainer.nativeElement, {
-        childList: true,
-        subtree: false
-      })
-      this.destroyRef.onDestroy(() => {
-        mo.disconnect();
-      })
-      setTimeout(() => {
-        this.showingSectionedSlot = this.routerOutletContainer.nativeElement.childElementCount > 1;
-      })
+      // const mo = new MutationObserver((entries) => {
+      //   if (entries[0].addedNodes.length > 0) {
+      //     this.showingSectionedSlot = true;
+      //   } else if (entries[0].removedNodes.length > 0) {
+      //     this.showingSectionedSlot = false;
+      //   }
+      // })
+      // mo.observe(this.routerOutletContainer.nativeElement, {
+      //   childList: true,
+      //   subtree: false
+      // })
+      // this.destroyRef.onDestroy(() => {
+      //   mo.disconnect();
+      // })
+      // setTimeout(() => {
+      //   this.showingSectionedSlot = this.routerOutletContainer.nativeElement.childElementCount > 1;
+      // })
     }
   }
 
   getRouteAnimationData() {
     return this.contexts.getContext('primary')?.route?.snapshot?.data?.['animation'];
+  }
+
+  getRouteDisplayType(): 'half' | 'full' | undefined {
+    return this.contexts.getContext('primary')?.route?.snapshot?.data?.['displayType'];
   }
 
 }

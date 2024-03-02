@@ -72,7 +72,7 @@ export class ArmorService {
     }))
   }
 
-  update = (id: string, input: Omit<Armor, 'id'>) => {
+  update = (id: string, input: Partial<Omit<Armor, 'id'>>) => {
     return from(this.data.armors.update(
       id,
       input
