@@ -25,7 +25,8 @@ export const ROUTES: Routes = [
               map(d => Object.values(d?.name ?? {}).find(v => v != null) ?? '---'),
             )
           }),
-          animation: 'armor-set-detail'
+          animation: 'armor-set-detail',
+          displayType: 'half',
         },
       }
     ]

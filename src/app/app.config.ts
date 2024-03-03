@@ -6,12 +6,14 @@ import { provideClientHydration } from '@angular/platform-browser';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideTransloco } from '@ngneat/transloco';
 import { routes } from './app.routes';
+import { provideTheme } from './components/services/theme.service';
 import { TranslocoHttpLoader } from './core/transloco-http-loader';
 import { provideMultilingual } from './library/multilingual-text-edit/multilingual-text-edit.component';
 import { provideRootNavigation } from './library/root-navigation/root-navigation';
 
 export const appConfig: ApplicationConfig = {
   providers: [
+    provideTheme(),
     provideHttpClient(),
     provideAnimations(),
     provideRouter(

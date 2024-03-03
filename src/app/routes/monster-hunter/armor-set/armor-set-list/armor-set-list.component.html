@@ -42,7 +42,7 @@
                   <core-multilingual-text-display [value]="item.name"></core-multilingual-text-display>
                 </core-table-cell>
                 <core-table-cell *coreTableCellDef="'rarity'">
-                  {{ item.rarity }}
+                  <core-rating-display [value]="item.rarity"></core-rating-display>
                 </core-table-cell>
               </core-table-row>
               <core-table-footer-row class="px-4 py-1">

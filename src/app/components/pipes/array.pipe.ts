@@ -7,7 +7,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class ArrayPipe implements PipeTransform {
 
   transform(value: number | null | undefined) {
-    return Array(value ?? 0).fill(0).map((_, i) => i)
+    return Array((value! >= 0) ? value : 0).fill(0).map((_, i) => i)
   }
 
 }

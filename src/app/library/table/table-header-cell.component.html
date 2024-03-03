@@ -19,16 +19,16 @@
     } @else {
       <div class="flex gap-2">
         @if (filtered) {
-          <div class="rounded-full bg-primary-600 text-primary-950 p-0.5 -my-0.5">
+          <div class="rounded-full bg-primary-300 dark:bg-primary-600 text-primary-950 p-0.5 -my-0.5">
             <i class="icon-4">filter_alt</i>
           </div>
         }
         @if (sortedAsc) {
-          <div class="rounded-full bg-primary-600 text-primary-950 p-0.5 -my-0.5">
+          <div class="rounded-full bg-primary-300 dark:bg-primary-600 text-primary-950 p-0.5 -my-0.5">
             <i class="icon-4 rotate-180 -scale-x-100">sort</i>
           </div>
         } @else if (sortedDesc) {
-          <div class="rounded-full bg-primary-600 text-primary-950 p-0.5 -my-0.5">
+          <div class="rounded-full bg-primary-300 dark:bg-primary-600 text-primary-950 p-0.5 -my-0.5">
             <i class="icon-4">sort</i>
           </div>
         }

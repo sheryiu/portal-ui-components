@@ -31,26 +31,36 @@
 
   .core-simple-header {
     @apply overflow-hidden rounded-3 ps-6 pe-3 pt-5 pb-3 flex justify-between items-end -top-6 transition-all;
-    @apply bg-lunar-green-900 text-primary-600;
-    .core-breadcrumbs {
-      @apply text-primary-200;
-    }
-    &[data-stuck=true] {
-      @apply -mx-2 rounded-none shadow-md;
+    @apply bg-lunar-green-100 text-primary-800;
+    @apply dark:bg-lunar-green-900 dark:text-primary-600;
+    & {
+      &[data-stuck=true] {
+        @apply -mx-2 rounded-none shadow dark:shadow-md;
+      }
+      .core-breadcrumbs {
+        @apply text-primary-950 dark:text-primary-200;
+      }
     }
     &[data-color=primary] {
-      @apply bg-primary-700 text-primary-50;
+      @apply bg-primary-200 text-primary-800;
+      @apply dark:bg-primary-700 dark:text-primary-50;
+      &[data-stuck=true] {
+        @apply bg-primary-100;
+        @apply dark:bg-primary-950;
+      }
       .core-breadcrumbs {
-        @apply text-primary-200;
+        @apply text-primary-950 dark:text-primary-200;
       }
     }
     &[data-color=accent] {
-      @apply bg-accent-700 text-accent-50;
+      @apply bg-accent-200 text-accent-800;
+      @apply dark:bg-accent-700 dark:text-accent-50;
       &[data-stuck=true] {
-        @apply bg-accent-950;
+        @apply bg-accent-100;
+        @apply dark:bg-accent-950;
       }
       .core-breadcrumbs {
-        @apply text-accent-200;
+        @apply text-accent-950 dark:text-accent-200;
       }
     }
   }
@@ -87,7 +97,8 @@
     .core-table-header-cell {
       @apply py-2 flex;
       > button {
-        @apply grow truncate whitespace-nowrap font-medium text-sm text-primary-200 mx-0.5 px-3.5 py-2 rounded-full;
+        @apply grow truncate whitespace-nowrap font-medium text-sm mx-0.5 px-3.5 py-2 rounded-full;
+        @apply text-primary-800 dark:text-primary-200;
       }
     }
   }
@@ -113,7 +124,7 @@
       @apply w-full flex gap-1.5 transition-all sticky px-2;
     }
     &[data-stuck=true] {
-      @apply bg-lunar-green-900 -mx-2;
+      @apply bg-lunar-green-100 dark:bg-lunar-green-900 -mx-2;
       .core-tab-bar-tabs {
         @apply px-4;
       }
@@ -148,11 +159,19 @@
       mask-size: 200%;
       &:has(+ button:hover) {
         mask-position: 100%;
+        @apply object-contain;
       }
     }
   }
 
-  .core-rating-edit {
-    @apply flex gap-0.5;
+  .core-rating-edit, .core-rating-display {
+    @apply flex flex-wrap select-none;
+    .core-rating-star {
+      @apply grid place-items-center;
+      grid-template-areas: "main";
+      > * {
+        grid-area: main;
+      }
+    }
   }
 }

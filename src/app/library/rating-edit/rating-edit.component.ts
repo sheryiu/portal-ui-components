@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output, forwardRef, numberAttribute } from '@angular/core';
+import { Component, EventEmitter, HostListener, Input, Output, forwardRef, numberAttribute } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { SharedModule } from '../../shared/shared.module';
 
@@ -9,7 +9,7 @@ import { SharedModule } from '../../shared/shared.module';
     SharedModule
   ],
   host: {
-    class: 'core-rating-edit'
+    class: 'core-rating-edit',
   },
   templateUrl: './rating-edit.component.html',
   providers: [
@@ -26,17 +26,21 @@ export class RatingEditComponent implements ControlValueAccessor {
   isDisabled?: boolean;
 
   @Input({ required: true, transform: numberAttribute }) max!: number;
+  @Input({ required: true, transform: numberAttribute }) min!: number;
   @Input() set value(v: number | null | undefined) {
     this.writeValue(v);
   }
   @Output() valueChange = new EventEmitter<number | null | undefined>();
+  @HostListener('pointerleave')
+  private hostPointerleave() {
+    this.hoveringPosition = undefined;
+  }
 
-  arrayTemplate?: Array<number>;
-  hoveringValue?: number;
-  selectedValue?: number | null;
+  hoveringPosition?: number;
+  selectedPosition?: number | null;
 
   writeValue(obj: number | null | undefined): void {
-    this.selectedValue = obj;
+    this.selectedPosition = (obj != null) ? obj - this.min : obj;
   }
   registerOnChange(fn: any): void {
     this.onChange = fn;
@@ -50,20 +54,20 @@ export class RatingEditComponent implements ControlValueAccessor {
 
   onStarHover(i: number) {
     if (this.isDisabled) return;
-    this.hoveringValue = i;
+    this.hoveringPosition = i;
   }
 
   onStarSelect(i: number) {
     if (this.isDisabled) return;
-    this.hoveringValue = undefined;
-    this.selectedValue = i;
+    this.hoveringPosition = undefined;
+    this.selectedPosition = i;
     this.handleInput();
   }
 
   handleInput() {
     if (this.isDisabled) return;
-    this.onChange?.(this.selectedValue);
-    this.valueChange.emit(this.selectedValue);
+    this.onChange?.((this.selectedPosition != null) ? (this.selectedPosition + this.min) : this.selectedPosition);
+    this.valueChange.emit((this.selectedPosition != null) ? (this.selectedPosition + this.min) : this.selectedPosition);
   }
 
 }

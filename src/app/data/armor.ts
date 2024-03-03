@@ -5,7 +5,7 @@ export type Armor = {
   armorSetId: string;
   name: MultilingualText;
   rarity: number;
-  rank: 'low' | 'high' | 'master';
+  rank: 'base' | 'iceborne';
   position: 'helm' | 'chest' | 'arms' | 'waist' | 'legs';
   image?: Blob;
   baseDef?: number;

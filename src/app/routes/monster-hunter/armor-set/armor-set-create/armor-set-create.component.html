@@ -1,4 +1,4 @@
-<div class="bg-deep-glass backdrop-blur max-w-100vw w-96 shadow-md">
+<div class="bg-deep-glass max-w-100vw w-96 shadow-md">
   <form class="flex flex-col py-2 gap-2" [formGroup]="formGroup" (submit)="onSaveClick()">
     <div class="grow flex flex-col gap-2 overflow-auto px-2">
       <core-form-fieldset>
@@ -8,7 +8,7 @@
         </core-form-field>
         <core-form-field>
           <span *coreFormFieldLabel>Rarity</span>
-          <input *coreFormFieldInput coreInputField class="px-4 py-1" placeholder="Title" type="number" formControlName="rarity">
+          <core-rating-edit *coreFormFieldInput formControlName="rarity" max="12" min="1" class="px-4 py-1"></core-rating-edit>
         </core-form-field>
       </core-form-fieldset>
     </div>

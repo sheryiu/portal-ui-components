@@ -41,7 +41,7 @@ export class ArmorSetCreateComponent extends EffectFn {
       return this.service.create({
         name,
         rarity: value.rarity,
-        rank: value.rarity >= 8 ? 'master' : value.rarity >= 5 ? 'high' : 'low',
+        rank: value.rarity >= 9 ? 'iceborne' : 'base',
       }).pipe(
         catchError(() => EMPTY),
       );

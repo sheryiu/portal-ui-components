@@ -20,14 +20,13 @@
           </core-form-field>
           <core-form-field>
             <div *coreFormFieldLabel>Rarity</div>
-            <input *coreFormFieldInput formControlName="rarity" type="number" coreInputField class="px-4 py-2"/>
+            <core-rating-edit *coreFormFieldInput max="12" min="1" formControlName="rarity"></core-rating-edit>
           </core-form-field>
           <core-form-field>
             <div *coreFormFieldLabel>Rank</div>
             <core-segmented-options *coreFormFieldInput formControlName="rank" class="me-2">
-              <div *coreOption="'low'">Low</div>
-              <div *coreOption="'high'">High</div>
-              <div *coreOption="'master'">Master</div>
+              <div *coreOption="'base'">Base</div>
+              <div *coreOption="'iceborne'">Iceborne</div>
             </core-segmented-options>
           </core-form-field>
         </core-form-fieldset>

@@ -1,4 +1,5 @@
 import { Component, inject } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { EffectFn } from '@ngneat/effects-ng';
@@ -59,6 +60,18 @@ export class ArmorCreateComponent extends EffectFn {
       dragon: [null as unknown as number],
     })
   })
+
+  constructor() {
+    super();
+    this.formGroup.controls.rarity.valueChanges.pipe(
+      tap((rarity) => {
+        if (this.formGroup.controls.rank.pristine) {
+          this.formGroup.controls.rank.setValue((rarity >= 9) ? 'iceborne' : 'base')
+        }
+      }),
+      takeUntilDestroyed(),
+    ).subscribe();
+  }
 
   onSave = this.createEffectFn<void>((args$) => args$.pipe(
     debounceTime(0),

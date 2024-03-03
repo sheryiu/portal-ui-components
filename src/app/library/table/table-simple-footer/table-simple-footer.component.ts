@@ -7,7 +7,6 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
   standalone: true,
   imports: [],
   template: `{{ dataCount }} Loaded`,
-  styles: ``
 })
 export class TableSimpleFooterComponent {
   private viewport = inject(CdkVirtualScrollViewport);

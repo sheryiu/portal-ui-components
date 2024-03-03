@@ -20,10 +20,11 @@ export class MultilingualTextDisplayComponent {
   private transloco = inject(TranslocoService);
   private langs = inject(MULTILINGUAL_LANGUAGES);
 
-  @Input({ required: true }) value!: Record<string, string | null | undefined>;
+  @Input({ required: true }) value!: Record<string, string | null | undefined> | null | undefined;
 
   get str() {
     const currLang = this.transloco.getActiveLang();
+    if (this.value == null) return null;
     if (this.value[currLang] != null) return this.value[currLang];
     for (let lang of this.langs) {
       if (this.value[lang] != null) return this.value[lang];

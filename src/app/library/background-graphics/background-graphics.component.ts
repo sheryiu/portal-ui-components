@@ -1,6 +1,9 @@
 import { isPlatformServer } from '@angular/common';
-import { AfterViewInit, Component, ElementRef, PLATFORM_ID, ViewChild, inject } from '@angular/core';
+import { AfterViewInit, Component, DestroyRef, ElementRef, PLATFORM_ID, ViewChild, inject } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import Delaunator from 'delaunator';
+import { tap } from 'rxjs';
+import { ThemeService } from '../../components/services/theme.service';
 
 @Component({
   selector: 'core-background-graphics',
@@ -13,8 +16,18 @@ export class BackgroundGraphicsComponent implements AfterViewInit {
 
   @ViewChild('canvas') private canvas!: ElementRef<HTMLCanvasElement>;
   private platformId = inject(PLATFORM_ID);
+  private themeService = inject(ThemeService, { optional: true });
+  private destroyRef = inject(DestroyRef);
 
   ngAfterViewInit(): void {
+    this.draw('dark');
+    this.themeService?.currentTheme$.pipe(
+      tap((theme) => this.draw(theme)),
+      takeUntilDestroyed(this.destroyRef),
+    ).subscribe()
+  }
+
+  private draw(theme: 'dark' | 'light') {
     if (isPlatformServer(this.platformId)) return;
     this.canvas.nativeElement.width = window.innerWidth;
     this.canvas.nativeElement.height = window.innerHeight;
@@ -38,7 +51,11 @@ export class BackgroundGraphicsComponent implements AfterViewInit {
       path.moveTo(points[triangles[i]].x, points[triangles[i]].y);
       path.lineTo(points[triangles[i + 1]].x, points[triangles[i + 1]].y);
       path.lineTo(points[triangles[i + 2]].x, points[triangles[i + 2]].y);
-      ctx.fillStyle = `rgb(255 255 255 / ${ Math.random() * 0.01 })`
+      if (theme === 'dark') {
+        ctx.fillStyle = `rgb(255 255 255 / ${ Math.random() * 0.025 })`
+      } else {
+        ctx.fillStyle = `rgb(0 0 0 / ${ Math.random() * 0.04 })`
+      }
       ctx.fill(path);
     }
   }

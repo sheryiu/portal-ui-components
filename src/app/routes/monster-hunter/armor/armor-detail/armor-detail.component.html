@@ -24,9 +24,7 @@
             }
             <div class="flex gap-0.5 shrink-0">
               @if (data$ | async; as data) {
-                @for (i of data.rarity | array; track $index) {
-                  <i class="icon-5 font-variation-fill text-yellow-500">star</i>
-                }
+                <core-rating-display [value]="data.rarity"></core-rating-display>
               }
             </div>
           </div>

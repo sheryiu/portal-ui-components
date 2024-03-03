@@ -147,18 +147,28 @@ module.exports = {
         });
         addComponents({
           ".bg-glass": {
-            background: "rgba(255, 255, 255, 0.15)",
+            '.dark &': {
+              background: "rgba(255, 255, 255, 0.15)",
+              border: "1px solid rgba(255, 255, 255, 0.1)",
+              "box-shadow": "0 4px 16px rgba(0, 0, 0, 0.1)",
+            },
+            background: "rgba(255, 255, 255, 0.1)",
+            border: "1px solid rgba(0, 0, 0, 0.1)",
+            "box-shadow": "0 4px 16px rgba(0, 0, 0, 0.05)",
             "border-radius": "16px",
-            "box-shadow": "0 4px 30px rgba(0, 0, 0, 0.1)",
             "backdrop-filter": "blur(5px)",
-            border: "1px solid rgba(255, 255, 255, 0.1)",
           },
           ".bg-deep-glass": {
-            background: "rgba(0, 0, 0, 0.20)",
+            '.dark &': {
+              background: "rgba(255, 255, 255, 0.05)",
+              border: "1px solid rgba(255, 255, 255, 0.1)",
+              "box-shadow": "0 4px 16px rgba(0, 0, 0, 0.1)",
+            },
+            background: "rgba(255, 255, 255, 0.3)",
+            border: "1px solid rgba(0, 0, 0, 0.1)",
+            "box-shadow": "0 4px 16px rgba(0, 0, 0, 0.05)",
             "border-radius": "16px",
-            "box-shadow": "0 4px 30px rgba(0, 0, 0, 0.1)",
             "backdrop-filter": "blur(16px)",
-            border: "1px solid rgba(255, 255, 255, 0.1)",
           },
         });
         matchUtilities(
