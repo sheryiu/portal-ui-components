@@ -1,6 +1,5 @@
-import { animate, group, keyframes, query, sequence, style, transition, trigger } from '@angular/animations';
-import { isPlatformBrowser } from '@angular/common';
-import { AfterViewInit, Component, DestroyRef, ElementRef, PLATFORM_ID, ViewChild, inject } from '@angular/core';
+import { animate, group, query, sequence, style, transition, trigger } from '@angular/animations';
+import { Component, inject } from '@angular/core';
 import { ChildrenOutletContexts, RouterOutlet } from '@angular/router';
 import { SharedModule } from '../../shared/shared.module';
 
@@ -17,9 +16,20 @@ import { SharedModule } from '../../shared/shared.module';
   // },
   templateUrl: './sectioned-outlet.component.html',
   animations: [
+    trigger('bgAnimation', [
+      transition(':enter', [
+        style({ opacity: 0 }),
+        animate('175ms 100ms ease-out', style({ opacity: 1 })),
+      ]),
+      transition(':leave', [
+        style({ opacity: 1 }),
+        animate('225ms ease-in', style({ opacity: 0 })),
+      ]),
+    ]),
     trigger('routeAnimation', [
       transition('* => *', [
         group([
+          animate('100ms', style({ opacity: 1 })),
           query(':enter', [
             style({
               position: 'absolute',
@@ -49,35 +59,8 @@ import { SharedModule } from '../../shared/shared.module';
     ])
   ]
 })
-export class SectionedOutletComponent implements AfterViewInit {
-  @ViewChild('routerOutletContainer') private routerOutletContainer!: ElementRef<HTMLDivElement>;
-  private platformId = inject(PLATFORM_ID);
+export class SectionedOutletComponent {
   private contexts = inject(ChildrenOutletContexts);
-  private destroyRef = inject(DestroyRef);
-
-  // showingSectionedSlot = false;
-
-  ngAfterViewInit(): void {
-    if (isPlatformBrowser(this.platformId)) {
-      // const mo = new MutationObserver((entries) => {
-      //   if (entries[0].addedNodes.length > 0) {
-      //     this.showingSectionedSlot = true;
-      //   } else if (entries[0].removedNodes.length > 0) {
-      //     this.showingSectionedSlot = false;
-      //   }
-      // })
-      // mo.observe(this.routerOutletContainer.nativeElement, {
-      //   childList: true,
-      //   subtree: false
-      // })
-      // this.destroyRef.onDestroy(() => {
-      //   mo.disconnect();
-      // })
-      // setTimeout(() => {
-      //   this.showingSectionedSlot = this.routerOutletContainer.nativeElement.childElementCount > 1;
-      // })
-    }
-  }
 
   getRouteAnimationData() {
     return this.contexts.getContext('primary')?.route?.snapshot?.data?.['animation'];

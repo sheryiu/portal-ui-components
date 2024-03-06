@@ -6,8 +6,8 @@
   </div>
   @switch (getRouteDisplayType()) {
     @case ('half') {
+      <div @bgAnimation class="core-sectioned-outlet-child-bg core-sectioned-outlet-half"></div>
       <div
-        #routerOutletContainer
         [@routeAnimation]="getRouteAnimationData()"
         class="core-sectioned-outlet-child core-sectioned-outlet-half"
       >
@@ -16,7 +16,6 @@
     }
     @case ('full') {
       <div
-        #routerOutletContainer
         [@routeAnimation]="getRouteAnimationData()"
         class="core-sectioned-outlet-child core-sectioned-outlet-full"
       >
