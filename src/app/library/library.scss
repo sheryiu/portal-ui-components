@@ -40,38 +40,25 @@
 
   .core-simple-header {
     @apply overflow-hidden rounded-3 ps-6 pe-3 pt-5 pb-3 flex justify-between items-end -top-6 transition-all;
-    @apply bg-lunar-green-100 text-primary-800;
-    @apply dark:bg-lunar-green-900 dark:text-primary-600;
-    @apply dark:from-lunar-green-900 dark:from-[-40%] dark:to-lunar-green-950;
-    background-image: radial-gradient(farthest-corner at top left, var(--tw-gradient-stops));
-    box-shadow: inset 1px 1px 2px -2px black;
-    & {
-      &[data-stuck=true] {
-        @apply -mx-2 rounded-none shadow dark:shadow-md;
-      }
+    @apply bg-lunar-green-100 text-primary-800 border-b;
+    &[data-stuck=false] {
+      @apply border-transparent;
+    }
+    &[data-stuck=true] {
+      @apply -mx-2 rounded-none;
+    }
+    &[data-color=default] {
       .core-breadcrumbs {
+        /** use primary instead of lunar-green */
         @apply text-primary-950 dark:text-primary-200;
       }
     }
     &[data-color=primary] {
-      @apply bg-primary-200 text-primary-800;
-      @apply dark:bg-primary-700 dark:text-primary-50;
-      &[data-stuck=true] {
-        @apply bg-primary-100;
-        @apply dark:from-primary-900 dark:from-[-40%] dark:to-primary-950;
-      }
       .core-breadcrumbs {
         @apply text-primary-950 dark:text-primary-200;
       }
     }
     &[data-color=accent] {
-      @apply bg-accent-200 text-accent-800;
-      @apply dark:from-accent-900 dark:from-[-40%] dark:to-accent-950;
-      @apply dark:text-accent-50;
-      &[data-stuck=true] {
-        @apply bg-accent-100;
-        @apply dark:bg-accent-950;
-      }
       .core-breadcrumbs {
         @apply text-accent-950 dark:text-accent-200;
       }

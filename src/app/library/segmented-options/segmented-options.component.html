@@ -8,7 +8,9 @@
       coreHoverable
       [attr.data-checked]="radio.checked"
       [disabled]="isDisabled"
-      class="first-of-type:rounded-l-2 last-of-type:rounded-r-2 data-[checked=true]:z-10 data-[checked=true]:bg-accent-800 data-[checked=true]:text-accent-50 data-[checked=true]:rounded-2 data-[checked=true]:-mx-1 data-[checked=true]:px-2 data-[checked=true]:py-1.5 data-[checked=true]:-my-0.5 transition-all grow p-1 bg-accent-400 text-black"
+      class="first-of-type:rounded-l-2 last-of-type:rounded-r-2 data-[checked=true]:z-10 data-[checked=true]:rounded-2 data-[checked=true]:-mx-1 data-[checked=true]:px-2 data-[checked=true]:py-1.5 data-[checked=true]:-my-0.5 transition-all grow p-1"
+      coreHardSurface
+      color="accent"
     >
       <ng-container [ngTemplateOutlet]="option.templateRef"></ng-container>
     </button>

@@ -21,4 +21,23 @@
   .core-overlay-container {
     @apply contents;
   }
+
+  .core-hard-surface {
+    background-image: radial-gradient(farthest-corner at top left, var(--tw-gradient-stops));
+    :is(.dark &) {
+      box-shadow: inset 1px 1px 2px -2px black;
+    }
+    &[data-color=default] {
+      @apply dark:from-lunar-green-900 dark:from-[-40%] dark:to-lunar-green-950;
+      @apply dark:text-lunar-green-50;
+    }
+    &[data-color=primary] {
+      @apply dark:from-primary-900 dark:from-[-40%] dark:to-primary-950;
+      @apply dark:text-primary-50;
+    }
+    &[data-color=accent] {
+      @apply dark:from-accent-900 dark:from-[-40%] dark:to-accent-950;
+      @apply dark:text-accent-50;
+    }
+  }
 }

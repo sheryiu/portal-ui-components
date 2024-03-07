@@ -1,4 +1,5 @@
 import { Component, ContentChild, Directive, EventEmitter, HostBinding, HostListener, Input, Output, TemplateRef, inject } from '@angular/core';
+import { HardSurfaceDirective } from '../../components/color/hard-surface.directive';
 import { SharedModule } from '../../shared/shared.module';
 import { BreadcrumbsComponent } from '../breadcrumbs/breadcrumbs.component';
 
@@ -42,12 +43,17 @@ export class HeaderActionsDirective {
         <ng-container [ngTemplateOutlet]="headerActions!.templateRef"></ng-container>
       }
     </div>
-  `
+  `,
+  hostDirectives: [
+    {
+      directive: HardSurfaceDirective,
+      inputs: ['color']
+    }
+  ]
 })
 export class SimpleHeaderComponent {
   @ContentChild(HeaderDirective) header?: HeaderDirective;
   @ContentChild(HeaderActionsDirective) headerActions?: HeaderActionsDirective;
-  @HostBinding('attr.data-color') @Input() color: null | 'primary' | 'accent' = null;
   @Output() bgClick = new EventEmitter<void>();
 
   @HostListener('click', ['$event'])

@@ -150,32 +150,18 @@ module.exports = {
             '.dark &': {
               background: "radial-gradient(farthest-corner at top left, rgb(69 69 69 / 40%) 20%, rgb(29 29 29 / 70%))",
               border: "1px solid rgba(255, 255, 255, 0.1)",
-              // "box-shadow": "inset -1px -1px 2px rgb(155 192 155 / 10%), inset -1px -2px 12px rgb(52 52 52 / 20%)",
             },
             background: "rgba(255, 255, 255, 0.1)",
             border: "1px solid rgba(0, 0, 0, 0.1)",
-            // "box-shadow": "0 4px 16px rgba(0, 0, 0, 0.05)",
             "border-radius": "16px",
             "backdrop-filter": "blur(6px)",
           },
           ".bg-deep-glass": {
             '.dark &': {
-              background: "radial-gradient(farthest-corner at top left, rgb(29 29 29 / 100%) 30%, rgb(21 21 21 / 100%))",
+              background: "radial-gradient(farthest-corner at top left, rgb(44 44 44 / 100%), rgb(33 33 33 / 100%))",
             },
             "border-radius": "16px",
           },
-          // ".bg-deep-glass": {
-          //   '.dark &': {
-          //     background: "rgba(255, 255, 255, 0.05)",
-          //     border: "1px solid rgba(255, 255, 255, 0.1)",
-          //     "box-shadow": "0 4px 16px rgba(0, 0, 0, 0.1)",
-          //   },
-          //   background: "rgba(255, 255, 255, 0.3)",
-          //   border: "1px solid rgba(0, 0, 0, 0.1)",
-          //   "box-shadow": "0 4px 16px rgba(0, 0, 0, 0.05)",
-          //   "border-radius": "16px",
-          //   "backdrop-filter": "blur(16px)",
-          // },
         });
         matchUtilities(
           {
