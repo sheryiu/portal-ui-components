@@ -11,7 +11,7 @@ import { MULTILINGUAL_LANGUAGES } from '../multilingual-text-edit/multilingual-t
     {{ str }}
   } @else {
     <!-- TODO -->
-    <span class="text-">---</span>
+    <span class="text-secondary">---</span>
   }
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,

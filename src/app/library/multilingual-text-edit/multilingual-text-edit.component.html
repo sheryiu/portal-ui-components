@@ -1,6 +1,6 @@
 <div class="grid grid-cols-[max-content,1fr] items-center gap-x-1.5 w-full" [formGroup]="formGroup" (click)="onTouched?.()">
   @for (lang of langs; track lang) {
-    <span class="col-start-1 uppercase text-primary-200 font-medium text-sm">{{ lang }}</span>
+    <span class="col-start-1 uppercase text-primary-800 dark:text-primary-200 font-medium text-sm">{{ lang }}</span>
     <input class="col-start-2 px-4 py-2" coreInputField [formControlName]="lang" (input)="handleInput()">
   }
 </div>

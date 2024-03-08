@@ -6,12 +6,12 @@
     (pointerover)="onStarHover(i)"
     (click)="onStarSelect(i)"
   >
-    <i class="icon-6 text-yellow-200 font-variation-fill -mt-px transition-opacity" [ngClass]="{
+    <i class="icon-6 text-amber-600 dark:text-yellow-200 font-variation-fill -mt-px transition-opacity" [ngClass]="{
       'opacity-100': i <= (hoveringPosition ?? -1) && !isDisabled,
       'opacity-0': i > (hoveringPosition ?? -1) || isDisabled,
     }"
     >star_rate</i>
-    <i class="icon-5 text-amber-600 transition-opacity" [ngClass]="{
+    <i class="icon-5 text-yellow-500 dark:text-amber-600 transition-opacity" [ngClass]="{
       'font-variation-fill opacity-100': i <= (selectedPosition ?? -1),
       'opacity-70': i > (selectedPosition ?? -1),
     }">star_rate</i>

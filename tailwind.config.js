@@ -29,6 +29,7 @@ module.exports = {
     extend: {
       backgroundImage: {
         "gradient-160": "linear-gradient(160deg, var(--tw-gradient-stops))",
+        'gradient-radial': 'radial-gradient(var(--gradient-radial-shape, circle) at var(--gradient-radial-position, center), var(--tw-gradient-stops))',
       },
       fontFamily: {
         symbols: ["'Material Symbols Outlined'"],
@@ -151,15 +152,23 @@ module.exports = {
               background: "radial-gradient(farthest-corner at top left, rgb(69 69 69 / 40%) 20%, rgb(29 29 29 / 70%))",
               border: "1px solid rgba(255, 255, 255, 0.1)",
             },
-            background: "rgba(255, 255, 255, 0.1)",
+            background: "radial-gradient(farthest-corner at top left, rgb(250 250 250 / 40%) 20%, rgb(240 240 240 / 70%))",
             border: "1px solid rgba(0, 0, 0, 0.1)",
             "border-radius": "16px",
             "backdrop-filter": "blur(6px)",
           },
           ".bg-deep-glass": {
             '.dark &': {
-              background: "radial-gradient(farthest-corner at top left, rgb(44 44 44 / 100%), rgb(33 33 33 / 100%))",
+              background: "radial-gradient(farthest-corner at top left, rgb(44 44 44), rgb(33 33 33))",
             },
+            background: "radial-gradient(farthest-corner at top left, rgb(245 245 245) 60%, rgb(240 240 240))",
+            "border-radius": "16px",
+          },
+          ".bg-deep-glass-high-contrast": {
+            '.dark &': {
+              background: "radial-gradient(farthest-corner at top left, rgb(100 100 100), rgb(80 80 80))",
+            },
+            background: "radial-gradient(farthest-corner at top left, rgb(200 200 200), rgb(180 180 180))",
             "border-radius": "16px",
           },
         });
@@ -218,6 +227,18 @@ module.exports = {
             "scrollbar-gutter": "stable"
           }
         });
+        matchUtilities({
+          'radial-position': (value) => {
+            return {
+              '--gradient-radial-position': value,
+            }
+          }
+        }, {
+          type: ['position'],
+          values: {
+            'center': 'center'
+          }
+        })
       }
     ),
   ],

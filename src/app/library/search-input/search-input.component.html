@@ -13,10 +13,10 @@
 }
 <i class="icon-4 text-accent-200">arrow_drop_down</i>
 <ng-template #searchPopup let-data>
-  <div class="bg-deep-glass px-3.5 pt-2 max-h-50vh w-full shadow-md flex flex-col overflow-hidden">
+  <div class="bg-deep-glass-high-contrast px-3.5 pt-2 max-h-50vh w-full shadow-md flex flex-col overflow-hidden">
     <div class="relative flex items-stretch border rounded-2 overflow-hidden shrink-0">
       <div class="shrink-0 flex items-center px-2 [&:has(+:hover)]:bg-hover [&:has(+:focus-visible)]:bg-hover transition-colors">
-        <i class="icon-4">search</i>
+        <i class="icon-4 text-primary-700 dark:text-primary-500">search</i>
       </div>
       <input coreInputField class="px-2 py-1" placeholder="Search" [formControl]="searchControl" (input)="searchInput()">
     </div>

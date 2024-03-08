@@ -1,5 +1,5 @@
 <div class="@container/fieldset">
-  <div class="bg-black/15 border rounded-3 py-1 grid @xs/fieldset:grid-cols-2 overflow-hidden">
+  <div class="bg-white/50 dark:bg-black/15 border rounded-3 py-1 grid @xs/fieldset:grid-cols-2 overflow-hidden">
     @for (field of formFields; track field.id) {
       @if (field.templateRef) {
         <ng-container [ngTemplateOutlet]="field.templateRef"></ng-container>

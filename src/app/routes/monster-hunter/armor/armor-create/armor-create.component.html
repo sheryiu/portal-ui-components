@@ -38,7 +38,7 @@
           </core-form-field>
           <core-form-field>
             <div *coreFormFieldLabel>Equip Position</div>
-            <core-segmented-options *coreFormFieldInput formControlName="position" class="me-2">
+            <core-segmented-options *coreFormFieldInput formControlName="position" class="me-2" color="accent">
               <div *coreOption="'helm'">Helm</div>
               <div *coreOption="'chest'">Chest</div>
               <div *coreOption="'arms'">Arms</div>
@@ -52,13 +52,13 @@
           </core-form-field>
           <core-form-field>
             <div *coreFormFieldLabel>Rank</div>
-            <core-segmented-options *coreFormFieldInput formControlName="rank" class="me-2">
+            <core-segmented-options *coreFormFieldInput formControlName="rank" class="me-2" color="accent">
               <div *coreOption="'base'">Base</div>
               <div *coreOption="'iceborne'">Iceborne</div>
             </core-segmented-options>
           </core-form-field>
         </core-form-fieldset>
-        <span class="px-4 pt-2 font-display font-light text-accent-200 tracking-wider">Defense</span>
+        <span class="px-4 pt-2 font-display font-light text-accent-800 dark:text-accent-200 tracking-wider">Defense</span>
         <core-form-fieldset>
           <core-form-field>
             <div *coreFormFieldLabel>Defense at Lv.1</div>
@@ -74,7 +74,7 @@
             <input *coreFormFieldInput formControlName="maxDef" type="number" coreInputField class="px-4 py-2"/>
           </core-form-field>
         </core-form-fieldset>
-        <span class="px-4 pt-2 font-display font-light text-accent-200 tracking-wider">Elemental Resistance</span>
+        <span class="px-4 pt-2 font-display font-light text-accent-800 dark:text-accent-200 tracking-wider">Elemental Resistance</span>
         <core-form-fieldset formGroupName="resistance">
           <core-form-field>
             <div *coreFormFieldLabel>Fire</div>

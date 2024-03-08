@@ -54,7 +54,7 @@ export class BackgroundGraphicsComponent implements AfterViewInit {
       if (theme === 'dark') {
         ctx.fillStyle = `rgb(255 255 255 / ${ Math.random() * 0.025 })`
       } else {
-        ctx.fillStyle = `rgb(0 0 0 / ${ Math.random() * 0.04 })`
+        ctx.fillStyle = `rgb(0 0 0 / ${ Math.random() * 0.07 })`
       }
       ctx.fill(path);
     }

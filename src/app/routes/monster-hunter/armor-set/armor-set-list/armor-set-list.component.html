@@ -27,7 +27,7 @@
                 </core-table-header-cell>
                 <core-table-header-cell *coreTableHeaderCellDef="'rarity'" [sortedAsc]="sortByRarity$$() === 'asc'" [sortedDesc]="sortByRarity$$() === 'desc'">
                   Rarity
-                  <core-segmented-options *coreTableHeaderCellSort [value]="sortByRarity$$()" (valueChange)="onChangeSort(['rarity', $event])">
+                  <core-segmented-options *coreTableHeaderCellSort [value]="sortByRarity$$()" (valueChange)="onChangeSort(['rarity', $event])" color="accent">
                     <div *coreOption="'asc'" class="flex items-center gap-1"><i class="icon-4 rotate-180 -scale-x-100">sort</i><span class="text-sm/[0] font-bold">1 to 9</span></div>
                     <div *coreOption="'desc'" class="flex items-center gap-1"><i class="icon-4">sort</i><span class="text-sm/[0] font-bold">9 to 1</span></div>
                   </core-segmented-options>

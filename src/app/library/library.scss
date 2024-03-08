@@ -11,7 +11,7 @@
       }
     }
     > .core-sectioned-outlet-child-bg {
-      @apply inset-0 -left-8 absolute bg-gradient-to-r from-transparent to-[4rem] to-lunar-green-950/90;
+      @apply inset-0 -left-8 absolute bg-gradient-to-r from-transparent to-[4rem] to-lunar-green-300/90 dark:to-lunar-green-950/90;
       &.core-sectioned-outlet-half {
         @apply md:left-1/2 md:-ms-8;
       }
@@ -40,10 +40,7 @@
 
   .core-simple-header {
     @apply overflow-hidden rounded-3 ps-6 pe-3 pt-5 pb-3 flex justify-between items-end -top-6 transition-all;
-    @apply bg-lunar-green-100 text-primary-800 border-b;
-    &[data-stuck=false] {
-      @apply border-transparent;
-    }
+    @apply bg-lunar-green-100 text-primary-800;
     &[data-stuck=true] {
       @apply -mx-2 rounded-none;
     }
@@ -77,7 +74,8 @@
       > a {
         @apply col-span-full grid grid-cols-subgrid border-b relative;
         &[data-active=true] {
-          @apply bg-hover before:absolute before:bg-primary-600 before:-left-0.5 before:top-[10%] before:bottom-[10%] before:w-1 before:rounded-full;
+          @apply bg-gradient-to-r from-hover to-transparent to-50%;
+          // @apply before:absolute before:bg-primary-600 before:-left-0.5 before:top-[10%] before:bottom-[10%] before:w-1 before:rounded-full;
         }
       }
     }
@@ -122,9 +120,12 @@
     @apply block transition-all overflow-hidden pb-2;
     .core-tab-bar-tabs {
       @apply w-full flex gap-1.5 transition-all sticky px-2;
+      > button {
+        @apply basis-full grow rounded-2 px-1 h-8 truncate;
+      }
     }
     &[data-stuck=true] {
-      @apply bg-lunar-green-100 dark:bg-lunar-green-900 -mx-2;
+      @apply -mx-2;
       .core-tab-bar-tabs {
         @apply px-4;
       }
@@ -137,7 +138,7 @@
   }
 
   .core-tab-bar-header {
-    @apply bg-hover text-primary-500 text-base font-medium;
+    @apply bg-hover text-primary-700 dark:text-primary-500 text-base font-medium;
     @apply border border-s-0 rounded-e-2 py-1 ps-4 pe-2 min-h-11;
     @apply flex justify-between items-center gap-2;
   }
@@ -155,10 +156,10 @@
     }
     img {
       @apply transition-all size-full object-cover;
-      mask: linear-gradient(to right, black, rgb(0 0 0 / 0.4) 50%, rgb(0 0 0 / 0.1));
-      mask-size: 200%;
+      // mask: linear-gradient(to right, black, rgb(0 0 0 / 0.4) 50%, rgb(0 0 0 / 0.1));
+      // mask-size: 200%;
       &:has(+ button:hover) {
-        mask-position: 100%;
+        // mask-position: 100%;
         @apply object-contain;
       }
     }
@@ -171,6 +172,22 @@
       grid-template-areas: "main";
       > * {
         grid-area: main;
+      }
+    }
+  }
+
+  .core-segmented-options {
+    > div {
+      @apply flex items-center gap-px px-1 py-1;
+    }
+    input[type=radio] {
+      @apply hidden;
+    }
+    .core-segmented-options-button {
+      @apply text-sm transition-all grow px-1 py-1.5;
+      @apply first-of-type:rounded-l-2 last-of-type:rounded-r-2;
+      &[data-checked=true] {
+        @apply z-10 rounded-2 -mx-1 px-2 py-2 -my-0.5;
       }
     }
   }

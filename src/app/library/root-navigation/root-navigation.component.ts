@@ -2,6 +2,7 @@ import { Component, inject } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { nanoid } from 'nanoid';
 import { filter, map } from 'rxjs';
+import { OverlayRefExtra } from '../../components/overlay/overlay-ref-extra';
 import { OverlayService } from '../../components/overlay/overlay.service';
 import { SharedModule } from '../../shared/shared.module';
 import { ROOT_NAVIGATION_TABS } from './root-navigation';
@@ -34,6 +35,7 @@ export class RootNavigationComponent {
   router = inject(Router);
   route = inject(ActivatedRoute);
   private overlay = inject(OverlayService);
+  overlayRef?: OverlayRefExtra;
 
   menuOpened = false;
 
@@ -55,14 +57,16 @@ export class RootNavigationComponent {
   )
 
   onUserClick(event: Event) {
+    if (this.overlayRef) return;
     if (event.currentTarget instanceof HTMLElement) {
-      this.overlay.open(UserDialogComponent, {
+      this.overlayRef = this.overlay.open(UserDialogComponent, {
         positionStrategy: this.overlay.position().flexibleConnectedTo(event.currentTarget)
           .withPositions([
             { overlayX: 'start', overlayY: 'bottom', originX: 'end', originY: 'bottom', offsetX: 8 },
           ]),
         scrollStrategy: this.overlay.scrollStrategies.reposition(),
       })
+      this.overlayRef.afterClosed$.subscribe(() => this.overlayRef = undefined);
     }
   }
 }

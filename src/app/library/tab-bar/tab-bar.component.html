@@ -4,9 +4,8 @@
       <button
         #tabButton
         type="button"
-        class="grow rounded-2 px-1 h-8 truncate"
         [ngClass]="{
-          'text-primary-500': currentIndex === $index
+          'text-primary-700 dark:text-primary-500 font-medium': currentIndex === $index
         }"
         coreHoverable
         (click)="onTabClick(tab.id)"

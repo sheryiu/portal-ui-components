@@ -1,6 +1,7 @@
 import { AfterViewInit, ChangeDetectorRef, Component, ContentChildren, EventEmitter, Input, Output, QueryList, forwardRef, inject } from '@angular/core';
 import { ControlValueAccessor, FormBuilder, FormsModule, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
 import { nanoid } from 'nanoid';
+import { HardSurfaceDirective } from '../../components/color/hard-surface.directive';
 import { SharedModule } from '../../shared/shared.module';
 import { OptionDirective } from './option.directive';
 
@@ -32,6 +33,7 @@ export class SegmentedOptionsComponent<T> implements AfterViewInit, ControlValue
 
   formControl = inject(FormBuilder).nonNullable.control(null as unknown as T);
 
+  @Input() color: HardSurfaceDirective['color'] = 'default';
   @Input() name: string = nanoid();
   @Input() set value(v: T) {
     this.writeValue(v);

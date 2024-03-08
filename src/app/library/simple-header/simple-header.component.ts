@@ -26,7 +26,7 @@ export class HeaderActionsDirective {
   ],
   host: {
     class: 'core-simple-header',
-    ngSkipHydration: 'true'
+    // ngSkipHydration: 'true'
   },
   template: `
     <!-- don't use defer here to solve the duplication bug -->
