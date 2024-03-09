@@ -7,6 +7,7 @@ import { EMPTY, catchError, concatMap, debounceTime, switchMap, tap } from 'rxjs
 import { ArmorSetDataPipe } from '../../../../data-pipes/armor-set-data.pipe';
 import { Armor } from '../../../../data/armor';
 import { ArmorSet } from '../../../../data/armor-set';
+import { Rank } from '../../../../data/common';
 import { LibraryModule } from '../../../../library/library.module';
 import { provideSearchSuggestions } from '../../../../library/search-input/search-input';
 import { SharedModule } from '../../../../shared/shared.module';
@@ -66,7 +67,7 @@ export class ArmorCreateComponent extends EffectFn {
     this.formGroup.controls.rarity.valueChanges.pipe(
       tap((rarity) => {
         if (this.formGroup.controls.rank.pristine) {
-          this.formGroup.controls.rank.setValue((rarity >= 9) ? 'iceborne' : 'base')
+          this.formGroup.controls.rank.setValue((rarity >= 9) ? 'iceborne' as Rank : 'base' as Rank)
         }
       }),
       takeUntilDestroyed(),

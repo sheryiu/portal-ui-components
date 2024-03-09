@@ -2,14 +2,11 @@ import { Injectable, inject, signal } from '@angular/core';
 import { liveQuery } from 'dexie';
 import { nanoid } from 'nanoid';
 import { from } from 'rxjs';
-import { ArmorSet } from '../data/armor-set';
 import { DatabaseService } from '../data/database.service';
+import { Skill } from '../data/skill';
 
 type Filter = {
   name?: string;
-  rarityFrom?: number;
-  rarityTo?: number;
-  rarityEqual?: number;
 };
 
 type Sort = {
@@ -19,7 +16,7 @@ type Sort = {
 @Injectable({
   providedIn: 'root'
 })
-export class ArmorSetService {
+export class SkillService {
   private data = inject(DatabaseService);
 
   list = (
@@ -29,18 +26,9 @@ export class ArmorSetService {
     if (this.data.isServer) return [];
     let filtered;
     if (filter?.name != null) {
-      const name = filter.name.toLowerCase();
-      filtered = this.data.armorSets.filter(obj => !!(obj.name?.en?.toLowerCase()?.includes(name) || obj.name?.zh?.toLowerCase()?.includes(name) || obj.name?.jp?.toLowerCase()?.includes(name)))
-    } else if (filter?.rarityEqual != null) {
-      filtered = this.data.armorSets.where('rarity').equals(filter.rarityEqual);
-    } else if (filter?.rarityFrom != null && filter?.rarityTo != null) {
-      filtered = this.data.armorSets.where('rarity').between(filter.rarityFrom, filter.rarityTo, true, true);
-    } else if (filter?.rarityFrom != null) {
-      filtered = this.data.armorSets.where('rarity').aboveOrEqual(filter.rarityFrom);
-    } else if (filter?.rarityTo != null) {
-      filtered = this.data.armorSets.where('rarity').belowOrEqual(filter.rarityTo);
+      filtered = this.data.skills.filter(obj => !!(obj.name.en?.includes(filter.name!) || obj.name.zh?.includes(filter.name!) || obj.name.jp?.includes(filter.name!)))
     } else {
-      filtered = this.data.armorSets.toCollection();
+      filtered = this.data.skills.toCollection();
     }
     if (sort && Object.values(sort).filter(v => v == 'asc' || v == 'desc').length > 0) {
       const sortKey = Object.entries(sort).filter(([key, v]) => v == 'asc' || v == 'desc')[0][0];
@@ -52,23 +40,23 @@ export class ArmorSetService {
     } else {
       return filtered.toArray();
     }
-  });
+  })
 
   mainListFilter$$ = signal<Filter>({});
   mainListSort$$ = signal<Sort>({
-    rarity: 'desc'
+    name: 'desc'
   });
 
   getOne = (
     id: string
   ) => liveQuery(() => {
     if (this.data.isServer) return undefined;
-    return this.data.armorSets.get(id);
+    return this.data.skills.get(id);
   })
 
-  create = (input: Pick<ArmorSet, 'name' | 'rank' | 'rarity'>) => {
+  create = (input: Pick<Skill, 'name' | 'color'>) => {
     const now = new Date();
-    return from(this.data.armorSets.add({
+    return from(this.data.skills.add({
       id: nanoid(),
       createdAt: now,
       updatedAt: now,
@@ -76,8 +64,8 @@ export class ArmorSetService {
     }))
   }
 
-  update = (id: string, input: Pick<ArmorSet, 'name' | 'rank' | 'rarity'>) => {
-    return from(this.data.armorSets.update(
+  update = (id: string, input: Partial<Pick<Skill, 'name' | 'color' | 'description' | 'levels'>>) => {
+    return from(this.data.skills.update(
       id,
       {
         updatedAt: new Date(),

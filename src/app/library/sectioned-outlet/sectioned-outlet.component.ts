@@ -2,6 +2,7 @@ import { animate, group, query, sequence, style, transition, trigger } from '@an
 import { Component, inject } from '@angular/core';
 import { ChildrenOutletContexts, RouterOutlet } from '@angular/router';
 import { SharedModule } from '../../shared/shared.module';
+import { getSectionedOutletData } from './sectioned-outlet';
 
 @Component({
   selector: 'core-sectioned-outlet',
@@ -63,11 +64,11 @@ export class SectionedOutletComponent {
   private contexts = inject(ChildrenOutletContexts);
 
   getRouteAnimationData() {
-    return this.contexts.getContext('primary')?.route?.snapshot?.data?.['animation'];
+    return getSectionedOutletData(this.contexts.getContext('primary')?.route?.snapshot?.data)?.animation;
   }
 
   getRouteDisplayType(): 'half' | 'full' | undefined {
-    return this.contexts.getContext('primary')?.route?.snapshot?.data?.['displayType'];
+    return getSectionedOutletData(this.contexts.getContext('primary')?.route?.snapshot?.data)?.displayType;
   }
 
 }

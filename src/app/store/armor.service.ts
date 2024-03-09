@@ -69,9 +69,9 @@ export class ArmorService {
     const now = new Date();
     return from(this.data.armors.add({
       id: nanoid(),
-      ...input,
       createdAt: now,
       updatedAt: now,
+      ...input,
     }))
   }
 
@@ -79,8 +79,8 @@ export class ArmorService {
     return from(this.data.armors.update(
       id,
       {
-        ...input,
         updatedAt: new Date(),
+        ...input,
       }
     ))
   }

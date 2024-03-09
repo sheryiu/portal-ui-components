@@ -3,3 +3,8 @@ export type MultilingualText = {
   jp?: string;
   zh?: string;
 }
+
+export enum Rank {
+  Base = 'base',
+  Iceborne = 'iceborne',
+}

@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
 import { map, switchMap } from 'rxjs';
 import { breadcrumb } from '../../../library/breadcrumbs/breadcrumbs';
+import { sectionedOutlet } from '../../../library/sectioned-outlet/sectioned-outlet';
 import { ArmorService } from '../../../store/armor.service';
 
 export const ROUTES: Routes = [
@@ -20,8 +21,7 @@ export const ROUTES: Routes = [
           ...breadcrumb({
             title: '+ New'
           }),
-          animation: 'armor-create',
-          displayType: 'half',
+          ...sectionedOutlet('half'),
         }
       },
       {
@@ -36,8 +36,7 @@ export const ROUTES: Routes = [
               map(d => Object.values(d?.name ?? {}).find(v => v != null) ?? '---'),
             )
           }),
-          animation: 'armor-detail',
-          displayType: 'half',
+          ...sectionedOutlet('half'),
         },
         children: [
           {
@@ -48,8 +47,7 @@ export const ROUTES: Routes = [
                 deps: [ArmorService] as const,
                 title: 'Edit Stats'
               }),
-              animation: 'armor-edit-stats',
-              displayType: 'full',
+              ...sectionedOutlet('full'),
             },
           }
         ]

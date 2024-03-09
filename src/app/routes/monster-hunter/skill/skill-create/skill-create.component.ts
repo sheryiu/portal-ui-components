@@ -4,14 +4,13 @@ import { EffectFn } from '@ngneat/effects-ng';
 import { franc } from 'franc-min';
 import { EMPTY, catchError, concatMap, tap } from 'rxjs';
 import { OverlayRefExtra } from '../../../../components/overlay/overlay-ref-extra';
-import { ArmorSet } from '../../../../data/armor-set';
-import { Rank } from '../../../../data/common';
+import { Skill } from '../../../../data/skill';
 import { LibraryModule } from '../../../../library/library.module';
 import { SharedModule } from '../../../../shared/shared.module';
-import { ArmorSetService } from '../../../../store/armor-set.service';
+import { SkillService } from '../../../../store/skill.service';
 
 @Component({
-  selector: 'app-armor-set-create',
+  selector: 'app-skill-create',
   standalone: true,
   imports: [
     SharedModule,
@@ -19,30 +18,29 @@ import { ArmorSetService } from '../../../../store/armor-set.service';
     FormsModule,
     ReactiveFormsModule,
   ],
-  templateUrl: './armor-set-create.component.html',
+  templateUrl: './skill-create.component.html',
 })
-export class ArmorSetCreateComponent extends EffectFn {
-  private service = inject(ArmorSetService);
+export class SkillCreateComponent extends EffectFn {
+  private service = inject(SkillService);
 
   private overlayRef = inject(OverlayRefExtra);
   private formBuilder = inject(FormBuilder);
   formGroup = this.formBuilder.nonNullable.group({
     name: [null as unknown as string, [Validators.required]],
-    rarity: [null as unknown as number, [Validators.required]],
+    color: [null as unknown as string, [Validators.required]],
   })
 
   onSaveClick = this.createEffectFn<void>(args$ => args$.pipe(
     concatMap(() => {
       const value = this.formGroup.getRawValue();
       const lang = franc(value.name, { only: ['jpn', 'eng', 'cmn'], minLength: 1 });
-      let name: ArmorSet['name'];
+      let name: Skill['name'];
       if (lang === 'cmn') name = { zh: value.name };
       else if (lang === 'jpn') name = { jp: value.name };
       else name = { en: value.name };
       return this.service.create({
         name,
-        rarity: value.rarity,
-        rank: value.rarity >= 9 ? 'iceborne' as Rank : 'base' as Rank,
+        color: value.color,
       }).pipe(
         catchError(() => EMPTY),
       );

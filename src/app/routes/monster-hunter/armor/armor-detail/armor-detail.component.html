@@ -14,7 +14,7 @@
           <div *coreHeader>
             @if (headerImage$ | async; as bgImage) {
               <div
-                class="absolute inset-0 -z-10 bg-cover bg-center from-60% from-lunar-green-100/50 to-lunar-green-100 dark:from-lunar-green-950/50 dark:to-lunar-green-950"
+                class="absolute inset-0 -z-10 bg-cover bg-center group-data-[stuck=true]/header:blur from-60% from-lunar-green-100/50 to-lunar-green-100 dark:from-lunar-green-950/50 dark:to-lunar-green-950 transition-all"
                 [style.backgroundImage]="bgImage"
               ></div>
             }
@@ -22,7 +22,6 @@
               <h2><core-multilingual-text-display [value]="data.name"></core-multilingual-text-display></h2>
             }
           </div>
-          <!--from-transparent to-lunar-green-900/90 to-70% data-[stuck=true]:from-lunar-green-900 data-[stuck=true]:to-lunar-green-900 -->
         </core-simple-header>
         <div class="flex flex-col gap-4 pt-4">
           <core-tab-bar coreStickyHeader checkFor="88" class="top-18 data-[stuck=true]:bg-lunar-green-100 data-[stuck=true]:dark:bg-lunar-green-950"></core-tab-bar>
@@ -64,7 +63,7 @@
             <div class="flex flex-col">
               <span class="font-medium">
                 @if (data$ | async; as data) {
-                  {{ data.slots }}
+                  {{ data.decorationSlots }}
                 }
               </span>
             </div>

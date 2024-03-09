@@ -25,7 +25,7 @@ export class HeaderActionsDirective {
     BreadcrumbsComponent,
   ],
   host: {
-    class: 'core-simple-header',
+    class: 'core-simple-header group/header',
     // ngSkipHydration: 'true'
   },
   template: `

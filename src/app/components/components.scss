@@ -37,7 +37,7 @@
     &[data-color=primary] {
       @apply from-primary-200 to-primary-300;
       @apply text-primary-950;
-      @apply dark:from-primary-900 dark:to-primary-950;
+      @apply dark:from-primary-800 dark:to-primary-900;
       @apply dark:text-primary-50;
     }
     &[data-color=accent] {

@@ -1,5 +1,7 @@
-import { Component, inject } from '@angular/core';
-import { ThemeService } from '../../../components/services/theme.service';
+import { isPlatformServer } from '@angular/common';
+import { Component, PLATFORM_ID, inject } from '@angular/core';
+import Dexie from 'dexie';
+import { Observable, from, map, startWith, switchMap } from 'rxjs';
 import { SharedModule } from '../../../shared/shared.module';
 import { ThemeToggleComponent } from './theme-toggle/theme-toggle.component';
 
@@ -14,6 +16,18 @@ import { ThemeToggleComponent } from './theme-toggle/theme-toggle.component';
   styles: ``
 })
 export class UserDialogComponent {
-  private themeService = inject(ThemeService);
+  private platformId = inject(PLATFORM_ID);
 
+  tmpStorage$ = new Observable(subscriber => {
+    if (isPlatformServer(this.platformId)) return;
+    const listener = () => {
+      subscriber.next(null);
+    }
+    Dexie.on('storagemutated', listener);
+    return () => Dexie.on('storagemutated').unsubscribe(listener);
+  }).pipe(
+    startWith(null),
+    switchMap(() => from(navigator.storage.estimate())),
+    map(storage => storage.usage)
+  )
 }

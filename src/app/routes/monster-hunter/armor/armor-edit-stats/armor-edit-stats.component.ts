@@ -51,11 +51,11 @@ export class ArmorEditStatsComponent extends EffectFn {
           maxLevel: data?.maxLevel! ?? null,
           maxDef: data?.maxDef! ?? null,
           resistance: {
-            fire: data?.resistance.fire! ?? null,
-            water: data?.resistance.water! ?? null,
-            thunder: data?.resistance.thunder! ?? null,
-            ice: data?.resistance.ice! ?? null,
-            dragon: data?.resistance.dragon! ?? null,
+            fire: data?.resistance?.fire! ?? null,
+            water: data?.resistance?.water! ?? null,
+            thunder: data?.resistance?.thunder! ?? null,
+            ice: data?.resistance?.ice! ?? null,
+            dragon: data?.resistance?.dragon! ?? null,
           },
         })
       }),

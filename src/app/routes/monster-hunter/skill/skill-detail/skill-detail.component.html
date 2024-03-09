@@ -1,0 +1,56 @@
+<core-sectioned-outlet>
+  <div
+    class="h-full relative flex flex-col overflow-x-hidden overflow-y-auto gutter-stable"
+    cdkVirtualScrollingElement
+    cdkScrollable
+    coreTabBarContainerElement
+  >
+    <div class="bg-deep-glass grow p-2">
+      <div class="flex flex-col">
+        <core-simple-header coreStickyHeader coreHoverable (bgClick)="onHeaderClick()">
+          @if (data$ | async; as data) {
+            <h2 *coreHeader><core-multilingual-text-display [value]="data.name"></core-multilingual-text-display></h2>
+          }
+        </core-simple-header>
+        <div class="flex flex-col gap-4 pt-4">
+          <div class="grid grid-cols-[min-content,1fr] gap-4 px-2">
+            @if (data$ | async; as data) {
+              @for (level of data.levels; track level.level) {
+                <span class="w-12 text-secondary uppercase font-bold">Lv {{ level.level }}</span>
+                <div class="flex flex-col gap-1">
+                  <span>10%</span>
+                  <span>12</span>
+                </div>
+                @if (!$last) {
+                  <div class="border-t col-span-2"></div>
+                }
+              }
+            }
+          </div>
+        </div>
+      </div>
+    </div>
+    @defer {
+      <div class="bg-deep-glass flex-none px-4 py-2 mt-4 @container/info-panel">
+        <div class="flex flex-col @md/info-panel:flex-row-reverse gap-2">
+          <div class="flex flex-row @md/info-panel:flex-col gap-2 justify-end">
+            <a coreHoverable coreHardSurface color="primary" class="px-4 py-1 min-h-8 rounded-2 grow" [routerLink]="['level', 'new']">
+              Add Levels
+            </a>
+            <button coreHoverable coreHardSurface color="accent" class="px-4 py-1 min-h-8 rounded-2 grow">
+              Edit Levels
+            </button>
+          </div>
+          <div class="flex flex-col gap-0.5 grow justify-end text-sm text-secondary">
+            @if (data$ | async; as data) {
+              <p>Last updated {{ data.updatedAt | date: 'long' }}</p>
+            }
+            @if (data$ | async; as data) {
+              <p>Created at {{ data.createdAt | date: 'long' }}</p>
+            }
+          </div>
+        </div>
+      </div>
+    }
+  </div>
+</core-sectioned-outlet>

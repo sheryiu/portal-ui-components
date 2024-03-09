@@ -1,6 +1,7 @@
-import { Router, Routes } from '@angular/router';
+import { Routes } from '@angular/router';
 import { map, switchMap } from 'rxjs';
 import { breadcrumb } from '../../../library/breadcrumbs/breadcrumbs';
+import { sectionedOutlet } from '../../../library/sectioned-outlet/sectioned-outlet';
 import { ArmorSetService } from '../../../store/armor-set.service';
 
 export const ROUTES: Routes = [
@@ -25,8 +26,7 @@ export const ROUTES: Routes = [
               map(d => Object.values(d?.name ?? {}).find(v => v != null) ?? '---'),
             )
           }),
-          animation: 'armor-set-detail',
-          displayType: 'half',
+          ...sectionedOutlet('half'),
         },
       }
     ]

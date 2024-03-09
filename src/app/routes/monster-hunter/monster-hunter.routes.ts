@@ -9,4 +9,8 @@ export const ROUTES: Routes = [
     path: 'armor-set',
     loadChildren: () => import('./armor-set/armor-set.routes').then(r => r.ROUTES),
   },
+  {
+    path: 'skill',
+    loadChildren: () => import('./skill/skill.routes').then(r => r.ROUTES),
+  }
 ]

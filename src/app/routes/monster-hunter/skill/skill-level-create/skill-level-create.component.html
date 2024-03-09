@@ -1,0 +1,38 @@
+<form
+  class="h-full relative flex flex-col overflow-x-hidden overflow-y-auto gutter-stable"
+  cdkVirtualScrollingElement
+  cdkScrollable
+>
+<div class="bg-deep-glass grow p-2">
+  <div class="flex flex-col">
+    <core-simple-header coreStickyHeader color="accent">
+      <h2 *coreHeader>New</h2>
+    </core-simple-header>
+    <div class="flex flex-col gap-4 pt-4" [formGroup]="formGroup">
+      <core-form-fieldset>
+        <core-form-field>
+          <div *coreFormFieldLabel>Level</div>
+          <input *coreFormFieldInput coreInputField formControlName="level" type="number" class="px-4 py-2">
+        </core-form-field>
+        <core-form-field>
+          <div *coreFormFieldLabel>Description</div>
+          <core-multilingual-text-edit *coreFormFieldInput formControlName="description"></core-multilingual-text-edit>
+        </core-form-field>
+      </core-form-fieldset>
+      <span class="px-4 pt-2 font-display font-light text-accent-800 dark:text-accent-200 tracking-wider">Effects</span>
+      @for (control of formGroup.controls.effects.controls; track $index) {
+        <ng-container [formGroup]="control">
+          <core-skill-effect-edit></core-skill-effect-edit>
+        </ng-container>
+      }
+      <core-skill-new-effect (addEffect)="addEffect(formGroup.controls.effects.length, $event)"></core-skill-new-effect>
+    </div>
+  </div>
+</div>
+<core-form-submit
+  [dirty]="true"
+  [disabled]="formGroup.disabled || formGroup.invalid"
+  (cancelClick)="onCancel()"
+  (saveClick)="onSave()"
+></core-form-submit>
+</form>

@@ -166,7 +166,7 @@ module.exports = {
           },
           ".bg-deep-glass-high-contrast": {
             '.dark &': {
-              background: "radial-gradient(farthest-corner at top left, rgb(100 100 100), rgb(80 80 80))",
+              background: "radial-gradient(farthest-corner at top left, rgb(60 60 60), rgb(50 50 50))",
             },
             background: "radial-gradient(farthest-corner at top left, rgb(200 200 200), rgb(180 180 180))",
             "border-radius": "16px",

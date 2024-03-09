@@ -1,8 +1,7 @@
-import { MultilingualText } from './common';
+import { Rank } from './common';
+import { Root } from './root';
 
-export type ArmorSet = {
-  id: string;
-  name: MultilingualText;
+export type ArmorSet = Root & {
   rarity: number;
-  rank: 'base' | 'iceborne';
+  rank: Rank;
 }

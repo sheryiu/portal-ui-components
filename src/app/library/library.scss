@@ -13,7 +13,11 @@
     > .core-sectioned-outlet-child-bg {
       @apply inset-0 -left-8 absolute bg-gradient-to-r from-transparent to-[4rem] to-lunar-green-300/90 dark:to-lunar-green-950/90;
       &.core-sectioned-outlet-half {
-        @apply md:left-1/2 md:-ms-8;
+        @apply lg:left-1/4 xl:left-1/2;
+        @apply lg:-ms-8 transition-[left];
+      }
+      &:has(+ .core-sectioned-outlet-half .core-sectioned-outlet-half) {
+        @apply lg:left-0 xl:left-1/4;
       }
     }
     > .core-sectioned-outlet-child {
@@ -31,7 +35,11 @@
         @apply before:opacity-100;
       }
       &.core-sectioned-outlet-half {
-        @apply md:left-1/2;
+        @apply lg:left-1/4 xl:left-1/2;
+        @apply transition-[left];
+        &:has(.core-sectioned-outlet-half) {
+          @apply lg:left-0 xl:left-1/4;
+        }
       }
       &.core-sectioned-outlet-full {
       }

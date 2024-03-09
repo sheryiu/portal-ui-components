@@ -63,7 +63,8 @@ export class RootNavigationComponent {
         positionStrategy: this.overlay.position().flexibleConnectedTo(event.currentTarget)
           .withPositions([
             { overlayX: 'start', overlayY: 'bottom', originX: 'end', originY: 'bottom', offsetX: 8 },
-          ]),
+          ])
+          .withViewportMargin(8),
         scrollStrategy: this.overlay.scrollStrategies.reposition(),
       })
       this.overlayRef.afterClosed$.subscribe(() => this.overlayRef = undefined);
