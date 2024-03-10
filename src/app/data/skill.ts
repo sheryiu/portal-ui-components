@@ -9,37 +9,41 @@ export type GeneralSkillEffect = {
 
 export type AttackSkillEffect = {
   type: 'attack';
-  description: MultilingualText;
   value: number;
   calculationType: 'additive' | 'multiplicative';
 }
 
 export type AffinitySkillEffect = {
   type: 'affinity';
-  description: MultilingualText;
   value: number;
   calculationType: 'additive' | 'multiplicative';
 }
 
 export type DefenseSkillEffect = {
   type: 'defense';
-  description: MultilingualText;
   value: number;
   calculationType: 'additive' | 'multiplicative';
 }
 
-export type ResistanceSkillEffect = {
-  type: 'resistance';
-  description: MultilingualText;
+export type ElementalAttackSkillEffect = {
+  type: 'elementalAttack';
   value: number;
   calculationType: 'additive' | 'multiplicative';
-  resistanceElement: 'all' | keyof ArmorResistance;
+  element: keyof ArmorResistance;
+}
+
+export type ResistanceSkillEffect = {
+  type: 'resistance';
+  value: number;
+  calculationType: 'additive' | 'multiplicative';
+  element: keyof ArmorResistance;
 }
 
 export type SkillEffect = GeneralSkillEffect |
   AttackSkillEffect |
   AffinitySkillEffect |
   DefenseSkillEffect |
+  ElementalAttackSkillEffect |
   ResistanceSkillEffect;
 
 export type SkillLevel = {
@@ -47,6 +51,8 @@ export type SkillLevel = {
   level: number;
   isLocked: boolean;
   effects?: SkillEffect[];
+  conditions?: any[];
+  duration?: number;
 }
 
 export type Skill = Root & {

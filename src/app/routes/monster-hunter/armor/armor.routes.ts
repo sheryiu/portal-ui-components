@@ -44,7 +44,6 @@ export const ROUTES: Routes = [
             loadComponent: () => import('./armor-edit-stats/armor-edit-stats.component').then(c => c.ArmorEditStatsComponent),
             data: {
               ...breadcrumb({
-                deps: [ArmorService] as const,
                 title: 'Edit Stats'
               }),
               ...sectionedOutlet('full'),

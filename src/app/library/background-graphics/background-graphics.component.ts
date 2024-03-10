@@ -34,7 +34,7 @@ export class BackgroundGraphicsComponent implements AfterViewInit {
     const ctx = this.canvas.nativeElement.getContext('2d');
     if (!ctx) return;
     const points = [];
-    const maxDots = window.innerWidth * window.innerHeight / window.devicePixelRatio / 20_000;
+    const maxDots = window.innerWidth * window.innerHeight / ((window.devicePixelRatio - 1)/3 + 1) / 50_000;
     for (let i = 0; i < maxDots; i++) {
       points.push({
         x: Math.floor((Math.random() * 1.5 - 0.25) * window.innerWidth),

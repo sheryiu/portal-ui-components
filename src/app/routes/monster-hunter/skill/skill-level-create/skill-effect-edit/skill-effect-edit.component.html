@@ -1,36 +1,46 @@
 <core-form-fieldset [formGroup]="formGroup">
   <core-form-field>
-    <div *coreFormFieldLabel class="uppercase text-accent-200 text-sm/none flex gap-1 items-center">
+    <div *coreFormFieldLabel class="uppercase text-accent-800 dark:text-accent-200 text-sm/none flex gap-1 items-center">
       @switch (formGroup.controls['type'].value) {
         @case ('general') {
           <i class="icon-4">text_fields</i>
+          <span>General</span>
         }
         @case ('attack') {
           <i class="icon-4">swords</i>
+          <span>Attack</span>
         }
         @case ('affinity') {
           <i class="icon-4">stat_3</i>
+          <span>Affinity</span>
+        }
+        @case ('elementalAttack') {
+          <i class="icon-4">swords</i>
+          <span>Elemental Attack</span>
         }
         @case ('defense') {
           <i class="icon-4">shield</i>
+          <span>Defense</span>
         }
         @case ('resistance') {
-          <i class="icon-4">ac_unit</i>
+          <i class="icon-4">shield</i>
+          <span>Elemental Resistance</span>
         }
       }
-      {{ formGroup.controls['type'].value }}
     </div>
     <div *coreFormFieldInput class="flex justify-end px-2">
-      <button class="rounded-full p-1.5 justify-end" coreHoverable>
+      <button class="rounded-full p-1.5 justify-end" coreHoverable (click)="removeEffect.emit()">
         <i class="icon-4">delete</i>
       </button>
     </div>
   </core-form-field>
-  <core-form-field>
-    <span *coreFormFieldLabel>Description</span>
-    <core-multilingual-text-edit *coreFormFieldInput formControlName="description"></core-multilingual-text-edit>
-  </core-form-field>
   @switch (formGroup.controls['type'].value) {
+    @case ('general') {
+      <core-form-field>
+        <span *coreFormFieldLabel>Description</span>
+        <core-multilingual-text-edit *coreFormFieldInput formControlName="description"></core-multilingual-text-edit>
+      </core-form-field>
+    }
     @case ('attack') {
       <core-form-field>
         <span *coreFormFieldLabel>Value</span>
@@ -70,6 +80,29 @@
         </core-segmented-options>
       </core-form-field>
     }
+    @case ('elementalAttack') {
+      <core-form-field>
+        <span *coreFormFieldLabel>Value</span>
+        <input *coreFormFieldInput coreInputField formControlName="value" class="px-4 py-2">
+      </core-form-field>
+      <core-form-field>
+        <span *coreFormFieldLabel>Type</span>
+        <core-segmented-options *coreFormFieldInput formControlName="calculationType" class="me-2" color="accent">
+          <div *coreOption="'additive'">Additive</div>
+          <div *coreOption="'multiplicative'">Multiplicative</div>
+        </core-segmented-options>
+      </core-form-field>
+      <core-form-field>
+        <span *coreFormFieldLabel>Element</span>
+        <core-segmented-options *coreFormFieldInput formControlName="element" class="me-2" color="accent">
+          <div *coreOption="'fire'">Fire</div>
+          <div *coreOption="'water'">Water</div>
+          <div *coreOption="'thunder'">Thunder</div>
+          <div *coreOption="'ice'">Ice</div>
+          <div *coreOption="'dragon'">Dragon</div>
+        </core-segmented-options>
+      </core-form-field>
+    }
     @case ('resistance') {
       <core-form-field>
         <span *coreFormFieldLabel>Value</span>
@@ -84,8 +117,7 @@
       </core-form-field>
       <core-form-field>
         <span *coreFormFieldLabel>Element</span>
-        <core-segmented-options *coreFormFieldInput formControlName="resistanceElement" class="me-2" color="accent">
-          <div *coreOption="'all'">All</div>
+        <core-segmented-options *coreFormFieldInput formControlName="element" class="me-2" color="accent">
           <div *coreOption="'fire'">Fire</div>
           <div *coreOption="'water'">Water</div>
           <div *coreOption="'thunder'">Thunder</div>

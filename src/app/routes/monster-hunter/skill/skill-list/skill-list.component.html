@@ -16,11 +16,12 @@
         </core-simple-header>
         <core-table
           itemHeight="48"
-          [columns]="['name']"
+          [columns]="['color', 'name']"
         >
           <cdk-virtual-scroll-viewport itemSize [extraHeight]="48 * 2">
-            <core-table-body>
+            <core-table-body style="grid-template-columns: min-content 1fr;">
               <core-table-header-row>
+                <core-table-header-cell *coreTableHeaderCellDef="'color'"></core-table-header-cell>
                 <core-table-header-cell *coreTableHeaderCellDef="'name'" [filtered]="filterByName$$() != null">
                   Name
                   <core-table-filter-by-text *coreTableHeaderCellFilter [value]="filterByName$$()" (valueChange)="onChangeFilter({ name: $event })"></core-table-filter-by-text>
@@ -31,6 +32,9 @@
                 coreHoverable
                 [route]="[item.id]"
               >
+                <core-table-cell *coreTableCellDef="'color'">
+                  <div class="hexagon-mask size-6" [style.background-color]="item.color"></div>
+                </core-table-cell>
                 <core-table-cell *coreTableCellDef="'name'">
                   <core-multilingual-text-display [value]="item.name"></core-multilingual-text-display>
                 </core-table-cell>

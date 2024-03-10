@@ -199,4 +199,34 @@
       }
     }
   }
+
+  .core-color-edit {
+    @apply flex gap-2 items-center;
+    .core-color-edit-chip {
+      @apply size-4 rounded-full shrink-0;
+    }
+    .core-color-edit-current {
+      @apply size-6 border-2 border-black dark:border-white;
+    }
+    .core-color-edit-presets {
+      @apply flex gap-2 items-center grow shrink-0 w-0 overflow-x-auto;
+    }
+    .core-color-edit-empty {
+      background: conic-gradient(
+        #333 0.25turn,
+        #bbb 0.25turn 0.5turn,
+        #333 0.5turn 0.75turn,
+        #bbb 0.75turn
+      ) top left / 40% 40% repeat;
+    }
+    .core-color-edit-selector {
+      @apply size-6 relative;
+      > input {
+        @apply absolute inset-0 size-0 opacity-0;
+      }
+      > .core-color-edit-chip {
+        @apply size-6;
+      }
+    }
+  }
 }

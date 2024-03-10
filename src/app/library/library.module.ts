@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BackgroundGraphicsComponent } from './background-graphics/background-graphics.component';
 import { BreadcrumbsComponent } from './breadcrumbs/breadcrumbs.component';
+import { ColorEditComponent } from './color-edit/color-edit.component';
 import { FormModule } from './form/form.module';
 import { ImageUploadEditComponent } from './image-upload-edit/image-upload-edit.component';
 import { MultilingualTextDisplayComponent } from './multilingual-text-display/multilingual-text-display.component';
@@ -42,6 +43,7 @@ import { TableModule } from './table/table.module';
     ImageUploadEditComponent,
     RatingEditComponent,
     RatingDisplayComponent,
+    ColorEditComponent,
   ],
   exports: [
     BackgroundGraphicsComponent,
@@ -64,6 +66,7 @@ import { TableModule } from './table/table.module';
     ImageUploadEditComponent,
     RatingEditComponent,
     RatingDisplayComponent,
+    ColorEditComponent,
   ]
 })
 export class LibraryModule { }

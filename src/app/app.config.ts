@@ -1,7 +1,7 @@
 import { ApplicationConfig, isDevMode } from '@angular/core';
 import { provideRouter, withRouterConfig } from '@angular/router';
 
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withFetch } from '@angular/common/http';
 import { provideClientHydration } from '@angular/platform-browser';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideTransloco } from '@ngneat/transloco';
@@ -14,7 +14,9 @@ import { provideRootNavigation } from './library/root-navigation/root-navigation
 export const appConfig: ApplicationConfig = {
   providers: [
     provideTheme(),
-    provideHttpClient(),
+    provideHttpClient(
+      withFetch(),
+    ),
     provideAnimations(),
     provideRouter(
       routes,

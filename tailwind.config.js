@@ -29,7 +29,8 @@ module.exports = {
     extend: {
       backgroundImage: {
         "gradient-160": "linear-gradient(160deg, var(--tw-gradient-stops))",
-        'gradient-radial': 'radial-gradient(var(--gradient-radial-shape, circle) at var(--gradient-radial-position, center), var(--tw-gradient-stops))',
+        'gradient-radial': 'radial-gradient(var(--gradient-radial-shape, circle) at var(--gradient-position, center), var(--tw-gradient-stops))',
+        'gradient-conic': 'conic-gradient(from 0deg at var(--gradient-position, center), var(--tw-gradient-stops))',
       },
       fontFamily: {
         symbols: ["'Material Symbols Outlined'"],
@@ -228,9 +229,9 @@ module.exports = {
           }
         });
         matchUtilities({
-          'radial-position': (value) => {
+          'gradient-position': (value) => {
             return {
-              '--gradient-radial-position': value,
+              '--gradient-position': value,
             }
           }
         }, {
@@ -241,5 +242,21 @@ module.exports = {
         })
       }
     ),
+    // monster hunter module only
+    plugin(
+      ({ addComponents }) => {
+        addComponents({
+          '.elemental-gradient': {
+            '.dark &': {
+              '--tw-gradient-stops': 'hsl(0deg 50% 30%), hsl(224deg 50% 30%), hsl(60deg 55% 50%), hsl(195deg 50% 45%), hsl(245deg 50% 20%), hsl(0deg 50% 30%)'
+            },
+            '--tw-gradient-stops': 'hsl(0deg 50% 65%), hsl(224deg 40% 60%), hsl(60deg 65% 70%), hsl(195deg 50% 75%), hsl(245deg 40% 60%), hsl(0deg 50% 65%)'
+          },
+          '.hexagon-mask': {
+            'clip-path': 'polygon(50% 0%, 95% 25%, 95% 75%, 50% 100%, 5% 75%, 5% 25%)'
+          }
+        })
+      }
+    )
   ],
 };

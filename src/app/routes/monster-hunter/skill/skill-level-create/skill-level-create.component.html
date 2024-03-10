@@ -22,10 +22,14 @@
       <span class="px-4 pt-2 font-display font-light text-accent-800 dark:text-accent-200 tracking-wider">Effects</span>
       @for (control of formGroup.controls.effects.controls; track $index) {
         <ng-container [formGroup]="control">
-          <core-skill-effect-edit></core-skill-effect-edit>
+          <core-skill-effect-edit
+            (removeEffect)="removeEffect($index)"
+          ></core-skill-effect-edit>
         </ng-container>
       }
-      <core-skill-new-effect (addEffect)="addEffect(formGroup.controls.effects.length, $event)"></core-skill-new-effect>
+      <core-skill-new-effect
+        (addEffect)="addEffect(formGroup.controls.effects.length, $event)"
+      ></core-skill-new-effect>
     </div>
   </div>
 </div>

@@ -35,6 +35,14 @@
     <button
       type="button"
       coreHoverable
+      class="rounded-full p-2 bg-gradient-conic elemental-gradient"
+      (click)="addEffect.emit('elementalAttack')"
+    >
+      <i class="icon-4 font-variation-fill">swords</i>
+    </button>
+    <button
+      type="button"
+      coreHoverable
       coreHardSurface
       color="primary"
       class="rounded-full p-2"
@@ -45,12 +53,10 @@
     <button
       type="button"
       coreHoverable
-      coreHardSurface
-      color="primary"
-      class="rounded-full p-2"
+      class="rounded-full p-2 bg-gradient-conic elemental-gradient"
       (click)="addEffect.emit('resistance')"
     >
-      <i class="icon-4">ac_unit</i>
+      <i class="icon-4 font-variation-fill">shield</i>
     </button>
   </div>
 </div>

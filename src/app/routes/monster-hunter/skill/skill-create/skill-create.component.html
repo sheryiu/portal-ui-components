@@ -6,6 +6,14 @@
           <span *coreFormFieldLabel>Name</span>
           <input *coreFormFieldInput coreInputField class="px-4 py-1" placeholder="Enter name in English/Japanese/Chinese" formControlName="name">
         </core-form-field>
+        <core-form-field>
+          <div *coreFormFieldLabel>Color</div>
+          <core-color-edit *coreFormFieldInput formControlName="color" class="px-4 py-1"></core-color-edit>
+        </core-form-field>
+        <core-form-field>
+          <span *coreFormFieldLabel>Description</span>
+          <input *coreFormFieldInput coreInputField class="px-4 py-1" placeholder="Enter description in English/Japanese/Chinese" formControlName="description">
+        </core-form-field>
       </core-form-fieldset>
     </div>
     <div class="shrink-0 flex justify-between px-2">

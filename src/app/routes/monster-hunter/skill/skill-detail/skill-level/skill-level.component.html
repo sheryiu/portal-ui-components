@@ -1,0 +1,64 @@
+<span class="w-12 text-secondary uppercase font-bold">Lv {{ skillLevel.level }}</span>
+<div class="flex flex-row gap-2">
+  <div class="flex flex-col gap-1 grow">
+    <core-multilingual-text-display [value]="skillLevel.description"></core-multilingual-text-display>
+    @for (effect of effects; track $index) {
+      @switch (effect.type) {
+        @case ('general') {
+          <core-multilingual-text-display [value]="effect.description"></core-multilingual-text-display>
+        }
+        @case ('attack') {
+          <div class="flex gap-1 items-center">
+            <i class="icon-4 text-primary-200">swords</i>
+            @if (effect.calculationType === 'additive') {
+              <span class="text-primary-500 font-bold">+ {{ effect.value }}</span>
+            } @else if (effect.calculationType === 'multiplicative') {
+              <span class="text-primary-500 font-bold">x {{ effect.value }}%</span>
+            }
+          </div>
+        }
+        @case ('affinity') {
+          <div class="flex gap-1 items-center">
+            <i class="icon-4 text-primary-200">stat_3</i>
+            @if (effect.calculationType === 'additive') {
+              <span class="text-primary-500 font-bold">+ {{ effect.value }}%</span>
+            } @else if (effect.calculationType === 'multiplicative') {
+              <span class="text-primary-500 font-bold">x {{ effect.value }}%</span>
+            }
+          </div>
+        }
+        @case ('elementalAttack') {
+          <div class="flex gap-1 items-center">
+            @switch (effect.element) {
+              @case ('fire') {
+                <i class="icon-4 text-red-600 dark:text-red-400">local_fire_department</i>
+              }
+              @case ('water') {
+                <i class="icon-4 text-blue-600 dark:text-blue-400">water_drop</i>
+              }
+              @case ('thunder') {
+                <i class="icon-4 text-yellow-600 dark:text-yellow-400">bolt</i>
+              }
+              @case ('ice') {
+                <i class="icon-4 text-cyan-600 dark:text-cyan-200">mode_cool</i>
+              }
+              @case ('dragon') {
+                <i class="icon-4 text-purple-700 dark:text-purple-500">raven</i>
+              }
+            }
+            @if (effect.calculationType === 'additive') {
+              <span class="text-primary-500 font-bold">+ {{ effect.value }}</span>
+            } @else if (effect.calculationType === 'multiplicative') {
+              <span class="text-primary-500 font-bold">x {{ effect.value }}%</span>
+            }
+          </div>
+        }
+      }
+    }
+  </div>
+  @if (showRemoveButton) {
+    <button class="rounded-full p-1.5 justify-end flex-none self-center" coreHoverable (click)="removeLevel.emit()">
+      <i class="icon-4">delete</i>
+    </button>
+  }
+</div>

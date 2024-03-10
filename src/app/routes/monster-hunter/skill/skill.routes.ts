@@ -2,6 +2,7 @@ import { Routes } from '@angular/router';
 import { map, switchMap } from 'rxjs';
 import { breadcrumb } from '../../../library/breadcrumbs/breadcrumbs';
 import { sectionedOutlet } from '../../../library/sectioned-outlet/sectioned-outlet';
+import { ArmorService } from '../../../store/armor.service';
 import { SkillService } from '../../../store/skill.service';
 
 export const ROUTES: Routes = [
@@ -29,6 +30,16 @@ export const ROUTES: Routes = [
           ...sectionedOutlet('half'),
         },
         children: [
+          {
+            path: 'edit-details',
+            loadComponent: () => import('./skill-edit-details/skill-edit-details.component').then(c => c.SkillEditDetailsComponent),
+            data: {
+              ...breadcrumb({
+                title: 'Edit Details'
+              }),
+              ...sectionedOutlet('full'),
+            },
+          },
           {
             path: 'level',
             children: [

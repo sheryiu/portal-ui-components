@@ -54,7 +54,7 @@ export class SkillService {
     return this.data.skills.get(id);
   })
 
-  create = (input: Pick<Skill, 'name' | 'color'>) => {
+  create = (input: Pick<Skill, 'name' | 'color' | 'description'>) => {
     const now = new Date();
     return from(this.data.skills.add({
       id: nanoid(),

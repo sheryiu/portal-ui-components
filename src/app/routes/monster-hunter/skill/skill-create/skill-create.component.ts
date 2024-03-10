@@ -8,6 +8,7 @@ import { Skill } from '../../../../data/skill';
 import { LibraryModule } from '../../../../library/library.module';
 import { SharedModule } from '../../../../shared/shared.module';
 import { SkillService } from '../../../../store/skill.service';
+import { multilingualFromString } from '../../utils/multilingual-from-string';
 
 @Component({
   selector: 'app-skill-create',
@@ -27,19 +28,16 @@ export class SkillCreateComponent extends EffectFn {
   private formBuilder = inject(FormBuilder);
   formGroup = this.formBuilder.nonNullable.group({
     name: [null as unknown as string, [Validators.required]],
+    description: [null as unknown as string, [Validators.required]],
     color: [null as unknown as string, [Validators.required]],
   })
 
   onSaveClick = this.createEffectFn<void>(args$ => args$.pipe(
     concatMap(() => {
       const value = this.formGroup.getRawValue();
-      const lang = franc(value.name, { only: ['jpn', 'eng', 'cmn'], minLength: 1 });
-      let name: Skill['name'];
-      if (lang === 'cmn') name = { zh: value.name };
-      else if (lang === 'jpn') name = { jp: value.name };
-      else name = { en: value.name };
       return this.service.create({
-        name,
+        name: multilingualFromString(value.name),
+        description: multilingualFromString(value.description),
         color: value.color,
       }).pipe(
         catchError(() => EMPTY),
