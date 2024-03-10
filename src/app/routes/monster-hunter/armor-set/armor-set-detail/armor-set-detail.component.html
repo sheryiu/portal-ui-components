@@ -33,6 +33,14 @@
       </div>
     </div>
   </div>
+  @if (data$ | async; as data) {
+    <core-supplementary-panel
+      class="mt-4"
+      [createdAt]="data.createdAt"
+      [updatedAt]="data.updatedAt"
+    >
+    </core-supplementary-panel>
+  }
   <core-form-submit
     [dirty]="formGroup.dirty"
     [disabled]="formGroup.disabled"

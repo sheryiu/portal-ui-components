@@ -16,6 +16,7 @@ import { SectionedOutletComponent } from './sectioned-outlet/sectioned-outlet.co
 import { OptionDirective } from './segmented-options/option.directive';
 import { SegmentedOptionsComponent } from './segmented-options/segmented-options.component';
 import { HeaderActionsDirective, HeaderDirective, SimpleHeaderComponent } from './simple-header/simple-header.component';
+import { SupplementaryPanelModule } from './supplementary-panel/supplementary-panel.module';
 import { TabBarModule } from './tab-bar/tab-bar.module';
 import { TableModule } from './table/table.module';
 
@@ -44,6 +45,7 @@ import { TableModule } from './table/table.module';
     RatingEditComponent,
     RatingDisplayComponent,
     ColorEditComponent,
+    SupplementaryPanelModule,
   ],
   exports: [
     BackgroundGraphicsComponent,
@@ -67,6 +69,7 @@ import { TableModule } from './table/table.module';
     RatingEditComponent,
     RatingDisplayComponent,
     ColorEditComponent,
+    SupplementaryPanelModule,
   ]
 })
 export class LibraryModule { }

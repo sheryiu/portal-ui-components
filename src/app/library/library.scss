@@ -229,4 +229,21 @@
       }
     }
   }
+
+  .core-supplementary-panel {
+    @apply bg-deep-glass flex-none px-4 py-2;
+    > div {
+      @apply flex flex-col @md/supplementary-panel:flex-row-reverse gap-2;
+    }
+    .core-supplementary-panel-actions {
+      @apply flex flex-row @md/supplementary-panel:flex-col flex-wrap gap-2 justify-end;
+      @apply @md/supplementary-panel:max-h-18;
+      .core-supplementary-panel-action {
+        @apply px-4 py-1 min-h-8 rounded-2 grow;
+      }
+    }
+    .core-supplementary-panel-text {
+      @apply flex flex-col gap-0.5 grow justify-end text-sm text-secondary;
+    }
+  }
 }

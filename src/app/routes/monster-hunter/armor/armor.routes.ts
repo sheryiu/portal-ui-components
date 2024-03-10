@@ -48,6 +48,16 @@ export const ROUTES: Routes = [
               }),
               ...sectionedOutlet('full'),
             },
+          },
+          {
+            path: 'edit-skills',
+            loadComponent: () => import('./armor-edit-skills/armor-edit-skills.component').then(c => c.ArmorEditSkillsComponent),
+            data: {
+              ...breadcrumb({
+                title: 'Edit Skills',
+              }),
+              ...sectionedOutlet('half'),
+            }
           }
         ]
       }

@@ -32,28 +32,24 @@
         </div>
       </div>
     </div>
-    <div class="bg-deep-glass flex-none px-4 py-2 mt-4 @container/info-panel">
-      <div class="flex flex-col @md/info-panel:flex-row-reverse gap-2">
-        <div class="flex flex-row @md/info-panel:flex-col flex-wrap gap-2 justify-end @md/info-panel:max-h-18">
-          <a coreHoverable coreHardSurface color="primary" class="px-4 py-1 min-h-8 rounded-2 grow" [routerLink]="['level', 'new']">
+    @if (data$ | async; as data) {
+      <core-supplementary-panel
+        class="mt-4"
+        [createdAt]="data.createdAt"
+        [updatedAt]="data.updatedAt"
+      >
+        <ng-container *coreSupplementaryPanelActions>
+          <a coreHoverable coreHardSurface color="primary" class="core-supplementary-panel-action" [routerLink]="['level', 'new']">
             Add Levels
           </a>
-          <a coreHoverable coreHardSurface color="accent" class="px-4 py-1 min-h-8 rounded-2 grow" [routerLink]="['edit-details']">
+          <a coreHoverable coreHardSurface color="accent" class="core-supplementary-panel-action" [routerLink]="['edit-details']">
             Edit Details
           </a>
-          <button coreHoverable coreHardSurface color="accent" class="px-4 py-1 min-h-8 rounded-2 grow" (click)="showRemoveLevelButton = !showRemoveLevelButton">
+          <button coreHoverable coreHardSurface color="accent" class="core-supplementary-panel-action" (click)="showRemoveLevelButton = !showRemoveLevelButton">
             Edit Levels
           </button>
-        </div>
-        <div class="flex flex-col gap-0.5 grow justify-end text-sm text-secondary">
-          @if (data$ | async; as data) {
-            <p>Last updated {{ data.updatedAt | date: 'long' }}</p>
-          }
-          @if (data$ | async; as data) {
-            <p>Created at {{ data.createdAt | date: 'long' }}</p>
-          }
-        </div>
-      </div>
-    </div>
+        </ng-container>
+      </core-supplementary-panel>
+    }
   </div>
 </core-sectioned-outlet>

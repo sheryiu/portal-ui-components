@@ -1,0 +1,15 @@
+<div>
+  @if (actionsDirective?.templateRef) {
+    <div class="core-supplementary-panel-actions">
+      <ng-container [ngTemplateOutlet]="actionsDirective!.templateRef"></ng-container>
+    </div>
+  }
+  <div class="core-supplementary-panel-text">
+    @if (updatedAt) {
+      <p>Last updated {{ updatedAt | date: 'long' }}</p>
+    }
+    @if (createdAt) {
+      <p>Created at {{ createdAt | date: 'long' }}</p>
+    }
+  </div>
+</div>

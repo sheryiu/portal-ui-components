@@ -70,6 +70,11 @@
           </div>
           <core-tab-bar-header class="-ms-2" label="Skills">
             Skills
+            <div *coreTabBarHeaderSupplementary class="flex items-center">
+              <a coreHoverable class="rounded-2 size-8" [routerLink]="['edit-skills']">
+                <i class="icon-5 font-variation-fill">edit</i>
+              </a>
+            </div>
           </core-tab-bar-header>
           <p class="leading-10">
             Ad consectetur consectetur in enim culpa mollit irure et ea. Laboris nulla quis eu cupidatat adipisicing ea. Occaecat veniam occaecat adipisicing anim nostrud labore nostrud ullamco.
@@ -119,5 +124,13 @@
         </div>
       </div>
     </div>
+    @if (data$ | async; as data) {
+      <core-supplementary-panel
+        class="mt-4"
+        [createdAt]="data.createdAt"
+        [updatedAt]="data.updatedAt"
+      >
+      </core-supplementary-panel>
+    }
   </div>
 </core-sectioned-outlet>
