@@ -10,6 +10,16 @@
         <h2 *coreHeader>Edit Skills</h2>
       </core-simple-header>
       <div class="flex flex-col gap-4 pt-4" [formGroup]="formGroup">
+        @for (control of formGroup.controls.skills.controls; track $index) {
+          <ng-container [formGroup]="control">
+            <app-armor-skill-edit
+              (removeSkill)="removeSkill($index)"
+            ></app-armor-skill-edit>
+          </ng-container>
+        }
+        <app-armor-skill-new
+          (addSkill)="addSkill(formGroup.controls.skills.length)"
+        ></app-armor-skill-new>
       </div>
     </div>
   </div>

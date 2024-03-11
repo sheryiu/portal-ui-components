@@ -26,7 +26,8 @@ export class SkillService {
     if (this.data.isServer) return [];
     let filtered;
     if (filter?.name != null) {
-      filtered = this.data.skills.filter(obj => !!(obj.name.en?.includes(filter.name!) || obj.name.zh?.includes(filter.name!) || obj.name.jp?.includes(filter.name!)))
+      const findName = filter.name!.toLowerCase();
+      filtered = this.data.skills.filter(obj => !!(obj.name.en?.toLowerCase().includes(findName) || obj.name.zh?.toLowerCase().includes(findName) || obj.name.jp?.toLowerCase().includes(findName)))
     } else {
       filtered = this.data.skills.toCollection();
     }

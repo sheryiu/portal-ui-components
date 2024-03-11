@@ -1,11 +1,15 @@
 import { Component, inject } from '@angular/core';
-import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { EffectFn } from '@ngneat/effects-ng';
-import { EMPTY, catchError, concatMap, debounceTime, map, tap, withLatestFrom } from 'rxjs';
+import { EMPTY, catchError, concatMap, debounceTime, map, switchMap, tap, withLatestFrom } from 'rxjs';
 import { LibraryModule } from '../../../../library/library.module';
+import { provideSearchSuggestions } from '../../../../library/search-input/search-input';
 import { SharedModule } from '../../../../shared/shared.module';
 import { ArmorService } from '../../../../store/armor.service';
+import { SkillService } from '../../../../store/skill.service';
+import { ArmorSkillEditComponent } from './armor-skill-edit/armor-skill-edit.component';
+import { ArmorSkillNewComponent } from './armor-skill-new/armor-skill-new.component';
 
 @Component({
   selector: 'app-armor-edit-skills',
@@ -15,9 +19,22 @@ import { ArmorService } from '../../../../store/armor.service';
     LibraryModule,
     FormsModule,
     ReactiveFormsModule,
+    ArmorSkillEditComponent,
+    ArmorSkillNewComponent,
   ],
   templateUrl: './armor-edit-skills.component.html',
-  styles: ``
+  styles: ``,
+  providers: [
+    provideSearchSuggestions({
+      name: 'skill',
+      source: (str$) => {
+        const service = inject(SkillService);
+        return str$.pipe(
+          switchMap((searchStr) => service.list({ name: searchStr ?? undefined }))
+        )
+      }
+    })
+  ]
 })
 export class ArmorEditSkillsComponent extends EffectFn {
   private router = inject(Router);
@@ -28,6 +45,7 @@ export class ArmorEditSkillsComponent extends EffectFn {
   private service = inject(ArmorService);
   private formBuilder = inject(FormBuilder);
   formGroup = this.formBuilder.nonNullable.group({
+    skills: this.formBuilder.nonNullable.array([] as ReturnType<ArmorEditSkillsComponent['newSkillFormGroup']>[], [Validators.required]),
   })
 
   onSave = this.createEffectFn<void>((args$) => args$.pipe(
@@ -50,5 +68,20 @@ export class ArmorEditSkillsComponent extends EffectFn {
   onCancel = this.createEffectFn<void>((args$) => args$.pipe(
     tap(() => this.router.navigate(['../'], { relativeTo: this.route }))
   ))
+
+  addSkill(atIndex: number) {
+    this.formGroup.controls.skills.insert(atIndex, this.newSkillFormGroup());
+  }
+
+  removeSkill(atIndex: number) {
+    this.formGroup.controls.skills.removeAt(atIndex)
+  }
+
+  private newSkillFormGroup() {
+    return this.formBuilder.nonNullable.group({
+      skillId: [null as unknown as string, [Validators.required]],
+      levels: [null as unknown as number, [Validators.required, Validators.min(0)]],
+    })
+  }
 
 }

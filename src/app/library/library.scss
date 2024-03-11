@@ -118,7 +118,7 @@
   }
 
   .core-search-input {
-    @apply flex items-center justify-between gap-2;
+    @apply flex items-center justify-between gap-2 transition-colors;
     &[data-popupvisible=true] {
       @apply bg-hover;
     }

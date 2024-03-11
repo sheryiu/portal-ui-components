@@ -19,7 +19,7 @@ export type ArmorResistance = {
   dragon?: number;
 }
 
-export type ArmorEffect = {
+export type ArmorSkill = {
   skillId: Skill['id'];
   levels: number;
 }
@@ -35,7 +35,7 @@ export type Armor = Root & {
   maxLevel?: number;
   decorationSlots?: number[];
   resistance?: ArmorResistance;
-  effects?: ArmorEffect[];
+  skills?: ArmorSkill[];
   createdAt: Date;
   updatedAt: Date;
 }
