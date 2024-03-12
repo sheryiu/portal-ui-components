@@ -76,7 +76,7 @@
               </a>
             </div>
           </core-tab-bar-header>
-          <div class="px-2 flex gap-2">
+          <div class="px-2 flex flex-col gap-2">
             @if (data$ | async; as data) {
               @for (armorSkill of data.skills; track armorSkill.skillId) {
                 <div class="flex items-center gap-2 w-full">
@@ -91,6 +91,9 @@
                     </div>
                   }
                 </div>
+                @if (!$last) {
+                  <div class="border-t my-2"></div>
+                }
               } @empty {
                 <span class="text-secondary text-sm uppercase">No Skills</span>
               }
