@@ -13,11 +13,11 @@
         <core-form-fieldset>
           <core-form-field>
             <div *coreFormFieldLabel>Image</div>
+            <div *coreFormFieldDescription>Optional</div>
             <core-image-upload-edit *coreFormFieldInput class="h-48" formControlName="image"></core-image-upload-edit>
           </core-form-field>
           <core-form-field>
             <div *coreFormFieldLabel>Name</div>
-            <div *coreFormFieldDescription>Optional</div>
             <core-multilingual-text-edit *coreFormFieldInput formControlName="name"></core-multilingual-text-edit>
           </core-form-field>
           <core-form-field>
@@ -39,11 +39,21 @@
           <core-form-field>
             <div *coreFormFieldLabel>Equip Position</div>
             <core-segmented-options *coreFormFieldInput formControlName="position" class="me-2" color="accent">
-              <div *coreOption="'helm'">Helm</div>
-              <div *coreOption="'chest'">Chest</div>
-              <div *coreOption="'arms'">Arms</div>
-              <div *coreOption="'waist'">Waist</div>
-              <div *coreOption="'legs'">Legs</div>
+              <div *coreOption="'helm'">
+                <mhw-armor-piece-logo class="size-5 -my-0.5 text-white" logo="helm"></mhw-armor-piece-logo>
+              </div>
+              <div *coreOption="'chest'">
+                <mhw-armor-piece-logo class="size-5 -my-0.5 text-white" logo="chest"></mhw-armor-piece-logo>
+              </div>
+              <div *coreOption="'arms'">
+                <mhw-armor-piece-logo class="size-5 -my-0.5 text-white" logo="arms"></mhw-armor-piece-logo>
+              </div>
+              <div *coreOption="'waist'">
+                <mhw-armor-piece-logo class="size-5 -my-0.5 text-white" logo="waist"></mhw-armor-piece-logo>
+              </div>
+              <div *coreOption="'legs'">
+                <mhw-armor-piece-logo class="size-5 -my-0.5 text-white" logo="legs"></mhw-armor-piece-logo>
+              </div>
             </core-segmented-options>
           </core-form-field>
           <core-form-field>
@@ -77,23 +87,38 @@
         <span class="px-4 pt-2 font-display font-light text-accent-800 dark:text-accent-200 tracking-wider">Elemental Resistance</span>
         <core-form-fieldset formGroupName="resistance">
           <core-form-field>
-            <div *coreFormFieldLabel>Fire</div>
+            <div *coreFormFieldLabel class="flex items-center gap-1 text-red-600 dark:text-red-400">
+              <i class="icon-4">local_fire_department</i>
+              (Fire)
+            </div>
             <input *coreFormFieldInput formControlName="fire" type="number" coreInputField class="px-4 py-2"/>
           </core-form-field>
           <core-form-field>
-            <div *coreFormFieldLabel>Water</div>
+            <div *coreFormFieldLabel class="flex items-center gap-1 text-blue-600 dark:text-blue-400">
+              <i class="icon-4">water_drop</i>
+              (Water)
+            </div>
             <input *coreFormFieldInput formControlName="water" type="number" coreInputField class="px-4 py-2"/>
           </core-form-field>
           <core-form-field>
-            <div *coreFormFieldLabel>Thunder</div>
+            <div *coreFormFieldLabel class="flex items-center gap-1 text-yellow-600 dark:text-yellow-400">
+              <i class="icon-4">bolt</i>
+              (Thunder)
+            </div>
             <input *coreFormFieldInput formControlName="thunder" type="number" coreInputField class="px-4 py-2"/>
           </core-form-field>
           <core-form-field>
-            <div *coreFormFieldLabel>Ice</div>
+            <div *coreFormFieldLabel class="flex items-center gap-1 text-cyan-600 dark:text-cyan-200">
+              <i class="icon-4">mode_cool</i>
+              (Ice)
+            </div>
             <input *coreFormFieldInput formControlName="ice" type="number" coreInputField class="px-4 py-2"/>
           </core-form-field>
           <core-form-field>
-            <div *coreFormFieldLabel>Dragon</div>
+            <div *coreFormFieldLabel class="flex items-center gap-1 text-purple-700 dark:text-purple-500">
+              <i class="icon-4">raven</i>
+              (Dragon)
+            </div>
             <input *coreFormFieldInput formControlName="dragon" type="number" coreInputField class="px-4 py-2"/>
           </core-form-field>
         </core-form-fieldset>

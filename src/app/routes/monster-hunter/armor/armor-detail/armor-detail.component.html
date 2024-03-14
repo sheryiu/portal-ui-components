@@ -35,6 +35,47 @@
               }
             </div>
           </div>
+          <div class="px-2 flex justify-between items-center">
+            <div class="flex gap-1">
+              @if (data$ | async; as data) {
+                @if (positionsInArmorSet$ | async; as positions) {
+                  @for (position of armorPositionList; track position) {
+                    @if (data.position === position) {
+                      <div class="p-1 rounded-2 shrink-0 bg-primary-400 dark:bg-primary-700">
+                        <mhw-armor-piece-logo
+                          [logo]="position"
+                          class="text-primary-950 dark:text-primary-50 size-6"
+                        ></mhw-armor-piece-logo>
+                      </div>
+                    } @else if (positions[position] != null) {
+                      <a [routerLink]="['../', positions[position]]" coreHoverable class="p-1 rounded-2 shrink-0">
+                        <mhw-armor-piece-logo
+                          [logo]="position"
+                          class="text-primary-600 dark:text-primary-500 size-6"
+                        ></mhw-armor-piece-logo>
+                      </a>
+                    } @else {
+                      <div class="p-1 rounded-2 shrink-0">
+                        <mhw-armor-piece-logo
+                          [logo]="$any('no_' + position)"
+                          class="text-secondary size-6"
+                        ></mhw-armor-piece-logo>
+                      </div>
+                    }
+                  }
+                }
+              }
+            </div>
+            <div>
+              @if (data$ | async; as data) {
+                <a class="px-2 py-1 rounded-2" [routerLink]="['TODO']" coreHoverable>
+                  @if (data.armorSetId | armorSetData | async; as armorSet) {
+                    <core-multilingual-text-display [value]="armorSet.name"></core-multilingual-text-display>
+                  }
+                </a>
+              }
+            </div>
+          </div>
           <core-tab-bar-header class="-ms-2" label="Stats">
             Stats
             <div *coreTabBarHeaderSupplementary class="flex items-center">
@@ -56,6 +97,38 @@
                   {{ data.baseDef }} at Lv.1
                 }
               </span>
+            </div>
+          </div>
+          <div class="px-2 grid grid-cols-5">
+            <div class="flex gap-2 items-center">
+              <i class="icon-6 text-red-600 dark:text-red-400 font-variation-fill">local_fire_department</i>
+              @if (data$ | async; as data) {
+                {{ data.resistance?.fire ?? '--' }}
+              }
+            </div>
+            <div class="flex gap-2 items-center">
+              <i class="icon-6 text-blue-600 dark:text-blue-400 font-variation-fill">water_drop</i>
+              @if (data$ | async; as data) {
+                {{ data.resistance?.water ?? '--' }}
+              }
+            </div>
+            <div class="flex gap-2 items-center">
+              <i class="icon-6 text-yellow-600 dark:text-yellow-400 font-variation-fill">bolt</i>
+              @if (data$ | async; as data) {
+                {{ data.resistance?.thunder ?? '--' }}
+              }
+            </div>
+            <div class="flex gap-2 items-center">
+              <i class="icon-6 text-cyan-600 dark:text-cyan-200 font-variation-fill">mode_cool</i>
+              @if (data$ | async; as data) {
+                {{ data.resistance?.ice ?? '--' }}
+              }
+            </div>
+            <div class="flex gap-2 items-center">
+              <i class="icon-6 text-purple-700 dark:text-purple-500 font-variation-fill">raven</i>
+              @if (data$ | async; as data) {
+                {{ data.resistance?.dragon ?? '--' }}
+              }
             </div>
           </div>
           <div class="px-2 flex items-center gap-2">
@@ -102,7 +175,8 @@
           <core-tab-bar-header class="-ms-2" label="Crafting">
             Crafting
           </core-tab-bar-header>
-          <div></div>
+          <div>
+          </div>
         </div>
       </div>
     </div>
@@ -112,6 +186,11 @@
         [createdAt]="data.createdAt"
         [updatedAt]="data.updatedAt"
       >
+        <ng-container *coreSupplementaryPanelActions>
+          <a coreHoverable coreHardSurface color="accent" class="core-supplementary-panel-action" [routerLink]="['edit-name']">
+            Edit Name & Image
+          </a>
+        </ng-container>
       </core-supplementary-panel>
     }
   </div>

@@ -40,6 +40,16 @@ export const ROUTES: Routes = [
         },
         children: [
           {
+            path: 'edit-name',
+            loadComponent: () => import('./armor-edit-name/armor-edit-name.component').then(c => c.ArmorEditNameComponent),
+            data: {
+              ...breadcrumb({
+                title: 'Edit'
+              }),
+              ...sectionedOutlet('full'),
+            },
+          },
+          {
             path: 'edit-stats',
             loadComponent: () => import('./armor-edit-stats/armor-edit-stats.component').then(c => c.ArmorEditStatsComponent),
             data: {

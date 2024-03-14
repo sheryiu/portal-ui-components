@@ -29,23 +29,38 @@
         <span class="px-4 pt-2 font-display font-light text-accent-200 tracking-wider">Elemental Resistance</span>
         <core-form-fieldset formGroupName="resistance">
           <core-form-field>
-            <div *coreFormFieldLabel>Fire</div>
+            <div *coreFormFieldLabel class="flex items-center gap-1 text-red-600 dark:text-red-400">
+              <i class="icon-4">local_fire_department</i>
+              (Fire)
+            </div>
             <input *coreFormFieldInput formControlName="fire" type="number" coreInputField class="px-4 py-2"/>
           </core-form-field>
           <core-form-field>
-            <div *coreFormFieldLabel>Water</div>
+            <div *coreFormFieldLabel class="flex items-center gap-1 text-blue-600 dark:text-blue-400">
+              <i class="icon-4">water_drop</i>
+              (Water)
+            </div>
             <input *coreFormFieldInput formControlName="water" type="number" coreInputField class="px-4 py-2"/>
           </core-form-field>
           <core-form-field>
-            <div *coreFormFieldLabel>Thunder</div>
+            <div *coreFormFieldLabel class="flex items-center gap-1 text-yellow-600 dark:text-yellow-400">
+              <i class="icon-4">bolt</i>
+              (Thunder)
+            </div>
             <input *coreFormFieldInput formControlName="thunder" type="number" coreInputField class="px-4 py-2"/>
           </core-form-field>
           <core-form-field>
-            <div *coreFormFieldLabel>Ice</div>
+            <div *coreFormFieldLabel class="flex items-center gap-1 text-cyan-600 dark:text-cyan-200">
+              <i class="icon-4">mode_cool</i>
+              (Ice)
+            </div>
             <input *coreFormFieldInput formControlName="ice" type="number" coreInputField class="px-4 py-2"/>
           </core-form-field>
           <core-form-field>
-            <div *coreFormFieldLabel>Dragon</div>
+            <div *coreFormFieldLabel class="flex items-center gap-1 text-purple-700 dark:text-purple-500">
+              <i class="icon-4">raven</i>
+              (Dragon)
+            </div>
             <input *coreFormFieldInput formControlName="dragon" type="number" coreInputField class="px-4 py-2"/>
           </core-form-field>
         </core-form-fieldset>

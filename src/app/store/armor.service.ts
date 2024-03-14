@@ -7,6 +7,7 @@ import { DatabaseService } from '../data/database.service';
 
 type Filter = {
   name?: string;
+  armorSetId?: string;
   rarityFrom?: number;
   rarityTo?: number;
   rarityEqual?: number;
@@ -30,6 +31,8 @@ export class ArmorService {
     let filtered;
     if (filter?.name != null) {
       filtered = this.data.armors.filter(obj => !!(obj.name.en?.includes(filter.name!) || obj.name.zh?.includes(filter.name!) || obj.name.jp?.includes(filter.name!)))
+    } else if (filter?.armorSetId != null) {
+      filtered = this.data.armors.where('armorSetId').equals(filter.armorSetId)
     } else if (filter?.rarityEqual != null) {
       filtered = this.data.armors.where('rarity').equals(filter.rarityEqual);
     } else if (filter?.rarityFrom != null && filter?.rarityTo != null) {

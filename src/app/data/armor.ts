@@ -29,7 +29,7 @@ export type Armor = Root & {
   rarity: number;
   rank: Rank;
   position: ArmorPosition;
-  image?: Blob;
+  image?: Blob | null;
   baseDef?: number;
   maxDef?: number;
   maxLevel?: number;

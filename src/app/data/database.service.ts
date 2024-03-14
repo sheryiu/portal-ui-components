@@ -19,8 +19,8 @@ export class DatabaseService extends Dexie {
   constructor() {
     super('database');
     if (this.isServer) return;
-    this.version(3).stores({
-      armors: 'id, rarity',
+    this.version(4).stores({
+      armors: 'id, rarity, armorSetId',
       armorSets: 'id, rarity',
       skills: 'id',
     })

@@ -1,11 +1,14 @@
 import { Component, inject } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
-import { map, switchMap } from 'rxjs';
+import { filter, map, switchMap } from 'rxjs';
 import { ArmorSetDataPipe } from '../../../../data-pipes/armor-set-data.pipe';
 import { SkillDataPipe } from '../../../../data-pipes/skill-data.pipe';
+import { Armor, ArmorPosition } from '../../../../data/armor';
 import { LibraryModule } from '../../../../library/library.module';
 import { SharedModule } from '../../../../shared/shared.module';
 import { ArmorService } from '../../../../store/armor.service';
+import { ArmorPieceLogoComponent } from '../../utils/armor-piece-logo/armor-piece-logo.component';
+import { nonNullable } from '../../utils/non-nullable';
 
 @Component({
   selector: 'app-armor-detail',
@@ -16,6 +19,7 @@ import { ArmorService } from '../../../../store/armor.service';
     ArmorSetDataPipe,
     RouterLink,
     SkillDataPipe,
+    ArmorPieceLogoComponent,
   ],
   templateUrl: './armor-detail.component.html',
   styles: ``
@@ -35,5 +39,18 @@ export class ArmorDetailComponent {
       'https://www.monsterhunter.com/world/images/top/img_intro01.jpg'),
     map(url => `linear-gradient(to bottom, var(--tw-gradient-stops)), url(${ url })`),
   )
+  positionsInArmorSet$ = this.data$.pipe(
+    map(data => data?.armorSetId),
+    nonNullable(),
+    switchMap(armorSetId => this.service.list({ armorSetId })),
+    map(armors => ({
+      helm: armors.find(a => a.position === ArmorPosition.Helm)?.id,
+      chest: armors.find(a => a.position === ArmorPosition.Chest)?.id,
+      arms: armors.find(a => a.position === ArmorPosition.Arms)?.id,
+      waist: armors.find(a => a.position === ArmorPosition.Waist)?.id,
+      legs: armors.find(a => a.position === ArmorPosition.Legs)?.id,
+    } as Record<ArmorPosition, Armor['id']>))
+  )
+  armorPositionList: ArmorPosition[] = [ArmorPosition.Helm, ArmorPosition.Chest, ArmorPosition.Arms, ArmorPosition.Waist, ArmorPosition.Legs];
 
 }

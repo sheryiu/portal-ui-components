@@ -13,6 +13,7 @@ import { provideSearchSuggestions } from '../../../../library/search-input/searc
 import { SharedModule } from '../../../../shared/shared.module';
 import { ArmorSetService } from '../../../../store/armor-set.service';
 import { ArmorService } from '../../../../store/armor.service';
+import { ArmorPieceLogoComponent } from '../../utils/armor-piece-logo/armor-piece-logo.component';
 
 @Component({
   selector: 'app-armor-create',
@@ -23,6 +24,7 @@ import { ArmorService } from '../../../../store/armor.service';
     FormsModule,
     ReactiveFormsModule,
     ArmorSetDataPipe,
+    ArmorPieceLogoComponent,
   ],
   templateUrl: './armor-create.component.html',
   styles: ``,
@@ -45,7 +47,7 @@ export class ArmorCreateComponent extends EffectFn {
   private formBuilder = inject(FormBuilder);
   formGroup = this.formBuilder.nonNullable.group({
     image: [null as unknown as Armor['image']],
-    name: [null as unknown as Armor['name']],
+    name: [null as unknown as Armor['name'], [Validators.required]],
     armorSetId: [null as unknown as string, [Validators.required]],
     position: [null as unknown as Armor['position'], [Validators.required]],
     rarity: [null as unknown as number, [Validators.required]],
