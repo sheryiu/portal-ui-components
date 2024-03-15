@@ -39,6 +39,7 @@ export const ROUTES: Routes = [
           ...sectionedOutlet('half'),
         },
         children: [
+          // edit-name
           {
             path: 'edit-name',
             loadComponent: () => import('./armor-edit-name/armor-edit-name.component').then(c => c.ArmorEditNameComponent),
@@ -49,6 +50,7 @@ export const ROUTES: Routes = [
               ...sectionedOutlet('full'),
             },
           },
+          // edit-stats
           {
             path: 'edit-stats',
             loadComponent: () => import('./armor-edit-stats/armor-edit-stats.component').then(c => c.ArmorEditStatsComponent),
@@ -59,6 +61,7 @@ export const ROUTES: Routes = [
               ...sectionedOutlet('full'),
             },
           },
+          // edit-skills
           {
             path: 'edit-skills',
             loadComponent: () => import('./armor-edit-skills/armor-edit-skills.component').then(c => c.ArmorEditSkillsComponent),
@@ -68,6 +71,24 @@ export const ROUTES: Routes = [
               }),
               ...sectionedOutlet('half'),
             }
+          },
+          {
+            path: 'skill',
+            data: {
+              ...breadcrumb({
+                title: 'Skill',
+              }),
+            },
+            loadChildren: () => import('../skill/skill.routes').then(r => r.SKILL_DETAIL_ROUTES),
+          },
+          {
+            path: 'armor-set',
+            data: {
+              ...breadcrumb({
+                title: 'Armor Set',
+              }),
+            },
+            loadChildren: () => import('../armor-set/armor-set.routes').then(r => r.ARMOR_SET_ROUTES),
           }
         ]
       }

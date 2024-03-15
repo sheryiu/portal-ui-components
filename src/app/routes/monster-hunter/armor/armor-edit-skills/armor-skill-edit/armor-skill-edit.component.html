@@ -1,5 +1,12 @@
 <core-form-fieldset [formGroup]="formGroup">
   <core-form-field>
+    <div *coreFormFieldInput class="flex justify-end px-2">
+      <button class="rounded-full p-1.5 justify-end" coreHoverable (click)="removeSkill.emit()">
+        <i class="icon-4">delete</i>
+      </button>
+    </div>
+  </core-form-field>
+  <core-form-field>
     <div *coreFormFieldLabel>Skill</div>
     <core-search-input
       *coreFormFieldInput

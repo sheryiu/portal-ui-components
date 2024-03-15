@@ -10,6 +10,10 @@ export const ROUTES: Routes = [
     loadChildren: () => import('./armor-set/armor-set.routes').then(r => r.ROUTES),
   },
   {
+    path: 'armor-set-bonus',
+    loadChildren: () => import('./armor-set-bonus/armor-set-bonus.routes').then(r => r.ROUTES),
+  },
+  {
     path: 'skill',
     loadChildren: () => import('./skill/skill.routes').then(r => r.ROUTES),
   }
