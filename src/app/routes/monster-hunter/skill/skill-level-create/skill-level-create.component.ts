@@ -48,10 +48,12 @@ export class SkillLevelCreateComponent extends EffectFn {
       atIndex,
       this.newEffectFormGroup(type),
     )
+    this.formGroup.controls.effects.markAsDirty();
   }
 
   removeEffect(atIndex: number) {
     this.formGroup.controls.effects.removeAt(atIndex)
+    this.formGroup.controls.effects.markAsDirty();
   }
 
   onSave = this.createEffectFn<void>(args$ => args$.pipe(

@@ -4,7 +4,6 @@ import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angu
 import { ActivatedRoute, Router } from '@angular/router';
 import { EffectFn } from '@ngneat/effects-ng';
 import { EMPTY, catchError, concatMap, debounceTime, switchMap, tap } from 'rxjs';
-import { ArmorSetDataPipe } from '../../../../data-pipes/armor-set-data.pipe';
 import { Armor } from '../../../../data/armor';
 import { ArmorSet } from '../../../../data/armor-set';
 import { Rank } from '../../../../data/common';
@@ -14,6 +13,7 @@ import { SharedModule } from '../../../../shared/shared.module';
 import { ArmorSetService } from '../../../../store/armor-set.service';
 import { ArmorService } from '../../../../store/armor.service';
 import { ArmorPieceLogoComponent } from '../../utils/armor-piece-logo/armor-piece-logo.component';
+import { ArmorSetDataPipe } from '../../utils/data-pipes/armor-set-data.pipe';
 
 @Component({
   selector: 'app-armor-create',

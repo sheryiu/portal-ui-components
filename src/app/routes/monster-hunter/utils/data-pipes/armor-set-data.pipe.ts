@@ -1,7 +1,7 @@
 import { Pipe, PipeTransform, inject } from '@angular/core';
 import { Observable, from } from 'rxjs';
-import { ArmorSet } from '../data/armor-set';
-import { ArmorSetService } from '../store/armor-set.service';
+import { ArmorSet } from '../../../../data/armor-set';
+import { ArmorSetService } from '../../../../store/armor-set.service';
 
 @Pipe({
   name: 'armorSetData',

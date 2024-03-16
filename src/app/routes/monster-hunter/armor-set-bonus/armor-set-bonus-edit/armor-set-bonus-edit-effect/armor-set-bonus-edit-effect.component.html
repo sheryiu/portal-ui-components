@@ -1,0 +1,37 @@
+<core-form-fieldset [formGroup]="formGroup">
+  <core-form-field>
+    <div *coreFormFieldInput class="flex justify-end px-2">
+      <button class="rounded-full p-1.5 justify-end" coreHoverable (click)="removeEffect.emit()">
+        <i class="icon-4">delete</i>
+      </button>
+    </div>
+  </core-form-field>
+  <core-form-field>
+    <div *coreFormFieldLabel>Skill</div>
+    <core-search-input
+      *coreFormFieldInput
+      sourceName="skill"
+      [pickWith]="pickSkill"
+      class="ps-4 pe-2 py-2"
+      coreHoverable
+      formControlName="skillId"
+    >
+      <div *coreSearchInputLabel="let id">
+        @if (id | skillData | async; as data) {
+          <core-multilingual-text-display [value]="data.name"></core-multilingual-text-display>
+        } @else {
+          <!-- TODO -->
+          <span>Unable to resolve</span>
+        }
+      </div>
+      <div *coreSearchInputSuggestionItem="let skill" class="px-4 py-0.5 truncate">
+        <core-multilingual-text-display [value]="skill.name"></core-multilingual-text-display>
+      </div>
+    </core-search-input>
+  </core-form-field>
+  <core-form-field>
+    <div *coreFormFieldLabel>Number of pieces</div>
+    <div *coreFormFieldDescription>Total number of armor pieces needs to be equipped to activate the skill</div>
+    <input *coreFormFieldInput coreInputField type="number" formControlName="requiredNumberOfParts" class="px-4 py-2">
+  </core-form-field>
+</core-form-fieldset>

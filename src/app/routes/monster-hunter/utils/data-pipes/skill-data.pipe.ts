@@ -1,7 +1,7 @@
 import { Pipe, PipeTransform, inject } from '@angular/core';
 import { Observable, from } from 'rxjs';
-import { Skill } from '../data/skill';
-import { SkillService } from '../store/skill.service';
+import { Skill } from '../../../../data/skill';
+import { SkillService } from '../../../../store/skill.service';
 
 @Pipe({
   name: 'skillData',

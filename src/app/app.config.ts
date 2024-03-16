@@ -62,11 +62,6 @@ export const appConfig: ApplicationConfig = {
           },
           {
             type: 'route',
-            label: 'Armor Set Bonus',
-            routerLink: ['mhw', 'armor-set-bonus'],
-          },
-          {
-            type: 'route',
             label: 'Charms',
             routerLink: ['mhw', 'charms'],
           },
@@ -87,6 +82,11 @@ export const appConfig: ApplicationConfig = {
             type: 'route',
             label: 'Skills',
             routerLink: ['mhw', 'skill'],
+          },
+          {
+            type: 'route',
+            label: 'Armor Set Bonus',
+            routerLink: ['mhw', 'armor-set-bonus'],
           },
         ]
       },

@@ -1,13 +1,13 @@
 import { Component, inject } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { filter, map, switchMap } from 'rxjs';
-import { ArmorSetDataPipe } from '../../../../data-pipes/armor-set-data.pipe';
-import { SkillDataPipe } from '../../../../data-pipes/skill-data.pipe';
 import { Armor, ArmorPosition } from '../../../../data/armor';
 import { LibraryModule } from '../../../../library/library.module';
 import { SharedModule } from '../../../../shared/shared.module';
 import { ArmorService } from '../../../../store/armor.service';
 import { ArmorPieceLogoComponent } from '../../utils/armor-piece-logo/armor-piece-logo.component';
+import { ArmorSetDataPipe } from '../../utils/data-pipes/armor-set-data.pipe';
+import { SkillDataPipe } from '../../utils/data-pipes/skill-data.pipe';
 import { nonNullable } from '../../utils/non-nullable';
 
 @Component({

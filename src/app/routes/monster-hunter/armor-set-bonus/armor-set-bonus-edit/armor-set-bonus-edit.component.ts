@@ -4,27 +4,28 @@ import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angu
 import { ActivatedRoute, Router } from '@angular/router';
 import { EffectFn } from '@ngneat/effects-ng';
 import { EMPTY, catchError, concatMap, debounceTime, map, switchMap, tap, withLatestFrom } from 'rxjs';
+import { MultilingualText } from '../../../../data/common';
 import { LibraryModule } from '../../../../library/library.module';
 import { provideSearchSuggestions } from '../../../../library/search-input/search-input';
 import { SharedModule } from '../../../../shared/shared.module';
-import { ArmorService } from '../../../../store/armor.service';
+import { ArmorSetBonusService } from '../../../../store/armor-set-bonus.service';
 import { SkillService } from '../../../../store/skill.service';
 import { matchFormArraySize } from '../../utils';
-import { ArmorSkillEditComponent } from './armor-skill-edit/armor-skill-edit.component';
-import { ArmorSkillNewComponent } from './armor-skill-new/armor-skill-new.component';
+import { ArmorSetBonusEditEffectComponent } from './armor-set-bonus-edit-effect/armor-set-bonus-edit-effect.component';
+import { ArmorSetBonusNewEffectComponent } from './armor-set-bonus-new-effect/armor-set-bonus-new-effect.component';
 
 @Component({
-  selector: 'app-armor-edit-skills',
+  selector: 'app-armor-set-bonus-edit',
   standalone: true,
   imports: [
     SharedModule,
     LibraryModule,
     FormsModule,
     ReactiveFormsModule,
-    ArmorSkillEditComponent,
-    ArmorSkillNewComponent,
+    ArmorSetBonusNewEffectComponent,
+    ArmorSetBonusEditEffectComponent,
   ],
-  templateUrl: './armor-edit-skills.component.html',
+  templateUrl: './armor-set-bonus-edit.component.html',
   styles: ``,
   providers: [
     provideSearchSuggestions({
@@ -38,16 +39,17 @@ import { ArmorSkillNewComponent } from './armor-skill-new/armor-skill-new.compon
     })
   ]
 })
-export class ArmorEditSkillsComponent extends EffectFn {
+export class ArmorSetBonusEditComponent extends EffectFn {
   private router = inject(Router);
   private route = inject(ActivatedRoute);
   private id$ = this.route.paramMap.pipe(
-    map(params => params.get('armorId')!),
+    map(params => params.get('armorSetBonusId')!),
   )
-  private service = inject(ArmorService);
+  private service = inject(ArmorSetBonusService);
   private formBuilder = inject(FormBuilder);
   formGroup = this.formBuilder.nonNullable.group({
-    skills: this.formBuilder.nonNullable.array([] as ReturnType<ArmorEditSkillsComponent['newSkillFormGroup']>[], [Validators.required]),
+    name: [null as unknown as MultilingualText, [Validators.required]],
+    effects: this.formBuilder.nonNullable.array([] as ReturnType<ArmorSetBonusEditComponent['createNewEffectFormGroup']>[]),
   })
 
   constructor() {
@@ -55,19 +57,30 @@ export class ArmorEditSkillsComponent extends EffectFn {
     this.id$.pipe(
       switchMap(id => this.service.getOne(id)),
       tap(data => {
-        if (data?.skills) {
+        if (data?.effects) {
           matchFormArraySize(
-            this.formGroup.controls.skills,
-            data.skills,
-            () => this.newSkillFormGroup(),
+            this.formGroup.controls.effects,
+            data.effects,
+            () => this.createNewEffectFormGroup(),
           )
-          this.formGroup.setValue({
-            skills: data?.skills ?? [],
-          })
         }
+        this.formGroup.setValue({
+          name: data?.name! ?? null,
+          effects: data?.effects ?? [],
+        })
       }),
       takeUntilDestroyed(),
     ).subscribe()
+  }
+
+  addEffect(atIndex: number) {
+    this.formGroup.controls.effects.insert(atIndex, this.createNewEffectFormGroup());
+    this.formGroup.controls.effects.markAsDirty();
+  }
+
+  removeEffect(atIndex: number) {
+    this.formGroup.controls.effects.removeAt(atIndex);
+    this.formGroup.controls.effects.markAsDirty();
   }
 
   onSave = this.createEffectFn<void>((args$) => args$.pipe(
@@ -91,20 +104,10 @@ export class ArmorEditSkillsComponent extends EffectFn {
     tap(() => this.router.navigate(['../'], { relativeTo: this.route }))
   ))
 
-  addSkill(atIndex: number) {
-    this.formGroup.controls.skills.insert(atIndex, this.newSkillFormGroup());
-    this.formGroup.controls.skills.markAsDirty();
-  }
-
-  removeSkill(atIndex: number) {
-    this.formGroup.controls.skills.removeAt(atIndex)
-    this.formGroup.controls.skills.markAsDirty();
-  }
-
-  private newSkillFormGroup() {
+  private createNewEffectFormGroup() {
     return this.formBuilder.nonNullable.group({
       skillId: [null as unknown as string, [Validators.required]],
-      levels: [null as unknown as number, [Validators.required, Validators.min(0)]],
+      requiredNumberOfParts: [null as unknown as number, [Validators.required]],
     })
   }
 

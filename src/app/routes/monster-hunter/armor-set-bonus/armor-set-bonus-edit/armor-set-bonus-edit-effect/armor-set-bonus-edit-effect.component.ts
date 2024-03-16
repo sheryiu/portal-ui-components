@@ -6,7 +6,7 @@ import { SharedModule } from '../../../../../shared/shared.module';
 import { SkillDataPipe } from '../../../utils/data-pipes/skill-data.pipe';
 
 @Component({
-  selector: 'app-armor-skill-edit',
+  selector: 'app-armor-set-bonus-edit-effect',
   standalone: true,
   imports: [
     SharedModule,
@@ -15,13 +15,13 @@ import { SkillDataPipe } from '../../../utils/data-pipes/skill-data.pipe';
     ReactiveFormsModule,
     SkillDataPipe,
   ],
-  templateUrl: './armor-skill-edit.component.html',
+  templateUrl: './armor-set-bonus-edit-effect.component.html',
   styles: ``
 })
-export class ArmorSkillEditComponent implements OnInit {
+export class ArmorSetBonusEditEffectComponent implements OnInit {
   private parentContainer = inject(ControlContainer);
   formGroup!: FormGroup;
-  @Output() removeSkill = new EventEmitter<void>();
+  @Output() removeEffect = new EventEmitter<void>();
 
   ngOnInit(): void {
     this.formGroup = this.parentContainer.control! as FormGroup;

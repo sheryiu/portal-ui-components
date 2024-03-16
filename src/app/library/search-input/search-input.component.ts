@@ -93,6 +93,7 @@ export class SearchInputComponent<T> extends EffectFn implements ControlValueAcc
 
   writeValue(obj: T): void {
     this.formControl.reset(obj);
+    this.cdr.markForCheck();
   }
   registerOnChange(fn: any): void {
     this.onChange = fn;

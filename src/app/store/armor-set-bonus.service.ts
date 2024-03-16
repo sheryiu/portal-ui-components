@@ -68,7 +68,7 @@ export class ArmorSetBonusService {
     }))
   }
 
-  update = (id: string, input: Pick<ArmorSetBonus, 'name' | 'effects'>) => {
+  update = (id: string, input: Partial<Pick<ArmorSetBonus, 'name' | 'effects'>>) => {
     return from(this.data.armorSetBonuses.update(
       id,
       {

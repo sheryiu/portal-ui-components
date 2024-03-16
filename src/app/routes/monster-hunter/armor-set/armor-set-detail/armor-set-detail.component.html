@@ -29,6 +29,29 @@
               <div *coreOption="'iceborne'">Iceborne</div>
             </core-segmented-options>
           </core-form-field>
+          <core-form-field>
+            <div *coreFormFieldLabel>Set Bonus</div>
+            <core-search-input
+              *coreFormFieldInput
+              formControlName="setBonusId"
+              sourceName="armorSetBonus"
+              [pickWith]="pickArmorSetBonus"
+              class="ps-4 pe-2 py-2"
+              coreHoverable
+            >
+              <div *coreSearchInputLabel="let id">
+                @if (id | armorSetBonusData | async; as data) {
+                  <core-multilingual-text-display [value]="data.name"></core-multilingual-text-display>
+                } @else {
+                  <!-- TODO -->
+                  <span>Unable to resolve</span>
+                }
+              </div>
+              <div *coreSearchInputSuggestionItem="let item" class="px-4 py-0.5 truncate">
+                <core-multilingual-text-display [value]="item.name"></core-multilingual-text-display>
+              </div>
+            </core-search-input>
+          </core-form-field>
         </core-form-fieldset>
       </div>
     </div>

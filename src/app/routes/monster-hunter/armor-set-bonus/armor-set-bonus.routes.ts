@@ -28,6 +28,18 @@ export const ROUTES: Routes = [
           }),
           ...sectionedOutlet('half'),
         },
+        children: [
+          {
+            path: 'edit',
+            loadComponent: () => import('./armor-set-bonus-edit/armor-set-bonus-edit.component').then(c => c.ArmorSetBonusEditComponent),
+            data: {
+              ...breadcrumb({
+                title: 'Edit',
+              }),
+              ...sectionedOutlet('full')
+            },
+          }
+        ]
       }
     ]
   }

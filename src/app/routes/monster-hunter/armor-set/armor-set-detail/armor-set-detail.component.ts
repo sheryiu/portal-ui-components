@@ -5,9 +5,13 @@ import { ActivatedRoute } from '@angular/router';
 import { EffectFn } from '@ngneat/effects-ng';
 import { debounceTime, map, switchMap, tap, withLatestFrom } from 'rxjs';
 import { ArmorSet } from '../../../../data/armor-set';
+import { ArmorSetBonus } from '../../../../data/armor-set-bonus';
 import { LibraryModule } from '../../../../library/library.module';
+import { provideSearchSuggestions } from '../../../../library/search-input/search-input';
 import { SharedModule } from '../../../../shared/shared.module';
+import { ArmorSetBonusService } from '../../../../store/armor-set-bonus.service';
 import { ArmorSetService } from '../../../../store/armor-set.service';
+import { ArmorSetBonusDataPipe } from '../../utils/data-pipes/armor-set-bonus-data.pipe';
 
 @Component({
   selector: 'app-armor-set-detail',
@@ -17,9 +21,21 @@ import { ArmorSetService } from '../../../../store/armor-set.service';
     LibraryModule,
     FormsModule,
     ReactiveFormsModule,
+    ArmorSetBonusDataPipe,
   ],
   templateUrl: './armor-set-detail.component.html',
-  styles: ``
+  styles: ``,
+  providers: [
+    provideSearchSuggestions({
+      name: 'armorSetBonus',
+      source: str$ => {
+        const service = inject(ArmorSetBonusService);
+        return str$.pipe(
+          switchMap(str => service.list({ name: str ?? undefined })),
+        )
+      }
+    })
+  ]
 })
 export class ArmorSetDetailComponent extends EffectFn {
   private route = inject(ActivatedRoute);
@@ -35,6 +51,7 @@ export class ArmorSetDetailComponent extends EffectFn {
     name: [null as unknown as ArmorSet['name']],
     rarity: [null as unknown as number],
     rank: [null as unknown as ArmorSet['rank']],
+    setBonusId: [null as unknown as ArmorSet['setBonusId']],
   })
 
   constructor() {
@@ -64,6 +81,11 @@ export class ArmorSetDetailComponent extends EffectFn {
       name: data.name,
       rarity: data.rarity,
       rank: data.rank,
+      setBonusId: data.setBonusId,
     })
+  }
+
+  pickArmorSetBonus(item: ArmorSetBonus) {
+    return item.id;
   }
 }
