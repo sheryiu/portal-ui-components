@@ -10,6 +10,12 @@
         <h2 *coreHeader>Edit</h2>
       </core-simple-header>
       <div class="flex flex-col gap-4 pt-4" [formGroup]="formGroup">
+        <core-form-fieldset>
+          <core-form-field>
+            <div *coreFormFieldLabel>Decoration Slots</div>
+            <mhw-decoration-slots-edit *coreFormFieldInput formControlName="decorationSlots"></mhw-decoration-slots-edit>
+          </core-form-field>
+        </core-form-fieldset>
         <span class="px-4 pt-2 font-display font-light text-accent-200 tracking-wider">Defense</span>
         <core-form-fieldset>
           <core-form-field>

@@ -3,6 +3,7 @@ import { map, switchMap } from 'rxjs';
 import { breadcrumb } from '../../../library/breadcrumbs/breadcrumbs';
 import { sectionedOutlet } from '../../../library/sectioned-outlet/sectioned-outlet';
 import { ArmorSetBonusService } from '../../../store/armor-set-bonus.service';
+import { SKILL_DETAIL_ROUTES } from '../skill/skill.routes';
 
 export const ROUTES: Routes = [
   {
@@ -38,6 +39,10 @@ export const ROUTES: Routes = [
               }),
               ...sectionedOutlet('full')
             },
+          },
+          {
+            path: 'skill',
+            children: SKILL_DETAIL_ROUTES,
           }
         ]
       }

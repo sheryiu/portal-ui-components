@@ -1,14 +1,17 @@
 import { Component, inject } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
-import { filter, map, switchMap } from 'rxjs';
+import { map, switchMap } from 'rxjs';
 import { Armor, ArmorPosition } from '../../../../data/armor';
 import { LibraryModule } from '../../../../library/library.module';
 import { SharedModule } from '../../../../shared/shared.module';
 import { ArmorService } from '../../../../store/armor.service';
 import { ArmorPieceLogoComponent } from '../../utils/armor-piece-logo/armor-piece-logo.component';
+import { ArmorSetBonusDataPipe } from '../../utils/data-pipes/armor-set-bonus-data.pipe';
 import { ArmorSetDataPipe } from '../../utils/data-pipes/armor-set-data.pipe';
-import { SkillDataPipe } from '../../utils/data-pipes/skill-data.pipe';
+import { DecorationSlotsDisplayComponent } from '../../utils/decoration-slots-display/decoration-slots-display.component';
 import { nonNullable } from '../../utils/non-nullable';
+import { ArmorSetBonusSkillComponent } from './armor-set-bonus-skill/armor-set-bonus-skill.component';
+import { ArmorSkillComponent } from './armor-skill/armor-skill.component';
 
 @Component({
   selector: 'app-armor-detail',
@@ -18,8 +21,12 @@ import { nonNullable } from '../../utils/non-nullable';
     LibraryModule,
     ArmorSetDataPipe,
     RouterLink,
-    SkillDataPipe,
+    ArmorSetDataPipe,
+    ArmorSetBonusDataPipe,
     ArmorPieceLogoComponent,
+    ArmorSkillComponent,
+    ArmorSetBonusSkillComponent,
+    DecorationSlotsDisplayComponent,
   ],
   templateUrl: './armor-detail.component.html',
   styles: ``

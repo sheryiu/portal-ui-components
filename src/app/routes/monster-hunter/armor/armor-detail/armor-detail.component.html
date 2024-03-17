@@ -133,12 +133,10 @@
           </div>
           <div class="px-2 flex items-center gap-2">
             <i class="icon-6 font-variation-fill text-primary-500 shrink-0">masked_transitions</i>
-            <div class="flex flex-col">
-              <span class="font-medium">
-                @if (data$ | async; as data) {
-                  {{ data.decorationSlots }}
-                }
-              </span>
+            <div class="flex flex-col px-1">
+              @if (data$ | async; as data) {
+                <mhw-decoration-slots-display [slots]="data.decorationSlots"></mhw-decoration-slots-display>
+              }
             </div>
           </div>
           <core-tab-bar-header class="-ms-2" label="Skills">
@@ -153,28 +151,32 @@
             @if (data$ | async; as data) {
               @for (armorSkill of data.skills; track armorSkill.skillId) {
                 <a class="-mx-4 px-4 py-3 border-b last:border-b-0" coreHoverable [routerLink]="['skill', armorSkill.skillId]">
-                  <div class="flex items-center gap-2 w-full">
-                    @if (armorSkill.skillId | skillData | async; as skill) {
-                      <div class="hexagon-mask size-6 shrink-0" [style.background-color]="skill.color"></div>
-                      <div class="flex flex-col gap-0.5 grow">
-                        <core-multilingual-text-display [value]="skill.name"></core-multilingual-text-display>
-                        <p class="text-sm text-secondary"><core-multilingual-text-display [value]="skill.description"></core-multilingual-text-display></p>
-                      </div>
-                      <div class="shrink-0 text-secondary uppercase font-bold">
-                        <span>Lv {{ armorSkill.levels }}</span>
-                      </div>
-                    }
-                  </div>
+                  <mhw-armor-skill [armorSkill]="armorSkill"></mhw-armor-skill>
                 </a>
               } @empty {
                 <span class="text-secondary text-sm uppercase py-2">No Skills</span>
+              }
+              @if (data.armorSetId | armorSetData | async; as armorSet) {
+                @if (armorSet.setBonusId) {
+                  @if (armorSet.setBonusId | armorSetBonusData | async; as setBonus) {
+                    @for (setBonusEffect of setBonus.effects; track setBonusEffect.skillId) {
+                      <a class="-mx-4 px-4 py-3 border-b last:border-b-0" coreHoverable [routerLink]="['skill', setBonusEffect.skillId]">
+                        <mhw-armor-set-bonus-skill
+                          [setBonus]="setBonus"
+                          [setBonusEffect]="setBonusEffect"
+                        ></mhw-armor-set-bonus-skill>
+                      </a>
+                    }
+                  }
+                }
               }
             }
           </div>
           <core-tab-bar-header class="-ms-2" label="Crafting">
             Crafting
           </core-tab-bar-header>
-          <div>
+          <div class="px-2">
+            <span class="text-secondary text-sm uppercase py-2">No Crafting Recipe</span>
           </div>
         </div>
       </div>
