@@ -1,4 +1,4 @@
-import { Component, ContentChild, Directive, EventEmitter, HostBinding, HostListener, Input, Output, TemplateRef, inject } from '@angular/core';
+import { Component, ContentChild, Directive, EventEmitter, HostListener, Output, TemplateRef, inject } from '@angular/core';
 import { HardSurfaceDirective } from '../../components/color/hard-surface.directive';
 import { SharedModule } from '../../shared/shared.module';
 import { BreadcrumbsComponent } from '../breadcrumbs/breadcrumbs.component';

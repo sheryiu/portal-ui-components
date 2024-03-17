@@ -1,9 +1,10 @@
 import { ApplicationConfig, isDevMode } from '@angular/core';
-import { provideRouter, withRouterConfig } from '@angular/router';
+import { NoPreloading, PreloadAllModules, provideRouter, withPreloading, withRouterConfig } from '@angular/router';
 
 import { provideHttpClient, withFetch } from '@angular/common/http';
 import { provideClientHydration } from '@angular/platform-browser';
 import { provideAnimations } from '@angular/platform-browser/animations';
+import { provideServiceWorker } from '@angular/service-worker';
 import { provideTransloco } from '@ngneat/transloco';
 import { routes } from './app.routes';
 import { provideTheme } from './components/services/theme.service';
@@ -14,12 +15,11 @@ import { provideRootNavigation } from './library/root-navigation/root-navigation
 export const appConfig: ApplicationConfig = {
   providers: [
     provideTheme(),
-    provideHttpClient(
-      withFetch(),
-    ),
+    provideHttpClient(withFetch()),
     provideAnimations(),
     provideRouter(
       routes,
+      withPreloading(isDevMode() ? NoPreloading : PreloadAllModules),
       withRouterConfig({
         paramsInheritanceStrategy: 'always',
       })
@@ -33,7 +33,7 @@ export const appConfig: ApplicationConfig = {
         reRenderOnLangChange: true,
         prodMode: !isDevMode(),
       },
-      loader: TranslocoHttpLoader
+      loader: TranslocoHttpLoader,
     }),
     provideRootNavigation([
       {
@@ -48,7 +48,7 @@ export const appConfig: ApplicationConfig = {
             routerLink: ['mhw', 'armor-sim'],
           },
           {
-            type: 'divider'
+            type: 'divider',
           },
           {
             type: 'route',
@@ -66,7 +66,7 @@ export const appConfig: ApplicationConfig = {
             routerLink: ['mhw', 'charms'],
           },
           {
-            type: 'divider'
+            type: 'divider',
           },
           {
             type: 'route',
@@ -88,13 +88,17 @@ export const appConfig: ApplicationConfig = {
             label: 'Armor Set Bonus',
             routerLink: ['mhw', 'armor-set-bonus'],
           },
-        ]
+        ],
       },
       {
         icon: 'user_attributes',
         label: 'Others',
-        routerLink: ['skills']
+        routerLink: ['skills'],
       },
-    ])
+    ]),
+    provideServiceWorker('ngsw-worker.js', {
+      enabled: !isDevMode(),
+      registrationStrategy: 'registerWhenStable:30000',
+    }),
   ],
 };
