@@ -1,12 +1,10 @@
 import { Component, inject } from '@angular/core';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { EffectFn } from '@ngneat/effects-ng';
 import { EMPTY, catchError, concatMap, debounceTime, switchMap, tap } from 'rxjs';
 import { Armor } from '../../../../data/armor';
 import { ArmorSet } from '../../../../data/armor-set';
-import { Rank } from '../../../../data/common';
 import { LibraryModule } from '../../../../library/library.module';
 import { provideSearchSuggestions } from '../../../../library/search-input/search-input';
 import { SharedModule } from '../../../../shared/shared.module';
@@ -50,8 +48,6 @@ export class ArmorCreateComponent extends EffectFn {
     name: [null as unknown as Armor['name'], [Validators.required]],
     armorSetId: [null as unknown as string, [Validators.required]],
     position: [null as unknown as Armor['position'], [Validators.required]],
-    rarity: [null as unknown as number, [Validators.required]],
-    rank: [null as unknown as Armor['rank'], [Validators.required]],
     baseDef: [null as unknown as number],
     maxLevel: [null as unknown as number],
     maxDef: [null as unknown as number],
@@ -63,18 +59,6 @@ export class ArmorCreateComponent extends EffectFn {
       dragon: [null as unknown as number],
     })
   })
-
-  constructor() {
-    super();
-    this.formGroup.controls.rarity.valueChanges.pipe(
-      tap((rarity) => {
-        if (this.formGroup.controls.rank.pristine) {
-          this.formGroup.controls.rank.setValue((rarity >= 9) ? 'iceborne' as Rank : 'base' as Rank)
-        }
-      }),
-      takeUntilDestroyed(),
-    ).subscribe();
-  }
 
   onSave = this.createEffectFn<void>((args$) => args$.pipe(
     debounceTime(0),

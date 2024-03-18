@@ -16,7 +16,7 @@
         </core-simple-header>
         <core-table
           itemHeight="48"
-          [columns]="['name', 'rarity']"
+          [columns]="['name', 'armorSetId']"
         >
           <cdk-virtual-scroll-viewport itemSize [extraHeight]="48 * 2">
             <core-table-body>
@@ -25,12 +25,31 @@
                   Name
                   <core-table-filter-by-text *coreTableHeaderCellFilter [value]="filterByName$$()" (valueChange)="onChangeFilter({ name: $event })"></core-table-filter-by-text>
                 </core-table-header-cell>
-                <core-table-header-cell *coreTableHeaderCellDef="'rarity'" [sortedAsc]="sortByRarity$$() === 'asc'" [sortedDesc]="sortByRarity$$() === 'desc'">
-                  Rarity
-                  <core-segmented-options *coreTableHeaderCellSort [value]="sortByRarity$$()" (valueChange)="onChangeSort(['rarity', $event])" color="accent">
+                <core-table-header-cell *coreTableHeaderCellDef="'armorSetId'" [filtered]="filterByArmorSet$$() != null" [sortedAsc]="sortByArmorSet$$() === 'asc'" [sortedDesc]="sortByArmorSet$$() === 'desc'">
+                  Armor Set
+                  <core-segmented-options *coreTableHeaderCellSort [value]="sortByArmorSet$$()" (valueChange)="onChangeSort(['armorSetId', $event])" color="accent">
                     <div *coreOption="'asc'" class="flex items-center gap-1"><i class="icon-4 rotate-180 -scale-x-100">sort</i><span class="text-sm/[0] font-bold">1 to 9</span></div>
                     <div *coreOption="'desc'" class="flex items-center gap-1"><i class="icon-4">sort</i><span class="text-sm/[0] font-bold">9 to 1</span></div>
                   </core-segmented-options>
+                  <core-table-filter-by-search
+                    *coreTableHeaderCellFilter
+                    [value]="filterByArmorSet$$()"
+                    (valueChange)="onChangeFilter({ armorSetId: $event })"
+                    sourceName="armorSet"
+                    [pickWith]="pickArmorSet"
+                  >
+                    <div *coreSearchInputLabel="let id">
+                      @if (id | armorSetData | async; as data) {
+                        <core-multilingual-text-display [value]="data.name"></core-multilingual-text-display>
+                      } @else {
+                        <!-- TODO -->
+                        <span>Unable to resolve</span>
+                      }
+                    </div>
+                    <div *coreSearchInputSuggestionItem="let item" class="px-4 py-0.5 truncate">
+                      <core-multilingual-text-display [value]="item.name"></core-multilingual-text-display>
+                    </div>
+                  </core-table-filter-by-search>
                 </core-table-header-cell>
               </core-table-header-row>
               <core-table-row
@@ -41,8 +60,10 @@
                 <core-table-cell *coreTableCellDef="'name'">
                   <core-multilingual-text-display [value]="item.name"></core-multilingual-text-display>
                 </core-table-cell>
-                <core-table-cell *coreTableCellDef="'rarity'">
-                  <core-rating-display [value]="item.rarity"></core-rating-display>
+                <core-table-cell *coreTableCellDef="'armorSetId'">
+                  @if (item.armorSetId | armorSetData | async; as armorSet) {
+                    <core-multilingual-text-display [value]="armorSet.name"></core-multilingual-text-display>
+                  }
                 </core-table-cell>
               </core-table-row>
               <core-table-footer-row class="px-4 py-1">

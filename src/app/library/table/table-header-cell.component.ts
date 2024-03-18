@@ -49,7 +49,8 @@ export class TableHeaderCellComponent {
         positionStrategy: this.overlay.position().flexibleConnectedTo(button)
           .withPositions([
             { originX: 'start', originY: 'bottom', overlayX: 'start', overlayY: 'top', offsetY: 4 }
-          ]),
+          ])
+          .withViewportMargin(16),
         scrollStrategy: this.overlay.scrollStrategies.reposition(),
         width: button.getBoundingClientRect().width,
       }

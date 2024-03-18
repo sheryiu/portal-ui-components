@@ -1,8 +1,7 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, EventEmitter, HostBinding, HostListener, Injector, Input, Output, TemplateRef, ViewChild, forwardRef, inject, runInInjectionContext } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, EventEmitter, HostBinding, HostListener, Injector, Input, OnDestroy, Output, TemplateRef, ViewChild, forwardRef, inject, runInInjectionContext } from '@angular/core';
 import { ControlValueAccessor, FormBuilder, FormsModule, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
 import { EffectFn } from '@ngneat/effects-ng';
-import { nanoid } from 'nanoid';
-import { ReplaySubject, pipe, startWith, switchMap, tap } from 'rxjs';
+import { ReplaySubject, startWith, tap } from 'rxjs';
 import { OverlayRefExtra } from '../../components/overlay/overlay-ref-extra';
 import { OverlayService } from '../../components/overlay/overlay.service';
 import { SharedModule } from '../../shared/shared.module';
@@ -23,7 +22,6 @@ import { SearchInputSuggestionItemDirective } from './search-input-suggestion-it
     tabIndex: '0',
   },
   templateUrl: './search-input.component.html',
-  styles: ``,
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
@@ -33,7 +31,7 @@ import { SearchInputSuggestionItemDirective } from './search-input-suggestion-it
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SearchInputComponent<T> extends EffectFn implements ControlValueAccessor {
+export class SearchInputComponent<T> extends EffectFn implements ControlValueAccessor, OnDestroy {
   onChange?: (v: T) => void;
   onTouched?: () => void;
   isDisabled?: boolean;
@@ -130,4 +128,8 @@ export class SearchInputComponent<T> extends EffectFn implements ControlValueAcc
     this.valueChange.emit(this.formControl.getRawValue());
   }
 
+  override ngOnDestroy(): void {
+    super.ngOnDestroy();
+    this._searchStr$.complete();
+  }
 }

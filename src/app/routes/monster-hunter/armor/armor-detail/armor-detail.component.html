@@ -27,13 +27,13 @@
           <core-tab-bar coreStickyHeader checkFor="88" class="top-18 data-[stuck=true]:bg-lunar-green-100 data-[stuck=true]:dark:bg-lunar-green-950"></core-tab-bar>
           <div class="px-2 flex gap-2 items-center">
             @if (data$ | async; as data) {
-              <span class="font-medium whitespace-nowrap shrink-0">Rare {{ data.rarity }}</span>
-            }
-            <div class="flex gap-0.5 shrink-0">
-              @if (data$ | async; as data) {
-                <core-rating-display [value]="data.rarity"></core-rating-display>
+              @if (data.armorSetId | armorSetData | async; as armorSet) {
+                <span class="font-medium whitespace-nowrap shrink-0">Rare {{ armorSet.rarity }}</span>
+                <div class="flex gap-0.5 shrink-0">
+                  <core-rating-display [value]="armorSet.rarity"></core-rating-display>
+                </div>
               }
-            </div>
+            }
           </div>
           <div class="px-2 flex justify-between items-center">
             <div class="flex gap-1">
@@ -159,14 +159,16 @@
               @if (data.armorSetId | armorSetData | async; as armorSet) {
                 @if (armorSet.setBonusId) {
                   @if (armorSet.setBonusId | armorSetBonusData | async; as setBonus) {
-                    @for (setBonusEffect of setBonus.effects; track setBonusEffect.skillId) {
-                      <a class="-mx-4 px-4 py-3 border-b last:border-b-0" coreHoverable [routerLink]="['skill', setBonusEffect.skillId]">
-                        <mhw-armor-set-bonus-skill
-                          [setBonus]="setBonus"
-                          [setBonusEffect]="setBonusEffect"
-                        ></mhw-armor-set-bonus-skill>
-                      </a>
-                    }
+                    <div class="rounded-3 overflow-hidden border border-dashed bg-neutral-200 dark:bg-neutral-700 my-2 flex flex-col">
+                      <core-multilingual-text-display [value]="setBonus.name" class="px-4 py-2 text-secondary text-sm font-bold"></core-multilingual-text-display>
+                      @for (setBonusEffect of setBonus.effects; track setBonusEffect.skillId) {
+                        <a class="px-4 py-3 border-b last:border-b-0" coreHoverable [routerLink]="['skill', setBonusEffect.skillId]">
+                          <mhw-armor-set-bonus-skill
+                            [setBonusEffect]="setBonusEffect"
+                          ></mhw-armor-set-bonus-skill>
+                        </a>
+                      }
+                    </div>
                   }
                 }
               }

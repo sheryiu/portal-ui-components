@@ -1,7 +1,10 @@
 import { NgModule } from '@angular/core';
+import { SearchInputLabelDirective } from '../search-input/search-input-label.directive';
+import { SearchInputSuggestionItemDirective } from '../search-input/search-input-suggestion-item.directive';
 import { TableBodyDirective } from './table-body.directive';
 import { TableCellDefDirective } from './table-cell-def.directive';
 import { TableCellComponent } from './table-cell.component';
+import { TableFilterBySearchComponent } from './table-filter-by-search/table-filter-by-search.component';
 import { TableFilterByTextComponent } from './table-filter-by-text/table-filter-by-text.component';
 import { TableFooterRowDirective } from './table-footer-row.directive';
 import { TableHeaderCellDefDirective } from './table-header-cell-def.directive';
@@ -27,6 +30,9 @@ import { TableComponent } from './table.component';
     TableHeaderCellSortDirective,
     TableHeaderCellFilterDirective,
     TableFilterByTextComponent,
+    TableFilterBySearchComponent,
+    SearchInputLabelDirective,
+    SearchInputSuggestionItemDirective,
     TableFooterRowDirective,
     TableSimpleFooterComponent,
   ],
@@ -43,6 +49,9 @@ import { TableComponent } from './table.component';
     TableHeaderCellSortDirective,
     TableHeaderCellFilterDirective,
     TableFilterByTextComponent,
+    TableFilterBySearchComponent,
+    SearchInputLabelDirective,
+    SearchInputSuggestionItemDirective,
     TableFooterRowDirective,
     TableSimpleFooterComponent,
   ]

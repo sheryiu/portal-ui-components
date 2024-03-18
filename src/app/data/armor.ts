@@ -1,5 +1,4 @@
 import { ArmorSet } from './armor-set';
-import { Rank } from './common';
 import { Root } from './root';
 import { Skill } from './skill';
 
@@ -26,8 +25,6 @@ export type ArmorSkill = {
 
 export type Armor = Root & {
   armorSetId: ArmorSet['id'];
-  rarity: number;
-  rank: Rank;
   position: ArmorPosition;
   image?: Blob | null;
   baseDef?: number;

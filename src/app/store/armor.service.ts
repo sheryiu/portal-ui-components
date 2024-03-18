@@ -8,9 +8,6 @@ import { DatabaseService } from '../data/database.service';
 type Filter = {
   name?: string;
   armorSetId?: string;
-  rarityFrom?: number;
-  rarityTo?: number;
-  rarityEqual?: number;
 };
 
 type Sort = {
@@ -30,17 +27,9 @@ export class ArmorService {
     if (this.data.isServer) return [];
     let filtered;
     if (filter?.name != null) {
-      filtered = this.data.armors.filter(obj => !!(obj.name.en?.includes(filter.name!) || obj.name.zh?.includes(filter.name!) || obj.name.jp?.includes(filter.name!)))
+      filtered = this.data.armors.filter(obj => !!(obj.name?.en?.includes(filter.name!) || obj.name?.zh?.includes(filter.name!) || obj.name?.jp?.includes(filter.name!)))
     } else if (filter?.armorSetId != null) {
       filtered = this.data.armors.where('armorSetId').equals(filter.armorSetId)
-    } else if (filter?.rarityEqual != null) {
-      filtered = this.data.armors.where('rarity').equals(filter.rarityEqual);
-    } else if (filter?.rarityFrom != null && filter?.rarityTo != null) {
-      filtered = this.data.armors.where('rarity').between(filter.rarityFrom, filter.rarityTo, true, true);
-    } else if (filter?.rarityFrom != null) {
-      filtered = this.data.armors.where('rarity').aboveOrEqual(filter.rarityFrom);
-    } else if (filter?.rarityTo != null) {
-      filtered = this.data.armors.where('rarity').belowOrEqual(filter.rarityTo);
     } else {
       filtered = this.data.armors.toCollection();
     }
@@ -58,7 +47,7 @@ export class ArmorService {
 
   mainListFilter$$ = signal<Filter>({});
   mainListSort$$ = signal<Sort>({
-    rarity: 'desc'
+    armorSetId: 'asc',
   });
 
   getOne = (
