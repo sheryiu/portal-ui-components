@@ -64,11 +64,11 @@ export class SkillEditDetailsComponent extends EffectFn {
         catchError(() => EMPTY),
       );
     }),
-    tap(() => this.router.navigate(['../'], { relativeTo: this.route }))
+    tap(() => this.router.navigate(['../'], { relativeTo: this.route, replaceUrl: true }))
   ))
 
   onCancel = this.createEffectFn<void>((args$) => args$.pipe(
-    tap(() => this.router.navigate(['../'], { relativeTo: this.route }))
+    tap(() => this.router.navigate(['../'], { relativeTo: this.route, replaceUrl: true }))
   ))
 
 }
