@@ -1,5 +1,6 @@
 import { Component, ContentChild, Input } from '@angular/core';
 import { SharedModule } from '../../shared/shared.module';
+import { TimeDisplayComponent } from '../time-display/time-display.component';
 import { SupplementaryPanelActionsDirective } from './supplementary-panel-actions.directive';
 
 @Component({
@@ -7,6 +8,7 @@ import { SupplementaryPanelActionsDirective } from './supplementary-panel-action
   standalone: true,
   imports: [
     SharedModule,
+    TimeDisplayComponent,
   ],
   templateUrl: './supplementary-panel.component.html',
   host: {

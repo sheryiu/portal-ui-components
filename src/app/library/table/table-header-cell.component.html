@@ -3,17 +3,15 @@
   coreHoverable
   [hoverableEnabled]="sortDirective?.templateRef || filterDirective?.templateRef"
   [ngClass]="{
-    'justify-start': !justifyEnd,
-    'justify-end': justifyEnd,
     'bg-hover': overlayRef != null,
+    'flex-row-reverse': rightAligned,
   }"
+  class="justify-start"
   (click)="openFilter(button)"
 >
   <ng-content></ng-content>
   @if (sortDirective?.templateRef || filterDirective?.templateRef) {
-    @if (!justifyEnd) {
-      <div class="grow"></div>
-    }
+    <div class="grow"></div>
     @if (!filtered && !sortedAsc && !sortedDesc) {
       <i class="icon-4">arrow_drop_down</i>
     } @else {

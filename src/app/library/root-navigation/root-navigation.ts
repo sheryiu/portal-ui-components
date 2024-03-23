@@ -6,6 +6,9 @@ type RootChildTab = {
   label: string;
   routerLink: any[];
 } | {
+  type: 'header';
+  label: string;
+} | {
   type: 'divider';
 }
 

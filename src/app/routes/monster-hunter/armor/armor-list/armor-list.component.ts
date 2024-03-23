@@ -33,7 +33,12 @@ import { ArmorSetDataPipe } from '../../utils/data-pipes/armor-set-data.pipe';
         )
       }
     })
-  ]
+  ],
+  styles: `
+  .core-table-column-createdAt {
+    @apply justify-end;
+  }
+  `
 })
 export class ArmorListComponent extends EffectFn {
   private service = inject(ArmorService);

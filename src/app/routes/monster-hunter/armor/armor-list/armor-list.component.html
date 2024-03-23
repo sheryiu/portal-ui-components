@@ -16,7 +16,7 @@
         </core-simple-header>
         <core-table
           itemHeight="48"
-          [columns]="['name', 'armorSetId']"
+          [columns]="['name', 'armorSetId', 'createdAt']"
         >
           <cdk-virtual-scroll-viewport itemSize [extraHeight]="48 * 2">
             <core-table-body>
@@ -51,6 +51,9 @@
                     </div>
                   </core-table-filter-by-search>
                 </core-table-header-cell>
+                <core-table-header-cell *coreTableHeaderCellDef="'createdAt'" rightAligned>
+                  Created
+                </core-table-header-cell>
               </core-table-header-row>
               <core-table-row
                 *cdkVirtualFor="let item of data$ | async; trackBy: trackingFn"
@@ -64,6 +67,9 @@
                   @if (item.armorSetId | armorSetData | async; as armorSet) {
                     <core-multilingual-text-display [value]="armorSet.name"></core-multilingual-text-display>
                   }
+                </core-table-cell>
+                <core-table-cell *coreTableCellDef="'createdAt'">
+                  <core-time-display [date]="item.createdAt" format="yyyy-MM-dd HH:mm"></core-time-display>
                 </core-table-cell>
               </core-table-row>
               <core-table-footer-row class="px-4 py-1">

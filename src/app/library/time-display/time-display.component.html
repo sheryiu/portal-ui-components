@@ -1,0 +1,12 @@
+@if (date) {
+  <time [dateTime]="date | date: 'yyyy-MM-dd\'T\'HH:mm:ss.SSS'">
+    @if (mode === 'normal') {
+      {{ date | date: format }}
+    } @else if (mode === 'timeAgo') {
+      {{ date | timeAgo }}
+    }
+  </time>
+} @else {
+  <!-- TODO -->
+  <span class="text-secondary">---</span>
+}

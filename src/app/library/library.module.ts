@@ -19,6 +19,8 @@ import { HeaderActionsDirective, HeaderDirective, SimpleHeaderComponent } from '
 import { SupplementaryPanelModule } from './supplementary-panel/supplementary-panel.module';
 import { TabBarModule } from './tab-bar/tab-bar.module';
 import { TableModule } from './table/table.module';
+import { TimeAgoPipe } from './time-display/time-ago.pipe';
+import { TimeDisplayComponent } from './time-display/time-display.component';
 
 @NgModule({
   declarations: [
@@ -46,6 +48,8 @@ import { TableModule } from './table/table.module';
     RatingDisplayComponent,
     ColorEditComponent,
     SupplementaryPanelModule,
+    TimeDisplayComponent,
+    TimeAgoPipe,
   ],
   exports: [
     BackgroundGraphicsComponent,
@@ -70,6 +74,8 @@ import { TableModule } from './table/table.module';
     RatingDisplayComponent,
     ColorEditComponent,
     SupplementaryPanelModule,
+    TimeDisplayComponent,
+    TimeAgoPipe,
   ]
 })
 export class LibraryModule { }

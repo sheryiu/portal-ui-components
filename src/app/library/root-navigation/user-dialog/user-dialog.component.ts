@@ -1,9 +1,31 @@
-import { isPlatformServer } from '@angular/common';
-import { Component, PLATFORM_ID, inject } from '@angular/core';
-import Dexie from 'dexie';
-import { Observable, from, map, startWith, switchMap } from 'rxjs';
+import { isPlatformBrowser } from '@angular/common';
+import { Component, InjectionToken, PLATFORM_ID, Provider, Type, inject, makeEnvironmentProviders } from '@angular/core';
 import { SharedModule } from '../../../shared/shared.module';
 import { ThemeToggleComponent } from './theme-toggle/theme-toggle.component';
+
+const USER_DIALOG_OPTION = Symbol('user dialog option')
+
+const QUICK_SETTINGS_COMPONENT = new InjectionToken<Type<unknown>[]>('user dialog quick settings component')
+export function withQuickSettingsComponent<T>(componentType: Type<T>): {
+  readonly [USER_DIALOG_OPTION]: any,
+  provider: Provider,
+} {
+  return {
+    [USER_DIALOG_OPTION]: USER_DIALOG_OPTION,
+    provider: {
+      provide: QUICK_SETTINGS_COMPONENT,
+      useValue: componentType,
+      multi: true,
+    } as Provider
+  }
+}
+
+export function provideUserDialog(...options: {
+  readonly [USER_DIALOG_OPTION]: unique symbol,
+  provider: Provider,
+}[]) {
+  return makeEnvironmentProviders(options.map(o => o.provider));
+}
 
 @Component({
   selector: 'app-user-dialog',
@@ -17,17 +39,6 @@ import { ThemeToggleComponent } from './theme-toggle/theme-toggle.component';
 })
 export class UserDialogComponent {
   private platformId = inject(PLATFORM_ID);
-
-  tmpStorage$ = new Observable(subscriber => {
-    if (isPlatformServer(this.platformId)) return;
-    const listener = () => {
-      subscriber.next(null);
-    }
-    Dexie.on('storagemutated', listener);
-    return () => Dexie.on('storagemutated').unsubscribe(listener);
-  }).pipe(
-    startWith(null),
-    switchMap(() => from(navigator.storage.estimate())),
-    map(storage => storage.usage)
-  )
+  isBrowser = isPlatformBrowser(this.platformId)
+  quickSettingsComponents = inject(QUICK_SETTINGS_COMPONENT, { optional: true });
 }

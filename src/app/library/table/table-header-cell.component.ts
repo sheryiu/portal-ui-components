@@ -1,7 +1,9 @@
-import { Component, ContentChild, Directive, Input, TemplateRef, ViewChild, booleanAttribute, inject } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
+import { Component, ContentChild, Directive, ElementRef, Input, PLATFORM_ID, Renderer2, TemplateRef, ViewChild, booleanAttribute, inject } from '@angular/core';
 import { OverlayRefExtra } from '../../components/overlay/overlay-ref-extra';
 import { OverlayService } from '../../components/overlay/overlay.service';
 import { SharedModule } from '../../shared/shared.module';
+import { TableHeaderCellDefDirective } from './table-header-cell-def.directive';
 
 @Directive({
   selector: '[coreTableHeaderCellSort]',
@@ -30,7 +32,7 @@ export class TableHeaderCellFilterDirective {
   templateUrl: './table-header-cell.component.html',
 })
 export class TableHeaderCellComponent {
-  @Input({ transform: booleanAttribute }) justifyEnd: boolean = false;
+  @Input({ transform: booleanAttribute }) rightAligned: boolean = false;
   @Input({ transform: booleanAttribute }) filtered: boolean = false;
   @Input({ transform: booleanAttribute }) sortedAsc: boolean = false;
   @Input({ transform: booleanAttribute }) sortedDesc: boolean = false;
@@ -39,6 +41,17 @@ export class TableHeaderCellComponent {
   @ContentChild(TableHeaderCellFilterDirective) filterDirective?: TableHeaderCellFilterDirective;
   private overlay = inject(OverlayService);
   overlayRef?: OverlayRefExtra;
+
+  private renderer = inject(Renderer2);
+  private isBrowser = isPlatformBrowser(inject(PLATFORM_ID));
+  private tableCellDef = inject(TableHeaderCellDefDirective);
+
+  constructor() {
+    const elRef = inject(ElementRef) as ElementRef<HTMLElement>;
+    if (this.isBrowser && elRef.nativeElement) {
+      this.renderer.addClass(elRef.nativeElement, `core-table-column-${ this.tableCellDef.columnName }`)
+    }
+  }
 
   openFilter(button: HTMLButtonElement) {
     if (this.overlayRef) return;

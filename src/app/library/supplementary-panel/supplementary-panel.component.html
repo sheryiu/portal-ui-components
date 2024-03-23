@@ -6,10 +6,10 @@
   }
   <div class="core-supplementary-panel-text">
     @if (updatedAt) {
-      <p>Last updated {{ updatedAt | date: 'long' }}</p>
+      <p>Last updated <core-time-display [date]="updatedAt" mode="timeAgo"></core-time-display> ago</p>
     }
     @if (createdAt) {
-      <p>Created at {{ createdAt | date: 'long' }}</p>
+      <p>Created at <core-time-display [date]="createdAt" format="medium"></core-time-display></p>
     }
   </div>
 </div>
