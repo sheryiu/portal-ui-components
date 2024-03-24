@@ -55,6 +55,7 @@ export class ArmorListComponent extends EffectFn {
   filterByName$$ = computed(() => this.service.mainListFilter$$()['name']);
   filterByArmorSet$$ = computed(() => this.service.mainListFilter$$()['armorSetId']);
   sortByArmorSet$$ = computed(() => this.service.mainListSort$$()['armorSetId']);
+  sortByCreatedAt$$ = computed(() => this.service.mainListSort$$()['createdAt']);
 
   onHeaderClick() {
     this.router.navigate(['./'], { relativeTo: this.route });

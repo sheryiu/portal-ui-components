@@ -8,5 +8,5 @@ import { Directive, HostBinding, Input } from '@angular/core';
   }
 })
 export class HardSurfaceDirective {
-  @HostBinding('attr.data-color') @Input() color: 'default' | 'primary' | 'accent' | 'gray' | 'grey' = 'default'
+  @HostBinding('attr.data-color') @Input() color: 'default' | 'primary' | 'accent' | 'gray' | 'grey' | 'red' = 'default'
 }

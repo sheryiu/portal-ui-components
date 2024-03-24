@@ -51,8 +51,12 @@
                     </div>
                   </core-table-filter-by-search>
                 </core-table-header-cell>
-                <core-table-header-cell *coreTableHeaderCellDef="'createdAt'" rightAligned>
+                <core-table-header-cell *coreTableHeaderCellDef="'createdAt'" rightAligned [sortedAsc]="sortByCreatedAt$$() === 'asc'" [sortedDesc]="sortByCreatedAt$$() === 'desc'">
                   Created
+                  <core-segmented-options *coreTableHeaderCellSort [value]="sortByCreatedAt$$()" (valueChange)="onChangeSort(['createdAt', $event])" color="accent">
+                    <div *coreOption="'asc'" class="flex items-center gap-1"><i class="icon-4 rotate-180 -scale-x-100">sort</i><span class="text-sm/[0] font-bold">1 to 9</span></div>
+                    <div *coreOption="'desc'" class="flex items-center gap-1"><i class="icon-4">sort</i><span class="text-sm/[0] font-bold">9 to 1</span></div>
+                  </core-segmented-options>
                 </core-table-header-cell>
               </core-table-header-row>
               <core-table-row

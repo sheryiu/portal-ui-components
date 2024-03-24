@@ -1,6 +1,7 @@
 import { isPlatformServer } from '@angular/common';
 import { Injectable, PLATFORM_ID, inject } from '@angular/core';
 import Dexie from 'dexie';
+import { Observable, from, map, startWith, switchMap } from 'rxjs';
 import { Armor } from './armor';
 import { ArmorSet } from './armor-set';
 import { ArmorSetBonus } from './armor-set-bonus';
@@ -18,6 +19,8 @@ export class DatabaseService extends Dexie {
   private platformId = inject(PLATFORM_ID);
   isServer = isPlatformServer(this.platformId);
 
+  bytesUsed$;
+
   constructor() {
     super('database');
     if (this.isServer) return;
@@ -27,5 +30,18 @@ export class DatabaseService extends Dexie {
       armorSetBonuses: 'id, skillId',
       skills: 'id',
     })
+
+    this.bytesUsed$ = new Observable(subscriber => {
+      if (this.isServer) return;
+      const listener = () => {
+        subscriber.next(null);
+      }
+      Dexie.on('storagemutated', listener);
+      return () => Dexie.on('storagemutated').unsubscribe(listener);
+    }).pipe(
+      startWith(null),
+      switchMap(() => from(navigator.storage.estimate())),
+      map(storage => storage.usage)
+    )
   }
 }

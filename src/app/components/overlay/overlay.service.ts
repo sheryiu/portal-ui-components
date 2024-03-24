@@ -1,6 +1,7 @@
 import { Overlay, OverlayConfig } from '@angular/cdk/overlay';
 import { ComponentPortal } from '@angular/cdk/portal';
 import { Injectable, InjectionToken, Injector, TemplateRef, Type, ViewContainerRef, inject } from '@angular/core';
+import { take } from 'rxjs';
 import { OverlayContainerComponent } from './overlay-container/overlay-container.component';
 import { OverlayRefExtra } from './overlay-ref-extra';
 
@@ -23,6 +24,7 @@ export class OverlayService {
       parentInjector?: Injector | undefined,
       viewContainerRef?: ViewContainerRef | null | undefined,
       data?: D,
+      closeOnBackdropClick?: boolean,
     }
   ) {
     const overlayRef = this.overlay.create({
@@ -49,6 +51,9 @@ export class OverlayService {
     const portal = new ComponentPortal(OverlayContainerComponent, config.viewContainerRef, injector);
     portal.attach(overlayRef);
     overlayRefExtra.afterOpened$.next();
+    if (config.hasBackdrop && config.closeOnBackdropClick) {
+      overlayRefExtra.closeOnBackdropClick();
+    }
     return overlayRefExtra;
   }
 }

@@ -1,5 +1,5 @@
 import { OverlayRef } from '@angular/cdk/overlay';
-import { ReplaySubject, take } from 'rxjs';
+import { ReplaySubject, take, takeUntil } from 'rxjs';
 
 export class OverlayRefExtra {
   constructor(public overlayRef: OverlayRef) {
@@ -21,4 +21,12 @@ export class OverlayRefExtra {
   afterOpened$ = new ReplaySubject<void>(1);
   afterClosed$ = new ReplaySubject<void>(1);
   _close$ = new ReplaySubject<void>(1);
+  closeOnBackdropClick() {
+    this.overlayRef.backdropClick().pipe(
+      take(1),
+      takeUntil(this.afterClosed$),
+    ).subscribe(() => {
+      this.close();
+    })
+  }
 }
