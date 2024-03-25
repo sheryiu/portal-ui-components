@@ -7,6 +7,7 @@ import { DatabaseService } from '../../../../data/database.service';
 import { ArmorSetCreateComponent } from '../../../../routes/monster-hunter/armor-set/armor-set-create/armor-set-create.component';
 import { SharedModule } from '../../../../shared/shared.module';
 import { SettingsDialogComponent } from '../../../settings-dialog/settings-dialog.component';
+import { SettingsDialogService } from '../../../settings-dialog/settings-dialog.service';
 
 @Component({
   selector: 'app-database-quick-settings',
@@ -21,21 +22,12 @@ import { SettingsDialogComponent } from '../../../settings-dialog/settings-dialo
   }
 })
 export class DatabaseQuickSettingsComponent {
-
-  private isServer = isPlatformServer(inject(PLATFORM_ID));
-  private overlay = inject(OverlayService);
   private service = inject(DatabaseService);
+  private settingsDialog = inject(SettingsDialogService);
 
   bytesUsed$ = this.service.bytesUsed$;
 
   openSettings() {
-    this.overlay.open(SettingsDialogComponent, {
-      positionStrategy: this.overlay.position().global()
-        .centerVertically()
-        .centerHorizontally(),
-      scrollStrategy: this.overlay.scrollStrategies.block(),
-      hasBackdrop: true,
-      closeOnBackdropClick: true,
-    })
+    this.settingsDialog.openSettings();
   }
 }

@@ -1,8 +1,8 @@
-<div class="w-100vw h-100vh max-w-screen-lg max-h-[768px]">
+<div class="w-100vw lg:w-90vw lg:max-w-screen-lg h-100vh lg:h-90vh max-h-[768px]">
   <div class="border flex flex-row size-full bg-deep-glass">
     <!-- left -->
     <div class="shrink-0 border-r overflow-auto px-2 py-4 gap-0.5 flex flex-col">
-      <h2 class="ps-2 pe-4 py-3">Settings</h2>
+      <h3 class="ps-2 pe-6 py-3">Settings</h3>
       <button
         class="min-h-8 rounded-2 px-2 py-0.5 gap-1 w-full"
         type="button"
@@ -19,13 +19,26 @@
       <core-form-fieldset>
         <core-form-field>
           <div *coreFormFieldLabel>Export</div>
-          <div *coreFormFieldInput>
-            <button
-              coreHoverable
-              coreHardSurface
-              color="accent"
-              class="rounded-2 px-4 py-1"
-            >Download</button>
+          <div *coreFormFieldInput class="pe-4">
+            @if (downloadProgress$ | async; as progress) {
+              @if (progress.totalRows! > 0) {
+                <div class="h-6 my-0.5 w-full flex items-center gap-1 overflow-hidden">
+                  <div
+                    class="h-1 bg-gradient-to-r from-accent-500 to-accent-700 flex-none rounded-full max-w-full transition-[width]"
+                    [style.width.%]="progress.completedRows! * 100 / progress.totalRows!"
+                  ></div>
+                  <div class="h-1 bg-accent-200 grow rounded-full"></div>
+                </div>
+              }
+            } @else {
+              <button
+                coreHoverable
+                coreHardSurface
+                color="accent"
+                class="rounded-2 px-4 py-1"
+                (click)="onDownloadClick()"
+              >Download</button>
+            }
           </div>
         </core-form-field>
         <core-form-field>
@@ -36,6 +49,7 @@
               coreHardSurface
               color="accent"
               class="rounded-2 px-4 py-1"
+              (click)="onUploadClick()"
             >Upload</button>
           </div>
         </core-form-field>
@@ -57,6 +71,7 @@
               coreHardSurface
               color="red"
               class="rounded-2 px-4 py-1"
+              (click)="onDeleteAllClick()"
             >Delete</button>
           </div>
         </core-form-field>

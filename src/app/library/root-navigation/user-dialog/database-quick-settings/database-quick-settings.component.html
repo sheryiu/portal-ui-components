@@ -10,6 +10,8 @@
   <div class="overflow-hidden">
     @if (bytesUsed$ | async; as bytes) {
       {{ bytes / 1024 / 1024 | number: '0.0-2' }} MB
+    } @else {
+      0 MB
     }
   </div>
 </button>

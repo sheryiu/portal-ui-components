@@ -146,6 +146,15 @@ module.exports = {
             "overflow": "hidden",
             "white-space": "nowrap",
           },
+          h3: {
+            "font-size": "1.25rem",
+            "line-height": "1.625rem",
+            "font-family": theme("fontFamily.display"),
+            "font-weight": "400",
+            "text-overflow": "ellipsis",
+            "overflow": "hidden",
+            "white-space": "nowrap",
+          }
         });
         addComponents({
           ".bg-glass": {

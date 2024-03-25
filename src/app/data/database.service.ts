@@ -24,6 +24,7 @@ export class DatabaseService extends Dexie {
   constructor() {
     super('database');
     if (this.isServer) return;
+    import("dexie-export-import")
     this.version(8).stores({
       armors: 'id, armorSetId',
       armorSets: 'id, rarity, setBonusId',
@@ -44,4 +45,13 @@ export class DatabaseService extends Dexie {
       map(storage => storage.usage)
     )
   }
+
+  // exportDatabase() {
+
+  //   import("dexie-export-import").then(module => {
+  //     const exportDB = module.exportDB;
+  //     console.log(exportDB)
+  //     this.export
+  //   });
+  // }
 }
