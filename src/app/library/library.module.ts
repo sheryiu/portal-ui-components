@@ -4,6 +4,7 @@ import { BreadcrumbsComponent } from './breadcrumbs/breadcrumbs.component';
 import { ColorEditComponent } from './color-edit/color-edit.component';
 import { FormModule } from './form/form.module';
 import { ImageUploadEditComponent } from './image-upload-edit/image-upload-edit.component';
+import { LinearProgressDisplayComponent } from './linear-progress-display/linear-progress-display.component';
 import { MultilingualTextDisplayComponent } from './multilingual-text-display/multilingual-text-display.component';
 import { MultilingualTextEditComponent } from './multilingual-text-edit/multilingual-text-edit.component';
 import { RatingDisplayComponent } from './rating-display/rating-display.component';
@@ -50,6 +51,7 @@ import { TimeDisplayComponent } from './time-display/time-display.component';
     SupplementaryPanelModule,
     TimeDisplayComponent,
     TimeAgoPipe,
+    LinearProgressDisplayComponent,
   ],
   exports: [
     BackgroundGraphicsComponent,
@@ -76,6 +78,7 @@ import { TimeDisplayComponent } from './time-display/time-display.component';
     SupplementaryPanelModule,
     TimeDisplayComponent,
     TimeAgoPipe,
+    LinearProgressDisplayComponent,
   ]
 })
 export class LibraryModule { }

@@ -26,9 +26,10 @@ export class HeaderActionsDirective {
   ],
   host: {
     class: 'core-simple-header group/header',
-    // ngSkipHydration: 'true'
   },
   template: `
+    <!-- Fix duplication bug with https://github.com/angular/angular/issues/50543 -->
+    <ng-content />
     <!-- don't use defer here to solve the duplication bug -->
     <!-- https://github.com/angular/angular/issues/48224 -->
     <!-- don't use cdkPortalOutlet because it will not wait for animation to end -->

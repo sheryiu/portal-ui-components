@@ -46,12 +46,9 @@ export class DatabaseService extends Dexie {
     )
   }
 
-  // exportDatabase() {
-
-  //   import("dexie-export-import").then(module => {
-  //     const exportDB = module.exportDB;
-  //     console.log(exportDB)
-  //     this.export
-  //   });
-  // }
+  emptyDatabase() {
+    return this.delete().then(() => {
+      location.reload();
+    });
+  }
 }

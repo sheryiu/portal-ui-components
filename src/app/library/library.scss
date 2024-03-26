@@ -75,6 +75,7 @@
 
     .core-table-body {
       @apply grid;
+      grid-template-columns: var(--core-table-columns)
     }
 
     .core-table-row {
@@ -163,11 +164,8 @@
       }
     }
     img {
-      @apply transition-all size-full object-cover;
-      // mask: linear-gradient(to right, black, rgb(0 0 0 / 0.4) 50%, rgb(0 0 0 / 0.1));
-      // mask-size: 200%;
+      @apply size-full object-cover;
       &:has(+ button:hover) {
-        // mask-position: 100%;
         @apply object-contain;
       }
     }
@@ -245,5 +243,9 @@
     .core-supplementary-panel-text {
       @apply flex flex-col gap-0.5 grow justify-end text-sm text-secondary;
     }
+  }
+
+  .core-linear-progress-display {
+    @apply w-full flex items-center gap-1 overflow-hidden;
   }
 }

@@ -17,6 +17,7 @@
         <core-table
           itemHeight="48"
           [columns]="['name', 'armorSetId', 'createdAt']"
+          [columnWidths]="['50%', '30%']"
         >
           <cdk-virtual-scroll-viewport itemSize [extraHeight]="48 * 2">
             <core-table-body>

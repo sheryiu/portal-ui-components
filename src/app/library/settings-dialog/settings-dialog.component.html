@@ -22,13 +22,10 @@
           <div *coreFormFieldInput class="pe-4">
             @if (downloadProgress$ | async; as progress) {
               @if (progress.totalRows! > 0) {
-                <div class="h-6 my-0.5 w-full flex items-center gap-1 overflow-hidden">
-                  <div
-                    class="h-1 bg-gradient-to-r from-accent-500 to-accent-700 flex-none rounded-full max-w-full transition-[width]"
-                    [style.width.%]="progress.completedRows! * 100 / progress.totalRows!"
-                  ></div>
-                  <div class="h-1 bg-accent-200 grow rounded-full"></div>
-                </div>
+                <core-linear-progress-display
+                  class="h-6 my-0.5"
+                  [value]="progress.completedRows! * 100 / progress.totalRows!"
+                ></core-linear-progress-display>
               }
             } @else {
               <button
@@ -43,14 +40,23 @@
         </core-form-field>
         <core-form-field>
           <div *coreFormFieldLabel>Import</div>
-          <div *coreFormFieldInput>
-            <button
-              coreHoverable
-              coreHardSurface
-              color="accent"
-              class="rounded-2 px-4 py-1"
-              (click)="onUploadClick()"
-            >Upload</button>
+          <div *coreFormFieldInput class="pe-4">
+            @if (uploadProgress$ | async; as progress) {
+              @if (progress.totalRows! > 0) {
+                <core-linear-progress-display
+                  class="h-6 my-0.5"
+                  [value]="progress.completedRows! * 100 / progress.totalRows!"
+                ></core-linear-progress-display>
+              }
+            } @else {
+              <button
+                coreHoverable
+                coreHardSurface
+                color="accent"
+                class="rounded-2 px-4 py-1"
+                (click)="onUploadClick()"
+              >Upload</button>
+            }
           </div>
         </core-form-field>
       </core-form-fieldset>
