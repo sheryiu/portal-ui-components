@@ -1,10 +1,11 @@
 import { Injectable, inject, signal } from '@angular/core';
 import { liveQuery } from 'dexie';
 import { nanoid } from 'nanoid';
-import { from } from 'rxjs';
+import { from, shareReplay } from 'rxjs';
 import { ArmorSetBonus } from '../data/armor-set-bonus';
 import { DatabaseService } from '../data/database.service';
 import { Skill } from '../data/skill';
+import { memoize } from './memoize';
 
 type Filter = {
   name?: string;
@@ -21,31 +22,36 @@ type Sort = {
 export class ArmorSetBonusService {
   private data = inject(DatabaseService);
 
-  list = (
+  @memoize
+  list(
     filter?: Filter,
     sort?: Sort
-  ) => liveQuery(() => {
-    if (this.data.isServer) return [];
-    let filtered;
-    if (filter?.name != null) {
-      const name = filter.name.toLowerCase();
-      filtered = this.data.armorSetBonuses.filter(obj => !!(obj.name?.en?.toLowerCase()?.includes(name) || obj.name?.zh?.toLowerCase()?.includes(name) || obj.name?.jp?.toLowerCase()?.includes(name)))
-    } else if (filter?.skillId != null) {
-      filtered = this.data.armorSetBonuses.where('skillId').equals(filter.skillId);
-    } else {
-      filtered = this.data.armorSetBonuses.toCollection();
-    }
-    if (sort && Object.values(sort).filter(v => v == 'asc' || v == 'desc').length > 0) {
-      const sortKey = Object.entries(sort).filter(([key, v]) => v == 'asc' || v == 'desc')[0][0];
-      if (sort[sortKey] === 'desc') {
-        return filtered.reverse().sortBy(sortKey);
+  ) {
+    return from(liveQuery(() => {
+      if (this.data.isServer) return [];
+      let filtered;
+      if (filter?.name != null) {
+        const name = filter.name.toLowerCase();
+        filtered = this.data.armorSetBonuses.filter(obj => !!(obj.name?.en?.toLowerCase()?.includes(name) || obj.name?.zh?.toLowerCase()?.includes(name) || obj.name?.jp?.toLowerCase()?.includes(name)))
+      } else if (filter?.skillId != null) {
+        filtered = this.data.armorSetBonuses.where('skillId').equals(filter.skillId);
       } else {
-        return filtered.sortBy(sortKey);
+        filtered = this.data.armorSetBonuses.toCollection();
       }
-    } else {
-      return filtered.toArray();
-    }
-  });
+      if (sort && Object.values(sort).filter(v => v == 'asc' || v == 'desc').length > 0) {
+        const sortKey = Object.entries(sort).filter(([key, v]) => v == 'asc' || v == 'desc')[0][0];
+        if (sort[sortKey] === 'desc') {
+          return filtered.reverse().sortBy(sortKey);
+        } else {
+          return filtered.sortBy(sortKey);
+        }
+      } else {
+        return filtered.toArray();
+      }
+    })).pipe(
+      shareReplay(1),
+    )
+  }
 
   mainListFilter$$ = signal<Filter>({});
   mainListSort$$ = signal<Sort>({});

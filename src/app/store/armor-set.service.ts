@@ -1,9 +1,10 @@
 import { Injectable, inject, signal } from '@angular/core';
 import { liveQuery } from 'dexie';
 import { nanoid } from 'nanoid';
-import { from } from 'rxjs';
+import { from, shareReplay } from 'rxjs';
 import { ArmorSet } from '../data/armor-set';
 import { DatabaseService } from '../data/database.service';
+import { memoize } from './memoize';
 
 type Filter = {
   name?: string;
@@ -22,37 +23,42 @@ type Sort = {
 export class ArmorSetService {
   private data = inject(DatabaseService);
 
-  list = (
+  @memoize
+  list(
     filter?: Filter,
     sort?: Sort
-  ) => liveQuery(() => {
-    if (this.data.isServer) return [];
-    let filtered;
-    if (filter?.name != null) {
-      const name = filter.name.toLowerCase();
-      filtered = this.data.armorSets.filter(obj => !!(obj.name?.en?.toLowerCase()?.includes(name) || obj.name?.zh?.toLowerCase()?.includes(name) || obj.name?.jp?.toLowerCase()?.includes(name)))
-    } else if (filter?.rarityEqual != null) {
-      filtered = this.data.armorSets.where('rarity').equals(filter.rarityEqual);
-    } else if (filter?.rarityFrom != null && filter?.rarityTo != null) {
-      filtered = this.data.armorSets.where('rarity').between(filter.rarityFrom, filter.rarityTo, true, true);
-    } else if (filter?.rarityFrom != null) {
-      filtered = this.data.armorSets.where('rarity').aboveOrEqual(filter.rarityFrom);
-    } else if (filter?.rarityTo != null) {
-      filtered = this.data.armorSets.where('rarity').belowOrEqual(filter.rarityTo);
-    } else {
-      filtered = this.data.armorSets.toCollection();
-    }
-    if (sort && Object.values(sort).filter(v => v == 'asc' || v == 'desc').length > 0) {
-      const sortKey = Object.entries(sort).filter(([key, v]) => v == 'asc' || v == 'desc')[0][0];
-      if (sort[sortKey] === 'desc') {
-        return filtered.reverse().sortBy(sortKey);
+  ) {
+    return from(liveQuery(() => {
+      if (this.data.isServer) return [];
+      let filtered;
+      if (filter?.name != null) {
+        const name = filter.name.toLowerCase();
+        filtered = this.data.armorSets.filter(obj => !!(obj.name?.en?.toLowerCase()?.includes(name) || obj.name?.zh?.toLowerCase()?.includes(name) || obj.name?.jp?.toLowerCase()?.includes(name)))
+      } else if (filter?.rarityEqual != null) {
+        filtered = this.data.armorSets.where('rarity').equals(filter.rarityEqual);
+      } else if (filter?.rarityFrom != null && filter?.rarityTo != null) {
+        filtered = this.data.armorSets.where('rarity').between(filter.rarityFrom, filter.rarityTo, true, true);
+      } else if (filter?.rarityFrom != null) {
+        filtered = this.data.armorSets.where('rarity').aboveOrEqual(filter.rarityFrom);
+      } else if (filter?.rarityTo != null) {
+        filtered = this.data.armorSets.where('rarity').belowOrEqual(filter.rarityTo);
       } else {
-        return filtered.sortBy(sortKey);
+        filtered = this.data.armorSets.toCollection();
       }
-    } else {
-      return filtered.toArray();
-    }
-  });
+      if (sort && Object.values(sort).filter(v => v == 'asc' || v == 'desc').length > 0) {
+        const sortKey = Object.entries(sort).filter(([key, v]) => v == 'asc' || v == 'desc')[0][0];
+        if (sort[sortKey] === 'desc') {
+          return filtered.reverse().sortBy(sortKey);
+        } else {
+          return filtered.sortBy(sortKey);
+        }
+      } else {
+        return filtered.toArray();
+      }
+    })).pipe(
+      shareReplay(1),
+    )
+  }
 
   mainListFilter$$ = signal<Filter>({});
   mainListSort$$ = signal<Sort>({

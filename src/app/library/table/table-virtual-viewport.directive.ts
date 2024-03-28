@@ -13,10 +13,11 @@ export class TableVirtualViewportDirective {
 
   constructor() {
     if (this.cdkViewport instanceof FixedSizeVirtualScrollStrategy) {
-      this.table?.itemHeight$.pipe(
+      (this.table?.activeItemHeight != null) && (this.cdkViewport as FixedSizeVirtualScrollStrategy)!.updateItemAndBufferSize(this.table?.activeItemHeight, 200, 200);
+      this.table?.responsiveUpdated$.pipe(
         takeUntilDestroyed(),
-      ).subscribe((itemHeight) => {
-        (this.cdkViewport as FixedSizeVirtualScrollStrategy)!.updateItemAndBufferSize(itemHeight, 200, 200);
+      ).subscribe(() => {
+        (this.table?.activeItemHeight != null) && (this.cdkViewport as FixedSizeVirtualScrollStrategy)!.updateItemAndBufferSize(this.table?.activeItemHeight, 200, 200);
       })
     }
   }

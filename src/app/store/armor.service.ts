@@ -1,9 +1,11 @@
 import { Injectable, inject, signal } from '@angular/core';
 import { liveQuery } from 'dexie';
 import { nanoid } from 'nanoid';
-import { from } from 'rxjs';
+import { sha1 } from 'object-hash';
+import { from, shareReplay } from 'rxjs';
 import { Armor } from '../data/armor';
 import { DatabaseService } from '../data/database.service';
+import { memoize } from './memoize';
 
 type Filter = {
   name?: string;
@@ -20,30 +22,35 @@ type Sort = {
 export class ArmorService {
   private data = inject(DatabaseService);
 
-  list = (
+  @memoize
+  list(
     filter?: Filter,
     sort?: Sort
-  ) => liveQuery(() => {
-    if (this.data.isServer) return [];
-    let filtered;
-    if (filter?.name != null) {
-      filtered = this.data.armors.filter(obj => !!(obj.name?.en?.includes(filter.name!) || obj.name?.zh?.includes(filter.name!) || obj.name?.jp?.includes(filter.name!)))
-    } else if (filter?.armorSetId != null) {
-      filtered = this.data.armors.where('armorSetId').equals(filter.armorSetId)
-    } else {
-      filtered = this.data.armors.toCollection();
-    }
-    if (sort && Object.values(sort).filter(v => v == 'asc' || v == 'desc').length > 0) {
-      const sortKey = Object.entries(sort).filter(([key, v]) => v == 'asc' || v == 'desc')[0][0];
-      if (sort[sortKey] === 'desc') {
-        return filtered.reverse().sortBy(sortKey);
+  ) {
+    return from(liveQuery(() => {
+      if (this.data.isServer) return [];
+      let filtered;
+      if (filter?.name != null) {
+        filtered = this.data.armors.filter(obj => !!(obj.name?.en?.includes(filter.name!) || obj.name?.zh?.includes(filter.name!) || obj.name?.jp?.includes(filter.name!)))
+      } else if (filter?.armorSetId != null) {
+        filtered = this.data.armors.where('armorSetId').equals(filter.armorSetId)
       } else {
-        return filtered.sortBy(sortKey);
+        filtered = this.data.armors.toCollection();
       }
-    } else {
-      return filtered.toArray();
-    }
-  });
+      if (sort && Object.values(sort).filter(v => v == 'asc' || v == 'desc').length > 0) {
+        const sortKey = Object.entries(sort).filter(([key, v]) => v == 'asc' || v == 'desc')[0][0];
+        if (sort[sortKey] === 'desc') {
+          return filtered.reverse().sortBy(sortKey);
+        } else {
+          return filtered.sortBy(sortKey);
+        }
+      } else {
+        return filtered.toArray();
+      }
+    })).pipe(
+      shareReplay(1),
+    )
+  }
 
   mainListFilter$$ = signal<Filter>({});
   mainListSort$$ = signal<Sort>({

@@ -14,11 +14,16 @@ export class TableFooterRowDirective {
   private table = inject(TableComponent);
 
   constructor() {
-    this.table.columns$.pipe(
+    this.checkColumns();
+    this.table.responsiveUpdated$.pipe(
       takeUntilDestroyed(),
-    ).subscribe(columns => {
-      this.hostColumnEnd = `span ${ columns.length }`
+    ).subscribe(() => {
+      this.checkColumns();
     })
+  }
+
+  checkColumns() {
+    this.hostColumnEnd = `span ${ this.table.activeColumns?.length }`
   }
 
 }

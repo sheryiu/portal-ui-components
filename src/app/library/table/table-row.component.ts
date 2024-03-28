@@ -1,16 +1,14 @@
-import { PortalModule, TemplatePortal } from '@angular/cdk/portal';
-import { AsyncPipe } from '@angular/common';
-import { Component, ContentChildren, HostBinding, Input, QueryList, ViewContainerRef, inject } from '@angular/core';
-import { toSignal } from '@angular/core/rxjs-interop';
+import { NgTemplateOutlet } from '@angular/common';
+import { AfterContentInit, Component, ContentChildren, HostBinding, Input, QueryList, TemplateRef, inject } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, RouterLink, RouterLinkActive } from '@angular/router';
-import { map, tap } from 'rxjs';
 import { TableCellDefDirective } from './table-cell-def.directive';
 import { TableComponent } from './table.component';
 
 @Component({
   selector: 'core-table-row',
   standalone: true,
-  imports: [RouterLink, RouterLinkActive, AsyncPipe, PortalModule],
+  imports: [RouterLink, RouterLinkActive, NgTemplateOutlet],
   host: {
     class: 'core-table-row',
     role: 'row',
@@ -21,37 +19,46 @@ import { TableComponent } from './table.component';
     routerLinkActive
     #active="routerLinkActive"
     [attr.data-active]="active.isActive"
-    [style.height.px]="height$ | async"
+    [style.height.px]="height"
   >
-    @for (def of cells$(); track def.columnName) {
-      <ng-container [cdkPortalOutlet]="def.portal"></ng-container>
+    @for (def of cells; track def.columnName) {
+      <ng-container [ngTemplateOutlet]="def.templateRef"></ng-container>
     }
   </a>
   `
 })
-export class TableRowComponent {
+export class TableRowComponent implements AfterContentInit {
   @Input() route?: any[];
   @Input() relativeTo?: ActivatedRoute | null;
   @ContentChildren(TableCellDefDirective) private cellDefs!: QueryList<TableCellDefDirective>;
   @HostBinding('style.grid-column-end') private hostColumnEnd?: string;
   private table = inject(TableComponent);
-  private vcr = inject(ViewContainerRef);
 
-  private cache = new Map<string, TemplatePortal>();
+  height?: number;
+  cells?: { columnName: string; templateRef: TemplateRef<unknown> }[];
 
-  height$ = this.table.itemHeight$;
-  cells$ = toSignal(this.table.columns$.pipe(
-    map(columns => columns
-      .map(columnName => this.cellDefs.find(def => def.columnName === columnName))
+  constructor() {
+    this.table.responsiveUpdated$.pipe(
+      takeUntilDestroyed(),
+    ).subscribe(() => {
+      this.checkColumns();
+    })
+  }
+
+  ngAfterContentInit(): void {
+    this.checkColumns();
+  }
+
+  checkColumns() {
+    this.height = this.table.activeItemHeight;
+    this.cells = this.table.activeColumns
+      ?.map(columnName => this.cellDefs.find(def => def.columnName === columnName))
       .filter((def): def is TableCellDefDirective => def != null)
       .map(def => ({
         columnName: def.columnName,
-        portal: this.cache.has(def.columnName) ?
-          this.cache.get(def.columnName) :
-          this.cache.set(def.columnName, new TemplatePortal(def.templateRef, this.vcr)).get(def.columnName),
+        templateRef: def.templateRef,
       }))
-    ),
-    tap((defs) => this.hostColumnEnd = `span ${ defs.length }`)
-  ))
+    this.hostColumnEnd = `span ${ this.cells?.length }`
+  }
 
 }

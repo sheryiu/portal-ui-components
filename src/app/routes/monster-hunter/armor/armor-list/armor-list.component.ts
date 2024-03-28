@@ -50,7 +50,7 @@ export class ArmorListComponent extends EffectFn {
     filter: toObservable(this.service.mainListFilter$$),
     sort: toObservable(this.service.mainListSort$$),
   }).pipe(
-    switchMap(({ filter, sort }) => this.service.list(filter, sort))
+    switchMap(({ filter, sort }) => this.service.list(filter, sort)),
   );
   filterByName$$ = computed(() => this.service.mainListFilter$$()['name']);
   filterByArmorSet$$ = computed(() => this.service.mainListFilter$$()['armorSetId']);

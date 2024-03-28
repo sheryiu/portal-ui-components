@@ -14,7 +14,6 @@ import { DatabaseQuickSettingsComponent } from './library/root-navigation/user-d
 import { LanguageToggleComponent } from './library/root-navigation/user-dialog/language-toggle/language-toggle.component';
 import { ThemeToggleComponent } from './library/root-navigation/user-dialog/theme-toggle/theme-toggle.component';
 import { provideUserDialog, withQuickSettingsComponent } from './library/root-navigation/user-dialog/user-dialog.component';
-import { TimeDisplayComponent } from './library/time-display/time-display.component';
 
 export const appConfig: ApplicationConfig = {
   providers: [

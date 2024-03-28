@@ -1,39 +1,52 @@
-import { PortalModule, TemplatePortal } from '@angular/cdk/portal';
-import { AsyncPipe } from '@angular/common';
-import { Component, ContentChildren, HostBinding, QueryList, ViewContainerRef, inject } from '@angular/core';
-import { map, tap } from 'rxjs';
+import { NgTemplateOutlet } from '@angular/common';
+import { AfterContentInit, Component, ContentChildren, HostBinding, QueryList, TemplateRef, ViewContainerRef, inject } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { TableHeaderCellDefDirective } from './table-header-cell-def.directive';
 import { TableComponent } from './table.component';
 
 @Component({
   selector: 'core-table-header-row',
   standalone: true,
-  imports: [AsyncPipe, PortalModule],
+  imports: [NgTemplateOutlet],
   host: {
     class: 'core-table-header-row',
     role: 'rowheader',
   },
   template: `
-  @for (def of cells$ | async; track def.columnName) {
-    <ng-container [cdkPortalOutlet]="def.portal"></ng-container>
+  <ng-content />
+  @for (def of cells; track def.columnName) {
+    <ng-container [ngTemplateOutlet]="def.templateRef"></ng-container>
   }
   `
 })
-export class TableHeaderRowComponent {
+export class TableHeaderRowComponent implements AfterContentInit {
   @ContentChildren(TableHeaderCellDefDirective) private cellDefs!: QueryList<TableHeaderCellDefDirective>;
   @HostBinding('style.grid-column-end') private hostColumnEnd?: string;
   private table = inject(TableComponent);
   private vcr = inject(ViewContainerRef);
 
-  cells$ = this.table.columns$.pipe(
-    map(columns => columns
-      .map(columnName => this.cellDefs.find(def => def.columnName === columnName))
+  cells?: { columnName: string; templateRef: TemplateRef<unknown> }[];
+
+  constructor() {
+    this.table.responsiveUpdated$.pipe(
+      takeUntilDestroyed(),
+    ).subscribe(() => {
+      this.checkColumns();
+    })
+  }
+
+  ngAfterContentInit(): void {
+    this.checkColumns();
+  }
+
+  checkColumns() {
+    this.cells = this.table.activeColumns
+      ?.map(columnName => this.cellDefs.find(def => def.columnName === columnName))
       .filter((def): def is TableHeaderCellDefDirective => def != null)
       .map(def => ({
         columnName: def.columnName,
-        portal: new TemplatePortal(def.templateRef, this.vcr),
+        templateRef: def.templateRef,
       }))
-    ),
-    tap((defs) => this.hostColumnEnd = `span ${ defs.length }`)
-  )
+    this.hostColumnEnd = `span ${ this.cells?.length }`
+  }
 }

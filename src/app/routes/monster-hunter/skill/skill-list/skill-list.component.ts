@@ -9,7 +9,6 @@ import { Skill } from '../../../../data/skill';
 import { LibraryModule } from '../../../../library/library.module';
 import { SharedModule } from '../../../../shared/shared.module';
 import { SkillService } from '../../../../store/skill.service';
-import { ArmorSetCreateComponent } from '../../armor-set/armor-set-create/armor-set-create.component';
 import { SkillCreateComponent } from '../skill-create/skill-create.component';
 
 @Component({
