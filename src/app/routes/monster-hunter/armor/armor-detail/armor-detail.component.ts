@@ -1,6 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
-import { map, switchMap } from 'rxjs';
+import { filter, map, switchMap } from 'rxjs';
+import { filterNonNull } from '../../../../components/utils/filter-non-null';
 import { Armor, ArmorPosition } from '../../../../data/armor';
 import { LibraryModule } from '../../../../library/library.module';
 import { SharedModule } from '../../../../shared/shared.module';
@@ -50,6 +51,7 @@ export class ArmorDetailComponent {
     map(data => data?.armorSetId),
     nonNullable(),
     switchMap(armorSetId => this.service.list({ armorSetId })),
+    filterNonNull(),
     map(armors => ({
       helm: armors.find(a => a.position === ArmorPosition.Helm)?.id,
       chest: armors.find(a => a.position === ArmorPosition.Chest)?.id,

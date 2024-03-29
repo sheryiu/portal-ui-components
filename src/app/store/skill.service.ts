@@ -1,7 +1,7 @@
 import { Injectable, inject, signal } from '@angular/core';
 import { liveQuery } from 'dexie';
 import { nanoid } from 'nanoid';
-import { from, shareReplay } from 'rxjs';
+import { delayWhen, from, of, shareReplay, timer } from 'rxjs';
 import { DatabaseService } from '../data/database.service';
 import { Skill } from '../data/skill';
 import { memoize } from './memoize';
@@ -45,6 +45,7 @@ export class SkillService {
         return filtered.toArray();
       }
     })).pipe(
+      delayWhen((_, i) => i === 0 ? timer(1000) : of()),
       shareReplay(1)
     )
   }

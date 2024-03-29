@@ -9,6 +9,7 @@ import { Subject, debounceTime } from 'rxjs';
   host: {
     role: 'table',
     class: 'core-table @container/table',
+    ngSkipHydration: 'true'
   },
   template: `<ng-content></ng-content>`
 })

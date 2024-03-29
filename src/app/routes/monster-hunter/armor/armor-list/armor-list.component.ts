@@ -12,6 +12,7 @@ import { SharedModule } from '../../../../shared/shared.module';
 import { ArmorSetService } from '../../../../store/armor-set.service';
 import { ArmorService } from '../../../../store/armor.service';
 import { ArmorSetDataPipe } from '../../utils/data-pipes/armor-set-data.pipe';
+import { LoadingFooterComponent } from '../../utils/loading-footer/loading-footer.component';
 
 @Component({
   selector: 'app-armor-list',
@@ -21,6 +22,7 @@ import { ArmorSetDataPipe } from '../../utils/data-pipes/armor-set-data.pipe';
     LibraryModule,
     RouterLink,
     ArmorSetDataPipe,
+    LoadingFooterComponent,
   ],
   templateUrl: './armor-list.component.html',
   providers: [

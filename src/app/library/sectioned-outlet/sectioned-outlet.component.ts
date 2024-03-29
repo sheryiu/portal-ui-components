@@ -20,11 +20,11 @@ import { getSectionedOutletData } from './sectioned-outlet';
     trigger('bgAnimation', [
       transition(':enter', [
         style({ opacity: 0 }),
-        animate('175ms 100ms ease-out', style({ opacity: 1 })),
+        animate('125ms 50ms ease-out', style({ opacity: 1 })),
       ]),
       transition(':leave', [
         style({ opacity: 1 }),
-        animate('225ms ease-in', style({ opacity: 0 })),
+        animate('200ms ease-in', style({ opacity: 0 })),
       ]),
     ]),
     trigger('routeAnimation', [
@@ -39,7 +39,7 @@ import { getSectionedOutletData } from './sectioned-outlet';
               opacity: 0,
               translate: '2rem 0',
             }),
-            animate('175ms 100ms ease-out', style({ opacity: 1, translate: '0 0' })),
+            animate('125ms 50ms ease-out', style({ opacity: 1, translate: '0 0' })),
           ], { optional: true, }),
           query(':leave', [
             style({
@@ -51,8 +51,8 @@ import { getSectionedOutletData } from './sectioned-outlet';
               scale: 1,
             }),
             sequence([
-              animate('125ms ease-out', style({ scale: 0.98 })),
-              animate('200ms ease-in', style({ opacity: 0, translate: '2rem 0' })),
+              animate('50ms ease-out', style({ scale: 0.98 })),
+              animate('150ms ease-in', style({ opacity: 0, translate: '2rem 0' })),
             ])
           ], { optional: true, }),
         ])
