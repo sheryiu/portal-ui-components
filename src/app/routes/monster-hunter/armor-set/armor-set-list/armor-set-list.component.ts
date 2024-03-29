@@ -9,6 +9,7 @@ import { ArmorSet } from '../../../../data/armor-set';
 import { LibraryModule } from '../../../../library/library.module';
 import { SharedModule } from '../../../../shared/shared.module';
 import { ArmorSetService } from '../../../../store/armor-set.service';
+import { LoadingFooterComponent } from '../../utils/loading-footer/loading-footer.component';
 import { ArmorSetCreateComponent } from '../armor-set-create/armor-set-create.component';
 
 @Component({
@@ -17,6 +18,7 @@ import { ArmorSetCreateComponent } from '../armor-set-create/armor-set-create.co
   imports: [
     SharedModule,
     LibraryModule,
+    LoadingFooterComponent,
   ],
   templateUrl: './armor-set-list.component.html',
 })

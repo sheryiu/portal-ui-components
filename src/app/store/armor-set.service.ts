@@ -1,7 +1,7 @@
 import { Injectable, inject, signal } from '@angular/core';
 import { liveQuery } from 'dexie';
 import { nanoid } from 'nanoid';
-import { delayWhen, from, of, shareReplay, timer } from 'rxjs';
+import { delayWhen, from, of, shareReplay, startWith, timer } from 'rxjs';
 import { ArmorSet } from '../data/armor-set';
 import { DatabaseService } from '../data/database.service';
 import { memoize } from './memoize';
@@ -57,6 +57,7 @@ export class ArmorSetService {
       }
     })).pipe(
       delayWhen((_, i) => i === 0 ? timer(1000) : of()),
+      startWith(null),
       shareReplay(1),
     )
   }

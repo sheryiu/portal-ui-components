@@ -1,5 +1,5 @@
 import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
-import { Component, inject } from '@angular/core';
+import { Component, Input, inject } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
@@ -9,15 +9,15 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
   template: `{{ dataCount }} Loaded`,
 })
 export class TableSimpleFooterComponent {
-  private viewport = inject(CdkVirtualScrollViewport);
+  private viewport = inject(CdkVirtualScrollViewport, { optional: true });
 
-  dataCount: number = 0;
+  @Input() dataCount: number | undefined = 0;
 
   constructor() {
-    this.viewport.renderedRangeStream.pipe(
+    this.viewport?.renderedRangeStream.pipe(
       takeUntilDestroyed(),
     ).subscribe(() => {
-      this.dataCount = this.viewport.getDataLength()
+      this.dataCount = this.viewport?.getDataLength()
     })
   }
 }

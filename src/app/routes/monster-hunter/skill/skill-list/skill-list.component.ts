@@ -9,6 +9,7 @@ import { Skill } from '../../../../data/skill';
 import { LibraryModule } from '../../../../library/library.module';
 import { SharedModule } from '../../../../shared/shared.module';
 import { SkillService } from '../../../../store/skill.service';
+import { LoadingFooterComponent } from '../../utils/loading-footer/loading-footer.component';
 import { SkillCreateComponent } from '../skill-create/skill-create.component';
 
 @Component({
@@ -17,6 +18,7 @@ import { SkillCreateComponent } from '../skill-create/skill-create.component';
   imports: [
     SharedModule,
     LibraryModule,
+    LoadingFooterComponent,
   ],
   templateUrl: './skill-list.component.html',
 })

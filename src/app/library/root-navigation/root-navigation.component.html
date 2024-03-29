@@ -5,8 +5,8 @@
   >
     <div class="bg-glass overflow-hidden h-full flex max-sm:flex-col max-sm:-translate-x-full max-sm:opacity-0 group-data-[opened=true]:max-sm:translate-x-0 group-data-[opened=true]:max-sm:opacity-100 max-sm:transition max-sm:duration-300">
       <!-- left -->
-      <div class="p-2 flex flex-col max-sm:gap-4 border-b sm:border-b-0 sm:border-e">
-        <!-- logo -->
+      <div class="p-2 flex flex-col items-center max-sm:gap-4 border-b sm:border-b-0 sm:border-e">
+        <!-- top -->
         <button class="shrink-0 w-fit sm:w-18 rounded-3 sm:flex-col" coreHoverable>
           <img
             src="../assets/logos/logo_square.png"
@@ -18,9 +18,8 @@
           </div>
         </button>
         <div class="basis-4 shrink-0 max-sm:hidden"></div>
-        <button class="max-sm:hidden bg-gradient-radial gradient-position-[top_left] from-primary-500 to-primary-600 dark:from-primary-600 from-30% dark:to-primary-800 rounded-3 w-12 aspect-square self-center" coreHoverable>
-          <i class="icon-6 text-primary-950 dark:text-primary-50">search</i>
-        </button>
+        <core-global-search></core-global-search>
+        <!-- tabs -->
         <div
           class="grow flex sm:flex-col sm:justify-center items-center gap-2 overflow-auto"
         >
@@ -42,6 +41,7 @@
             </a>
           }
         </div>
+        <!-- bottom -->
         <button class="border-t shrink-0 -mx-2 -mb-2 py-3 max-sm:hidden" [class.bg-hover]="overlayRef != null" coreHoverable (click)="onUserClick($event)">
           <i class="icon-6 font-variation-fill">person</i>
         </button>
