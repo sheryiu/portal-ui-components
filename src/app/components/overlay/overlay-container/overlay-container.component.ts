@@ -1,8 +1,8 @@
 import { AnimationEvent, animate, style, transition, trigger } from '@angular/animations';
 import { Component, Injector, TemplateRef, inject } from '@angular/core';
 import { SharedModule } from '../../../shared/shared.module';
+import { OVERLAY_CONTENT, OVERLAY_DATA } from '../overlay';
 import { OverlayRefExtra } from '../overlay-ref-extra';
-import { OVERLAY_CONTENT, OVERLAY_DATA } from '../overlay.service';
 
 @Component({
   selector: 'app-overlay-container',
@@ -46,15 +46,6 @@ import { OVERLAY_CONTENT, OVERLAY_DATA } from '../overlay.service';
 export class OverlayContainerComponent {
   private content = inject(OVERLAY_CONTENT);
   data = inject(OVERLAY_DATA);
-  injector = Injector.create({
-    providers: [
-      {
-        provide: OVERLAY_DATA,
-        useExisting: OVERLAY_DATA,
-      }
-    ],
-    parent: inject(Injector),
-  })
   templateRef = this.content instanceof TemplateRef ? this.content : null;
   component = !(this.content instanceof TemplateRef) ? this.content : null;
 

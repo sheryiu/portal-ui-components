@@ -5,7 +5,7 @@ import { filter, map } from 'rxjs';
 import { OverlayRefExtra } from '../../components/overlay/overlay-ref-extra';
 import { OverlayService } from '../../components/overlay/overlay.service';
 import { SharedModule } from '../../shared/shared.module';
-import { GlobalSearchComponent } from './global-search/global-search.component';
+import { GlobalSearchButtonComponent } from '../global-search/global-search-button/global-search-button.component';
 import { ROOT_NAVIGATION_TABS } from './root-navigation';
 import { SomeChildrenHaveIconPipe } from './some-children-have-icon.pipe';
 import { UserDialogComponent } from './user-dialog/user-dialog.component';
@@ -19,7 +19,7 @@ import { UserDialogComponent } from './user-dialog/user-dialog.component';
     RouterLinkActive,
     SomeChildrenHaveIconPipe,
     UserDialogComponent,
-    GlobalSearchComponent,
+    GlobalSearchButtonComponent,
   ],
   templateUrl: './root-navigation.component.html',
 })

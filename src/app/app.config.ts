@@ -8,6 +8,7 @@ import { provideTransloco } from '@ngneat/transloco';
 import { routes } from './app.routes';
 import { provideTheme } from './components/services/theme.service';
 import { TranslocoHttpLoader } from './core/transloco-http-loader';
+import { provideGlobalSearch } from './library/global-search/global-search';
 import { provideMultilingual } from './library/multilingual-text-edit/multilingual-text-edit.component';
 import { provideRootNavigation } from './library/root-navigation/root-navigation';
 import { DatabaseQuickSettingsComponent } from './library/root-navigation/user-dialog/database-quick-settings/database-quick-settings.component';
@@ -109,6 +110,7 @@ export const appConfig: ApplicationConfig = {
       withQuickSettingsComponent(ThemeToggleComponent),
       withQuickSettingsComponent(LanguageToggleComponent),
       withQuickSettingsComponent(DatabaseQuickSettingsComponent),
-    )
+    ),
+    provideGlobalSearch()
   ],
 };

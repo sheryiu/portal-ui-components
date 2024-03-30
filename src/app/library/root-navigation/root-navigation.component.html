@@ -18,7 +18,7 @@
           </div>
         </button>
         <div class="basis-4 shrink-0 max-sm:hidden"></div>
-        <core-global-search></core-global-search>
+        <core-global-search-button></core-global-search-button>
         <!-- tabs -->
         <div
           class="grow flex sm:flex-col sm:justify-center items-center gap-2 overflow-auto"
@@ -42,7 +42,7 @@
           }
         </div>
         <!-- bottom -->
-        <button class="border-t shrink-0 -mx-2 -mb-2 py-3 max-sm:hidden" [class.bg-hover]="overlayRef != null" coreHoverable (click)="onUserClick($event)">
+        <button class="border-t shrink-0 -mx-2 -mb-2 py-3 max-sm:hidden self-stretch" [class.bg-hover]="overlayRef != null" coreHoverable (click)="onUserClick($event)">
           <i class="icon-6 font-variation-fill">person</i>
         </button>
       </div>

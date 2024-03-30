@@ -1,12 +1,9 @@
 import { Overlay, OverlayConfig } from '@angular/cdk/overlay';
 import { ComponentPortal } from '@angular/cdk/portal';
-import { Injectable, InjectionToken, Injector, TemplateRef, Type, ViewContainerRef, inject } from '@angular/core';
-import { take } from 'rxjs';
+import { Injectable, Injector, TemplateRef, Type, ViewContainerRef, inject } from '@angular/core';
+import { OVERLAY_CONTENT, OVERLAY_DATA } from './overlay';
 import { OverlayContainerComponent } from './overlay-container/overlay-container.component';
 import { OverlayRefExtra } from './overlay-ref-extra';
-
-export const OVERLAY_DATA = new InjectionToken('overlay data');
-export const OVERLAY_CONTENT = new InjectionToken<Type<any> | TemplateRef<unknown>>('overlay component');
 
 @Injectable({
   providedIn: 'root'

@@ -1,0 +1,53 @@
+<div cdkTrapFocus [cdkTrapFocusAutoCapture]="true" class="core-global-search-backdrop" (click)="close()">
+  <button
+    class="rounded-3 aspect-square self-center shrink-0"
+    [style.marginTop.px]="originPosition.top"
+    [style.marginLeft.px]="originPosition.left"
+    [style.width.px]="originPosition.width"
+    [style.height.px]="originPosition.height"
+    coreHoverable
+    coreHardSurface
+    color="gray"
+    (click)="close()"
+  >
+    <i class="icon-6">arrow_back</i>
+  </button>
+  <div
+    class="grow border rounded-3 shadow-lg overflow-hidden bg-lunar-green-300 dark:bg-lunar-green-800"
+    (click)="$event.stopPropagation()"
+    [style.marginTop.px]="originPosition.top"
+    [style.marginRight.px]="originPosition.left"
+  >
+    <input
+      class="w-full h-full px-6 py-1 text-xl"
+      placeholder="Type to search"
+      coreInputField
+      cdkFocusInitial
+      (input)="onSearchInput($event)">
+  </div>
+  @if (searchResults$ | async; as results) {
+    <div><!-- placeholder --></div>
+    <div
+      class="mt-6 flex gap-6"
+      [style.marginRight.px]="originPosition.left"
+    >
+      <!-- item results -->
+      <div class="grow flex flex-col items-stretch">
+        <div class="flex flex-col">
+          <div class="bg-hover border text-xl font-medium rounded-2 px-4 py-2" coreHardSurface color="gray">
+            Test Title
+          </div>
+          @for (result of results; track $index) {
+            <a class="border-b last:border-b-0 px-4 py-3" coreHoverable>
+              <div class="w-full">
+                <p>{{ result.item.title }}</p>
+              </div>
+            </a>
+          }
+        </div>
+      </div>
+      <!-- action results -->
+      <div></div>
+    </div>
+  }
+</div>

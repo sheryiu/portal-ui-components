@@ -248,4 +248,12 @@
   .core-linear-progress-display {
     @apply w-full flex items-center gap-1 overflow-hidden;
   }
+
+  .core-global-search-backdrop {
+    @apply bg-black/20 backdrop-blur-sm size-full grid gap-x-6 gap-y-4;
+    grid-template-areas: "button input"
+                         "empty results";
+    grid-template-columns: max-content 1fr;
+    grid-template-rows: max-content 1fr;
+  }
 }

@@ -3,6 +3,7 @@ import { BackgroundGraphicsComponent } from './background-graphics/background-gr
 import { BreadcrumbsComponent } from './breadcrumbs/breadcrumbs.component';
 import { ColorEditComponent } from './color-edit/color-edit.component';
 import { FormModule } from './form/form.module';
+import { GlobalSearchModule } from './global-search/global-search.module';
 import { ImageUploadEditComponent } from './image-upload-edit/image-upload-edit.component';
 import { LinearProgressDisplayComponent } from './linear-progress-display/linear-progress-display.component';
 import { MultilingualTextDisplayComponent } from './multilingual-text-display/multilingual-text-display.component';
@@ -52,6 +53,7 @@ import { TimeDisplayComponent } from './time-display/time-display.component';
     TimeDisplayComponent,
     TimeAgoPipe,
     LinearProgressDisplayComponent,
+    GlobalSearchModule,
   ],
   exports: [
     BackgroundGraphicsComponent,
@@ -79,6 +81,7 @@ import { TimeDisplayComponent } from './time-display/time-display.component';
     TimeDisplayComponent,
     TimeAgoPipe,
     LinearProgressDisplayComponent,
+    GlobalSearchModule,
   ]
 })
 export class LibraryModule { }
