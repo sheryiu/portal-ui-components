@@ -33,7 +33,7 @@ export class ArmorSetService {
       let filtered;
       if (filter?.name != null) {
         const name = filter.name.toLowerCase();
-        filtered = this.data.armorSets.filter(obj => !!(obj.name?.en?.toLowerCase()?.includes(name) || obj.name?.zh?.toLowerCase()?.includes(name) || obj.name?.jp?.toLowerCase()?.includes(name)))
+        filtered = this.data.armorSets.filter(obj => !!(obj.name?.en?.toLowerCase()?.includes(name) || obj.name?.jp?.toLowerCase()?.includes(name)))
       } else if (filter?.rarityEqual != null) {
         filtered = this.data.armorSets.where('rarity').equals(filter.rarityEqual);
       } else if (filter?.rarityFrom != null && filter?.rarityTo != null) {
@@ -67,12 +67,17 @@ export class ArmorSetService {
     rarity: 'desc'
   });
 
-  getOne = (
+  @memoize
+  getOne(
     id: string
-  ) => liveQuery(() => {
-    if (this.data.isServer) return undefined;
-    return this.data.armorSets.get(id);
-  })
+  ) {
+    return from(liveQuery(() => {
+      if (this.data.isServer) return undefined;
+      return this.data.armorSets.get(id);
+    })).pipe(
+      shareReplay(1),
+    )
+  }
 
   create = (input: Pick<ArmorSet, 'name' | 'rank' | 'rarity'>) => {
     const now = new Date();

@@ -32,7 +32,7 @@ export class ArmorSetBonusService {
       let filtered;
       if (filter?.name != null) {
         const name = filter.name.toLowerCase();
-        filtered = this.data.armorSetBonuses.filter(obj => !!(obj.name?.en?.toLowerCase()?.includes(name) || obj.name?.zh?.toLowerCase()?.includes(name) || obj.name?.jp?.toLowerCase()?.includes(name)))
+        filtered = this.data.armorSetBonuses.filter(obj => !!(obj.name?.en?.toLowerCase()?.includes(name) || obj.name?.jp?.toLowerCase()?.includes(name)))
       } else if (filter?.skillId != null) {
         filtered = this.data.armorSetBonuses.where('skillId').equals(filter.skillId);
       } else {
@@ -58,12 +58,17 @@ export class ArmorSetBonusService {
   mainListFilter$$ = signal<Filter>({});
   mainListSort$$ = signal<Sort>({});
 
-  getOne = (
+  @memoize
+  getOne(
     id: string
-  ) => liveQuery(() => {
-    if (this.data.isServer) return undefined;
-    return this.data.armorSetBonuses.get(id);
-  })
+  ) {
+    return from(liveQuery(() => {
+      if (this.data.isServer) return undefined;
+      return this.data.armorSetBonuses.get(id);
+    })).pipe(
+      shareReplay(1),
+    )
+  }
 
   create = (input: Pick<ArmorSetBonus, 'name'>) => {
     const now = new Date();

@@ -14,6 +14,7 @@ module.exports = {
       xl: '77rem',
     },
     fontSize: {
+      kbd: ["0.75rem", "1"],
       sm: ["0.8125rem", "1rem"],
       base: ["0.875rem", "1.125rem"],
       xl: ["1.25rem", "1.625rem"],

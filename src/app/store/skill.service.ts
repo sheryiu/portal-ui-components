@@ -30,7 +30,7 @@ export class SkillService {
       let filtered;
       if (filter?.name != null) {
         const findName = filter.name!.toLowerCase();
-        filtered = this.data.skills.filter(obj => !!(obj.name.en?.toLowerCase().includes(findName) || obj.name.zh?.toLowerCase().includes(findName) || obj.name.jp?.toLowerCase().includes(findName)))
+        filtered = this.data.skills.filter(obj => !!(obj.name.en?.toLowerCase().includes(findName) || obj.name.jp?.toLowerCase().includes(findName)))
       } else {
         filtered = this.data.skills.toCollection();
       }
@@ -56,12 +56,17 @@ export class SkillService {
     name: 'desc'
   });
 
-  getOne = (
+  @memoize
+  getOne(
     id: string
-  ) => liveQuery(() => {
-    if (this.data.isServer) return undefined;
-    return this.data.skills.get(id);
-  })
+  ) {
+    return from(liveQuery(() => {
+      if (this.data.isServer) return undefined;
+      return this.data.skills.get(id);
+    })).pipe(
+      shareReplay(1),
+    )
+  }
 
   create = (input: Pick<Skill, 'name' | 'color' | 'description'>) => {
     const now = new Date();

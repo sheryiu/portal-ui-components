@@ -250,9 +250,9 @@
   }
 
   .core-global-search-backdrop {
-    @apply bg-black/20 backdrop-blur-sm size-full grid gap-x-6 gap-y-4;
-    grid-template-areas: "button input"
-                         "empty results";
+    @apply bg-black/10 dark:bg-black/20 backdrop-blur-lg size-full grid gap-x-6 gap-y-6;
+    grid-template-areas: "button input input"
+                         "empty results actions";
     grid-template-columns: max-content 1fr;
     grid-template-rows: max-content 1fr;
   }

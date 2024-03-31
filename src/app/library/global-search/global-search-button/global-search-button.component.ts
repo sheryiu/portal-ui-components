@@ -1,7 +1,7 @@
 import { isPlatformBrowser } from '@angular/common';
 import { Component, ElementRef, PLATFORM_ID, ViewChild, inject } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { HotkeysService } from '@ngneat/hotkeys';
+import { HotkeysService, HotkeysShortcutPipe } from '@ngneat/hotkeys';
 import { OverlayRefExtra } from '../../../components/overlay/overlay-ref-extra';
 import { OverlayService } from '../../../components/overlay/overlay.service';
 import { SharedModule } from '../../../shared/shared.module';
@@ -12,6 +12,7 @@ import { GlobalSearchComponent, GlobalSearchData } from '../global-search.compon
   standalone: true,
   imports: [
     SharedModule,
+    HotkeysShortcutPipe,
   ],
   templateUrl: './global-search-button.component.html',
   styles: ``
@@ -24,7 +25,7 @@ export class GlobalSearchButtonComponent {
 
   constructor() {
     if (isPlatformBrowser(inject(PLATFORM_ID))) {
-      this.hotKeys.addShortcut({ keys: 'meta.k', preventDefault: true }).pipe(
+      this.hotKeys.addShortcut({ keys: 'control.k', preventDefault: true }).pipe(
         takeUntilDestroyed(),
       ).subscribe(() => this.onClick({
         currentTarget: this.button.nativeElement,

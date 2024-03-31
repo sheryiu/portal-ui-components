@@ -30,7 +30,7 @@ export class ArmorService {
       if (this.data.isServer) return [];
       let filtered;
       if (filter?.name != null) {
-        filtered = this.data.armors.filter(obj => !!(obj.name?.en?.includes(filter.name!) || obj.name?.zh?.includes(filter.name!) || obj.name?.jp?.includes(filter.name!)))
+        filtered = this.data.armors.filter(obj => !!(obj.name?.en?.includes(filter.name!) || obj.name?.jp?.includes(filter.name!)))
       } else if (filter?.armorSetId != null) {
         filtered = this.data.armors.where('armorSetId').equals(filter.armorSetId)
       } else {
@@ -58,12 +58,17 @@ export class ArmorService {
     armorSetId: 'asc',
   });
 
-  getOne = (
+  @memoize
+  getOne(
     id: string
-  ) => liveQuery(() => {
-    if (this.data.isServer) return undefined;
-    return this.data.armors.get(id);
-  })
+  ) {
+    return from(liveQuery(() => {
+      if (this.data.isServer) return undefined;
+      return this.data.armors.get(id);
+    })).pipe(
+      shareReplay(1),
+    )
+  }
 
   create = (input: Omit<Armor, 'id' | 'createdAt' | 'updatedAt'>) => {
     const now = new Date();
