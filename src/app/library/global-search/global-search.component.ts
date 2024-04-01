@@ -1,5 +1,5 @@
 import { A11yModule } from '@angular/cdk/a11y';
-import { Component, Injector, inject, runInInjectionContext } from '@angular/core';
+import { Component, ElementRef, Injector, QueryList, ViewChildren, inject, runInInjectionContext } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { HotkeysService } from '@ngneat/hotkeys';
@@ -9,6 +9,7 @@ import { OVERLAY_DATA } from '../../components/overlay/overlay';
 import { OverlayRefExtra } from '../../components/overlay/overlay-ref-extra';
 import { filterNonNull } from '../../components/utils/filter-non-null';
 import { SharedModule } from '../../shared/shared.module';
+import { FuseHighlightPipe } from './fuse-highlight.pipe';
 import { GlobalSearchAction } from './global-search';
 import { GlobalSearchService } from './global-search.service';
 
@@ -28,6 +29,7 @@ export type GlobalSearchData = {
     SharedModule,
     A11yModule,
     RouterLink,
+    FuseHighlightPipe,
   ],
   templateUrl: './global-search.component.html',
   styles: ``
@@ -45,15 +47,15 @@ export class GlobalSearchComponent {
   searchResults$;
   actions$;
 
+  @ViewChildren('searchItem') private searchItems!: QueryList<ElementRef<HTMLElement>>;
+  @ViewChildren('searchAction') private searchActions!: QueryList<ElementRef<HTMLElement>>;
+  selectedElement?: HTMLElement;
+
   constructor() {
     if (!this.service) {
       throw new Error('Add provideGlobalSearch to your application config')
     }
-    this.hotkeys.addShortcut({ keys: 'escape', preventDefault: true, allowIn: ['INPUT'] }).pipe(
-      takeUntilDestroyed(),
-    ).subscribe(() => {
-      this.close();
-    })
+    this.registerKeyboardEvents();
     const suggestion$ = combineLatest(
       this.service.suggestionProviders
     ).pipe(
@@ -88,12 +90,54 @@ export class GlobalSearchComponent {
     )
   }
 
+  private registerKeyboardEvents() {
+    this.hotkeys.addShortcut({ keys: 'escape', preventDefault: true, allowIn: ['INPUT'] }).pipe(
+      takeUntilDestroyed(),
+    ).subscribe(() => {
+      this.close();
+    })
+    this.hotkeys.addShortcut({ keys: 'enter', preventDefault: true, allowIn: ['INPUT'] }).pipe(
+      takeUntilDestroyed(),
+    ).subscribe(() => {
+      this.selectedElement?.click();
+    })
+    this.hotkeys.addShortcut({ keys: 'arrowDown', preventDefault: true, allowIn: ['INPUT'] }).pipe(
+      takeUntilDestroyed(),
+    ).subscribe(() => {
+      if (this.selectedElement) {
+        const array = this.searchItems.toArray();
+        const currIndex = this.searchItems.toArray().findIndex((v) => v.nativeElement === this.selectedElement);
+        if (currIndex + 1 < this.searchItems.length) {
+          this.selectedElement = array[currIndex + 1].nativeElement;
+        }
+      } else {
+        this.selectedElement = this.searchItems.first?.nativeElement;
+      }
+    })
+    this.hotkeys.addShortcut({ keys: 'arrowUp', preventDefault: true, allowIn: ['INPUT'] }).pipe(
+      takeUntilDestroyed(),
+    ).subscribe(() => {
+      if (this.selectedElement) {
+        const array = this.searchItems.toArray();
+        const currIndex = this.searchItems.toArray().findIndex((v) => v.nativeElement === this.selectedElement);
+        if (currIndex - 1 >= 0) {
+          this.selectedElement = array[currIndex - 1].nativeElement;
+        }
+      } else {
+        this.selectedElement = this.searchItems.last?.nativeElement;
+      }
+    })
+  }
+
   close() {
     this.overlayRef.close();
   }
 
   onSearchInput(event: Event) {
-    this.searchString$.next((event.currentTarget as HTMLInputElement).value)
+    this.searchString$.next((event.currentTarget as HTMLInputElement).value);
+    setTimeout(() => {
+      this.selectedElement = this.searchItems.first?.nativeElement;
+    })
   }
 
   onActionClick(action: GlobalSearchAction) {

@@ -36,9 +36,10 @@
     >
       <!-- item results -->
       <div class="grow flex flex-col items-stretch">
-        <div class="flex flex-col">
+        <div class="flex flex-col gap-0.5">
           @for (result of results; track $index) {
             <a
+              #searchItem
               class="px-4 py-3 rounded-3"
               coreHoverable
               [routerLink]="result.item.routerLink"
@@ -47,6 +48,11 @@
               [fragment]="result.item.routerLinkOptions?.fragment"
               [preserveFragment]="result.item.routerLinkOptions?.preserveFragment"
               [relativeTo]="rootRoute"
+              [ngClass]="{
+                'bg-hover': selectedElement == searchItem
+              }"
+              (focus)="selectedElement = searchItem"
+              tabindex="-1"
             >
               <div class="w-full flex gap-4 items-center">
                 @if (result.item.icon) {
@@ -55,9 +61,9 @@
                   <div class="size-6"><!-- placeholder --></div>
                 }
                 <div class="flex flex-col gap-1">
-                  <p class="text-xl font-medium">{{ result.item.title }}</p>
+                  <p class="text-xl font-medium" [innerHTML]="result | fuseHighlight: 'title'"></p>
                   @if (result.item.description) {
-                    <p class="text-secondary">{{ result.item.description }}</p>
+                    <p class="text-secondary" [innerHTML]="result | fuseHighlight: 'description'"></p>
                   }
                 </div>
               </div>
@@ -72,24 +78,29 @@
   }
   @if (actions$ | async; as actions) {
     <div
-      class="md:w-96 grid grid-cols-2 auto-rows-max gap-4"
+      class="md:w-96 grid grid-cols-2 auto-rows-max gap-6"
       style="grid-area: actions"
       [style.marginRight.px]="originPosition.left"
     >
       @for (action of actions; track $index) {
         <button
+          #searchAction
           class="rounded-3 min-h-24 px-2 py-3 flex-col"
           coreHoverable
           coreHardSurface
           color="gray"
           (click)="onActionClick(action.item)"
+          [ngClass]="{
+            'focus-visible:outline-2 focus-visible:outline focus-visible:outline-offset-2 focus-visible:outline-lunar-green-400 dark:focus-visible:outline-lunar-green-700': selectedElement == searchAction
+          }"
+          (focus)="selectedElement = searchAction"
         >
           @if (action.item.options?.icon) {
             <i class="icon-8 font-variation-weight-light text-secondary mb-2">{{ action.item.options?.icon }}</i>
           }
-          <p class="text-xl font-bold">{{ action.item.title }}</p>
+          <p class="text-xl font-bold" [innerHTML]="action | fuseHighlight: 'title'"></p>
           @if (action.item.options?.description) {
-            <p>{{ action.item.options?.description }}</p>
+            <p [innerHTML]="action | fuseHighlight: 'description'"></p>
           }
         </button>
       }

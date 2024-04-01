@@ -4,14 +4,18 @@
   [hoverableEnabled]="sortDirective?.templateRef || filterDirective?.templateRef"
   [ngClass]="{
     'bg-hover': overlayRef != null,
-    'flex-row-reverse': rightAligned,
+    'justify-end': rightAligned,
   }"
   class="justify-start"
   (click)="openFilter(button)"
 >
   <ng-content></ng-content>
   @if (sortDirective?.templateRef || filterDirective?.templateRef) {
-    <div class="grow"></div>
+    @if (rightAligned) {
+      <div class="shrink-0 basis-1"></div>
+    } @else {
+      <div class="grow"></div>
+    }
     @if (!filtered && !sortedAsc && !sortedDesc) {
       <i class="icon-4">arrow_drop_down</i>
     } @else {
