@@ -2,7 +2,7 @@ import { Injectable, inject, signal } from '@angular/core';
 import { liveQuery } from 'dexie';
 import { nanoid } from 'nanoid';
 import { delayWhen, from, of, shareReplay, startWith, timer } from 'rxjs';
-import { Armor } from '../data/armor';
+import { Armor, ArmorCreateInput } from '../data/armor';
 import { DatabaseService } from '../data/database.service';
 import { memoize } from './memoize';
 
@@ -70,7 +70,7 @@ export class ArmorService {
     )
   }
 
-  create = (input: Omit<Armor, 'id' | 'createdAt' | 'updatedAt'>) => {
+  create = (input: ArmorCreateInput) => {
     const now = new Date();
     return from(this.data.armors.add({
       id: nanoid(),

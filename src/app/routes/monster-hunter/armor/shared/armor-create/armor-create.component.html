@@ -1,0 +1,22 @@
+<div class="border p-3 flex flex-col gap-3">
+  <div>
+    <h3 class="text-primary-800 dark:text-primary-200">Insert New</h3>
+  </div>
+  <core-table
+    itemHeight="36"
+    [columns]="['field', 'value']"
+  >
+    <core-table-body>
+      <core-table-row
+        *ngFor="let item of rows; trackBy: trackingFn"
+      >
+        <core-table-cell *coreTableCellDef="'field'">
+          {{ item.label }}
+        </core-table-cell>
+        <core-table-cell *coreTableCellDef="'value'">
+          {{ item }}
+        </core-table-cell>
+      </core-table-row>
+    </core-table-body>
+  </core-table>
+</div>

@@ -22,6 +22,9 @@ import { UserDialogComponent } from './user-dialog/user-dialog.component';
     GlobalSearchButtonComponent,
   ],
   templateUrl: './root-navigation.component.html',
+  host: {
+    class: 'core-root-navigation'
+  }
 })
 export class RootNavigationComponent {
 

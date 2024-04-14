@@ -26,13 +26,17 @@ export type ArmorSkill = {
 export type Armor = Root & {
   armorSetId: ArmorSet['id'];
   position: ArmorPosition;
-  image?: Blob | null;
+  image?: Blob;
   baseDef?: number;
   maxDef?: number;
   maxLevel?: number;
   decorationSlots?: number[];
   resistance?: ArmorResistance;
   skills?: ArmorSkill[];
-  createdAt: Date;
-  updatedAt: Date;
+}
+
+export type ArmorCreateInput = {
+  name: Armor['name'];
+  armorSetId: Armor['armorSetId'];
+  position: Armor['position'];
 }

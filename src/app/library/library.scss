@@ -1,10 +1,36 @@
 @layer components {
+  .core-root-navigation-2 {
+    @apply flex flex-col items-center border-r gap-4 z-[100];
+    @apply px-2 pt-3;
+
+    .core-root-tabs {
+      @apply grow flex flex-col justify-center items-center gap-2 overflow-auto;
+
+      a {
+        @apply size-18 rounded-full flex-col gap-1;
+        &[data-active=true] {
+          @apply bg-hover text-primary-600 dark:text-primary-500;
+        }
+        i {
+          @apply icon-6 flex-none;
+        }
+        span {
+          @apply text-sm font-medium line-clamp-1;
+        }
+      }
+    }
+
+    .core-root-options {
+      @apply border-t flex-none -mx-2 self-stretch;
+      @apply flex;
+    }
+  }
+
   .core-sectioned-outlet {
     @apply relative block h-full;
     > .core-sectioned-outlet-main {
       @apply size-full transition duration-100 ease-out;
       > * {
-        @apply py-4 sm:pe-4 max-sm:pb-16 transition-all;
       }
       &:has(+ .core-sectioned-outlet-full) {
         @apply opacity-0 scale-[0.98];
@@ -71,7 +97,7 @@
   }
 
   .core-table {
-    @apply block;
+    @apply block size-full border;
 
     .core-table-body {
       @apply grid;
@@ -86,6 +112,12 @@
           @apply bg-gradient-to-r from-hover to-transparent to-50%;
           // @apply before:absolute before:bg-primary-600 before:-left-0.5 before:top-[10%] before:bottom-[10%] before:w-1 before:rounded-full;
         }
+      }
+    }
+
+    .core-table-row:last-child {
+      > a {
+        @apply border-b-0;
       }
     }
 

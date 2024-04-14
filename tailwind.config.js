@@ -52,6 +52,7 @@ module.exports = {
           ),
         18: "4.5rem",
         22: "5.5rem",
+        120: "30rem"
       }),
       colors: {
         secondary: "rgb(var(--color-secondary, 173 173 173) / <alpha-value>)",

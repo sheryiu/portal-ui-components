@@ -13,9 +13,10 @@ import { ArmorSetService } from '../../../../store/armor-set.service';
 import { ArmorService } from '../../../../store/armor.service';
 import { ArmorSetDataPipe } from '../../utils/data-pipes/armor-set-data.pipe';
 import { LoadingFooterComponent } from '../../utils/loading-footer/loading-footer.component';
+import { ArmorCreateComponent } from '../shared/armor-create/armor-create.component';
 
 @Component({
-  selector: 'app-armor-list',
+  selector: 'mhw-armor-list',
   standalone: true,
   imports: [
     SharedModule,
@@ -23,6 +24,7 @@ import { LoadingFooterComponent } from '../../utils/loading-footer/loading-foote
     RouterLink,
     ArmorSetDataPipe,
     LoadingFooterComponent,
+    ArmorCreateComponent,
   ],
   templateUrl: './armor-list.component.html',
   providers: [
