@@ -1,7 +1,7 @@
 @layer components {
   .core-root-navigation-2 {
     @apply flex flex-col items-center border-r gap-4 z-[100];
-    @apply px-2 pt-3;
+    @apply px-2 pt-3 bg-side-content;
 
     .core-root-tabs {
       @apply grow flex flex-col justify-center items-center gap-2 overflow-auto;
@@ -97,7 +97,7 @@
   }
 
   .core-table {
-    @apply block size-full border;
+    @apply block size-full;
 
     .core-table-body {
       @apply grid;
@@ -134,9 +134,9 @@
     }
 
     .core-table-header-cell {
-      @apply py-2 flex;
+      @apply flex;
       > button {
-        @apply grow truncate whitespace-nowrap font-medium text-sm mx-0.5 px-3.5 py-2 rounded-full;
+        @apply grow truncate whitespace-nowrap font-medium text-sm mx-0.5 px-3.5 py-4;
         @apply text-primary-800 dark:text-primary-200;
       }
     }

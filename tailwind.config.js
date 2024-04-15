@@ -183,6 +183,12 @@ module.exports = {
             background: "radial-gradient(farthest-corner at top left, rgb(200 200 200), rgb(180 180 180))",
             "border-radius": "16px",
           },
+          ".bg-side-content": {
+            ".dark &": {
+              background: "hsl(0deg 0% 6%)"
+            },
+            background: ""
+          }
         });
         matchUtilities(
           {

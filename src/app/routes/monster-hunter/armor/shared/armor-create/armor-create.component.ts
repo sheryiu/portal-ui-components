@@ -15,7 +15,7 @@ import { ArmorService } from '../../../../../store/armor.service';
 })
 export class ArmorCreateComponent {
   private service = inject(ArmorService);
-  rows = [
+  fields = [
     {
       id: 'name',
       label: 'Name',
@@ -30,7 +30,9 @@ export class ArmorCreateComponent {
     },
   ]
 
-  trackingFn(index: number, item: ArmorCreateComponent['rows'][number]) {
-    return item.id;
+  expanded = false;
+
+  toggleState() {
+    this.expanded = !this.expanded;
   }
 }

@@ -1,22 +1,25 @@
-<div class="border p-3 flex flex-col gap-3">
-  <div>
-    <h3 class="text-primary-800 dark:text-primary-200">Insert New</h3>
-  </div>
-  <core-table
-    itemHeight="36"
-    [columns]="['field', 'value']"
+<div class="flex flex-col border-b">
+  <button
+    class="px-4 py-2 flex justify-start gap-2 text-primary-800 dark:text-primary-200"
+    coreHoverable
+    (click)="toggleState()"
   >
-    <core-table-body>
-      <core-table-row
-        *ngFor="let item of rows; trackBy: trackingFn"
-      >
-        <core-table-cell *coreTableCellDef="'field'">
-          {{ item.label }}
-        </core-table-cell>
-        <core-table-cell *coreTableCellDef="'value'">
-          {{ item }}
-        </core-table-cell>
-      </core-table-row>
-    </core-table-body>
-  </core-table>
+    <i class="icon-5">add</i>
+    <p>Insert New</p>
+  </button>
+  @if (expanded) {
+    <div class="overflow-hidden flex flex-col gap-2 px-3 py-2">
+      <core-form-fieldset>
+        @for (field of fields; track field.id) {
+          <core-form-field>
+            <span *coreFormFieldLabel>{{ field.label }}</span>
+            <input *coreFormFieldInput>
+          </core-form-field>
+        }
+      </core-form-fieldset>
+      <div class="flex justify-end">
+        <button class="px-3 py-1 rounded-full" coreHardSurface color="primary">Add</button>
+      </div>
+    </div>
+  }
 </div>
