@@ -1,0 +1,31 @@
+<core-sectioned-outlet>
+  <div
+    class="h-full overflow-x-hidden overflow-y-auto flex flex-col"
+  >
+    <!-- <div class="sticky top-0 px-3 py-3 flex-none border-b bg-side-content">
+      <core-breadcrumbs></core-breadcrumbs>
+    </div> -->
+    <div class="flex grow">
+      <div class="gutter-stable grow">
+        <div class="flex flex-col p-6 gap-4">
+          <h1 class="text-primary-800 dark:text-primary-200">Monster Hunter World Database</h1>
+          <h3>Tables</h3>
+          <core-table itemHeight="48" [columns]="['name', 'count']">
+            <core-table-cell *coreTableCellDef="'name'; let table">
+              {{ table.name }}
+            </core-table-cell>
+
+            <core-table-body>
+              @for (table of tables; track table.name) {
+                <core-table-row [route]="table.route" [item]="table" coreHoverable>
+                </core-table-row>
+              }
+            </core-table-body>
+          </core-table>
+        </div>
+      </div>
+      <!-- <div class="basis-120 border-l bg-side-content">
+      </div> -->
+    </div>
+  </div>
+</core-sectioned-outlet>

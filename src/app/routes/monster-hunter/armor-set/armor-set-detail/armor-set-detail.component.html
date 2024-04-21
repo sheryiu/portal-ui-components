@@ -1,4 +1,40 @@
-<form
+<core-sectioned-outlet>
+  <div
+    class="h-full overflow-x-hidden overflow-y-auto flex flex-col"
+    cdkVirtualScrollingElement
+    cdkScrollable
+  >
+    <div class="sticky top-0 px-3 py-3 flex-none border-b bg-side-content">
+      <core-breadcrumbs></core-breadcrumbs>
+    </div>
+    <div class="flex grow">
+      <div class="gutter-stable grow">
+        <core-table itemHeight="48" [columns]="['key', 'valueType']">
+          <core-table-cell *coreTableCellDef="'key'; let row">
+            <div class="flex justify-between items-center basis-full">
+              <span>{{ row.label }}</span>
+              <span class="text-sm uppercase font-medium text-primary-800 dark:text-primary-200">{{ row.valueType }}</span>
+            </div>
+          </core-table-cell>
+          <core-table-cell *coreTableCellDef="'valueType'; let row" class="!p-0">
+            @switch (row.valueType) {
+              @case ('string') {
+                <input coreInputField type="text" class="h-12 p-2">
+              }
+            }
+          </core-table-cell>
+
+          <core-table-body>
+            @for (field of fields; track field.key) {
+              <core-table-row [item]="field"></core-table-row>
+            }
+          </core-table-body>
+        </core-table>
+      </div>
+    </div>
+  </div>
+</core-sectioned-outlet>
+<!-- <form
   class="h-full relative flex flex-col overflow-x-hidden overflow-y-auto gutter-stable"
   cdkVirtualScrollingElement
   cdkScrollable
@@ -43,7 +79,7 @@
                 @if (id | armorSetBonusData | async; as data) {
                   <core-multilingual-text-display [value]="data.name"></core-multilingual-text-display>
                 } @else {
-                  <!-- TODO -->
+                  TODO
                   <span>Unable to resolve</span>
                 }
               </div>
@@ -70,4 +106,4 @@
     (saveClick)="onSave()"
     (cancelClick)="onCancel()"
   ></core-form-submit>
-</form>
+</form> -->

@@ -11,7 +11,8 @@ export const ROUTES: Routes = [
     data: {
       ...breadcrumb({
         title: 'Armor'
-      })
+      }),
+      ...sectionedOutlet('full'),
     },
     children: [
       {

@@ -53,6 +53,11 @@ export class ArmorSetDetailComponent extends EffectFn {
     rank: [null as unknown as ArmorSet['rank']],
     setBonusId: [null as unknown as ArmorSet['setBonusId']],
   })
+  fields = [
+    { key: 'name.en', label: 'English Name', valueType: 'string' },
+    { key: 'name.zh', label: 'Chinese Name', valueType: 'string' },
+    { key: 'rarity', label: 'Rarity', valueType: 'number' },
+  ]
 
   constructor() {
     super();

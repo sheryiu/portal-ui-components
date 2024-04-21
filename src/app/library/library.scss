@@ -37,10 +37,10 @@
       }
     }
     > .core-sectioned-outlet-child-bg {
-      @apply inset-0 -left-8 absolute bg-gradient-to-r from-transparent to-[4rem] to-lunar-green-300/90 dark:to-lunar-green-950/90;
+      @apply -ms-px inset-0 absolute lg:border-l bg-lunar-green-50 dark:bg-lunar-green-950;
       &.core-sectioned-outlet-half {
         @apply lg:left-1/4 xl:left-1/2;
-        @apply lg:-ms-8 transition-[left];
+        @apply transition-[left];
       }
       &:has(+ .core-sectioned-outlet-half .core-sectioned-outlet-half) {
         @apply lg:left-0 xl:left-1/4;
@@ -57,9 +57,9 @@
       &:has(> router-outlet:only-child) {
         @apply pointer-events-none;
       }
-      &:not(:has(> router-outlet:only-child)) {
-        @apply before:opacity-100;
-      }
+      // &:not(:has(> router-outlet:only-child)) {
+      //   @apply before:opacity-100;
+      // }
       &.core-sectioned-outlet-half {
         @apply lg:left-1/4 xl:left-1/2;
         @apply transition-[left];
@@ -109,7 +109,8 @@
       > a {
         @apply col-span-full grid grid-cols-subgrid border-b relative;
         &[data-active=true] {
-          @apply bg-gradient-to-r from-hover to-transparent to-50%;
+          @apply bg-hover;
+          // @apply bg-gradient-to-r from-hover to-transparent to-50%;
           // @apply before:absolute before:bg-primary-600 before:-left-0.5 before:top-[10%] before:bottom-[10%] before:w-1 before:rounded-full;
         }
       }
@@ -287,5 +288,28 @@
                          "empty results actions";
     grid-template-columns: max-content 1fr;
     grid-template-rows: max-content 1fr;
+  }
+
+  .core-dirty-bar {
+    @apply absolute bottom-0 left-0 right-0 z-[100] py-4 px-6;
+    @apply border-t dark:bg-primary-600 dark:text-primary-950;
+    > div {
+      @apply flex justify-between items-center;
+    }
+    .core-dirty-bar__now-editing {
+      @apply flex flex-col;
+      p {
+        @apply font-bold tracking-tighter;
+      }
+      h3 {
+        @apply dark:text-primary-900;
+      }
+    }
+    .core-dirty-bar__actions {
+      @apply flex gap-2;
+      button {
+        @apply p-2
+      }
+    }
   }
 }

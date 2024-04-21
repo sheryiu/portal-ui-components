@@ -1,5 +1,5 @@
 import { NgTemplateOutlet } from '@angular/common';
-import { AfterContentInit, Component, ContentChildren, HostBinding, QueryList, TemplateRef, ViewContainerRef, inject } from '@angular/core';
+import { AfterContentInit, Component, HostBinding, TemplateRef, inject } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { TableHeaderCellDefDirective } from './table-header-cell-def.directive';
 import { TableComponent } from './table.component';
@@ -20,10 +20,8 @@ import { TableComponent } from './table.component';
   `
 })
 export class TableHeaderRowComponent implements AfterContentInit {
-  @ContentChildren(TableHeaderCellDefDirective) private cellDefs!: QueryList<TableHeaderCellDefDirective>;
   @HostBinding('style.grid-column-end') private hostColumnEnd?: string;
   private table = inject(TableComponent);
-  private vcr = inject(ViewContainerRef);
 
   cells?: { columnName: string; templateRef: TemplateRef<unknown> }[];
 
@@ -41,7 +39,7 @@ export class TableHeaderRowComponent implements AfterContentInit {
 
   checkColumns() {
     this.cells = this.table.activeColumns
-      ?.map(columnName => this.cellDefs.find(def => def.columnName === columnName))
+      ?.map(columnName => this.table.headerCellDefs.find(def => def.columnName === columnName))
       .filter((def): def is TableHeaderCellDefDirective => def != null)
       .map(def => ({
         columnName: def.columnName,

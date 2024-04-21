@@ -1,5 +1,5 @@
 import { NgTemplateOutlet } from '@angular/common';
-import { AfterContentInit, Component, ContentChildren, HostBinding, Input, QueryList, TemplateRef, inject } from '@angular/core';
+import { AfterContentInit, Component, HostBinding, Input, TemplateRef, inject } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, RouterLink, RouterLinkActive } from '@angular/router';
 import { TableCellDefDirective } from './table-cell-def.directive';
@@ -22,15 +22,15 @@ import { TableComponent } from './table.component';
     [style.height.px]="height"
   >
     @for (def of cells; track def.columnName) {
-      <ng-container [ngTemplateOutlet]="def.templateRef"></ng-container>
+      <ng-container [ngTemplateOutlet]="def.templateRef" [ngTemplateOutletContext]="{ $implicit: item }"></ng-container>
     }
   </a>
   `
 })
-export class TableRowComponent implements AfterContentInit {
+export class TableRowComponent<T> implements AfterContentInit {
+  @Input({ required: true }) item!: T;
   @Input() route?: any[];
   @Input() relativeTo?: ActivatedRoute | null;
-  @ContentChildren(TableCellDefDirective) private cellDefs!: QueryList<TableCellDefDirective>;
   @HostBinding('style.grid-column-end') private hostColumnEnd?: string;
   private table = inject(TableComponent);
 
@@ -52,7 +52,7 @@ export class TableRowComponent implements AfterContentInit {
   checkColumns() {
     this.height = this.table.activeItemHeight;
     this.cells = this.table.activeColumns
-      ?.map(columnName => this.cellDefs.find(def => def.columnName === columnName))
+      ?.map(columnName => this.table.cellDefs?.find(def => def.columnName === columnName))
       .filter((def): def is TableCellDefDirective => def != null)
       .map(def => ({
         columnName: def.columnName,

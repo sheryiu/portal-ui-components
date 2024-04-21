@@ -29,7 +29,8 @@ export const ROUTES: Routes = [
     data: {
       ...breadcrumb({
         title: 'Armor Set'
-      })
+      }),
+      ...sectionedOutlet('full')
     },
     children: ARMOR_SET_ROUTES
   }

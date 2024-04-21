@@ -1,6 +1,8 @@
 import { isPlatformBrowser } from '@angular/common';
-import { AfterViewInit, Component, DestroyRef, ElementRef, HostBinding, Input, NgZone, OnDestroy, PLATFORM_ID, inject, numberAttribute } from '@angular/core';
-import { Subject, debounceTime } from 'rxjs';
+import { AfterViewInit, Component, ContentChildren, DestroyRef, ElementRef, HostBinding, Input, NgZone, OnDestroy, PLATFORM_ID, QueryList, inject, numberAttribute } from '@angular/core';
+import { Subject } from 'rxjs';
+import { TableCellDefDirective } from './table-cell-def.directive';
+import { TableHeaderCellDefDirective } from './table-header-cell-def.directive';
 
 @Component({
   selector: 'core-table',
@@ -9,7 +11,6 @@ import { Subject, debounceTime } from 'rxjs';
   host: {
     role: 'table',
     class: 'core-table @container/table',
-    ngSkipHydration: 'true'
   },
   template: `<ng-content></ng-content>`
 })
@@ -61,6 +62,11 @@ export class TableComponent implements AfterViewInit, OnDestroy {
   }
   responsiveUpdated$ = new Subject<void>();
   @HostBinding('style.--core-table-columns') private hostColumnWidths: string | undefined = undefined;
+
+  @ContentChildren(TableCellDefDirective) private _cellDefs!: QueryList<TableCellDefDirective>;
+  get cellDefs() { return this._cellDefs }
+  @ContentChildren(TableHeaderCellDefDirective) private _headerCellDefs!: QueryList<TableHeaderCellDefDirective>;
+  get headerCellDefs() { return this._headerCellDefs }
 
   private elementRef = inject(ElementRef) as ElementRef<HTMLElement>;
   private platformId = inject(PLATFORM_ID);
