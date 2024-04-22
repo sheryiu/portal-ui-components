@@ -112,6 +112,7 @@ module.exports = {
     require('@tailwindcss/container-queries'),
     plugin(
       ({
+        addVariant,
         addUtilities,
         addComponents,
         addBase,
@@ -229,7 +230,8 @@ module.exports = {
               'bold': '700',
             }
           }
-        )
+        );
+        addVariant('has-focus-visible', '&:has(:focus-visible)');
         addUtilities({
           ".font-variation-fill": {
             "--font-variation-fill": '"FILL" 1',

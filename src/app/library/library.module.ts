@@ -3,6 +3,7 @@ import { BackgroundGraphicsComponent } from './background-graphics/background-gr
 import { BreadcrumbsComponent } from './breadcrumbs/breadcrumbs.component';
 import { ColorEditComponent } from './color-edit/color-edit.component';
 import { DirtyBarModule } from './dirty-bar/dirty-bar.module';
+import { FieldModule } from './field/field.module';
 import { FormModule } from './form/form.module';
 import { GlobalSearchModule } from './global-search/global-search.module';
 import { ImageUploadEditComponent } from './image-upload-edit/image-upload-edit.component';
@@ -58,6 +59,7 @@ import { TimeDisplayComponent } from './time-display/time-display.component';
     LinearProgressDisplayComponent,
     GlobalSearchModule,
     DirtyBarModule,
+    FieldModule,
   ],
   exports: [
     BackgroundGraphicsComponent,
@@ -88,6 +90,7 @@ import { TimeDisplayComponent } from './time-display/time-display.component';
     LinearProgressDisplayComponent,
     GlobalSearchModule,
     DirtyBarModule,
+    FieldModule,
   ]
 })
 export class LibraryModule { }

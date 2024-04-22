@@ -1,5 +1,5 @@
 import { isPlatformBrowser } from '@angular/common';
-import { AfterViewInit, Component, ContentChildren, DestroyRef, ElementRef, HostBinding, Input, NgZone, OnDestroy, PLATFORM_ID, QueryList, inject, numberAttribute } from '@angular/core';
+import { AfterViewInit, Component, ContentChildren, DestroyRef, ElementRef, HostBinding, Input, NgZone, OnDestroy, PLATFORM_ID, QueryList, booleanAttribute, inject, numberAttribute } from '@angular/core';
 import { Subject } from 'rxjs';
 import { TableCellDefDirective } from './table-cell-def.directive';
 import { TableHeaderCellDefDirective } from './table-header-cell-def.directive';
@@ -62,6 +62,7 @@ export class TableComponent implements AfterViewInit, OnDestroy {
   }
   responsiveUpdated$ = new Subject<void>();
   @HostBinding('style.--core-table-columns') private hostColumnWidths: string | undefined = undefined;
+  @HostBinding('class.core-table--borderless') @Input({ transform: booleanAttribute }) borderless: boolean = false;
 
   @ContentChildren(TableCellDefDirective) private _cellDefs!: QueryList<TableCellDefDirective>;
   get cellDefs() { return this._cellDefs }

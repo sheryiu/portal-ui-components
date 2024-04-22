@@ -9,17 +9,19 @@
     </div>
     <div class="flex grow">
       <div class="gutter-stable grow">
-        <core-table itemHeight="48" [columns]="['key', 'valueType']">
+        <core-table itemHeight="48" [columns]="['key', 'valueType']" borderless>
           <core-table-cell *coreTableCellDef="'key'; let row">
             <div class="flex justify-between items-center basis-full">
               <span>{{ row.label }}</span>
               <span class="text-sm uppercase font-medium text-primary-800 dark:text-primary-200">{{ row.valueType }}</span>
             </div>
           </core-table-cell>
-          <core-table-cell *coreTableCellDef="'valueType'; let row" class="!p-0">
+          <core-table-cell *coreTableCellDef="'valueType'; let row">
             @switch (row.valueType) {
               @case ('string') {
-                <input coreInputField type="text" class="h-12 p-2">
+                <div class="bg-lunar-green-800 rounded-1 w-full min-h-8 overflow-hidden has-focus-visible:outline has-focus-visible:outline-2 has-focus-visible:outline-primary-500 has-focus-visible:bg-primary-950">
+                  <input coreInputField type="text" class="size-full min-h-8 px-2 py-0.5">
+                </div>
               }
             }
           </core-table-cell>

@@ -115,6 +115,11 @@
         }
       }
     }
+    &.core-table--borderless {
+      .core-table-row > a {
+        @apply border-b-0;
+      }
+    }
 
     .core-table-row:last-child {
       > a {
@@ -293,9 +298,7 @@
   .core-dirty-bar {
     @apply absolute bottom-0 left-0 right-0 z-[100] py-4 px-6;
     @apply border-t dark:bg-primary-600 dark:text-primary-950;
-    > div {
-      @apply flex justify-between items-center;
-    }
+    @apply flex justify-between items-center;
     .core-dirty-bar__now-editing {
       @apply flex flex-col;
       p {
@@ -308,7 +311,7 @@
     .core-dirty-bar__actions {
       @apply flex gap-2;
       button {
-        @apply p-2
+        @apply p-2 rounded-1;
       }
     }
   }
