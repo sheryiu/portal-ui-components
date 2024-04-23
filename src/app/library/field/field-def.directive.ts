@@ -4,14 +4,14 @@ import { LiteralUnion } from '../../components/utils/literal-union';
 type SupportedTypes = 'string' | 'number';
 
 @Directive({
-  selector: '[coreFieldDef]',
+  selector: '[coreFieldDef], core-field-def',
   standalone: true
 })
 export class FieldDefDirective {
-  @Input() key!: string;
-  @Input() label!: string;
+  @Input({ alias: 'coreFieldDef' }) key!: string;
+  @Input({ alias: 'coreFieldDefLabel' }) label!: string;
   @Input() description?: string | Type<unknown>;
-  @Input() fieldType!: LiteralUnion<SupportedTypes>;
+  @Input({ alias: 'coreFieldType' }) fieldType!: LiteralUnion<SupportedTypes>;
   @Input() fieldConfig?: {
     'string'?: {},
     'number'?: {},

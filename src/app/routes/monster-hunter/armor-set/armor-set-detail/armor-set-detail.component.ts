@@ -47,17 +47,7 @@ export class ArmorSetDetailComponent extends EffectFn {
   data$ = this.id$.pipe(
     switchMap((id) => this.service.getOne(id)),
   )
-  formGroup = this.formBuilder.nonNullable.group({
-    name: [null as unknown as ArmorSet['name']],
-    rarity: [null as unknown as number],
-    rank: [null as unknown as ArmorSet['rank']],
-    setBonusId: [null as unknown as ArmorSet['setBonusId']],
-  })
-  fields = [
-    { key: 'name.en', label: 'English Name', valueType: 'string' },
-    { key: 'name.zh', label: 'Chinese Name', valueType: 'string' },
-    { key: 'rarity', label: 'Rarity', valueType: 'number' },
-  ]
+  formControl = this.formBuilder.control<ArmorSet | null>(null);
 
   constructor() {
     super();
@@ -73,7 +63,7 @@ export class ArmorSetDetailComponent extends EffectFn {
   onSave = this.createEffectFn<void>((args$) => args$.pipe(
     withLatestFrom(this.id$),
     debounceTime(0),
-    switchMap(([, id]) => this.service.update(id, this.formGroup.getRawValue()))
+    // switchMap(([, id]) => this.service.update(id, this.formGroup.getRawValue()))
   ))
 
   onCancel = this.createEffectFn<void>((args$) => args$.pipe(
@@ -82,12 +72,7 @@ export class ArmorSetDetailComponent extends EffectFn {
   ))
 
   updateForm(data: ArmorSet) {
-    this.formGroup.reset({
-      name: data.name,
-      rarity: data.rarity,
-      rank: data.rank,
-      setBonusId: data.setBonusId,
-    })
+    this.formControl.setValue(data);
   }
 
   pickArmorSetBonus(item: ArmorSetBonus) {

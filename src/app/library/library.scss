@@ -149,7 +149,7 @@
   }
 
   .core-breadcrumbs {
-    @apply flex gap-0.5 items-center text-sm font-display;
+    @apply min-h-6 flex gap-0.5 items-center text-sm font-display;
   }
 
   .core-form-submit {
@@ -313,6 +313,21 @@
       button {
         @apply p-2 rounded-1;
       }
+    }
+  }
+
+  .core-fieldset {
+    @apply grid grid-cols-1 @md/fieldset:grid-cols-2;
+    .core-fieldset__label {
+      @apply flex justify-between items-center;
+      @apply py-2 ps-4 pe-2;
+    }
+    .core-fieldset__label__type {
+      @apply text-sm uppercase font-medium text-primary-800 dark:text-primary-200;
+    }
+    .core-fieldset__input {
+      @apply flex justify-start items-center;
+      @apply py-2 px-2;
     }
   }
 }

@@ -1,1 +1,22 @@
-<p>fieldset works!</p>
+<form class="@container/fieldset">
+  <div class="core-fieldset" (click)="onTouched?.()" [formGroup]="form">
+    @for (fieldDef of fieldDefs; track fieldDef.key) {
+      <div class="core-fieldset__label">
+        <label [for]="fieldDef.key">{{ fieldDef.label }}</label>
+        <span class="core-fieldset__label__type">{{ fieldDef.fieldType }}</span>
+      </div>
+      <div class="core-fieldset__input">
+        @switch (fieldDef.fieldType) {
+          @case ('string') {
+            <div class="bg-lunar-green-800 rounded-1 w-full min-h-8 overflow-hidden has-focus-visible:outline has-focus-visible:outline-2 has-focus-visible:outline-primary-500 has-focus-visible:bg-primary-950">
+              <input [id]="fieldDef.key" coreInputField type="text" class="size-full min-h-8 px-2 py-0.5" [formControlName]="fieldDef.key">
+            </div>
+          }
+          @default {
+            <div>Unsupported Type</div>
+          }
+        }
+      </div>
+    }
+  </div>
+</form>
