@@ -1,8 +1,16 @@
 <div class="core-dirty-bar__now-editing">
   <h3>Now Editing</h3>
-  <p>Armor Set > Test 2</p>
+  <p>{{ currentEditing$$() }}</p>
 </div>
-<div class="core-dirty-bar__actions">
-  <button type="button" coreHoverable coreHardSurface color="gray">Cancel</button>
-  <button type="submit" coreHoverable coreHardSurface color="gray">Save</button>
-</div>
+@if (isLoading$$()) {
+  <div class="core-dirty-bar__loading"></div>
+} @else {
+  <div class="core-dirty-bar__actions">
+    <button type="button" coreHoverable coreHardSurface color="gray" (click)="onCancel()">
+      Cancel
+    </button>
+    <button type="submit" coreHoverable coreHardSurface color="gray" (click)="onSave()">
+      Save
+    </button>
+  </div>
+}

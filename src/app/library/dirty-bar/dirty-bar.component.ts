@@ -1,5 +1,7 @@
-import { Component, inject } from '@angular/core';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { Component, EventEmitter, inject } from '@angular/core';
+import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
+import { EffectFn } from '@ngneat/effects-ng';
+import { tap, throttleTime } from 'rxjs';
 import { SharedModule } from '../../shared/shared.module';
 import { DirtyBarService } from './dirty-bar.service';
 
@@ -15,14 +17,25 @@ import { DirtyBarService } from './dirty-bar.service';
     '[class.hidden]': '!isDirty'
   }
 })
-export class DirtyBarComponent {
+export class DirtyBarComponent extends EffectFn {
   private service = inject(DirtyBarService);
   isDirty = false;
+  currentEditing$$ = toSignal(this.service.currentEditing$);
+  isLoading$$ = toSignal(this.service.isLoading$);
 
   constructor() {
+    super();
     this.service.isDirty$.pipe(
       takeUntilDestroyed(),
-    ).subscribe(isDirty => this.isDirty = isDirty)
+    ).subscribe(isDirty => this.isDirty = isDirty);
+  }
+
+  onCancel() {
+    this.service.cancelClick();
+  }
+
+  onSave() {
+    this.service.saveClick();
   }
 
 }

@@ -1,4 +1,4 @@
-import { AfterContentInit, Component, ContentChildren, DestroyRef, QueryList, forwardRef, inject } from '@angular/core';
+import { AfterContentInit, Component, ContentChildren, DestroyRef, EventEmitter, Output, QueryList, forwardRef, inject } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ControlValueAccessor, FormBuilder, FormsModule, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
 import { map, startWith } from 'rxjs';
@@ -29,6 +29,7 @@ export class FieldsetComponent<T extends {}> implements ControlValueAccessor, Af
 
   private formBuilder = inject(FormBuilder);
   form = this.formBuilder.record({})
+  @Output() valueChange = new EventEmitter<T>();
 
   ngAfterContentInit(): void {
     this._fieldDefs.changes.pipe(
@@ -63,10 +64,30 @@ export class FieldsetComponent<T extends {}> implements ControlValueAccessor, Af
     return value;
   }
 
+  handleInput() {
+    let newValue: any = this.currentValue;
+    if (newValue == null) newValue = {};
+    const formValue = this.form.getRawValue();
+    for (const key in formValue) {
+      if (typeof formValue[key] == 'undefined') continue;
+      // only ignore undefined
+      // null values should be taken into account
+      let currPointingTo = newValue;
+      const paths = key.split('>');
+      for (const path of paths.slice(0, -1)) {
+        if (currPointingTo[path] == null) currPointingTo[path] = {};
+        currPointingTo = currPointingTo[path];
+      }
+      currPointingTo[paths.at(-1)!] = formValue[key];
+    }
+    this.onChange?.(newValue);
+    this.valueChange.emit(newValue);
+  }
+
   //#region ControlValueAccessor
   private currentValue: T | null | undefined;
   writeValue(obj: T | null | undefined): void {
-    this.currentValue = obj;
+    this.currentValue = structuredClone(obj);
     if (this.currentValue == null) {
       this.form.reset();
     } else {
@@ -75,7 +96,7 @@ export class FieldsetComponent<T extends {}> implements ControlValueAccessor, Af
       })
     }
   }
-  onChange?: () => void;
+  onChange?: (val: T) => void;
   registerOnChange(fn: any): void {
     this.onChange = fn;
   }

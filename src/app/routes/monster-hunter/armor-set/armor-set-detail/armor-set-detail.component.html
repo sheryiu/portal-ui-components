@@ -9,7 +9,7 @@
     </div>
     <div class="flex grow">
       <div class="gutter-stable grow">
-        <core-fieldset [formControl]="formControl">
+        <core-fieldset [formControl]="formControl" (valueChange)="onInput()">
           <core-field-def
             coreFieldDef="name>en"
             coreFieldDefLabel="English Name"

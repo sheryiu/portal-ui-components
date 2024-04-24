@@ -8,6 +8,9 @@ type SupportedTypes = 'string' | 'number';
   standalone: true
 })
 export class FieldDefDirective {
+  /**
+   * @description Delimited by `>` character
+   */
   @Input({ alias: 'coreFieldDef' }) key!: string;
   @Input({ alias: 'coreFieldDefLabel' }) label!: string;
   @Input() description?: string | Type<unknown>;
