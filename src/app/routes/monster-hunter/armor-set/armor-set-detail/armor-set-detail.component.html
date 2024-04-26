@@ -22,6 +22,27 @@
             coreFieldType="string"
             [fieldConfig]="{}"
           ></core-field-def>
+          <core-field-def
+            coreFieldDef="rarity"
+            coreFieldDefLabel="Rarity"
+            coreFieldType="number"
+            [fieldConfig]="{}"
+          ></core-field-def>
+          <core-field-def
+            coreFieldDef="rank"
+            coreFieldDefLabel="Rank"
+            coreFieldType="string"
+            [fieldConfig]="{
+              enum: ['base', 'iceborne']
+            }"
+          ></core-field-def>
+          <core-field-def
+            coreFieldDef="setBonusId"
+            coreFieldDefLabel="Set Bonus"
+            coreFieldType="string"
+            [fieldConfig]="{
+            }"
+          ></core-field-def>
         </core-fieldset>
       </div>
     </div>

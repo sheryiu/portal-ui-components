@@ -297,21 +297,21 @@
 
   .core-dirty-bar {
     @apply absolute bottom-0 left-0 right-0 z-[100] py-4 px-6;
-    @apply border-t dark:bg-primary-600 dark:text-primary-950;
+    @apply border-t dark:bg-primary-700 dark:text-primary-50;
     @apply flex justify-between items-center;
     .core-dirty-bar__now-editing {
       @apply flex flex-col;
       p {
-        @apply font-bold tracking-tighter;
+        @apply font-medium tracking-tight;
       }
       h3 {
-        @apply dark:text-primary-900;
+        @apply dark:text-primary-100;
       }
     }
     .core-dirty-bar__actions {
       @apply flex gap-2;
       button {
-        @apply p-2 rounded-1;
+        @apply px-4 py-2 rounded-1;
       }
     }
   }
@@ -326,8 +326,31 @@
       @apply text-sm uppercase font-medium text-primary-800 dark:text-primary-200;
     }
     .core-fieldset__input {
-      @apply flex justify-start items-center;
-      @apply py-2 px-2;
+      @apply flex justify-between items-center gap-2;
+      @apply py-2 px-2 min-h-12;
+      button {
+        @apply self-stretch px-2 rounded-1 text-sm flex-none;
+      }
+    }
+    .core-fieldset__input-field {
+      @apply flex bg-lunar-green-800 rounded-1 min-h-8 overflow-hidden;
+      &:not(:only-child) {
+        @apply grow;
+      }
+      &:has(:focus-visible) {
+        @apply outline outline-2 outline-primary-500 bg-primary-950;
+      }
+    }
+  }
+
+  .core-autocomplete-overlay {
+    @apply flex flex-col items-stretch;
+    @apply bg-lunar-green-800 border rounded-1;
+    > button {
+      @apply text-start min-h-8;
+      > div {
+        @apply grow px-2 py-0.5;
+      }
     }
   }
 }

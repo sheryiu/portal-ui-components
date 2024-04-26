@@ -3,6 +3,9 @@
     @apply flex items-center justify-center relative overflow-hidden transition-all;
     &[data-enabled=true] {
       @apply cursor-pointer after:absolute after:inset-0 after:transition-colors after:touch-none after:pointer-events-none hover:after:bg-hover;
+      &:focus-visible {
+        @apply outline outline-2 outline-primary-500;
+      }
     }
   }
 

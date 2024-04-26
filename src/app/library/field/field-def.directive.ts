@@ -16,8 +16,10 @@ export class FieldDefDirective {
   @Input() description?: string | Type<unknown>;
   @Input({ alias: 'coreFieldType' }) fieldType!: LiteralUnion<SupportedTypes>;
   @Input() fieldConfig?: {
+    enum?: (string | number)[],
     'string'?: {},
     'number'?: {},
   }
+  @Input() defaultValue?: any;
 
 }

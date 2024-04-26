@@ -1,0 +1,16 @@
+<div class="core-autocomplete-overlay" cdkTrapFocus [cdkTrapFocusAutoCapture]="true">
+  @for (item of data.data; track $index) {
+    <button
+      coreHoverable
+      role="option"
+      (click)="selectValue(item)"
+    >
+      <div>
+        <ng-container
+          [ngTemplateOutlet]="data.templateRef"
+          [ngTemplateOutletContext]="{ $implicit: item }"
+        ></ng-container>
+      </div>
+    </button>
+  }
+</div>

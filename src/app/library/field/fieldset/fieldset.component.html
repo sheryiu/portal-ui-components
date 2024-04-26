@@ -6,17 +6,23 @@
         <span class="core-fieldset__label__type">{{ fieldDef.fieldType }}</span>
       </div>
       <div class="core-fieldset__input">
-        @if (form.controls[fieldDef.key]?.value == null) {
+        @if (form.controls[fieldDef.key] && form.controls[fieldDef.key].value == null) {
           <div
-            class="bg-lunar-green-800 rounded-1 min-h-8 overflow-hidden has-focus-visible:outline has-focus-visible:outline-2 has-focus-visible:outline-primary-500 has-focus-visible:bg-primary-950"
+            class="core-fieldset__input-field"
           >
-            <span class="text-secondary px-2 py-0.5 leading-8">null</span>
+            <button
+              coreHoverable
+              coreHardSurface
+              color="accent"
+              (click)="onSetNotNull(fieldDef)"
+            >Add</button>
+            <span class="text-secondary px-2 leading-8">null</span>
           </div>
         } @else {
           @switch (fieldDef.fieldType) {
             @case ('string') {
             <div
-              class="bg-lunar-green-800 rounded-1 w-full min-h-8 overflow-hidden has-focus-visible:outline has-focus-visible:outline-2 has-focus-visible:outline-primary-500 has-focus-visible:bg-primary-950"
+              class="core-fieldset__input-field"
             >
               <input
                 [id]="fieldDef.key"
@@ -25,14 +31,51 @@
                 class="size-full min-h-8 px-2 py-0.5"
                 [formControlName]="fieldDef.key"
                 (input)="handleInput()"
+                coreAutocompleteTrigger
+                [autocompleteEnabled]="fieldDef.fieldConfig?.enum != null"
+                [autocompleteValues]="fieldDef.fieldConfig?.enum"
+                [autocompleteTemplateRef]="enumAutocomplete"
+                (autocompleteChange)="onAutocomplete(fieldDef, $event)"
               />
             </div>
-            } @default {
+            }
+            @case ('number') {
+            <div
+              class="core-fieldset__input-field"
+            >
+              <input
+                [id]="fieldDef.key"
+                coreInputField
+                type="number"
+                class="size-full min-h-8 px-2 py-0.5"
+                [formControlName]="fieldDef.key"
+                (input)="handleInput()"
+                coreAutocompleteTrigger
+                [autocompleteEnabled]="fieldDef.fieldConfig?.enum != null"
+                [autocompleteValues]="fieldDef.fieldConfig?.enum"
+                [autocompleteTemplateRef]="enumAutocomplete"
+                (autocompleteChange)="onAutocomplete(fieldDef, $event)"
+              />
+            </div>
+            }
+            @default {
             <div>Unsupported Type</div>
             }
           }
+          <button
+            coreHoverable
+            coreHardSurface
+            color="accent"
+            (click)="onSetNull(fieldDef)"
+          >
+            <i class="icon-4">remove</i>
+          </button>
         }
       </div>
     }
   </div>
 </form>
+
+<ng-template #enumAutocomplete let-item>
+  {{ item }}
+</ng-template>

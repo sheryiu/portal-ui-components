@@ -1,12 +1,17 @@
 import { OverlayRef } from '@angular/cdk/overlay';
-import { ReplaySubject, take, takeUntil } from 'rxjs';
+import { ReplaySubject, concat, switchMap, take, takeUntil, timer } from 'rxjs';
 
 export class OverlayRefExtra {
   constructor(public overlayRef: OverlayRef) {
-    overlayRef.outsidePointerEvents().pipe(
-      take(1),
-    ).subscribe(() => {
-      this.close();
+    concat(
+      timer(500),
+      overlayRef.outsidePointerEvents().pipe(take(1)),
+    ).pipe(
+      takeUntil(this.afterClosed$),
+    ).subscribe((v) => {
+      if (v instanceof MouseEvent) {
+        this.close();
+      }
     })
   }
   close() {

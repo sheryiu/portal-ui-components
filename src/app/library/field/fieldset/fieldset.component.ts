@@ -3,6 +3,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ControlValueAccessor, FormBuilder, FormsModule, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
 import { map, startWith } from 'rxjs';
 import { SharedModule } from '../../../shared/shared.module';
+import { AutocompleteModule } from '../../autocomplete/autocomplete.module';
 import { FieldDefDirective } from '../field-def.directive';
 
 @Component({
@@ -12,6 +13,7 @@ import { FieldDefDirective } from '../field-def.directive';
     SharedModule,
     FormsModule,
     ReactiveFormsModule,
+    AutocompleteModule,
   ],
   templateUrl: './fieldset.component.html',
   providers: [
@@ -64,6 +66,14 @@ export class FieldsetComponent<T extends {}> implements ControlValueAccessor, Af
     return value;
   }
 
+  private defaultValueForType(fieldDef: FieldDefDirective) {
+    switch (fieldDef.fieldType) {
+      case 'string': return '';
+      case 'number': return 0;
+      default: return '';
+    }
+  }
+
   handleInput() {
     let newValue: any = this.currentValue;
     if (newValue == null) newValue = {};
@@ -82,6 +92,24 @@ export class FieldsetComponent<T extends {}> implements ControlValueAccessor, Af
     }
     this.onChange?.(newValue);
     this.valueChange.emit(newValue);
+  }
+
+  onSetNotNull(fieldDef: FieldDefDirective) {
+    if (!this.form.contains(fieldDef.key)) return;
+    this.form.get(fieldDef.key)?.setValue(fieldDef.defaultValue ?? this.defaultValueForType(fieldDef));
+    this.handleInput();
+  }
+
+  onSetNull(fieldDef: FieldDefDirective) {
+    if (!this.form.contains(fieldDef.key)) return;
+    this.form.get(fieldDef.key)?.setValue(null);
+    this.handleInput();
+  }
+
+  onAutocomplete(fieldDef: FieldDefDirective, value: string | number) {
+    if (!this.form.contains(fieldDef.key)) return;
+    this.form.get(fieldDef.key)?.setValue(value);
+    this.handleInput();
   }
 
   //#region ControlValueAccessor

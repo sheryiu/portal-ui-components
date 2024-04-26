@@ -157,6 +157,9 @@ module.exports = {
             "text-overflow": "ellipsis",
             "overflow": "hidden",
             "white-space": "nowrap",
+          },
+          "button:not([role])": {
+            "font-weight": "700"
           }
         });
         addComponents({
@@ -203,6 +206,7 @@ module.exports = {
                 "font-size": theme("spacing." + value),
                 "font-style": "normal",
                 "font-family": "'Material Symbols Rounded'",
+                "font-weight": "400",
               };
             },
           },
