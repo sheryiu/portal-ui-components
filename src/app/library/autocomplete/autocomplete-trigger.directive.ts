@@ -59,6 +59,7 @@ export class AutocompleteTriggerDirective<D> {
             this.closeOverlay();
           }
         },
+        ignorePointerEventsFrom: this.elementRef.nativeElement,
       }
     )
     this.overlayRef.afterClosed$.subscribe(() => {

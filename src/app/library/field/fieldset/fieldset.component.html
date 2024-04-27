@@ -58,6 +58,31 @@
               />
             </div>
             }
+            @case ('date-time') {
+            <div
+              class="core-fieldset__input-field"
+            >
+              <button
+                coreHoverable
+                coreHardSurface
+                color="accent"
+                coreCalendarTrigger
+                [date]="$any(form.controls[fieldDef.key].value)"
+                (dateChange)="onDateChange(fieldDef, $event)"
+              >
+                <i class="icon-4">calendar_month</i>
+              </button>
+              <input
+                #dateTimeInput
+                [id]="fieldDef.key"
+                coreInputField
+                type="string"
+                class="size-full min-h-8 px-2 py-0.5"
+                [formControlName]="fieldDef.key"
+                (input)="handleInput()"
+              />
+            </div>
+            }
             @default {
             <div>Unsupported Type</div>
             }

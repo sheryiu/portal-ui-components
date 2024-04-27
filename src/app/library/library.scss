@@ -141,8 +141,11 @@
 
     .core-table-header-cell {
       @apply flex;
+      &:not(:last-child) {
+        @apply border-r;
+      }
       > button {
-        @apply grow truncate whitespace-nowrap font-medium text-sm mx-0.5 px-3.5 py-4;
+        @apply grow truncate whitespace-nowrap font-medium text-sm px-3.5 py-4;
         @apply text-primary-800 dark:text-primary-200;
       }
     }
@@ -222,16 +225,16 @@
 
   .core-segmented-options {
     > div {
-      @apply flex items-center gap-px px-1 py-1;
+      @apply flex items-center gap-px rounded-1 bg-lunar-green-800 border p-px;
     }
     input[type=radio] {
       @apply hidden;
     }
     .core-segmented-options-button {
-      @apply text-sm transition-all grow px-1 py-1.5;
-      @apply first-of-type:rounded-l-2 last-of-type:rounded-r-2;
-      &[data-checked=true] {
-        @apply z-10 rounded-2 -mx-1 px-2 py-2 -my-0.5;
+      @apply text-sm rounded-1 px-1 py-1.5;
+      @apply grow;
+      &[data-checked=false] {
+        @apply bg-none;
       }
     }
   }
@@ -348,6 +351,9 @@
     @apply bg-lunar-green-800 border rounded-1;
     > button {
       @apply text-start min-h-8;
+      &[data-selected=true] {
+        @apply bg-hover;
+      }
       > div {
         @apply grow px-2 py-0.5;
       }

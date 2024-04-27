@@ -39,6 +39,7 @@
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "unique-names-generator": "^4.7.1",
+    "vanilla-calendar-pro": "^2.9.6",
     "zone.js": "~0.14.2"
   },
   "devDependencies": {

@@ -4,6 +4,7 @@ import { ControlValueAccessor, FormBuilder, FormsModule, NG_VALUE_ACCESSOR, Reac
 import { map, startWith } from 'rxjs';
 import { SharedModule } from '../../../shared/shared.module';
 import { AutocompleteModule } from '../../autocomplete/autocomplete.module';
+import { CalendarModule } from '../../calendar/calendar.module';
 import { FieldDefDirective } from '../field-def.directive';
 
 @Component({
@@ -14,6 +15,7 @@ import { FieldDefDirective } from '../field-def.directive';
     FormsModule,
     ReactiveFormsModule,
     AutocompleteModule,
+    CalendarModule,
   ],
   templateUrl: './fieldset.component.html',
   providers: [
@@ -63,6 +65,9 @@ export class FieldsetComponent<T extends {}> implements ControlValueAccessor, Af
       if (typeof value[path] === 'function') return null;
       value = value[path];
     }
+    if (fieldDef.fieldType === 'date-time' && value && value instanceof Date) {
+      return value.toISOString();
+    }
     return value;
   }
 
@@ -70,6 +75,7 @@ export class FieldsetComponent<T extends {}> implements ControlValueAccessor, Af
     switch (fieldDef.fieldType) {
       case 'string': return '';
       case 'number': return 0;
+      case 'date-time': return '';
       default: return '';
     }
   }
@@ -109,6 +115,12 @@ export class FieldsetComponent<T extends {}> implements ControlValueAccessor, Af
   onAutocomplete(fieldDef: FieldDefDirective, value: string | number) {
     if (!this.form.contains(fieldDef.key)) return;
     this.form.get(fieldDef.key)?.setValue(value);
+    this.handleInput();
+  }
+
+  onDateChange(fieldDef: FieldDefDirective, value: Date) {
+    if (!this.form.contains(fieldDef.key)) return;
+    this.form.get(fieldDef.key)?.setValue(value.toISOString());
     this.handleInput();
   }
 

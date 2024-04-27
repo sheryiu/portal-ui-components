@@ -39,13 +39,13 @@
   }
 </button>
 <ng-template #filterPopup>
-  <div class="bg-deep-glass-high-contrast px-3.5 py-2 w-full shadow-md overflow-auto max-h-full">
+  <div class="bg-lunar-green-800 border rounded-1 px-3 py-2 w-full overflow-auto max-h-full">
     <div class="flex flex-col">
       @if (sortDirective?.templateRef) {
         <ng-container [ngTemplateOutlet]="sortDirective!.templateRef"></ng-container>
       }
       @if (sortDirective?.templateRef && filterDirective?.templateRef) {
-        <div class="border-t my-2 -mx-3.5"></div>
+        <div class="border-t my-2 -mx-3"></div>
       }
       @if (filterDirective?.templateRef) {
         <ng-container [ngTemplateOutlet]="filterDirective!.templateRef"></ng-container>

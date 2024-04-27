@@ -1,10 +1,9 @@
 import { Injectable, inject, signal } from '@angular/core';
 import { liveQuery } from 'dexie';
 import { nanoid } from 'nanoid';
-import { delayWhen, from, of, shareReplay, startWith, timer } from 'rxjs';
+import { from } from 'rxjs';
 import { ArmorSet } from '../data/armor-set';
 import { DatabaseService } from '../data/database.service';
-import { memoize } from './memoize';
 
 type Filter = {
   name?: string;
@@ -23,7 +22,6 @@ type Sort = {
 export class ArmorSetService {
   private data = inject(DatabaseService);
 
-  @memoize
   list(
     filter?: Filter,
     sort?: Sort
@@ -55,11 +53,7 @@ export class ArmorSetService {
       } else {
         return filtered.toArray();
       }
-    })).pipe(
-      delayWhen((_, i) => i === 0 ? timer(1000) : of()),
-      startWith(null),
-      shareReplay(1),
-    )
+    }))
   }
 
   mainListFilter$$ = signal<Filter>({});
@@ -67,16 +61,13 @@ export class ArmorSetService {
     rarity: 'desc'
   });
 
-  @memoize
   getOne(
     id: string
   ) {
     return from(liveQuery(() => {
       if (this.data.isServer) return undefined;
       return this.data.armorSets.get(id);
-    })).pipe(
-      shareReplay(1),
-    )
+    }))
   }
 
   create = (input: Pick<ArmorSet, 'name' | 'rank' | 'rarity'>) => {

@@ -1,10 +1,9 @@
 import { Injectable, inject, signal } from '@angular/core';
 import { liveQuery } from 'dexie';
 import { nanoid } from 'nanoid';
-import { delayWhen, from, of, shareReplay, startWith, timer } from 'rxjs';
+import { from } from 'rxjs';
 import { DatabaseService } from '../data/database.service';
 import { Skill } from '../data/skill';
-import { memoize } from './memoize';
 
 type Filter = {
   name?: string;
@@ -20,7 +19,6 @@ type Sort = {
 export class SkillService {
   private data = inject(DatabaseService);
 
-  @memoize
   list(
     filter?: Filter,
     sort?: Sort
@@ -44,11 +42,7 @@ export class SkillService {
       } else {
         return filtered.toArray();
       }
-    })).pipe(
-      delayWhen((_, i) => i === 0 ? timer(1000) : of()),
-      startWith(null),
-      shareReplay(1)
-    )
+    }))
   }
 
   mainListFilter$$ = signal<Filter>({});
@@ -56,16 +50,13 @@ export class SkillService {
     name: 'desc'
   });
 
-  @memoize
   getOne(
     id: string
   ) {
     return from(liveQuery(() => {
       if (this.data.isServer) return undefined;
       return this.data.skills.get(id);
-    })).pipe(
-      shareReplay(1),
-    )
+    }))
   }
 
   create = (input: Pick<Skill, 'name' | 'color' | 'description'>) => {

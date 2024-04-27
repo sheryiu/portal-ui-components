@@ -22,12 +22,13 @@ export class OverlayService {
       viewContainerRef?: ViewContainerRef | null | undefined,
       data?: D,
       closeOnBackdropClick?: boolean,
+      ignorePointerEventsFrom?: Element,
     }
   ) {
     const overlayRef = this.overlay.create({
       ...config,
     });
-    const overlayRefExtra = new OverlayRefExtra(overlayRef);
+    const overlayRefExtra = new OverlayRefExtra(overlayRef, config.ignorePointerEventsFrom);
     const injector = Injector.create({
       providers: [
         {
