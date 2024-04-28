@@ -2,7 +2,7 @@
   .core-hoverable {
     @apply flex items-center justify-center relative overflow-hidden transition-all;
     &[data-enabled=true] {
-      @apply cursor-pointer after:absolute after:inset-0 after:transition-colors after:touch-none after:pointer-events-none hover:after:bg-hover;
+      @apply cursor-pointer after:absolute after:inset-0 after:transition-colors after:touch-none after:pointer-events-none hover:after:bg-hover focus-visible:after:bg-hover;
       &:focus-visible {
         @apply outline outline-2 outline-primary-500;
       }
@@ -14,7 +14,7 @@
   }
 
   .core-sticky-header {
-    @apply sticky z-[100];
+    @apply sticky z-50;
   }
 
   .core-virtual-scroll-extra.cdk-virtual-scroll-viewport > .cdk-virtual-scroll-spacer {

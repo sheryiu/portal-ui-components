@@ -16,16 +16,6 @@ export const ROUTES: Routes = [
     },
     children: [
       {
-        path: 'new',
-        loadComponent: () => import('./armor-create/armor-create.component').then(c => c.ArmorCreateComponent),
-        data: {
-          ...breadcrumb({
-            title: '+ New'
-          }),
-          ...sectionedOutlet('half'),
-        }
-      },
-      {
         path: ':armorId',
         loadComponent: () => import('./armor-detail/armor-detail.component').then(c => c.ArmorDetailComponent),
         data: {
@@ -40,37 +30,14 @@ export const ROUTES: Routes = [
           ...sectionedOutlet('half'),
         },
         children: [
-          // edit-name
           {
-            path: 'edit-name',
-            loadComponent: () => import('./armor-edit-name/armor-edit-name.component').then(c => c.ArmorEditNameComponent),
+            path: 'edit',
+            loadComponent: () => import('./armor-detail-edit/armor-detail-edit.component').then(c => c.ArmorDetailEditComponent),
             data: {
               ...breadcrumb({
                 title: 'Edit'
               }),
               ...sectionedOutlet('full'),
-            },
-          },
-          // edit-stats
-          {
-            path: 'edit-stats',
-            loadComponent: () => import('./armor-edit-stats/armor-edit-stats.component').then(c => c.ArmorEditStatsComponent),
-            data: {
-              ...breadcrumb({
-                title: 'Edit Stats'
-              }),
-              ...sectionedOutlet('full'),
-            },
-          },
-          // edit-skills
-          {
-            path: 'edit-skills',
-            loadComponent: () => import('./armor-edit-skills/armor-edit-skills.component').then(c => c.ArmorEditSkillsComponent),
-            data: {
-              ...breadcrumb({
-                title: 'Edit Skills',
-              }),
-              ...sectionedOutlet('half'),
             }
           },
           {

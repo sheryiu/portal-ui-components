@@ -23,17 +23,18 @@
           coreFieldType="string"
         ></core-field-def>
         <core-field-def
-          coreFieldDef="position"
-          coreFieldDefLabel="Position"
-          coreFieldType="string"
-          [fieldConfig]="{
-            enum: armorPosition
-          }"
+          coreFieldDef="rarity"
+          coreFieldDefLabel="Rarity"
+          coreFieldType="number"
+          [fieldConfig]="{}"
         ></core-field-def>
         <core-field-def
-          coreFieldDef="armorSetId"
-          coreFieldDefLabel="Armor Set"
+          coreFieldDef="rank"
+          coreFieldDefLabel="Rank"
           coreFieldType="string"
+          [fieldConfig]="{
+            enum: ['base', 'iceborne']
+          }"
         ></core-field-def>
       </core-fieldset>
       <button class="mx-2 mb-2 px-3 py-1.5 rounded-1" coreHoverable coreHardSurface color="primary" role="button" type="submit">Add</button>

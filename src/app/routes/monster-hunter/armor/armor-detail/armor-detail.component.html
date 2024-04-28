@@ -1,200 +1,201 @@
 <core-sectioned-outlet>
   <div
-    class="h-full relative flex flex-col overflow-x-hidden overflow-y-auto gutter-stable"
+    coreSidebarContainer
     cdkVirtualScrollingElement
     cdkScrollable
     coreTabBarContainerElement
   >
-    <div class="bg-deep-glass grow p-2">
-      <div class="flex flex-col">
-        <core-simple-header
-          coreStickyHeader
-          checkFor="-168"
-          class="h-64 -top-[11.5rem]">
-          <div *coreHeader>
-            @if (headerImage$ | async; as bgImage) {
-              <div
-                class="absolute inset-0 -z-10 bg-cover bg-center group-data-[stuck=true]/header:blur from-60% from-lunar-green-100/50 to-lunar-green-100 dark:from-lunar-green-950/50 dark:to-lunar-green-950 transition-all"
-                [style.backgroundImage]="bgImage"
-              ></div>
+    <div coreSidebarBreadcrumbs>
+      <core-breadcrumbs></core-breadcrumbs>
+    </div>
+    <core-sidebar-content drawerSize="320">
+      <div *coreSidebarMain class="flex flex-col gap-4">
+        <div
+          class="h-64 relative"
+        >
+          @if (headerImage$ | async; as bgImage) {
+            <div
+              class="absolute inset-0 -z-10 bg-cover bg-center group-data-[stuck=true]/header:blur from-60% from-lunar-green-100/50 to-lunar-green-100 dark:from-lunar-green-950/50 dark:to-lunar-green-950 transition-all"
+              [style.backgroundImage]="bgImage"
+            ></div>
+          }
+          @if (data$ | async; as data) {
+            <h2 class="text-primary-900 dark:text-primary-200 absolute left-4 bottom-4"><core-multilingual-text-display [value]="data.name"></core-multilingual-text-display></h2>
+          }
+        </div>
+        <div class="px-4 py-2 top-12 data-[stuck=true]:bg-side-content data-[stuck=true]:border-b" coreStickyHeader checkFor="48">
+          <core-tab-bar></core-tab-bar>
+        </div>
+        <div class="px-4 flex gap-2 items-center">
+          @if (data$ | async; as data) {
+            @if (data.armorSetId | armorSetData | async; as armorSet) {
+              <span class="font-medium whitespace-nowrap shrink-0">Rare {{ armorSet.rarity }}</span>
+              <div class="flex gap-0.5 shrink-0">
+                <core-rating-display [value]="armorSet.rarity"></core-rating-display>
+              </div>
             }
+          }
+        </div>
+        <div class="px-4 flex justify-between items-center">
+          <div class="flex gap-1">
             @if (data$ | async; as data) {
-              <h2><core-multilingual-text-display [value]="data.name"></core-multilingual-text-display></h2>
-            }
-          </div>
-        </core-simple-header>
-        <div class="flex flex-col gap-4 pt-4">
-          <core-tab-bar coreStickyHeader checkFor="88" class="top-18 data-[stuck=true]:bg-lunar-green-100 data-[stuck=true]:dark:bg-lunar-green-950"></core-tab-bar>
-          <div class="px-2 flex gap-2 items-center">
-            @if (data$ | async; as data) {
-              @if (data.armorSetId | armorSetData | async; as armorSet) {
-                <span class="font-medium whitespace-nowrap shrink-0">Rare {{ armorSet.rarity }}</span>
-                <div class="flex gap-0.5 shrink-0">
-                  <core-rating-display [value]="armorSet.rarity"></core-rating-display>
-                </div>
-              }
-            }
-          </div>
-          <div class="px-2 flex justify-between items-center">
-            <div class="flex gap-1">
-              @if (data$ | async; as data) {
-                @if (positionsInArmorSet$ | async; as positions) {
-                  @for (position of armorPositionList; track position) {
-                    @if (data.position === position) {
-                      <div class="p-1 rounded-2 shrink-0 bg-primary-400 dark:bg-primary-700">
-                        <mhw-armor-piece-logo
-                          [logo]="position"
-                          class="text-primary-950 dark:text-primary-50 size-6"
-                        ></mhw-armor-piece-logo>
-                      </div>
-                    } @else if (positions[position] != null) {
-                      <a [routerLink]="['../', positions[position]]" coreHoverable class="p-1 rounded-2 shrink-0">
-                        <mhw-armor-piece-logo
-                          [logo]="position"
-                          class="text-primary-600 dark:text-primary-500 size-6"
-                        ></mhw-armor-piece-logo>
-                      </a>
-                    } @else {
-                      <div class="p-1 rounded-2 shrink-0">
-                        <mhw-armor-piece-logo
-                          [logo]="$any('no_' + position)"
-                          class="text-secondary size-6"
-                        ></mhw-armor-piece-logo>
-                      </div>
-                    }
-                  }
-                }
-              }
-            </div>
-            <div>
-              @if (data$ | async; as data) {
-                <a class="px-2 py-1 rounded-2" [routerLink]="['armor-set', data.armorSetId]" coreHoverable>
-                  @if (data.armorSetId | armorSetData | async; as armorSet) {
-                    <core-multilingual-text-display [value]="armorSet.name"></core-multilingual-text-display>
-                  }
-                </a>
-              }
-            </div>
-          </div>
-          <core-tab-bar-header class="-ms-2" label="Stats">
-            Stats
-            <div *coreTabBarHeaderSupplementary class="flex items-center">
-              <a coreHoverable class="rounded-2 size-8" [routerLink]="['edit-stats']">
-                <i class="icon-5 font-variation-fill">edit</i>
-              </a>
-            </div>
-          </core-tab-bar-header>
-          <div class="px-2 flex items-center gap-2">
-            <i class="icon-6 font-variation-fill text-primary-500 shrink-0">shield</i>
-            <div class="flex flex-col">
-              <span class="font-medium">
-                @if (data$ | async; as data) {
-                  {{ data.maxDef }} at Lv.{{ data.maxLevel }}
-                }
-              </span>
-              <span class="text-sm text-secondary">
-                @if (data$ | async; as data) {
-                  {{ data.baseDef }} at Lv.1
-                }
-              </span>
-            </div>
-          </div>
-          <div class="px-2 grid grid-cols-5">
-            <div class="flex gap-2 items-center">
-              <i class="icon-6 text-red-600 dark:text-red-400 font-variation-fill">local_fire_department</i>
-              @if (data$ | async; as data) {
-                {{ data.resistance?.fire ?? '--' }}
-              }
-            </div>
-            <div class="flex gap-2 items-center">
-              <i class="icon-6 text-blue-600 dark:text-blue-400 font-variation-fill">water_drop</i>
-              @if (data$ | async; as data) {
-                {{ data.resistance?.water ?? '--' }}
-              }
-            </div>
-            <div class="flex gap-2 items-center">
-              <i class="icon-6 text-yellow-600 dark:text-yellow-400 font-variation-fill">bolt</i>
-              @if (data$ | async; as data) {
-                {{ data.resistance?.thunder ?? '--' }}
-              }
-            </div>
-            <div class="flex gap-2 items-center">
-              <i class="icon-6 text-cyan-600 dark:text-cyan-200 font-variation-fill">mode_cool</i>
-              @if (data$ | async; as data) {
-                {{ data.resistance?.ice ?? '--' }}
-              }
-            </div>
-            <div class="flex gap-2 items-center">
-              <i class="icon-6 text-purple-700 dark:text-purple-500 font-variation-fill">raven</i>
-              @if (data$ | async; as data) {
-                {{ data.resistance?.dragon ?? '--' }}
-              }
-            </div>
-          </div>
-          <div class="px-2 flex items-center gap-2">
-            <i class="icon-6 font-variation-fill text-primary-500 shrink-0">masked_transitions</i>
-            <div class="flex flex-col px-1">
-              @if (data$ | async; as data) {
-                <mhw-decoration-slots-display [slots]="data.decorationSlots"></mhw-decoration-slots-display>
-              }
-            </div>
-          </div>
-          <core-tab-bar-header class="-ms-2" label="Skills">
-            Skills
-            <div *coreTabBarHeaderSupplementary class="flex items-center">
-              <a coreHoverable class="rounded-2 size-8" [routerLink]="['edit-skills']">
-                <i class="icon-5 font-variation-fill">edit</i>
-              </a>
-            </div>
-          </core-tab-bar-header>
-          <div class="-my-2 px-2 flex flex-col">
-            @if (data$ | async; as data) {
-              @for (armorSkill of data.skills; track armorSkill.skillId) {
-                <a class="-mx-4 px-4 py-3 border-b last:border-b-0" coreHoverable [routerLink]="['skill', armorSkill.skillId]">
-                  <mhw-armor-skill [armorSkill]="armorSkill"></mhw-armor-skill>
-                </a>
-              } @empty {
-                <span class="text-secondary text-sm uppercase py-2">No Skills</span>
-              }
-              @if (data.armorSetId | armorSetData | async; as armorSet) {
-                @if (armorSet.setBonusId) {
-                  @if (armorSet.setBonusId | armorSetBonusData | async; as setBonus) {
-                    <div class="rounded-3 overflow-hidden border border-dashed bg-neutral-200 dark:bg-neutral-700 my-2 flex flex-col">
-                      <core-multilingual-text-display [value]="setBonus.name" class="px-4 py-2 text-secondary text-sm font-bold"></core-multilingual-text-display>
-                      @for (setBonusEffect of setBonus.effects; track setBonusEffect.skillId) {
-                        <a class="px-4 py-3 border-b last:border-b-0" coreHoverable [routerLink]="['skill', setBonusEffect.skillId]">
-                          <mhw-armor-set-bonus-skill
-                            [setBonusEffect]="setBonusEffect"
-                          ></mhw-armor-set-bonus-skill>
-                        </a>
-                      }
+              @if (positionsInArmorSet$ | async; as positions) {
+                @for (position of armorPositionList; track position) {
+                  @if (data.position === position) {
+                    <div class="p-1 rounded-1 shrink-0 bg-primary-400 dark:bg-primary-700">
+                      <mhw-armor-piece-logo
+                        [logo]="position"
+                        class="text-primary-950 dark:text-primary-50 size-6"
+                      ></mhw-armor-piece-logo>
+                    </div>
+                  } @else if (positions[position] != null) {
+                    <a [routerLink]="['../', positions[position]]" coreHoverable class="p-1 rounded-1 shrink-0">
+                      <mhw-armor-piece-logo
+                        [logo]="position"
+                        class="text-primary-600 dark:text-primary-500 size-6"
+                      ></mhw-armor-piece-logo>
+                    </a>
+                  } @else {
+                    <div class="p-1 rounded-1 shrink-0">
+                      <mhw-armor-piece-logo
+                        [logo]="$any('no_' + position)"
+                        class="text-secondary size-6"
+                      ></mhw-armor-piece-logo>
                     </div>
                   }
                 }
               }
             }
           </div>
-          <core-tab-bar-header class="-ms-2" label="Crafting">
-            Crafting
-          </core-tab-bar-header>
-          <div class="px-2">
-            <span class="text-secondary text-sm uppercase py-2">No Crafting Recipe</span>
+          <div>
+            @if (data$ | async; as data) {
+              <a class="px-2 py-1 rounded-1" [routerLink]="['armor-set', data.armorSetId]" coreHoverable>
+                @if (data.armorSetId | armorSetData | async; as armorSet) {
+                  <core-multilingual-text-display [value]="armorSet.name"></core-multilingual-text-display>
+                }
+              </a>
+            }
+          </div>
+        </div>
+        <core-tab-bar-header class="me-4" label="Stats">
+          Stats
+        </core-tab-bar-header>
+        <div class="px-4 flex items-center gap-2">
+          <i class="icon-6 font-variation-fill text-primary-500 shrink-0">shield</i>
+          <div class="flex flex-col">
+            <span class="font-medium">
+              @if (data$ | async; as data) {
+                {{ data.maxDef }} at Lv.{{ data.maxLevel }}
+              }
+            </span>
+            <span class="text-sm text-secondary">
+              @if (data$ | async; as data) {
+                {{ data.baseDef }} at Lv.1
+              }
+            </span>
+          </div>
+        </div>
+        <div class="px-4 grid grid-cols-5">
+          <div class="flex gap-2 items-center">
+            <i class="icon-6 text-red-600 dark:text-red-400 font-variation-fill">local_fire_department</i>
+            @if (data$ | async; as data) {
+              {{ data.resistance?.fire ?? '--' }}
+            }
+          </div>
+          <div class="flex gap-2 items-center">
+            <i class="icon-6 text-blue-600 dark:text-blue-400 font-variation-fill">water_drop</i>
+            @if (data$ | async; as data) {
+              {{ data.resistance?.water ?? '--' }}
+            }
+          </div>
+          <div class="flex gap-2 items-center">
+            <i class="icon-6 text-yellow-600 dark:text-yellow-400 font-variation-fill">bolt</i>
+            @if (data$ | async; as data) {
+              {{ data.resistance?.thunder ?? '--' }}
+            }
+          </div>
+          <div class="flex gap-2 items-center">
+            <i class="icon-6 text-cyan-600 dark:text-cyan-200 font-variation-fill">mode_cool</i>
+            @if (data$ | async; as data) {
+              {{ data.resistance?.ice ?? '--' }}
+            }
+          </div>
+          <div class="flex gap-2 items-center">
+            <i class="icon-6 text-purple-700 dark:text-purple-500 font-variation-fill">raven</i>
+            @if (data$ | async; as data) {
+              {{ data.resistance?.dragon ?? '--' }}
+            }
+          </div>
+        </div>
+        <div class="px-4 flex items-center gap-2">
+          <i class="icon-6 font-variation-fill text-primary-500 shrink-0">masked_transitions</i>
+          <div class="flex flex-col px-1">
+            @if (data$ | async; as data) {
+              <mhw-decoration-slots-display [slots]="data.decorationSlots"></mhw-decoration-slots-display>
+            }
+          </div>
+        </div>
+        <core-tab-bar-header class="me-4" label="Skills">
+          Skills
+        </core-tab-bar-header>
+        <div class="-my-2 px-4 flex flex-col">
+          @if (data$ | async; as data) {
+            @for (armorSkill of data.skills; track armorSkill.skillId) {
+              <a class="-mx-4 px-4 py-3 border-b last:border-b-0" coreHoverable [routerLink]="['skill', armorSkill.skillId]">
+                <mhw-armor-skill [armorSkill]="armorSkill"></mhw-armor-skill>
+              </a>
+            } @empty {
+              <span class="text-secondary text-sm uppercase py-2">No Skills</span>
+            }
+            @if (data.armorSetId | armorSetData | async; as armorSet) {
+              @if (armorSet.setBonusId) {
+                @if (armorSet.setBonusId | armorSetBonusData | async; as setBonus) {
+                  <div class="rounded-3 overflow-hidden border border-dashed bg-neutral-200 dark:bg-neutral-700 my-2 flex flex-col">
+                    <core-multilingual-text-display [value]="setBonus.name" class="px-4 py-2 text-secondary text-sm font-bold"></core-multilingual-text-display>
+                    @for (setBonusEffect of setBonus.effects; track setBonusEffect.skillId) {
+                      <a class="px-4 py-3 border-b last:border-b-0" coreHoverable [routerLink]="['skill', setBonusEffect.skillId]">
+                        <mhw-armor-set-bonus-skill
+                          [setBonusEffect]="setBonusEffect"
+                        ></mhw-armor-set-bonus-skill>
+                      </a>
+                    }
+                  </div>
+                }
+              }
+            }
+          }
+        </div>
+        <core-tab-bar-header class="me-4" label="Crafting">
+          Crafting
+        </core-tab-bar-header>
+        <div class="px-4">
+          <span class="text-secondary text-sm uppercase py-2">No Crafting Recipe</span>
+        </div>
+      </div>
+      <div *coreSidebarDrawer>
+        <div class="flex flex-col border-b">
+          <button
+            class="px-2 py-2 flex justify-start gap-2 text-primary-800 dark:text-primary-200"
+            coreHoverable
+            role="button"
+            type="button"
+          >
+            <i class="icon-5">info</i>
+            <p>About</p>
+          </button>
+          <div class="flex flex-col px-2 pb-2">
+            <p class="text-sm/6 font-medium tracking-tighter text-accent-800 dark:text-accent-200">Last updated</p>
+            @if (data$ | async; as data) {
+              <core-time-display [date]="data.updatedAt" [format]="'YYYY MMM dd, HH:mm'"></core-time-display>
+            }
+            <p class="text-sm/6 font-medium tracking-tighter text-accent-800 dark:text-accent-200">Created at</p>
+            @if (data$ | async; as data) {
+              <core-time-display [date]="data.createdAt" [format]="'YYYY MMM dd, HH:mm'"></core-time-display>
+            }
+            <a coreHoverable coreHardSurface color="primary" class="rounded-1 mt-2 py-1.5 text-sm" [routerLink]="['edit']">Edit Details</a>
           </div>
         </div>
       </div>
-    </div>
-    @if (data$ | async; as data) {
-      <core-supplementary-panel
-        class="mt-4"
-        [createdAt]="data.createdAt"
-        [updatedAt]="data.updatedAt"
-      >
-        <ng-container *coreSupplementaryPanelActions>
-          <a coreHoverable coreHardSurface color="accent" class="core-supplementary-panel-action" [routerLink]="['edit-name']">
-            Edit Name & Image
-          </a>
-        </ng-container>
-      </core-supplementary-panel>
-    }
+    </core-sidebar-content>
   </div>
 </core-sectioned-outlet>

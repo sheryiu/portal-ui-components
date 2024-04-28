@@ -22,7 +22,7 @@ export class OverlayService {
       viewContainerRef?: ViewContainerRef | null | undefined,
       data?: D,
       closeOnBackdropClick?: boolean,
-      ignorePointerEventsFrom?: Element,
+      ignorePointerEventsFrom?: Element | Element[],
     }
   ) {
     const overlayRef = this.overlay.create({

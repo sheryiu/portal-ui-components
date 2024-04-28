@@ -40,3 +40,5 @@ export type ArmorCreateInput = {
   armorSetId: Armor['armorSetId'];
   position: Armor['position'];
 }
+
+export type ArmorUpdateInput = Partial<Omit<Armor, 'id' | 'createdAt' | 'updatedAt'>>;

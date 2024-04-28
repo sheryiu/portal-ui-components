@@ -7,6 +7,7 @@ module.exports = {
   darkMode: "class",
   theme: {
     containers: {
+      '2xs': '18rem',
       xs: '25rem',
       sm: '37rem',
       md: '45rem',
@@ -28,6 +29,12 @@ module.exports = {
       '4': '1rem'
     },
     extend: {
+      zIndex: {
+        100: '100',
+      },
+      screens: {
+        '3xl': '1920px'
+      },
       backgroundImage: {
         "gradient-160": "linear-gradient(160deg, var(--tw-gradient-stops))",
         'gradient-radial': 'radial-gradient(var(--gradient-radial-shape, circle) at var(--gradient-position, center), var(--tw-gradient-stops))',
@@ -159,8 +166,8 @@ module.exports = {
             "overflow": "hidden",
             "white-space": "nowrap",
           },
-          "button:not([role])": {
-            "font-weight": "700"
+          "button[role=button]": {
+            "font-weight": "500"
           }
         });
         addComponents({

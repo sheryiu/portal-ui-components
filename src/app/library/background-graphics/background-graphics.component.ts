@@ -10,7 +10,9 @@ import { ThemeService } from '../../components/services/theme.service';
   standalone: true,
   imports: [],
   templateUrl: './background-graphics.component.html',
-  styles: ``
+  host: {
+    class: 'core-background-graphics',
+  }
 })
 export class BackgroundGraphicsComponent implements AfterViewInit {
 
@@ -18,6 +20,7 @@ export class BackgroundGraphicsComponent implements AfterViewInit {
   private platformId = inject(PLATFORM_ID);
   private themeService = inject(ThemeService, { optional: true });
   private destroyRef = inject(DestroyRef);
+  private elementRef = inject(ElementRef) as ElementRef<HTMLElement>;
 
   ngAfterViewInit(): void {
     this.draw('dark');
@@ -29,22 +32,24 @@ export class BackgroundGraphicsComponent implements AfterViewInit {
 
   private draw(theme: 'dark' | 'light') {
     if (isPlatformServer(this.platformId)) return;
-    this.canvas.nativeElement.width = window.innerWidth;
-    this.canvas.nativeElement.height = window.innerHeight;
+    const rect = this.elementRef.nativeElement.getBoundingClientRect();
+    const { width, height } = rect;
+    this.canvas.nativeElement.width = width;
+    this.canvas.nativeElement.height = height;
     const ctx = this.canvas.nativeElement.getContext('2d');
     if (!ctx) return;
     const points = [];
-    const maxDots = window.innerWidth * window.innerHeight / ((window.devicePixelRatio - 1)/3 + 1) / 50_000;
+    const maxDots = width * height / ((window.devicePixelRatio - 1)/3 + 1) / 50_000;
     for (let i = 0; i < maxDots; i++) {
       points.push({
-        x: Math.floor((Math.random() * 1.5 - 0.25) * window.innerWidth),
-        y: Math.floor((Math.random() * 1.5 - 0.25) * window.innerHeight)
+        x: Math.floor((Math.random() * 1.5 - 0.25) * width),
+        y: Math.floor((Math.random() * 1.5 - 0.25) * height)
       });
     }
     points.push({ x: 0, y: 0 });
-    points.push({ x: window.innerWidth, y: 0 });
-    points.push({ x: 0, y: window.innerHeight });
-    points.push({ x: window.innerWidth, y: window.innerHeight });
+    points.push({ x: width, y: 0 });
+    points.push({ x: 0, y: height });
+    points.push({ x: width, y: height });
     const triangles = Delaunator.from(points, ({ x }) => x, ({ y }) => y).triangles;
     for (let i = 0; i < triangles.length; i += 3) {
       const path = new Path2D();

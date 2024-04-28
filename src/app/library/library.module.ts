@@ -20,6 +20,7 @@ import { SearchInputComponent } from './search-input/search-input.component';
 import { SectionedOutletComponent } from './sectioned-outlet/sectioned-outlet.component';
 import { OptionDirective } from './segmented-options/option.directive';
 import { SegmentedOptionsComponent } from './segmented-options/segmented-options.component';
+import { SidebarModule } from './sidebar/sidebar.module';
 import { HeaderActionsDirective, HeaderDirective, SimpleHeaderComponent } from './simple-header/simple-header.component';
 import { SupplementaryPanelModule } from './supplementary-panel/supplementary-panel.module';
 import { TabBarModule } from './tab-bar/tab-bar.module';
@@ -60,6 +61,7 @@ import { TimeDisplayComponent } from './time-display/time-display.component';
     GlobalSearchModule,
     DirtyBarModule,
     FieldModule,
+    SidebarModule,
   ],
   exports: [
     BackgroundGraphicsComponent,
@@ -91,6 +93,7 @@ import { TimeDisplayComponent } from './time-display/time-display.component';
     GlobalSearchModule,
     DirtyBarModule,
     FieldModule,
+    SidebarModule,
   ]
 })
 export class LibraryModule { }

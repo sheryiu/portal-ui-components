@@ -1,4 +1,11 @@
 @layer components {
+  .core-background-graphics {
+    @apply absolute inset-0 -z-100;
+    canvas {
+      @apply size-full pointer-events-none bg-stone-100 dark:bg-black;
+    }
+  }
+
   .core-root-navigation-2 {
     @apply flex flex-col items-center border-r gap-4 z-[100];
     @apply px-2 pt-3 bg-side-content;
@@ -30,8 +37,6 @@
     @apply relative block h-full;
     > .core-sectioned-outlet-main {
       @apply size-full transition duration-100 ease-out;
-      > * {
-      }
       &:has(+ .core-sectioned-outlet-full) {
         @apply opacity-0 scale-[0.98];
       }
@@ -39,11 +44,11 @@
     > .core-sectioned-outlet-child-bg {
       @apply -ms-px inset-0 absolute lg:border-l bg-lunar-green-50 dark:bg-lunar-green-950;
       &.core-sectioned-outlet-half {
-        @apply lg:left-1/4 xl:left-1/2;
+        @apply xl:left-1/4 3xl:left-1/2;
         @apply transition-[left];
       }
       &:has(+ .core-sectioned-outlet-half .core-sectioned-outlet-half) {
-        @apply lg:left-0 xl:left-1/4;
+        @apply xl:left-0 3xl:left-1/4;
       }
     }
     > .core-sectioned-outlet-child {
@@ -52,19 +57,16 @@
         @apply inset-0;
       }
       > * > * {
-        @apply py-4 sm:pe-4 max-sm:pb-16;
+        // @apply py-4 sm:pe-4 max-sm:pb-16;
       }
       &:has(> router-outlet:only-child) {
         @apply pointer-events-none;
       }
-      // &:not(:has(> router-outlet:only-child)) {
-      //   @apply before:opacity-100;
-      // }
       &.core-sectioned-outlet-half {
-        @apply lg:left-1/4 xl:left-1/2;
+        @apply xl:left-1/4 3xl:left-1/2;
         @apply transition-[left];
         &:has(.core-sectioned-outlet-half) {
-          @apply lg:left-0 xl:left-1/4;
+          @apply xl:left-0 3xl:left-1/4;
         }
       }
       &.core-sectioned-outlet-full {
@@ -167,29 +169,23 @@
   }
 
   .core-tab-bar {
-    @apply block transition-all overflow-hidden pb-2;
+    @apply block transition-all overflow-hidden;
     .core-tab-bar-tabs {
-      @apply w-full flex gap-1.5 transition-all sticky px-2;
+      @apply w-full flex gap-1.5 transition-all sticky;
       > button {
-        @apply basis-full grow rounded-2 px-1 h-8 truncate;
-      }
-    }
-    &[data-stuck=true] {
-      @apply -mx-2;
-      .core-tab-bar-tabs {
-        @apply px-4;
+        @apply basis-full grow rounded-1 px-1 h-8 truncate;
       }
     }
     &[data-selected]:not([data-selected=""]) {
       .core-tab-bar-tabs {
-        @apply before:transition-all before:absolute before:left-[--core-selected-tab-x] before:rounded-2 before:h-8 before:w-[--core-selected-tab-width] before:border before:bg-hover;
+        @apply before:transition-all before:absolute before:left-[--core-selected-tab-x] before:rounded-1 before:h-8 before:w-[--core-selected-tab-width] before:border before:bg-hover;
       }
     }
   }
 
   .core-tab-bar-header {
     @apply bg-hover text-primary-700 dark:text-primary-500 text-base font-medium;
-    @apply border border-s-0 rounded-e-2 py-1 ps-4 pe-2 min-h-11;
+    @apply border border-s-0 rounded-e-1 py-1 ps-4 pe-2 min-h-11;
     @apply flex justify-between items-center gap-2;
   }
 
@@ -224,15 +220,16 @@
   }
 
   .core-segmented-options {
-    > div {
-      @apply flex items-center gap-px rounded-1 bg-lunar-green-800 border p-px;
+    > div > div {
+      @apply flex flex-col items-stretch gap-px rounded-1 bg-lunar-green-800 border p-px;
+      @apply @[16rem]/segmented-options:flex-row @[16rem]/segmented-options:items-center;
     }
     input[type=radio] {
       @apply hidden;
     }
     .core-segmented-options-button {
       @apply text-sm rounded-1 px-1 py-1.5;
-      @apply grow;
+      @apply w-full @[16rem]/segmented-options:grow @[16rem]/segmented-options:w-auto;
       &[data-checked=false] {
         @apply bg-none;
       }
@@ -320,7 +317,7 @@
   }
 
   .core-fieldset {
-    @apply grid grid-cols-1 @md/fieldset:grid-cols-2;
+    @apply grid grid-cols-1 @2xs/fieldset:grid-cols-2;
     .core-fieldset__label {
       @apply flex justify-between items-center;
       @apply py-2 ps-4 pe-2;
@@ -357,6 +354,23 @@
       > div {
         @apply grow px-2 py-0.5;
       }
+    }
+  }
+
+  .core-sidebar-container {
+    @apply h-full overflow-x-hidden overflow-y-auto flex flex-col;
+  }
+  .core-sidebar-container__breadcrumbs {
+    @apply sticky top-0 px-3 py-3 flex-none border-b bg-side-content z-100;
+  }
+  .core-sidebar-container__content {
+    @apply flex ;//grow;
+    > .core-sidebar-container__content__main {
+      @apply gutter-stable grow relative;
+    }
+    > .core-sidebar-container__content__drawer {
+      @apply border-l bg-side-content shrink-0 grow-0 sticky top-12;
+      height: calc(100dvh - 3rem - 1px);
     }
   }
 }

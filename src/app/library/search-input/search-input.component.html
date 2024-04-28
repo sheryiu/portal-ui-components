@@ -35,6 +35,7 @@
                 type="button"
                 class="grow justify-start text-start"
                 (click)="selectValue(datum)"
+                role="option"
               >
                 <ng-container [ngTemplateOutlet]="item!.templateRef" [ngTemplateOutletContext]="{ $implicit: datum }"></ng-container>
               </button>

@@ -16,6 +16,8 @@ type Sort = {
   [key: string]: 'asc' | 'desc' | undefined;
 };
 
+export type ArmorSetCreateInput = Pick<ArmorSet, 'name' | 'rank' | 'rarity'>;
+
 @Injectable({
   providedIn: 'root'
 })
@@ -70,7 +72,7 @@ export class ArmorSetService {
     }))
   }
 
-  create = (input: Pick<ArmorSet, 'name' | 'rank' | 'rarity'>) => {
+  create = (input: ArmorSetCreateInput) => {
     const now = new Date();
     return from(this.data.armorSets.add({
       id: nanoid(),

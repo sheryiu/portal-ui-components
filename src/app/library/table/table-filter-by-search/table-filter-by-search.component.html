@@ -1,4 +1,4 @@
-<div class="relative flex items-stretch border rounded-2 overflow-hidden">
+<div class="relative flex items-stretch border rounded-1 overflow-hidden">
   <div class="shrink-0 flex items-center px-2 [&:has(+:hover)]:bg-hover [&:has(+:focus-visible)]:bg-hover transition-colors">
     <i class="icon-4 text-primary-700 dark:text-primary-500">search</i>
   </div>
@@ -21,7 +21,7 @@
           }
         }
       }
-      <div cdkVirtualScrollingElement [style.height.px]="item!.height * $any(data).length" class="-mx-3.5 grow overflow-y-auto">
+      <div cdkVirtualScrollingElement [style.height.px]="item!.height * $any(data).length" class="grow overflow-y-auto">
         <cdk-virtual-scroll-viewport [itemSize]="item!.height">
           <div
             *cdkVirtualFor="let datum of $any(data); trackBy: trackingFn"
@@ -33,6 +33,7 @@
               type="button"
               class="grow justify-start text-start"
               (click)="selectValue(datum)"
+              role="option"
             >
               <ng-container [ngTemplateOutlet]="item!.templateRef" [ngTemplateOutletContext]="{ $implicit: datum }"></ng-container>
             </button>

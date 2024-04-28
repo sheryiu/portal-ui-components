@@ -1,12 +1,6 @@
-import { isPlatformServer } from '@angular/common';
-import { Component, PLATFORM_ID, inject } from '@angular/core';
-import Dexie from 'dexie';
-import { Observable, from, map, startWith, switchMap } from 'rxjs';
-import { OverlayService } from '../../../../components/overlay/overlay.service';
+import { Component, inject } from '@angular/core';
 import { DatabaseService } from '../../../../data/database.service';
-import { ArmorSetCreateComponent } from '../../../../routes/monster-hunter/armor-set/armor-set-create/armor-set-create.component';
 import { SharedModule } from '../../../../shared/shared.module';
-import { SettingsDialogComponent } from '../../../settings-dialog/settings-dialog.component';
 import { SettingsDialogService } from '../../../settings-dialog/settings-dialog.service';
 
 @Component({

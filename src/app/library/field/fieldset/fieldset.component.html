@@ -1,4 +1,4 @@
-<form class="@container/fieldset">
+<div class="@container/fieldset">
   <div class="core-fieldset" (click)="onTouched?.()" [formGroup]="form">
     @for (fieldDef of fieldDefs; track fieldDef.key) {
       <div class="core-fieldset__label">
@@ -15,6 +15,8 @@
               coreHardSurface
               color="accent"
               (click)="onSetNotNull(fieldDef)"
+              role="button"
+              type="button"
             >Add</button>
             <span class="text-secondary px-2 leading-8">null</span>
           </div>
@@ -67,6 +69,8 @@
                 coreHardSurface
                 color="accent"
                 coreCalendarTrigger
+                role="button"
+                type="button"
                 [date]="$any(form.controls[fieldDef.key].value)"
                 (dateChange)="onDateChange(fieldDef, $event)"
               >
@@ -91,6 +95,8 @@
             coreHoverable
             coreHardSurface
             color="accent"
+            type="button"
+            role="button"
             (click)="onSetNull(fieldDef)"
           >
             <i class="icon-4">remove</i>
@@ -99,7 +105,7 @@
       </div>
     }
   </div>
-</form>
+</div>
 
 <ng-template #enumAutocomplete let-item>
   {{ item }}

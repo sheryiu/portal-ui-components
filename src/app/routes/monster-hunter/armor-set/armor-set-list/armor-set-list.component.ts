@@ -4,13 +4,12 @@ import { toObservable } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, Router } from '@angular/router';
 import { EffectFn } from '@ngneat/effects-ng';
 import { combineLatest, switchMap, tap } from 'rxjs';
-import { OverlayService } from '../../../../components/overlay/overlay.service';
 import { ArmorSet } from '../../../../data/armor-set';
 import { LibraryModule } from '../../../../library/library.module';
 import { SharedModule } from '../../../../shared/shared.module';
 import { ArmorSetService } from '../../../../store/armor-set.service';
 import { LoadingFooterComponent } from '../../utils/loading-footer/loading-footer.component';
-import { ArmorSetCreateComponent } from '../armor-set-create/armor-set-create.component';
+import { ArmorSetCreateComponent } from '../shared/armor-set-create/armor-set-create.component';
 
 @Component({
   selector: 'app-armor-set-list',
@@ -19,12 +18,12 @@ import { ArmorSetCreateComponent } from '../armor-set-create/armor-set-create.co
     SharedModule,
     LibraryModule,
     LoadingFooterComponent,
+    ArmorSetCreateComponent,
   ],
   templateUrl: './armor-set-list.component.html',
 })
 export class ArmorSetListComponent extends EffectFn {
   private service = inject(ArmorSetService);
-  private overlay = inject(OverlayService);
   private router = inject(Router);
   private route = inject(ActivatedRoute);
   @ViewChild(CdkVirtualScrollViewport) private scrollViewport?: CdkVirtualScrollViewport;
@@ -37,18 +36,6 @@ export class ArmorSetListComponent extends EffectFn {
   );
   filterByName$$ = computed(() => this.service.mainListFilter$$()['name']);
   sortByRarity$$ = computed(() => this.service.mainListSort$$()['rarity']);
-
-  onNewClick = this.createEffectFn<HTMLElement>(args$ => args$.pipe(
-    tap((button) => {
-      this.overlay.open(ArmorSetCreateComponent, {
-        positionStrategy: this.overlay.position().flexibleConnectedTo(button)
-          .withPositions([
-            { overlayX: 'end', overlayY: 'top', originX: 'end', originY: 'top' },
-          ]),
-        scrollStrategy: this.overlay.scrollStrategies.reposition(),
-      })
-    })
-  ));
 
   onHeaderClick() {
     this.router.navigate(['./'], { relativeTo: this.route });

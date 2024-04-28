@@ -1,61 +1,59 @@
 <core-sectioned-outlet>
   <div
-    class="h-full overflow-x-hidden overflow-y-auto flex flex-col"
+    coreSidebarContainer
     cdkVirtualScrollingElement
     cdkScrollable
   >
-    <div class="sticky top-0 px-3 py-3 flex-none border-b bg-side-content">
+    <div coreSidebarBreadcrumbs>
       <core-breadcrumbs></core-breadcrumbs>
     </div>
-    <div class="flex grow">
-      <div class="gutter-stable grow">
-        <core-table
-          itemHeight="48"
-          [columns]="['name', 'rarity']"
-        >
-          <core-table-header-cell *coreTableHeaderCellDef="'name'" [filtered]="filterByName$$() != null">
-            Name
-            <core-table-filter-by-text *coreTableHeaderCellFilter [value]="filterByName$$()" (valueChange)="onChangeFilter({ name: $event })"></core-table-filter-by-text>
-          </core-table-header-cell>
-          <core-table-header-cell *coreTableHeaderCellDef="'rarity'" [sortedAsc]="sortByRarity$$() === 'asc'" [sortedDesc]="sortByRarity$$() === 'desc'">
-            Rarity
-            <core-segmented-options *coreTableHeaderCellSort [value]="sortByRarity$$()" (valueChange)="onChangeSort(['rarity', $event])" color="accent">
-              <div *coreOption="'asc'" class="flex items-center gap-1"><i class="icon-4 rotate-180 -scale-x-100">sort</i><span class="text-sm/[0] font-bold">1 to 9</span></div>
-              <div *coreOption="'desc'" class="flex items-center gap-1"><i class="icon-4">sort</i><span class="text-sm/[0] font-bold">9 to 1</span></div>
-            </core-segmented-options>
-          </core-table-header-cell>
+    <core-sidebar-content>
+      <core-table
+        *coreSidebarMain
+        itemHeight="48"
+        [columns]="['name', 'rarity']"
+      >
+        <core-table-header-cell *coreTableHeaderCellDef="'name'" [filtered]="filterByName$$() != null">
+          Name
+          <core-table-filter-by-text *coreTableHeaderCellFilter [value]="filterByName$$()" (valueChange)="onChangeFilter({ name: $event })"></core-table-filter-by-text>
+        </core-table-header-cell>
+        <core-table-header-cell *coreTableHeaderCellDef="'rarity'" [sortedAsc]="sortByRarity$$() === 'asc'" [sortedDesc]="sortByRarity$$() === 'desc'">
+          Rarity
+          <core-segmented-options *coreTableHeaderCellSort [value]="sortByRarity$$()" (valueChange)="onChangeSort(['rarity', $event])" color="accent">
+            <div *coreOption="'asc'" class="flex items-center gap-1"><i class="icon-4 rotate-180 -scale-x-100">sort</i><span class="text-sm/[0] font-bold">1 to 9</span></div>
+            <div *coreOption="'desc'" class="flex items-center gap-1"><i class="icon-4">sort</i><span class="text-sm/[0] font-bold">9 to 1</span></div>
+          </core-segmented-options>
+        </core-table-header-cell>
 
-          <core-table-cell *coreTableCellDef="'name'; let item">
-            <core-multilingual-text-display [value]="item.name"></core-multilingual-text-display>
-          </core-table-cell>
-          <core-table-cell *coreTableCellDef="'rarity'; let item">
-            <core-rating-display [value]="item.rarity"></core-rating-display>
-          </core-table-cell>
+        <core-table-cell *coreTableCellDef="'name'; let item">
+          <core-multilingual-text-display [value]="item.name"></core-multilingual-text-display>
+        </core-table-cell>
+        <core-table-cell *coreTableCellDef="'rarity'; let item">
+          <core-rating-display [value]="item.rarity"></core-rating-display>
+        </core-table-cell>
 
-          <cdk-virtual-scroll-viewport itemSize [extraHeight]="48 * 2">
-            <core-table-body>
-              <core-table-header-row>
-              </core-table-header-row>
-              <core-table-row
-                *cdkVirtualFor="let item of data$ | async; trackBy: trackingFn"
-                coreHoverable
-                [route]="[item.id]"
-                [item]="item"
-              >
-              </core-table-row>
-              @if (data$ | async; as data) {
-                <core-table-footer-row class="px-4 py-1">
-                  <core-table-simple-footer [dataCount]="data.length"></core-table-simple-footer>
-                </core-table-footer-row>
-              } @else {
-                <mhw-loading-footer></mhw-loading-footer>
-              }
-            </core-table-body>
-          </cdk-virtual-scroll-viewport>
-        </core-table>
-      </div>
-      <div class="basis-120 border-l bg-side-content">
-      </div>
-    </div>
+        <cdk-virtual-scroll-viewport itemSize [extraHeight]="48 * 2">
+          <core-table-body>
+            <core-table-header-row>
+            </core-table-header-row>
+            <core-table-row
+              *cdkVirtualFor="let item of data$ | async; trackBy: trackingFn"
+              coreHoverable
+              [route]="[item.id]"
+              [item]="item"
+            >
+            </core-table-row>
+            @if (data$ | async; as data) {
+              <core-table-footer-row class="px-4 py-1">
+                <core-table-simple-footer [dataCount]="data.length"></core-table-simple-footer>
+              </core-table-footer-row>
+            } @else {
+              <mhw-loading-footer></mhw-loading-footer>
+            }
+          </core-table-body>
+        </cdk-virtual-scroll-viewport>
+      </core-table>
+      <mhw-armor-set-create *coreSidebarDrawer></mhw-armor-set-create>
+    </core-sidebar-content>
   </div>
 </core-sectioned-outlet>

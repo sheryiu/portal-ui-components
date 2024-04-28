@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
-import { filter, map, switchMap } from 'rxjs';
+import { map, switchMap } from 'rxjs';
 import { filterNonNull } from '../../../../components/utils/filter-non-null';
 import { Armor, ArmorPosition } from '../../../../data/armor';
 import { LibraryModule } from '../../../../library/library.module';

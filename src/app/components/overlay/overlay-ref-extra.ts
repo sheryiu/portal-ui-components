@@ -2,12 +2,13 @@ import { OverlayRef } from '@angular/cdk/overlay';
 import { ReplaySubject, concat, filter, take, takeUntil, tap, timer } from 'rxjs';
 
 export class OverlayRefExtra {
-  constructor(public overlayRef: OverlayRef, ignoreEventsFrom?: Element) {
+  constructor(public overlayRef: OverlayRef, ignoreEventsFrom?: Element | Element[]) {
+    const ignore = Array.isArray(ignoreEventsFrom) ? ignoreEventsFrom : [ignoreEventsFrom]
     concat(
       // the timer delay can be removed
       timer(100),
       overlayRef.outsidePointerEvents().pipe(
-        ignoreEventsFrom ? filter(e => e.target instanceof Element && !ignoreEventsFrom.contains(e.target)) : tap(),
+        ignoreEventsFrom ? filter(e => e.target instanceof Element && ignore.every(i => i != e.target)) : tap(),
         take(1)
       ),
     ).pipe(

@@ -1,46 +1,49 @@
 <core-sectioned-outlet>
   <div
     coreSidebarContainer
-    cdkVirtualScrollingElement
-    cdkScrollable
   >
     <div coreSidebarBreadcrumbs>
       <core-breadcrumbs></core-breadcrumbs>
     </div>
     <core-sidebar-content>
-      <core-fieldset *coreSidebarMain [formControl]="formControl" (valueChange)="onInput()">
+      <core-fieldset *coreSidebarMain [formControl]="formControl">
         <core-field-def
           coreFieldDef="name>en"
           coreFieldDefLabel="English Name"
           coreFieldType="string"
-          [fieldConfig]="{}"
         ></core-field-def>
         <core-field-def
           coreFieldDef="name>jp"
           coreFieldDefLabel="Japanese Name"
           coreFieldType="string"
-          [fieldConfig]="{}"
         ></core-field-def>
         <core-field-def
-          coreFieldDef="rarity"
-          coreFieldDefLabel="Rarity"
+          coreFieldDef="position"
+          coreFieldDefLabel="Position"
+          coreFieldType="string"
+          [fieldConfig]="{
+            enum: armorPosition
+          }"
+        ></core-field-def>
+        <core-field-def
+          coreFieldDef="armorSetId"
+          coreFieldDefLabel="Armor Set"
+          coreFieldType="string"
+        ></core-field-def>
+        <core-field-def
+          coreFieldDef="baseDef"
+          coreFieldDefLabel="Base Defense"
           coreFieldType="number"
-          [fieldConfig]="{}"
         ></core-field-def>
         <core-field-def
-          coreFieldDef="rank"
-          coreFieldDefLabel="Rank"
-          coreFieldType="string"
-          [fieldConfig]="{
-            enum: ['base', 'iceborne']
-          }"
+          coreFieldDef="maxDef"
+          coreFieldDefLabel="Max Defense"
+          coreFieldType="number"
         ></core-field-def>
         <core-field-def
-          coreFieldDef="setBonusId"
-          coreFieldDefLabel="Set Bonus"
-          coreFieldType="string"
-          [fieldConfig]="{
-          }"
+          coreFieldDef="maxLevel"
+          coreFieldDefLabel="Max Level"
+          coreFieldType="number"
         ></core-field-def>
         <core-field-def
           coreFieldDef="createdAt"

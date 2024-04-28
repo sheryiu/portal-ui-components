@@ -6,10 +6,10 @@
   <div class="core-dirty-bar__loading"></div>
 } @else {
   <div class="core-dirty-bar__actions">
-    <button type="button" coreHoverable (click)="onCancel()">
+    <button type="button" coreHoverable (click)="onCancel()" role="button">
       Cancel
     </button>
-    <button type="submit" coreHoverable coreHardSurface color="gray" (click)="onSave()">
+    <button type="submit" coreHoverable coreHardSurface color="gray" (click)="onSave()" role="button">
       Save
     </button>
   </div>

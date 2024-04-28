@@ -2,7 +2,7 @@ import { Injectable, inject, signal } from '@angular/core';
 import { liveQuery } from 'dexie';
 import { nanoid } from 'nanoid';
 import { from } from 'rxjs';
-import { Armor, ArmorCreateInput } from '../data/armor';
+import { Armor, ArmorCreateInput, ArmorUpdateInput } from '../data/armor';
 import { DatabaseService } from '../data/database.service';
 
 type Filter = {
@@ -71,7 +71,7 @@ export class ArmorService {
     }))
   }
 
-  update = (id: string, input: Partial<Omit<Armor, 'id' | 'createdAt' | 'updatedAt'>>) => {
+  update = (id: string, input: ArmorUpdateInput) => {
     return from(this.data.armors.update(
       id,
       {

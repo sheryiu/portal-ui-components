@@ -54,7 +54,10 @@ export class TableHeaderCellComponent {
   }
 
   openFilter(button: HTMLButtonElement) {
-    if (this.overlayRef) return;
+    if (this.overlayRef) {
+      this.overlayRef.close();
+      return;
+    }
     if (!this.filterDirective?.templateRef && !this.sortDirective?.templateRef) return;
     this.overlayRef = this.overlay.open(
       this.filterPopup,
@@ -66,6 +69,7 @@ export class TableHeaderCellComponent {
           .withViewportMargin(16),
         scrollStrategy: this.overlay.scrollStrategies.reposition(),
         width: button.getBoundingClientRect().width,
+        ignorePointerEventsFrom: button,
       }
     )
     this.overlayRef.afterClosed$.subscribe(() => this.overlayRef = undefined);
