@@ -6,7 +6,7 @@
       <core-breadcrumbs></core-breadcrumbs>
     </div>
     <core-sidebar-content>
-      <core-fieldset *coreSidebarMain [formControl]="formControl">
+      <core-fieldset *coreSidebarMain [formControl]="formControl" (valueChange)="onInput()">
         <core-field-def
           coreFieldDef="name>en"
           coreFieldDefLabel="English Name"

@@ -6,6 +6,7 @@
         <span class="core-fieldset__label__type">{{ fieldDef.fieldType }}</span>
       </div>
       <div class="core-fieldset__input">
+        <!-- TODO number field will get turned to null when the input is empty -->
         @if (form.controls[fieldDef.key] && form.controls[fieldDef.key].value == null) {
           <div
             class="core-fieldset__input-field"
