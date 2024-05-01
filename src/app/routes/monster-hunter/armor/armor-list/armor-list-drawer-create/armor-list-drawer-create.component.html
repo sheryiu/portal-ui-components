@@ -1,16 +1,17 @@
-<div class="flex flex-col border-b">
+<div coreSidebarDrawerSection [class.bg-side-content]="trigger.isOpened$$()">
   <button
-    class="px-2 py-2 flex justify-start gap-2 text-primary-800 dark:text-primary-200"
+    coreSidebarDrawerSectionHeader
     coreHoverable
-    (click)="toggleState()"
     role="button"
     type="button"
+    coreAccordionTrigger
+    #trigger="accordionTrigger"
   >
-    <i class="icon-5">add</i>
+    <i>add</i>
     <p>Insert New</p>
   </button>
-  @if (expanded) {
-    <form class="overflow-hidden flex flex-col gap-2" (ngSubmit)="onSubmit()">
+  @if (trigger.isOpened$$()) {
+    <form coreSidebarDrawerSectionContent (ngSubmit)="onSubmit()">
       <core-fieldset [formControl]="formControl">
         <core-field-def
           coreFieldDef="name>en"
@@ -36,7 +37,7 @@
           coreFieldType="string"
         ></core-field-def>
       </core-fieldset>
-      <button class="mx-2 mb-2 px-3 py-1.5 rounded-1" coreHoverable coreHardSurface color="primary" role="button" type="submit">Add</button>
+      <button class="rounded-1 mx-1 py-2 text-sm text-primary-700 dark:text-primary-500" coreHoverable role="button" type="submit">Add</button>
     </form>
   }
 </div>

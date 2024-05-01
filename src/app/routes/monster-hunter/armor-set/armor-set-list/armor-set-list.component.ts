@@ -9,7 +9,7 @@ import { LibraryModule } from '../../../../library/library.module';
 import { SharedModule } from '../../../../shared/shared.module';
 import { ArmorSetService } from '../../../../store/armor-set.service';
 import { LoadingFooterComponent } from '../../utils/loading-footer/loading-footer.component';
-import { ArmorSetCreateComponent } from '../shared/armor-set-create/armor-set-create.component';
+import { ArmorSetListDrawerCreateComponent } from './armor-set-list-drawer-create/armor-set-list-drawer-create.component';
 
 @Component({
   selector: 'app-armor-set-list',
@@ -18,7 +18,7 @@ import { ArmorSetCreateComponent } from '../shared/armor-set-create/armor-set-cr
     SharedModule,
     LibraryModule,
     LoadingFooterComponent,
-    ArmorSetCreateComponent,
+    ArmorSetListDrawerCreateComponent,
   ],
   templateUrl: './armor-set-list.component.html',
 })

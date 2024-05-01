@@ -12,8 +12,8 @@ import { SidebarMainDirective } from './sidebar-main.directive';
   },
   imports: [SharedModule, BackgroundGraphicsComponent],
   template: `
+  <core-background-graphics></core-background-graphics>
   <div class="core-sidebar-container__content__main">
-    <core-background-graphics></core-background-graphics>
     @if (main && main.templateRef) {
     <ng-container [ngTemplateOutlet]="main.templateRef"></ng-container>
     }
@@ -30,7 +30,7 @@ import { SidebarMainDirective } from './sidebar-main.directive';
 })
 export class SidebarContentComponent {
   @ContentChild(SidebarMainDirective) main?: SidebarMainDirective;
-  @ContentChildren(SidebarDrawerDirective) drawers?: QueryList<SidebarDrawerDirective>;
+  @ContentChildren(SidebarDrawerDirective, { descendants: true }) drawers?: QueryList<SidebarDrawerDirective>;
 
   @Input({ transform: numberAttribute }) drawerSize = 480;
 

@@ -364,13 +364,32 @@
     @apply sticky top-0 px-3 py-3 flex-none border-b bg-side-content z-100;
   }
   .core-sidebar-container__content {
-    @apply flex ;//grow;
+    @apply grow flex relative;
     > .core-sidebar-container__content__main {
       @apply gutter-stable grow relative;
     }
     > .core-sidebar-container__content__drawer {
-      @apply border-l bg-side-content shrink-0 grow-0 sticky top-12;
+      @apply flex flex-col gap-2 shrink-0 grow-0 sticky top-12 p-2;
       height: calc(100dvh - 3rem - 1px);
+    }
+  }
+
+  .core-sidebar-drawer-section {
+    @apply flex flex-col;
+    @apply border rounded-1 overflow-hidden transition-colors;
+
+    .core-sidebar-drawer-section__header {
+      @apply px-2 py-3;
+      @apply flex justify-start gap-2;
+      @apply text-primary-700 dark:text-primary-500 font-medium;
+
+      > i {
+        @apply icon-5;
+      }
+    }
+
+    .core-sidebar-drawer-section__content {
+      @apply flex flex-col items-stretch py-1 overflow-hidden;
     }
   }
 }

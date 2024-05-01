@@ -197,7 +197,7 @@ module.exports = {
           },
           ".bg-side-content": {
             ".dark &": {
-              background: "hsl(0deg 0% 6%)"
+              background: "hsl(0deg 0% 8.5%)"
             },
             background: ""
           }

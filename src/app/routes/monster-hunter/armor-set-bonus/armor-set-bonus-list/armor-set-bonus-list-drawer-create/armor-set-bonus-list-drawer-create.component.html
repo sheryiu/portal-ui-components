@@ -1,0 +1,31 @@
+<div coreSidebarDrawerSection [class.bg-side-content]="trigger.isOpened$$()">
+  <button
+    coreSidebarDrawerSectionHeader
+    coreHoverable
+    role="button"
+    type="button"
+    coreAccordionTrigger
+    #trigger="accordionTrigger"
+    opened
+  >
+    <i>add</i>
+    <p>Insert New</p>
+  </button>
+  @if (trigger.isOpened$$()) {
+    <form coreSidebarDrawerSectionContent (ngSubmit)="onSubmit()">
+      <core-fieldset [formControl]="formControl">
+        <core-field-def
+          coreFieldDef="name>en"
+          coreFieldDefLabel="English Name"
+          coreFieldType="string"
+        ></core-field-def>
+        <core-field-def
+          coreFieldDef="name>jp"
+          coreFieldDefLabel="Japanese Name"
+          coreFieldType="string"
+        ></core-field-def>
+      </core-fieldset>
+      <button class="rounded-1 mx-1 py-2 text-sm text-primary-700 dark:text-primary-500" coreHoverable role="button" type="submit">Add</button>
+    </form>
+  }
+</div>

@@ -15,6 +15,8 @@ type Sort = {
   [key: string]: 'asc' | 'desc' | undefined;
 };
 
+export type ArmorSetBonusCreateInput = Pick<ArmorSetBonus, 'name'>;
+
 @Injectable({
   providedIn: 'root'
 })
@@ -49,6 +51,10 @@ export class ArmorSetBonusService {
     }))
   }
 
+  count() {
+    return from(this.data.armorSetBonuses.count())
+  }
+
   mainListFilter$$ = signal<Filter>({});
   mainListSort$$ = signal<Sort>({});
 
@@ -61,7 +67,7 @@ export class ArmorSetBonusService {
     }))
   }
 
-  create = (input: Pick<ArmorSetBonus, 'name'>) => {
+  create = (input: ArmorSetBonusCreateInput) => {
     const now = new Date();
     return from(this.data.armorSetBonuses.add({
       id: nanoid(),

@@ -13,7 +13,7 @@ import { ArmorSetService } from '../../../../store/armor-set.service';
 import { ArmorService } from '../../../../store/armor.service';
 import { ArmorSetDataPipe } from '../../utils/data-pipes/armor-set-data.pipe';
 import { LoadingFooterComponent } from '../../utils/loading-footer/loading-footer.component';
-import { ArmorCreateComponent } from '../shared/armor-create/armor-create.component';
+import { ArmorListDrawerCreateComponent } from './armor-list-drawer-create/armor-list-drawer-create.component';
 
 @Component({
   selector: 'mhw-armor-list',
@@ -24,7 +24,7 @@ import { ArmorCreateComponent } from '../shared/armor-create/armor-create.compon
     RouterLink,
     ArmorSetDataPipe,
     LoadingFooterComponent,
-    ArmorCreateComponent,
+    ArmorListDrawerCreateComponent,
   ],
   templateUrl: './armor-list.component.html',
   providers: [

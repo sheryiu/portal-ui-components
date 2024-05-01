@@ -11,6 +11,8 @@ import { ArmorSetBonusDataPipe } from '../../utils/data-pipes/armor-set-bonus-da
 import { ArmorSetDataPipe } from '../../utils/data-pipes/armor-set-data.pipe';
 import { DecorationSlotsDisplayComponent } from '../../utils/decoration-slots-display/decoration-slots-display.component';
 import { nonNullable } from '../../utils/non-nullable';
+import { ArmorDrawerInfoComponent } from './armor-drawer-info/armor-drawer-info.component';
+import { ArmorDrawerRemoveComponent } from './armor-drawer-remove/armor-drawer-remove.component';
 import { ArmorSetBonusSkillComponent } from './armor-set-bonus-skill/armor-set-bonus-skill.component';
 import { ArmorSkillComponent } from './armor-skill/armor-skill.component';
 
@@ -28,6 +30,8 @@ import { ArmorSkillComponent } from './armor-skill/armor-skill.component';
     ArmorSkillComponent,
     ArmorSetBonusSkillComponent,
     DecorationSlotsDisplayComponent,
+    ArmorDrawerInfoComponent,
+    ArmorDrawerRemoveComponent
   ],
   templateUrl: './armor-detail.component.html',
   styles: ``
@@ -45,7 +49,7 @@ export class ArmorDetailComponent {
     map(data => data?.image ?
       URL.createObjectURL(data.image) :
       'https://www.monsterhunter.com/world/images/top/img_intro01.jpg'),
-    map(url => `linear-gradient(to bottom, var(--tw-gradient-stops)), url(${ url })`),
+    map(url => `url(${ url })`),
   )
   positionsInArmorSet$ = this.data$.pipe(
     map(data => data?.armorSetId),

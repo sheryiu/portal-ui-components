@@ -2,24 +2,26 @@ import { Component, inject } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { EffectFn } from '@ngneat/effects-ng';
 import { exhaustMap, filter, tap } from 'rxjs';
+import { ArmorCreateInput, ArmorPosition } from '../../../../../data/armor';
 import { LibraryModule } from '../../../../../library/library.module';
 import { SharedModule } from '../../../../../shared/shared.module';
-import { ArmorSetCreateInput, ArmorSetService } from '../../../../../store/armor-set.service';
+import { ArmorService } from '../../../../../store/armor.service';
 
 @Component({
-  selector: 'mhw-armor-set-create',
+  selector: 'mhw-armor-list-drawer-create',
   standalone: true,
   imports: [
     SharedModule,
     LibraryModule,
   ],
-  templateUrl: './armor-set-create.component.html',
+  templateUrl: './armor-list-drawer-create.component.html',
   styles: ``
 })
-export class ArmorSetCreateComponent extends EffectFn {
-  private service = inject(ArmorSetService);
+export class ArmorListDrawerCreateComponent extends EffectFn {
+  private service = inject(ArmorService);
   private builder = inject(FormBuilder);
-  formControl = this.builder.control<ArmorSetCreateInput | null>(null);
+  formControl = this.builder.nonNullable.control<ArmorCreateInput | null>(null);
+  armorPosition = Object.values(ArmorPosition);
 
   onSubmit = this.createEffectFn<void>(args$ => args$.pipe(
     filter(() => this.formControl.value != null),
@@ -28,11 +30,4 @@ export class ArmorSetCreateComponent extends EffectFn {
     ),
     tap(() => this.formControl.reset()),
   ))
-
-  expanded = false;
-
-  toggleState() {
-    this.expanded = !this.expanded;
-  }
-
 }

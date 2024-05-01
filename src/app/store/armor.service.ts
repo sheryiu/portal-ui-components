@@ -47,6 +47,10 @@ export class ArmorService {
     }))
   }
 
+  count() {
+    return from(this.data.armors.count())
+  }
+
   mainListFilter$$ = signal<Filter>({});
   mainListSort$$ = signal<Sort>({
     armorSetId: 'asc',
@@ -79,5 +83,9 @@ export class ArmorService {
         ...input,
       }
     ))
+  }
+
+  remove = (id: string) => {
+    return from(this.data.armors.delete(id))
   }
 }

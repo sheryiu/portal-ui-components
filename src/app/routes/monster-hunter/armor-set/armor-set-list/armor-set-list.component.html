@@ -53,7 +53,9 @@
           </core-table-body>
         </cdk-virtual-scroll-viewport>
       </core-table>
-      <mhw-armor-set-create *coreSidebarDrawer></mhw-armor-set-create>
+      <core-accordion>
+        <mhw-armor-set-list-drawer-create *coreSidebarDrawer></mhw-armor-set-list-drawer-create>
+      </core-accordion>
     </core-sidebar-content>
   </div>
 </core-sectioned-outlet>

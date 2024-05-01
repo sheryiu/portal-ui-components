@@ -10,7 +10,7 @@ import { LibraryModule } from '../../../../library/library.module';
 import { SharedModule } from '../../../../shared/shared.module';
 import { ArmorSetBonusService } from '../../../../store/armor-set-bonus.service';
 import { LoadingFooterComponent } from '../../utils/loading-footer/loading-footer.component';
-import { ArmorSetBonusCreateComponent } from '../armor-set-bonus-create/armor-set-bonus-create.component';
+import { ArmorSetBonusListDrawerCreateComponent } from './armor-set-bonus-list-drawer-create/armor-set-bonus-list-drawer-create.component';
 
 @Component({
   selector: 'app-armor-set-bonus-list',
@@ -19,6 +19,7 @@ import { ArmorSetBonusCreateComponent } from '../armor-set-bonus-create/armor-se
     SharedModule,
     LibraryModule,
     LoadingFooterComponent,
+    ArmorSetBonusListDrawerCreateComponent,
   ],
   templateUrl: './armor-set-bonus-list.component.html',
 })
@@ -36,18 +37,6 @@ export class ArmorSetBonusListComponent extends EffectFn {
     switchMap(({ filter, sort }) => this.service.list(filter, sort))
   );
   filterByName$$ = computed(() => this.service.mainListFilter$$()['name']);
-
-  onNewClick = this.createEffectFn<HTMLElement>(args$ => args$.pipe(
-    tap((button) => {
-      this.overlay.open(ArmorSetBonusCreateComponent, {
-        positionStrategy: this.overlay.position().flexibleConnectedTo(button)
-          .withPositions([
-            { overlayX: 'end', overlayY: 'top', originX: 'end', originY: 'top' },
-          ]),
-        scrollStrategy: this.overlay.scrollStrategies.reposition(),
-      })
-    })
-  ));
 
   onHeaderClick() {
     this.router.navigate(['./'], { relativeTo: this.route });

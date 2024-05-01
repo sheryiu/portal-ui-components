@@ -12,11 +12,13 @@
       <div *coreSidebarMain class="flex flex-col gap-4">
         <div
           class="h-64 relative"
+          style="mask: linear-gradient(to right, white 80%, transparent 100%)"
         >
           @if (headerImage$ | async; as bgImage) {
             <div
-              class="absolute inset-0 -z-10 bg-cover bg-center group-data-[stuck=true]/header:blur from-60% from-lunar-green-100/50 to-lunar-green-100 dark:from-lunar-green-950/50 dark:to-lunar-green-950 transition-all"
+              class="absolute inset-0 -z-10 bg-cover bg-center transition-all"
               [style.backgroundImage]="bgImage"
+              style="mask: linear-gradient(to bottom, white 60%, transparent 100%)"
             ></div>
           }
           @if (data$ | async; as data) {
@@ -172,30 +174,10 @@
           <span class="text-secondary text-sm uppercase py-2">No Crafting Recipe</span>
         </div>
       </div>
-      <div *coreSidebarDrawer>
-        <div class="flex flex-col border-b">
-          <button
-            class="px-2 py-2 flex justify-start gap-2 text-primary-800 dark:text-primary-200"
-            coreHoverable
-            role="button"
-            type="button"
-          >
-            <i class="icon-5">info</i>
-            <p>About</p>
-          </button>
-          <div class="flex flex-col px-2 pb-2">
-            <p class="text-sm/6 font-medium tracking-tighter text-accent-800 dark:text-accent-200">Last updated</p>
-            @if (data$ | async; as data) {
-              <core-time-display [date]="data.updatedAt" [format]="'YYYY MMM dd, HH:mm'"></core-time-display>
-            }
-            <p class="text-sm/6 font-medium tracking-tighter text-accent-800 dark:text-accent-200">Created at</p>
-            @if (data$ | async; as data) {
-              <core-time-display [date]="data.createdAt" [format]="'YYYY MMM dd, HH:mm'"></core-time-display>
-            }
-            <a coreHoverable coreHardSurface color="primary" class="rounded-1 mt-2 py-1.5 text-sm" [routerLink]="['edit']">Edit Details</a>
-          </div>
-        </div>
-      </div>
+      <core-accordion>
+        <mhw-armor-drawer-info *coreSidebarDrawer [armor]="data$ | async"></mhw-armor-drawer-info>
+        <mhw-armor-drawer-remove *coreSidebarDrawer [armor]="data$ | async"></mhw-armor-drawer-remove>
+      </core-accordion>
     </core-sidebar-content>
   </div>
 </core-sectioned-outlet>

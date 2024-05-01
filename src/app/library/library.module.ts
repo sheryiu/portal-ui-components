@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { AccordionModule } from './accordion/accordion.module';
 import { BackgroundGraphicsComponent } from './background-graphics/background-graphics.component';
 import { BreadcrumbsComponent } from './breadcrumbs/breadcrumbs.component';
 import { ColorEditComponent } from './color-edit/color-edit.component';
@@ -62,6 +63,7 @@ import { TimeDisplayComponent } from './time-display/time-display.component';
     DirtyBarModule,
     FieldModule,
     SidebarModule,
+    AccordionModule,
   ],
   exports: [
     BackgroundGraphicsComponent,
@@ -94,6 +96,7 @@ import { TimeDisplayComponent } from './time-display/time-display.component';
     DirtyBarModule,
     FieldModule,
     SidebarModule,
+    AccordionModule,
   ]
 })
 export class LibraryModule { }

@@ -58,6 +58,10 @@ export class ArmorSetService {
     }))
   }
 
+  count() {
+    return from(this.data.armorSets.count())
+  }
+
   mainListFilter$$ = signal<Filter>({});
   mainListSort$$ = signal<Sort>({
     rarity: 'desc'

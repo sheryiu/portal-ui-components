@@ -11,7 +11,8 @@ export const ROUTES: Routes = [
     data: {
       ...breadcrumb({
         title: 'Set Bonus'
-      })
+      }),
+      ...sectionedOutlet('full'),
     },
     loadComponent: () => import('./armor-set-bonus-list/armor-set-bonus-list.component').then(c => c.ArmorSetBonusListComponent),
     children: [

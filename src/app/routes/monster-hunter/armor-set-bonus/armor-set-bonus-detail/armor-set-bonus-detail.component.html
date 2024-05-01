@@ -1,44 +1,27 @@
 <core-sectioned-outlet>
   <div
-    class="h-full relative flex flex-col overflow-x-hidden overflow-y-auto gutter-stable"
+    coreSidebarContainer
     cdkVirtualScrollingElement
     cdkScrollable
   >
-    <div class="bg-deep-glass grow p-2">
-      <div class="flex flex-col">
-        <core-simple-header coreStickyHeader>
+    <div coreSidebarBreadcrumbs>
+      <core-breadcrumbs></core-breadcrumbs>
+    </div>
+    <core-sidebar-content>
+      <div *coreSidebarMain class="flex flex-col gap-4 pt-4">
+        <div class="grid grid-cols-[min-content,1fr] gap-x-4 px-2">
           @if (data$ | async; as data) {
-            <h2 *coreHeader><core-multilingual-text-display [value]="data.name"></core-multilingual-text-display></h2>
-          }
-        </core-simple-header>
-        <div class="flex flex-col gap-4 pt-4">
-          <div class="grid grid-cols-[min-content,1fr] gap-x-4 px-2">
-            @if (data$ | async; as data) {
-              @for (effect of data.effects; track effect.requiredNumberOfParts) {
-                <a
-                  [routerLink]="['skill', effect.skillId]"
-                  coreHoverable
-                  class="grid grid-cols-subgrid col-span-2 -mx-4 px-4 py-3 border-b last:border-b-0">
-                  <mhw-set-bonus-effect [setBonusEffect]="effect"></mhw-set-bonus-effect>
-                </a>
-              }
+            @for (effect of data.effects; track effect.requiredNumberOfParts) {
+              <a
+                [routerLink]="['skill', effect.skillId]"
+                coreHoverable
+                class="grid grid-cols-subgrid col-span-2 -mx-4 px-4 py-3 border-b last:border-b-0">
+                <mhw-set-bonus-effect [setBonusEffect]="effect"></mhw-set-bonus-effect>
+              </a>
             }
-          </div>
+          }
         </div>
       </div>
-    </div>
-    @if (data$ | async; as data) {
-      <core-supplementary-panel
-        class="mt-4"
-        [createdAt]="data.createdAt"
-        [updatedAt]="data.updatedAt"
-      >
-        <ng-container *coreSupplementaryPanelActions>
-          <a coreHoverable coreHardSurface color="primary" class="core-supplementary-panel-action" [routerLink]="['edit']">
-            Edit
-          </a>
-        </ng-container>
-      </core-supplementary-panel>
-    }
+    </core-sidebar-content>
   </div>
 </core-sectioned-outlet>
