@@ -16,6 +16,7 @@ import { TableComponent } from './table.component';
   template: `
   <a
     [routerLink]="route"
+    [relativeTo]="relativeTo"
     routerLinkActive
     #active="routerLinkActive"
     [attr.data-active]="active.isActive"
@@ -30,7 +31,7 @@ import { TableComponent } from './table.component';
 export class TableRowComponent<T> implements AfterContentInit {
   @Input({ required: true }) item!: T;
   @Input() route?: any[];
-  @Input() relativeTo?: ActivatedRoute | null;
+  @Input() relativeTo?: ActivatedRoute | null = inject(ActivatedRoute);
   @HostBinding('style.grid-column-end') private hostColumnEnd?: string;
   private table = inject(TableComponent);
 

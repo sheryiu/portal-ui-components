@@ -1,5 +1,6 @@
 import { Component, computed, inject } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
+import { ActivatedRoute } from '@angular/router';
 import { LibraryModule } from '../../../library/library.module';
 import { SharedModule } from '../../../shared/shared.module';
 import { ArmorSetBonusService } from '../../../store/armor-set-bonus.service';
@@ -23,6 +24,8 @@ export class HomeComponent {
   private armorSetCount$$ = toSignal(this.armorSetService.count());
   private armorSetBonusService = inject(ArmorSetBonusService);
   private armorSetBonusCount$$ = toSignal(this.armorSetBonusService.count());
+
+  route = inject(ActivatedRoute);
 
   tables$$ = computed(() => {
     const tables = [

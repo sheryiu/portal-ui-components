@@ -36,7 +36,7 @@
               <core-table-body>
                 <core-table-header-row></core-table-header-row>
                 @for (table of tables$$(); track table.name) {
-                  <core-table-row [route]="table.route" [item]="table" coreHoverable>
+                  <core-table-row [route]="table.route" [relativeTo]="route" [item]="table" coreHoverable>
                   </core-table-row>
                 }
               </core-table-body>
