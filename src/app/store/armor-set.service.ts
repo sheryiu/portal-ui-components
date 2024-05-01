@@ -1,7 +1,7 @@
 import { Injectable, inject, signal } from '@angular/core';
 import { liveQuery } from 'dexie';
 import { nanoid } from 'nanoid';
-import { from } from 'rxjs';
+import { from, of } from 'rxjs';
 import { ArmorSet } from '../data/armor-set';
 import { DatabaseService } from '../data/database.service';
 
@@ -59,6 +59,7 @@ export class ArmorSetService {
   }
 
   count() {
+    if (this.data.isServer) return of(0);
     return from(this.data.armorSets.count())
   }
 

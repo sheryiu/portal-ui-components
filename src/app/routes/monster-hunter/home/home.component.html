@@ -18,28 +18,30 @@
         </div>
         <h3>Tables</h3>
         <div class="border rounded-1 overflow-hidden bg-lunar-green-950">
-          <core-table itemHeight="44" [columns]="['name', 'count']">
-            <core-table-header-cell *coreTableHeaderCellDef="'name'">
-              Table
-            </core-table-header-cell>
-            <core-table-header-cell *coreTableHeaderCellDef="'count'">
-              Records
-            </core-table-header-cell>
-            <core-table-cell *coreTableCellDef="'name'; let table">
-              {{ table.name }}
-            </core-table-cell>
-            <core-table-cell *coreTableCellDef="'count'; let table">
-              {{ table.count }}
-            </core-table-cell>
+          @defer {
+            <core-table itemHeight="44" [columns]="['name', 'count']">
+              <core-table-header-cell *coreTableHeaderCellDef="'name'">
+                Table
+              </core-table-header-cell>
+              <core-table-header-cell *coreTableHeaderCellDef="'count'">
+                Records
+              </core-table-header-cell>
+              <core-table-cell *coreTableCellDef="'name'; let table">
+                {{ table.name }}
+              </core-table-cell>
+              <core-table-cell *coreTableCellDef="'count'; let table">
+                {{ table.count }}
+              </core-table-cell>
 
-            <core-table-body>
-              <core-table-header-row></core-table-header-row>
-              @for (table of tables$$(); track table.name) {
-                <core-table-row [route]="table.route" [item]="table" coreHoverable>
-                </core-table-row>
-              }
-            </core-table-body>
-          </core-table>
+              <core-table-body>
+                <core-table-header-row></core-table-header-row>
+                @for (table of tables$$(); track table.name) {
+                  <core-table-row [route]="table.route" [item]="table" coreHoverable>
+                  </core-table-row>
+                }
+              </core-table-body>
+            </core-table>
+          }
         </div>
       </div>
     </core-sidebar-content>
