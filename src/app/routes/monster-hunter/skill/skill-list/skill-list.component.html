@@ -1,56 +1,55 @@
 <core-sectioned-outlet>
   <div
-    class="h-full overflow-x-hidden overflow-y-auto gutter-stable"
+    coreSidebarContainer
     cdkVirtualScrollingElement
     cdkScrollable
   >
-    <div class="bg-glass min-h-full p-2">
-      <div class="flex flex-col">
-        <core-simple-header coreStickyHeader coreHoverable (bgClick)="onHeaderClick()">
-          <h2 *coreHeader>Skill</h2>
-          <ng-container *coreHeaderActions>
-            <button #btn coreHoverable class="size-10 rounded-3" (click)="onNewClick(btn)">
-              <i class="icon-8 font-variation-weight-extra-light">add</i>
-            </button>
-          </ng-container>
-        </core-simple-header>
-        <core-table
-          itemHeight="48"
-          [columns]="['color', 'name']"
-        >
-          <cdk-virtual-scroll-viewport itemSize [extraHeight]="48 * 2">
-            <core-table-body style="grid-template-columns: min-content 1fr;">
-              <core-table-header-row>
-                <core-table-header-cell *coreTableHeaderCellDef="'color'"></core-table-header-cell>
-                <core-table-header-cell *coreTableHeaderCellDef="'name'" [filtered]="filterByName$$() != null">
-                  Name
-                  <core-table-filter-by-text *coreTableHeaderCellFilter [value]="filterByName$$()" (valueChange)="onChangeFilter({ name: $event })"></core-table-filter-by-text>
-                </core-table-header-cell>
-              </core-table-header-row>
-              <core-table-row
-                *cdkVirtualFor="let item of data$ | async; trackBy: trackingFn"
-                coreHoverable
-                [route]="[item.id]"
-                [item]="item"
-              >
-                <core-table-cell *coreTableCellDef="'color'">
-                  <div class="hexagon-mask size-6" [style.background-color]="item.color"></div>
-                </core-table-cell>
-                <core-table-cell *coreTableCellDef="'name'">
-                  <core-multilingual-text-display [value]="item.name"></core-multilingual-text-display>
-                </core-table-cell>
-              </core-table-row>
-              @if (data$ | async; as data) {
-                <core-table-footer-row class="px-4 py-1">
-                  <core-table-simple-footer [dataCount]="data.length"></core-table-simple-footer>
-                </core-table-footer-row>
-              } @else {
-                <mhw-loading-footer></mhw-loading-footer>
-              }
-            </core-table-body>
-          </cdk-virtual-scroll-viewport>
-        </core-table>
-      </div>
+    <div coreSidebarBreadcrumbs>
+      <core-breadcrumbs></core-breadcrumbs>
     </div>
+    <core-sidebar-content>
+      <core-table
+        *coreSidebarMain
+        itemHeight="48"
+        [columns]="['color', 'name']"
+      >
+        <core-table-header-cell *coreTableHeaderCellDef="'color'"></core-table-header-cell>
+        <core-table-header-cell *coreTableHeaderCellDef="'name'" [filtered]="filterByName$$() != null">
+          Name
+          <core-table-filter-by-text *coreTableHeaderCellFilter [value]="filterByName$$()" (valueChange)="onChangeFilter({ name: $event })"></core-table-filter-by-text>
+        </core-table-header-cell>
+
+        <core-table-cell *coreTableCellDef="'color'; let item">
+          <div class="hexagon-mask size-6" [style.background-color]="item.color"></div>
+        </core-table-cell>
+        <core-table-cell *coreTableCellDef="'name'; let item">
+          <core-multilingual-text-display [value]="item.name"></core-multilingual-text-display>
+        </core-table-cell>
+
+        <cdk-virtual-scroll-viewport itemSize [extraHeight]="48 * 2">
+          <core-table-body style="grid-template-columns: min-content 1fr;">
+            <core-table-header-row>
+            </core-table-header-row>
+            <core-table-row
+              *cdkVirtualFor="let item of data$ | async; trackBy: trackingFn"
+              coreHoverable
+              [route]="[item.id]"
+              [item]="item"
+            >
+            </core-table-row>
+            @if (data$ | async; as data) {
+              <core-table-footer-row class="px-4 py-1">
+                <core-table-simple-footer [dataCount]="data.length"></core-table-simple-footer>
+              </core-table-footer-row>
+            } @else {
+              <mhw-loading-footer></mhw-loading-footer>
+            }
+          </core-table-body>
+        </cdk-virtual-scroll-viewport>
+      </core-table>
+      <core-accordion>
+        <mhw-skill-list-drawer-create *coreSidebarDrawer></mhw-skill-list-drawer-create>
+      </core-accordion>
+    </core-sidebar-content>
   </div>
 </core-sectioned-outlet>

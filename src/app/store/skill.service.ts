@@ -1,7 +1,7 @@
 import { Injectable, inject, signal } from '@angular/core';
 import { liveQuery } from 'dexie';
 import { nanoid } from 'nanoid';
-import { from } from 'rxjs';
+import { from, of } from 'rxjs';
 import { DatabaseService } from '../data/database.service';
 import { Skill } from '../data/skill';
 
@@ -12,6 +12,8 @@ type Filter = {
 type Sort = {
   [key: string]: 'asc' | 'desc' | undefined;
 };
+
+export type SkillCreateInput = Pick<Skill, 'name' | 'color' | 'description'>;
 
 @Injectable({
   providedIn: 'root'
@@ -45,6 +47,11 @@ export class SkillService {
     }))
   }
 
+  count() {
+    if (this.data.isServer) return of(0);
+    return from(this.data.skills.count())
+  }
+
   mainListFilter$$ = signal<Filter>({});
   mainListSort$$ = signal<Sort>({
     name: 'desc'
@@ -59,7 +66,7 @@ export class SkillService {
     }))
   }
 
-  create = (input: Pick<Skill, 'name' | 'color' | 'description'>) => {
+  create = (input: SkillCreateInput) => {
     const now = new Date();
     return from(this.data.skills.add({
       id: nanoid(),

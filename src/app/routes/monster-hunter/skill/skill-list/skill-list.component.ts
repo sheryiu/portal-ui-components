@@ -4,13 +4,12 @@ import { toObservable } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, Router } from '@angular/router';
 import { EffectFn } from '@ngneat/effects-ng';
 import { combineLatest, switchMap, tap } from 'rxjs';
-import { OverlayService } from '../../../../components/overlay/overlay.service';
 import { Skill } from '../../../../data/skill';
 import { LibraryModule } from '../../../../library/library.module';
 import { SharedModule } from '../../../../shared/shared.module';
 import { SkillService } from '../../../../store/skill.service';
 import { LoadingFooterComponent } from '../../utils/loading-footer/loading-footer.component';
-import { SkillCreateComponent } from '../skill-create/skill-create.component';
+import { SkillListDrawerCreateComponent } from './skill-list-drawer-create/skill-list-drawer-create.component';
 
 @Component({
   selector: 'app-skill-list',
@@ -19,12 +18,12 @@ import { SkillCreateComponent } from '../skill-create/skill-create.component';
     SharedModule,
     LibraryModule,
     LoadingFooterComponent,
+    SkillListDrawerCreateComponent,
   ],
   templateUrl: './skill-list.component.html',
 })
 export class SkillListComponent extends EffectFn {
   private service = inject(SkillService);
-  private overlay = inject(OverlayService);
   private router = inject(Router);
   private route = inject(ActivatedRoute);
   @ViewChild(CdkVirtualScrollViewport) private scrollViewport?: CdkVirtualScrollViewport;
@@ -37,18 +36,6 @@ export class SkillListComponent extends EffectFn {
   );
   filterByName$$ = computed(() => this.service.mainListFilter$$()['name']);
   sortByRarity$$ = computed(() => this.service.mainListSort$$()['name']);
-
-  onNewClick = this.createEffectFn<HTMLElement>(args$ => args$.pipe(
-    tap((button) => {
-      this.overlay.open(SkillCreateComponent, {
-        positionStrategy: this.overlay.position().flexibleConnectedTo(button)
-          .withPositions([
-            { overlayX: 'end', overlayY: 'top', originX: 'end', originY: 'top' },
-          ]),
-        scrollStrategy: this.overlay.scrollStrategies.reposition(),
-      })
-    })
-  ));
 
   onHeaderClick() {
     this.router.navigate(['./'], { relativeTo: this.route });

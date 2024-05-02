@@ -6,6 +6,7 @@ import { SharedModule } from '../../../shared/shared.module';
 import { ArmorSetBonusService } from '../../../store/armor-set-bonus.service';
 import { ArmorSetService } from '../../../store/armor-set.service';
 import { ArmorService } from '../../../store/armor.service';
+import { SkillService } from '../../../store/skill.service';
 
 @Component({
   selector: 'mhw-home',
@@ -24,6 +25,8 @@ export class HomeComponent {
   private armorSetCount$$ = toSignal(this.armorSetService.count());
   private armorSetBonusService = inject(ArmorSetBonusService);
   private armorSetBonusCount$$ = toSignal(this.armorSetBonusService.count());
+  private skillService = inject(SkillService);
+  private skillCount$$ = toSignal(this.skillService.count());
 
   route = inject(ActivatedRoute);
 
@@ -43,6 +46,11 @@ export class HomeComponent {
         name: 'Armor Set Bonus',
         route: ['armor-set-bonus'],
         count: this.armorSetBonusCount$$(),
+      },
+      {
+        name: 'Skill',
+        route: ['skill'],
+        count: this.skillCount$$(),
       },
     ]
     return tables;

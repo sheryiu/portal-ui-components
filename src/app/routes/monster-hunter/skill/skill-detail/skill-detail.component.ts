@@ -27,7 +27,6 @@ export class SkillDetailComponent extends EffectFn {
   private id$ = this.route.paramMap.pipe(
     map(params => params.get('skillId')!),
   )
-  @ViewChild(CdkVirtualScrollViewport) private scrollViewport?: CdkVirtualScrollViewport;
   data$ = this.id$.pipe(
     switchMap((id) => this.service.getOne(id)),
     map(data => ({
@@ -35,7 +34,7 @@ export class SkillDetailComponent extends EffectFn {
       levels: data?.levels?.toSorted((a, b) => a.level < b.level ? -1 : a.level > b.level ? 1 : 0)
     }))
   )
-  showRemoveLevelButton = false;
+  @ViewChild(CdkVirtualScrollViewport) private scrollViewport?: CdkVirtualScrollViewport;
 
   onHeaderClick() {
     this.router.navigate(['./'], { relativeTo: this.route });

@@ -8,7 +8,7 @@
 
   .core-root-navigation-2 {
     @apply flex flex-col items-center border-r gap-4 z-[100];
-    @apply px-2 pt-3 bg-side-content;
+    @apply px-3 pt-3 bg-side-content;
 
     .core-root-tabs {
       @apply grow flex flex-col justify-center items-center gap-2 overflow-auto;
@@ -28,7 +28,7 @@
     }
 
     .core-root-options {
-      @apply border-t flex-none -mx-2 self-stretch;
+      @apply border-t flex-none -mx-3 self-stretch;
       @apply flex;
     }
   }
@@ -320,14 +320,14 @@
     @apply grid grid-cols-1 @2xs/fieldset:grid-cols-2;
     .core-fieldset__label {
       @apply flex justify-between items-center;
-      @apply py-2 ps-4 pe-2;
+      @apply py-1 ps-4 pe-2;
     }
     .core-fieldset__label__type {
       @apply text-sm uppercase font-medium text-primary-800 dark:text-primary-200;
     }
     .core-fieldset__input {
       @apply flex justify-between items-center gap-2;
-      @apply py-2 px-2 min-h-12;
+      @apply py-1 px-2 min-h-10;
       button {
         @apply self-stretch px-2 rounded-1 text-sm flex-none;
       }
@@ -370,7 +370,7 @@
     }
     > .core-sidebar-container__content__drawer {
       @apply flex flex-col gap-2 shrink-0 grow-0 sticky top-12 p-2;
-      height: calc(100dvh - 3rem - 1px);
+      height: calc(100dvh - 3rem - 2px);
     }
   }
 
@@ -389,7 +389,7 @@
     }
 
     .core-sidebar-drawer-section__content {
-      @apply flex flex-col items-stretch py-1 overflow-hidden;
+      @apply flex flex-col gap-1 items-stretch py-1 overflow-hidden;
     }
   }
 }

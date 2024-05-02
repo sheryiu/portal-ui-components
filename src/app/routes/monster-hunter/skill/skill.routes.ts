@@ -56,7 +56,8 @@ export const ROUTES: Routes = [
     data: {
       ...breadcrumb({
         title: 'Skill'
-      })
+      }),
+      ...sectionedOutlet('full'),
     },
     children: SKILL_DETAIL_ROUTES,
   }
