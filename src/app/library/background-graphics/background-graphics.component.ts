@@ -1,5 +1,5 @@
 import { isPlatformServer } from '@angular/common';
-import { Component, DestroyRef, ElementRef, PLATFORM_ID, ViewChild, afterNextRender, inject } from '@angular/core';
+import { AfterViewInit, Component, DestroyRef, ElementRef, PLATFORM_ID, ViewChild, afterNextRender, inject } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import Delaunator from 'delaunator';
 import { ObservedValueOf, tap } from 'rxjs';
@@ -14,7 +14,7 @@ import { ThemeService } from '../../components/services/theme.service';
     class: 'core-background-graphics',
   }
 })
-export class BackgroundGraphicsComponent {
+export class BackgroundGraphicsComponent implements AfterViewInit {
 
   @ViewChild('canvas') private canvas!: ElementRef<HTMLCanvasElement>;
   private platformId = inject(PLATFORM_ID);
@@ -35,15 +35,19 @@ export class BackgroundGraphicsComponent {
         }),
         takeUntilDestroyed(this.destroyRef),
       ).subscribe()
-      this.ro = new ResizeObserver(entries => {
-        if (!this.canvasSizeSet && this.currentTheme) {
-          this.draw();
-        }
-      })
-      this.ro.observe(this.canvas.nativeElement)
-      this.destroyRef.onDestroy(() => {
-        this.ro?.disconnect();
-      })
+    })
+  }
+
+  ngAfterViewInit(): void {
+    if (isPlatformServer(this.platformId)) return;
+    this.ro = new ResizeObserver(entries => {
+      if (!this.canvasSizeSet && this.currentTheme) {
+        this.draw();
+      }
+    })
+    this.ro.observe(this.canvas.nativeElement)
+    this.destroyRef.onDestroy(() => {
+      this.ro?.disconnect();
     })
   }
 
@@ -59,7 +63,7 @@ export class BackgroundGraphicsComponent {
     const ctx = this.canvas.nativeElement.getContext('2d');
     if (!ctx) return;
     const points = [];
-    const maxDots = width * height / ((window.devicePixelRatio - 1)/3 + 1) / 50_000;
+    const maxDots = width * height / Math.log(window.devicePixelRatio + 1) / 30_000;
     for (let i = 0; i < maxDots; i++) {
       points.push({
         x: Math.floor((Math.random() * 1.5 - 0.25) * width),
