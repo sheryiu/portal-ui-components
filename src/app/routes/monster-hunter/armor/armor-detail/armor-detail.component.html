@@ -3,7 +3,7 @@
     coreSidebarContainer
     cdkVirtualScrollingElement
     cdkScrollable
-    coreTabBarContainerElement
+    coreTabBarContainer
   >
     <div coreSidebarBreadcrumbs>
       <core-breadcrumbs></core-breadcrumbs>
@@ -175,8 +175,8 @@
         </div>
       </div>
       <core-accordion>
-        <mhw-armor-drawer-info *coreSidebarDrawer [armor]="data$ | async"></mhw-armor-drawer-info>
-        <mhw-armor-drawer-remove *coreSidebarDrawer [armor]="data$ | async"></mhw-armor-drawer-remove>
+        <mhw-skill-drawer-info *coreSidebarDrawer [armor]="data$ | async"></mhw-skill-drawer-info>
+        <mhw-skill-drawer-remove *coreSidebarDrawer [armor]="data$ | async"></mhw-skill-drawer-remove>
       </core-accordion>
     </core-sidebar-content>
   </div>

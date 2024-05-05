@@ -1,8 +1,8 @@
 import { isPlatformServer } from '@angular/common';
-import { AfterViewInit, Component, DestroyRef, ElementRef, PLATFORM_ID, ViewChild, inject } from '@angular/core';
+import { Component, DestroyRef, ElementRef, PLATFORM_ID, ViewChild, afterNextRender, inject } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import Delaunator from 'delaunator';
-import { tap } from 'rxjs';
+import { ObservedValueOf, tap } from 'rxjs';
 import { ThemeService } from '../../components/services/theme.service';
 
 @Component({
@@ -14,28 +14,48 @@ import { ThemeService } from '../../components/services/theme.service';
     class: 'core-background-graphics',
   }
 })
-export class BackgroundGraphicsComponent implements AfterViewInit {
+export class BackgroundGraphicsComponent {
 
   @ViewChild('canvas') private canvas!: ElementRef<HTMLCanvasElement>;
   private platformId = inject(PLATFORM_ID);
   private themeService = inject(ThemeService, { optional: true });
   private destroyRef = inject(DestroyRef);
   private elementRef = inject(ElementRef) as ElementRef<HTMLElement>;
+  private currentTheme?: ObservedValueOf<ThemeService['currentTheme$']>;
+  private ro?: ResizeObserver;
+  private canvasSizeSet = false;
 
-  ngAfterViewInit(): void {
-    this.draw('dark');
-    this.themeService?.currentTheme$.pipe(
-      tap((theme) => this.draw(theme)),
-      takeUntilDestroyed(this.destroyRef),
-    ).subscribe()
+  constructor() {
+    afterNextRender(() => {
+      this.themeService?.currentTheme$.pipe(
+        tap((theme) => {
+          if (theme === this.currentTheme) return;
+          this.currentTheme = theme;
+          this.draw();
+        }),
+        takeUntilDestroyed(this.destroyRef),
+      ).subscribe()
+      this.ro = new ResizeObserver(entries => {
+        if (!this.canvasSizeSet && this.currentTheme) {
+          this.draw();
+        }
+      })
+      this.ro.observe(this.canvas.nativeElement)
+      this.destroyRef.onDestroy(() => {
+        this.ro?.disconnect();
+      })
+    })
   }
 
-  private draw(theme: 'dark' | 'light') {
+  private draw() {
     if (isPlatformServer(this.platformId)) return;
     const rect = this.elementRef.nativeElement.getBoundingClientRect();
     const { width, height } = rect;
+    if (width == 0 || height == 0) return;
     this.canvas.nativeElement.width = width;
     this.canvas.nativeElement.height = height;
+    this.canvasSizeSet = true;
+    this.ro?.disconnect();
     const ctx = this.canvas.nativeElement.getContext('2d');
     if (!ctx) return;
     const points = [];
@@ -56,7 +76,7 @@ export class BackgroundGraphicsComponent implements AfterViewInit {
       path.moveTo(points[triangles[i]].x, points[triangles[i]].y);
       path.lineTo(points[triangles[i + 1]].x, points[triangles[i + 1]].y);
       path.lineTo(points[triangles[i + 2]].x, points[triangles[i + 2]].y);
-      if (theme === 'dark') {
+      if (this.currentTheme === 'dark') {
         ctx.fillStyle = `rgb(255 255 255 / ${ Math.random() * 0.025 })`
       } else {
         ctx.fillStyle = `rgb(0 0 0 / ${ Math.random() * 0.07 })`

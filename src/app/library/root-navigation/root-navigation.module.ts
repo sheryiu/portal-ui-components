@@ -1,17 +1,16 @@
 import { NgModule } from '@angular/core';
+import { QuickAccessComponentDirective } from './quick-access/quick-access-component.directive';
 import { RootNavigationComponent } from './root-navigation.component';
-import { SomeChildrenHaveIconPipe } from './some-children-have-icon.pipe';
-import { UserDialogComponent } from './user-dialog/user-dialog.component';
 
 @NgModule({
   declarations: [],
   imports: [
     RootNavigationComponent,
-    SomeChildrenHaveIconPipe,
-    UserDialogComponent,
+    QuickAccessComponentDirective,
   ],
   exports: [
     RootNavigationComponent,
+    QuickAccessComponentDirective,
   ]
 })
 export class RootNavigationModule { }

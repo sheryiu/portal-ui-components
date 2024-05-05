@@ -76,6 +76,7 @@ export class FieldsetComponent<T extends {}> implements ControlValueAccessor, Af
       case 'string': return '';
       case 'number': return 0;
       case 'date-time': return '';
+      case 'boolean': return false;
       default: return '';
     }
   }
@@ -90,9 +91,11 @@ export class FieldsetComponent<T extends {}> implements ControlValueAccessor, Af
       // null values should be taken into account
       let currPointingTo = newValue;
       const paths = key.split('>');
+      let i = 0;
       for (const path of paths.slice(0, -1)) {
-        if (currPointingTo[path] == null) currPointingTo[path] = {};
+        if (currPointingTo[path] == null) currPointingTo[path] = /^\d+$/.test(paths.at(i + 1)!) ? [] : {};
         currPointingTo = currPointingTo[path];
+        i++;
       }
       currPointingTo[paths.at(-1)!] = formValue[key];
     }

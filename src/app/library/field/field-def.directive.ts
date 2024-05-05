@@ -1,7 +1,7 @@
 import { Directive, Input, Type } from '@angular/core';
 import { LiteralUnion } from '../../components/utils/literal-union';
 
-type SupportedTypes = 'string' | 'number' | 'date-time';
+type SupportedTypes = 'string' | 'number' | 'date-time' | 'boolean';
 
 @Directive({
   selector: '[coreFieldDef], core-field-def',

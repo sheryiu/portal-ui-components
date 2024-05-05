@@ -14,6 +14,7 @@ type Sort = {
 };
 
 export type SkillCreateInput = Pick<Skill, 'name' | 'color' | 'description'>;
+export type SkillLevelCreateInput = (Skill['levels'] & {})[number]
 
 @Injectable({
   providedIn: 'root'
@@ -76,7 +77,7 @@ export class SkillService {
     }))
   }
 
-  update = (id: string, input: Partial<Pick<Skill, 'name' | 'color' | 'description' | 'levels'>>) => {
+  update = (id: string, input: Partial<Pick<Skill, 'name' | 'color' | 'description'>>) => {
     return from(this.data.skills.update(
       id,
       {
@@ -84,5 +85,16 @@ export class SkillService {
         ...input
       }
     ))
+  }
+
+  remove = (id: string) => {
+    return from(this.data.skills.delete(id));
+  }
+
+  addLevel = (id: string, input: (Skill['levels'] & {})[number]) => {
+    return from(this.data.skills.where('id').equals(id).modify(skill => {
+      skill.levels ??= [];
+      skill.levels.push(input);
+    }))
   }
 }

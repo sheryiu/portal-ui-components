@@ -10,7 +10,7 @@ import { AccordionService } from './accordion.service';
 })
 export class AccordionTriggerDirective implements OnInit, OnChanges {
   private service = inject(AccordionService, { optional: true });
-  isOpened$$ = signal<boolean>(true);
+  isOpened$$ = signal<boolean>(false);
 
   readonly id = nanoid();
   @Input({ transform: booleanAttribute }) opened = false;
@@ -19,16 +19,19 @@ export class AccordionTriggerDirective implements OnInit, OnChanges {
 
   @HostListener('click')
   private hostClick() {
-    this.isOpened$$.update(b => !b);
-    this.service?.toggleTrigger(this.id, this.isOpened$$());
+    if (this.service) {
+      this.service.toggleTrigger(this.id, !this.isOpened$$());
+    } else {
+      this.isOpened$$.update(b => !b)
+    }
   }
 
   ngOnInit(): void {
-      this.service?.registerTrigger(this.id, this.opened).pipe(
-        takeUntilDestroyed(this.destroyRef),
-      ).subscribe(opened => {
-        this.isOpened$$.set(opened);
-      });
+    this.service?.registerTrigger(this.id, this.opened).pipe(
+      takeUntilDestroyed(this.destroyRef),
+    ).subscribe(opened => {
+      this.isOpened$$.set(opened);
+    });
   }
 
   ngOnChanges(changes: SimpleChanges): void {

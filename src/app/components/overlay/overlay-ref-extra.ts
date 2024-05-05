@@ -8,7 +8,7 @@ export class OverlayRefExtra {
       // the timer delay can be removed
       timer(100),
       overlayRef.outsidePointerEvents().pipe(
-        ignoreEventsFrom ? filter(e => e.target instanceof Element && ignore.every(i => i != e.target)) : tap(),
+        ignoreEventsFrom ? filter(e => e.target instanceof Element && ignore.every(i => !i?.contains(e.target as Element))) : tap(),
         take(1)
       ),
     ).pipe(

@@ -8,7 +8,7 @@ import { SharedModule } from '../../../../../shared/shared.module';
 import { ArmorService } from '../../../../../store/armor.service';
 
 @Component({
-  selector: 'mhw-armor-drawer-remove',
+  selector: 'mhw-skill-drawer-remove',
   standalone: true,
   imports: [
     SharedModule,

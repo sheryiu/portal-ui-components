@@ -1,21 +1,20 @@
 import { provideHttpClient, withFetch } from '@angular/common/http';
 import { ApplicationConfig, inject, isDevMode } from '@angular/core';
 import { provideClientHydration } from '@angular/platform-browser';
-import { provideAnimations, provideNoopAnimations } from '@angular/platform-browser/animations';
+import { provideNoopAnimations } from '@angular/platform-browser/animations';
 import { NoPreloading, PreloadAllModules, provideRouter, withPreloading, withRouterConfig } from '@angular/router';
 import { provideServiceWorker } from '@angular/service-worker';
 import { provideTransloco } from '@ngneat/transloco';
 import { map } from 'rxjs';
 import { routes } from './app.routes';
 import { ThemeService, provideTheme } from './components/services/theme.service';
+import { DatabaseInfoQuickAccessComponent } from './core/database-info-quick-access/database-info-quick-access.component';
+import { SettingsQuickAccessComponent } from './core/settings-quick-access/settings-quick-access.component';
 import { TranslocoHttpLoader } from './core/transloco-http-loader';
 import { provideGlobalSearch, withAction, withSuggestions } from './library/global-search/global-search';
 import { provideMultilingual } from './library/multilingual-text-edit/multilingual-text-edit.component';
-import { provideRootNavigation } from './library/root-navigation/root-navigation';
-import { DatabaseQuickSettingsComponent } from './library/root-navigation/user-dialog/database-quick-settings/database-quick-settings.component';
-import { LanguageToggleComponent } from './library/root-navigation/user-dialog/language-toggle/language-toggle.component';
-import { ThemeToggleComponent } from './library/root-navigation/user-dialog/theme-toggle/theme-toggle.component';
-import { provideUserDialog, withQuickSettingsComponent } from './library/root-navigation/user-dialog/user-dialog.component';
+import { LanguageToggleComponent, ThemeToggleComponent } from './library/root-navigation';
+import { provideRootNavigation, withQuickAccessComponent } from './library/root-navigation/root-navigation';
 import { ArmorSetBonusService } from './store/armor-set-bonus.service';
 import { ArmorSetService } from './store/armor-set.service';
 import { ArmorService } from './store/armor.service';
@@ -46,78 +45,28 @@ export const appConfig: ApplicationConfig = {
       },
       loader: TranslocoHttpLoader,
     }),
-    provideRootNavigation([
-      {
-        icon: 'sports_esports',
-        label: 'MHW',
-        routerLink: ['mhw'],
-        children: [
-          {
-            type: 'route',
-            icon: 'calculate',
-            label: 'Armor Simulator',
-            routerLink: ['mhw', 'armor-sim'],
-          },
-          {
-            type: 'header',
-            label: 'Database'
-          },
-          {
-            type: 'route',
-            label: 'Armor Pieces',
-            routerLink: ['mhw', 'armor'],
-            icon: 'apparel'
-          },
-          {
-            type: 'route',
-            label: 'Armor Sets',
-            routerLink: ['mhw', 'armor-set'],
-          },
-          {
-            type: 'route',
-            label: 'Charms',
-            routerLink: ['mhw', 'charms'],
-          },
-          {
-            type: 'divider',
-          },
-          {
-            type: 'route',
-            label: 'Monsters',
-            routerLink: ['mhw', 'monster'],
-          },
-          {
-            type: 'route',
-            label: 'Materials',
-            routerLink: ['mhw', 'material'],
-          },
-          {
-            type: 'route',
-            label: 'Skills',
-            routerLink: ['mhw', 'skill'],
-          },
-          {
-            type: 'route',
-            label: 'Armor Set Bonus',
-            routerLink: ['mhw', 'armor-set-bonus'],
-          },
-        ],
-      },
-      {
-        icon: 'brush',
-        label: 'Design',
-        routerLink: ['skills'],
-      },
-    ]),
+    provideRootNavigation(
+      [
+        {
+          icon: 'sports_esports',
+          label: 'MHW',
+          routerLink: ['mhw'],
+        },
+        {
+          icon: 'brush',
+          label: 'Design',
+          routerLink: ['skills'],
+        },
+      ],
+      withQuickAccessComponent(SettingsQuickAccessComponent),
+      withQuickAccessComponent(DatabaseInfoQuickAccessComponent),
+      withQuickAccessComponent(ThemeToggleComponent),
+      withQuickAccessComponent(LanguageToggleComponent),
+    ),
     provideServiceWorker('ngsw-worker.js', {
       enabled: !isDevMode(),
-      registrationStrategy: 'registerWhenStable:30000',
+      registrationStrategy: 'registerImmediately',
     }),
-    provideUserDialog(
-      withQuickSettingsComponent(ThemeToggleComponent),
-      withQuickSettingsComponent(LanguageToggleComponent),
-      withQuickSettingsComponent(DatabaseQuickSettingsComponent),
-    ),
     provideGlobalSearch(
       withSuggestions(() => {
         const service = inject(ArmorService);

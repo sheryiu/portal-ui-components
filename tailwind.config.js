@@ -199,7 +199,7 @@ module.exports = {
             ".dark &": {
               background: "hsl(0deg 0% 8.5%)"
             },
-            background: ""
+            background: "hsl(0deg 0% 92%)"
           }
         });
         matchUtilities(
@@ -215,6 +215,7 @@ module.exports = {
                 "font-style": "normal",
                 "font-family": "'Material Symbols Rounded'",
                 "font-weight": "400",
+                "user-select": "none",
               };
             },
           },
@@ -279,7 +280,7 @@ module.exports = {
         addComponents({
           '.elemental-gradient': {
             '.dark &': {
-              '--tw-gradient-stops': 'hsl(0deg 50% 30%), hsl(224deg 50% 30%), hsl(60deg 55% 50%), hsl(195deg 50% 45%), hsl(245deg 50% 20%), hsl(0deg 50% 30%)'
+              '--tw-gradient-stops': 'hsl(0deg 50% 50%), hsl(224deg 50% 50%), hsl(60deg 65% 70%), hsl(195deg 50% 55%), hsl(245deg 60% 50%), hsl(0deg 50% 50%)'
             },
             '--tw-gradient-stops': 'hsl(0deg 50% 65%), hsl(224deg 40% 60%), hsl(60deg 65% 70%), hsl(195deg 50% 75%), hsl(245deg 40% 60%), hsl(0deg 50% 65%)'
           },

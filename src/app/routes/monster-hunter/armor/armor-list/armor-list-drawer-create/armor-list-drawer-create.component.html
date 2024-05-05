@@ -6,6 +6,7 @@
     type="button"
     coreAccordionTrigger
     #trigger="accordionTrigger"
+    [ngClass]="{ '!text-primary-950 dark:!text-primary-50': !trigger.isOpened$$() }"
   >
     <i>add</i>
     <p>Insert New</p>

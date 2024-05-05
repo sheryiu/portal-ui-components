@@ -32,16 +32,6 @@ export const ROUTES: Routes = [
         },
         children: [
           {
-            path: 'edit',
-            loadComponent: () => import('./armor-set-bonus-edit/armor-set-bonus-edit.component').then(c => c.ArmorSetBonusEditComponent),
-            data: {
-              ...breadcrumb({
-                title: 'Edit',
-              }),
-              ...sectionedOutlet('full')
-            },
-          },
-          {
             path: 'skill',
             children: SKILL_DETAIL_ROUTES,
           }

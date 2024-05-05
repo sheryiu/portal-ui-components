@@ -20,31 +20,6 @@ export const SKILL_DETAIL_ROUTES: Routes = [
       ...sectionedOutlet('half'),
     },
     children: [
-      {
-        path: 'edit-details',
-        loadComponent: () => import('./skill-edit-details/skill-edit-details.component').then(c => c.SkillEditDetailsComponent),
-        data: {
-          ...breadcrumb({
-            title: 'Edit Details'
-          }),
-          ...sectionedOutlet('full'),
-        },
-      },
-      {
-        path: 'level',
-        children: [
-          {
-            path: 'new',
-            loadComponent: () => import('./skill-level-create/skill-level-create.component').then(c => c.SkillLevelCreateComponent),
-            data: {
-              ...breadcrumb({
-                title: '+ Level'
-              }),
-              ...sectionedOutlet('half'),
-            }
-          }
-        ]
-      }
     ]
   }
 ]

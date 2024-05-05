@@ -6,8 +6,8 @@
     }
   }
 
-  .core-root-navigation-2 {
-    @apply flex flex-col items-center border-r gap-4 z-[100];
+  .core-root-navigation {
+    @apply flex flex-col items-center border-e gap-4 z-[2000];
     @apply px-3 pt-3 bg-side-content;
 
     .core-root-tabs {
@@ -30,6 +30,19 @@
     .core-root-options {
       @apply border-t flex-none -mx-3 self-stretch;
       @apply flex;
+    }
+  }
+
+  .core-quick-access-backdrop {
+    @apply left-24 dark:bg-black/20 backdrop-blur-sm;
+  }
+
+  .core-quick-access {
+    @apply border bg-side-content rounded-2;
+    @apply ms-6 my-6 w-80 absolute top-0 bottom-0;
+    @apply grid grid-cols-2 place-content-end p-2 gap-2 overflow-auto;
+    .core-quick-access-component {
+      @apply size-full rounded-1;
     }
   }
 
@@ -74,30 +87,6 @@
     }
   }
 
-  .core-simple-header {
-    @apply overflow-hidden rounded-3 ps-6 pe-3 pt-5 pb-3 flex justify-between items-end -top-6 transition-all;
-    @apply bg-lunar-green-100 text-primary-800;
-    &[data-stuck=true] {
-      @apply -mx-2 rounded-none;
-    }
-    &[data-color=default] {
-      .core-breadcrumbs {
-        /** use primary instead of lunar-green */
-        @apply text-primary-950 dark:text-primary-200;
-      }
-    }
-    &[data-color=primary] {
-      .core-breadcrumbs {
-        @apply text-primary-950 dark:text-primary-200;
-      }
-    }
-    &[data-color=accent] {
-      .core-breadcrumbs {
-        @apply text-accent-950 dark:text-accent-200;
-      }
-    }
-  }
-
   .core-table {
     @apply block size-full;
 
@@ -112,8 +101,6 @@
         @apply col-span-full grid grid-cols-subgrid border-b relative;
         &[data-active=true] {
           @apply bg-hover;
-          // @apply bg-gradient-to-r from-hover to-transparent to-50%;
-          // @apply before:absolute before:bg-primary-600 before:-left-0.5 before:top-[10%] before:bottom-[10%] before:w-1 before:rounded-full;
         }
       }
     }
@@ -155,10 +142,15 @@
 
   .core-breadcrumbs {
     @apply min-h-6 flex gap-0.5 items-center text-sm font-display;
-  }
-
-  .core-form-submit {
-    @apply overflow-hidden sticky bottom-0 flex-none;
+    > a {
+      @apply px-1.5 py-1.5 rounded-1 justify-start;
+      > span {
+        @apply truncate;
+      }
+    }
+    > i {
+      @apply icon-4 shrink-0 text-primary-800 dark:text-primary-50;
+    }
   }
 
   .core-search-input {
@@ -221,7 +213,7 @@
 
   .core-segmented-options {
     > div > div {
-      @apply flex flex-col items-stretch gap-px rounded-1 bg-lunar-green-800 border p-px;
+      @apply flex flex-col items-stretch gap-0.5 rounded-1 bg-lunar-green-200 dark:bg-lunar-green-800 border p-px;
       @apply @[16rem]/segmented-options:flex-row @[16rem]/segmented-options:items-center;
     }
     input[type=radio] {
@@ -266,23 +258,6 @@
     }
   }
 
-  .core-supplementary-panel {
-    @apply bg-deep-glass flex-none px-4 py-2;
-    > div {
-      @apply flex flex-col @md/supplementary-panel:flex-row-reverse gap-2;
-    }
-    .core-supplementary-panel-actions {
-      @apply flex flex-row @md/supplementary-panel:flex-col flex-wrap gap-2 justify-end;
-      @apply @md/supplementary-panel:max-h-18;
-      .core-supplementary-panel-action {
-        @apply px-4 py-1 min-h-8 rounded-2 grow;
-      }
-    }
-    .core-supplementary-panel-text {
-      @apply flex flex-col gap-0.5 grow justify-end text-sm text-secondary;
-    }
-  }
-
   .core-linear-progress-display {
     @apply w-full flex items-center gap-1 overflow-hidden;
   }
@@ -320,7 +295,7 @@
     @apply grid grid-cols-1 @2xs/fieldset:grid-cols-2;
     .core-fieldset__label {
       @apply flex justify-between items-center;
-      @apply py-1 ps-4 pe-2;
+      @apply py-1 ps-4 pe-2 gap-1;
     }
     .core-fieldset__label__type {
       @apply text-sm uppercase font-medium text-primary-800 dark:text-primary-200;
@@ -329,16 +304,37 @@
       @apply flex justify-between items-center gap-2;
       @apply py-1 px-2 min-h-10;
       button {
-        @apply self-stretch px-2 rounded-1 text-sm flex-none;
+        @apply px-2 rounded-1 text-sm flex-none;
+      }
+      button.core-fieldset__input__remove {
+        @apply self-center aspect-square;
+      }
+      button.core-fieldset__input__add {
       }
     }
     .core-fieldset__input-field {
-      @apply flex bg-lunar-green-800 rounded-1 min-h-8 overflow-hidden;
+      @apply flex shrink bg-lunar-green-200 dark:bg-lunar-green-800 rounded-1 min-h-8 overflow-hidden;
       &:not(:only-child) {
         @apply grow;
       }
       &:has(:focus-visible) {
-        @apply outline outline-2 outline-primary-500 bg-primary-950;
+        @apply outline outline-2 outline-primary-500 bg-primary-50 dark:bg-primary-950;
+      }
+
+      &.core-fieldset__input-field--boolean {
+        @apply grow-0 px-1;
+        &:has(> input:checked) {
+          @apply flex-row-reverse;
+        }
+        > button {
+          @apply my-1;
+        }
+        > span {
+          @apply px-1 self-center text-sm uppercase w-[5ch] tracking-tight font-medium text-center select-none;
+        }
+        input:checked ~ span {
+          @apply text-secondary;
+        }
       }
     }
   }
@@ -358,10 +354,11 @@
   }
 
   .core-sidebar-container {
-    @apply h-full overflow-x-hidden overflow-y-auto flex flex-col;
+    @apply relative h-full overflow-x-hidden overflow-y-auto flex flex-col;
+    contain: strict;
   }
   .core-sidebar-container__breadcrumbs {
-    @apply sticky top-0 px-3 py-3 flex-none border-b bg-side-content z-100;
+    @apply sticky top-0 px-3 py-2 flex-none border-b bg-side-content z-100;
   }
   .core-sidebar-container__content {
     @apply grow flex relative;
@@ -369,8 +366,9 @@
       @apply gutter-stable grow relative;
     }
     > .core-sidebar-container__content__drawer {
-      @apply flex flex-col gap-2 shrink-0 grow-0 sticky top-12 p-2;
+      @apply flex flex-col gap-2 shrink-0 grow-0 sticky top-12 p-2 overflow-y-auto;
       height: calc(100dvh - 3rem - 2px);
+      max-width: 40%;
     }
   }
 
@@ -391,5 +389,9 @@
     .core-sidebar-drawer-section__content {
       @apply flex flex-col gap-1 items-stretch py-1 overflow-hidden;
     }
+  }
+
+  .core-divider {
+    @apply block border-t;
   }
 }

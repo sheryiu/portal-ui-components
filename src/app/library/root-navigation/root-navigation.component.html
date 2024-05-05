@@ -1,105 +1,37 @@
-@if (tabs && tabs.length > 0) {
-  <div
-    class="absolute max-sm:w-100vw max-sm:pointer-events-none data-[opened=true]:max-sm:pointer-events-auto data-[opened=true]:max-sm:bg-black/60 data-[opened=true]:max-sm:backdrop-blur max-sm:transition-colors sm:sticky top-0 h-100vh p-4 max-sm:pb-16 z-[200] group"
-    [attr.data-opened]="menuOpened"
-  >
-    <div class="bg-glass overflow-hidden h-full flex max-sm:flex-col max-sm:-translate-x-full max-sm:opacity-0 group-data-[opened=true]:max-sm:translate-x-0 group-data-[opened=true]:max-sm:opacity-100 max-sm:transition max-sm:duration-300">
-      <!-- left -->
-      <div class="p-2 flex flex-col items-center max-sm:gap-4 border-b sm:border-b-0 sm:border-e">
-        <!-- top -->
-        <button class="shrink-0 w-fit sm:w-18 rounded-3 sm:flex-col" coreHoverable>
-          <img
-            src="../assets/logos/logo_square.png"
-            class="size-12 sm:size-16 p-3 object-contain dark:invert shrink-0"
-          />
-          <div class="font-display uppercase leading-none flex flex-col max-sm:me-4 sm:mb-3">
-            <span class="text-primary-800 dark:text-primary-200 font-medium" style="font-size: 0.75rem;">Database</span>
-            <span class="text-primary-600 dark:text-primary-500" style="font-size: 0.6rem;">Dashboard</span>
-          </div>
-        </button>
-        <div class="basis-4 shrink-0 max-sm:hidden"></div>
-        <core-global-search-button></core-global-search-button>
-        <!-- tabs -->
-        <div
-          class="grow flex sm:flex-col sm:justify-center items-center gap-2 overflow-auto"
-        >
-          @for (tab of tabs; track tab.id) {
-            <a
-              class="max-sm:grow w-18 h-12 sm:h-18 rounded-3 flex-col sm:gap-1"
-              coreHoverable
-              [routerLink]="tab.routerLink"
-              routerLinkActive
-              #active="routerLinkActive"
-              [ngClass]="{
-                'bg-hover border text-primary-600 dark:text-primary-500': active.isActive,
-              }"
-            >
-              <i class="icon-5 sm:icon-6 shrink-0" [class.font-variation-fill]="active.isActive">{{ tab.icon }}</i>
-              @if (tab.label) {
-                <span class="text-sm font-medium">{{ tab.label }}</span>
-              }
-            </a>
-          }
-        </div>
-        <!-- bottom -->
-        <button class="border-t shrink-0 -mx-2 -mb-2 py-3 max-sm:hidden self-stretch" [class.bg-hover]="overlayRef != null" coreHoverable (click)="onUserClick($event)">
-          <i class="icon-6 font-variation-fill">person</i>
-        </button>
-      </div>
-      <!-- right -->
-      <div class="p-2 flex flex-col sm:w-64 break-anywhere">
-        <div class="grow flex flex-col justify-center gap-1 overflow-auto">
-          @if (currentTabChildren$ | async; as tabs) {
-            @for (child of tabs; track child.id) {
-              @if (child.type === 'route') {
-                <a
-                  class="min-h-8 rounded-2 px-2 py-0.5 gap-1"
-                  coreHoverable
-                  [routerLink]="child.routerLink"
-                  routerLinkActive
-                  #active="routerLinkActive"
-                  [ngClass]="{
-                    'bg-hover border text-primary-600 dark:text-primary-500': active.isActive,
-                  }"
-                  (click)="closeMenu()"
-                >
-                  @if (tabs | someChildrenHaveIcon) {
-                    @if (child.icon) {
-                      <i class="icon-5 shrink-0" [class.font-variation-fill]="active.isActive">{{ child.icon }}</i>
-                    } @else {
-                      <div class="size-5 shrink-0"></div>
-                    }
-                  }
-                  <div class="grow text-center font-medium">{{ child.label }}</div>
-                </a>
-              } @else if (child.type === 'header') {
-                <div class="my-1 flex items-center gap-2 before:border-t before:grow after:border-t after:grow" [ngClass]="{
-                  'before:basis-5': tabs | someChildrenHaveIcon
-                }">
-                  <span class="text-sm font-medium text-secondary">{{ child.label }}</span>
-                </div>
-              } @else if (child.type === 'divider') {
-                <div class="border-t my-0.5"></div>
-              }
-            }
-          }
-        </div>
-      </div>
-    </div>
+<!-- top -->
+<button class="shrink-0 w-fit sm:w-18 rounded-2 sm:flex-col" coreHoverable>
+  <img
+    src="../assets/logos/logo_square.png"
+    class="size-12 sm:size-16 p-3 object-contain dark:invert shrink-0"
+  />
+  <div class="font-display uppercase leading-none flex flex-col max-sm:me-4 sm:mb-3">
+    <span class="text-primary-800 dark:text-primary-200 font-medium" style="font-size: 0.75rem;">Database</span>
+    <span class="text-primary-600 dark:text-primary-500" style="font-size: 0.6rem;">Dashboard</span>
   </div>
-  <div class="absolute sm:hidden bottom-0 w-full bg-lunar-green-900 border-t h-12 z-[200] px-4 py-1">
-    <div class="flex items-center justify-between">
-      <button coreHoverable class="size-10 rounded-2 shrink-0" (click)="toggleMenu()">
-        <i class="icon-6">menu</i>
-      </button>
-      <button coreHoverable class="size-10 rounded-2 shrink-0 bg-gradient-radial gradient-position-[top_left] from-primary-500 to-primary-600 dark:from-primary-600 from-30% dark:to-primary-800">
-        <i class="icon-6">search</i>
-      </button>
-      <button coreHoverable class="size-10 rounded-2 shrink-0" (click)="onUserClick($event)">
-        <i class="icon-6">person</i>
-      </button>
-    </div>
-  </div>
-} @else {
-  <div class="ps-4"></div>
-}
+</button>
+<core-global-search-button></core-global-search-button>
+<!-- tabs -->
+<div
+  class="core-root-tabs"
+>
+  @for (tab of tabs; track tab.id) {
+    <a
+      coreHoverable
+      [routerLink]="tab.routerLink"
+      routerLinkActive
+      #active="routerLinkActive"
+      [attr.data-active]="active.isActive"
+    >
+      <i [class.font-variation-fill]="active.isActive">{{ tab.icon }}</i>
+      @if (tab.label) {
+        <span>{{ tab.label }}</span>
+      }
+    </a>
+  }
+</div>
+<!-- bottom -->
+<div class="core-root-options">
+  <button coreHoverable class="w-full py-3" (click)="onUserClick($event)">
+    <i class="icon-6 font-variation-fill">person</i>
+  </button>
+</div>

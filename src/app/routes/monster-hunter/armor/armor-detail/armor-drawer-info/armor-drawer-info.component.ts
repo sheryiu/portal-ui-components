@@ -5,7 +5,7 @@ import { LibraryModule } from '../../../../../library/library.module';
 import { SharedModule } from '../../../../../shared/shared.module';
 
 @Component({
-  selector: 'mhw-armor-drawer-info',
+  selector: 'mhw-skill-drawer-info',
   standalone: true,
   imports: [
     SharedModule,

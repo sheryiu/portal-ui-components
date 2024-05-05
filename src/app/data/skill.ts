@@ -2,11 +2,6 @@ import { ArmorResistance } from './armor';
 import { MultilingualText } from './common';
 import { Root } from './root';
 
-export type GeneralSkillEffect = {
-  type: 'general';
-  description: MultilingualText;
-}
-
 export type AttackSkillEffect = {
   type: 'attack';
   value: number;
@@ -39,8 +34,7 @@ export type ResistanceSkillEffect = {
   element: keyof ArmorResistance;
 }
 
-export type SkillEffect = GeneralSkillEffect |
-  AttackSkillEffect |
+export type SkillEffect = AttackSkillEffect |
   AffinitySkillEffect |
   DefenseSkillEffect |
   ElementalAttackSkillEffect |

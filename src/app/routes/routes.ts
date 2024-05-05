@@ -11,4 +11,13 @@ export const ROUTES: Routes = [
       })
     }
   },
+  {
+    path: 'settings',
+    loadChildren: () => import('./settings/settings.routes').then(r => r.SETTINGS_ROUTES),
+    data: {
+      ...breadcrumb({
+        title: 'Settings'
+      })
+    }
+  }
 ]

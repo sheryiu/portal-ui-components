@@ -1,7 +1,7 @@
 import { DOCUMENT, isPlatformBrowser } from '@angular/common';
 import { APP_INITIALIZER, Injectable, InjectionToken, PLATFORM_ID, inject, makeEnvironmentProviders } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { ReplaySubject, Subject, defer, filter, fromEvent, iif, map, merge, of, shareReplay, startWith, switchMap, tap } from 'rxjs';
+import { Subject, defer, filter, fromEvent, iif, map, merge, of, shareReplay, startWith, switchMap, tap } from 'rxjs';
 
 export type ThemeOptions = {
   localStorageKey: string;

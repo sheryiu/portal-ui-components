@@ -1,0 +1,16 @@
+<button
+  coreQuickAccessComponent
+  class="bg-hover px-4 py-4"
+  type="button"
+>
+  <div class="flex items-center justify-between grow">
+    <span class="uppercase font-bold tracking-tight text-primary-700 dark:text-primary-300">Database</span>
+    <div class="flex items-center gap-1">
+      <i class="icon-6">database</i>
+      <div class="flex flex-col gap-0.5">
+        <span>{{ (bytesUsed$$?.()?.used ?? 0) / 1024 | number: '1.2-2' }} <span class="text-secondary text-sm">KB</span></span>
+        <div class="overflow-hidden rounded-full bg-lunar-green-400 dark:bg-lunar-green-600 h-1 relative before:absolute before:left-0 before:h-full before:bg-primary-500 dark:before:bg-primary-700 before:w-[--database-used-percent]" [style.--database-used-percent.%]="(bytesUsed$$?.()?.percentage ?? 0) * 100"></div>
+      </div>
+    </div>
+  </div>
+</button>

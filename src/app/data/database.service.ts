@@ -42,7 +42,10 @@ export class DatabaseService extends Dexie {
     }).pipe(
       startWith(null),
       switchMap(() => from(navigator.storage.estimate())),
-      map(storage => storage.usage)
+      map(storage => ({
+        used: storage.usage,
+        percentage: (storage.usage ?? 0) / (storage.quota ?? 1)
+      }))
     )
   }
 

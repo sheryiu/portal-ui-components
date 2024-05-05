@@ -34,7 +34,7 @@ export class TabBarComponent extends EffectFn implements AfterViewInit {
 
   constructor() {
     super();
-    if (this.service == null) throw 'Use TabBarComponent inside a container with the directive coreTabBarContainerElement';
+    if (this.service == null) throw 'Use TabBarComponent inside a container with the directive coreTabBarContainer';
     if (isPlatformServer(this.platformId)) return;
     this.resizeObserver = new ResizeObserver(entries => {
       this.checkWidth();

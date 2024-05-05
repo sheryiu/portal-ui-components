@@ -61,7 +61,7 @@ export class TabBarHeaderComponent implements AfterViewInit, AfterContentInit {
         }, {
           threshold: Array(10).fill(0).map((_, i) => 0.1 * i),
           rootMargin: '-25% 0px',
-          root: this.elementRef.nativeElement.closest('[coreTabBarContainerElement]')
+          root: this.elementRef.nativeElement.closest('[coreTabBarContainer]')
         });
         this.io?.observe(this.elementRef.nativeElement.nextElementSibling);
         this.destroyRef.onDestroy(() => {

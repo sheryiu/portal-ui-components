@@ -10,7 +10,7 @@
       @if (formControl.getRawValue(); as rawValue) {
         @for (datum of data; track item) {
           @if (pickWith(datum) === rawValue) {
-            <div class="bg-hover rounded-2 p-1 mb-2 flex justify-between items-center">
+            <div class="bg-hover rounded-1 p-1 mb-2 flex justify-between items-center">
               <ng-container [ngTemplateOutlet]="item!.templateRef" [ngTemplateOutletContext]="{ $implicit: datum }"></ng-container>
               @if (!isDisabled) {
                 <button type="button" coreHoverable class="shrink-0 rounded-1 p-1" (click)="unsetValue()">

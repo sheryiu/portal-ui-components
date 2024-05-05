@@ -3,11 +3,10 @@
     coreHoverable
     [routerLink]="['./']"
     [relativeTo]="breadcrumb.route"
-    class="px-1.5 py-0.5 rounded-1 justify-start"
     >
-    <span class="truncate">{{ breadcrumb.title }}</span>
+    <span>{{ breadcrumb.title }}</span>
   </a>
   @if (!$last) {
-    <i class="icon-4 shrink-0 text-primary-800 dark:text-primary-50">chevron_right</i>
+    <i>chevron_right</i>
   }
 }

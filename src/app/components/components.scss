@@ -1,7 +1,7 @@
 @layer components {
   .core-hoverable {
     @apply flex items-center justify-center relative overflow-hidden transition-all;
-    &[data-enabled=true] {
+    &[data-enabled=true]:not(:disabled) {
       @apply cursor-pointer after:absolute after:inset-0 after:transition-colors after:touch-none after:pointer-events-none hover:after:bg-hover focus-visible:after:bg-hover;
       &:focus-visible {
         @apply outline outline-2 outline-primary-500;
@@ -26,40 +26,54 @@
   }
 
   .core-hard-surface {
-    background-image: radial-gradient(farthest-corner at top left, var(--tw-gradient-stops));
+    // background-image: radial-gradient(farthest-corner at top left, var(--tw-gradient-stops));
     :is(.dark &) {
-      box-shadow: inset 1px 1px 2px -2px black;
+      box-shadow: inset 0px 2px 6px -4px rgb(255 255 255 / 0.1);
     }
-    @apply from-[-40%];
-    &[data-color=default] {
-      @apply from-lunar-green-50 to-lunar-green-100;
-      @apply text-lunar-green-950;
-      @apply dark:from-lunar-green-900 dark:to-lunar-green-950;
-      @apply dark:text-lunar-green-50;
-    }
-    &[data-color=primary] {
-      @apply from-primary-200 to-primary-300;
-      @apply text-primary-950;
-      @apply dark:from-primary-800 dark:to-primary-900;
+    // @apply from-[-40%];
+    &[data-color=transparent] {
+      @apply bg-transparent;
       @apply dark:text-primary-50;
     }
+    &[data-color=default] {
+      // @apply from-lunar-green-50 to-lunar-green-100;
+      // @apply text-lunar-green-950;
+      // @apply dark:from-lunar-green-900 dark:to-lunar-green-950;
+      // @apply dark:text-lunar-green-50;
+      @apply dark:text-lunar-green-50;
+      @apply dark:bg-lunar-green-800;
+    }
+    &[data-color=primary] {
+      // @apply from-primary-200 to-primary-300;
+      // @apply text-primary-950;
+      // @apply dark:from-primary-800 dark:to-primary-900;
+      // @apply dark:text-primary-50;
+      @apply dark:text-primary-50;
+      @apply dark:bg-primary-800;
+    }
     &[data-color=accent] {
-      @apply from-accent-200 to-accent-300;
-      @apply text-accent-950;
-      @apply dark:from-accent-900 dark:to-accent-950;
+      // @apply from-accent-200 to-accent-300;
+      // @apply text-accent-950;
+      // @apply dark:from-accent-900 dark:to-accent-950;
+      // @apply dark:text-accent-50;
       @apply dark:text-accent-50;
+      @apply dark:bg-accent-900;
     }
     &[data-color=gray], &[data-color=grey] {
-      @apply from-gray-200 to-gray-300;
-      @apply text-gray-950;
-      @apply dark:from-gray-600 dark:to-gray-700;
+      // @apply from-gray-200 to-gray-300;
+      // @apply text-gray-950;
+      // @apply dark:from-gray-600 dark:to-gray-700;
+      // @apply dark:text-gray-50;
       @apply dark:text-gray-50;
+      @apply dark:bg-gray-600;
     }
     &[data-color=red] {
-      @apply from-red-300 to-red-400;
-      @apply text-red-950;
-      @apply dark:from-red-600 dark:to-red-700;
+      // @apply from-red-300 to-red-400;
+      // @apply text-red-950;
+      // @apply dark:from-red-600 dark:to-red-700;
+      // @apply dark:text-red-50;
       @apply dark:text-red-50;
+      @apply dark:bg-red-600;
     }
   }
 }
