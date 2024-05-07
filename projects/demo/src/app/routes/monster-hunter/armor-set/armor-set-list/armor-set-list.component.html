@@ -1,0 +1,61 @@
+<phead-layered-container>
+  <div
+    pheadSidebarContainer
+    cdkVirtualScrollingElement
+    cdkScrollable
+  >
+    <div pheadSidebarBreadcrumbs>
+      <phead-breadcrumbs></phead-breadcrumbs>
+    </div>
+    <phead-sidebar-content>
+      <phead-table
+        *pheadSidebarMain
+        itemHeight="48"
+        [columns]="['name', 'rarity']"
+      >
+        <phead-table-header-cell *pheadTableHeaderCellDef="'name'" [filtered]="filterByName$$() != null">
+          Name
+          <phead-table-filter-by-text *pheadTableHeaderCellFilter [value]="filterByName$$()" (valueChange)="onChangeFilter({ name: $event })"></phead-table-filter-by-text>
+        </phead-table-header-cell>
+        <phead-table-header-cell *pheadTableHeaderCellDef="'rarity'" [sortedAsc]="sortByRarity$$() === 'asc'" [sortedDesc]="sortByRarity$$() === 'desc'">
+          Rarity
+          <phead-segmented-options *pheadTableHeaderCellSort [value]="sortByRarity$$()" (valueChange)="onChangeSort(['rarity', $event])" color="accent">
+            <div *pheadOption="'asc'" class="flex items-center gap-1"><i class="icon-4 rotate-180 -scale-x-100">sort</i><span class="text-sm/[0] font-bold">1 to 9</span></div>
+            <div *pheadOption="'desc'" class="flex items-center gap-1"><i class="icon-4">sort</i><span class="text-sm/[0] font-bold">9 to 1</span></div>
+          </phead-segmented-options>
+        </phead-table-header-cell>
+
+        <phead-table-cell *pheadTableCellDef="'name'; let item">
+          {{ item.name?.jp }} / {{ item.name?.en }}
+        </phead-table-cell>
+        <phead-table-cell *pheadTableCellDef="'rarity'; let item">
+          {{ item.rarity }}
+        </phead-table-cell>
+
+        <cdk-virtual-scroll-viewport itemSize [extraHeight]="48 * 2">
+          <phead-table-body>
+            <phead-table-header-row>
+            </phead-table-header-row>
+            <phead-table-row
+              *cdkVirtualFor="let item of data$ | async; trackBy: trackingFn"
+              pheadHoverable
+              [route]="[item.id]"
+              [item]="item"
+            >
+            </phead-table-row>
+            @if (data$ | async; as data) {
+              <phead-table-footer-row class="px-4 py-1">
+                <phead-table-simple-footer [dataCount]="data.length"></phead-table-simple-footer>
+              </phead-table-footer-row>
+            } @else {
+              <mhw-loading-footer></mhw-loading-footer>
+            }
+          </phead-table-body>
+        </cdk-virtual-scroll-viewport>
+      </phead-table>
+      <phead-accordion>
+        <mhw-armor-set-list-drawer-create *pheadSidebarDrawer></mhw-armor-set-list-drawer-create>
+      </phead-accordion>
+    </phead-sidebar-content>
+  </div>
+</phead-layered-container>

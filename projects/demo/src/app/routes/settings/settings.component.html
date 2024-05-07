@@ -1,0 +1,21 @@
+<phead-layered-container>
+  <div
+    pheadSidebarContainer
+  >
+    <div pheadSidebarBreadcrumbs>
+      <phead-breadcrumbs></phead-breadcrumbs>
+    </div>
+    <phead-sidebar-content>
+      <div
+        *pheadSidebarMain
+        pheadTabBarContainer
+        class="flex flex-col gap-4 pe-6 py-6"
+      >
+        <phead-tab-bar-header>
+          <span>Database</span>
+        </phead-tab-bar-header>
+        <demo-settings-database></demo-settings-database>
+      </div>
+    </phead-sidebar-content>
+  </div>
+</phead-layered-container>

@@ -1,0 +1,26 @@
+<form
+  class="size-full relative flex flex-col overflow-x-hidden overflow-y-auto gutter-stable"
+  cdkVirtualScrollingElement
+  cdkScrollable
+  (submit)="onSave()"
+>
+  <div class="bg-deep-glass grow p-2">
+    <div class="flex flex-col">
+      <phead-simple-header pheadStickyHeader color="accent">
+        <h2 *pheadHeader>Edit</h2>
+      </phead-simple-header>
+      <div class="flex flex-col gap-4 pt-4" [formGroup]="formGroup">
+        <!-- @for (group of formGroup.controls.effects.controls; track $index) {
+          <ng-container [formGroup]="group">
+            <app-armor-set-bonus-edit-effect
+              (removeEffect)="removeEffect($index)"
+            ></app-armor-set-bonus-edit-effect>
+          </ng-container>
+        }
+        <app-armor-set-bonus-new-effect
+          (addEffect)="addEffect(formGroup.controls.effects.length)"
+        ></app-armor-set-bonus-new-effect> -->
+      </div>
+    </div>
+  </div>
+</form>

@@ -1,0 +1,30 @@
+<div pheadSidebarDrawerSection [class.bg-side-content]="trigger.isOpened$$()">
+  <button
+    pheadSidebarDrawerSectionHeader
+    pheadHoverable
+    role="button"
+    type="button"
+    pheadAccordionTrigger
+    #trigger="accordionTrigger"
+    opened
+    [ngClass]="{ '!text-primary-950 dark:!text-primary-50': !trigger.isOpened$$() }"
+  >
+    <i>info</i>
+    <p>About</p>
+  </button>
+  @if (trigger.isOpened$$()) {
+    <div pheadSidebarDrawerSectionContent>
+      <div class="flex flex-col px-3 pb-3 gap-2">
+        <p class="text-sm font-medium tracking-tighter text-accent-800 dark:text-accent-200">Last updated</p>
+        @if (skill) {
+          <phead-time-display [date]="skill.updatedAt" [format]="'YYYY MMM dd, HH:mm'"></phead-time-display>
+        }
+        <p class="text-sm font-medium tracking-tighter text-accent-800 dark:text-accent-200">Created at</p>
+        @if (skill) {
+          <phead-time-display [date]="skill.createdAt" [format]="'YYYY MMM dd, HH:mm'"></phead-time-display>
+        }
+      </div>
+      <a pheadHoverable class="rounded-1 mx-1 py-2 text-sm text-primary-700 dark:text-primary-500" [routerLink]="['edit']">Edit Details</a>
+    </div>
+  }
+</div>

@@ -1,0 +1,55 @@
+<button
+  #button
+  pheadHoverable
+  [hoverableEnabled]="sortDirective?.templateRef || filterDirective?.templateRef"
+  [ngClass]="{
+    'bg-hover': overlayRef != null,
+    'justify-end': rightAligned,
+  }"
+  class="justify-start"
+  (click)="openFilter(button)"
+>
+  <ng-content></ng-content>
+  @if (sortDirective?.templateRef || filterDirective?.templateRef) {
+    @if (rightAligned) {
+      <div class="shrink-0 basis-1"></div>
+    } @else {
+      <div class="grow"></div>
+    }
+    @if (!filtered && !sortedAsc && !sortedDesc) {
+      <i class="icon-4">arrow_drop_down</i>
+    } @else {
+      <div class="flex gap-2">
+        @if (filtered) {
+          <div class="rounded-full bg-primary-300 dark:bg-primary-600 text-primary-950 p-0.5 -my-0.5">
+            <i class="icon-4">filter_alt</i>
+          </div>
+        }
+        @if (sortedAsc) {
+          <div class="rounded-full bg-primary-300 dark:bg-primary-600 text-primary-950 p-0.5 -my-0.5">
+            <i class="icon-4 rotate-180 -scale-x-100">sort</i>
+          </div>
+        } @else if (sortedDesc) {
+          <div class="rounded-full bg-primary-300 dark:bg-primary-600 text-primary-950 p-0.5 -my-0.5">
+            <i class="icon-4">sort</i>
+          </div>
+        }
+      </div>
+    }
+  }
+</button>
+<ng-template #filterPopup>
+  <div class="bg-lunar-green-200 dark:bg-lunar-green-800 border rounded-1 px-3 py-2 w-full overflow-auto max-h-full">
+    <div class="flex flex-col">
+      @if (sortDirective?.templateRef) {
+        <ng-container [ngTemplateOutlet]="sortDirective!.templateRef"></ng-container>
+      }
+      @if (sortDirective?.templateRef && filterDirective?.templateRef) {
+        <div class="border-t my-2 -mx-3"></div>
+      }
+      @if (filterDirective?.templateRef) {
+        <ng-container [ngTemplateOutlet]="filterDirective!.templateRef"></ng-container>
+      }
+    </div>
+  </div>
+</ng-template>

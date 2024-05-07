@@ -1,0 +1,27 @@
+<phead-layered-container>
+  <div
+    pheadSidebarContainer
+    cdkVirtualScrollingElement
+    cdkScrollable
+  >
+    <div pheadSidebarBreadcrumbs>
+      <phead-breadcrumbs></phead-breadcrumbs>
+    </div>
+    <phead-sidebar-content>
+      <div *pheadSidebarMain class="flex flex-col gap-4 pt-4">
+        <div class="grid grid-cols-[min-content,1fr] gap-x-4 px-2">
+          @if (data$ | async; as data) {
+            @for (effect of data.effects; track effect.requiredNumberOfParts) {
+              <a
+                [routerLink]="['skill', effect.skillId]"
+                pheadHoverable
+                class="grid grid-cols-subgrid col-span-2 -mx-4 px-4 py-3 border-b last:border-b-0">
+                <mhw-set-bonus-effect [setBonusEffect]="effect"></mhw-set-bonus-effect>
+              </a>
+            }
+          }
+        </div>
+      </div>
+    </phead-sidebar-content>
+  </div>
+</phead-layered-container>

@@ -1,0 +1,149 @@
+<phead-layered-container>
+  <div
+    pheadSidebarContainer
+    cdkVirtualScrollingElement
+    cdkScrollable
+    pheadTabBarContainer
+  >
+    <div pheadSidebarBreadcrumbs>
+      <phead-breadcrumbs></phead-breadcrumbs>
+    </div>
+    <phead-sidebar-content>
+      <div *pheadSidebarMain class="flex flex-col gap-4 pt-4 px-4">
+        @if (data$ | async; as data) {
+          <div class="flex items-center gap-4">
+            <div class="hexagon-mask size-8" [style.background-color]="data.color"></div>
+            @if (data.name) {
+              <div class="flex items-baseline gap-1">
+                <h2>{{ data.name.jp }}</h2>
+                <h3>/ {{ data.name.en }}</h3>
+              </div>
+            }
+          </div>
+          @if (data.description) {
+            <div class="flex flex-col gap-1 text-secondary">
+              @if (data.description.jp) {
+                <p>{{ data.description.jp }}</p>
+              }
+              @if (data.description.en) {
+                <p>{{ data.description.en }}</p>
+              }
+            </div>
+          }
+          <phead-divider></phead-divider>
+          @for (level of data.levels; track $index) {
+            <div class="flex flex-col gap-1">
+              <div class="flex gap-4 items-center">
+                <div class="relative size-8">
+                  <div class="hexagon-mask absolute inset-0" [style.background-color]="data.color"></div>
+                  <span class="invert mix-blend-difference absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 font-bold" [style.color]="data.color">{{ level.level }}</span>
+                </div>
+                @if (level.description) {
+                  <div class="flex flex-col gap-1">
+                    @if (level.description.jp) {
+                      <p>{{ level.description.jp }}</p>
+                    }
+                    @if (level.description.en) {
+                      <p>{{ level.description.en }}</p>
+                    }
+                  </div>
+                }
+              </div>
+              <div class="ms-12 flex flex-col gap-1">
+                @for (effect of level.effects; track $index) {
+                  @switch (effect.type) {
+                    @case ('attack') {
+                      <div class="flex gap-1 items-center">
+                        <i class="icon-4 font-variation-fill">swords</i>
+                        <span class="text-primary-800 dark:text-primary-200">Attack</span>
+                        <span>{{ effect.calculationType === 'additive' ? '+' : 'x' }}</span>
+                        <span class="text-primary-500">{{ effect.value }}</span>
+                      </div>
+                    }
+                    @case ('affinity') {
+                      <div class="flex gap-1 items-center">
+                        <i class="icon-4">stat_3</i>
+                        <span class="text-primary-800 dark:text-primary-200">Affinity</span>
+                        <span>{{ effect.calculationType === 'additive' ? '+' : 'x' }}</span>
+                        <span class="text-primary-500">{{ effect.value }}{{ effect.calculationType === 'additive' ? '%' : '' }}</span>
+                      </div>
+                    }
+                    @case ('elementalAttack') {
+                      <div class="flex gap-1 items-center">
+                        @switch (effect.element) {
+                          @case ('fire') {
+                            <i class="icon-4 font-variation-fill text-red-700 dark:text-red-400">swords</i>
+                            <span class="text-red-700 dark:text-red-400">Fire Element</span>
+                          }
+                          @case ('water') {
+                            <i class="icon-4 font-variation-fill text-blue-700 dark:text-blue-500">swords</i>
+                            <span class="text-blue-700 dark:text-blue-500">Water Element</span>
+                          }
+                          @case ('thunder') {
+                            <i class="icon-4 font-variation-fill text-yellow-700 dark:text-yellow-500">swords</i>
+                            <span class="text-yellow-700 dark:text-yellow-500">Thunder Element</span>
+                          }
+                          @case ('ice') {
+                            <i class="icon-4 font-variation-fill text-cyan-700 dark:text-cyan-500">swords</i>
+                            <span class="text-cyan-700 dark:text-cyan-500">Ice Element</span>
+                          }
+                          @case ('dragon') {
+                            <i class="icon-4 font-variation-fill text-purple-700 dark:text-purple-500">swords</i>
+                            <span class="text-purple-700 dark:text-purple-500">Dragon Element</span>
+                          }
+                        }
+                        <span>{{ effect.calculationType === 'additive' ? '+' : 'x' }}</span>
+                        <span class="text-primary-500">{{ effect.value }}</span>
+                      </div>
+                    }
+                    @case ('defense') {
+                      <div class="flex gap-1 items-center">
+                        <i class="icon-4">shield</i>
+                        <span class="text-primary-800 dark:text-primary-200">Defense</span>
+                        <span>{{ effect.calculationType === 'additive' ? '+' : 'x' }}</span>
+                        <span class="text-primary-500">{{ effect.value }}</span>
+                      </div>
+                    }
+                    @case ('resistance') {
+                      <div class="flex gap-1 items-center">
+                        @switch (effect.element) {
+                          @case ('fire') {
+                            <i class="icon-4 font-variation-fill text-red-700 dark:text-red-400">shield</i>
+                            <span class="text-red-700 dark:text-red-400">Fire Resistance</span>
+                          }
+                          @case ('water') {
+                            <i class="icon-4 font-variation-fill text-blue-700 dark:text-blue-500">shield</i>
+                            <span class="text-blue-700 dark:text-blue-500">Water Resistance</span>
+                          }
+                          @case ('thunder') {
+                            <i class="icon-4 font-variation-fill text-yellow-700 dark:text-yellow-500">shield</i>
+                            <span class="text-yellow-700 dark:text-yellow-500">Thunder Resistance</span>
+                          }
+                          @case ('ice') {
+                            <i class="icon-4 font-variation-fill text-cyan-700 dark:text-cyan-500">shield</i>
+                            <span class="text-cyan-700 dark:text-cyan-500">Ice Resistance</span>
+                          }
+                          @case ('dragon') {
+                            <i class="icon-4 font-variation-fill text-purple-700 dark:text-purple-500">shield</i>
+                            <span class="text-purple-700 dark:text-purple-500">Dragon Resistance</span>
+                          }
+                        }
+                        <span>{{ effect.calculationType === 'additive' ? '+' : 'x' }}</span>
+                        <span class="text-primary-500">{{ effect.value }}</span>
+                      </div>
+                    }
+                  }
+                }
+              </div>
+            </div>
+          }
+        }
+      </div>
+      <phead-accordion>
+        <mhw-skill-drawer-info *pheadSidebarDrawer [skill]="data$ | async"></mhw-skill-drawer-info>
+        <mhw-skill-drawer-level-create *pheadSidebarDrawer [id]="id$ | async"></mhw-skill-drawer-level-create>
+        <mhw-skill-drawer-remove *pheadSidebarDrawer [skill]="data$ | async"></mhw-skill-drawer-remove>
+      </phead-accordion>
+    </phead-sidebar-content>
+  </div>
+</phead-layered-container>

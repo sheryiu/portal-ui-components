@@ -1,0 +1,18 @@
+<div class="phead-dirty-bar__now-editing">
+  <h3>Now Editing</h3>
+  <p>{{ currentEditing$$() }}</p>
+</div>
+@if (isLoading$$()) {
+  <div class="phead-dirty-bar__loading">
+    <!-- TODO -->
+  </div>
+} @else {
+  <div class="phead-dirty-bar__actions">
+    <button type="button" pheadHoverable (click)="onCancel()" role="button">
+      Cancel
+    </button>
+    <button type="submit" pheadHoverable pheadHardSurface color="gray" (click)="onSave()" role="button">
+      Save
+    </button>
+  </div>
+}

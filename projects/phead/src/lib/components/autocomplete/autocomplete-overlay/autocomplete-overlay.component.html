@@ -1,0 +1,18 @@
+<div class="phead-autocomplete-overlay" cdkTrapFocus [cdkTrapFocusAutoCapture]="false">
+  @for (item of data.data; track $index) {
+    <button
+      #options
+      pheadHoverable
+      role="option"
+      (click)="selectValue(item)"
+      [attr.data-selected]="selectedOption === options"
+    >
+      <div>
+        <ng-container
+          [ngTemplateOutlet]="data.templateRef"
+          [ngTemplateOutletContext]="{ $implicit: item }"
+        ></ng-container>
+      </div>
+    </button>
+  }
+</div>

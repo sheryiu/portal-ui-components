@@ -1,0 +1,15 @@
+<div class="phead-tab-bar-tabs">
+  @for (tab of tabs$$(); track tab.id) {
+    <button
+      #tabButton
+      type="button"
+      [ngClass]="{
+        'text-primary-700 dark:text-primary-500 font-medium': currentIndex === $index
+      }"
+      pheadHoverable
+      (click)="onTabClick(tab.id)"
+    >
+      {{ tab.label }}
+    </button>
+  }
+</div>

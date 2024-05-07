@@ -1,0 +1,337 @@
+.phead-background-graphics {
+  @apply absolute inset-0 -z-100;
+  canvas {
+    @apply size-full pointer-events-none bg-stone-100 dark:bg-black;
+  }
+}
+
+.phead-root-navigation {
+  @apply flex flex-col items-center border-e gap-4 z-[2000];
+  @apply px-3 pt-3 bg-side-content;
+
+  .phead-root-tabs {
+    @apply grow flex flex-col justify-center items-center gap-2 overflow-auto;
+
+    a {
+      @apply size-18 rounded-full flex-col gap-1;
+      &[data-active=true] {
+        @apply bg-hover text-primary-600 dark:text-primary-500;
+      }
+      i {
+        @apply icon-6 flex-none;
+      }
+      span {
+        @apply text-sm font-medium line-clamp-1;
+      }
+    }
+  }
+
+  .phead-root-options {
+    @apply border-t flex-none -mx-3 self-stretch;
+    @apply flex;
+  }
+}
+
+.phead-quick-access-backdrop {
+  @apply left-24 dark:bg-black/20 backdrop-blur-sm;
+}
+
+.phead-quick-access {
+  @apply border bg-side-content rounded-2;
+  @apply ms-6 my-6 w-80 absolute top-0 bottom-0;
+  @apply grid grid-cols-2 place-content-end p-2 gap-2 overflow-auto;
+  .phead-quick-access-component {
+    @apply size-full rounded-1;
+  }
+}
+
+.phead-layered-container {
+  @apply relative block h-full;
+  > .phead-layered-container-main {
+    @apply size-full transition duration-100 ease-out;
+    &:has(+ .phead-layered-container-full) {
+      @apply opacity-0 scale-[0.98];
+    }
+  }
+  > .phead-layered-container-child-bg {
+    @apply -ms-px inset-0 absolute lg:border-l bg-lunar-green-50 dark:bg-lunar-green-950;
+    &.phead-layered-container-half {
+      @apply xl:left-1/4 3xl:left-1/2;
+      @apply transition-[left];
+    }
+    &:has(+ .phead-layered-container-half .phead-layered-container-half) {
+      @apply xl:left-0 3xl:left-1/4;
+    }
+  }
+  > .phead-layered-container-child {
+    @apply absolute inset-0;
+    > * {
+      @apply inset-0;
+    }
+    > * > * {
+      // @apply py-4 sm:pe-4 max-sm:pb-16;
+    }
+    &:has(> router-outlet:only-child) {
+      @apply pointer-events-none;
+    }
+    &.phead-layered-container-half {
+      @apply xl:left-1/4 3xl:left-1/2;
+      @apply transition-[left];
+      &:has(.phead-layered-container-half) {
+        @apply xl:left-0 3xl:left-1/4;
+      }
+    }
+    &.phead-layered-container-full {
+    }
+  }
+}
+
+.phead-table {
+  @apply block size-full;
+
+  .phead-table-body {
+    @apply grid;
+    grid-template-columns: var(--phead-table-columns)
+  }
+
+  .phead-table-row {
+    @apply col-span-full grid grid-cols-subgrid;
+    > a {
+      @apply col-span-full grid grid-cols-subgrid border-b relative;
+      &[data-active=true] {
+        @apply bg-hover;
+      }
+    }
+  }
+  &.phead-table--borderless {
+    .phead-table-row > a {
+      @apply border-b-0;
+    }
+  }
+
+  .phead-table-row:last-child {
+    > a {
+      @apply border-b-0;
+    }
+  }
+
+  .phead-table-header-row {
+    @apply col-span-full grid grid-cols-subgrid border-b h-12;
+  }
+
+  .phead-table-footer-row {
+    @apply col-span-full grid grid-cols-1 items-center text-sm text-secondary uppercase h-12;
+  }
+
+  .phead-table-cell {
+    @apply px-4 py-2 truncate line-clamp-1 flex items-center;
+  }
+
+  .phead-table-header-cell {
+    @apply flex;
+    &:not(:last-child) {
+      @apply border-r;
+    }
+    > button {
+      @apply grow truncate whitespace-nowrap font-medium text-sm px-3.5 py-4;
+      @apply text-primary-800 dark:text-primary-200;
+    }
+  }
+}
+
+.phead-breadcrumbs {
+  @apply min-h-6 flex gap-0.5 items-center text-sm font-display;
+  > a {
+    @apply px-1.5 py-1.5 rounded-1 justify-start;
+    > span {
+      @apply truncate;
+    }
+  }
+  > i {
+    @apply icon-4 shrink-0 text-primary-800 dark:text-primary-50;
+  }
+}
+
+.phead-search-input {
+  @apply flex items-center justify-between gap-2 transition-colors;
+  &[data-popupvisible=true] {
+    @apply bg-hover;
+  }
+}
+
+.phead-tab-bar {
+  @apply block transition-all overflow-hidden;
+  .phead-tab-bar-tabs {
+    @apply w-full flex gap-1.5 transition-all sticky;
+    > button {
+      @apply basis-full grow rounded-1 px-1 h-8 truncate;
+    }
+  }
+  &[data-selected]:not([data-selected=""]) {
+    .phead-tab-bar-tabs {
+      @apply before:transition-all before:absolute before:left-[--phead-selected-tab-x] before:rounded-1 before:h-8 before:w-[--phead-selected-tab-width] before:border before:bg-hover;
+    }
+  }
+}
+
+.phead-tab-bar-header {
+  @apply bg-hover text-primary-700 dark:text-primary-500 text-base font-medium;
+  @apply border border-s-0 rounded-e-1 py-1 ps-4 pe-2 min-h-11;
+  @apply flex justify-between items-center gap-2;
+}
+
+.phead-segmented-options {
+  > div > div {
+    @apply flex flex-col items-stretch gap-0.5 rounded-1 bg-lunar-green-200 dark:bg-lunar-green-800 border p-px;
+    @apply @[16rem]/segmented-options:flex-row @[16rem]/segmented-options:items-center;
+  }
+  input[type=radio] {
+    @apply hidden;
+  }
+  .phead-segmented-options-button {
+    @apply text-sm rounded-1 px-1 py-1.5;
+    @apply w-full @[16rem]/segmented-options:grow @[16rem]/segmented-options:w-auto;
+    &[data-checked=false] {
+      @apply bg-none;
+    }
+  }
+}
+
+.phead-linear-progress-display {
+  @apply w-full flex items-center gap-1 overflow-hidden;
+}
+
+.phead-global-search-backdrop {
+  @apply bg-black/10 dark:bg-black/20 backdrop-blur-lg size-full grid gap-x-6 gap-y-6;
+  grid-template-areas: "button input input"
+                        "empty results actions";
+  grid-template-columns: max-content 1fr;
+  grid-template-rows: max-content 1fr;
+}
+
+.phead-dirty-bar {
+  @apply absolute bottom-0 left-0 right-0 z-[100] py-4 px-6;
+  @apply border-t dark:bg-primary-700 dark:text-primary-50;
+  @apply flex justify-between items-center;
+  .phead-dirty-bar__now-editing {
+    @apply flex flex-col;
+    p {
+      @apply font-medium tracking-tight;
+    }
+    h3 {
+      @apply dark:text-primary-100;
+    }
+  }
+  .phead-dirty-bar__actions {
+    @apply flex gap-2;
+    button {
+      @apply px-4 py-2 rounded-1;
+    }
+  }
+}
+
+.phead-fieldset {
+  @apply grid grid-cols-1 @2xs/fieldset:grid-cols-2;
+  .phead-fieldset__label {
+    @apply flex justify-between items-center;
+    @apply py-1 ps-4 pe-2 gap-1;
+  }
+  .phead-fieldset__label__type {
+    @apply text-sm uppercase font-medium text-primary-800 dark:text-primary-200;
+  }
+  .phead-fieldset__input {
+    @apply flex justify-between items-center gap-2;
+    @apply py-1 px-2 min-h-10;
+    button {
+      @apply px-2 rounded-1 text-sm flex-none;
+    }
+    button.phead-fieldset__input__remove {
+      @apply self-center aspect-square;
+    }
+    button.phead-fieldset__input__add {
+    }
+  }
+  .phead-fieldset__input-field {
+    @apply flex shrink bg-lunar-green-200 dark:bg-lunar-green-800 rounded-1 min-h-8 overflow-hidden;
+    &:not(:only-child) {
+      @apply grow;
+    }
+    &:has(:focus-visible) {
+      @apply outline outline-2 outline-primary-500 bg-primary-50 dark:bg-primary-950;
+    }
+
+    &.phead-fieldset__input-field--boolean {
+      @apply grow-0 px-1;
+      &:has(> input:checked) {
+        @apply flex-row-reverse;
+      }
+      > button {
+        @apply my-1;
+      }
+      > span {
+        @apply px-1 self-center text-sm uppercase w-[5ch] tracking-tight font-medium text-center select-none;
+      }
+      input:checked ~ span {
+        @apply text-secondary;
+      }
+    }
+  }
+}
+
+.phead-autocomplete-overlay {
+  @apply flex flex-col items-stretch;
+  @apply bg-lunar-green-800 border rounded-1;
+  > button {
+    @apply text-start min-h-8;
+    &[data-selected=true] {
+      @apply bg-hover;
+    }
+    > div {
+      @apply grow px-2 py-0.5;
+    }
+  }
+}
+
+.phead-sidebar-container {
+  @apply relative h-full overflow-x-hidden overflow-y-auto flex flex-col;
+  contain: strict;
+}
+.phead-sidebar-container__breadcrumbs {
+  @apply sticky top-0 px-3 py-2 flex-none border-b bg-side-content z-100;
+}
+.phead-sidebar-container__content {
+  @apply grow flex relative;
+  > .phead-sidebar-container__content__main {
+    @apply gutter-stable grow relative;
+  }
+  > .phead-sidebar-container__content__drawer {
+    @apply flex flex-col gap-2 shrink-0 grow-0 sticky top-12 p-2 overflow-y-auto;
+    height: calc(100dvh - 3rem - 2px);
+    max-width: 40%;
+  }
+}
+
+.phead-sidebar-drawer-section {
+  @apply flex flex-col;
+  @apply border rounded-1 overflow-hidden transition-colors;
+
+  .phead-sidebar-drawer-section__header {
+    @apply px-2 py-3;
+    @apply flex justify-start gap-2;
+    @apply text-primary-700 dark:text-primary-500 font-medium;
+
+    > i {
+      @apply icon-5;
+    }
+  }
+
+  .phead-sidebar-drawer-section__content {
+    @apply flex flex-col gap-1 items-stretch py-1 overflow-hidden;
+  }
+}
+
+.phead-divider {
+  > div {
+    @apply w-full border-t;
+  }
+}

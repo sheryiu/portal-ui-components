@@ -1,0 +1,32 @@
+<!-- top -->
+@if (logo) {
+  <button class="shrink-0 w-fit sm:w-18 rounded-2" pheadHoverable>
+    <ng-container [ngComponentOutlet]="logo.component"></ng-container>
+  </button>
+}
+<phead-global-search-button></phead-global-search-button>
+<!-- tabs -->
+<div
+  class="phead-root-tabs"
+>
+  @for (tab of tabs; track tab.id) {
+    <a
+      pheadHoverable
+      [routerLink]="tab.routerLink"
+      routerLinkActive
+      #active="routerLinkActive"
+      [attr.data-active]="active.isActive"
+    >
+      <i [class.font-variation-fill]="active.isActive">{{ tab.icon }}</i>
+      @if (tab.label) {
+        <span>{{ tab.label }}</span>
+      }
+    </a>
+  }
+</div>
+<!-- bottom -->
+<div class="phead-root-options">
+  <button pheadHoverable class="w-full py-3" (click)="onUserClick($event)">
+    <i class="icon-6 font-variation-fill">person</i>
+  </button>
+</div>

@@ -1,0 +1,59 @@
+@import '@angular/cdk/overlay-prebuilt.css';
+
+@layer phead-styles {
+  @tailwind base;
+  @tailwind components;
+  @import '../../phead/src/lib/base/index';
+  @import '../../phead/src/lib/components/index';
+}
+
+@tailwind utilities;
+
+*, *::before, *::after {
+  @apply border-black/10;
+  // TODO: add option to disable animations
+  transition: none !important;
+}
+:where(.dark *), :where(.dark *::before), :where(.dark *::after) {
+  @apply border-white/10;
+}
+
+:root {
+  --color-hover: 0 0 0;
+  --color-hover-opacity: 0.05;
+  --color-secondary: 120 120 120;
+}
+
+:root.dark {
+  --color-hover: 255 255 255;
+  --color-hover-opacity: 0.05;
+  --color-secondary: 173 173 173;
+  color-scheme: dark;
+}
+
+// TODO check for windows/linux
+@media (hover: hover) {
+  ::-webkit-scrollbar {
+    background: hsl(0, 0%, 15%);
+    width: 0.625rem;
+    height: 0.625rem;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    border-radius: 9999px;
+    box-shadow: inset 0 0 0 10rem hsl(0, 0%, 35%);
+    border: 0.1875rem solid transparent;
+    min-height: 3rem;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    border-radius: 9998px;
+    box-shadow: inset 0 0 0 10px hsl(0, 0%, 55%);
+  }
+  ::-webkit-scrollbar-thumb:active {
+    box-shadow: inset 0 0 0 10px hsl(0, 0%, 75%);
+  }
+
+  ::-webkit-scrollbar-corner {
+    background: transparent;
+  }
+}

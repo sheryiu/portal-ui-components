@@ -1,0 +1,32 @@
+@switch (size) {
+  @case (1) {
+    <div class="border-current border-2 rounded-full aspect-square m-[20%]"></div>
+  }
+  @case (2) {
+    <div class="grid grid-cols-2 grid-rows-2 size-full">
+      <div class="flex justify-end col-span-2">
+        <div class="border-current border-2 rounded-full aspect-square h-full"></div>
+      </div>
+      <div class="flex justify-start col-span-2">
+        <div class="border-current border-2 rounded-full aspect-square h-full"></div>
+      </div>
+    </div>
+  }
+  @case (3) {
+    <div class="grid grid-cols-2 grid-rows-2 gap-0.5 size-full">
+      <div class="border-current border-2 rounded-full aspect-square"></div>
+      <div class="border-current border-2 rounded-full aspect-square"></div>
+      <div class="flex justify-center col-span-2">
+        <div class="border-current border-2 rounded-full aspect-square h-full"></div>
+      </div>
+    </div>
+  }
+  @case (4) {
+    <div class="grid grid-cols-2 grid-rows-2 gap-0.5 size-full">
+      <div class="border-current border-2 rounded-full aspect-square"></div>
+      <div class="border-current border-2 rounded-full aspect-square"></div>
+      <div class="border-current border-2 rounded-full aspect-square"></div>
+      <div class="border-current border-2 rounded-full aspect-square"></div>
+    </div>
+  }
+}

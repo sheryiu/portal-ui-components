@@ -1,0 +1,19 @@
+<div pheadSidebarDrawerSection [class.bg-side-content]="trigger.isOpened$$()">
+  <button
+    pheadSidebarDrawerSectionHeader
+    pheadHoverable
+    role="button"
+    type="button"
+    pheadAccordionTrigger
+    #trigger="accordionTrigger"
+    [ngClass]="{ '!text-primary-950 dark:!text-primary-50': !trigger.isOpened$$() }"
+  >
+    <i>delete</i>
+    <p>Remove</p>
+  </button>
+  @if (trigger.isOpened$$()) {
+    <div pheadSidebarDrawerSectionContent>
+      <button pheadHoverable class="rounded-1 mx-1 py-2 text-sm text-red-700 dark:text-red-500" (click)="onRemoveClick()" [disabled]="armor == null">Remove</button>
+    </div>
+  }
+</div>

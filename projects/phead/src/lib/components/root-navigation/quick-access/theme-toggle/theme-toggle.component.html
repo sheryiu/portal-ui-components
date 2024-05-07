@@ -1,0 +1,33 @@
+<button
+  pheadQuickAccessComponent
+  type="button"
+  class="rounded-1 px-4 py-2 bg-hover"
+  (click)="onChangeTheme()"
+>
+  <div class="flex flex-col items-center gap-1">
+    <span class="uppercase font-bold tracking-tight text-primary-700 dark:text-primary-300">Theme</span>
+    <div class="overflow-hidden w-12">
+      <div
+        class="grid grid-cols-3 w-36 transition-transform"
+        [ngClass]="{
+          'translate-x-0': userPreference$$() === 'light',
+          '-translate-x-1/3': userPreference$$() === 'dark',
+          '-translate-x-2/3': userPreference$$() === 'system',
+        }"
+      >
+        <div class="flex flex-col items-center w-12 gap-0.5">
+          <span class="font-light text-sm">Light</span>
+          <i class="icon-6">light_mode</i>
+        </div>
+        <div class="flex flex-col items-center w-12 gap-0.5">
+          <span class="font-light text-sm">Dark</span>
+          <i class="icon-6">dark_mode</i>
+        </div>
+        <div class="flex flex-col items-center w-12 gap-0.5">
+          <span class="font-light text-sm">System</span>
+          <i class="icon-6">phone_iphone</i>
+        </div>
+      </div>
+    </div>
+  </div>
+</button>

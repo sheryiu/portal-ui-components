@@ -1,0 +1,16 @@
+<div class="flex items-center gap-2 w-full">
+  {{ armorSkill.skillId }}
+  <!-- @if (armorSkill.skillId | skillData | async; as skill) {
+    <div class="hexagon-mask size-6 shrink-0" [style.background-color]="skill.color"></div>
+    <div class="flex flex-col gap-0.5 grow">
+      <phead-multilingual-text-display [value]="skill.name"></phead-multilingual-text-display>
+      <p class="text-sm text-secondary"><phead-multilingual-text-display [value]="skill.description"></phead-multilingual-text-display></p>
+    </div>
+    <div class="shrink-0 text-secondary uppercase font-bold">
+      <span>Lv {{ armorSkill.levels }}</span>
+    </div>
+  } -->
+  <div class="shrink-0 text-secondary uppercase font-bold">
+    <span>Lv {{ armorSkill.levels }}</span>
+  </div>
+</div>

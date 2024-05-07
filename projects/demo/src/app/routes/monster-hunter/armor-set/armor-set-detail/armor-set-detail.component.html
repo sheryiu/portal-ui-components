@@ -1,0 +1,58 @@
+<phead-layered-container>
+  <div
+    pheadSidebarContainer
+    cdkVirtualScrollingElement
+    cdkScrollable
+  >
+    <div pheadSidebarBreadcrumbs>
+      <phead-breadcrumbs></phead-breadcrumbs>
+    </div>
+    <phead-sidebar-content>
+      <phead-fieldset *pheadSidebarMain [formControl]="formControl" (valueChange)="onInput()">
+        <phead-field-def
+          key="name>en"
+          label="English Name"
+          fieldType="string"
+          [fieldConfig]="{}"
+        ></phead-field-def>
+        <phead-field-def
+          key="name>jp"
+          label="Japanese Name"
+          fieldType="string"
+          [fieldConfig]="{}"
+        ></phead-field-def>
+        <phead-field-def
+          key="rarity"
+          label="Rarity"
+          fieldType="number"
+          [fieldConfig]="{}"
+        ></phead-field-def>
+        <phead-field-def
+          key="rank"
+          label="Rank"
+          fieldType="string"
+          [fieldConfig]="{
+            enum: ['base', 'iceborne']
+          }"
+        ></phead-field-def>
+        <phead-field-def
+          key="setBonusId"
+          label="Set Bonus"
+          fieldType="string"
+          [fieldConfig]="{
+          }"
+        ></phead-field-def>
+        <phead-field-def
+          key="createdAt"
+          label="Created At"
+          fieldType="date-time"
+        ></phead-field-def>
+        <phead-field-def
+          key="updatedAt"
+          label="Updated At"
+          fieldType="date-time"
+        ></phead-field-def>
+      </phead-fieldset>
+    </phead-sidebar-content>
+  </div>
+</phead-layered-container>

@@ -1,0 +1,51 @@
+<phead-layered-container>
+  <div
+    pheadSidebarContainer
+    cdkVirtualScrollingElement
+    cdkScrollable
+  >
+    <div pheadSidebarBreadcrumbs>
+      <phead-breadcrumbs></phead-breadcrumbs>
+    </div>
+    <phead-sidebar-content>
+      <phead-table
+        *pheadSidebarMain
+        itemHeight="48"
+        [columns]="['name']"
+        [columnWidths]="['1fr']"
+      >
+        <phead-table-header-cell *pheadTableHeaderCellDef="'name'" [filtered]="filterByName$$() != null">
+          Name
+          <phead-table-filter-by-text *pheadTableHeaderCellFilter [value]="filterByName$$()" (valueChange)="onChangeFilter({ name: $event })"></phead-table-filter-by-text>
+        </phead-table-header-cell>
+        <phead-table-cell *pheadTableCellDef="'name'; let item">
+          {{ item.name?.jp }} / {{ item.name?.en }}
+        </phead-table-cell>
+
+        <cdk-virtual-scroll-viewport itemSize [extraHeight]="48 * 2">
+          <phead-table-body>
+            <phead-table-header-row>
+            </phead-table-header-row>
+            <phead-table-row
+              *cdkVirtualFor="let item of data$ | async; trackBy: trackingFn"
+              pheadHoverable
+              [route]="[item.id]"
+              [item]="item"
+            >
+            </phead-table-row>
+            @if (data$ | async; as data) {
+              <phead-table-footer-row class="px-4 py-1">
+                <phead-table-simple-footer [dataCount]="data.length"></phead-table-simple-footer>
+              </phead-table-footer-row>
+            } @else {
+              <mhw-loading-footer></mhw-loading-footer>
+            }
+          </phead-table-body>
+        </cdk-virtual-scroll-viewport>
+      </phead-table>
+      <phead-accordion>
+        <mhw-armor-set-bonus-list-drawer-create *pheadSidebarDrawer></mhw-armor-set-bonus-list-drawer-create>
+      </phead-accordion>
+    </phead-sidebar-content>
+  </div>
+</phead-layered-container>

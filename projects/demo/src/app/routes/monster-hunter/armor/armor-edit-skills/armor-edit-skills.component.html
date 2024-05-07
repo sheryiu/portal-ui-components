@@ -1,0 +1,32 @@
+<form
+  class="size-full relative flex flex-col overflow-x-hidden overflow-y-auto gutter-stable"
+  cdkVirtualScrollingElement
+  cdkScrollable
+  (submit)="onSave()"
+>
+  <div class="bg-deep-glass grow p-2">
+    <div class="flex flex-col">
+      <phead-simple-header pheadStickyHeader color="accent">
+        <h2 *pheadHeader>Edit Skills</h2>
+      </phead-simple-header>
+      <div class="flex flex-col gap-4 pt-4" [formGroup]="formGroup">
+        @for (control of formGroup.controls.skills.controls; track $index) {
+          <ng-container [formGroup]="control">
+            <app-armor-skill-edit
+              (removeSkill)="removeSkill($index)"
+            ></app-armor-skill-edit>
+          </ng-container>
+        }
+        <app-armor-skill-new
+          (addSkill)="addSkill(formGroup.controls.skills.length)"
+        ></app-armor-skill-new>
+      </div>
+    </div>
+  </div>
+  <phead-form-submit
+    [dirty]="true"
+    [disabled]="formGroup.disabled || formGroup.invalid"
+    (saveClick)="onSave()"
+    (cancelClick)="onCancel()"
+  ></phead-form-submit>
+</form>

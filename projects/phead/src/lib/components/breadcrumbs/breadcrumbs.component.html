@@ -1,0 +1,12 @@
+@for (breadcrumb of breadcrumbs$ | async; track breadcrumb.id) {
+  <a
+    pheadHoverable
+    [routerLink]="['./']"
+    [relativeTo]="breadcrumb.route"
+    >
+    <span>{{ breadcrumb.title }}</span>
+  </a>
+  @if (!$last) {
+    <i>chevron_right</i>
+  }
+}
