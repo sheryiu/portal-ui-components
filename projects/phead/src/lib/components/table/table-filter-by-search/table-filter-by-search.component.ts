@@ -4,7 +4,7 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, Ev
 import { ControlValueAccessor, FormBuilder, FormsModule, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
 import { EffectFn } from '@ngneat/effects-ng';
 import { Observable, ReplaySubject, startWith, tap } from 'rxjs';
-import { HoverableDirective, InputFieldDirective } from '../../../base';
+import { HoverableDirective } from '../../../base';
 import { SEARCH_SUGGESTION, SearchInputLabelDirective, SearchInputSuggestionItemDirective, SearchSuggestion } from '../../form';
 
 @Component({
@@ -16,7 +16,6 @@ import { SEARCH_SUGGESTION, SearchInputLabelDirective, SearchInputSuggestionItem
     AsyncPipe,
     NgTemplateOutlet,
     ScrollingModule,
-    InputFieldDirective,
     HoverableDirective,
   ],
   templateUrl: './table-filter-by-search.component.html',

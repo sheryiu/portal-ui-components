@@ -10,7 +10,7 @@ import { PheadOverlayRef } from '../phead-overlay-ref';
   imports: [NgComponentOutlet, NgTemplateOutlet],
   templateUrl: './overlay-container.component.html',
   host: {
-    class: 'core-overlay-container',
+    class: 'phead-overlay-container',
   },
   animations: [
     trigger('appear', [

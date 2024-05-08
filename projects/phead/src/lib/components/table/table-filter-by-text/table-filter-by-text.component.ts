@@ -1,6 +1,5 @@
 import { Component, EventEmitter, Input, Output, forwardRef, inject } from '@angular/core';
 import { ControlValueAccessor, FormBuilder, FormsModule, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
-import { InputFieldDirective } from '../../../base';
 
 @Component({
   selector: 'phead-table-filter-by-text',
@@ -8,7 +7,6 @@ import { InputFieldDirective } from '../../../base';
   imports: [
     FormsModule,
     ReactiveFormsModule,
-    InputFieldDirective,
   ],
   templateUrl: './table-filter-by-text.component.html',
   styles: ``,

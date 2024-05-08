@@ -41,7 +41,7 @@ import { ArmorListDrawerCreateComponent } from './armor-list-drawer-create/armor
     })
   ],
   styles: `
-  .core-table-column-createdAt {
+  .phead-table-column-createdAt {
     @apply justify-end;
   }
   `

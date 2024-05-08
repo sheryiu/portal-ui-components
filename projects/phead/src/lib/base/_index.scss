@@ -8,10 +8,6 @@
   }
 }
 
-.phead-input-field {
-  @apply w-full outline-none bg-transparent hover:bg-hover focus-visible:bg-hover transition-colors;
-}
-
 .phead-sticky-header {
   @apply sticky z-50;
 }

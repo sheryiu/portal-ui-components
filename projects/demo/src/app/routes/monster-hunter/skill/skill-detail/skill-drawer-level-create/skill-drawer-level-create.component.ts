@@ -1,7 +1,7 @@
 import { Component, Input, inject } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { EffectFn } from '@ngneat/effects-ng';
-import { AccordionModule, DividerComponent, FieldModule, SidebarModule } from 'phead';
+import { AccordionModule, DividerComponent, FieldModule, SegmentedOptionsModule, SidebarModule } from 'phead';
 import { EMPTY, catchError, exhaustMap, filter, tap } from 'rxjs';
 import { SkillEffect, SkillLevel } from '../../../../../data/skill';
 import { SharedModule } from '../../../../../shared/shared.module';
@@ -16,6 +16,7 @@ import { SkillLevelCreateInput, SkillService } from '../../../../../store/skill.
     FieldModule,
     SidebarModule,
     DividerComponent,
+    SegmentedOptionsModule,
   ],
   templateUrl: './skill-drawer-level-create.component.html',
   styles: ``

@@ -3,9 +3,7 @@
     <button
       #tabButton
       type="button"
-      [ngClass]="{
-        'text-primary-700 dark:text-primary-500 font-medium': currentIndex === $index
-      }"
+      [attr.data-active]="currentIndex === $index"
       pheadHoverable
       (click)="onTabClick(tab.id)"
     >

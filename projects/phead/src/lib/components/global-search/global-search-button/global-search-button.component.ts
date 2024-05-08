@@ -3,7 +3,7 @@ import { Component, ElementRef, PLATFORM_ID, ViewChild, inject } from '@angular/
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { HotkeysService } from '@ngneat/hotkeys';
 import { HoverableDirective, PheadOverlayRef, PheadOverlayService } from '../../../base';
-import { GlobalSearchComponent, GlobalSearchData } from '../global-search.component';
+import { GlobalSearchComponent, GlobalSearchData } from '../global-search-overlay/global-search-overlay.component';
 
 @Component({
   selector: 'phead-global-search-button',

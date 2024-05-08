@@ -6,10 +6,10 @@ import { ActivatedRoute, RouterLink } from '@angular/router';
 import { HotkeysService } from '@ngneat/hotkeys';
 import Fuse from 'fuse.js';
 import { Subject, combineLatest, combineLatestWith, map, shareReplay } from 'rxjs';
-import { HardSurfaceDirective, HoverableDirective, OVERLAY_DATA, PheadOverlayRef, filterNonNull } from '../../base';
-import { FuseHighlightPipe } from './fuse-highlight.pipe';
-import { GlobalSearchAction } from './global-search';
-import { GlobalSearchService } from './global-search.service';
+import { HardSurfaceDirective, HoverableDirective, OVERLAY_DATA, PheadOverlayRef, filterNonNull } from '../../../base';
+import { FuseHighlightPipe } from '../fuse-highlight.pipe';
+import { GlobalSearchAction } from '../global-search';
+import { GlobalSearchService } from '../global-search.service';
 
 export type GlobalSearchData = {
   originPosition: {
@@ -21,7 +21,7 @@ export type GlobalSearchData = {
 }
 
 @Component({
-  selector: 'core-global-search',
+  selector: 'phead-global-search-overlay',
   standalone: true,
   imports: [
     HoverableDirective,
@@ -32,7 +32,7 @@ export type GlobalSearchData = {
     RouterLink,
     FuseHighlightPipe,
   ],
-  templateUrl: './global-search.component.html',
+  templateUrl: './global-search-overlay.component.html',
   styles: ``
 })
 export class GlobalSearchComponent {

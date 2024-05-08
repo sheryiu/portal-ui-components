@@ -128,14 +128,52 @@
   }
 
   .phead-table-header-cell {
-    @apply flex;
-    &:not(:last-child) {
-      @apply border-r;
+    @apply flex border-e;
+    &:last-child {
+      @apply border-e-0;
     }
     > button {
-      @apply grow truncate whitespace-nowrap font-medium text-sm px-3.5 py-4;
+      @apply grow justify-start truncate whitespace-nowrap font-medium text-sm px-3.5;
       @apply text-primary-800 dark:text-primary-200;
+      &[data-overlay=true] {
+        @apply bg-hover;
+      }
+      &[data-justify-end=true] {
+        @apply justify-end;
+      }
+
+      .phead-table-header-cell__gap {
+        @apply grow;
+      }
+      &[data-justify-end=true] {
+        .phead-table-header-cell__gap {
+          @apply grow-0 shrink-0 basis-1;
+        }
+      }
+
+      .phead-table-header-cell__state {
+        @apply flex gap-2;
+        .phead-table-header-cell__state__active {
+          @apply rounded-full bg-primary-300 dark:bg-primary-600 text-primary-950 p-0.5 -my-0.5;
+        }
+      }
+
+      i {
+        @apply icon-4;
+        &.phead-table-header-cell__sort-asc {
+          @apply rotate-180 -scale-x-100;
+        }
+      }
     }
+  }
+}
+
+.phead-table-header-cell-overlay {
+  @apply bg-lunar-green-200 dark:bg-lunar-green-800 border rounded-1 px-3 py-2 w-full overflow-auto max-h-full;
+  @apply flex flex-col;
+
+  phead-divider {
+    @apply my-2 -mx-3;
   }
 }
 
@@ -165,6 +203,9 @@
     @apply w-full flex gap-1.5 transition-all sticky;
     > button {
       @apply basis-full grow rounded-1 px-1 h-8 truncate;
+      &[data-active=true] {
+        @apply text-primary-700 dark:text-primary-500 font-medium;
+      }
     }
   }
   &[data-selected]:not([data-selected=""]) {
@@ -180,6 +221,10 @@
   @apply flex justify-between items-center gap-2;
 }
 
+.\@container\/segmented-options {
+  container-type: inline-size;
+  container-name: segmented-options;
+}
 .phead-segmented-options {
   > div > div {
     @apply flex flex-col items-stretch gap-0.5 rounded-1 bg-lunar-green-200 dark:bg-lunar-green-800 border p-px;
@@ -209,6 +254,13 @@
   grid-template-rows: max-content 1fr;
 }
 
+.phead-global-search-button {
+  @apply flex-col gap-1 bg-hover hover:bg-primary-200 dark:hover:bg-primary-800 rounded-full w-14 aspect-square self-center;
+  > i {
+    @apply icon-6 text-primary-950 dark:text-primary-50;
+  }
+}
+
 .phead-dirty-bar {
   @apply absolute bottom-0 left-0 right-0 z-[100] py-4 px-6;
   @apply border-t dark:bg-primary-700 dark:text-primary-50;
@@ -230,6 +282,10 @@
   }
 }
 
+.\@container\/fieldset {
+  container-type: inline-size;
+  container-name: fieldset;
+}
 .phead-fieldset {
   @apply grid grid-cols-1 @2xs/fieldset:grid-cols-2;
   .phead-fieldset__label {
@@ -244,20 +300,35 @@
     @apply py-1 px-2 min-h-10;
     button {
       @apply px-2 rounded-1 text-sm flex-none;
+      > i {
+        @apply icon-4;
+      }
     }
     button.phead-fieldset__input__remove {
       @apply self-center aspect-square;
     }
     button.phead-fieldset__input__add {
+      @apply self-stretch;
     }
   }
   .phead-fieldset__input-field {
-    @apply flex shrink bg-lunar-green-200 dark:bg-lunar-green-800 rounded-1 min-h-8 overflow-hidden;
+    @apply flex items-stretch shrink bg-lunar-green-200 dark:bg-lunar-green-800 rounded-1 min-h-8 overflow-hidden;
     &:not(:only-child) {
       @apply grow;
     }
     &:has(:focus-visible) {
       @apply outline outline-2 outline-primary-500 bg-primary-50 dark:bg-primary-950;
+    }
+
+    &.phead-fieldset__input-field--null {
+      > span {
+        @apply text-secondary px-2 leading-8 select-none;
+      }
+    }
+
+    > input[type="text"], input[type="number"], input[type="password"], input[type="email"], input[type="tel"] {
+      @apply outline-none min-h-8 px-2 py-0.5;
+      @apply bg-transparent hover:bg-hover focus-visible:bg-hover transition-colors;
     }
 
     &.phead-fieldset__input-field--boolean {

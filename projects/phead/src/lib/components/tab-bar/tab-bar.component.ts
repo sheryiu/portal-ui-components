@@ -1,18 +1,12 @@
-import { NgClass, isPlatformServer } from '@angular/common';
+import { isPlatformServer } from '@angular/common';
 import { AfterViewInit, Component, DestroyRef, ElementRef, HostBinding, NgZone, PLATFORM_ID, QueryList, ViewChildren, inject } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { EffectFn } from '@ngneat/effects-ng';
 import { animationFrameScheduler, auditTime, combineLatestWith, observeOn, tap, withLatestFrom } from 'rxjs';
-import { HoverableDirective } from '../../base';
 import { TabBarService } from './tab-bar.service';
 
 @Component({
   selector: 'phead-tab-bar',
-  standalone: true,
-  imports: [
-    NgClass,
-    HoverableDirective,
-  ],
   templateUrl: './tab-bar.component.html',
   host: {
     class: 'phead-tab-bar',

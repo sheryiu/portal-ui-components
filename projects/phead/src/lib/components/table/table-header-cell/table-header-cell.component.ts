@@ -1,7 +1,7 @@
 import { NgClass, NgTemplateOutlet, isPlatformBrowser } from '@angular/common';
 import { Component, ContentChild, Directive, ElementRef, Input, PLATFORM_ID, Renderer2, TemplateRef, ViewChild, booleanAttribute, inject } from '@angular/core';
-
 import { HoverableDirective, PheadOverlayRef, PheadOverlayService } from '../../../base';
+import { DividerComponent } from '../../divider';
 import { TableHeaderCellDefDirective } from './table-header-cell-def.directive';
 
 @Directive({
@@ -23,7 +23,12 @@ export class TableHeaderCellFilterDirective {
 @Component({
   selector: 'phead-table-header-cell',
   standalone: true,
-  imports: [HoverableDirective, NgClass, NgTemplateOutlet],
+  imports: [
+    HoverableDirective,
+    NgClass,
+    NgTemplateOutlet,
+    DividerComponent,
+  ],
   host: {
     class: 'phead-table-header-cell',
     role: 'cell',

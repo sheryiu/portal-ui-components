@@ -171,30 +171,6 @@ module.exports = {
           }
         });
         addComponents({
-          ".bg-glass": {
-            '.dark &': {
-              background: "radial-gradient(farthest-corner at top left, rgb(69 69 69 / 40%) 20%, rgb(29 29 29 / 70%))",
-              border: "1px solid rgba(255, 255, 255, 0.1)",
-            },
-            background: "radial-gradient(farthest-corner at top left, rgb(250 250 250 / 40%) 20%, rgb(240 240 240 / 70%))",
-            border: "1px solid rgba(0, 0, 0, 0.1)",
-            "border-radius": "16px",
-            "backdrop-filter": "blur(6px)",
-          },
-          ".bg-deep-glass": {
-            '.dark &': {
-              background: "radial-gradient(farthest-corner at top left, rgb(44 44 44), rgb(33 33 33))",
-            },
-            background: "radial-gradient(farthest-corner at top left, rgb(245 245 245) 60%, rgb(240 240 240))",
-            "border-radius": "16px",
-          },
-          ".bg-deep-glass-high-contrast": {
-            '.dark &': {
-              background: "radial-gradient(farthest-corner at top left, rgb(60 60 60), rgb(50 50 50))",
-            },
-            background: "radial-gradient(farthest-corner at top left, rgb(200 200 200), rgb(180 180 180))",
-            "border-radius": "16px",
-          },
           ".bg-side-content": {
             ".dark &": {
               background: "hsl(0deg 0% 8.5%)"
@@ -244,7 +220,6 @@ module.exports = {
             }
           }
         );
-        addVariant('has-focus-visible', '&:has(:focus-visible)');
         addUtilities({
           ".font-variation-fill": {
             "--font-variation-fill": '"FILL" 1',

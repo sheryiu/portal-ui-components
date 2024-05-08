@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { GlobalSearchButtonComponent } from './global-search-button/global-search-button.component';
-import { GlobalSearchComponent } from './global-search.component';
+import { GlobalSearchComponent } from './global-search-overlay/global-search-overlay.component';
 
 @NgModule({
   declarations: [],

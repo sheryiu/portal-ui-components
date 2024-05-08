@@ -4,7 +4,7 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, Ev
 import { ControlValueAccessor, FormBuilder, FormsModule, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
 import { EffectFn } from '@ngneat/effects-ng';
 import { ReplaySubject, startWith, tap } from 'rxjs';
-import { HoverableDirective, InputFieldDirective, PheadOverlayRef, PheadOverlayService } from '../../../base';
+import { HoverableDirective, PheadOverlayRef, PheadOverlayService } from '../../../base';
 import { SEARCH_SUGGESTION } from './search-input';
 import { SearchInputLabelDirective } from './search-input-label.directive';
 import { SearchInputSuggestionItemDirective } from './search-input-suggestion-item.directive';
@@ -19,7 +19,6 @@ import { SearchInputSuggestionItemDirective } from './search-input-suggestion-it
     AsyncPipe,
     ScrollingModule,
     HoverableDirective,
-    InputFieldDirective,
   ],
   host: {
     class: 'phead-search-input',

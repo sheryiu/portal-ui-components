@@ -10,7 +10,7 @@
         <!-- TODO number field will get turned to null when the input is empty -->
         @if (form.controls[fieldDef.key] && form.controls[fieldDef.key].value == null) {
           <div
-            class="phead-fieldset__input-field"
+            class="phead-fieldset__input-field phead-fieldset__input-field--null"
           >
             <button
               pheadHoverable
@@ -21,7 +21,7 @@
               type="button"
               class="phead-fieldset__input__add"
             >Add</button>
-            <span class="text-secondary px-2 leading-8 select-none">null</span>
+            <span>null</span>
           </div>
         } @else {
           @switch (fieldDef.fieldType) {
@@ -31,9 +31,7 @@
             >
               <input
                 [id]="fieldDef.key"
-                pheadInputField
                 type="text"
-                class="size-full min-h-8 px-2 py-0.5"
                 [formControlName]="fieldDef.key"
                 (input)="handleInput()"
                 pheadAutocompleteTrigger
@@ -50,9 +48,7 @@
             >
               <input
                 [id]="fieldDef.key"
-                pheadInputField
                 type="number"
-                class="size-full min-h-8 px-2 py-0.5"
                 [formControlName]="fieldDef.key"
                 (input)="handleInput()"
                 pheadAutocompleteTrigger
@@ -77,14 +73,12 @@
                 [date]="$any(form.controls[fieldDef.key].value)"
                 (dateChange)="onDateChange(fieldDef, $event)"
               >
-                <i class="icon-4">calendar_month</i>
+                <i>calendar_month</i>
               </button>
               <input
                 #dateTimeInput
                 [id]="fieldDef.key"
-                pheadInputField
                 type="string"
-                class="size-full min-h-8 px-2 py-0.5"
                 [formControlName]="fieldDef.key"
                 (input)="handleInput()"
               />
@@ -110,7 +104,7 @@
                 type="button"
                 (click)="booleanCheckbox.click()"
               >
-                <i class="icon-4">drag_indicator</i>
+                <i>drag_indicator</i>
               </button>
               <span>
                 {{ booleanCheckbox.checked ? 'On' : 'Off' }}
@@ -128,7 +122,7 @@
             (click)="onSetNull(fieldDef)"
             class="phead-fieldset__input__remove"
           >
-            <i class="icon-4">remove</i>
+            <i>remove</i>
           </button>
         }
       </div>
