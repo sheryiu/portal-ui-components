@@ -1,5 +1,5 @@
 import { FocusMonitor } from '@angular/cdk/a11y';
-import { Directive, ElementRef, EventEmitter, Input, Output, TemplateRef, inject } from '@angular/core';
+import { Directive, ElementRef, EventEmitter, HostBinding, Input, OnChanges, Output, SimpleChanges, TemplateRef, inject } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { PheadOverlayRef, PheadOverlayService } from '../../base';
 import { AutocompleteOverlayComponent, AutocompleteOverlayData } from './autocomplete-overlay/autocomplete-overlay.component';
@@ -8,11 +8,12 @@ import { AutocompleteOverlayComponent, AutocompleteOverlayData } from './autocom
   selector: 'input[pheadAutocompleteTrigger]',
   standalone: true
 })
-export class AutocompleteTriggerDirective<D> {
+export class AutocompleteTriggerDirective<D> implements OnChanges {
   @Input({ alias: 'autocompleteEnabled' }) enabled: boolean = false;
   @Input({ alias: 'autocompleteValues' }) values?: D[];
   @Input({ alias: 'autocompleteTemplateRef'}) templateRef?: TemplateRef<unknown>;
   @Output() autocompleteChange = new EventEmitter<D>();
+  @HostBinding('attr.autocomplete') private hostAutocomplete?: string;
 
   private overlay = inject(PheadOverlayService);
   private focusMonitor = inject(FocusMonitor);
@@ -29,6 +30,12 @@ export class AutocompleteTriggerDirective<D> {
           this.openOverlay();
         }
       })
+    }
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['enabled']) {
+      this.hostAutocomplete = this.enabled ? 'off' : undefined;
     }
   }
 

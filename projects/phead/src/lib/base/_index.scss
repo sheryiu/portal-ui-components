@@ -31,12 +31,12 @@
     @apply dark:text-primary-50;
   }
   &[data-color=default] {
-    // @apply from-lunar-green-50 to-lunar-green-100;
-    // @apply text-lunar-green-950;
-    // @apply dark:from-lunar-green-900 dark:to-lunar-green-950;
-    // @apply dark:text-lunar-green-50;
-    @apply dark:text-lunar-green-50;
-    @apply dark:bg-lunar-green-800;
+    // @apply from-neutral-50 to-neutral-100;
+    // @apply text-neutral-950;
+    // @apply dark:from-neutral-900 dark:to-neutral-950;
+    // @apply dark:text-neutral-50;
+    @apply dark:text-neutral-50;
+    @apply dark:bg-neutral-800;
   }
   &[data-color=primary] {
     // @apply from-primary-200 to-primary-300;

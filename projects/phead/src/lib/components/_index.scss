@@ -1,7 +1,7 @@
 .phead-background-graphics {
   @apply absolute inset-0 -z-100;
   canvas {
-    @apply size-full pointer-events-none bg-stone-100 dark:bg-black;
+    @apply size-full pointer-events-none bg-neutral-100 dark:bg-neutral-950;
   }
 }
 
@@ -54,7 +54,7 @@
     }
   }
   > .phead-layered-container-child-bg {
-    @apply -ms-px inset-0 absolute lg:border-l bg-lunar-green-50 dark:bg-lunar-green-950;
+    @apply -ms-px inset-0 absolute lg:border-l bg-neutral-50 dark:bg-neutral-950;
     &.phead-layered-container-half {
       @apply xl:left-1/4 3xl:left-1/2;
       @apply transition-[left];
@@ -169,7 +169,7 @@
 }
 
 .phead-table-header-cell-overlay {
-  @apply bg-lunar-green-200 dark:bg-lunar-green-800 border rounded-1 px-3 py-2 w-full overflow-auto max-h-full;
+  @apply bg-neutral-200 dark:bg-neutral-800 border rounded-1 px-3 py-2 w-full overflow-auto max-h-full;
   @apply flex flex-col;
 
   phead-divider {
@@ -227,7 +227,7 @@
 }
 .phead-segmented-options {
   > div > div {
-    @apply flex flex-col items-stretch gap-0.5 rounded-1 bg-lunar-green-200 dark:bg-lunar-green-800 border p-px;
+    @apply flex flex-col items-stretch gap-0.5 rounded-1 bg-neutral-200 dark:bg-neutral-800 border p-px;
     @apply @[16rem]/segmented-options:flex-row @[16rem]/segmented-options:items-center;
   }
   input[type=radio] {
@@ -312,7 +312,7 @@
     }
   }
   .phead-fieldset__input-field {
-    @apply flex items-stretch shrink bg-lunar-green-200 dark:bg-lunar-green-800 rounded-1 min-h-8 overflow-hidden;
+    @apply flex items-stretch shrink bg-neutral-200 dark:bg-neutral-800 rounded-1 min-h-8 overflow-hidden;
     &:not(:only-child) {
       @apply grow;
     }
@@ -327,7 +327,7 @@
     }
 
     > input[type="text"], input[type="number"], input[type="password"], input[type="email"], input[type="tel"] {
-      @apply outline-none min-h-8 px-2 py-0.5;
+      @apply outline-none min-h-8 px-2 py-0.5 w-full;
       @apply bg-transparent hover:bg-hover focus-visible:bg-hover transition-colors;
     }
 
@@ -351,7 +351,7 @@
 
 .phead-autocomplete-overlay {
   @apply flex flex-col items-stretch;
-  @apply bg-lunar-green-800 border rounded-1;
+  @apply bg-neutral-800 border rounded-1;
   > button {
     @apply text-start min-h-8;
     &[data-selected=true] {
@@ -404,5 +404,57 @@
 .phead-divider {
   > div {
     @apply w-full border-t;
+  }
+}
+
+.phead-theme-toggle {
+  @apply rounded-1 px-4 py-2 bg-hover;
+  @apply flex flex-col items-center gap-1;
+
+  .phead-theme-toggle__title {
+    @apply uppercase font-bold tracking-tight text-primary-700 dark:text-primary-300;
+  }
+
+  > div {
+    @apply overflow-hidden w-12;
+  }
+
+  .phead-theme-toggle__modes-wrapper {
+    @apply grid grid-cols-3 w-36 transition-[translate];
+  }
+  .phead-theme-toggle__mode {
+    @apply flex flex-col items-center w-12 gap-0.5;
+    > span {
+      @apply font-light text-sm;
+    }
+    > i {
+      @apply icon-6;
+    }
+  }
+}
+
+.phead-language-toggle {
+  @apply rounded-1 px-4 py-2 bg-hover;
+  @apply flex flex-col items-center gap-1;
+
+  .phead-language-toggle__title {
+    @apply uppercase font-bold tracking-tight text-primary-700 dark:text-primary-300;
+  }
+
+  > div {
+    @apply overflow-hidden w-12;
+  }
+
+  .phead-language-toggle__lang-wrapper {
+    @apply grid grid-cols-3 w-36 transition-[translate];
+  }
+  .phead-language-toggle__lang {
+    @apply flex flex-col items-center w-12 gap-0.5;
+    > span {
+      @apply font-light text-sm;
+    }
+    > i {
+      @apply icon-6;
+    }
   }
 }

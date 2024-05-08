@@ -14,7 +14,7 @@
     <i class="icon-6">arrow_back</i>
   </button>
   <div
-    class="grow border rounded-3 shadow-lg overflow-hidden bg-primary-200 dark:bg-lunar-green-800"
+    class="grow border rounded-3 shadow-lg overflow-hidden bg-primary-200 dark:bg-neutral-800"
     style="grid-area: input"
     (click)="$event.stopPropagation()"
     [style.marginTop.px]="originPosition.top"
@@ -90,7 +90,7 @@
           color="gray"
           (click)="onActionClick(action.item)"
           [ngClass]="{
-            'focus-visible:outline-2 focus-visible:outline focus-visible:outline-offset-2 focus-visible:outline-lunar-green-400 dark:focus-visible:outline-lunar-green-700': selectedElement == searchAction
+            'focus-visible:outline-2 focus-visible:outline focus-visible:outline-offset-2 focus-visible:outline-neutral-400 dark:focus-visible:outline-neutral-700': selectedElement == searchAction
           }"
           (focus)="selectedElement = searchAction"
         >

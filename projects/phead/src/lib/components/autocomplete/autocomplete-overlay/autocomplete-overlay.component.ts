@@ -3,7 +3,7 @@ import { NgTemplateOutlet } from '@angular/common';
 import { AfterViewInit, Component, ElementRef, QueryList, TemplateRef, ViewChildren, inject } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { HotkeysService } from '@ngneat/hotkeys';
-import { OVERLAY_DATA } from '../../../base';
+import { HoverableDirective, OVERLAY_DATA } from '../../../base';
 
 export type AutocompleteOverlayData<D> = {
   templateRef: TemplateRef<unknown>;
@@ -17,6 +17,7 @@ export type AutocompleteOverlayData<D> = {
   imports: [
     NgTemplateOutlet,
     A11yModule,
+    HoverableDirective,
   ],
   templateUrl: './autocomplete-overlay.component.html',
 })

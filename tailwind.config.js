@@ -93,19 +93,19 @@ module.exports = {
           '900': '#2f454c',
           '950': '#1b2d31',
         },
-        'lunar-green': {
-          '50': '#f7f8f7',
-          '100': '#e3e4e2',
-          '200': '#c7cac4',
-          '300': '#a3a6a0',
-          '400': '#7f837c',
-          '500': '#666a62',
-          '600': '#51544f',
-          '700': '#4a4c48',
-          '800': '#282a28',
-          '900': '#212220',
-          '950': '#0a0a0a',
-        },
+        // 'neutral': {
+        //   '50': '#f7f8f7',
+        //   '100': '#e3e4e2',
+        //   '200': '#c7cac4',
+        //   '300': '#a3a6a0',
+        //   '400': '#7f837c',
+        //   '500': '#666a62',
+        //   '600': '#51544f',
+        //   '700': '#4a4c48',
+        //   '800': '#282a28',
+        //   '900': '#212220',
+        //   '950': '#0a0a0a',
+        // },
       },
       minWidth: ({ theme }) => ({
         ...theme("spacing"),
@@ -173,9 +173,9 @@ module.exports = {
         addComponents({
           ".bg-side-content": {
             ".dark &": {
-              background: "hsl(0deg 0% 8.5%)"
+              background: theme('colors.neutral.800')
             },
-            background: "hsl(0deg 0% 92%)"
+            background: theme('colors.neutral.200')
           }
         });
         matchUtilities(
