@@ -171,11 +171,11 @@ module.exports = {
           }
         });
         addComponents({
-          ".bg-side-content": {
+          ".bg-drawer-content": {
             ".dark &": {
-              background: theme('colors.neutral.800')
+              background: theme('colors.neutral.900')
             },
-            background: theme('colors.neutral.200')
+            background: theme('colors.neutral.100')
           }
         });
         matchUtilities(

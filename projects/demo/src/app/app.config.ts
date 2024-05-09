@@ -5,7 +5,7 @@ import { provideNoopAnimations } from '@angular/platform-browser/animations';
 import { NoPreloading, PreloadAllModules, provideRouter, withPreloading, withRouterConfig } from '@angular/router';
 import { provideServiceWorker } from '@angular/service-worker';
 import { provideTransloco } from '@ngneat/transloco';
-import { LanguageToggleComponent, ThemeToggleComponent, provideDirtyBar, provideGlobalSearch, providePheadOverlay, provideRootNavigation, provideTheme, withLogo, withQuickAccessComponent } from 'phead';
+import { LanguageToggleComponent, ThemeToggleComponent, provideDirtyBar, provideGlobalSearch, provideModalDialog, providePheadOverlay, provideRootNavigation, provideTheme, withLogo, withQuickAccessComponent } from 'phead';
 import { routes } from './app.routes';
 import { DatabaseInfoQuickAccessComponent } from './core/database-info-quick-access/database-info-quick-access.component';
 import { LogoComponent } from './core/logo/logo.component';
@@ -37,6 +37,7 @@ export const appConfig: ApplicationConfig = {
       loader: TranslocoHttpLoader,
     }),
     providePheadOverlay(),
+    provideModalDialog(),
     provideDirtyBar(),
     provideRootNavigation(
       [

@@ -46,7 +46,7 @@ export class RootNavigationComponent {
         positionStrategy: this.overlay.position().global()
           .left(this.elementRef.nativeElement.getBoundingClientRect().right + 'px'),
         hasBackdrop: true,
-        backdropClass: 'core-quick-access-backdrop',
+        backdropClass: 'phead-quick-access-backdrop',
         ignorePointerEventsFrom: [event.currentTarget as Element],
         height: '100vh',
       }

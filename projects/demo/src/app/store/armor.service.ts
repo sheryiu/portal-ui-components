@@ -1,7 +1,7 @@
 import { Injectable, inject, signal } from '@angular/core';
 import { liveQuery } from 'dexie';
 import { nanoid } from 'nanoid';
-import { from, of } from 'rxjs';
+import { from, of, throwError } from 'rxjs';
 import { Armor, ArmorCreateInput, ArmorUpdateInput } from '../data/armor';
 import { DatabaseService } from './database.service';
 
@@ -67,6 +67,9 @@ export class ArmorService {
   }
 
   create = (input: ArmorCreateInput) => {
+    if (input?.name == null || (input?.name.en == null && input?.name.jp == null)) return throwError(() => new Error('Name is required'))
+    if (!input?.position) return throwError(() => new Error('Position is required'))
+    if (!input?.armorSetId) return throwError(() => new Error('Armor Set ID is required'))
     const now = new Date();
     return from(this.data.armors.add({
       id: nanoid(),

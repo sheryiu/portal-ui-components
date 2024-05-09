@@ -6,8 +6,8 @@
 }
 
 .phead-root-navigation {
-  @apply flex flex-col items-center border-e gap-4 z-[2000];
-  @apply px-3 pt-3 bg-side-content;
+  @apply flex flex-col items-center border-e gap-4 z-[1000];
+  @apply px-3 pt-3 bg-neutral-200 dark:bg-neutral-800;
 
   .phead-root-tabs {
     @apply grow flex flex-col justify-center items-center gap-2 overflow-auto;
@@ -33,11 +33,12 @@
 }
 
 .phead-quick-access-backdrop {
-  @apply left-24 dark:bg-black/20 backdrop-blur-sm;
+  left: 6rem !important;
+  @apply bg-black/10 dark:bg-black/20 backdrop-blur-sm;
 }
 
 .phead-quick-access {
-  @apply border bg-side-content rounded-2;
+  @apply border bg-neutral-200 dark:bg-neutral-800 rounded-2;
   @apply ms-6 my-6 w-80 absolute top-0 bottom-0;
   @apply grid grid-cols-2 place-content-end p-2 gap-2 overflow-auto;
   .phead-quick-access-component {
@@ -124,7 +125,9 @@
   }
 
   .phead-table-cell {
-    @apply px-4 py-2 truncate line-clamp-1 flex items-center;
+    /** truncate and line-clamp-1 will not work */
+    /** please add truncate on the element inside the table cell */
+    @apply px-4 py-2 flex items-center;
   }
 
   .phead-table-header-cell {
@@ -368,7 +371,7 @@
   contain: strict;
 }
 .phead-sidebar-container__breadcrumbs {
-  @apply sticky top-0 px-3 py-2 flex-none border-b bg-side-content z-100;
+  @apply sticky top-0 px-3 py-2 flex-none border-b bg-neutral-200 dark:bg-neutral-800 z-100;
 }
 .phead-sidebar-container__content {
   @apply grow flex relative;
@@ -455,6 +458,39 @@
     }
     > i {
       @apply icon-6;
+    }
+  }
+}
+
+.phead-modal-dialog-backdrop {
+  @apply bg-black/10 dark:bg-black/20 backdrop-blur-sm z-[1000];
+}
+.phead-modal-dialog {
+  @apply border bg-neutral-100 dark:bg-neutral-900 rounded-2 max-h-50vh max-w-95vw sm:max-w-80vw xl:max-w-screen-lg;
+  .phead-modal-dialog__contents {
+    @apply grid px-4 py-2;
+    grid-template-columns: max-content 1fr;
+    grid-template-areas: "icon title"
+                         "placeholder details"
+                         "actions actions";
+  }
+  .phead-modal-dialog__icon {
+    grid-area: icon;
+    @apply icon-10 m-3 me-5 text-primary-600 dark:text-primary-500;
+  }
+  .phead-modal-dialog__title {
+    grid-area: title;
+    @apply pe-6 py-2 self-center text-primary-800 dark:text-primary-200;
+  }
+  .phead-modal-dialog__details {
+    grid-area: details;
+    @apply pb-3 text-primary-950 dark:text-primary-50;
+  }
+  .phead-modal-dialog__actions {
+    grid-area: actions;
+    @apply flex gap-4 justify-end py-2;
+    > button {
+      @apply grow max-w-[50%] rounded-1 px-2 py-2 text-sm font-medium;
     }
   }
 }

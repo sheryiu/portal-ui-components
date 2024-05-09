@@ -9,8 +9,8 @@ export * from './field';
 export * from './form';
 export * from './global-search';
 export * from './layered-container';
+export * from './modal-dialog';
 export * from './root-navigation';
 export * from './sidebar';
 export * from './tab-bar';
 export * from './table';
-
