@@ -31,6 +31,18 @@
   color-scheme: dark;
 }
 
+.error-dialog {
+  .phead-modal-dialog__icon {
+    @apply text-red-700 dark:text-red-500;
+  }
+  .phead-modal-dialog__title {
+    @apply text-red-800 dark:text-red-300;
+  }
+  .phead-modal-dialog__details {
+    @apply text-red-950 dark:text-red-50;
+  }
+}
+
 // TODO check for windows/linux
 @media (hover: hover) {
   ::-webkit-scrollbar {

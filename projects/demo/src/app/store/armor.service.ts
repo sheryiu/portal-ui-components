@@ -2,7 +2,7 @@ import { Injectable, inject, signal } from '@angular/core';
 import { liveQuery } from 'dexie';
 import { nanoid } from 'nanoid';
 import { from, of, throwError } from 'rxjs';
-import { Armor, ArmorCreateInput, ArmorUpdateInput } from '../data/armor';
+import { ArmorCreateInput, ArmorUpdateInput } from '../data/armor';
 import { DatabaseService } from './database.service';
 
 type Filter = {

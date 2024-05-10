@@ -29,6 +29,8 @@
   &[data-color=transparent] {
     @apply bg-transparent;
     @apply dark:text-primary-50;
+    @apply shadow-none;
+    @apply disabled:dark:text-neutral-500;
   }
   &[data-color=default] {
     // @apply from-neutral-50 to-neutral-100;
@@ -37,6 +39,7 @@
     // @apply dark:text-neutral-50;
     @apply dark:text-neutral-50;
     @apply dark:bg-neutral-800;
+    @apply disabled:bg-opacity-30;
   }
   &[data-color=primary] {
     // @apply from-primary-200 to-primary-300;
@@ -45,6 +48,7 @@
     // @apply dark:text-primary-50;
     @apply dark:text-primary-50;
     @apply dark:bg-primary-800;
+    @apply disabled:bg-opacity-30;
   }
   &[data-color=accent] {
     // @apply from-accent-200 to-accent-300;
@@ -53,6 +57,7 @@
     // @apply dark:text-accent-50;
     @apply dark:text-accent-50;
     @apply dark:bg-accent-900;
+    @apply disabled:bg-opacity-30;
   }
   &[data-color=gray], &[data-color=grey] {
     // @apply from-gray-200 to-gray-300;
@@ -61,6 +66,7 @@
     // @apply dark:text-gray-50;
     @apply dark:text-gray-50;
     @apply dark:bg-gray-600;
+    @apply disabled:bg-opacity-30;
   }
   &[data-color=red] {
     // @apply from-red-300 to-red-400;
@@ -68,6 +74,7 @@
     // @apply dark:from-red-600 dark:to-red-700;
     // @apply dark:text-red-50;
     @apply dark:text-red-50;
-    @apply dark:bg-red-600;
+    @apply dark:bg-red-700;
+    @apply disabled:bg-opacity-30;
   }
 }

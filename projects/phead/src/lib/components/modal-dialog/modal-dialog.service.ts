@@ -7,8 +7,8 @@ export class ModalDialogService {
 
   private overlay = inject(PheadOverlayService);
 
-  open() {
-    this.overlay.open<ModalDialogComponent, ModalDialogData>(
+  open<C>(dialogData: ModalDialogData<C>) {
+    const ref = this.overlay.open<ModalDialogComponent, ModalDialogData<C>>(
       ModalDialogComponent,
       {
         positionStrategy: this.overlay.position().global()
@@ -17,7 +17,9 @@ export class ModalDialogService {
         scrollStrategy: this.overlay.scrollStrategies.block(),
         hasBackdrop: true,
         backdropClass: 'phead-modal-dialog-backdrop',
+        data: dialogData,
       }
     )
+    return ref;
   }
 }

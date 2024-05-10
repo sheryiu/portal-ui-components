@@ -2,7 +2,7 @@ import { Component, inject } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { EffectFn } from '@ngneat/effects-ng';
 import { AccordionModule, FieldModule, ModalDialogService, SidebarModule } from 'phead';
-import { EMPTY, catchError, exhaustMap, filter, tap } from 'rxjs';
+import { EMPTY, catchError, exhaustMap, tap } from 'rxjs';
 import { ArmorCreateInput, ArmorPosition } from '../../../../../data/armor';
 import { SharedModule } from '../../../../../shared/shared.module';
 import { ArmorService } from '../../../../../store/armor.service';
@@ -30,8 +30,12 @@ export class ArmorListDrawerCreateComponent extends EffectFn {
     exhaustMap(() =>
       this.service.create(this.formControl.value!).pipe(
         catchError((e: Error) => {
-          console.log(e)
-          this.dialog.open();
+          this.dialog.open({
+            title: 'Error',
+            icon: 'error',
+            details: e.message,
+            dialogClass: 'error-dialog',
+          });
           return EMPTY;
         })
       )

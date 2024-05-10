@@ -39,7 +39,8 @@
 
 .phead-quick-access {
   @apply border bg-neutral-200 dark:bg-neutral-800 rounded-2;
-  @apply ms-6 my-6 w-80 absolute top-0 bottom-0;
+  @apply ms-6 my-6 w-80 absolute bottom-0;
+  max-height: calc(100% - 3rem);
   @apply grid grid-cols-2 place-content-end p-2 gap-2 overflow-auto;
   .phead-quick-access-component {
     @apply size-full rounded-1;
@@ -484,7 +485,7 @@
   }
   .phead-modal-dialog__details {
     grid-area: details;
-    @apply pb-3 text-primary-950 dark:text-primary-50;
+    @apply pb-3 pe-3 text-primary-950 dark:text-primary-50;
   }
   .phead-modal-dialog__actions {
     grid-area: actions;
