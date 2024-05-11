@@ -6,113 +6,81 @@
         <!-- TODO toggle fieldType -->
         <!-- <span class="phead-fieldset__label__type">{{ fieldDef.fieldType }}</span> -->
       </div>
-      <div class="phead-fieldset__input">
+      <div class="phead-fieldset__input" [ngClass]="'phead-fieldset__input--' + fieldDef.fieldType">
         <!-- TODO number field will get turned to null when the input is empty -->
         @if (form.controls[fieldDef.key] && form.controls[fieldDef.key].value == null) {
-          <div
-            class="phead-fieldset__input-field phead-fieldset__input-field--null"
-          >
+          <div class="phead-fieldset__null">
+            <span>null</span>
             <button
               pheadHoverable
-              pheadHardSurface
-              color="accent"
               (click)="onSetNotNull(fieldDef)"
               role="button"
               type="button"
-              class="phead-fieldset__input__add"
-            >Add</button>
-            <span>null</span>
+              class="phead-fieldset__null__add"
+            >
+              <i>edit</i>
+            </button>
           </div>
         } @else {
           @switch (fieldDef.fieldType) {
             @case ('string') {
-            <div
-              class="phead-fieldset__input-field"
-            >
-              <input
-                [id]="fieldDef.key"
-                type="text"
-                [formControlName]="fieldDef.key"
-                (input)="handleInput()"
-                pheadAutocompleteTrigger
-                [autocompleteEnabled]="fieldDef.fieldConfig?.enum != null"
-                [autocompleteValues]="fieldDef.fieldConfig?.enum"
-                [autocompleteTemplateRef]="enumAutocomplete"
-                (autocompleteChange)="onAutocomplete(fieldDef, $event)"
-              />
-            </div>
+              <phead-input-field>
+                <input
+                  [id]="fieldDef.key"
+                  type="text"
+                  [formControlName]="fieldDef.key"
+                  (input)="handleInput()"
+                  pheadAutocompleteTrigger
+                  [autocompleteEnabled]="fieldDef.fieldConfig?.enum != null"
+                  [autocompleteValues]="fieldDef.fieldConfig?.enum"
+                  [autocompleteTemplateRef]="enumAutocomplete"
+                  (autocompleteChange)="onAutocomplete(fieldDef, $event)"
+                />
+              </phead-input-field>
             }
             @case ('number') {
-            <div
-              class="phead-fieldset__input-field"
-            >
-              <input
-                [id]="fieldDef.key"
-                type="number"
-                [formControlName]="fieldDef.key"
-                (input)="handleInput()"
-                pheadAutocompleteTrigger
-                [autocompleteEnabled]="fieldDef.fieldConfig?.enum != null"
-                [autocompleteValues]="fieldDef.fieldConfig?.enum"
-                [autocompleteTemplateRef]="enumAutocomplete"
-                (autocompleteChange)="onAutocomplete(fieldDef, $event)"
-              />
-            </div>
+              <phead-input-field>
+                <input
+                  [id]="fieldDef.key"
+                  type="number"
+                  [formControlName]="fieldDef.key"
+                  (input)="handleInput()"
+                  pheadAutocompleteTrigger
+                  [autocompleteEnabled]="fieldDef.fieldConfig?.enum != null"
+                  [autocompleteValues]="fieldDef.fieldConfig?.enum"
+                  [autocompleteTemplateRef]="enumAutocomplete"
+                  (autocompleteChange)="onAutocomplete(fieldDef, $event)"
+                />
+              </phead-input-field>
             }
             @case ('date-time') {
-            <div
-              class="phead-fieldset__input-field"
-            >
-              <button
-                pheadHoverable
-                pheadHardSurface
-                color="accent"
-                pheadCalendarTrigger
-                role="button"
-                type="button"
-                [date]="$any(form.controls[fieldDef.key].value)"
-                (dateChange)="onDateChange(fieldDef, $event)"
-              >
-                <i>calendar_month</i>
-              </button>
-              <input
-                #dateTimeInput
-                [id]="fieldDef.key"
-                type="text"
-                [formControlName]="fieldDef.key"
-                (input)="handleInput()"
-              />
-            </div>
+              <phead-input-field>
+                <button
+                  pheadHoverable
+                  pheadCalendarTrigger
+                  role="button"
+                  type="button"
+                  [date]="$any(form.controls[fieldDef.key].value)"
+                  (dateChange)="onDateChange(fieldDef, $event)"
+                >
+                  <i>calendar_month</i>
+                </button>
+                <input
+                  #dateTimeInput
+                  [id]="fieldDef.key"
+                  type="text"
+                  [formControlName]="fieldDef.key"
+                  (input)="handleInput()"
+                />
+              </phead-input-field>
             }
             @case ('boolean') {
-            <label
-              class="phead-fieldset__input-field phead-fieldset__input-field--boolean"
-              [for]="fieldDef.key"
-            >
-              <input
-                [id]="fieldDef.key"
-                hidden
-                type="checkbox"
-                #booleanCheckbox
-                [formControlName]="fieldDef.key"
-                (input)="handleInput()">
-              <button
-                pheadHoverable
-                pheadHardSurface
-                [color]="booleanCheckbox.checked ? 'primary' : 'gray'"
-                role="button"
-                type="button"
-                (click)="booleanCheckbox.click()"
-              >
-                <i>drag_indicator</i>
-              </button>
-              <span>
-                {{ booleanCheckbox.checked ? 'On' : 'Off' }}
-              </span>
-            </label>
+              <phead-input-field>
+                <phead-toggle [id]="fieldDef.key" [formControlName]="fieldDef.key"></phead-toggle>
+              </phead-input-field>
             }
             @default {
-            <div>Unsupported Type</div>
+              <div>Unsupported Type</div>
             }
           }
           <button

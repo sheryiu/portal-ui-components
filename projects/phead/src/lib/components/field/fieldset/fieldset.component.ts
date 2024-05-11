@@ -1,22 +1,27 @@
+import { NgClass } from '@angular/common';
 import { AfterContentInit, Component, ContentChildren, DestroyRef, EventEmitter, Output, QueryList, forwardRef, inject } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ControlValueAccessor, FormBuilder, FormsModule, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
 import { map, startWith } from 'rxjs';
-import { HardSurfaceDirective, HoverableDirective } from '../../../base';
+import { HardSurfaceDirective, HoverableDirective, InputFieldComponent } from '../../../base';
 import { AutocompleteModule } from '../../autocomplete';
 import { CalendarTriggerDirective } from '../../calendar';
+import { ToggleComponent } from '../../form';
 import { FieldDefDirective } from '../field-def.directive';
 
 @Component({
   selector: 'phead-fieldset',
   standalone: true,
   imports: [
+    NgClass,
     HoverableDirective,
     HardSurfaceDirective,
     FormsModule,
     ReactiveFormsModule,
     AutocompleteModule,
     CalendarTriggerDirective,
+    InputFieldComponent,
+    ToggleComponent,
   ],
   templateUrl: './fieldset.component.html',
   providers: [

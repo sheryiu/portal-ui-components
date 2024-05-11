@@ -1,0 +1,29 @@
+<input
+  [id]="id"
+  hidden
+  type="checkbox"
+  (input)="handleInput($event)"
+  [disabled]="isDisabled$$()"
+/>
+<label
+  (click)="onTouched?.()"
+  [attr.for]="id"
+  class="phead-toggle"
+  pheadHardSurface
+  [color]="isChecked$$() ? 'primary' : 'gray'"
+  role="button"
+>
+  <div
+    pheadHoverable
+    class="phead-toggle__trigger"
+    [class.phead-toggle__trigger--checked]="isChecked$$()"
+  >
+    <i>drag_indicator</i>
+  </div>
+  <span class="phead-toggle__indicator" [ariaHidden]="!isChecked$$()">
+    On
+  </span>
+  <span class="phead-toggle__indicator" [ariaHidden]="isChecked$$()">
+    Off
+  </span>
+</label>

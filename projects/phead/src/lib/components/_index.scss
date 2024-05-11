@@ -231,7 +231,7 @@
 }
 .phead-segmented-options {
   > div > div {
-    @apply flex flex-col items-stretch gap-0.5 rounded-1 bg-neutral-200 dark:bg-neutral-800 border p-px;
+    @apply flex flex-col items-stretch gap-0.5 rounded-1 bg-neutral-50 dark:bg-neutral-950 border p-px;
     @apply @[16rem]/segmented-options:flex-row @[16rem]/segmented-options:items-center;
   }
   input[type=radio] {
@@ -291,65 +291,63 @@
   container-name: fieldset;
 }
 .phead-fieldset {
-  @apply grid grid-cols-1 @2xs/fieldset:grid-cols-2;
+  @apply grid grid-cols-1 @2xs/fieldset:grid-cols-2 gap-y-2;
   .phead-fieldset__label {
     @apply flex justify-between items-center;
     @apply py-1 ps-4 pe-2 gap-1;
+    &:hover, &:has(+ :hover) {
+      @apply text-primary-800 dark:text-primary-200;
+    }
   }
   .phead-fieldset__label__type {
     @apply text-sm uppercase font-medium text-primary-800 dark:text-primary-200;
   }
   .phead-fieldset__input {
     @apply flex justify-between items-center gap-2;
-    @apply py-1 px-2 min-h-10;
+    @apply px-2 min-h-8;
     button {
       @apply px-2 rounded-1 text-sm flex-none;
-      > i {
-        @apply icon-4;
+    }
+    i {
+      @apply icon-4;
+    }
+    .phead-input-field {
+      @apply self-stretch grow;
+      > button {
+        @apply self-stretch text-secondary;
       }
     }
-    button.phead-fieldset__input__remove {
-      @apply self-center aspect-square;
-    }
-    button.phead-fieldset__input__add {
-      @apply self-stretch;
+    &.phead-fieldset__input--boolean .phead-input-field {
+      @apply self-center grow-0;
     }
   }
-  .phead-fieldset__input-field {
-    @apply flex items-stretch shrink bg-neutral-200 dark:bg-neutral-800 rounded-1 min-h-8 overflow-hidden;
-    &:not(:only-child) {
-      @apply grow;
+  .phead-fieldset__null {
+    @apply self-stretch grow flex items-center;
+    > span {
+      @apply grow truncate text-secondary italic text-sm;
     }
-    &:has(:focus-visible) {
-      @apply outline outline-2 outline-primary-500 bg-primary-50 dark:bg-primary-950;
-    }
+  }
+  .phead-fieldset__input__remove, .phead-fieldset__null__add {
+    @apply self-stretch;
+  }
+}
 
-    &.phead-fieldset__input-field--null {
-      > span {
-        @apply text-secondary px-2 leading-8 select-none;
-      }
+.phead-toggle {
+  @apply rounded-1 h-full;
+  @apply flex items-center p-1 relative;
+  > .phead-toggle__trigger {
+    @apply p-1 w-1/2 dark:bg-neutral-800;
+    @apply rounded-1 absolute top-0 bottom-0 left-0 transition-all z-0;
+    &.phead-toggle__trigger--checked {
+      @apply left-1/2;
     }
-
-    > input[type="text"], input[type="number"], input[type="password"], input[type="email"], input[type="tel"] {
-      @apply outline-none min-h-8 px-2 py-0.5 w-full;
-      @apply bg-transparent hover:bg-hover focus-visible:bg-hover transition-colors;
+    i {
+      @apply icon-4;
     }
-
-    &.phead-fieldset__input-field--boolean {
-      @apply grow-0 px-1;
-      &:has(> input:checked) {
-        @apply flex-row-reverse;
-      }
-      > button {
-        @apply my-1;
-      }
-      > span {
-        @apply px-1 self-center text-sm uppercase w-[5ch] tracking-tight font-medium text-center select-none;
-      }
-      input:checked ~ span {
-        @apply text-secondary;
-      }
-    }
+  }
+  > .phead-toggle__indicator {
+    min-width: 4ch;
+    @apply px-1 text-center select-none grow shrink-0;
   }
 }
 

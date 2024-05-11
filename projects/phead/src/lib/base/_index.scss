@@ -3,13 +3,21 @@
   &[data-enabled=true]:not(:disabled) {
     @apply cursor-pointer after:absolute after:inset-0 after:transition-colors after:touch-none after:pointer-events-none hover:after:bg-hover focus-visible:after:bg-hover;
     &:focus-visible {
-      @apply outline outline-2 outline-primary-500;
+      @apply outline outline-2 outline-offset-2 outline-primary-500;
     }
   }
 }
 
-.phead-sticky-header {
-  @apply sticky z-50;
+.phead-input-field {
+  @apply flex rounded-1 bg-neutral-50 dark:bg-neutral-950 border transition-all;
+  > :where(input:not([type]), input[type="text"], input[type="number"], input[type="password"], input[type="email"], input[type="tel"]) {
+    @apply rounded-1;
+    @apply w-full min-w-0 p-1.5;
+    @apply bg-transparent focus-visible:bg-primary-50 dark:focus-visible:bg-primary-950 transition-colors outline-none;
+  }
+  &:has(:focus-visible:enabled) {
+    @apply outline outline-2 outline-offset-2 outline-primary-500;
+  }
 }
 
 .phead-virtual-scroll-extra.cdk-virtual-scroll-viewport > .cdk-virtual-scroll-spacer {

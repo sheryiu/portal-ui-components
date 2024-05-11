@@ -40,8 +40,8 @@ export class ModalDialogComponent<C = undefined> implements AfterViewInit {
 
   ngAfterViewInit(): void {
     if (this.detailsOutlet && this.detailsPortal) {
-      const ref = this.detailsOutlet.attach(this.detailsPortal);
       setTimeout(() => {
+        const ref = this.detailsOutlet.attach(this.detailsPortal);
         this.data.onDetailsComponentAttached?.(ref);
       })
     }

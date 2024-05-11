@@ -1,4 +1,5 @@
 import { Component, Input, OnDestroy } from '@angular/core';
+import { HoverableDirective } from 'phead';
 import { ReplaySubject } from 'rxjs';
 import { SharedModule } from '../../../../../../shared/shared.module';
 
