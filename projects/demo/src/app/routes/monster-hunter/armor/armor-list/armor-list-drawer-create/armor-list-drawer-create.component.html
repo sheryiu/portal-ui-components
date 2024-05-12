@@ -14,7 +14,7 @@
   </button>
   @if (trigger.isOpened$$()) {
     <form pheadSidebarDrawerSectionContent (ngSubmit)="onSubmit()">
-      <phead-fieldset [formControl]="formControl">
+      <phead-fieldset pheadSidebarDrawerSectionContent [formControl]="formControl">
         <phead-field-def
           key="name>en"
           label="English Name"
@@ -37,9 +37,17 @@
           key="armorSetId"
           label="Armor Set"
           fieldType="string"
-        ></phead-field-def>
+          [templateRef]="armorSetIdInput"
+        >
+        </phead-field-def>
       </phead-fieldset>
       <button class="rounded-1 mx-1 py-2 text-sm text-primary-700 dark:text-primary-500" pheadHoverable role="button" type="submit">Add</button>
     </form>
   }
 </div>
+
+<ng-template #armorSetIdInput let-key="key" let-formGroup="formGroup">
+  <ng-container [formGroup]="formGroup">
+    <div pheadDropdownTrigger>{{ key }} </div>
+  </ng-container>
+</ng-template>

@@ -9,14 +9,12 @@
   (click)="onTouched?.()"
   [attr.for]="id"
   class="phead-toggle"
-  pheadHardSurface
-  [color]="isChecked$$() ? 'primary' : 'gray'"
   role="button"
+  [class.phead-toggle--checked]="isChecked$$()"
 >
   <div
     pheadHoverable
     class="phead-toggle__trigger"
-    [class.phead-toggle__trigger--checked]="isChecked$$()"
   >
     <i>drag_indicator</i>
   </div>

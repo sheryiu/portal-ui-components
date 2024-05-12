@@ -5,7 +5,7 @@ import { AccordionService } from './accordion.service';
   selector: 'phead-accordion',
   standalone: true,
   imports: [],
-  template: '',
+  template: '<ng-content></ng-content>',
   providers: [
     AccordionService,
   ]

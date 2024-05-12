@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { EffectFn } from '@ngneat/effects-ng';
-import { AccordionModule, FieldModule, ModalDialogService, SidebarModule } from 'phead';
+import { AccordionModule, DropdownTriggerDirective, FieldModule, ModalDialogService, SidebarModule, ToggleComponent } from 'phead';
 import { EMPTY, catchError, exhaustMap, tap } from 'rxjs';
 import { ArmorCreateInput, ArmorPosition } from '../../../../../data/armor';
 import { SharedModule } from '../../../../../shared/shared.module';
@@ -15,6 +15,7 @@ import { ArmorService } from '../../../../../store/armor.service';
     AccordionModule,
     SidebarModule,
     FieldModule,
+    DropdownTriggerDirective,
   ],
   templateUrl: './armor-list-drawer-create.component.html',
   styles: ``

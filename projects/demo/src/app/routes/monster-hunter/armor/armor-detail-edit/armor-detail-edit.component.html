@@ -6,56 +6,58 @@
       <phead-breadcrumbs></phead-breadcrumbs>
     </div>
     <phead-sidebar-content>
-      <phead-fieldset *pheadSidebarMain [formControl]="formControl" (valueChange)="onInput()">
-        <phead-field-def
-          key="name>en"
-          label="English Name"
-          fieldType="string"
-        ></phead-field-def>
-        <phead-field-def
-          key="name>jp"
-          label="Japanese Name"
-          fieldType="string"
-        ></phead-field-def>
-        <phead-field-def
-          key="position"
-          label="Position"
-          fieldType="string"
-          [fieldConfig]="{
-            enum: armorPosition
-          }"
-        ></phead-field-def>
-        <phead-field-def
-          key="armorSetId"
-          label="Armor Set"
-          fieldType="string"
-        ></phead-field-def>
-        <phead-field-def
-          key="baseDef"
-          label="Base Defense"
-          fieldType="number"
-        ></phead-field-def>
-        <phead-field-def
-          key="maxDef"
-          label="Max Defense"
-          fieldType="number"
-        ></phead-field-def>
-        <phead-field-def
-          key="maxLevel"
-          label="Max Level"
-          fieldType="number"
-        ></phead-field-def>
-        <phead-field-def
-          key="createdAt"
-          label="Created At"
-          fieldType="date-time"
-        ></phead-field-def>
-        <phead-field-def
-          key="updatedAt"
-          label="Updated At"
-          fieldType="date-time"
-        ></phead-field-def>
-      </phead-fieldset>
+      <div *pheadSidebarMain class="my-2">
+        <phead-fieldset [formControl]="formControl" (valueChange)="onInput()">
+          <phead-field-def
+            key="name>en"
+            label="English Name"
+            fieldType="string"
+          ></phead-field-def>
+          <phead-field-def
+            key="name>jp"
+            label="Japanese Name"
+            fieldType="string"
+          ></phead-field-def>
+          <phead-field-def
+            key="position"
+            label="Position"
+            fieldType="string"
+            [fieldConfig]="{
+              enum: armorPosition
+            }"
+          ></phead-field-def>
+          <phead-field-def
+            key="armorSetId"
+            label="Armor Set"
+            fieldType="string"
+          ></phead-field-def>
+          <phead-field-def
+            key="baseDef"
+            label="Base Defense"
+            fieldType="number"
+          ></phead-field-def>
+          <phead-field-def
+            key="maxDef"
+            label="Max Defense"
+            fieldType="number"
+          ></phead-field-def>
+          <phead-field-def
+            key="maxLevel"
+            label="Max Level"
+            fieldType="number"
+          ></phead-field-def>
+          <phead-field-def
+            key="createdAt"
+            label="Created At"
+            fieldType="date-time"
+          ></phead-field-def>
+          <phead-field-def
+            key="updatedAt"
+            label="Updated At"
+            fieldType="date-time"
+          ></phead-field-def>
+        </phead-fieldset>
+      </div>
     </phead-sidebar-content>
   </div>
 </phead-layered-container>

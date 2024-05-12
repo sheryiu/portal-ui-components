@@ -1,5 +1,5 @@
 <div class="@container/fieldset">
-  <div class="phead-fieldset" (click)="onTouched?.()" [formGroup]="form">
+  <div class="phead-fieldset" (click)="onTouched?.()" [formGroup]="formControl" #ngForm="ngForm">
     @for (fieldDef of fieldDefs; track fieldDef.key) {
       <div class="phead-fieldset__label">
         <label [for]="fieldDef.key">{{ fieldDef.label }}</label>
@@ -8,7 +8,7 @@
       </div>
       <div class="phead-fieldset__input" [ngClass]="'phead-fieldset__input--' + fieldDef.fieldType">
         <!-- TODO number field will get turned to null when the input is empty -->
-        @if (form.controls[fieldDef.key] && form.controls[fieldDef.key].value == null) {
+        @if (formControl.controls[fieldDef.key] && formControl.controls[fieldDef.key].value == null) {
           <div class="phead-fieldset__null">
             <span>null</span>
             <button
@@ -21,6 +21,17 @@
               <i>edit</i>
             </button>
           </div>
+        } @else if (fieldDef.templateRef) {
+          <ng-container [ngTemplateOutlet]="fieldDef.templateRef" [ngTemplateOutletContext]="{ key: fieldDef.key, formGroup: formControl }"></ng-container>
+          <button
+            pheadHoverable
+            type="button"
+            role="button"
+            (click)="onSetNull(fieldDef)"
+            class="phead-fieldset__input__remove"
+          >
+            <i>remove</i>
+          </button>
         } @else {
           @switch (fieldDef.fieldType) {
             @case ('string') {
@@ -60,7 +71,7 @@
                   pheadCalendarTrigger
                   role="button"
                   type="button"
-                  [date]="$any(form.controls[fieldDef.key].value)"
+                  [date]="$any(formControl.controls[fieldDef.key].value)"
                   (dateChange)="onDateChange(fieldDef, $event)"
                 >
                   <i>calendar_month</i>

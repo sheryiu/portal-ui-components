@@ -6,7 +6,7 @@ import { ActivatedRoute, RouterLink } from '@angular/router';
 import { HotkeysService } from '@ngneat/hotkeys';
 import Fuse from 'fuse.js';
 import { Subject, combineLatest, combineLatestWith, map, shareReplay } from 'rxjs';
-import { HardSurfaceDirective, HoverableDirective, OVERLAY_DATA, PheadOverlayRef, filterNonNull } from '../../../base';
+import { HardSurfaceDirective, HoverableDirective, InputFieldComponent, OVERLAY_DATA, PheadOverlayRef, filterNonNull } from '../../../base';
 import { FuseHighlightPipe } from '../fuse-highlight.pipe';
 import { GlobalSearchAction } from '../global-search';
 import { GlobalSearchService } from '../global-search.service';
@@ -26,6 +26,7 @@ export type GlobalSearchData = {
   imports: [
     HoverableDirective,
     HardSurfaceDirective,
+    InputFieldComponent,
     AsyncPipe,
     NgClass,
     A11yModule,

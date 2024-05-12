@@ -1,7 +1,7 @@
-import { NgClass } from '@angular/common';
-import { AfterContentInit, Component, ContentChildren, DestroyRef, EventEmitter, Output, QueryList, forwardRef, inject } from '@angular/core';
+import { NgClass, NgTemplateOutlet } from '@angular/common';
+import { AfterContentInit, Component, ContentChildren, DestroyRef, EventEmitter, Output, QueryList, ViewChild, forwardRef, inject } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { ControlValueAccessor, FormBuilder, FormsModule, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
+import { ControlValueAccessor, FormBuilder, FormGroupDirective, FormsModule, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
 import { map, startWith } from 'rxjs';
 import { HardSurfaceDirective, HoverableDirective, InputFieldComponent } from '../../../base';
 import { AutocompleteModule } from '../../autocomplete';
@@ -22,6 +22,7 @@ import { FieldDefDirective } from '../field-def.directive';
     CalendarTriggerDirective,
     InputFieldComponent,
     ToggleComponent,
+    NgTemplateOutlet,
   ],
   templateUrl: './fieldset.component.html',
   providers: [
@@ -33,12 +34,13 @@ import { FieldDefDirective } from '../field-def.directive';
   ]
 })
 export class FieldsetComponent<T extends {}> implements ControlValueAccessor, AfterContentInit {
+  @ViewChild('ngForm', { static: false, read: FormGroupDirective }) private _controlContainer!: FormGroupDirective;
   @ContentChildren(FieldDefDirective, { emitDistinctChangesOnly: true }) private _fieldDefs!: QueryList<FieldDefDirective>;
   fieldDefs?: FieldDefDirective[];
   private destroyRef = inject(DestroyRef);
 
   private formBuilder = inject(FormBuilder);
-  form = this.formBuilder.record({})
+  formControl = this.formBuilder.record({})
   @Output() valueChange = new EventEmitter<T>();
 
   ngAfterContentInit(): void {
@@ -48,15 +50,15 @@ export class FieldsetComponent<T extends {}> implements ControlValueAccessor, Af
       takeUntilDestroyed(this.destroyRef),
     ).subscribe(fieldDefs => {
       fieldDefs.forEach(fieldDef => {
-        if (this.form.contains(fieldDef.key)) return;
-        this.form.addControl(fieldDef.key, this.formBuilder.control({
+        if (this.formControl.contains(fieldDef.key)) return;
+        this.formControl.addControl(fieldDef.key, this.formBuilder.control({
           disabled: this.isDisabled,
           value: this.formControlValueForField(fieldDef)
         }));
       })
-      Object.keys(this.form.controls).forEach(name => {
+      Object.keys(this.formControl.controls).forEach(name => {
         if (fieldDefs.some(f => f.key === name)) return;
-        this.form.removeControl(name);
+        this.formControl.removeControl(name);
       })
       this.fieldDefs = fieldDefs;
     })
@@ -90,7 +92,7 @@ export class FieldsetComponent<T extends {}> implements ControlValueAccessor, Af
   handleInput() {
     let newValue: any = this.currentValue;
     if (newValue == null) newValue = {};
-    const formValue = this.form.getRawValue();
+    const formValue = this.formControl.getRawValue();
     for (const key in formValue) {
       if (typeof formValue[key] == 'undefined') continue;
       // only ignore undefined
@@ -110,26 +112,26 @@ export class FieldsetComponent<T extends {}> implements ControlValueAccessor, Af
   }
 
   onSetNotNull(fieldDef: FieldDefDirective) {
-    if (!this.form.contains(fieldDef.key)) return;
-    this.form.get(fieldDef.key)?.setValue(fieldDef.defaultValue ?? this.defaultValueForType(fieldDef));
+    if (!this.formControl.contains(fieldDef.key)) return;
+    this.formControl.get(fieldDef.key)?.setValue(fieldDef.defaultValue ?? this.defaultValueForType(fieldDef));
     this.handleInput();
   }
 
   onSetNull(fieldDef: FieldDefDirective) {
-    if (!this.form.contains(fieldDef.key)) return;
-    this.form.get(fieldDef.key)?.setValue(null);
+    if (!this.formControl.contains(fieldDef.key)) return;
+    this.formControl.get(fieldDef.key)?.setValue(null);
     this.handleInput();
   }
 
   onAutocomplete(fieldDef: FieldDefDirective, value: string | number) {
-    if (!this.form.contains(fieldDef.key)) return;
-    this.form.get(fieldDef.key)?.setValue(value);
+    if (!this.formControl.contains(fieldDef.key)) return;
+    this.formControl.get(fieldDef.key)?.setValue(value);
     this.handleInput();
   }
 
   onDateChange(fieldDef: FieldDefDirective, value: Date) {
-    if (!this.form.contains(fieldDef.key)) return;
-    this.form.get(fieldDef.key)?.setValue(value.toISOString());
+    if (!this.formControl.contains(fieldDef.key)) return;
+    this.formControl.get(fieldDef.key)?.setValue(value.toISOString());
     this.handleInput();
   }
 
@@ -138,10 +140,10 @@ export class FieldsetComponent<T extends {}> implements ControlValueAccessor, Af
   writeValue(obj: T | null | undefined): void {
     this.currentValue = structuredClone(obj);
     if (this.currentValue == null) {
-      this.form.reset();
+      this.formControl.reset();
     } else {
       this.fieldDefs?.forEach(fieldDef => {
-        this.form.get(fieldDef.key)?.setValue(this.formControlValueForField(fieldDef));
+        this.formControl.get(fieldDef.key)?.setValue(this.formControlValueForField(fieldDef));
       })
     }
   }
@@ -156,7 +158,7 @@ export class FieldsetComponent<T extends {}> implements ControlValueAccessor, Af
   isDisabled: boolean = false;
   setDisabledState?(isDisabled: boolean): void {
     this.isDisabled = isDisabled;
-    this.isDisabled ? this.form.disable() : this.form.enable();
+    this.isDisabled ? this.formControl.disable() : this.formControl.enable();
   }
   //#endregion
 }

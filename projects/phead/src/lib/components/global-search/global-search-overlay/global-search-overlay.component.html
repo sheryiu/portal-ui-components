@@ -13,8 +13,7 @@
   >
     <i class="icon-6">arrow_back</i>
   </button>
-  <div
-    class="grow border rounded-3 shadow-lg overflow-hidden bg-primary-200 dark:bg-neutral-800"
+  <phead-input-field
     style="grid-area: input"
     (click)="$event.stopPropagation()"
     [style.marginTop.px]="originPosition.top"
@@ -25,7 +24,7 @@
       placeholder="Type to search"
       cdkFocusInitial
       (input)="onSearchInput($event)">
-  </div>
+  </phead-input-field>
   <div
     style="grid-area: empty"
   ><!-- placeholder --></div>

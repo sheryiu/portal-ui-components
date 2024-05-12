@@ -1,4 +1,4 @@
-import { Directive, Input, Type } from '@angular/core';
+import { Directive, ElementRef, Input, TemplateRef, Type, inject } from '@angular/core';
 import { LiteralUnion } from '../../base';
 
 type SupportedTypes = 'string' | 'number' | 'date-time' | 'boolean';
@@ -22,4 +22,5 @@ export class FieldDefDirective {
   }
   @Input() defaultValue?: any;
 
+  @Input() templateRef?: TemplateRef<unknown>;
 }
