@@ -3,7 +3,7 @@
     @if (component) {
       <ng-container [ngComponentOutlet]="component"></ng-container>
     } @else if (templateRef) {
-      <ng-container [ngTemplateOutlet]="templateRef" [ngTemplateOutletContext]="{ $implicit: data }"></ng-container>
+      <ng-container [ngTemplateOutlet]="templateRef" [ngTemplateOutletInjector]="injector" [ngTemplateOutletContext]="{ $implicit: data }"></ng-container>
     }
   </div>
 }

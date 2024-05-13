@@ -48,6 +48,11 @@
 
 <ng-template #armorSetIdInput let-key="key" let-formGroup="formGroup">
   <ng-container [formGroup]="formGroup">
-    <div pheadDropdownTrigger>{{ key }} </div>
+    <phead-dropdown [formControlName]="key">
+      <!-- <div *pheadDropdownTrigger>---</div> -->
+      <phead-search-dropdown *pheadDropdownOverlay>
+        <demo-armor-set-search></demo-armor-set-search>
+      </phead-search-dropdown>
+    </phead-dropdown>
   </ng-container>
 </ng-template>

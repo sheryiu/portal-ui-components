@@ -1,0 +1,15 @@
+<button
+  pheadHoverable
+  class="phead-dropdown"
+  type="button"
+  (click)="openOverlay($event)"
+>
+  @if (trigger && trigger.templateRef) {
+    <div>
+      <ng-container [ngTemplateOutlet]="trigger.templateRef"></ng-container>
+    </div>
+  } @else {
+    <div>{{ value$$() }}</div>
+  }
+  <i>arrow_drop_down</i>
+</button>

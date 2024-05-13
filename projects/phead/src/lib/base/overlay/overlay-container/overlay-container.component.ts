@@ -1,6 +1,6 @@
 import { AnimationEvent, animate, style, transition, trigger } from '@angular/animations';
 import { NgComponentOutlet, NgTemplateOutlet } from '@angular/common';
-import { Component, TemplateRef, inject } from '@angular/core';
+import { Component, Injector, TemplateRef, inject } from '@angular/core';
 import { OVERLAY_CONTENT, OVERLAY_DATA } from '../overlay';
 import { PheadOverlayRef } from '../phead-overlay-ref';
 
@@ -43,6 +43,7 @@ import { PheadOverlayRef } from '../phead-overlay-ref';
 })
 export class OverlayContainerComponent {
   private content = inject(OVERLAY_CONTENT);
+  injector = inject(Injector);
   data = inject(OVERLAY_DATA);
   templateRef = this.content instanceof TemplateRef ? this.content : null;
   component = !(this.content instanceof TemplateRef) ? this.content : null;
