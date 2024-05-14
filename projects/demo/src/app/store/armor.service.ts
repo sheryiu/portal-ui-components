@@ -28,7 +28,7 @@ export class ArmorService {
       if (this.data.isServer) return [];
       let filtered;
       if (filter?.name != null) {
-        filtered = this.data.armors.filter(obj => !!(obj.name?.en?.includes(filter.name!) || obj.name?.jp?.includes(filter.name!)))
+        filtered = this.data.armors.filter(obj => !!(obj.name?.en?.toLowerCase()?.includes(filter.name!.toLowerCase()) || obj.name?.jp?.toLowerCase()?.includes(filter.name!.toLowerCase())))
       } else if (filter?.armorSetId != null) {
         filtered = this.data.armors.where('armorSetId').equals(filter.armorSetId)
       } else {

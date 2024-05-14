@@ -1,3 +1,4 @@
+import { A11yModule } from '@angular/cdk/a11y';
 import { CdkVirtualScrollViewport, ScrollingModule } from '@angular/cdk/scrolling';
 import { Component, ViewChild, computed, inject } from '@angular/core';
 import { toObservable } from '@angular/core/rxjs-interop';
@@ -8,7 +9,6 @@ import { combineLatest, switchMap, tap } from 'rxjs';
 import { ArmorSet } from '../../../../data/armor-set';
 import { SharedModule } from '../../../../shared/shared.module';
 import { ArmorSetService } from '../../../../store/armor-set.service';
-import { LoadingFooterComponent } from '../../utils/loading-footer/loading-footer.component';
 import { ArmorSetListDrawerCreateComponent } from './armor-set-list-drawer-create/armor-set-list-drawer-create.component';
 
 @Component({
@@ -16,7 +16,6 @@ import { ArmorSetListDrawerCreateComponent } from './armor-set-list-drawer-creat
   standalone: true,
   imports: [
     SharedModule,
-    LoadingFooterComponent,
     ArmorSetListDrawerCreateComponent,
     LayeredContainerComponent,
     TableModule,
@@ -24,6 +23,7 @@ import { ArmorSetListDrawerCreateComponent } from './armor-set-list-drawer-creat
     SegmentedOptionsModule,
     AccordionModule,
     ScrollingModule,
+    A11yModule,
   ],
   templateUrl: './armor-set-list.component.html',
 })

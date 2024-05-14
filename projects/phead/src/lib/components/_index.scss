@@ -194,13 +194,6 @@
   }
 }
 
-.phead-search-input {
-  @apply flex items-center justify-between gap-2 transition-colors;
-  &[data-popupvisible=true] {
-    @apply bg-hover;
-  }
-}
-
 .phead-tab-bar {
   @apply block transition-all overflow-hidden;
   .phead-tab-bar-tabs {
@@ -262,27 +255,6 @@
   @apply flex-col gap-1 bg-hover hover:bg-primary-200 dark:hover:bg-primary-800 rounded-full w-14 aspect-square self-center;
   > i {
     @apply icon-6 text-primary-950 dark:text-primary-50;
-  }
-}
-
-.phead-dirty-bar {
-  @apply absolute bottom-0 left-0 right-0 z-[100] py-4 px-6;
-  @apply border-t dark:bg-primary-700 dark:text-primary-50;
-  @apply flex justify-between items-center;
-  .phead-dirty-bar__now-editing {
-    @apply flex flex-col;
-    p {
-      @apply font-medium tracking-tight;
-    }
-    h3 {
-      @apply dark:text-primary-100;
-    }
-  }
-  .phead-dirty-bar__actions {
-    @apply flex gap-2;
-    button {
-      @apply px-4 py-2 rounded-1;
-    }
   }
 }
 
@@ -419,11 +391,12 @@
 }
 
 .phead-dropdown {
-  @apply w-full min-h-8;
+  // TODO: disabled state
+  @apply w-full min-h-8 px-2 py-1.5;
   @apply justify-between items-center text-start gap-0.5 rounded-1;
   @apply bg-neutral-50 dark:bg-neutral-950 border transition-all;
   > div {
-    @apply break-anywhere grow py-1.5 h-full;
+    @apply break-anywhere grow h-full;
   }
   > i {
     @apply icon-4 text-secondary;
@@ -434,7 +407,7 @@
   @apply bg-neutral-200 dark:bg-neutral-800 border rounded-1;
 }
 .phead-search-dropdown__search {
-  @apply px-3 py-2;
+  @apply px-2 py-2;
   i {
     @apply icon-4 mx-2 text-primary-800 dark:text-primary-200;
   }

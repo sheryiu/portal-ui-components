@@ -30,6 +30,7 @@
             key="armorSetId"
             label="Armor Set"
             fieldType="string"
+            [templateRef]="armorSetIdInput"
           ></phead-field-def>
           <phead-field-def
             key="baseDef"
@@ -61,3 +62,14 @@
     </phead-sidebar-content>
   </div>
 </phead-layered-container>
+
+<ng-template #armorSetIdInput let-key="key" let-formGroup="formGroup">
+  <ng-container [formGroup]="formGroup">
+    <phead-dropdown [formControlName]="key">
+      <div *pheadDropdownTrigger="let value">{{ value }}</div>
+      <phead-search-dropdown *pheadDropdownOverlay>
+        <demo-armor-set-search></demo-armor-set-search>
+      </phead-search-dropdown>
+    </phead-dropdown>
+  </ng-container>
+</ng-template>

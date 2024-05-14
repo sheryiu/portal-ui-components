@@ -1,4 +1,4 @@
-import { Component, ContentChild, DestroyRef, Directive, ElementRef, TemplateRef, forwardRef, inject, signal } from '@angular/core';
+import { Component, ContentChild, DestroyRef, Directive, ElementRef, Injector, OnInit, TemplateRef, effect, forwardRef, inject, input, output, signal, untracked, ɵINPUT_SIGNAL_BRAND_WRITE_TYPE } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { PheadOverlayRef, PheadOverlayService } from '../../../base';
@@ -29,18 +29,29 @@ export class DropdownOverlayDirective {
     }
   ]
 })
-export class DropdownComponent<T> implements ControlValueAccessor {
+export class DropdownComponent<T> implements ControlValueAccessor, OnInit {
   @ContentChild(DropdownTriggerDirective) trigger?: DropdownTriggerDirective;
   @ContentChild(DropdownOverlayDirective) private dropdownOverlay?: DropdownOverlayDirective;
+  private injector = inject(Injector);
 
-  value$$ = signal<T | null>(null);
+  value = input<T | null>(null);
+  internalValue$$ = signal<T | null>(null);
+  valueChange = output<T | null>();
   disabled$$ = signal<boolean>(false);
 
-  onChange?: (val: T) => void;
+  onChange?: (val: T | null) => void;
   onTouched?: () => void;
 
-  writeValue(obj: T): void {
-    this.value$$.set(obj);
+  ngOnInit(): void {
+    effect(() => {
+      if (this.value() != null && untracked(() => this.internalValue$$()) == null) {
+        this.internalValue$$.set(this.value()!);
+      }
+    }, { injector: this.injector, allowSignalWrites: true })
+  }
+
+  writeValue(obj: T | null): void {
+    this.internalValue$$.set(obj);
   }
   registerOnChange(fn: any): void {
     this.onChange = fn;
@@ -81,5 +92,11 @@ export class DropdownComponent<T> implements ControlValueAccessor {
     ).subscribe(() => {
       this.overlayRef = undefined;
     })
+  }
+
+  selectValue(value: T | null) {
+    this.internalValue$$.set(value);
+    this.valueChange.emit(value);
+    this.onChange?.(this.internalValue$$());
   }
 }

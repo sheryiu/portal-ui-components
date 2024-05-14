@@ -9,10 +9,11 @@
 }
 
 .phead-input-field {
+  // TODO: disabled state
   @apply flex rounded-1 bg-neutral-50 dark:bg-neutral-950 border transition-all;
   > :where(input:not([type]), input[type="text"], input[type="search"], input[type="number"], input[type="password"], input[type="email"], input[type="tel"]) {
     @apply rounded-1;
-    @apply w-full min-w-0 p-1.5;
+    @apply w-full min-w-0 px-2 py-1.5;
     @apply bg-transparent focus-visible:bg-primary-50 dark:focus-visible:bg-primary-950 transition-colors outline-none;
   }
   &:has(:focus-visible:enabled) {

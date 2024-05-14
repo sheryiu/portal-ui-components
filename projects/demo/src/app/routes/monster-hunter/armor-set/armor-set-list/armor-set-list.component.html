@@ -15,7 +15,15 @@
       >
         <phead-table-header-cell *pheadTableHeaderCellDef="'name'" [filtered]="filterByName$$() != null">
           Name
-          <phead-table-filter-by-text *pheadTableHeaderCellFilter [value]="filterByName$$()" (valueChange)="onChangeFilter({ name: $event })"></phead-table-filter-by-text>
+          <div *pheadTableHeaderCellFilter cdkTrapFocus [cdkTrapFocusAutoCapture]="true">
+            <phead-input-field>
+              <input
+                type="search"
+                placeholder="Type to search"
+                [value]="filterByName$$() ?? ''"
+                (input)="onChangeFilter({ name: $any($event.currentTarget).value })">
+            </phead-input-field>
+          </div>
         </phead-table-header-cell>
         <phead-table-header-cell *pheadTableHeaderCellDef="'rarity'" [sortedAsc]="sortByRarity$$() === 'asc'" [sortedDesc]="sortByRarity$$() === 'desc'">
           Rarity
@@ -43,13 +51,9 @@
               [item]="item"
             >
             </phead-table-row>
-            @if (data$ | async; as data) {
-              <phead-table-footer-row class="px-4 py-1">
-                <phead-table-simple-footer [dataCount]="data.length"></phead-table-simple-footer>
-              </phead-table-footer-row>
-            } @else {
-              <mhw-loading-footer></mhw-loading-footer>
-            }
+            <phead-table-footer-row class="px-4 py-1">
+              <phead-table-simple-footer></phead-table-simple-footer>
+            </phead-table-footer-row>
           </phead-table-body>
         </cdk-virtual-scroll-viewport>
       </phead-table>

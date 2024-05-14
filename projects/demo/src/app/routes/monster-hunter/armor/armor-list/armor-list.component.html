@@ -16,7 +16,15 @@
       >
         <phead-table-header-cell *pheadTableHeaderCellDef="'name'" [filtered]="filterByName$$() != null">
           Name
-          <phead-table-filter-by-text *pheadTableHeaderCellFilter [value]="filterByName$$()" (valueChange)="onChangeFilter({ name: $event })"></phead-table-filter-by-text>
+          <div *pheadTableHeaderCellFilter cdkTrapFocus [cdkTrapFocusAutoCapture]="true">
+            <phead-input-field>
+              <input
+                type="search"
+                placeholder="Type to search"
+                [value]="filterByName$$() ?? ''"
+                (input)="onChangeFilter({ name: $any($event.currentTarget).value })">
+            </phead-input-field>
+          </div>
         </phead-table-header-cell>
         <phead-table-header-cell *pheadTableHeaderCellDef="'armorSetId'" [filtered]="filterByArmorSet$$() != null" [sortedAsc]="sortByArmorSet$$() === 'asc'" [sortedDesc]="sortByArmorSet$$() === 'desc'">
           Armor Set
@@ -24,25 +32,12 @@
             <div *pheadOption="'asc'" class="flex items-center gap-1"><i class="icon-4 rotate-180 -scale-x-100">sort</i><span class="text-sm/[0] font-bold">1 to 9</span></div>
             <div *pheadOption="'desc'" class="flex items-center gap-1"><i class="icon-4">sort</i><span class="text-sm/[0] font-bold">9 to 1</span></div>
           </phead-segmented-options>
-          <phead-table-filter-by-search
-            *pheadTableHeaderCellFilter
-            [value]="filterByArmorSet$$()"
-            (valueChange)="onChangeFilter({ armorSetId: $event })"
-            sourceName="armorSet"
-            [pickWith]="pickArmorSet"
-          >
-            <div *pheadSearchInputLabel="let id">
-              <!-- TODO -->
-              {{ id }}
-              <!-- @if (id | armorSetData | async; as data) {
-              } @else {
-                <span>Unable to resolve</span>
-              } -->
-            </div>
-            <div *pheadSearchInputSuggestionItem="let item" class="px-4 py-0.5 truncate">
-              {{ item.name?.jp }} / {{ item.name?.en }}
-            </div>
-          </phead-table-filter-by-search>
+          <phead-dropdown *pheadTableHeaderCellFilter [value]="filterByArmorSet$$()" (valueChange)="onChangeFilter({ armorSetId: $event })">
+            <div *pheadDropdownTrigger="let value" [ngClass]="{ 'text-secondary': !value }">{{ value ? value : 'Type to search' }}</div>
+            <phead-search-dropdown *pheadDropdownOverlay>
+              <demo-armor-set-search [canUnset]="true"></demo-armor-set-search>
+            </phead-search-dropdown>
+          </phead-dropdown>
         </phead-table-header-cell>
         <phead-table-header-cell *pheadTableHeaderCellDef="'createdAt'" rightAligned [sortedAsc]="sortByCreatedAt$$() === 'asc'" [sortedDesc]="sortByCreatedAt$$() === 'desc'">
           Created
@@ -57,9 +52,6 @@
         </phead-table-cell>
         <phead-table-cell *pheadTableCellDef="'armorSetId'; let item">
           {{ item.armorSetId }}
-          <!-- @if (item.armorSetId | armorSetData | async; as armorSet) {
-            <phead-multilingual-text-display [value]="armorSet.name"></phead-multilingual-text-display>
-          } -->
         </phead-table-cell>
         <phead-table-cell *pheadTableCellDef="'createdAt'; let item">
           <phead-time-display [date]="item.createdAt" format="yyyy-MM-dd HH:mm"></phead-time-display>
@@ -76,13 +68,9 @@
               [item]="item"
             >
             </phead-table-row>
-            @if (data$ | async; as data) {
-              <phead-table-footer-row class="px-4 py-1">
-                <phead-table-simple-footer [dataCount]="data.length"></phead-table-simple-footer>
-              </phead-table-footer-row>
-            } @else {
-              <mhw-loading-footer></mhw-loading-footer>
-            }
+            <phead-table-footer-row class="px-4 py-1">
+              <phead-table-simple-footer></phead-table-simple-footer>
+            </phead-table-footer-row>
           </phead-table-body>
         </cdk-virtual-scroll-viewport>
       </phead-table>

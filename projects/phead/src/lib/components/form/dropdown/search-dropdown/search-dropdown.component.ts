@@ -33,7 +33,7 @@ export class SearchDropdownComponent extends DropdownOverlay {
   }
 
   override selectValue(value: unknown): void {
-    this.dropdown.value$$.set(value);
+    this.dropdown.selectValue(value);
     this.overlayRef.close();
   }
 }

@@ -1,16 +1,16 @@
+import { A11yModule } from '@angular/cdk/a11y';
 import { CdkVirtualScrollViewport, ScrollingModule } from '@angular/cdk/scrolling';
 import { Component, ViewChild, computed, inject } from '@angular/core';
 import { toObservable } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { EffectFn } from '@ngneat/effects-ng';
-import { LayeredContainerComponent, SegmentedOptionsModule, SidebarModule, TableModule, TimeDisplayComponent, provideSearchSuggestions } from 'phead';
+import { DropdownModule, LayeredContainerComponent, SegmentedOptionsModule, SidebarModule, TableModule, TimeDisplayComponent } from 'phead';
 import { combineLatest, switchMap, tap } from 'rxjs';
 import { Armor } from '../../../../data/armor';
 import { ArmorSet } from '../../../../data/armor-set';
 import { SharedModule } from '../../../../shared/shared.module';
-import { ArmorSetService } from '../../../../store/armor-set.service';
 import { ArmorService } from '../../../../store/armor.service';
-import { LoadingFooterComponent } from '../../utils/loading-footer/loading-footer.component';
+import { ArmorSetSearchComponent } from '../../utils/armor-set-search/armor-set-search.component';
 import { ArmorListDrawerCreateComponent } from './armor-list-drawer-create/armor-list-drawer-create.component';
 
 @Component({
@@ -19,7 +19,6 @@ import { ArmorListDrawerCreateComponent } from './armor-list-drawer-create/armor
   imports: [
     SharedModule,
     RouterLink,
-    LoadingFooterComponent,
     ArmorListDrawerCreateComponent,
     LayeredContainerComponent,
     ScrollingModule,
@@ -27,19 +26,11 @@ import { ArmorListDrawerCreateComponent } from './armor-list-drawer-create/armor
     TableModule,
     SegmentedOptionsModule,
     TimeDisplayComponent,
+    DropdownModule,
+    ArmorSetSearchComponent,
+    A11yModule,
   ],
   templateUrl: './armor-list.component.html',
-  providers: [
-    provideSearchSuggestions({
-      name: 'armorSet',
-      source: (str$) => {
-        const service = inject(ArmorSetService);
-        return str$.pipe(
-          switchMap(str => service.list({ name: str ?? undefined }))
-        )
-      }
-    })
-  ],
   styles: `
   .phead-table-column-createdAt {
     @apply justify-end;

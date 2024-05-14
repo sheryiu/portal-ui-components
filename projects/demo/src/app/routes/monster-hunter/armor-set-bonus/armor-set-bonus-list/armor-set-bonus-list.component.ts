@@ -1,3 +1,4 @@
+import { A11yModule } from '@angular/cdk/a11y';
 import { CdkVirtualScrollViewport, ScrollingModule } from '@angular/cdk/scrolling';
 import { Component, ViewChild, computed, inject } from '@angular/core';
 import { toObservable } from '@angular/core/rxjs-interop';
@@ -8,7 +9,6 @@ import { combineLatest, switchMap, tap } from 'rxjs';
 import { ArmorSetBonus } from '../../../../data/armor-set-bonus';
 import { SharedModule } from '../../../../shared/shared.module';
 import { ArmorSetBonusService } from '../../../../store/armor-set-bonus.service';
-import { LoadingFooterComponent } from '../../utils/loading-footer/loading-footer.component';
 import { ArmorSetBonusListDrawerCreateComponent } from './armor-set-bonus-list-drawer-create/armor-set-bonus-list-drawer-create.component';
 
 @Component({
@@ -16,13 +16,13 @@ import { ArmorSetBonusListDrawerCreateComponent } from './armor-set-bonus-list-d
   standalone: true,
   imports: [
     SharedModule,
-    LoadingFooterComponent,
     ArmorSetBonusListDrawerCreateComponent,
     LayeredContainerComponent,
     TableModule,
     SidebarModule,
     ScrollingModule,
     AccordionModule,
+    A11yModule,
   ],
   templateUrl: './armor-set-bonus-list.component.html',
 })

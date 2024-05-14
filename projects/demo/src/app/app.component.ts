@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { DirtyBarComponent, RootNavigationModule } from 'phead';
+import { RootNavigationModule } from 'phead';
 import { SharedModule } from './shared/shared.module';
 
 @Component({
   selector: 'demo-root',
   standalone: true,
-  imports: [RouterOutlet, SharedModule, RootNavigationModule, DirtyBarComponent],
+  imports: [RouterOutlet, SharedModule, RootNavigationModule],
   templateUrl: './app.component.html',
 })
 export class AppComponent {

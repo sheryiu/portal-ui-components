@@ -1,6 +1,7 @@
-import { Component, Injector, Signal, computed, effect, inject } from '@angular/core';
-import { toSignal } from '@angular/core/rxjs-interop';
+import { Component, Signal, inject, input } from '@angular/core';
+import { toObservable, toSignal } from '@angular/core/rxjs-interop';
 import { HoverableDirective, SearchDropdownComponent } from 'phead';
+import { map, switchMap } from 'rxjs';
 import { ArmorSet } from '../../../../data/armor-set';
 import { ArmorSetService } from '../../../../store/armor-set.service';
 
@@ -15,13 +16,20 @@ import { ArmorSetService } from '../../../../store/armor-set.service';
 export class ArmorSetSearchComponent {
   private dropdown = inject(SearchDropdownComponent, { skipSelf: true, host: true });
   private service = inject(ArmorSetService);
-  private injector = inject(Injector);
   list$$?: Signal<ArmorSet[] | undefined>;
 
+  canUnset = input<boolean>(false);
+
   constructor() {
-    effect(() => {
-      // TODO
-      this.list$$ = toSignal(this.service.list({ name: this.dropdown.searchTerm$$() }), { injector: this.injector })
-    })
+    this.list$$ = toSignal(
+      toObservable(this.dropdown.searchTerm$$).pipe(
+        switchMap(term => this.service.list({ name: term })),
+        map(list => list.slice(0, 10))
+      )
+    )
+  }
+
+  onSelect(value: string | null) {
+    this.dropdown.selectValue(value);
   }
 }

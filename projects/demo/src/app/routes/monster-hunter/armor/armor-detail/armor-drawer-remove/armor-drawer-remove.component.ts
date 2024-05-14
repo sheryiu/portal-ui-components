@@ -52,7 +52,7 @@ export class ArmorDrawerRemoveComponent extends EffectFn {
           ],
           detailsComponent: RemoveConfirmComponent,
           onDetailsComponentAttached: (ref) => {
-            ref.setInput('stringToCheck', this.armor?.name.en ?? 'Confirm Removal');
+            ref.setInput('stringToCheck', this.armor?.name?.en ?? 'Confirm Removal');
             ref.instance.matches$.subscribe(matches => {
               options.actions!.at(1)!.disabled = !matches
             })

@@ -1,10 +1,7 @@
 import { NgModule } from '@angular/core';
-import { SearchInputLabelDirective, SearchInputSuggestionItemDirective } from '../form';
 import { TableBodyDirective } from './table-body.directive';
 import { TableCellDefDirective } from './table-cell/table-cell-def.directive';
 import { TableCellComponent } from './table-cell/table-cell.component';
-import { TableFilterBySearchComponent } from './table-filter-by-search/table-filter-by-search.component';
-import { TableFilterByTextComponent } from './table-filter-by-text/table-filter-by-text.component';
 import { TableFooterRowDirective } from './table-footer-row.directive';
 import { TableHeaderCellDefDirective } from './table-header-cell/table-header-cell-def.directive';
 import { TableHeaderCellComponent, TableHeaderCellFilterDirective, TableHeaderCellSortDirective } from './table-header-cell/table-header-cell.component';
@@ -28,12 +25,8 @@ import { TableComponent } from './table.component';
     TableHeaderCellDefDirective,
     TableHeaderCellSortDirective,
     TableHeaderCellFilterDirective,
-    TableFilterByTextComponent,
-    TableFilterBySearchComponent,
     TableFooterRowDirective,
     TableSimpleFooterComponent,
-    SearchInputLabelDirective,
-    SearchInputSuggestionItemDirective,
   ],
   exports: [
     TableComponent,
@@ -47,12 +40,8 @@ import { TableComponent } from './table.component';
     TableHeaderCellDefDirective,
     TableHeaderCellSortDirective,
     TableHeaderCellFilterDirective,
-    TableFilterByTextComponent,
-    TableFilterBySearchComponent,
     TableFooterRowDirective,
     TableSimpleFooterComponent,
-    SearchInputLabelDirective,
-    SearchInputSuggestionItemDirective,
   ]
 })
 export class TableModule { }

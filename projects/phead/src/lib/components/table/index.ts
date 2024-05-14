@@ -1,7 +1,5 @@
 export * from './table-body.directive';
 export * from './table-cell';
-export * from './table-filter-by-search';
-export * from './table-filter-by-text';
 export * from './table-footer-row.directive';
 export * from './table-header-cell';
 export * from './table-header-row.component';
