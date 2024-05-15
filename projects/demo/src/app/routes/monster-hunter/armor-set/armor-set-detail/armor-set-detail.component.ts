@@ -5,7 +5,7 @@ import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { EffectFn } from '@ngneat/effects-ng';
 import { DividerComponent, FieldModule, LayeredContainerComponent, SidebarModule } from 'phead';
-import { map, switchMap } from 'rxjs';
+import { map, switchMap, tap, withLatestFrom } from 'rxjs';
 import { ArmorSet } from '../../../../data/armor-set';
 import { SharedModule } from '../../../../shared/shared.module';
 import { ArmorSetService } from '../../../../store/armor-set.service';
@@ -47,12 +47,18 @@ export class ArmorSetDetailComponent extends EffectFn {
     })
   }
 
-  onInput = this.createEffectFn<void>((args$) => args$.pipe(
-    // tap(() => this.formControl.dirty ? this.dirtyBar.markAsDirty() : this.dirtyBar.markAsPristine()),
+  onCancel = this.createEffectFn<void>(args$ => args$.pipe(
+    withLatestFrom(this.data$),
+    tap(([, data]) => this.updateForm(data))
+  ))
+
+  onSave = this.createEffectFn<void>(args$ => args$.pipe(
+    withLatestFrom(this.id$),
+    tap(([, id]) => this.service.update(id, this.formControl.getRawValue()!))
   ))
 
   updateForm(data: ArmorSet | null | undefined) {
     if (!data) return;
-    this.formControl.setValue(data);
+    this.formControl.reset(data);
   }
 }

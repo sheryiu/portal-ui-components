@@ -16,6 +16,8 @@
       routerLinkActive
       #active="routerLinkActive"
       [attr.data-active]="active.isActive"
+      [pheadTooltip]="tab.label"
+      [pheadTooltipPosition]="'end'"
     >
       <i [class.font-variation-fill]="active.isActive">{{ tab.icon }}</i>
       @if (tab.label) {

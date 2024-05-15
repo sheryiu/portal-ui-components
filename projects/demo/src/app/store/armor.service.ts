@@ -1,8 +1,11 @@
 import { Injectable, inject, signal } from '@angular/core';
+import { Router } from '@angular/router';
 import { liveQuery } from 'dexie';
+import Fuse, { FuseResultMatch } from 'fuse.js';
 import { nanoid } from 'nanoid';
-import { from, of, throwError } from 'rxjs';
-import { ArmorCreateInput, ArmorUpdateInput } from '../data/armor';
+import { GlobalSearchProvider, GlobalSearchSuggestion, formatFuseText, isNonNull } from 'phead';
+import { Observable, from, map, of, switchMap, throwError } from 'rxjs';
+import { Armor, ArmorCreateInput, ArmorUpdateInput } from '../data/armor';
 import { DatabaseService } from './database.service';
 
 type Filter = {
@@ -17,8 +20,9 @@ type Sort = {
 @Injectable({
   providedIn: 'root'
 })
-export class ArmorService {
+export class ArmorService implements GlobalSearchProvider {
   private data = inject(DatabaseService);
+  private router = inject(Router);
 
   list(
     filter?: Filter,
@@ -92,4 +96,24 @@ export class ArmorService {
   remove = (id: string) => {
     return from(this.data.armors.delete(id))
   }
+
+  getSuggestions(searchTerm: Observable<string>): Observable<GlobalSearchSuggestion[]> {
+    return searchTerm.pipe(
+      switchMap(term => this.list().pipe(
+        map(list => new Fuse(list, { includeScore: true, includeMatches: true, keys: ['name.jp', 'name.en'] }).search(term)),
+      )),
+      map(result => result.map(({ item, score, matches }) => ({
+        title: formatTitle(item, matches),
+        category: 'Armor',
+        score: score!,
+        onClick: () => this.router.navigate(['mhw', 'armor', item.id]),
+      })))
+    )
+  }
+}
+
+function formatTitle(item: Armor, matches: readonly FuseResultMatch[] = []) {
+  const nameJp = (matches.some(m => m.key === 'name.jp') && item.name?.jp) ? formatFuseText(item.name.jp, matches.find(m => m.key === 'name.jp')?.indices!) : undefined;
+  const nameEn = (matches.some(m => m.key === 'name.en') && item.name?.en) ? formatFuseText(item.name.en, matches.find(m => m.key === 'name.en')?.indices!) : undefined;
+  return [nameJp, nameEn].filter(isNonNull).join(' / ')
 }

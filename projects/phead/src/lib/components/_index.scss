@@ -38,7 +38,7 @@
 }
 
 .phead-quick-access {
-  @apply border bg-neutral-200 dark:bg-neutral-800 rounded-2;
+  @apply shadow-lg border bg-neutral-200 dark:bg-neutral-800 rounded-2;
   @apply ms-6 my-6 w-80 absolute bottom-0;
   max-height: calc(100% - 3rem);
   @apply grid grid-cols-2 place-content-end p-2 gap-2 overflow-auto;
@@ -173,7 +173,7 @@
 }
 
 .phead-table-header-cell-overlay {
-  @apply bg-neutral-200 dark:bg-neutral-800 border rounded-1 px-3 py-2 w-full overflow-auto max-h-full;
+  @apply bg-neutral-200 dark:bg-neutral-800 shadow-lg border rounded-1 px-3 py-2 w-full overflow-auto max-h-full;
   @apply flex flex-col;
 
   phead-divider {
@@ -244,11 +244,53 @@
 }
 
 .phead-global-search-backdrop {
-  @apply bg-black/10 dark:bg-black/20 backdrop-blur-lg size-full grid gap-x-6 gap-y-6;
-  grid-template-areas: "button input input"
-                        "empty results actions";
-  grid-template-columns: max-content 1fr;
-  grid-template-rows: max-content 1fr;
+  @apply bg-black/10 dark:bg-black/20 backdrop-blur-sm z-[1000];
+}
+.phead-global-search {
+  @apply rounded-2 shadow-lg bg-neutral-200 dark:bg-neutral-800 border overflow-hidden max-h-50vh;
+  @apply flex flex-col;
+  > phead-input-field {
+    @apply rounded-t-2 rounded-b-none border-none shrink-0;
+    background-color: transparent !important;
+    outline: none !important;
+    i {
+      @apply icon-5 ms-3 me-2 text-secondary;
+    }
+    input {
+      @apply ps-2 pe-4 py-3;
+      background-color: transparent !important;
+    }
+  }
+  .phead-global-search__results-wrapper {
+    @apply overflow-y-auto flex flex-col;
+  }
+  .phead-global-search__results {
+    @apply flex flex-col shrink-0;
+    .phead-global-search__empty {
+      @apply min-h-8 px-4 py-3 font-medium text-secondary shrink-0;
+    }
+    .phead-global-search__result {
+      @apply flex justify-start items-center text-start px-4 py-2.5 gap-3 shrink-0 transition-colors;
+      &[data-selected=true] {
+        @apply bg-hover;
+      }
+    }
+    .phead-global-search__category {
+      @apply font-bold text-sm tracking-tight text-secondary pt-3 pb-1 px-9 mx-4 mb-1 border-b;
+    }
+    .phead-global-search__result__icon {
+      @apply min-h-6 min-w-6;
+      > i {
+        @apply icon-6;
+      }
+    }
+    .phead-global-search__result__text {
+      @apply flex flex-col gap-0.5;
+      .phead-global-search__result__text-description {
+        @apply text-sm text-secondary;
+      }
+    }
+  }
 }
 
 .phead-global-search-button {
@@ -472,7 +514,7 @@
   @apply bg-black/10 dark:bg-black/20 backdrop-blur-sm z-[1000];
 }
 .phead-modal-dialog {
-  @apply border bg-neutral-100 dark:bg-neutral-900 rounded-2 max-h-50vh max-w-95vw sm:max-w-80vw xl:max-w-screen-lg;
+  @apply border shadow-lg bg-neutral-100 dark:bg-neutral-900 rounded-2 max-h-50vh max-w-95vw sm:max-w-80vw xl:max-w-screen-lg;
   .phead-modal-dialog__contents {
     @apply grid px-4 py-2;
     grid-template-columns: max-content 1fr;
@@ -499,4 +541,8 @@
       @apply grow max-w-[50%] rounded-1 px-2 py-2 text-sm font-medium;
     }
   }
+}
+
+.phead-tooltip {
+  @apply block bg-neutral-300 dark:bg-neutral-700 border px-2 py-1 rounded-1 overflow-hidden shadow-md;
 }

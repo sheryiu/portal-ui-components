@@ -22,7 +22,7 @@
             </button>
           </div>
         } @else if (fieldDef.templateRef) {
-          <ng-container [ngTemplateOutlet]="fieldDef.templateRef" [ngTemplateOutletContext]="{ key: fieldDef.key, formGroup: formControl }"></ng-container>
+          <ng-container [ngTemplateOutlet]="fieldDef.templateRef" [ngTemplateOutletContext]="{ key: fieldDef.key, formGroup: formControl, valueUpdated$: valueUpdated$ }"></ng-container>
           <button
             pheadHoverable
             type="button"
@@ -89,6 +89,9 @@
               <phead-input-field>
                 <phead-toggle [id]="fieldDef.key" [formControlName]="fieldDef.key"></phead-toggle>
               </phead-input-field>
+            }
+            @case ('array') {
+              <phead-array-field [def]="fieldDef" (valueChange)="handleInput()"></phead-array-field>
             }
             @default {
               <div>Unsupported Type</div>

@@ -92,7 +92,9 @@ export class ArmorSetService {
       id,
       {
         updatedAt: new Date(),
-        ...input
+        ...(typeof input.name != 'undefined' ? { name: input.name } : {}),
+        ...(typeof input.rank != 'undefined' ? { rank: input.rank } : {}),
+        ...(typeof input.rarity != 'undefined' ? { rarity: input.rarity } : {}),
       }
     ))
   }

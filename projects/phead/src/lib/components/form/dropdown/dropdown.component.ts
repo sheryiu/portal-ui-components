@@ -96,7 +96,7 @@ export class DropdownComponent<T> implements ControlValueAccessor, OnInit {
 
   selectValue(value: T | null) {
     this.internalValue$$.set(value);
-    this.valueChange.emit(value);
     this.onChange?.(this.internalValue$$());
+    this.valueChange.emit(value);
   }
 }

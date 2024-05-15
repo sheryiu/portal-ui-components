@@ -5,6 +5,7 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
 import { nanoid } from 'nanoid';
 import { HoverableDirective, PheadOverlayRef, PheadOverlayService } from '../../base';
 import { GlobalSearchModule } from '../global-search';
+import { TooltipModule } from '../tooltip';
 import { QuickAccessComponent } from './quick-access/quick-access.component';
 import { ROOT_NAVIGATION_LOGO, ROOT_NAVIGATION_TABS } from './root-navigation';
 
@@ -17,6 +18,7 @@ import { ROOT_NAVIGATION_LOGO, ROOT_NAVIGATION_TABS } from './root-navigation';
     GlobalSearchModule,
     HoverableDirective,
     NgComponentOutlet,
+    TooltipModule,
   ],
   templateUrl: './root-navigation.component.html',
   host: {

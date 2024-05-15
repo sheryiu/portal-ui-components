@@ -1,107 +1,56 @@
-<div cdkTrapFocus [cdkTrapFocusAutoCapture]="true" class="phead-global-search-backdrop" (click)="close()">
-  <button
-    class="rounded-3 aspect-square self-center shrink-0"
-    style="grid-area: button"
-    [style.marginTop.px]="originPosition.top"
-    [style.marginLeft.px]="originPosition.left"
-    [style.width.px]="originPosition.width"
-    [style.height.px]="originPosition.height"
-    pheadHoverable
-    pheadHardSurface
-    color="gray"
-    (click)="close()"
-  >
-    <i class="icon-6">arrow_back</i>
-  </button>
-  <phead-input-field
-    style="grid-area: input"
-    (click)="$event.stopPropagation()"
-    [style.marginTop.px]="originPosition.top"
-    [style.marginRight.px]="originPosition.left"
-  >
+<div cdkTrapFocus [cdkTrapFocusAutoCapture]="true" class="phead-global-search">
+  <phead-input-field>
+    <i>search</i>
     <input
-      class="w-full h-full px-6 py-1 text-xl"
       placeholder="Type to search"
       cdkFocusInitial
       (input)="onSearchInput($event)">
   </phead-input-field>
-  <div
-    style="grid-area: empty"
-  ><!-- placeholder --></div>
-  @if (searchResults$ | async; as results) {
-    <div
-      style="grid-area: results"
-    >
-      <!-- item results -->
-      <div class="grow flex flex-col items-stretch">
-        <div class="flex flex-col gap-0.5">
-          @for (result of results; track $index) {
-            <a
-              #searchItem
-              class="px-4 py-3 rounded-3"
-              pheadHoverable
-              [routerLink]="result.item.routerLink"
-              [queryParams]="result.item.routerLinkOptions?.queryParams"
-              [queryParamsHandling]="result.item.routerLinkOptions?.queryParamsHandling"
-              [fragment]="result.item.routerLinkOptions?.fragment"
-              [preserveFragment]="result.item.routerLinkOptions?.preserveFragment"
-              [relativeTo]="rootRoute"
-              [ngClass]="{
-                'bg-hover': selectedElement == searchItem
-              }"
-              (focus)="selectedElement = searchItem"
-              tabindex="-1"
-            >
-              <div class="w-full flex gap-4 items-center">
-                @if (result.item.icon) {
-                  <i class="icon-6">{{ result.item.icon }}</i>
-                } @else {
-                  <div class="size-6"><!-- placeholder --></div>
-                }
-                <div class="flex flex-col gap-1">
-                  <p class="text-xl font-medium" [innerHTML]="result | fuseHighlight: 'title'"></p>
-                  @if (result.item.description) {
-                    <p class="text-secondary" [innerHTML]="result | fuseHighlight: 'description'"></p>
-                  }
-                </div>
-              </div>
-            </a>
-            @if (!$last) {
-              <div class="border-b mx-3"></div>
-            }
+  <phead-divider></phead-divider>
+  <div class="phead-global-search__results-wrapper">
+    @if (searchResults(); as results) {
+      <div class="phead-global-search__results">
+        @for (suggestion of results.best; track $index) {
+          <ng-container [ngTemplateOutlet]="item" [ngTemplateOutletContext]="{ $implicit: suggestion }"></ng-container>
+        } @empty {
+          <div class="phead-global-search__empty">No results</div>
+        }
+      </div>
+      @for (category of results.categories; track category.category) {
+        <div class="phead-global-search__results">
+          <div class="phead-global-search__category">
+            {{ category.category }}
+          </div>
+          @for (suggestion of category.list; track $index) {
+            <ng-container [ngTemplateOutlet]="item" [ngTemplateOutletContext]="{ $implicit: suggestion }"></ng-container>
           }
         </div>
-      </div>
-    </div>
-  }
-  @if (actions$ | async; as actions) {
-    <div
-      class="md:w-96 grid grid-cols-2 auto-rows-max gap-6"
-      style="grid-area: actions"
-      [style.marginRight.px]="originPosition.left"
-    >
-      @for (action of actions; track $index) {
-        <button
-          #searchAction
-          class="rounded-3 min-h-24 px-2 py-3 flex-col"
-          pheadHoverable
-          pheadHardSurface
-          color="gray"
-          (click)="onActionClick(action.item)"
-          [ngClass]="{
-            'focus-visible:outline-2 focus-visible:outline focus-visible:outline-offset-2 focus-visible:outline-neutral-400 dark:focus-visible:outline-neutral-700': selectedElement == searchAction
-          }"
-          (focus)="selectedElement = searchAction"
-        >
-          @if (action.item.options?.icon) {
-            <i class="icon-8 font-variation-weight-light text-secondary mb-2">{{ action.item.options?.icon }}</i>
-          }
-          <p class="text-xl font-bold" [innerHTML]="action | fuseHighlight: 'title'"></p>
-          @if (action.item.options?.description) {
-            <p [innerHTML]="action | fuseHighlight: 'description'"></p>
-          }
-        </button>
+      }
+    }
+  </div>
+</div>
+
+<ng-template #item let-suggestion>
+  <button
+    #result
+    class="phead-global-search__result"
+    [attr.data-selected]="selectedElement?.nativeElement == result"
+    pheadHoverable
+    type="button"
+    (click)="onSelectSuggestion(suggestion)"
+  >
+    <div class="phead-global-search__result__icon">
+      @if (suggestion.icon) {
+        <i>{{ suggestion.icon }}</i>
+      } @else if (suggestion.iconComponent) {
+        <ng-container [ngComponentOutlet]="suggestion.iconComponent"></ng-container>
       }
     </div>
-  }
-</div>
+    <div class="phead-global-search__result__text">
+      <p class="phead-global-search__result__text-title" [innerHTML]="suggestion.title"></p>
+      @if (suggestion.description) {
+        <p class="phead-global-search__result__text-description" [innerHTML]="suggestion.description"></p>
+      }
+    </div>
+  </button>
+</ng-template>

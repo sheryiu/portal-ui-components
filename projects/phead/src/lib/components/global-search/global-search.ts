@@ -1,75 +1,78 @@
-import { InjectionToken, Provider, makeEnvironmentProviders } from '@angular/core';
-import { UrlCreationOptions } from '@angular/router';
+import { InjectionToken, Provider, Type, makeEnvironmentProviders } from '@angular/core';
 import { Observable } from 'rxjs';
 import { GlobalSearchService } from './global-search.service';
 
-const GLOBAL_SEARCH_OPTION = Symbol('user dialog option')
+const GLOBAL_SEARCH_FEATURE = Symbol('global search feature')
 
 export type GlobalSearchSuggestion = {
+  /** supports HTML */
   title: string;
+  /** supports HTML */
   description?: string;
   icon?: string;
-  routerLink: any[];
-  routerLinkOptions?: Omit<UrlCreationOptions, 'relativeTo'>;
+  iconComponent?: Type<unknown>;
+  category?: string;
+  /** A number between 0 and 1, 0 means the search result shows higher */
+  score: number;
+  /**
+   * @return falsy to prevent overlay from closing */
+  onClick?: (suggestion: GlobalSearchSuggestion) => void | boolean | Promise<void | boolean>;
 }
 
-export type GlobalSearchAction = {
-  title: string;
-  options?: {
-    description?: string;
-    icon?: string;
-  }
-  callback: () => void;
+export interface GlobalSearchProvider {
+  getSuggestions(searchTerm: Observable<string>): Observable<GlobalSearchSuggestion[]>;
 }
 
-type Option = {
-  readonly [GLOBAL_SEARCH_OPTION]: any,
+type Feature = {
+  readonly [GLOBAL_SEARCH_FEATURE]: any,
   provider: Provider,
 }
 
-export const GLOBAL_SEARCH_SUGGESTIONS = new InjectionToken<{
-  provider: () => Observable<GlobalSearchSuggestion[] | undefined | null>;
-}[]>('global search suggestions')
-export function withSuggestions(
-  provider: () => Observable<GlobalSearchSuggestion[] | undefined | null>,
-): Option {
+export const GLOBAL_SEARCH_PROVIDERS = new InjectionToken<Type<GlobalSearchProvider>[]>('global search providers')
+export const GLOBAL_SEARCH_PROVIDER_FNS = new InjectionToken<GlobalSearchProvider['getSuggestions'][]>('global search provider functions')
+export function withProvider(
+  provider: Type<GlobalSearchProvider>,
+): Feature {
   return {
-    [GLOBAL_SEARCH_OPTION]: GLOBAL_SEARCH_OPTION,
+    [GLOBAL_SEARCH_FEATURE]: null,
     provider: {
-      provide: GLOBAL_SEARCH_SUGGESTIONS,
-      useValue: {
-        provider,
-      },
+      provide: GLOBAL_SEARCH_PROVIDERS,
+      useValue: provider,
       multi: true,
-    } as Provider
+    }
+  }
+}
+export function withProviderFn(
+  providerFn: GlobalSearchProvider['getSuggestions'],
+): Feature {
+  return {
+    [GLOBAL_SEARCH_FEATURE]: null,
+    provider: {
+      provide: GLOBAL_SEARCH_PROVIDER_FNS,
+      useValue: providerFn,
+      multi: true,
+    }
   }
 }
 
-export const GLOBAL_SEARCH_ACTIONS = new InjectionToken<GlobalSearchAction[]>('global search actions')
-export function withAction(
-  title: string,
-  callback: () => void,
-  options?: GlobalSearchAction['options'],
-): Option {
-  return {
-    [GLOBAL_SEARCH_OPTION]: GLOBAL_SEARCH_OPTION,
-    provider: {
-      provide: GLOBAL_SEARCH_ACTIONS,
-      useValue: {
-        title,
-        options,
-        callback,
-      },
-      multi: true,
-    } as Provider
-  }
+type GlobalSearchOption = {
+  hotkey?: string;
+  width?: string;
+  minWidth?: string;
+  numberOfBestResults?: number;
 }
+export const GLOBAL_SEARCH_OPTION = new InjectionToken<GlobalSearchOption>('global search option');
 
 export function provideGlobalSearch(
-  ...options: Option[]
+  option: GlobalSearchOption = {},
+  ...features: Feature[]
 ) {
   return makeEnvironmentProviders([
     GlobalSearchService,
-    ...options.map(o => o.provider),
+    {
+      provide: GLOBAL_SEARCH_OPTION,
+      useValue: option,
+    },
+    ...features.map(o => o.provider),
   ])
 }

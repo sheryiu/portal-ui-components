@@ -1,29 +1,11 @@
-import { NgClass, NgTemplateOutlet } from '@angular/common';
-import { AfterContentInit, Component, ContentChildren, DestroyRef, EventEmitter, Output, QueryList, ViewChild, forwardRef, inject } from '@angular/core';
+import { AfterContentInit, Component, ContentChildren, DestroyRef, EventEmitter, Output, QueryList, forwardRef, inject } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { ControlValueAccessor, FormBuilder, FormGroupDirective, FormsModule, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
-import { map, startWith } from 'rxjs';
-import { HardSurfaceDirective, HoverableDirective, InputFieldComponent } from '../../../base';
-import { AutocompleteModule } from '../../autocomplete';
-import { CalendarTriggerDirective } from '../../calendar';
-import { ToggleComponent } from '../../form';
+import { ControlValueAccessor, FormBuilder, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { Subject, map, startWith } from 'rxjs';
 import { FieldDefDirective } from '../field-def.directive';
 
 @Component({
   selector: 'phead-fieldset',
-  standalone: true,
-  imports: [
-    NgClass,
-    HoverableDirective,
-    HardSurfaceDirective,
-    FormsModule,
-    ReactiveFormsModule,
-    AutocompleteModule,
-    CalendarTriggerDirective,
-    InputFieldComponent,
-    ToggleComponent,
-    NgTemplateOutlet,
-  ],
   templateUrl: './fieldset.component.html',
   providers: [
     {
@@ -33,15 +15,23 @@ import { FieldDefDirective } from '../field-def.directive';
     }
   ]
 })
-export class FieldsetComponent<T extends {}> implements ControlValueAccessor, AfterContentInit {
-  @ViewChild('ngForm', { static: false, read: FormGroupDirective }) private _controlContainer!: FormGroupDirective;
+export class FieldsetComponent<T extends Record<string, any>> implements ControlValueAccessor, AfterContentInit {
   @ContentChildren(FieldDefDirective, { emitDistinctChangesOnly: true }) private _fieldDefs!: QueryList<FieldDefDirective>;
   fieldDefs?: FieldDefDirective[];
   private destroyRef = inject(DestroyRef);
 
   private formBuilder = inject(FormBuilder);
-  formControl = this.formBuilder.record({})
+  formControl = this.formBuilder.record({});
+  valueUpdated$ = new Subject<void>();
   @Output() valueChange = new EventEmitter<T>();
+
+  constructor() {
+    this.valueUpdated$.pipe(
+      takeUntilDestroyed(),
+    ).subscribe(() => {
+      this.handleInput();
+    })
+  }
 
   ngAfterContentInit(): void {
     this._fieldDefs.changes.pipe(
@@ -85,6 +75,8 @@ export class FieldsetComponent<T extends {}> implements ControlValueAccessor, Af
       case 'number': return 0;
       case 'date-time': return '';
       case 'boolean': return false;
+      case 'array': return [];
+      // TODO
       default: return '';
     }
   }
@@ -107,6 +99,7 @@ export class FieldsetComponent<T extends {}> implements ControlValueAccessor, Af
       }
       currPointingTo[paths.at(-1)!] = formValue[key];
     }
+    console.log(newValue)
     this.onChange?.(newValue);
     this.valueChange.emit(newValue);
   }

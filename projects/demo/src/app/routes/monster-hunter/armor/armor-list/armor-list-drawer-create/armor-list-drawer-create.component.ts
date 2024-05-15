@@ -31,7 +31,7 @@ export class ArmorListDrawerCreateComponent extends EffectFn {
 
   onSubmit = this.createEffectFn<void>(args$ => args$.pipe(
     exhaustMap(() =>
-      this.service.create(this.formControl.value!).pipe(
+      this.service.create(this.formControl.getRawValue()!).pipe(
         catchError((e: Error) => {
           this.dialog.open({
             title: 'Error',

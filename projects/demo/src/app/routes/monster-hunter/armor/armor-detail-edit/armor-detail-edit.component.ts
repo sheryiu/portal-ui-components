@@ -3,8 +3,8 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { EffectFn } from '@ngneat/effects-ng';
-import { DropdownModule, FieldModule, LayeredContainerComponent, SidebarModule } from 'phead';
-import { map, switchMap } from 'rxjs';
+import { DividerComponent, DropdownModule, FieldModule, LayeredContainerComponent, SidebarModule } from 'phead';
+import { map, switchMap, tap, withLatestFrom } from 'rxjs';
 import { Armor, ArmorPosition, ArmorUpdateInput } from '../../../../data/armor';
 import { SharedModule } from '../../../../shared/shared.module';
 import { ArmorService } from '../../../../store/armor.service';
@@ -20,6 +20,7 @@ import { ArmorSetSearchComponent } from '../../utils/armor-set-search/armor-set-
     FieldModule,
     DropdownModule,
     ArmorSetSearchComponent,
+    DividerComponent,
   ],
   templateUrl: './armor-detail-edit.component.html',
   styles: ``
@@ -47,8 +48,14 @@ export class ArmorDetailEditComponent extends EffectFn {
     })
   }
 
-  onInput = this.createEffectFn<void>((args$) => args$.pipe(
-    // tap(() => this.formControl.dirty ? this.dirtyBar.markAsDirty() : this.dirtyBar.markAsPristine()),
+  onCancel = this.createEffectFn<void>(args$ => args$.pipe(
+    withLatestFrom(this.data$),
+    tap(([, data]) => this.updateForm(data))
+  ))
+
+  onSave = this.createEffectFn<void>(args$ => args$.pipe(
+    withLatestFrom(this.id$),
+    tap(([, id]) => this.service.update(id, this.formControl.getRawValue()!))
   ))
 
   updateForm(data: Armor | null | undefined) {

@@ -15,13 +15,13 @@
           }
           <div class="flex gap-2 items-center">
             @if (formControl.dirty) {
-              <button pheadHoverable class="rounded-1 px-3 py-2" [disabled]="formControl.pristine">Cancel</button>
-              <button pheadHoverable pheadHardSurface color="primary" class="rounded-1 px-3 py-2" [disabled]="formControl.pristine">Save</button>
+              <button pheadHoverable class="rounded-1 px-3 py-2" (click)="onCancel()">Cancel</button>
+              <button pheadHoverable pheadHardSurface color="primary" class="rounded-1 px-3 py-2" (click)="onSave()">Save</button>
             }
           </div>
         </div>
         <phead-divider></phead-divider>
-        <phead-fieldset [formControl]="formControl" (valueChange)="onInput()">
+        <phead-fieldset [formControl]="formControl">
           <phead-field-def
             key="name>en"
             label="English Name"

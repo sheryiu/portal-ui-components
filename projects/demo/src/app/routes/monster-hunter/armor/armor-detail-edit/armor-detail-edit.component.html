@@ -6,8 +6,20 @@
       <phead-breadcrumbs></phead-breadcrumbs>
     </div>
     <phead-sidebar-content>
-      <div *pheadSidebarMain class="my-2">
-        <phead-fieldset [formControl]="formControl" (valueChange)="onInput()">
+      <div *pheadSidebarMain class="py-4 flex flex-col gap-4">
+        <div class="flex justify-between items-center px-4 gap-4">
+          @if (data$ | async; as data) {
+            <h2 class="text-primary-800 dark:text-primary-200">{{ data.name?.jp }} / {{ data.name?.en }}</h2>
+          }
+          <div class="flex gap-2 items-center">
+            @if (formControl.dirty) {
+              <button pheadHoverable class="rounded-1 px-3 py-2" (click)="onCancel()">Cancel</button>
+              <button pheadHoverable pheadHardSurface color="primary" class="rounded-1 px-3 py-2" (click)="onSave()">Save</button>
+            }
+          </div>
+        </div>
+        <phead-divider></phead-divider>
+        <phead-fieldset [formControl]="formControl">
           <phead-field-def
             key="name>en"
             label="English Name"
@@ -47,6 +59,18 @@
             label="Max Level"
             fieldType="number"
           ></phead-field-def>
+          <phead-field-def
+            key="decorationSlots"
+            label="Decoration Slots"
+            fieldType="array">
+          </phead-field-def>
+          @for (decorationSlot of formControl.value?.decorationSlots; track $index) {
+            <phead-field-def
+              [key]="'decorationSlots>' + $index"
+              [label]="'Decoration Slot #' + $index"
+              fieldType="number"
+            ></phead-field-def>
+          }
           <phead-field-def
             key="createdAt"
             label="Created At"

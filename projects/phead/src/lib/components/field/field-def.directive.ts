@@ -1,11 +1,10 @@
-import { Directive, ElementRef, Input, TemplateRef, Type, inject } from '@angular/core';
+import { Directive, Input, TemplateRef, Type } from '@angular/core';
 import { LiteralUnion } from '../../base';
 
-type SupportedTypes = 'string' | 'number' | 'date-time' | 'boolean';
+type SupportedTypes = 'string' | 'number' | 'date-time' | 'boolean' | 'array';
 
 @Directive({
   selector: 'phead-field-def',
-  standalone: true
 })
 export class FieldDefDirective {
   /**

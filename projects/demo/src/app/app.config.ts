@@ -5,12 +5,13 @@ import { provideNoopAnimations } from '@angular/platform-browser/animations';
 import { NoPreloading, PreloadAllModules, provideRouter, withPreloading, withRouterConfig } from '@angular/router';
 import { provideServiceWorker } from '@angular/service-worker';
 import { provideTransloco } from '@ngneat/transloco';
-import { LanguageToggleComponent, ThemeToggleComponent, provideGlobalSearch, provideModalDialog, providePheadOverlay, provideRootNavigation, provideTheme, withLogo, withQuickAccessComponent } from 'phead';
+import { LanguageToggleComponent, ThemeToggleComponent, provideGlobalSearch, provideModalDialog, providePheadOverlay, provideRootNavigation, provideTheme, themeGlobalSearch, withLogo, withProvider, withProviderFn, withQuickAccessComponent } from 'phead';
 import { routes } from './app.routes';
 import { DatabaseInfoQuickAccessComponent } from './core/database-info-quick-access/database-info-quick-access.component';
 import { LogoComponent } from './core/logo/logo.component';
 import { SettingsQuickAccessComponent } from './core/settings-quick-access/settings-quick-access.component';
 import { TranslocoHttpLoader } from './core/transloco-http-loader';
+import { ArmorService } from './store/armor.service';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -57,79 +58,11 @@ export const appConfig: ApplicationConfig = {
       withQuickAccessComponent(ThemeToggleComponent),
       withQuickAccessComponent(LanguageToggleComponent),
     ),
-    provideGlobalSearch(),
-    // provideGlobalSearch(
-    //   withSuggestions(() => {
-    //     const service = inject(ArmorService);
-    //     return service.list().pipe(
-    //       map(list => list?.map(d => ({
-    //         title: [d.name?.jp, d.name?.en].filter(s => s != null).join(' / '),
-    //         icon: 'apparel',
-    //         routerLink: ['mhw', 'armor', d.id],
-    //       })))
-    //     )
-    //   }),
-    //   withSuggestions(() => {
-    //     const service = inject(ArmorSetService);
-    //     return service.list().pipe(
-    //       map(list => list?.map(d => ({
-    //         title: [d.name?.jp, d.name?.en].filter(s => s != null).join(' / '),
-    //         routerLink: ['mhw', 'armor-set', d.id],
-    //       })))
-    //     )
-    //   }),
-    //   withSuggestions(() => {
-    //     const service = inject(SkillService);
-    //     return service.list().pipe(
-    //       map(list => list?.map(d => ({
-    //         title: [d.name?.jp, d.name?.en].filter(s => s != null).join(' / '),
-    //         description: 'Skill',
-    //         routerLink: ['mhw', 'skill', d.id],
-    //       })))
-    //     )
-    //   }),
-    //   withSuggestions(() => {
-    //     const service = inject(ArmorSetBonusService);
-    //     return service.list().pipe(
-    //       map(list => list?.map(d => ({
-    //         title: [d.name?.jp, d.name?.en].filter(s => s != null).join(' / '),
-    //         description: 'Armor Set Bonus',
-    //         routerLink: ['mhw', 'armor-set-bonus', d.id],
-    //       })))
-    //     )
-    //   }),
-    //   withAction(
-    //     'Light Mode',
-    //     () => {
-    //       const service = inject(ThemeService);
-    //       service.setTheme('light');
-    //     },
-    //     {
-    //       icon: 'light_mode',
-    //     }
-    //   ),
-    //   withAction(
-    //     'Dark Mode',
-    //     () => {
-    //       const service = inject(ThemeService);
-    //       service.setTheme('dark');
-    //     },
-    //     {
-    //       icon: 'dark_mode',
-    //     }
-    //   ),
-    //   withAction(
-    //     'System Theme',
-    //     () => {
-    //       const service = inject(ThemeService);
-    //       service.setTheme('system');
-    //     },
-    //     {
-    //       icon: 'phone_iphone',
-    //       description: 'Follow device default theme'
-    //     }
-    //   ),
-    // ),
+    provideGlobalSearch(
+      undefined,
+      withProvider(ArmorService),
+      withProviderFn(themeGlobalSearch),
+    ),
     provideServiceWorker('ngsw-worker.js', {
       enabled: !isDevMode(),
       registrationStrategy: 'registerImmediately',

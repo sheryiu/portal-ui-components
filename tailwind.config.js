@@ -166,6 +166,12 @@ module.exports = {
             "overflow": "hidden",
             "white-space": "nowrap",
           },
+          "strong": {
+            "color": theme('colors.primary.600'),
+            ".dark &": {
+              "color": theme('colors.primary.500'),
+            }
+          },
           "button[role=button]": {
             "font-weight": "500"
           }

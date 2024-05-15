@@ -46,9 +46,9 @@
   }
 </div>
 
-<ng-template #armorSetIdInput let-key="key" let-formGroup="formGroup">
+<ng-template #armorSetIdInput let-key="key" let-formGroup="formGroup" let-valueUpdated$="valueUpdated$">
   <ng-container [formGroup]="formGroup">
-    <phead-dropdown [formControlName]="key">
+    <phead-dropdown [formControlName]="key" (valueChange)="valueUpdated$.next()">
       <div *pheadDropdownTrigger="let value">{{ value }}</div>
       <phead-search-dropdown *pheadDropdownOverlay>
         <demo-armor-set-search></demo-armor-set-search>
