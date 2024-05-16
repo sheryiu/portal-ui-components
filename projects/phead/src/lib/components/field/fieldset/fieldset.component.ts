@@ -99,7 +99,6 @@ export class FieldsetComponent<T extends Record<string, any>> implements Control
       }
       currPointingTo[paths.at(-1)!] = formValue[key];
     }
-    console.log(newValue)
     this.onChange?.(newValue);
     this.valueChange.emit(newValue);
   }

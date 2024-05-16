@@ -1,5 +1,5 @@
 import { isPlatformBrowser } from '@angular/common';
-import { AfterViewInit, Component, ContentChildren, DestroyRef, ElementRef, HostBinding, Input, NgZone, OnDestroy, PLATFORM_ID, QueryList, booleanAttribute, inject, numberAttribute } from '@angular/core';
+import { AfterViewInit, Component, ContentChildren, DestroyRef, ElementRef, HostBinding, Injector, Input, NgZone, OnDestroy, PLATFORM_ID, QueryList, afterNextRender, booleanAttribute, inject, numberAttribute } from '@angular/core';
 import { Subject } from 'rxjs';
 import { TableCellDefDirective } from './table-cell/table-cell-def.directive';
 import { TableHeaderCellDefDirective } from './table-header-cell/table-header-cell-def.directive';
@@ -31,11 +31,12 @@ export class TableComponent implements AfterViewInit, OnDestroy {
   @Input() xlColumns?: string[];
   @Input() xlColumnWidths?: string[];
   // container width is larger than ...
-  private _activeResponsiveSize: 'null' | 'sm' | 'md' | 'lg' | 'xl' = 'null';
+  private _activeResponsiveSize: 'initial' | 'null' | 'sm' | 'md' | 'lg' | 'xl' = 'initial';
   /**
    * Subscribe to responsiveUpdated$ to get updates
    */
   get activeColumns(): string[] | undefined {
+    if (this._activeResponsiveSize === 'initial') return;
     const sizes = ['xl', 'lg', 'md', 'sm', 'null'];
     const curr = sizes.indexOf(this._activeResponsiveSize);
     const columns = [this.xlColumns, this.lgColumns, this.mdColumns, this.smColumns, this.columns];
@@ -45,6 +46,7 @@ export class TableComponent implements AfterViewInit, OnDestroy {
    * Subscribe to responsiveUpdated$ to get updates
    */
   get activeColumnWidths(): string[] | undefined {
+    if (this._activeResponsiveSize === 'initial') return;
     const sizes = ['xl', 'lg', 'md', 'sm', 'null'];
     const curr = sizes.indexOf(this._activeResponsiveSize);
     const columns = [this.xlColumnWidths, this.lgColumnWidths, this.mdColumnWidths, this.smColumnWidths, this.columnWidths];
@@ -55,6 +57,7 @@ export class TableComponent implements AfterViewInit, OnDestroy {
    * Subscribe to responsiveUpdated$ to get updates
    */
   get activeItemHeight(): number | undefined {
+    if (this._activeResponsiveSize === 'initial') return;
     const sizes = ['xl', 'lg', 'md', 'sm', 'null'];
     const curr = sizes.indexOf(this._activeResponsiveSize);
     const columns = [this.xlHeight, this.lgHeight, this.mdHeight, this.smHeight, this.itemHeight];
@@ -72,30 +75,33 @@ export class TableComponent implements AfterViewInit, OnDestroy {
   private elementRef = inject(ElementRef) as ElementRef<HTMLElement>;
   private platformId = inject(PLATFORM_ID);
   private zone = inject(NgZone);
+  private injector = inject(Injector);
   private destroyRef = inject(DestroyRef);
 
   ngAfterViewInit(): void {
     if (isPlatformBrowser(this.platformId)) {
-      const rem = parseFloat(getComputedStyle(document.documentElement).fontSize);
-      const ro = new ResizeObserver((entries) => {
-        this.zone.run(() => {
-          const { width } = entries[0].contentRect;
-          const newSize: TableComponent['_activeResponsiveSize'] = (width >= 77 * rem) ? 'xl' :
-            (width >= 61 * rem) ? 'lg' :
-            (width >= 45 * rem) ? 'md' :
-            (width >= 37 * rem) ? 'sm' :
-            'null';
-          if (newSize != this._activeResponsiveSize) {
-            this._activeResponsiveSize = newSize;
-            this.hostColumnWidths = this.activeColumnWidths?.join(' ');
-            this.responsiveUpdated$.next();
-          }
+      afterNextRender(() => {
+        const rem = parseFloat(getComputedStyle(document.documentElement).fontSize);
+        const ro = new ResizeObserver((entries) => {
+          this.zone.run(() => {
+            const { width } = entries[0].contentRect;
+            const newSize: TableComponent['_activeResponsiveSize'] = (width >= 77 * rem) ? 'xl' :
+              (width >= 61 * rem) ? 'lg' :
+              (width >= 45 * rem) ? 'md' :
+              (width >= 37 * rem) ? 'sm' :
+              'null';
+            if (newSize != this._activeResponsiveSize) {
+              this._activeResponsiveSize = newSize;
+              this.hostColumnWidths = this.activeColumnWidths?.join(' ');
+              this.responsiveUpdated$.next();
+            }
+          })
+        });
+        ro.observe(this.elementRef.nativeElement);
+        this.destroyRef.onDestroy(() => {
+          ro.disconnect();
         })
-      });
-      ro.observe(this.elementRef.nativeElement);
-      this.destroyRef.onDestroy(() => {
-        ro.disconnect();
-      })
+      }, { injector: this.injector });
     }
   }
 

@@ -1,12 +1,11 @@
 import { NgComponentOutlet } from '@angular/common';
-import { Component, DestroyRef, ElementRef, inject } from '@angular/core';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { Component, inject } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { nanoid } from 'nanoid';
-import { HoverableDirective, PheadOverlayRef, PheadOverlayService } from '../../base';
+import { HoverableDirective, PheadOverlayService } from '../../base';
 import { GlobalSearchModule } from '../global-search';
 import { TooltipModule } from '../tooltip';
-import { QuickAccessComponent } from './quick-access/quick-access.component';
+import { QuickAccessService } from './quick-access/quick-access.service';
 import { ROOT_NAVIGATION_LOGO, ROOT_NAVIGATION_TABS } from './root-navigation';
 
 @Component({
@@ -26,10 +25,8 @@ import { ROOT_NAVIGATION_LOGO, ROOT_NAVIGATION_TABS } from './root-navigation';
   }
 })
 export class RootNavigationComponent {
-  private elementRef = inject(ElementRef) as ElementRef<Element>;
   private overlay = inject(PheadOverlayService);
-  private quickAccessOverlayRef?: PheadOverlayRef;
-  private destroyRef = inject(DestroyRef);
+  private quickAccessService = inject(QuickAccessService);
 
   logo = inject(ROOT_NAVIGATION_LOGO, { optional: true });
   tabs = inject(ROOT_NAVIGATION_TABS, { optional: true })?.map(t => ({
@@ -37,26 +34,11 @@ export class RootNavigationComponent {
     ...t,
   }));
 
+  // TODO split user button away
   onUserClick(event: MouseEvent) {
-    if (this.quickAccessOverlayRef) {
-      this.quickAccessOverlayRef.close();
-      return
-    }
-    this.quickAccessOverlayRef = this.overlay.open(
-      QuickAccessComponent,
-      {
-        positionStrategy: this.overlay.position().global()
-          .left(this.elementRef.nativeElement.getBoundingClientRect().right + 'px'),
-        hasBackdrop: true,
-        backdropClass: 'phead-quick-access-backdrop',
-        ignorePointerEventsFrom: [event.currentTarget as Element],
-        height: '100vh',
-      }
+    this.quickAccessService.toggle(
+      this.overlay.position().global().left((event.currentTarget as Element).getBoundingClientRect().right + 'px'),
+      event.currentTarget as Element
     )
-    this.quickAccessOverlayRef.afterClosed$.pipe(
-      takeUntilDestroyed(this.destroyRef),
-    ).subscribe(() => {
-      this.quickAccessOverlayRef = undefined;
-    })
   }
 }

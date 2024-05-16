@@ -45,6 +45,7 @@ export function withLogo(type: Type<unknown>): RootNavigationFeature {
   };
 }
 
+// TODO move to quick access service
 // TODO: maybe rename this type
 export type QuickAccessComponent = {
   feature: 'quickAccess';

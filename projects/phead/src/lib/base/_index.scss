@@ -2,8 +2,9 @@
   @apply flex items-center justify-center relative overflow-hidden transition-all;
   &[data-enabled=true]:not(:disabled) {
     @apply cursor-pointer after:absolute after:inset-0 after:transition-colors after:touch-none after:pointer-events-none hover:after:bg-hover focus-visible:after:bg-hover;
+    @apply outline-2 outline-offset-2 outline-transparent;
     &:focus-visible {
-      @apply outline outline-2 outline-offset-2 outline-primary-500;
+      @apply outline outline-primary-500;
     }
   }
 }
@@ -15,9 +16,18 @@
     @apply rounded-1;
     @apply w-full min-w-0 px-2 py-1.5;
     @apply bg-transparent focus-visible:bg-primary-50 dark:focus-visible:bg-primary-950 transition-colors outline-none;
+    @apply outline-2 outline-offset-2 outline-transparent;
+  }
+  &:has(> textarea) {
+    @apply py-1.5;
+  }
+  > textarea {
+    @apply w-full min-w-0 px-2;
+    @apply bg-transparent focus-visible:bg-primary-50 dark:focus-visible:bg-primary-950 transition-colors outline-none;
+    @apply outline-2 outline-offset-2 outline-transparent;
   }
   &:has(:focus-visible:enabled) {
-    @apply outline outline-2 outline-offset-2 outline-primary-500;
+    @apply outline outline-primary-500;
   }
 }
 
