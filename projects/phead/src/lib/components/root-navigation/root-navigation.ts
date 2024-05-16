@@ -44,24 +44,3 @@ export function withLogo(type: Type<unknown>): RootNavigationFeature {
     }
   };
 }
-
-// TODO move to quick access service
-// TODO: maybe rename this type
-export type QuickAccessComponent = {
-  feature: 'quickAccess';
-  component: Type<unknown> | (() => Promise<Type<unknown>>);
-}
-export const QUICK_ACCESS_COMPONENTS = new InjectionToken<QuickAccessComponent[]>('quick access components');
-export function withQuickAccessComponent(type: Type<unknown> | (() => Promise<Type<unknown>>)): RootNavigationFeature {
-  return {
-    [FEATURE_SYMBOL]: FEATURE_SYMBOL,
-    provider: {
-      provide: QUICK_ACCESS_COMPONENTS,
-      useValue: {
-        feature: 'quickAccess',
-        component: type,
-      } as QuickAccessComponent,
-      multi: true,
-    }
-  }
-}

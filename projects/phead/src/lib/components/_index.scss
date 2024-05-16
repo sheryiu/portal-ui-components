@@ -544,5 +544,28 @@
 }
 
 .phead-tooltip {
-  @apply block bg-neutral-300 dark:bg-neutral-700 border px-2 py-1 rounded-1 overflow-hidden shadow-md;
+  @apply text-sm block bg-neutral-300 dark:bg-neutral-700 border px-2 py-1 rounded-1 overflow-hidden shadow-md;
+}
+
+.phead-array-field {
+  @apply flex items-center;
+  > span {
+    @apply text-sm text-secondary pe-2;
+  }
+  > button {
+    @apply self-stretch;
+    &:first-of-type {
+      @apply rounded-s-1 rounded-e-none border-y border-s;
+    }
+    &:last-of-type {
+      @apply rounded-e-1 rounded-s-none border-y border-e;
+    }
+    > i {
+      @apply icon-4;
+    }
+  }
+  > phead-input-field {
+    @apply basis-20 shrink rounded-none;
+    flex-grow: 0 !important;
+  }
 }

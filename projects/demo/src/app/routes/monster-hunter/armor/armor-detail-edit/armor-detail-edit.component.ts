@@ -60,7 +60,7 @@ export class ArmorDetailEditComponent extends EffectFn {
 
   updateForm(data: Armor | null | undefined) {
     if (!data) return;
-    this.formControl.setValue(data);
+    this.formControl.reset(data);
   }
 
 }

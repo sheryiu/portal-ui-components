@@ -5,7 +5,7 @@ import { provideNoopAnimations } from '@angular/platform-browser/animations';
 import { NoPreloading, PreloadAllModules, provideRouter, withPreloading, withRouterConfig } from '@angular/router';
 import { provideServiceWorker } from '@angular/service-worker';
 import { provideTransloco } from '@ngneat/transloco';
-import { LanguageToggleComponent, ThemeToggleComponent, provideGlobalSearch, provideModalDialog, providePheadOverlay, provideRootNavigation, provideTheme, themeGlobalSearch, withLogo, withProvider, withProviderFn, withQuickAccessComponent } from 'phead';
+import { LanguageToggleComponent, ThemeToggleComponent, provideGlobalSearch, provideModalDialog, providePheadOverlay, provideQuickAccess, provideRootNavigation, provideTheme, themeGlobalSearch, withLogo, withProvider, withProviderFn, withWidget } from 'phead';
 import { routes } from './app.routes';
 import { DatabaseInfoQuickAccessComponent } from './core/database-info-quick-access/database-info-quick-access.component';
 import { LogoComponent } from './core/logo/logo.component';
@@ -39,6 +39,12 @@ export const appConfig: ApplicationConfig = {
     }),
     providePheadOverlay(),
     provideModalDialog(),
+    provideQuickAccess(
+      withWidget(SettingsQuickAccessComponent),
+      withWidget(DatabaseInfoQuickAccessComponent),
+      withWidget(ThemeToggleComponent),
+      withWidget(LanguageToggleComponent),
+    ),
     provideRootNavigation(
       [
         {
@@ -53,10 +59,6 @@ export const appConfig: ApplicationConfig = {
         },
       ],
       withLogo(LogoComponent),
-      withQuickAccessComponent(SettingsQuickAccessComponent),
-      withQuickAccessComponent(DatabaseInfoQuickAccessComponent),
-      withQuickAccessComponent(ThemeToggleComponent),
-      withQuickAccessComponent(LanguageToggleComponent),
     ),
     provideGlobalSearch(
       undefined,

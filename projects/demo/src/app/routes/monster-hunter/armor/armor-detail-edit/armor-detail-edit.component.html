@@ -67,7 +67,7 @@
           @for (decorationSlot of formControl.value?.decorationSlots; track $index) {
             <phead-field-def
               [key]="'decorationSlots>' + $index"
-              [label]="'Decoration Slot #' + $index"
+              [label]="'↳ Decoration Slot #' + $index"
               fieldType="number"
             ></phead-field-def>
           }

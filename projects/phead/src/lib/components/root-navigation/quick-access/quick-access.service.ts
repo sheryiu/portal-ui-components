@@ -1,5 +1,5 @@
 import { PositionStrategy } from '@angular/cdk/overlay';
-import { Injectable, inject, makeEnvironmentProviders } from '@angular/core';
+import { Injectable, InjectionToken, Provider, Type, inject, makeEnvironmentProviders } from '@angular/core';
 import { PheadOverlayRef, PheadOverlayService } from '../../../base';
 import { QuickAccessComponent } from './quick-access.component';
 
@@ -42,8 +42,28 @@ export class QuickAccessService {
   }
 }
 
-export function provideQuickAccess() {
+const QUICK_ACCESS_FEATURE = Symbol('quick access feature');
+export type QuickAccessWidget = Type<unknown> | (() => Promise<Type<unknown>>);
+export const QUICK_ACCESS_WIDGETS = new InjectionToken<QuickAccessWidget[]>('quick access widgets');
+export function withWidget(type: QuickAccessWidget): Feature {
+  return {
+    [QUICK_ACCESS_FEATURE]: QUICK_ACCESS_FEATURE,
+    provider: {
+      provide: QUICK_ACCESS_WIDGETS,
+      useValue: type,
+      multi: true,
+    }
+  }
+}
+
+type Feature = {
+  [QUICK_ACCESS_FEATURE]: unknown;
+  provider: Provider;
+}
+
+export function provideQuickAccess(...features: Feature[]) {
   return makeEnvironmentProviders([
     QuickAccessService,
+    ...features.map(f => f.provider),
   ])
 }

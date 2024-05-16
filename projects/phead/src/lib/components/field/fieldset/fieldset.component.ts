@@ -1,7 +1,7 @@
-import { AfterContentInit, Component, ContentChildren, DestroyRef, EventEmitter, Output, QueryList, forwardRef, inject } from '@angular/core';
+import { Component, EventEmitter, Output, contentChildren, effect, forwardRef, inject } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ControlValueAccessor, FormBuilder, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { Subject, map, startWith } from 'rxjs';
+import { Subject } from 'rxjs';
 import { FieldDefDirective } from '../field-def.directive';
 
 @Component({
@@ -15,10 +15,8 @@ import { FieldDefDirective } from '../field-def.directive';
     }
   ]
 })
-export class FieldsetComponent<T extends Record<string, any>> implements ControlValueAccessor, AfterContentInit {
-  @ContentChildren(FieldDefDirective, { emitDistinctChangesOnly: true }) private _fieldDefs!: QueryList<FieldDefDirective>;
-  fieldDefs?: FieldDefDirective[];
-  private destroyRef = inject(DestroyRef);
+export class FieldsetComponent<T extends Record<string, any>> implements ControlValueAccessor {
+  fieldDefs = contentChildren(FieldDefDirective);
 
   private formBuilder = inject(FormBuilder);
   formControl = this.formBuilder.record({});
@@ -31,26 +29,18 @@ export class FieldsetComponent<T extends Record<string, any>> implements Control
     ).subscribe(() => {
       this.handleInput();
     })
-  }
-
-  ngAfterContentInit(): void {
-    this._fieldDefs.changes.pipe(
-      startWith(null),
-      map(() => this._fieldDefs.toArray()),
-      takeUntilDestroyed(this.destroyRef),
-    ).subscribe(fieldDefs => {
-      fieldDefs.forEach(fieldDef => {
+    effect(() => {
+      this.fieldDefs().map(fieldDef => {
         if (this.formControl.contains(fieldDef.key)) return;
         this.formControl.addControl(fieldDef.key, this.formBuilder.control({
           disabled: this.isDisabled,
           value: this.formControlValueForField(fieldDef)
         }));
       })
-      Object.keys(this.formControl.controls).forEach(name => {
-        if (fieldDefs.some(f => f.key === name)) return;
+      Object.keys(this.formControl.controls).map(name => {
+        if (this.fieldDefs().some(f => f.key === name)) return;
         this.formControl.removeControl(name);
       })
-      this.fieldDefs = fieldDefs;
     })
   }
 
@@ -85,22 +75,36 @@ export class FieldsetComponent<T extends Record<string, any>> implements Control
     let newValue: any = this.currentValue;
     if (newValue == null) newValue = {};
     const formValue = this.formControl.getRawValue();
-    for (const key in formValue) {
-      if (typeof formValue[key] == 'undefined') continue;
-      // only ignore undefined
-      // null values should be taken into account
-      let currPointingTo = newValue;
-      const paths = key.split('>');
-      let i = 0;
-      for (const path of paths.slice(0, -1)) {
-        if (currPointingTo[path] == null) currPointingTo[path] = /^\d+$/.test(paths.at(i + 1)!) ? [] : {};
-        currPointingTo = currPointingTo[path];
-        i++;
+    try {
+      for (const key in formValue) {
+        if (typeof formValue[key] == 'undefined') continue;
+        // only ignore undefined
+        // null values should be taken into account
+        let currPointingTo = newValue;
+        const paths = key.split('>');
+        let i = 0;
+        for (const path of paths.slice(0, -1)) {
+          if (/^\d+$/.test(paths.at(i + 1)!)) {
+            if (currPointingTo[path] == null) {
+              currPointingTo[path] = [];
+              currPointingTo = currPointingTo[path];
+            } else {
+              currPointingTo = currPointingTo[path];
+              Object.seal(currPointingTo); // prevents items from added to the array
+            }
+          } else {
+            if (currPointingTo[path] == null) currPointingTo[path] = {};
+            currPointingTo = currPointingTo[path];
+          }
+          i++;
+        }
+        currPointingTo[paths.at(-1)!] = formValue[key];
       }
-      currPointingTo[paths.at(-1)!] = formValue[key];
+      this.onChange?.(newValue);
+      this.valueChange.emit(newValue);
+    } catch (e) {
+      // ignore
     }
-    this.onChange?.(newValue);
-    this.valueChange.emit(newValue);
   }
 
   onSetNotNull(fieldDef: FieldDefDirective) {
@@ -134,7 +138,7 @@ export class FieldsetComponent<T extends Record<string, any>> implements Control
     if (this.currentValue == null) {
       this.formControl.reset();
     } else {
-      this.fieldDefs?.forEach(fieldDef => {
+      this.fieldDefs()?.forEach(fieldDef => {
         this.formControl.get(fieldDef.key)?.setValue(this.formControlValueForField(fieldDef));
       })
     }
