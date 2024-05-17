@@ -12,6 +12,15 @@ export const ROUTES: Routes = [
     }
   },
   {
+    path: 'docs',
+    loadChildren: () => import('./docs/docs.routes').then(r => r.DOCS_ROUTES),
+    data: {
+      ...breadcrumb({
+        title: 'Documentation'
+      })
+    }
+  },
+  {
     path: 'settings',
     loadChildren: () => import('./settings/settings.routes').then(r => r.SETTINGS_ROUTES),
     data: {

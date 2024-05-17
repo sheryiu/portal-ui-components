@@ -12,7 +12,7 @@
 *, *::before, *::after {
   @apply border-black/10;
   // TODO: add option to disable animations
-  transition: none !important;
+  // transition: none !important;
 }
 :where(.dark *), :where(.dark *::before), :where(.dark *::after) {
   @apply border-white/10;

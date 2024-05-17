@@ -88,6 +88,10 @@
   }
 }
 
+.\@container\/table {
+  container-type: inline-size;
+  container-name: table;
+}
 .phead-table {
   @apply block size-full;
 
@@ -232,7 +236,7 @@
   }
   .phead-segmented-options-button {
     @apply text-sm rounded-1 px-1 py-1.5;
-    @apply w-full @[16rem]/segmented-options:grow @[16rem]/segmented-options:w-auto;
+    @apply w-full min-w-fit @[16rem]/segmented-options:grow @[16rem]/segmented-options:w-auto;
     &[data-checked=false] {
       @apply bg-none;
     }

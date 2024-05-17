@@ -140,12 +140,13 @@ module.exports = {
           h1: {
             "font-size": "1.75rem",
             "line-height": "2.25rem",
-            "letter-spacing": "-0.05rem",
+            "letter-spacing": "-0.025rem",
             "font-family": theme("fontFamily.display"),
             "font-weight": "700",
             "text-overflow": "ellipsis",
             "overflow": "hidden",
             "white-space": "nowrap",
+            "padding-top": "1.5rem",
           },
           h2: {
             "font-size": "1.75rem",
@@ -156,6 +157,7 @@ module.exports = {
             "text-overflow": "ellipsis",
             "overflow": "hidden",
             "white-space": "nowrap",
+            "padding-top": "1rem",
           },
           h3: {
             "font-size": "1.25rem",
@@ -239,6 +241,19 @@ module.exports = {
           },
           ".gutter-stable": {
             "scrollbar-gutter": "stable"
+          }
+        });
+        matchUtilities({
+          'gradient-shape': (value) => {
+            return {
+              '--gradient-radial-shape': value
+            }
+          }
+        }, {
+          type: ['position'],
+          values: {
+            'circle': 'circle',
+            'ellipse': 'ellipse',
           }
         });
         matchUtilities({

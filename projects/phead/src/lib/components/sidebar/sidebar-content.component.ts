@@ -12,7 +12,7 @@ import { SidebarMainDirective } from './sidebar-main.directive';
   },
   imports: [BackgroundGraphicsComponent, NgTemplateOutlet],
   template: `
-  <phead-background-graphics></phead-background-graphics>
+  <!-- <phead-background-graphics></phead-background-graphics> -->
   <div class="phead-sidebar-container__content__main">
     @if (main && main.templateRef) {
     <ng-container [ngTemplateOutlet]="main.templateRef"></ng-container>

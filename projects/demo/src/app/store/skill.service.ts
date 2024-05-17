@@ -1,7 +1,10 @@
 import { Injectable, inject, signal } from '@angular/core';
+import { Router } from '@angular/router';
 import { liveQuery } from 'dexie';
+import Fuse, { FuseResultMatch } from 'fuse.js';
 import { nanoid } from 'nanoid';
-import { from, of } from 'rxjs';
+import { GlobalSearchProvider, GlobalSearchSuggestion, formatFuseText, isNonNull } from 'phead';
+import { Observable, from, map, of, switchMap } from 'rxjs';
 import { Skill } from '../data/skill';
 import { DatabaseService } from './database.service';
 
@@ -19,8 +22,9 @@ export type SkillLevelCreateInput = (Skill['levels'] & {})[number]
 @Injectable({
   providedIn: 'root'
 })
-export class SkillService {
+export class SkillService implements GlobalSearchProvider {
   private data = inject(DatabaseService);
+  private router = inject(Router);
 
   list(
     filter?: Filter,
@@ -97,4 +101,24 @@ export class SkillService {
       skill.levels.push(input);
     }))
   }
+
+  getSuggestions(searchTerm: Observable<string>): Observable<GlobalSearchSuggestion[]> {
+    return searchTerm.pipe(
+      switchMap(term => this.list().pipe(
+        map(list => new Fuse(list, { includeScore: true, includeMatches: true, keys: ['name.jp', 'name.en'] }).search(term)),
+      )),
+      map(result => result.map(({ item, score, matches }) => ({
+        title: formatTitle(item, matches),
+        category: 'Skill',
+        score: score!,
+        onClick: () => this.router.navigate(['mhw', 'skill', item.id]),
+      })))
+    )
+  }
+}
+
+function formatTitle(item: Skill, matches: readonly FuseResultMatch[] = []) {
+  const nameJp = (matches.some(m => m.key === 'name.jp') && item.name?.jp) ? formatFuseText(item.name.jp, matches.find(m => m.key === 'name.jp')?.indices!) : undefined;
+  const nameEn = (matches.some(m => m.key === 'name.en') && item.name?.en) ? formatFuseText(item.name.en, matches.find(m => m.key === 'name.en')?.indices!) : undefined;
+  return [nameJp, nameEn].filter(isNonNull).join(' / ')
 }

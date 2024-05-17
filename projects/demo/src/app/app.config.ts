@@ -11,7 +11,10 @@ import { DatabaseInfoQuickAccessComponent } from './core/database-info-quick-acc
 import { LogoComponent } from './core/logo/logo.component';
 import { SettingsQuickAccessComponent } from './core/settings-quick-access/settings-quick-access.component';
 import { TranslocoHttpLoader } from './core/transloco-http-loader';
+import { ArmorSetBonusService } from './store/armor-set-bonus.service';
+import { ArmorSetService } from './store/armor-set.service';
 import { ArmorService } from './store/armor.service';
+import { SkillService } from './store/skill.service';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -53,9 +56,9 @@ export const appConfig: ApplicationConfig = {
           routerLink: ['mhw'],
         },
         {
-          icon: 'brush',
-          label: 'Design',
-          routerLink: ['skills'],
+          icon: 'code',
+          label: 'Docs',
+          routerLink: ['docs'],
         },
       ],
       withLogo(LogoComponent),
@@ -63,6 +66,9 @@ export const appConfig: ApplicationConfig = {
     provideGlobalSearch(
       undefined,
       withProvider(ArmorService),
+      withProvider(ArmorSetService),
+      withProvider(ArmorSetBonusService),
+      withProvider(SkillService),
       withProviderFn(themeGlobalSearch),
     ),
     provideServiceWorker('ngsw-worker.js', {
