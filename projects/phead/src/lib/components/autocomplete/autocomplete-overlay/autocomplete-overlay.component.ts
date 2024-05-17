@@ -1,6 +1,6 @@
 import { A11yModule } from '@angular/cdk/a11y';
 import { NgTemplateOutlet } from '@angular/common';
-import { AfterViewInit, Component, ElementRef, QueryList, TemplateRef, ViewChildren, inject } from '@angular/core';
+import { AfterViewInit, Component, DestroyRef, ElementRef, QueryList, TemplateRef, ViewChildren, inject } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { HotkeysService } from '@ngneat/hotkeys';
 import { HoverableDirective, OVERLAY_DATA } from '../../../base';
@@ -26,37 +26,35 @@ export class AutocompleteOverlayComponent<D> implements AfterViewInit {
   private hotkey = inject(HotkeysService, { optional: true });
   @ViewChildren('options') private options!: QueryList<ElementRef<HTMLButtonElement>>;
   selectedOption?: HTMLButtonElement;
-
-  constructor() {
-    this.hotkey?.addShortcut({
-      keys: 'down',
-      allowIn: ['INPUT', 'TEXTAREA', 'CONTENTEDITABLE']
-    }).pipe(
-      takeUntilDestroyed(),
-    ).subscribe(() => {
-      this.nextOption();
-    })
-    this.hotkey?.addShortcut({
-      keys: 'up',
-      allowIn: ['INPUT', 'TEXTAREA', 'CONTENTEDITABLE']
-    }).pipe(
-      takeUntilDestroyed(),
-    ).subscribe(() => {
-      this.prevOption();
-    })
-    this.hotkey?.addShortcut({
-      keys: 'enter',
-      allowIn: ['INPUT', 'TEXTAREA', 'CONTENTEDITABLE']
-    }).pipe(
-      takeUntilDestroyed(),
-    ).subscribe(() => {
-      this.selectedOption?.click();
-    })
-  }
+  private destroyRef = inject(DestroyRef);
 
   ngAfterViewInit(): void {
     setTimeout(() => {
       this.selectedOption = this.options.first.nativeElement;
+      this.hotkey?.addShortcut({
+        keys: 'down',
+        allowIn: ['INPUT', 'TEXTAREA', 'CONTENTEDITABLE']
+      }).pipe(
+        takeUntilDestroyed(this.destroyRef),
+      ).subscribe(() => {
+        this.nextOption();
+      })
+      this.hotkey?.addShortcut({
+        keys: 'up',
+        allowIn: ['INPUT', 'TEXTAREA', 'CONTENTEDITABLE']
+      }).pipe(
+        takeUntilDestroyed(this.destroyRef),
+      ).subscribe(() => {
+        this.prevOption();
+      })
+      this.hotkey?.addShortcut({
+        keys: 'enter',
+        allowIn: ['INPUT', 'TEXTAREA', 'CONTENTEDITABLE']
+      }).pipe(
+        takeUntilDestroyed(this.destroyRef),
+      ).subscribe(() => {
+        this.selectedOption?.click();
+      })
     })
   }
 

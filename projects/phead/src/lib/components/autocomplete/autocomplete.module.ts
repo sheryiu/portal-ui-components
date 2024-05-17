@@ -10,7 +10,6 @@ import { AutocompleteTriggerDirective } from './autocomplete-trigger.directive';
   ],
   exports: [
     AutocompleteTriggerDirective,
-    AutocompleteOverlayComponent,
   ]
 })
 export class AutocompleteModule { }

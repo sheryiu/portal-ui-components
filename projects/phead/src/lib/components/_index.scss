@@ -199,7 +199,7 @@
   .phead-tab-bar-tabs {
     @apply w-full flex gap-1.5 transition-all sticky;
     > button {
-      @apply basis-full grow rounded-1 px-1 h-8 truncate;
+      @apply basis-full grow rounded-1 px-1 h-8 truncate min-w-fit;
       &[data-active=true] {
         @apply text-primary-700 dark:text-primary-500 font-medium;
       }
