@@ -15,7 +15,7 @@
     a {
       @apply size-18 rounded-full flex-col gap-1;
       &[data-active=true] {
-        @apply bg-hover text-primary-600 dark:text-primary-500;
+        @apply bg-hover text-primary-700 dark:text-primary-500;
       }
       i {
         @apply icon-6 flex-none;
@@ -571,5 +571,20 @@
   > phead-input-field {
     @apply basis-20 shrink rounded-none;
     flex-grow: 0 !important;
+  }
+}
+
+.phead-table-of-contents {
+  @apply flex flex-col;
+  .phead-table-of-contents__entry {
+    @apply flex justify-start gap-2 py-1.5 transition-colors;
+    @apply text-secondary hover:text-black dark:hover:text-white;
+    @apply before:w-0.5 before:-my-1.5 before:self-stretch before:scale-x-50 hover:before:scale-x-100 before:transition;
+
+    @apply before:bg-neutral-400 dark:before:bg-neutral-600;
+    &[data-active=true] {
+      @apply before:scale-x-100;
+      @apply text-primary-600 before:bg-primary-500 dark:text-primary-400 dark:before:bg-primary-500;
+    }
   }
 }

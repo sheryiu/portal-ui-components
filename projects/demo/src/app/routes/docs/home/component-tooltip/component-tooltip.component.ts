@@ -1,5 +1,6 @@
 import { Component, DestroyRef, afterNextRender, inject, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { RouterLink, RouterLinkActive } from '@angular/router';
 import { TooltipDirective } from 'phead';
 import { timer } from 'rxjs';
 import { SharedModule } from '../../../../shared/shared.module';
@@ -9,6 +10,8 @@ import { SharedModule } from '../../../../shared/shared.module';
   standalone: true,
   imports: [
     SharedModule,
+    RouterLink,
+    RouterLinkActive,
   ],
   templateUrl: './component-tooltip.component.html',
   styles: ``

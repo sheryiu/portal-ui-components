@@ -1,4 +1,12 @@
-<div class="rounded-2 w-full max-w-screen-lg h-32 overflow-hidden flex items-stretch justify-start bg-neutral-200 dark:bg-neutral-800 border-y border-e group">
+<div
+  class="rounded-2 w-full max-w-screen-lg h-32 overflow-hidden flex items-stretch justify-start bg-neutral-200 dark:bg-neutral-800 border-y border-e group transition-colors"
+  [routerLink]="['field']"
+  routerLinkActive
+  #active="routerLinkActive"
+  [ngClass]="{
+    'bg-primary-200 dark:bg-primary-900 border-transparent': active.isActive
+  }"
+>
   <div class="relative flex-none w-40 rounded-2 overflow-hidden bg-neutral-300 dark:bg-neutral-700 border-e z-10 group-hover:w-60 transition-[width]">
     <div class="flex flex-col gap-4 absolute left-[20%] top-1/2 -translate-y-1/2 w-40">
       <phead-input-field class="w-full">
@@ -10,7 +18,7 @@
       </phead-input-field>
     </div>
   </div>
-  <div class="flex flex-col gap-1 grow -ms-2 ps-10 justify-center items-start z-0" pheadHoverable>
+  <div class="flex flex-col gap-1 grow -ms-2 ps-10 pe-6 justify-center items-start z-0" pheadHoverable>
     <h3 class="text-primary-800 dark:text-primary-200">Field</h3>
     <p>Text input, number input, textarea etc...</p>
   </div>

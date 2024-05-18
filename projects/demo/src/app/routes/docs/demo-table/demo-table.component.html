@@ -1,0 +1,59 @@
+<phead-layered-container>
+  <div pheadSidebarContainer>
+    <div pheadSidebarBreadcrumbs>
+      <phead-breadcrumbs></phead-breadcrumbs>
+    </div>
+    <phead-sidebar-content class="max-w-screen-xl">
+      <div *pheadSidebarMain class="flex flex-col py-6 px-8 gap-4">
+        <h1 class="text-primary-700 dark:text-primary-300">Table</h1>
+        <div class="w-full px-8 py-6 rounded-2 border">
+
+          <phead-table itemHeight="48" [columns]="['name', 'height', 'mass', 'hairColor', 'eyeColor', 'gender']">
+            <phead-table-header-cell *pheadTableHeaderCellDef="'name'" [filtered]="filter().key === 'name'" [sortedAsc]="sort().key === 'name' && sort().direction === 'asc'" [sortedDesc]="sort().key === 'name' && sort().direction === 'desc'">
+              Name
+              <phead-input-field *pheadTableHeaderCellFilter>
+                <input type="search" [value]="filter().value" (input)="filter.set({ key: 'name', value: $any($event.currentTarget).value })">
+              </phead-input-field>
+              <phead-segmented-options *pheadTableHeaderCellSort color="primary" [value]="sort().key === 'name' ? sort().direction : null" (valueChange)="sort.set({ key: 'name', direction: $event! })">
+                <i class="icon-4 rotate-180 -scale-x-100" *pheadOption="'asc'">sort</i>
+                <i class="icon-4" *pheadOption="'desc'">sort</i>
+              </phead-segmented-options>
+            </phead-table-header-cell>
+            <phead-table-header-cell *pheadTableHeaderCellDef="'height'" [sortedAsc]="sort().key === 'height' && sort().direction === 'asc'" [sortedDesc]="sort().key === 'height' && sort().direction === 'desc'">
+              Height
+              <phead-segmented-options *pheadTableHeaderCellSort color="primary" [value]="sort().key === 'height' ? sort().direction : null" (valueChange)="sort.set({ key: 'height', direction: $event! })">
+                <i class="icon-4 rotate-180 -scale-x-100" *pheadOption="'asc'">sort</i>
+                <i class="icon-4" *pheadOption="'desc'">sort</i>
+              </phead-segmented-options>
+            </phead-table-header-cell>
+            <phead-table-header-cell *pheadTableHeaderCellDef="'mass'" [sortedAsc]="sort().key === 'mass' && sort().direction === 'asc'" [sortedDesc]="sort().key === 'mass' && sort().direction === 'desc'">
+              Mass
+              <phead-segmented-options *pheadTableHeaderCellSort color="primary" [value]="sort().key === 'mass' ? sort().direction : null" (valueChange)="sort.set({ key: 'mass', direction: $event! })">
+                <i class="icon-4 rotate-180 -scale-x-100" *pheadOption="'asc'">sort</i>
+                <i class="icon-4" *pheadOption="'desc'">sort</i>
+              </phead-segmented-options>
+            </phead-table-header-cell>
+            <phead-table-header-cell *pheadTableHeaderCellDef="'hairColor'">Hair Color</phead-table-header-cell>
+            <phead-table-header-cell *pheadTableHeaderCellDef="'eyeColor'">Eye Color</phead-table-header-cell>
+            <phead-table-header-cell *pheadTableHeaderCellDef="'gender'">Gender</phead-table-header-cell>
+
+            <phead-table-cell *pheadTableCellDef="'name'; let item">{{ item.name }}</phead-table-cell>
+            <phead-table-cell *pheadTableCellDef="'height'; let item">{{ item.height }}</phead-table-cell>
+            <phead-table-cell *pheadTableCellDef="'mass'; let item">{{ item.mass }}</phead-table-cell>
+            <phead-table-cell *pheadTableCellDef="'hairColor'; let item">{{ item.hair_color }}</phead-table-cell>
+            <phead-table-cell *pheadTableCellDef="'eyeColor'; let item">{{ item.eye_color }}</phead-table-cell>
+            <phead-table-cell *pheadTableCellDef="'gender'; let item">{{ item.gender }}</phead-table-cell>
+
+            <phead-table-body>
+              <phead-table-header-row></phead-table-header-row>
+              @for (item of filtered(); track $index) {
+                <phead-table-row pheadHoverable [item]="item"></phead-table-row>
+              }
+            </phead-table-body>
+          </phead-table>
+
+        </div>
+      </div>
+    </phead-sidebar-content>
+  </div>
+</phead-layered-container>

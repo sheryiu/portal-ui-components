@@ -1,0 +1,42 @@
+<phead-layered-container>
+  <div pheadSidebarContainer>
+    <div pheadSidebarBreadcrumbs>
+      <phead-breadcrumbs></phead-breadcrumbs>
+    </div>
+    <phead-sidebar-content class="max-w-screen-lg">
+      <div *pheadSidebarMain class="flex flex-col py-6 px-8 gap-4">
+        <h1 class="text-primary-700 dark:text-primary-300">Table of Contents</h1>
+        <div class="w-full px-8 py-6 rounded-2 border">
+          <div class="flex flex-col gap-4">
+            <phead-table-of-contents [scrollspy]="scrollspy">
+              @for (i of 10 | array; track $index) {
+                <span *pheadTableOfContentsEntry="'paragraph' + i">Paragraph #{{ i + 1 }}</span>
+              }
+            </phead-table-of-contents>
+            <div class="overflow-auto h-96 flex flex-col gap-2 text-xl/9" pheadScrollspyContainer #scrollspy="scrollspy">
+              <p pheadScrollspyTrigger scrollspyId="paragraph0">Ut cillum commodo sit pariatur in non ex fugiat cupidatat sit aliqua nostrud nulla. Commodo nulla amet deserunt ut velit ex aliqua. Eu sunt velit sit aliquip.</p>
+
+              <p pheadScrollspyTrigger scrollspyId="paragraph1">Cupidatat duis do et labore laboris officia proident proident labore sint eu tempor. Exercitation nisi ipsum consectetur fugiat sint consequat dolor culpa irure fugiat. Veniam occaecat ipsum officia ea sit. Consectetur voluptate amet do ea veniam. Ipsum occaecat commodo aliquip consequat qui occaecat anim eiusmod eu tempor sint culpa non. Ut consequat incididunt elit laboris ut sunt sit.</p>
+
+              <p pheadScrollspyTrigger scrollspyId="paragraph2">Sint dolore culpa adipisicing est est in ea nostrud proident eu sit veniam et. Anim duis pariatur tempor non do nisi est. Lorem exercitation deserunt duis in sunt. Culpa enim deserunt tempor sint nostrud ea sint excepteur adipisicing eu amet duis id consequat.</p>
+
+              <p pheadScrollspyTrigger scrollspyId="paragraph3">Ad ut cillum voluptate esse nulla exercitation labore anim sunt excepteur. Fugiat dolore officia cillum deserunt consectetur ad irure adipisicing minim. Mollit ipsum dolore sit elit commodo eiusmod ullamco nostrud incididunt ea consectetur eiusmod et. Aliqua dolor fugiat commodo in excepteur reprehenderit consectetur non. Amet magna adipisicing non est reprehenderit anim incididunt commodo. Id aute cupidatat elit et Lorem nisi anim amet magna ut. Fugiat nisi labore consectetur pariatur amet pariatur.</p>
+
+              <p pheadScrollspyTrigger scrollspyId="paragraph4">Adipisicing aute fugiat nostrud ex occaecat occaecat velit reprehenderit exercitation sit. Reprehenderit nisi amet officia mollit et esse quis voluptate ut fugiat aute. Proident amet qui in mollit velit aliquip ad anim irure sit. Dolor labore aute aliqua ipsum reprehenderit. Sint sunt ipsum qui occaecat adipisicing ea irure amet labore elit irure exercitation. Anim ea dolore tempor pariatur voluptate proident labore irure Lorem. In anim pariatur sit consequat nulla enim consequat do reprehenderit sint dolore incididunt cillum irure.</p>
+
+              <p pheadScrollspyTrigger scrollspyId="paragraph5">Deserunt esse velit elit ad aute eu sit. Id id commodo in dolore culpa do ullamco sunt exercitation. Consectetur officia irure exercitation dolor cillum.</p>
+
+              <p pheadScrollspyTrigger scrollspyId="paragraph6">Aliqua consequat pariatur consequat proident. Culpa in non duis labore ea magna nulla id exercitation ullamco. Consequat aute do cillum veniam consectetur enim non cillum est. Enim eu cupidatat quis irure sit enim ut esse sunt nostrud officia.</p>
+
+              <p pheadScrollspyTrigger scrollspyId="paragraph7">Culpa ea consequat labore officia eiusmod minim consectetur qui consectetur. Velit officia quis veniam pariatur. In dolor Lorem sint commodo eiusmod nulla do commodo. Ullamco occaecat non laborum anim do aute nulla fugiat proident dolore est. Quis dolore aliqua proident magna est commodo aute. Sit amet duis excepteur commodo ea consectetur occaecat dolore ea laboris.</p>
+
+              <p pheadScrollspyTrigger scrollspyId="paragraph8">Id ipsum esse dolore adipisicing pariatur anim mollit enim sint excepteur qui occaecat anim incididunt. Duis sunt duis eiusmod Lorem est sit. Ad dolor pariatur consectetur ipsum adipisicing incididunt. Nulla reprehenderit magna consectetur aute eiusmod in aute aute nostrud dolor irure ut est anim. Esse Lorem velit cillum ut dolore irure ex. Quis sit nostrud laboris commodo elit in culpa. Amet ex eiusmod minim ea dolor ipsum mollit pariatur dolor.</p>
+
+              <p pheadScrollspyTrigger scrollspyId="paragraph9">Minim esse voluptate eu exercitation aliqua. Et officia sint aute minim laboris labore et irure. Veniam officia veniam duis tempor voluptate commodo exercitation eiusmod voluptate. Laboris nostrud aute ea minim ex laborum anim velit veniam sint nulla sint excepteur laboris. Ad ea id irure ad est aliquip elit ipsum eu aliqua eu.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </phead-sidebar-content>
+  </div>
+</phead-layered-container>

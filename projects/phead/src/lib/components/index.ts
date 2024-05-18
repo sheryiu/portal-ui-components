@@ -13,4 +13,5 @@ export * from './root-navigation';
 export * from './sidebar';
 export * from './tab-bar';
 export * from './table';
+export * from './table-of-contents';
 export * from './tooltip';

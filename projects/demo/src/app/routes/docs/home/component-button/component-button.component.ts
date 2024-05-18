@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { RouterLink, RouterLinkActive } from '@angular/router';
 import { SharedModule } from '../../../../shared/shared.module';
 
 @Component({
@@ -6,6 +7,8 @@ import { SharedModule } from '../../../../shared/shared.module';
   standalone: true,
   imports: [
     SharedModule,
+    RouterLink,
+    RouterLinkActive,
   ],
   templateUrl: './component-button.component.html',
   styles: ``

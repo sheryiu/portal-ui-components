@@ -1,0 +1,23 @@
+<phead-layered-container>
+  <div pheadSidebarContainer>
+    <div pheadSidebarBreadcrumbs>
+      <phead-breadcrumbs></phead-breadcrumbs>
+    </div>
+    <phead-sidebar-content class="max-w-screen-lg">
+      <div *pheadSidebarMain class="flex flex-col py-6 px-8 gap-4">
+        <h1 class="text-primary-700 dark:text-primary-300">Toggle</h1>
+        <div class="w-full px-8 py-6 rounded-2 border">
+          <div class="flex gap-4">
+            <phead-input-field>
+              <phead-toggle></phead-toggle>
+            </phead-input-field>
+            <!-- TODO styling -->
+            <phead-input-field>
+              <phead-toggle [formControl]="disabledControl"></phead-toggle>
+            </phead-input-field>
+          </div>
+        </div>
+      </div>
+    </phead-sidebar-content>
+  </div>
+</phead-layered-container>

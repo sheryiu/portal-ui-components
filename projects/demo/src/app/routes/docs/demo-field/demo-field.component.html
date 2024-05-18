@@ -1,0 +1,37 @@
+<phead-layered-container>
+  <div pheadSidebarContainer>
+    <div pheadSidebarBreadcrumbs>
+      <phead-breadcrumbs></phead-breadcrumbs>
+    </div>
+    <phead-sidebar-content class="max-w-screen-lg">
+      <div *pheadSidebarMain class="flex flex-col py-6 px-8 gap-4">
+        <h1 class="text-primary-700 dark:text-primary-300">Field</h1>
+        <h3>Basic Field</h3>
+        <div class="w-full px-8 py-6 rounded-2 border">
+          <div class="flex flex-col items-start gap-4">
+            <phead-input-field>
+              <input type="text" placeholder="Enter your name">
+            </phead-input-field>
+            <phead-input-field>
+              <i class="icon-4 mx-2 text-secondary">alternate_email</i>
+              <input type="email" placeholder="Enter your email">
+            </phead-input-field>
+            <phead-input-field>
+              <input type="number" placeholder="Enter your age">
+              <span class="mx-2 text-secondary">(optional)</span>
+            </phead-input-field>
+            <phead-input-field>
+              <!-- TODO -->
+              <input type="text" placeholder="Disabled TODO" disabled>
+            </phead-input-field>
+          </div>
+        </div>
+        <h3>Borderless Field</h3>
+        <div class="w-full px-8 py-6 rounded-2 border">
+          <!-- TODO -->
+          TODO
+        </div>
+      </div>
+    </phead-sidebar-content>
+  </div>
+</phead-layered-container>

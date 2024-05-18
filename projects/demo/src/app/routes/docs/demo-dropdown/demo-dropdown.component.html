@@ -1,0 +1,25 @@
+<phead-layered-container>
+  <div pheadSidebarContainer>
+    <div pheadSidebarBreadcrumbs>
+      <phead-breadcrumbs></phead-breadcrumbs>
+    </div>
+    <phead-sidebar-content class="max-w-screen-lg">
+      <div *pheadSidebarMain class="flex flex-col py-6 px-8 gap-4">
+        <h1 class="text-primary-700 dark:text-primary-300">Dropdown</h1>
+        <h3>Basic Dropdown</h3>
+        <p>TODO</p>
+        <h3>Searchable Dropdown</h3>
+        <div class="w-full px-8 py-6 rounded-2 border">
+          <phead-dropdown>
+            <div *pheadDropdownTrigger="let value" [class.text-secondary]="!value">{{ !!value ? value : 'Pick a fruit' }}</div>
+            <phead-search-dropdown *pheadDropdownOverlay #dropdown (searchUpdate)="onSearch($event)">
+              @for (item of filtered(); track $index) {
+                <button pheadHoverable class="justify-start text-start py-2 px-4 border-b last:border-b-0" (click)="dropdown.selectValue(item)">{{ item }}</button>
+              }
+            </phead-search-dropdown>
+          </phead-dropdown>
+        </div>
+      </div>
+    </phead-sidebar-content>
+  </div>
+</phead-layered-container>

@@ -1,9 +1,9 @@
 <phead-layered-container>
-  <div pheadSidebarContainer>
+  <div pheadSidebarContainer pheadScrollspyDocumentContainer #scrollspy="scrollspy">
     <div pheadSidebarBreadcrumbs>
       <phead-breadcrumbs></phead-breadcrumbs>
     </div>
-    <phead-sidebar-content class="max-w-screen-3xl">
+    <phead-sidebar-content class="max-w-screen-3xl" drawerSize="320">
       <!-- <div *pheadSidebarMain class="flex flex-col p-6 gap-4">
         <h1 class="text-primary-700 dark:text-primary-300">Design Documentation</h1>
         <h2 class="text-primary-800 dark:text-primary-200">Layouts</h2>
@@ -61,19 +61,45 @@
           </div>
         </div>
       </div> -->
-      <div *pheadSidebarMain class="flex flex-col p-6 gap-4">
+      <div *pheadSidebarMain class="flex flex-col py-6 px-8 gap-4" >
         <h1 class="text-primary-700 dark:text-primary-300">Documentation</h1>
-        <h2 class="text-primary-800 dark:text-primary-200">Components</h2>
-        <demo-component-button></demo-component-button>
-        <demo-component-dropdown></demo-component-dropdown>
-        <demo-component-field></demo-component-field>
-        <demo-component-segmented-options></demo-component-segmented-options>
-        <demo-component-table></demo-component-table>
-        <demo-component-tooltip></demo-component-tooltip>
-        <h2 class="text-primary-800 dark:text-primary-200">Systems</h2>
-        <demo-system-accordion></demo-system-accordion>
+        <h2 class="text-primary-800 dark:text-primary-200" pheadScrollspyTrigger scrollspyId="layouts">Layouts</h2>
+        <demo-layout-layered pheadScrollspyTrigger scrollspyId="layout-layered"></demo-layout-layered>
+        <demo-layout-sidebar pheadScrollspyTrigger scrollspyId="layout-sidebar"></demo-layout-sidebar>
+        <h2 class="text-primary-800 dark:text-primary-200" pheadScrollspyTrigger scrollspyId="components">Components</h2>
+        <demo-component-button pheadScrollspyTrigger scrollspyId="component-button"></demo-component-button>
+        <demo-component-dialog pheadScrollspyTrigger scrollspyId="component-dialog"></demo-component-dialog>
+        <demo-component-dropdown pheadScrollspyTrigger scrollspyId="component-dropdown"></demo-component-dropdown>
+        <demo-component-field pheadScrollspyTrigger scrollspyId="component-field"></demo-component-field>
+        <demo-component-segmented-options pheadScrollspyTrigger scrollspyId="component-segmented-options"></demo-component-segmented-options>
+        <demo-component-tab-bar pheadScrollspyTrigger scrollspyId="component-tab-bar"></demo-component-tab-bar>
+        <demo-component-table pheadScrollspyTrigger scrollspyId="component-table"></demo-component-table>
+        <demo-component-table-of-contents pheadScrollspyTrigger scrollspyId="component-table-of-contents"></demo-component-table-of-contents>
+        <demo-component-toggle pheadScrollspyTrigger scrollspyId="component-toggle"></demo-component-toggle>
+        <demo-component-tooltip pheadScrollspyTrigger scrollspyId="component-tooltip"></demo-component-tooltip>
+        <h2 class="text-primary-800 dark:text-primary-200" pheadScrollspyTrigger scrollspyId="systems">Systems</h2>
+        <demo-system-accordion pheadScrollspyTrigger scrollspyId="system-accordion"></demo-system-accordion>
+        <demo-system-scrollspy pheadScrollspyTrigger scrollspyId="system-scrollspy"></demo-system-scrollspy>
       </div>
-      <div *pheadSidebarDrawer></div>
+      <phead-table-of-contents *pheadSidebarDrawer [scrollspy]="scrollspy">
+        <span *pheadTableOfContentsEntry="'layouts'" class="leading-6 font-bold">Layouts</span>
+        <span *pheadTableOfContentsEntry="'layout-layered'">Layered Layout</span>
+        <span *pheadTableOfContentsEntry="'layout-sidebar'">Sidebar</span>
+        <span *pheadTableOfContentsEntry="'components'" class="leading-6 font-bold">Components</span>
+        <span *pheadTableOfContentsEntry="'component-button'">Button</span>
+        <span *pheadTableOfContentsEntry="'component-dialog'">Dialog</span>
+        <span *pheadTableOfContentsEntry="'component-dropdown'">Dropdown</span>
+        <span *pheadTableOfContentsEntry="'component-field'">Field</span>
+        <span *pheadTableOfContentsEntry="'component-segmented-options'">Segmented Options</span>
+        <span *pheadTableOfContentsEntry="'component-tab-bar'">Tab Bar</span>
+        <span *pheadTableOfContentsEntry="'component-table'">Table</span>
+        <span *pheadTableOfContentsEntry="'component-table-of-contents'">Table of Contents</span>
+        <span *pheadTableOfContentsEntry="'component-tooltip'">Tooltip</span>
+        <span *pheadTableOfContentsEntry="'component-toggle'">Toggle</span>
+        <span *pheadTableOfContentsEntry="'systems'" class="leading-6 font-bold">Systems</span>
+        <span *pheadTableOfContentsEntry="'system-accordion'">Accordion</span>
+        <span *pheadTableOfContentsEntry="'system-scrollspy'">Scrollspy</span>
+      </phead-table-of-contents>
     </phead-sidebar-content>
   </div>
 </phead-layered-container>

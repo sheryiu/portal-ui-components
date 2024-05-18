@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { RouterLink, RouterLinkActive } from '@angular/router';
 import { DropdownModule } from 'phead';
 import { SharedModule } from '../../../../shared/shared.module';
 
@@ -8,6 +9,8 @@ import { SharedModule } from '../../../../shared/shared.module';
   imports: [
     SharedModule,
     DropdownModule,
+    RouterLink,
+    RouterLinkActive,
   ],
   templateUrl: './component-dropdown.component.html',
   styles: ``

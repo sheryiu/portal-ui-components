@@ -1,0 +1,15 @@
+<phead-layered-container>
+  <div pheadSidebarContainer>
+    <div pheadSidebarBreadcrumbs>
+      <phead-breadcrumbs></phead-breadcrumbs>
+    </div>
+    <phead-sidebar-content class="max-w-screen-lg">
+      <div *pheadSidebarMain class="flex flex-col py-6 px-8 gap-4">
+        <h1 class="text-primary-700 dark:text-primary-300">Dialog</h1>
+        <div>
+          <button pheadHoverable pheadHardSurface color="primary" class="rounded-1 px-4 py-2" (click)="open()">Open Dialog</button>
+        </div>
+      </div>
+    </phead-sidebar-content>
+  </div>
+</phead-layered-container>

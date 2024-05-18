@@ -1,0 +1,26 @@
+<div
+  class="rounded-2 w-full max-w-screen-lg h-32 overflow-hidden flex items-stretch justify-start bg-neutral-200 dark:bg-neutral-800 border-y border-e group transition-colors"
+  [routerLink]="['table-of-contents']"
+  routerLinkActive
+  #active="routerLinkActive"
+  [ngClass]="{
+    'bg-primary-200 dark:bg-primary-900 border-transparent': active.isActive
+  }"
+>
+  <div class="relative flex-none w-40 rounded-2 overflow-hidden bg-neutral-300 dark:bg-neutral-700 border-e z-10 group-hover:w-60 transition-[width]">
+    <div class="absolute left-[20%] top-1/3 -translate-y-1/4 w-96">
+
+      <phead-table-of-contents>
+        <span *pheadTableOfContentsEntry="let _; active: true" class="leading-5 font-bold">Welcome!</span>
+        <span *pheadTableOfContentsEntry>What is <strong>new</strong> in version 3.14</span>
+        <span *pheadTableOfContentsEntry>Changelog</span>
+        <span *pheadTableOfContentsEntry>Migration from v3.0</span>
+      </phead-table-of-contents>
+
+    </div>
+  </div>
+  <div class="flex flex-col gap-1 grow -ms-2 ps-10 pe-6 justify-center items-start z-0" pheadHoverable>
+    <h3 class="text-primary-800 dark:text-primary-200">Table of Contents</h3>
+    <p>Shows a list of headers and indicates the current scrolling position</p>
+  </div>
+</div>

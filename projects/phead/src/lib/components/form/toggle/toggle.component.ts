@@ -15,7 +15,7 @@ import { HardSurfaceDirective, HoverableDirective } from '../../../base';
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
-      useClass: forwardRef(() => ToggleComponent),
+      useExisting: forwardRef(() => ToggleComponent),
       multi: true,
     }
   ]
