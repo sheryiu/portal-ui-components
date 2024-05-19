@@ -8,7 +8,7 @@ import { SharedModule } from '../../../../../shared/shared.module';
 import { SkillLevelCreateInput, SkillService } from '../../../../../store/skill.service';
 
 @Component({
-  selector: 'mhw-skill-drawer-level-create',
+  selector: 'mhw-drawer-level-create',
   standalone: true,
   imports: [
     SharedModule,
@@ -18,10 +18,10 @@ import { SkillLevelCreateInput, SkillService } from '../../../../../store/skill.
     DividerComponent,
     SegmentedOptionsModule,
   ],
-  templateUrl: './skill-drawer-level-create.component.html',
+  templateUrl: './drawer-level-create.component.html',
   styles: ``
 })
-export class SkillDrawerLevelCreateComponent extends EffectFn {
+export class DrawerLevelCreateComponent extends EffectFn {
   @Input({ required: true }) id: string | null | undefined;
   private service = inject(SkillService);
   private builder = inject(FormBuilder);

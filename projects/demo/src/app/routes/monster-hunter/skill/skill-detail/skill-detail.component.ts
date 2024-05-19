@@ -7,9 +7,9 @@ import { map, switchMap } from 'rxjs';
 import { Skill } from '../../../../data/skill';
 import { SharedModule } from '../../../../shared/shared.module';
 import { SkillService } from '../../../../store/skill.service';
-import { SkillDrawerInfoComponent } from './skill-drawer-info/skill-drawer-info.component';
-import { SkillDrawerLevelCreateComponent } from './skill-drawer-level-create/skill-drawer-level-create.component';
-import { SkillDrawerRemoveComponent } from './skill-drawer-remove/skill-drawer-remove.component';
+import { DrawerInfoComponent } from './drawer-info/drawer-info.component';
+import { DrawerLevelCreateComponent } from './drawer-level-create/drawer-level-create.component';
+import { DrawerRemoveComponent } from './drawer-remove/drawer-remove.component';
 
 @Component({
   selector: 'app-skill-detail',
@@ -17,9 +17,9 @@ import { SkillDrawerRemoveComponent } from './skill-drawer-remove/skill-drawer-r
   imports: [
     SharedModule,
     RouterLink,
-    SkillDrawerInfoComponent,
-    SkillDrawerLevelCreateComponent,
-    SkillDrawerRemoveComponent,
+    DrawerInfoComponent,
+    DrawerLevelCreateComponent,
+    DrawerRemoveComponent,
     ScrollingModule,
     LayeredContainerComponent,
     SidebarModule,

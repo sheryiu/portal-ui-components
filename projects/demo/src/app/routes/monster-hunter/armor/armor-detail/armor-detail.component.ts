@@ -8,8 +8,8 @@ import { SharedModule } from '../../../../shared/shared.module';
 import { ArmorService } from '../../../../store/armor.service';
 import { ArmorPieceLogoComponent } from '../../utils/armor-piece-logo/armor-piece-logo.component';
 import { DecorationSlotsDisplayComponent } from '../../utils/decoration-slots-display/decoration-slots-display.component';
-import { ArmorDrawerInfoComponent } from './armor-drawer-info/armor-drawer-info.component';
-import { ArmorDrawerRemoveComponent } from './armor-drawer-remove/armor-drawer-remove.component';
+import { DrawerInfoComponent } from './drawer-info/drawer-info.component';
+import { DrawerRemoveComponent } from './drawer-remove/drawer-remove.component';
 import { ArmorSetBonusSkillComponent } from './armor-set-bonus-skill/armor-set-bonus-skill.component';
 import { ArmorSkillComponent } from './armor-skill/armor-skill.component';
 
@@ -23,8 +23,8 @@ import { ArmorSkillComponent } from './armor-skill/armor-skill.component';
     ArmorSkillComponent,
     ArmorSetBonusSkillComponent,
     DecorationSlotsDisplayComponent,
-    ArmorDrawerInfoComponent,
-    ArmorDrawerRemoveComponent,
+    DrawerInfoComponent,
+    DrawerRemoveComponent,
     LayeredContainerComponent,
     SidebarModule,
     ScrollingModule,

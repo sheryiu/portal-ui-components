@@ -5,7 +5,7 @@ import { Skill } from '../../../../../data/skill';
 import { SharedModule } from '../../../../../shared/shared.module';
 
 @Component({
-  selector: 'mhw-skill-drawer-info',
+  selector: 'mhw-drawer-info',
   standalone: true,
   imports: [
     SharedModule,
@@ -14,10 +14,10 @@ import { SharedModule } from '../../../../../shared/shared.module';
     AccordionModule,
     SidebarModule,
   ],
-  templateUrl: './skill-drawer-info.component.html',
+  templateUrl: './drawer-info.component.html',
   styles: ``
 })
-export class SkillDrawerInfoComponent {
+export class DrawerInfoComponent {
   @Input() skill!: Skill | null | undefined;
 
 }

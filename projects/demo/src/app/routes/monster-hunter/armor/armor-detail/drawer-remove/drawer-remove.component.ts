@@ -8,17 +8,17 @@ import { SharedModule } from '../../../../../shared/shared.module';
 import { ArmorService } from '../../../../../store/armor.service';
 
 @Component({
-  selector: 'mhw-skill-drawer-remove',
+  selector: 'mhw-drawer-remove',
   standalone: true,
   imports: [
     SharedModule,
     AccordionModule,
     SidebarModule,
   ],
-  templateUrl: './armor-drawer-remove.component.html',
+  templateUrl: './drawer-remove.component.html',
   styles: ``
 })
-export class ArmorDrawerRemoveComponent extends EffectFn {
+export class DrawerRemoveComponent extends EffectFn {
   @Input({ required: true }) armor!: Armor | null | undefined;
   private service = inject(ArmorService);
   private router = inject(Router);

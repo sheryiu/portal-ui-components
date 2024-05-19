@@ -8,17 +8,17 @@ import { SharedModule } from '../../../../../shared/shared.module';
 import { SkillService } from '../../../../../store/skill.service';
 
 @Component({
-  selector: 'mhw-skill-drawer-remove',
+  selector: 'mhw-drawer-remove',
   standalone: true,
   imports: [
     SharedModule,
     SidebarModule,
     AccordionModule,
   ],
-  templateUrl: './skill-drawer-remove.component.html',
+  templateUrl: './drawer-remove.component.html',
   styles: ``
 })
-export class SkillDrawerRemoveComponent extends EffectFn {
+export class DrawerRemoveComponent extends EffectFn {
   @Input({ required: true }) skill!: Skill | null | undefined;
   private service = inject(SkillService);
   private router = inject(Router);

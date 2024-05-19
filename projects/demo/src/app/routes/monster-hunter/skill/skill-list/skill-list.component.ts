@@ -9,14 +9,14 @@ import { combineLatest, switchMap, tap } from 'rxjs';
 import { Skill } from '../../../../data/skill';
 import { SharedModule } from '../../../../shared/shared.module';
 import { SkillService } from '../../../../store/skill.service';
-import { SkillListDrawerCreateComponent } from './skill-list-drawer-create/skill-list-drawer-create.component';
+import { DrawerCreateComponent } from './drawer-create/drawer-create.component';
 
 @Component({
   selector: 'app-skill-list',
   standalone: true,
   imports: [
     SharedModule,
-    SkillListDrawerCreateComponent,
+    DrawerCreateComponent,
     LayeredContainerComponent,
     SidebarModule,
     TableModule,

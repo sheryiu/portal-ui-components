@@ -140,9 +140,9 @@
         }
       </div>
       <phead-accordion>
-        <mhw-skill-drawer-info *pheadSidebarDrawer [skill]="data$ | async"></mhw-skill-drawer-info>
-        <mhw-skill-drawer-level-create *pheadSidebarDrawer [id]="id$ | async"></mhw-skill-drawer-level-create>
-        <mhw-skill-drawer-remove *pheadSidebarDrawer [skill]="data$ | async"></mhw-skill-drawer-remove>
+        <mhw-drawer-info *pheadSidebarDrawer [skill]="data$ | async"></mhw-drawer-info>
+        <mhw-drawer-level-create *pheadSidebarDrawer [id]="id$ | async"></mhw-drawer-level-create>
+        <mhw-drawer-remove *pheadSidebarDrawer [skill]="data$ | async"></mhw-drawer-remove>
       </phead-accordion>
     </phead-sidebar-content>
   </div>

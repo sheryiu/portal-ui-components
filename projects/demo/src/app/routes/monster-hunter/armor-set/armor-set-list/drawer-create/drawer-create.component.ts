@@ -7,7 +7,7 @@ import { SharedModule } from '../../../../../shared/shared.module';
 import { ArmorSetCreateInput, ArmorSetService } from '../../../../../store/armor-set.service';
 
 @Component({
-  selector: 'mhw-armor-set-list-drawer-create',
+  selector: 'mhw-drawer-create',
   standalone: true,
   imports: [
     SharedModule,
@@ -15,10 +15,10 @@ import { ArmorSetCreateInput, ArmorSetService } from '../../../../../store/armor
     AccordionModule,
     SidebarModule,
   ],
-  templateUrl: './armor-set-list-drawer-create.component.html',
+  templateUrl: './drawer-create.component.html',
   styles: ``
 })
-export class ArmorSetListDrawerCreateComponent extends EffectFn {
+export class DrawerCreateComponent extends EffectFn {
   private service = inject(ArmorSetService);
   private builder = inject(FormBuilder);
   formControl = this.builder.control<ArmorSetCreateInput | null>(null);

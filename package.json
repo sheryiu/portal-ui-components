@@ -6,9 +6,8 @@
     "lib": "ng build phead",
     "lib:watch": "ng build phead --watch",
     "start:demo": "ng serve demo",
-    "build": "ng build",
-    "watch": "ng build --watch --configuration development",
-    "serve:ssr:demo": "node dist/demo/server/server.mjs"
+    "build": "ng build demo",
+    "deploy": "ng deploy demo --base-href=/demo/"
   },
   "private": true,
   "dependencies": {
@@ -54,6 +53,7 @@
     "@types/humanize-duration": "^3.27.4",
     "@types/node": "^18.18.0",
     "@types/object-hash": "^3.0.6",
+    "angular-cli-ghpages": "^2.0.0-beta.2",
     "autoprefixer": "^10.4.16",
     "ng-packagr": "^17.1.0",
     "postcss": "^8.4.31",

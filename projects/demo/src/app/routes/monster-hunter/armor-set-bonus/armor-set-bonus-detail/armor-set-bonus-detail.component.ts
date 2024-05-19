@@ -6,7 +6,6 @@ import { LayeredContainerComponent, SidebarModule } from 'phead';
 import { map, switchMap } from 'rxjs';
 import { SharedModule } from '../../../../shared/shared.module';
 import { ArmorSetBonusService } from '../../../../store/armor-set-bonus.service';
-import { SetBonusEffectComponent } from './set-bonus-effect/set-bonus-effect.component';
 
 @Component({
   selector: 'app-armor-set-bonus-detail',
@@ -14,7 +13,6 @@ import { SetBonusEffectComponent } from './set-bonus-effect/set-bonus-effect.com
   imports: [
     SharedModule,
     RouterLink,
-    SetBonusEffectComponent,
     LayeredContainerComponent,
     SidebarModule,
     ScrollingModule,

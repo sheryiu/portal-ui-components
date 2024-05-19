@@ -7,7 +7,7 @@ import { SharedModule } from '../../../../../shared/shared.module';
 import { SkillCreateInput, SkillService } from '../../../../../store/skill.service';
 
 @Component({
-  selector: 'mhw-skill-list-drawer-create',
+  selector: 'mhw-drawer-create',
   standalone: true,
   imports: [
     SharedModule,
@@ -15,10 +15,10 @@ import { SkillCreateInput, SkillService } from '../../../../../store/skill.servi
     AccordionModule,
     FieldModule,
   ],
-  templateUrl: './skill-list-drawer-create.component.html',
+  templateUrl: './drawer-create.component.html',
   styles: ``
 })
-export class SkillListDrawerCreateComponent extends EffectFn {
+export class DrawerCreateComponent extends EffectFn {
   private service = inject(SkillService);
   private builder = inject(FormBuilder);
   formControl = this.builder.control<SkillCreateInput | null>(null);

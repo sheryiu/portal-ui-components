@@ -9,14 +9,14 @@ import { combineLatest, switchMap, tap } from 'rxjs';
 import { ArmorSet } from '../../../../data/armor-set';
 import { SharedModule } from '../../../../shared/shared.module';
 import { ArmorSetService } from '../../../../store/armor-set.service';
-import { ArmorSetListDrawerCreateComponent } from './armor-set-list-drawer-create/armor-set-list-drawer-create.component';
+import { DrawerCreateComponent } from './drawer-create/drawer-create.component';
 
 @Component({
   selector: 'app-armor-set-list',
   standalone: true,
   imports: [
     SharedModule,
-    ArmorSetListDrawerCreateComponent,
+    DrawerCreateComponent,
     LayeredContainerComponent,
     TableModule,
     SidebarModule,

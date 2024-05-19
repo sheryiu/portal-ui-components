@@ -5,7 +5,7 @@ import { Armor } from '../../../../../data/armor';
 import { SharedModule } from '../../../../../shared/shared.module';
 
 @Component({
-  selector: 'mhw-skill-drawer-info',
+  selector: 'mhw-drawer-info',
   standalone: true,
   imports: [
     SharedModule,
@@ -14,10 +14,10 @@ import { SharedModule } from '../../../../../shared/shared.module';
     SidebarModule,
     TimeDisplayComponent,
   ],
-  templateUrl: './armor-drawer-info.component.html',
+  templateUrl: './drawer-info.component.html',
   styles: ``
 })
-export class ArmorDrawerInfoComponent {
+export class DrawerInfoComponent {
   @Input() armor!: Armor | null | undefined;
 
 }
