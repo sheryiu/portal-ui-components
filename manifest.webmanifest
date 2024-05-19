@@ -1,11 +1,11 @@
 {
-  "name": "design-system-alpha",
-  "short_name": "design-system-alpha",
+  "name": "Demo",
+  "short_name": "Demo",
   "theme_color": "#1976d2",
   "background_color": "#fafafa",
   "display": "standalone",
-  "scope": "https://192.168.1.5:4000",
-  "start_url": "https://192.168.1.5:4000/mhw",
+  "scope": "https://sheryiu.github.io/portal-ui-components/",
+  "start_url": "https://sheryiu.github.io/portal-ui-components/",
   "icons": [
     {
       "src": "assets/icons/icon-72x72.png",
