@@ -10,6 +10,10 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+      - name: Setup Git
+        run: |
+          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config --global user.name "github-actions[bot]"
       - name: Checkout
         uses: actions/checkout@v4   
       - name: Adding Node.js
@@ -23,5 +27,4 @@ jobs:
       - name: Deploy to gh-pages
         run: npm run deploy
         env:
-          CI: true
-          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
