@@ -1,0 +1,31 @@
+<div
+  class="border rounded-2 flex-col justify-start items-start transition-colors"
+  pheadHoverable
+  [routerLink]="[todo().id]"
+  routerLinkActive
+  #active="routerLinkActive"
+  [ngClass]="{
+    'border-black/50 dark:border-white/50 dark:bg-primary-800/20': active.isActive,
+  }"
+>
+  <span class="w-full truncate px-4 pt-4 pb-2 text-xl font-bold text-primary-800 dark:text-primary-200">{{ todo().title }}</span>
+  <div class="flex flex-col px-4 pb-4 pt-2 gap-1 w-full">
+    @for (item of todo().items | slice: 0: 6; track $index) {
+      <div class="truncate" [ngClass]="{ 'line-through text-secondary': item.isCompleted }">{{ item.description }}</div>
+    } @empty {
+      <div class="text-sm text-secondary flex items-center gap-1"><i class="icon-4">add</i> Add some items</div>
+    }
+  </div>
+  @if (todo().label) {
+    <div class="flex gap-1 px-4 text-primary-800 dark:text-primary-200 pb-4">
+      <i class="icon-4">label</i>
+      {{ todo().label }}
+    </div>
+  }
+  @if (todo().remindOn) {
+    <div class="flex gap-1 px-4 text-primary-800 dark:text-primary-200 pb-4">
+      <i class="icon-4">timer</i>
+      <phead-time-display [date]="todo().remindOn" format="MMM dd, YYYY HH:mm"></phead-time-display>
+    </div>
+  }
+</div>

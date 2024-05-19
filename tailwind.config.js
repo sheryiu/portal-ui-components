@@ -19,6 +19,7 @@ module.exports = {
       sm: ["0.8125rem", "1rem"],
       base: ["0.875rem", "1.125rem"],
       xl: ["1.25rem", "1.625rem"],
+      '2xl': ["1.75rem", "2.25rem"],
     },
     borderRadius: {
       'none': '0rem',

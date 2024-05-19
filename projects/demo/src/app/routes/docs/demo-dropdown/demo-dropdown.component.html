@@ -10,14 +10,26 @@
         <p>TODO</p>
         <h3>Searchable Dropdown</h3>
         <div class="w-full px-8 py-6 rounded-2 border">
-          <phead-dropdown>
-            <div *pheadDropdownTrigger="let value" [class.text-secondary]="!value">{{ !!value ? value : 'Pick a fruit' }}</div>
-            <phead-search-dropdown *pheadDropdownOverlay #dropdown (searchUpdate)="onSearch($event)">
-              @for (item of filtered(); track $index) {
-                <button pheadHoverable class="justify-start text-start py-2 px-4 border-b last:border-b-0" (click)="dropdown.selectValue(item)">{{ item }}</button>
-              }
-            </phead-search-dropdown>
-          </phead-dropdown>
+          <div class="flex flex-col gap-4">
+            <p>Normal:</p>
+            <phead-dropdown>
+              <div *pheadDropdownTrigger="let value" [class.text-secondary]="!value">{{ !!value ? value : 'Pick a fruit' }}</div>
+              <phead-search-dropdown *pheadDropdownOverlay #dropdown (searchUpdate)="onSearch($event)">
+                @for (item of filtered(); track $index) {
+                  <button pheadHoverable class="justify-start text-start py-2 px-4 border-b last:border-b-0" (click)="dropdown.selectValue(item)">{{ item }}</button>
+                }
+              </phead-search-dropdown>
+            </phead-dropdown>
+            <p>Disabled:</p>
+            <phead-dropdown disabled>
+              <div *pheadDropdownTrigger="let value" [class.text-secondary]="!value">{{ !!value ? value : 'Pick a fruit' }}</div>
+              <phead-search-dropdown *pheadDropdownOverlay #dropdown (searchUpdate)="onSearch($event)">
+                @for (item of filtered(); track $index) {
+                  <button pheadHoverable class="justify-start text-start py-2 px-4 border-b last:border-b-0" (click)="dropdown.selectValue(item)">{{ item }}</button>
+                }
+              </phead-search-dropdown>
+            </phead-dropdown>
+          </div>
         </div>
       </div>
     </phead-sidebar-content>

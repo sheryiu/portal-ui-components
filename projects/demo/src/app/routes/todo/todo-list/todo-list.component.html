@@ -1,0 +1,34 @@
+<phead-layered-container>
+  <div pheadSidebarContainer>
+    <div pheadSidebarBreadcrumbs>
+      <phead-breadcrumbs></phead-breadcrumbs>
+    </div>
+    <phead-sidebar-content class="max-w-screen-3xl">
+      <div *pheadSidebarMain class="flex flex-col gap-4 py-6 px-8">
+        <h1 class="text-primary-700 dark:text-primary-300">TO-DO</h1>
+        <div class="flex">
+          <phead-segmented-options class="grow" color="primary" [value]="filter()" (valueChange)="filter.set($event)">
+            <div *pheadOption="'incomplete'" class="flex items-center gap-0.5 py-0.5">
+              <i class="icon-4">timelapse</i>
+              Incomplete
+            </div>
+            <div *pheadOption="'all'" class="flex items-center gap-0.5 py-0.5">
+              <i class="icon-4">done_all</i>
+              All
+            </div>
+          </phead-segmented-options>
+          <div class="grow"></div>
+        </div>
+        <phead-divider></phead-divider>
+        <div class="grid gap-4" style="grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr)); grid-template-rows: masonry;">
+          @for (todo of list(); track todo.id) {
+            <demo-todo-card [todo]="todo"></demo-todo-card>
+          }
+        </div>
+      </div>
+      <phead-accordion>
+        <demo-drawer-add *pheadSidebarDrawer></demo-drawer-add>
+      </phead-accordion>
+    </phead-sidebar-content>
+  </div>
+</phead-layered-container>

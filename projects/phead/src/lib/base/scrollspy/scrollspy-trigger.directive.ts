@@ -9,8 +9,6 @@ export class ScrollspyTriggerDirective implements OnInit {
   private service = inject(ScrollspyService, { optional: true }) as ScrollspyService;
   private injector = inject(Injector);
   private destroyRef = inject(DestroyRef);
-  private resizeObserver?: ResizeObserver;
-  private mutationObserver?: MutationObserver;
   private intersectionObserver?: IntersectionObserver;
 
   private scrollspyFn?: (value: number, top: number) => void;
@@ -44,8 +42,6 @@ export class ScrollspyTriggerDirective implements OnInit {
       }, { injector: this.injector })
     }, { injector: this.injector })
     this.destroyRef.onDestroy(() => {
-      this.resizeObserver?.disconnect();
-      this.mutationObserver?.disconnect();
       this.intersectionObserver?.disconnect();
     })
   }

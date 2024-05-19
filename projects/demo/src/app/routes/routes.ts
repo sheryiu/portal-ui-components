@@ -21,6 +21,15 @@ export const ROUTES: Routes = [
     }
   },
   {
+    path: 'todo',
+    loadChildren: () => import('./todo/todo.routes').then(r => r.TODO_ROUTES),
+    data: {
+      ...breadcrumb({
+        title: 'To-Do List'
+      })
+    }
+  },
+  {
     path: 'settings',
     loadChildren: () => import('./settings/settings.routes').then(r => r.SETTINGS_ROUTES),
     data: {

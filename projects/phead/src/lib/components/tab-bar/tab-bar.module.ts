@@ -1,27 +1,22 @@
-import { NgClass } from '@angular/common';
+import { NgClass, NgTemplateOutlet } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { HoverableDirective } from '../../base';
-import { TabBarContainerDirective } from './tab-bar-container.directive';
-import { TabBarHeaderSupplementaryDirective } from './tab-bar-header/tab-bar-header-supplementary.directive';
-import { TabBarHeaderComponent } from './tab-bar-header/tab-bar-header.component';
 import { TabBarComponent } from './tab-bar.component';
+import { TabDirective } from './tab.directive';
 
 @NgModule({
   declarations: [
     TabBarComponent,
-    TabBarHeaderSupplementaryDirective,
+    TabDirective,
   ],
   imports: [
+    NgTemplateOutlet,
     NgClass,
     HoverableDirective,
-    TabBarHeaderComponent,
-    TabBarContainerDirective,
   ],
   exports: [
     TabBarComponent,
-    TabBarHeaderComponent,
-    TabBarContainerDirective,
-    TabBarHeaderSupplementaryDirective,
+    TabDirective,
   ]
 })
 export class TabBarModule { }

@@ -1,7 +1,7 @@
 import { provideHttpClient, withFetch } from '@angular/common/http';
 import { ApplicationConfig, isDevMode } from '@angular/core';
 import { provideClientHydration } from '@angular/platform-browser';
-import { provideNoopAnimations } from '@angular/platform-browser/animations';
+import { provideAnimations, provideNoopAnimations } from '@angular/platform-browser/animations';
 import { NoPreloading, PreloadAllModules, provideRouter, withPreloading, withRouterConfig } from '@angular/router';
 import { provideServiceWorker } from '@angular/service-worker';
 import { provideTransloco } from '@ngneat/transloco';
@@ -21,8 +21,8 @@ export const appConfig: ApplicationConfig = {
     provideTheme(),
     provideHttpClient(withFetch()),
     // TODO toggle animation
-    // provideAnimations(),
-    provideNoopAnimations(),
+    provideAnimations(),
+    // provideNoopAnimations(),
     provideRouter(
       routes,
       withPreloading(isDevMode() ? NoPreloading : PreloadAllModules),
@@ -54,6 +54,11 @@ export const appConfig: ApplicationConfig = {
           icon: 'sports_esports',
           label: 'MHW',
           routerLink: ['mhw'],
+        },
+        {
+          icon: 'checklist',
+          label: 'TO-DO',
+          routerLink: ['todo']
         },
         {
           icon: 'code',

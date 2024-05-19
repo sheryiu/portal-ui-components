@@ -1,12 +1,11 @@
 import { Component, Input, inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { EffectFn } from '@ngneat/effects-ng';
-import { AccordionModule, ModalDialogData, ModalDialogService, SidebarModule } from 'phead';
+import { AccordionModule, ModalDialogData, ModalDialogService, RemoveConfirmComponent, SidebarModule } from 'phead';
 import { EMPTY, Observable, catchError, exhaustMap, tap } from 'rxjs';
 import { Armor } from '../../../../../data/armor';
 import { SharedModule } from '../../../../../shared/shared.module';
 import { ArmorService } from '../../../../../store/armor.service';
-import { RemoveConfirmComponent } from './remove-confirm/remove-confirm.component';
 
 @Component({
   selector: 'mhw-skill-drawer-remove',

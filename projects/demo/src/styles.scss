@@ -1,21 +1,24 @@
 @import '@angular/cdk/overlay-prebuilt.css';
+@import '@angular/cdk/text-field-prebuilt.css';
 
 @layer phead-styles {
   @tailwind base;
   @tailwind components;
   @import '../../phead/src/lib/base/index';
   @import '../../phead/src/lib/components/index';
+  *, *::before, *::after {
+    @apply border-black/10;
+  }
+  :where(.dark *), :where(.dark *::before), :where(.dark *::after) {
+    @apply border-white/10;
+  }
 }
 
 @tailwind utilities;
 
 *, *::before, *::after {
-  @apply border-black/10;
   // TODO: add option to disable animations
   // transition: none !important;
-}
-:where(.dark *), :where(.dark *::before), :where(.dark *::after) {
-  @apply border-white/10;
 }
 
 :root {

@@ -1,0 +1,39 @@
+<phead-layered-container>
+  <div pheadSidebarContainer>
+    <div pheadSidebarBreadcrumbs>
+      <phead-breadcrumbs></phead-breadcrumbs>
+    </div>
+    <phead-sidebar-content class="max-w-screen-lg">
+      <div *pheadSidebarMain class="flex flex-col py-6 px-8 gap-4">
+        <h1 class="text-primary-700 dark:text-primary-300">Tab Bar</h1>
+        <h3>Basic Tab Bar</h3>
+        <div class="w-full px-8 py-6 rounded-2 border">
+          <div class="flex gap-4">
+            <phead-tab-bar [currentTab]="'1'">
+              <div *pheadTab="let _; id: '1'">Tab 1</div>
+              <div *pheadTab="let _; id: '2'">Tab 2</div>
+              <div *pheadTab="let _; id: '3'">Tab 3</div>
+            </phead-tab-bar>
+          </div>
+        </div>
+        <h3>Scrollspy Tab Bar</h3>
+        <div class="w-full px-8 py-6 rounded-2 border">
+          <div class="flex flex-col gap-4">
+            <phead-tab-bar [scrollspy]="scrollspy">
+              <div *pheadTab="let _; id: 'paragraph0'">Paragraph 1</div>
+              <div *pheadTab="let _; id: 'paragraph1'">Paragraph 2</div>
+              <div *pheadTab="let _; id: 'paragraph2'">Paragraph 3</div>
+            </phead-tab-bar>
+            <div class="overflow-auto h-48 flex flex-col gap-2 text-xl/9" pheadScrollspyContainer #scrollspy="scrollspy">
+              <p pheadScrollspyTrigger scrollspyId="paragraph0">Ut cillum commodo sit pariatur in non ex fugiat cupidatat sit aliqua nostrud nulla. Commodo nulla amet deserunt ut velit ex aliqua. Eu sunt velit sit aliquip.</p>
+
+              <p pheadScrollspyTrigger scrollspyId="paragraph1">Cupidatat duis do et labore laboris officia proident proident labore sint eu tempor. Exercitation nisi ipsum consectetur fugiat sint consequat dolor culpa irure fugiat. Veniam occaecat ipsum officia ea sit. Consectetur voluptate amet do ea veniam. Ipsum occaecat commodo aliquip consequat qui occaecat anim eiusmod eu tempor sint culpa non. Ut consequat incididunt elit laboris ut sunt sit.</p>
+
+              <p pheadScrollspyTrigger scrollspyId="paragraph2" class="pb-48">Sint dolore culpa adipisicing est est in ea nostrud proident eu sit veniam et. Anim duis pariatur tempor non do nisi est. Lorem exercitation deserunt duis in sunt. Culpa enim deserunt tempor sint nostrud ea sint excepteur adipisicing eu amet duis id consequat.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </phead-sidebar-content>
+  </div>
+</phead-layered-container>

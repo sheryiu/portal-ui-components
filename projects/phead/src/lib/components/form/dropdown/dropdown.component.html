@@ -4,6 +4,7 @@
   type="button"
   (click)="openOverlay($event)"
   [disabled]="disabled$$()"
+  [hoverableEnabled]="!disabled$$()"
 >
   @if (trigger && trigger.templateRef) {
     <div>

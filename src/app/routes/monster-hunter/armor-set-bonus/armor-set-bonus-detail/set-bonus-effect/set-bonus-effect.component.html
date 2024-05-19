@@ -1,8 +1,0 @@
-@if (setBonusEffect.skillId | skillData | async; as skill) {
-  <div class="p-2 aspect-square w-9 flex items-center justify-center hexagon-mask" [style.background-color]="skill.color">
-    <span class="text-center font-bold">
-      {{ setBonusEffect.requiredNumberOfParts }}
-    </span>
-  </div>
-  <core-multilingual-text-display [value]="skill.name" class="self-center"></core-multilingual-text-display>
-}

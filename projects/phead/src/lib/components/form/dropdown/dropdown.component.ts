@@ -1,4 +1,4 @@
-import { Component, ContentChild, DestroyRef, Directive, ElementRef, Injector, OnInit, TemplateRef, effect, forwardRef, inject, input, output, signal, untracked, ɵINPUT_SIGNAL_BRAND_WRITE_TYPE } from '@angular/core';
+import { Component, ContentChild, DestroyRef, Directive, ElementRef, Injector, OnInit, TemplateRef, booleanAttribute, computed, effect, forwardRef, inject, input, output, signal, untracked, ɵINPUT_SIGNAL_BRAND_WRITE_TYPE } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { PheadOverlayRef, PheadOverlayService } from '../../../base';
@@ -27,7 +27,7 @@ export class DropdownOverlayDirective {
       useExisting: forwardRef(() => DropdownComponent),
       multi: true,
     }
-  ]
+  ],
 })
 export class DropdownComponent<T> implements ControlValueAccessor, OnInit {
   @ContentChild(DropdownTriggerDirective) trigger?: DropdownTriggerDirective;
@@ -37,7 +37,9 @@ export class DropdownComponent<T> implements ControlValueAccessor, OnInit {
   value = input<T | null>(null);
   internalValue$$ = signal<T | null>(null);
   valueChange = output<T | null>();
-  disabled$$ = signal<boolean>(false);
+  disabled = input(false, { transform: booleanAttribute });
+  private _disabled$$ = signal<boolean>(false);
+  disabled$$ = computed(() => this._disabled$$() || this.disabled())
 
   onChange?: (val: T | null) => void;
   onTouched?: () => void;
@@ -60,7 +62,7 @@ export class DropdownComponent<T> implements ControlValueAccessor, OnInit {
     this.onTouched = fn;
   }
   setDisabledState?(isDisabled: boolean): void {
-    this.disabled$$.set(isDisabled);
+    this._disabled$$.set(isDisabled);
   }
 
   private destroyRef = inject(DestroyRef);

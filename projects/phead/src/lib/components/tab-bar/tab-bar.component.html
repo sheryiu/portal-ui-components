@@ -1,13 +1,14 @@
 <div class="phead-tab-bar-tabs">
-  @for (tab of tabs$$(); track tab.id) {
+  @for (tab of tabs(); track tab.id()) {
     <button
+      [id]="tab.id()"
       #tabButton
       type="button"
-      [attr.data-active]="currentIndex === $index"
+      [attr.data-active]="currentTab() === tab.id()"
       pheadHoverable
-      (click)="onTabClick(tab.id)"
+      (click)="onTabClick($index, tab, tabButton)"
     >
-      {{ tab.label }}
+      <ng-container [ngTemplateOutlet]="tab.templateRef"></ng-container>
     </button>
   }
 </div>

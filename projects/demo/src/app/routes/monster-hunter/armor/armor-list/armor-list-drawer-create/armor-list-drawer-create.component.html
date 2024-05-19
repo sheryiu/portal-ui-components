@@ -14,7 +14,7 @@
   </button>
   @if (trigger.isOpened$$()) {
     <form pheadSidebarDrawerSectionContent (ngSubmit)="onSubmit()">
-      <phead-fieldset pheadSidebarDrawerSectionContent [formControl]="formControl">
+      <phead-fieldset [formControl]="formControl">
         <phead-field-def
           key="name>en"
           label="English Name"

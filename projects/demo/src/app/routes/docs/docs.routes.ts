@@ -128,6 +128,16 @@ export const DOCS_ROUTES: Routes = [
           ...layeredContainer('half'),
         }
       },
+      {
+        path: 'tab-bar',
+        loadComponent: () => import('./demo-tab-bar/demo-tab-bar.component').then(c => c.DemoTabBarComponent),
+        data: {
+          ...breadcrumb({
+            title: 'Tab Bar'
+          }),
+          ...layeredContainer('half'),
+        }
+      },
     ]
   }
 ]

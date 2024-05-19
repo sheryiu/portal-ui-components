@@ -64,6 +64,7 @@ export class CalendarTriggerDirective implements OnChanges {
 
   @HostListener('click')
   openOverlay() {
+    console.log('click,', this.calendar)
     this.calendar?.show();
     setTimeout(() => {
       if (this.date) {

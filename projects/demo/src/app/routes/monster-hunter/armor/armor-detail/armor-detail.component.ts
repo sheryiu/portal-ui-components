@@ -1,7 +1,7 @@
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { Component, inject } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
-import { AccordionModule, LayeredContainerComponent, SidebarModule, TabBarComponent, TabBarHeaderComponent, TabBarModule, filterNonNull } from 'phead';
+import { AccordionModule, LayeredContainerComponent, ScrollspyModule, SidebarModule, TabBarModule, filterNonNull } from 'phead';
 import { map, switchMap } from 'rxjs';
 import { Armor, ArmorPosition } from '../../../../data/armor';
 import { SharedModule } from '../../../../shared/shared.module';
@@ -28,6 +28,7 @@ import { ArmorSkillComponent } from './armor-skill/armor-skill.component';
     LayeredContainerComponent,
     SidebarModule,
     ScrollingModule,
+    ScrollspyModule,
     TabBarModule,
     AccordionModule,
   ],

@@ -10,12 +10,14 @@
 }
 
 .phead-input-field {
-  // TODO: disabled state
   @apply flex rounded-1 bg-neutral-50 dark:bg-neutral-950 border transition-all;
+  &[data-borderless=true] {
+    @apply border-transparent dark:border-transparent;
+  }
   > :where(input:not([type]), input[type="text"], input[type="search"], input[type="number"], input[type="password"], input[type="email"], input[type="tel"]) {
     @apply rounded-1;
     @apply w-full min-w-0 px-2 py-1.5;
-    @apply bg-transparent focus-visible:bg-primary-50 dark:focus-visible:bg-primary-950 transition-colors outline-none;
+    @apply bg-transparent outline-none;
     @apply outline-2 outline-offset-2 outline-transparent;
   }
   &:has(> textarea) {
@@ -23,11 +25,14 @@
   }
   > textarea {
     @apply w-full min-w-0 px-2;
-    @apply bg-transparent focus-visible:bg-primary-50 dark:focus-visible:bg-primary-950 transition-colors outline-none;
+    @apply bg-transparent outline-none;
     @apply outline-2 outline-offset-2 outline-transparent;
   }
   &:has(:focus-visible:enabled) {
     @apply outline outline-primary-500;
+  }
+  &:has(:disabled) {
+    @apply bg-black/5 dark:bg-white/5 border-transparent dark:border-transparent text-secondary pointer-events-none;
   }
 }
 

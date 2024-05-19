@@ -63,7 +63,7 @@ export class FieldsetComponent<T extends Record<string, any>> implements Control
     switch (fieldDef.fieldType) {
       case 'string': return '';
       case 'number': return 0;
-      case 'date-time': return '';
+      case 'date-time': return new Date().toISOString();
       case 'boolean': return false;
       case 'array': return [];
       // TODO

@@ -1,0 +1,22 @@
+<div pheadSidebarDrawerSection [class.bg-drawer-content]="trigger.isOpened$$()">
+  <button pheadSidebarDrawerSectionHeader pheadAccordionTrigger pheadHoverable #trigger="accordionTrigger" opened>
+    <i>add</i> New List
+  </button>
+  @if (trigger.isOpened$$()) {
+    <form pheadSidebarDrawerSectionContent (ngSubmit)="onSubmit()">
+      <phead-fieldset [formControl]="formControl">
+        <phead-field-def
+          key="title"
+          fieldType="string"
+          label="To-Do Name"
+        ></phead-field-def>
+        <phead-field-def
+          key="label"
+          fieldType="string"
+          label="Label"
+        ></phead-field-def>
+      </phead-fieldset>
+      <button class="rounded-1 mx-1 py-2 text-sm text-primary-700 dark:text-primary-500" pheadHoverable type="submit">Add</button>
+    </form>
+  }
+</div>

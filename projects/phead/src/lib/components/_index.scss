@@ -202,16 +202,14 @@
   @apply block transition-all overflow-hidden;
   .phead-tab-bar-tabs {
     @apply w-full flex gap-1.5 transition-all sticky;
+    &:has(> button[data-active=true]) {
+      @apply before:transition-all before:absolute before:left-[--phead-selected-tab-x] before:rounded-1 before:h-8 before:w-[--phead-selected-tab-width] before:border before:bg-hover;
+    }
     > button {
-      @apply basis-full grow rounded-1 px-1 h-8 truncate min-w-fit;
+      @apply basis-full grow rounded-1 px-2 h-8 truncate min-w-fit;
       &[data-active=true] {
         @apply text-primary-700 dark:text-primary-500 font-medium;
       }
-    }
-  }
-  &[data-selected]:not([data-selected=""]) {
-    .phead-tab-bar-tabs {
-      @apply before:transition-all before:absolute before:left-[--phead-selected-tab-x] before:rounded-1 before:h-8 before:w-[--phead-selected-tab-width] before:border before:bg-hover;
     }
   }
 }
@@ -437,7 +435,6 @@
 }
 
 .phead-dropdown {
-  // TODO: disabled state
   @apply w-full min-h-8 px-2 py-1.5;
   @apply justify-between items-center text-start gap-0.5 rounded-1;
   @apply bg-neutral-50 dark:bg-neutral-950 border transition-all;
@@ -446,6 +443,9 @@
   }
   > i {
     @apply icon-4 text-secondary;
+  }
+  &:disabled {
+    @apply bg-black/5 dark:bg-white/5 border-transparent dark:border-transparent text-secondary pointer-events-none;
   }
 }
 .phead-dropdown-overlay {

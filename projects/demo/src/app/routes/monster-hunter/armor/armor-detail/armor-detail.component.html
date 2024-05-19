@@ -8,7 +8,7 @@
     <div pheadSidebarBreadcrumbs>
       <phead-breadcrumbs></phead-breadcrumbs>
     </div>
-    <phead-sidebar-content drawerSize="320">
+    <phead-sidebar-content drawerSize="320" pheadScrollspyDocumentContainer #scrollspy="scrollspy">
       <div *pheadSidebarMain class="flex flex-col gap-4">
         <div
           class="h-64 relative"
@@ -27,8 +27,13 @@
             </h2>
           }
         </div>
-        <div class="px-4 py-2 top-12 data-[stuck=true]:bg-drawer-content data-[stuck=true]:border-b" pheadStickyHeader checkFor="48">
-          <phead-tab-bar></phead-tab-bar>
+        <!-- TODO is sticky check -->
+        <div class="px-4 py-2 top-12 sticky">
+          <phead-tab-bar [scrollspy]="scrollspy">
+            <div *pheadTab="let _; id: 'stats'">Stats</div>
+            <div *pheadTab="let _; id: 'skills'">Skills</div>
+            <div *pheadTab="let _; id: 'crafting'">Crafting</div>
+          </phead-tab-bar>
         </div>
         <div class="px-4 flex gap-2 items-center">
           @if (data$ | async; as data) {
@@ -80,9 +85,14 @@
             }
           </div>
         </div>
-        <phead-tab-bar-header class="me-4" label="Stats">
+        <div
+          class="bg-hover text-primary-700 dark:text-primary-500 text-base font-medium me-4 border border-s-0 rounded-e-1 py-1 ps-4 pe-2 min-h-11 flex justify-between items-center gap-2"
+          pheadScrollspyTrigger
+          [scrollspyId]="'stats'"
+          [observeNextSibling]="true"
+        >
           Stats
-        </phead-tab-bar-header>
+        </div>
         <div class="px-4 flex items-center gap-2">
           <i class="icon-6 font-variation-fill text-primary-500 shrink-0">shield</i>
           <div class="flex flex-col">
@@ -138,9 +148,14 @@
             }
           </div>
         </div>
-        <phead-tab-bar-header class="me-4" label="Skills">
+        <div
+          class="bg-hover text-primary-700 dark:text-primary-500 text-base font-medium me-4 border border-s-0 rounded-e-1 py-1 ps-4 pe-2 min-h-11 flex justify-between items-center gap-2"
+          pheadScrollspyTrigger
+          [scrollspyId]="'skills'"
+          [observeNextSibling]="true"
+        >
           Skills
-        </phead-tab-bar-header>
+        </div>
         <div class="-my-2 px-4 flex flex-col">
           @if (data$ | async; as data) {
             @for (armorSkill of data.skills; track armorSkill.skillId) {
@@ -168,9 +183,14 @@
             } -->
           }
         </div>
-        <phead-tab-bar-header class="me-4" label="Crafting">
+        <div
+          class="bg-hover text-primary-700 dark:text-primary-500 text-base font-medium me-4 border border-s-0 rounded-e-1 py-1 ps-4 pe-2 min-h-11 flex justify-between items-center gap-2"
+          pheadScrollspyTrigger
+          [scrollspyId]="'crafting'"
+          [observeNextSibling]="true"
+        >
           Crafting
-        </phead-tab-bar-header>
+        </div>
         <div class="px-4">
           <span class="text-secondary text-sm uppercase py-2">No Crafting Recipe</span>
         </div>
