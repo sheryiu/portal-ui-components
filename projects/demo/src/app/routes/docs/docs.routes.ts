@@ -138,6 +138,16 @@ export const DOCS_ROUTES: Routes = [
           ...layeredContainer('half'),
         }
       },
+      {
+        path: 'color',
+        loadComponent: () => import('./demo-color/demo-color.component').then(c => c.DemoColorComponent),
+        data: {
+          ...breadcrumb({
+            title: 'Color'
+          }),
+          ...layeredContainer('half'),
+        }
+      },
     ]
   }
 ]

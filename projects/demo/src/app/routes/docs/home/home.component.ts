@@ -14,6 +14,7 @@ import { ComponentTooltipComponent } from './component-tooltip/component-tooltip
 import { LayoutLayeredComponent } from './layout-layered/layout-layered.component';
 import { LayoutSidebarComponent } from './layout-sidebar/layout-sidebar.component';
 import { SystemAccordionComponent } from './system-accordion/system-accordion.component';
+import { SystemColorComponent } from './system-color/system-color.component';
 import { SystemScrollspyComponent } from './system-scrollspy/system-scrollspy.component';
 
 @Component({
@@ -41,6 +42,7 @@ import { SystemScrollspyComponent } from './system-scrollspy/system-scrollspy.co
     SystemScrollspyComponent,
     ComponentToggleComponent,
     ComponentTabBarComponent,
+    SystemColorComponent,
   ],
   templateUrl: './home.component.html',
 })

@@ -5,7 +5,7 @@
     "ng": "ng",
     "lib": "ng build phead",
     "lib:watch": "ng build phead --watch",
-    "start:demo": "ng serve demo",
+    "start": "ng serve demo",
     "build": "ng build demo",
     "deploy": "ng deploy demo --base-href=/portal-ui-components/"
   },
@@ -27,7 +27,7 @@
     "@ngneat/hotkeys": "^4.0.0",
     "@ngneat/transloco": "^6.0.4",
     "@tailwindcss/container-queries": "^0.1.1",
-    "color": "^4.2.3",
+    "colorjs.io": "^0.5.0",
     "delaunator": "^5.0.1",
     "dexie": "^3.2.5",
     "dexie-export-import": "^4.1.1",

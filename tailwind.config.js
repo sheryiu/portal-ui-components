@@ -67,18 +67,17 @@ module.exports = {
         hover:
           "rgb(var(--color-hover) / var(--color-hover-opacity, <alpha-value>))",
         primary: {
-          DEFAULT: '#5BA43E',
-          50: '#DFE7DC',
-          100: '#CFE9C5',
-          200: '#B7DEA7',
-          300: '#9ED38A',
-          400: '#86C76C',
-          500: '#6EBC4F',
-          600: '#5BA43E',
-          700: '#447B2F',
-          800: '#2E531F',
-          900: '#172A10',
-          950: '#080f06'
+          50: 'rgb(var(--color-primary-50, 223 231 220) / <alpha-value>)',
+          100: 'rgb(var(--color-primary-100, 207 233 197) / <alpha-value>)',
+          200: 'rgb(var(--color-primary-200, 183 222 167) / <alpha-value>)',
+          300: 'rgb(var(--color-primary-300, 158 211 138) / <alpha-value>)',
+          400: 'rgb(var(--color-primary-400, 134 199 108) / <alpha-value>)',
+          500: 'rgb(var(--color-primary-500, 110 188 79) / <alpha-value>)',
+          600: 'rgb(var(--color-primary-600, 91 164 62) / <alpha-value>)',
+          700: 'rgb(var(--color-primary-700, 68 123 47) / <alpha-value>)',
+          800: 'rgb(var(--color-primary-800, 46 83 31) / <alpha-value>)',
+          900: 'rgb(var(--color-primary-900, 23 42 16) / <alpha-value>)',
+          950: 'rgb(var(--color-primary-950, 8 15 6) / <alpha-value>)'
         },
         accent: {
           DEFAULT: '#3e6e7a',
