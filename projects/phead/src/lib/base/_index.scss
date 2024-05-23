@@ -14,7 +14,7 @@
   &[data-borderless=true] {
     @apply border-transparent dark:border-transparent;
   }
-  > :where(input:not([type]), input[type="text"], input[type="search"], input[type="number"], input[type="password"], input[type="email"], input[type="tel"]) {
+  > :where(input:not([type]), input[type="text"], input[type="search"], input[type="number"], input[type="password"], input[type="email"], input[type="tel"], input[type="url"]) {
     @apply rounded-1;
     @apply w-full min-w-0 px-2 py-1.5;
     @apply bg-transparent outline-none;

@@ -203,10 +203,15 @@
   .phead-tab-bar-tabs {
     @apply w-full flex gap-1.5 transition-all sticky;
     &:has(> button[data-active=true]) {
-      @apply before:transition-all before:absolute before:left-[--phead-selected-tab-x] before:rounded-1 before:h-8 before:w-[--phead-selected-tab-width] before:border before:bg-hover;
+      @apply before:transition-all before:absolute before:left-[--phead-selected-tab-x] before:rounded-1 before:w-[--phead-selected-tab-width] before:border before:bg-hover;
+      &::before {
+        // TODO
+        height: 2em;
+      }
     }
     > button {
-      @apply basis-full grow rounded-1 px-2 h-8 truncate min-w-fit;
+      @apply basis-full grow rounded-1 px-2 truncate min-w-fit;
+      height: 2em;
       &[data-active=true] {
         @apply text-primary-700 dark:text-primary-500 font-medium;
       }

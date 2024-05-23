@@ -30,9 +30,9 @@
         <!-- TODO is sticky check -->
         <div class="px-4 py-2 top-12 sticky">
           <phead-tab-bar [scrollspy]="scrollspy">
-            <div *pheadTab="let _; id: 'stats'">Stats</div>
-            <div *pheadTab="let _; id: 'skills'">Skills</div>
-            <div *pheadTab="let _; id: 'crafting'">Crafting</div>
+            <div *pheadTab="'stats'">Stats</div>
+            <div *pheadTab="'skills'">Skills</div>
+            <div *pheadTab="'crafting'">Crafting</div>
           </phead-tab-bar>
         </div>
         <div class="px-4 flex gap-2 items-center">

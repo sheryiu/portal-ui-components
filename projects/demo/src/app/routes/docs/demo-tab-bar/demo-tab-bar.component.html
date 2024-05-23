@@ -10,9 +10,9 @@
         <div class="w-full px-8 py-6 rounded-2 border">
           <div class="flex gap-4">
             <phead-tab-bar [currentTab]="'1'">
-              <div *pheadTab="let _; id: '1'">Tab 1</div>
-              <div *pheadTab="let _; id: '2'">Tab 2</div>
-              <div *pheadTab="let _; id: '3'">Tab 3</div>
+              <div *pheadTab="'1'">Tab 1</div>
+              <div *pheadTab="'2'">Tab 2</div>
+              <div *pheadTab="'3'">Tab 3</div>
             </phead-tab-bar>
           </div>
         </div>
@@ -20,9 +20,9 @@
         <div class="w-full px-8 py-6 rounded-2 border">
           <div class="flex flex-col gap-4">
             <phead-tab-bar [scrollspy]="scrollspy">
-              <div *pheadTab="let _; id: 'paragraph0'">Paragraph 1</div>
-              <div *pheadTab="let _; id: 'paragraph1'">Paragraph 2</div>
-              <div *pheadTab="let _; id: 'paragraph2'">Paragraph 3</div>
+              <div *pheadTab="'paragraph0'">Paragraph 1</div>
+              <div *pheadTab="'paragraph1'">Paragraph 2</div>
+              <div *pheadTab="'paragraph2'">Paragraph 3</div>
             </phead-tab-bar>
             <div class="overflow-auto h-48 flex flex-col gap-2 text-xl/9" pheadScrollspyContainer #scrollspy="scrollspy">
               <p pheadScrollspyTrigger scrollspyId="paragraph0">Ut cillum commodo sit pariatur in non ex fugiat cupidatat sit aliqua nostrud nulla. Commodo nulla amet deserunt ut velit ex aliqua. Eu sunt velit sit aliquip.</p>
