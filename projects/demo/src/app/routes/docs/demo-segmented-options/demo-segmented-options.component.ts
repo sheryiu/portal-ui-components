@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { BreadcrumbsComponent, LayeredContainerComponent, SegmentedOptionsModule, SidebarModule } from 'phead';
+import { BreadcrumbsComponent, LayeredContainerComponent, SegmentedOptionsModule, SidebarModule } from 'portal-ui-ng';
 import { SharedModule } from '../../../shared/shared.module';
 
 @Component({

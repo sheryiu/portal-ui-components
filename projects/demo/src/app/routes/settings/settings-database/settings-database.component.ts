@@ -3,7 +3,7 @@ import { toSignal } from '@angular/core/rxjs-interop';
 import { EffectFn } from '@ngneat/effects-ng';
 import { ExportProgress } from 'dexie-export-import/dist/export';
 import { ImportProgress } from 'dexie-export-import/dist/import';
-import { DividerComponent, LinearProgressDisplayComponent } from 'phead';
+import { ButtonModule, DividerComponent, LinearProgressDisplayComponent } from 'portal-ui-ng';
 import { BehaviorSubject, concatMap, defer, exhaustMap, filter, from, map, Observable, pairwise, shareReplay, switchMap, take, tap, timer } from 'rxjs';
 import { SharedModule } from '../../../shared/shared.module';
 import { DatabaseService } from '../../../store/database.service';
@@ -15,6 +15,7 @@ import { DatabaseService } from '../../../store/database.service';
     SharedModule,
     LinearProgressDisplayComponent,
     DividerComponent,
+    ButtonModule,
   ],
   templateUrl: './settings-database.component.html',
   styles: ``

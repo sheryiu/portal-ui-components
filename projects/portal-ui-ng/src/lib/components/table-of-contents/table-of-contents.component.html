@@ -1,0 +1,12 @@
+<div class="pui-table-of-contents">
+  @for (entry of entries(); track entry.id) {
+    <button
+      type="button"
+      class="pui-table-of-contents__entry"
+      [attr.data-active]="scrollspy?.activeId() === entry.id || entry.active()"
+      (click)="scrollspy?.service?.focusElement(entry.id)"
+    >
+      <ng-container [ngTemplateOutlet]="entry.templateRef"></ng-container>
+    </button>
+  }
+</div>

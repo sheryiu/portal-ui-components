@@ -4,7 +4,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { EffectFn } from '@ngneat/effects-ng';
-import { DividerComponent, FieldModule, LayeredContainerComponent, SidebarModule } from 'phead';
+import { ButtonModule, DividerComponent, FieldModule, LayeredContainerComponent, SidebarModule } from 'portal-ui-ng';
 import { map, switchMap, tap, withLatestFrom } from 'rxjs';
 import { ArmorSet } from '../../../../data/armor-set';
 import { SharedModule } from '../../../../shared/shared.module';
@@ -22,6 +22,7 @@ import { ArmorSetService } from '../../../../store/armor-set.service';
     SidebarModule,
     FieldModule,
     DividerComponent,
+    ButtonModule,
   ],
   templateUrl: './armor-set-detail.component.html',
   styles: ``,

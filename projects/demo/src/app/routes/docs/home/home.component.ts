@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { HoverableDirective, LayeredContainerComponent, ScrollspyModule, SidebarModule, TableOfContentsModule } from 'phead';
+import { HoverableDirective, LayeredContainerComponent, ScrollspyModule, SidebarModule, TableOfContentsModule } from 'portal-ui-ng';
 import { SharedModule } from '../../../shared/shared.module';
 import { ComponentButtonComponent } from './component-button/component-button.component';
 import { ComponentDialogComponent } from './component-dialog/component-dialog.component';

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
-import { TabBarModule } from 'phead';
+import { TabBarModule } from 'portal-ui-ng';
 import { SharedModule } from '../../../../shared/shared.module';
 
 @Component({

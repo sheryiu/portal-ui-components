@@ -4,7 +4,7 @@ import { Component, ViewChild, computed, inject } from '@angular/core';
 import { toObservable } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, Router } from '@angular/router';
 import { EffectFn } from '@ngneat/effects-ng';
-import { AccordionModule, LayeredContainerComponent, SegmentedOptionsModule, SidebarModule, TableModule } from 'phead';
+import { AccordionModule, LayeredContainerComponent, SegmentedOptionsModule, SidebarModule, TableModule } from 'portal-ui-ng';
 import { combineLatest, switchMap, tap } from 'rxjs';
 import { ArmorSet } from '../../../../data/armor-set';
 import { SharedModule } from '../../../../shared/shared.module';

@@ -5,7 +5,7 @@ import { provideAnimations, provideNoopAnimations } from '@angular/platform-brow
 import { NoPreloading, PreloadAllModules, provideRouter, withPreloading, withRouterConfig } from '@angular/router';
 import { provideServiceWorker } from '@angular/service-worker';
 import { provideTransloco } from '@ngneat/transloco';
-import { LanguageToggleComponent, ThemeToggleComponent, provideGlobalSearch, provideModalDialog, providePheadOverlay, provideQuickAccess, provideRootNavigation, provideTheme, themeGlobalSearch, withLogo, withProvider, withProviderFn, withWidget } from 'phead';
+import { LanguageToggleComponent, ThemeToggleComponent, provideGlobalSearch, provideModalDialog, provideQuickAccess, provideRootNavigation, provideTheme, providepuiOverlay, themeGlobalSearch, withLogo, withProvider, withProviderFn, withWidget } from 'portal-ui-ng';
 import { routes } from './app.routes';
 import { DatabaseInfoQuickAccessComponent } from './core/database-info-quick-access/database-info-quick-access.component';
 import { LogoComponent } from './core/logo/logo.component';
@@ -40,7 +40,7 @@ export const appConfig: ApplicationConfig = {
       },
       loader: TranslocoHttpLoader,
     }),
-    providePheadOverlay(),
+    providepuiOverlay(),
     provideModalDialog(),
     provideQuickAccess(
       withWidget(SettingsQuickAccessComponent),

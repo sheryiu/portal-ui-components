@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { liveQuery } from 'dexie';
 import Fuse, { FuseResultMatch } from 'fuse.js';
 import { nanoid } from 'nanoid';
-import { GlobalSearchProvider, GlobalSearchSuggestion, formatFuseText, isNonNull } from 'phead';
+import { GlobalSearchProvider, GlobalSearchSuggestion, formatFuseText, isNonNull } from 'portal-ui-ng';
 import { Observable, from, map, of, switchMap } from 'rxjs';
 import { ArmorSetBonus } from '../data/armor-set-bonus';
 import { Skill } from '../data/skill';

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { AccordionModule, DividerComponent } from 'phead';
+import { AccordionModule, DividerComponent } from 'portal-ui-ng';
 import { SharedModule } from '../../../../shared/shared.module';
 
 @Component({

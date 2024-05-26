@@ -1,49 +1,49 @@
-<phead-layered-container>
+<pui-layered-container>
   <div
-    pheadSidebarContainer
+    puiSidebarContainer
   >
-    <div pheadSidebarBreadcrumbs>
-      <phead-breadcrumbs></phead-breadcrumbs>
+    <div puiSidebarBreadcrumbs>
+      <pui-breadcrumbs></pui-breadcrumbs>
     </div>
-    <phead-sidebar-content>
-      <div *pheadSidebarMain class="flex flex-col p-6 gap-4">
+    <pui-sidebar-content>
+      <div *puiSidebarMain class="flex flex-col p-6 gap-4">
         <h1 class="text-primary-800 dark:text-primary-200">Monster Hunter World Database</h1>
         <div class="flex mb-4 gap-6">
-          <a pheadHoverable class="flex items-start border rounded-1 overflow-hidden bg-neutral-50 dark:bg-neutral-950 min-h-40 p-4">
+          <a puiHoverable class="flex items-start border rounded-1 overflow-hidden bg-neutral-50 dark:bg-neutral-950 min-h-40 p-4">
             <h2 class="text-primary-700 dark:text-primary-300">Skill<br/>Simulator</h2>
           </a>
-          <a pheadHoverable class="flex items-start border rounded-1 overflow-hidden bg-neutral-50 dark:bg-neutral-950 min-h-40 p-4">
+          <a puiHoverable class="flex items-start border rounded-1 overflow-hidden bg-neutral-50 dark:bg-neutral-950 min-h-40 p-4">
             <h2 class="text-[#1c3954] dark:text-[#5faff6]">Iceborne<br/>Expansion</h2>
           </a>
         </div>
         <h3>Tables</h3>
         <div class="border rounded-1 overflow-hidden bg-neutral-50 dark:bg-neutral-950">
           @defer {
-            <phead-table itemHeight="44" [columns]="['name', 'count']">
-              <phead-table-header-cell *pheadTableHeaderCellDef="'name'">
+            <pui-table itemHeight="44" [columns]="['name', 'count']">
+              <pui-table-header-cell *puiTableHeaderCellDef="'name'">
                 Table
-              </phead-table-header-cell>
-              <phead-table-header-cell *pheadTableHeaderCellDef="'count'">
+              </pui-table-header-cell>
+              <pui-table-header-cell *puiTableHeaderCellDef="'count'">
                 Records
-              </phead-table-header-cell>
-              <phead-table-cell *pheadTableCellDef="'name'; let table">
+              </pui-table-header-cell>
+              <pui-table-cell *puiTableCellDef="'name'; let table">
                 {{ table.name }}
-              </phead-table-cell>
-              <phead-table-cell *pheadTableCellDef="'count'; let table">
+              </pui-table-cell>
+              <pui-table-cell *puiTableCellDef="'count'; let table">
                 {{ table.count }}
-              </phead-table-cell>
+              </pui-table-cell>
 
-              <phead-table-body>
-                <phead-table-header-row></phead-table-header-row>
+              <pui-table-body>
+                <pui-table-header-row></pui-table-header-row>
                 @for (table of tables$$(); track table.name) {
-                  <phead-table-row [route]="table.route" [relativeTo]="route" [item]="table" pheadHoverable>
-                  </phead-table-row>
+                  <pui-table-row [route]="table.route" [relativeTo]="route" [item]="table" puiHoverable>
+                  </pui-table-row>
                 }
-              </phead-table-body>
-            </phead-table>
+              </pui-table-body>
+            </pui-table>
           }
         </div>
       </div>
-    </phead-sidebar-content>
+    </pui-sidebar-content>
   </div>
-</phead-layered-container>
+</pui-layered-container>

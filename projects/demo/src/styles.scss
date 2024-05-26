@@ -1,11 +1,11 @@
 @import '@angular/cdk/overlay-prebuilt.css';
 @import '@angular/cdk/text-field-prebuilt.css';
 
-@layer phead-styles {
+@layer pui-styles {
   @tailwind base;
   @tailwind components;
-  @import '../../phead/src/lib/base/index';
-  @import '../../phead/src/lib/components/index';
+  @import '../../portal-ui-ng/src/lib/base/index';
+  @import '../../portal-ui-ng/src/lib/components/index';
   *, *::before, *::after {
     @apply border-black/10;
   }
@@ -35,13 +35,13 @@
 }
 
 .error-dialog {
-  .phead-modal-dialog__icon {
+  .pui-modal-dialog__icon {
     @apply text-red-700 dark:text-red-500;
   }
-  .phead-modal-dialog__title {
+  .pui-modal-dialog__title {
     @apply text-red-800 dark:text-red-300;
   }
-  .phead-modal-dialog__details {
+  .pui-modal-dialog__details {
     @apply text-red-950 dark:text-red-50;
   }
 }

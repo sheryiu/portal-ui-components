@@ -1,10 +1,10 @@
-<div pheadSidebarDrawerSection [class.bg-drawer-content]="trigger.isOpened$$()">
+<div puiSidebarDrawerSection [class.bg-drawer-content]="trigger.isOpened$$()">
   <button
-    pheadSidebarDrawerSectionHeader
-    pheadHoverable
+    puiSidebarDrawerSectionHeader
+    puiHoverable
     role="button"
     type="button"
-    pheadAccordionTrigger
+    puiAccordionTrigger
     #trigger="accordionTrigger"
     [ngClass]="{ '!text-primary-950 dark:!text-primary-50': !trigger.isOpened$$() }"
   >
@@ -12,8 +12,8 @@
     <p>Remove</p>
   </button>
   @if (trigger.isOpened$$()) {
-    <div pheadSidebarDrawerSectionContent>
-      <button pheadHoverable class="rounded-1 mx-1 py-2 text-sm text-red-700 dark:text-red-500" (click)="onRemoveClick()" [disabled]="armor == null">Remove</button>
+    <div puiSidebarDrawerSectionContent>
+      <button puiHoverable class="rounded-1 mx-1 py-2 text-sm text-red-700 dark:text-red-500" (click)="onRemoveClick()" [disabled]="armor == null">Remove</button>
     </div>
   }
 </div>

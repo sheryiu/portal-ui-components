@@ -1,0 +1,595 @@
+.pui-background-graphics {
+  @apply absolute inset-0 -z-100;
+  canvas {
+    @apply size-full pointer-events-none bg-neutral-100 dark:bg-neutral-950;
+  }
+}
+
+.pui-root-navigation {
+  @apply flex flex-col items-center border-e gap-4 z-[1000];
+  @apply px-3 pt-3 bg-neutral-200 dark:bg-neutral-800;
+
+  .pui-root-tabs {
+    @apply grow flex flex-col justify-center items-center gap-2 overflow-auto;
+
+    a {
+      @apply size-18 rounded-full flex-col gap-1;
+      &[data-active=true] {
+        @apply bg-hover text-primary-700 dark:text-primary-500;
+      }
+      i {
+        @apply icon-6 flex-none;
+      }
+      span {
+        @apply text-sm font-medium line-clamp-1;
+      }
+    }
+  }
+
+  .pui-root-options {
+    @apply border-t flex-none -mx-3 self-stretch;
+    @apply flex;
+  }
+}
+
+.pui-quick-access-backdrop {
+  left: 6rem !important;
+  @apply bg-black/10 dark:bg-black/20 backdrop-blur-sm;
+}
+
+.pui-quick-access {
+  @apply shadow-lg border bg-neutral-200 dark:bg-neutral-800 rounded-2;
+  @apply ms-6 my-6 w-80 absolute bottom-0;
+  max-height: calc(100% - 3rem);
+  @apply grid grid-cols-2 place-content-end p-2 gap-2 overflow-auto;
+  .pui-quick-access-component {
+    @apply size-full rounded-1;
+  }
+}
+
+.pui-layered-container {
+  @apply relative block h-full;
+  > .pui-layered-container-main {
+    @apply size-full transition duration-100 ease-out;
+    &:has(+ .pui-layered-container-full) {
+      @apply opacity-0 scale-[0.98];
+    }
+  }
+  > .pui-layered-container-child-bg {
+    @apply -ms-px inset-0 absolute lg:border-l bg-neutral-50 dark:bg-neutral-950;
+    &.pui-layered-container-half {
+      @apply xl:left-1/4 3xl:left-1/2;
+      @apply transition-[left];
+    }
+    &:has(+ .pui-layered-container-half .pui-layered-container-half) {
+      @apply xl:left-0 3xl:left-1/4;
+    }
+  }
+  > .pui-layered-container-child {
+    @apply absolute inset-0;
+    > * {
+      @apply inset-0;
+    }
+    > * > * {
+      // @apply py-4 sm:pe-4 max-sm:pb-16;
+    }
+    &:has(> router-outlet:only-child) {
+      @apply pointer-events-none;
+    }
+    &.pui-layered-container-half {
+      @apply xl:left-1/4 3xl:left-1/2;
+      @apply transition-[left];
+      &:has(.pui-layered-container-half) {
+        @apply xl:left-0 3xl:left-1/4;
+      }
+    }
+    &.pui-layered-container-full {
+    }
+  }
+}
+
+.\@container\/table {
+  container-type: inline-size;
+  container-name: table;
+}
+.pui-table {
+  @apply block size-full;
+
+  .pui-table-body {
+    @apply grid;
+    grid-template-columns: var(--pui-table-columns)
+  }
+
+  .pui-table-row {
+    @apply col-span-full grid grid-cols-subgrid;
+    > a {
+      @apply col-span-full grid grid-cols-subgrid border-b relative;
+      &[data-active=true] {
+        @apply bg-hover;
+      }
+    }
+  }
+  &.pui-table--borderless {
+    .pui-table-row > a {
+      @apply border-b-0;
+    }
+  }
+
+  .pui-table-row:last-child {
+    > a {
+      @apply border-b-0;
+    }
+  }
+
+  .pui-table-header-row {
+    @apply col-span-full grid grid-cols-subgrid border-b h-12;
+  }
+
+  .pui-table-footer-row {
+    @apply col-span-full grid grid-cols-1 items-center text-sm text-secondary uppercase h-12;
+  }
+
+  .pui-table-cell {
+    /** truncate and line-clamp-1 will not work */
+    /** please add truncate on the element inside the table cell */
+    @apply px-4 py-2 flex items-center;
+  }
+
+  .pui-table-header-cell {
+    @apply flex border-e;
+    &:last-child {
+      @apply border-e-0;
+    }
+    > button {
+      @apply grow justify-start truncate whitespace-nowrap font-medium text-sm px-3.5;
+      @apply text-primary-800 dark:text-primary-200;
+      &[data-overlay=true] {
+        @apply bg-hover;
+      }
+      &[data-justify-end=true] {
+        @apply justify-end;
+      }
+
+      .pui-table-header-cell__gap {
+        @apply grow;
+      }
+      &[data-justify-end=true] {
+        .pui-table-header-cell__gap {
+          @apply grow-0 shrink-0 basis-1;
+        }
+      }
+
+      .pui-table-header-cell__state {
+        @apply flex gap-2;
+        .pui-table-header-cell__state__active {
+          @apply rounded-full bg-primary-300 dark:bg-primary-600 text-primary-950 p-0.5 -my-0.5;
+        }
+      }
+
+      i {
+        @apply icon-4;
+        &.pui-table-header-cell__sort-asc {
+          @apply rotate-180 -scale-x-100;
+        }
+      }
+    }
+  }
+}
+
+.pui-table-header-cell-overlay {
+  @apply bg-neutral-200 dark:bg-neutral-800 shadow-lg border rounded-1 px-3 py-2 w-full overflow-auto max-h-full;
+  @apply flex flex-col;
+
+  pui-divider {
+    @apply my-2 -mx-3;
+  }
+}
+
+.pui-breadcrumbs {
+  @apply min-h-6 flex gap-0.5 items-center text-sm font-display;
+  > a {
+    @apply px-1.5 py-1.5 rounded-1 justify-start;
+    > span {
+      @apply truncate;
+    }
+  }
+  > i {
+    @apply icon-4 shrink-0 text-primary-800 dark:text-primary-50;
+  }
+}
+
+.pui-tab-bar {
+  @apply block transition-all overflow-hidden;
+  .pui-tab-bar-tabs {
+    @apply w-full flex gap-1.5 transition-all sticky;
+    &:has(> button[data-active=true]) {
+      @apply before:transition-all before:absolute before:left-[--pui-selected-tab-x] before:rounded-1 before:w-[--pui-selected-tab-width] before:border before:bg-hover;
+      &::before {
+        // TODO
+        height: 2em;
+      }
+    }
+    > button {
+      @apply basis-full grow rounded-1 px-2 truncate min-w-fit;
+      height: 2em;
+      &[data-active=true] {
+        @apply text-primary-700 dark:text-primary-500 font-medium;
+      }
+    }
+  }
+}
+
+.pui-tab-bar-header {
+  @apply bg-hover text-primary-700 dark:text-primary-500 text-base font-medium;
+  @apply border border-s-0 rounded-e-1 py-1 ps-4 pe-2 min-h-11;
+  @apply flex justify-between items-center gap-2;
+}
+
+.\@container\/segmented-options {
+  container-type: inline-size;
+  container-name: segmented-options;
+}
+.pui-segmented-options {
+  > div > div {
+    @apply flex flex-col items-stretch gap-0.5 rounded-1 bg-neutral-50 dark:bg-neutral-950 border p-px;
+    @apply @[16rem]/segmented-options:flex-row @[16rem]/segmented-options:items-center;
+  }
+  input[type=radio] {
+    @apply hidden;
+  }
+  .pui-segmented-options-button {
+    @apply text-sm rounded-1 px-1 py-1.5;
+    @apply w-full min-w-fit @[16rem]/segmented-options:grow @[16rem]/segmented-options:w-auto;
+    &[data-checked=false] {
+      @apply bg-none;
+    }
+  }
+}
+
+.pui-linear-progress-display {
+  @apply w-full flex items-center gap-1 overflow-hidden;
+}
+
+.pui-global-search-backdrop {
+  @apply bg-black/10 dark:bg-black/20 backdrop-blur-sm z-[1000];
+}
+.pui-global-search {
+  @apply rounded-2 shadow-lg bg-neutral-200 dark:bg-neutral-800 border overflow-hidden max-h-50vh;
+  @apply flex flex-col;
+  > pui-input-field {
+    @apply rounded-t-2 rounded-b-none border-none shrink-0;
+    background-color: transparent !important;
+    outline: none !important;
+    i {
+      @apply icon-5 ms-3 me-2 text-secondary;
+    }
+    input {
+      @apply ps-2 pe-4 py-3;
+      background-color: transparent !important;
+    }
+  }
+  .pui-global-search__results-wrapper {
+    @apply overflow-y-auto flex flex-col;
+  }
+  .pui-global-search__results {
+    @apply flex flex-col shrink-0;
+    .pui-global-search__empty {
+      @apply min-h-8 px-4 py-3 font-medium text-secondary shrink-0;
+    }
+    .pui-global-search__result {
+      @apply flex justify-start items-center text-start px-4 py-2.5 gap-3 shrink-0 transition-colors;
+      &[data-selected=true] {
+        @apply bg-hover;
+      }
+    }
+    .pui-global-search__category {
+      @apply font-bold text-sm tracking-tight text-secondary pt-3 pb-1 px-9 mx-4 mb-1 border-b;
+    }
+    .pui-global-search__result__icon {
+      @apply min-h-6 min-w-6;
+      > i {
+        @apply icon-6;
+      }
+    }
+    .pui-global-search__result__text {
+      @apply flex flex-col gap-0.5;
+      .pui-global-search__result__text-description {
+        @apply text-sm text-secondary;
+      }
+    }
+  }
+}
+
+.pui-global-search-button {
+  @apply flex-col gap-1 bg-hover hover:bg-primary-200 dark:hover:bg-primary-800 rounded-full w-14 aspect-square self-center;
+  > i {
+    @apply icon-6 text-primary-950 dark:text-primary-50;
+  }
+}
+
+.\@container\/fieldset {
+  container-type: inline-size;
+  container-name: fieldset;
+}
+.pui-fieldset {
+  @apply grid grid-cols-1 @2xs/fieldset:grid-cols-2 gap-y-2;
+  .pui-fieldset__label {
+    @apply flex justify-between items-center;
+    @apply py-1 ps-4 pe-2 gap-1;
+    &:hover, &:has(+ :hover) {
+      @apply text-primary-800 dark:text-primary-200;
+    }
+  }
+  .pui-fieldset__label__type {
+    @apply text-sm uppercase font-medium text-primary-800 dark:text-primary-200;
+  }
+  .pui-fieldset__input {
+    @apply flex justify-between items-center gap-2;
+    @apply px-2 min-h-8;
+    > * {
+      @apply grow shrink min-w-0;
+    }
+    button {
+      @apply px-2 rounded-1 text-sm flex-none;
+    }
+    i {
+      @apply icon-4;
+    }
+    .pui-input-field {
+      @apply self-stretch grow;
+      > button {
+        @apply self-stretch text-secondary;
+      }
+    }
+    &.pui-fieldset__input--boolean .pui-input-field {
+      @apply self-center grow-0 h-full;
+      > pui-toggle {
+        @apply h-full;
+      }
+    }
+  }
+  .pui-fieldset__null {
+    @apply self-stretch grow flex items-center;
+    > span {
+      @apply grow truncate text-secondary italic text-sm;
+    }
+  }
+  .pui-fieldset__input__remove, .pui-fieldset__null__add {
+    @apply self-stretch;
+  }
+}
+
+.pui-toggle {
+  @apply rounded-1 h-full;
+  @apply flex items-center gap-2 p-1 relative transition-colors;
+  > .pui-toggle__trigger {
+    @apply p-1 w-1/2 bg-neutral-300 dark:bg-neutral-700;
+    @apply rounded-1 absolute top-0 bottom-0 left-0 transition-[left] z-0;
+    i {
+      @apply icon-4;
+    }
+  }
+  &.pui-toggle--checked {
+    @apply bg-primary-300 dark:bg-primary-700;
+    > .pui-toggle__trigger {
+      @apply left-1/2;
+    }
+  }
+  > .pui-toggle__indicator {
+    min-width: 4ch;
+    @apply px-1 text-sm/5 uppercase text-center select-none grow shrink-0;
+  }
+}
+
+.pui-autocomplete-overlay {
+  @apply flex flex-col items-stretch;
+  @apply bg-neutral-200 dark:bg-neutral-800 border rounded-1;
+  > button {
+    @apply text-start min-h-8;
+    &[data-selected=true] {
+      @apply bg-hover;
+    }
+    > div {
+      @apply grow px-2 py-0.5;
+    }
+  }
+}
+
+.pui-sidebar-container {
+  @apply relative h-full overflow-x-hidden overflow-y-auto flex flex-col;
+  contain: strict;
+}
+.pui-sidebar-container__breadcrumbs {
+  @apply sticky top-0 px-3 py-2 flex-none border-b bg-neutral-200 dark:bg-neutral-800 z-100;
+}
+.pui-sidebar-container__content {
+  @apply grow flex relative;
+  > .pui-sidebar-container__content__main {
+    @apply gutter-stable grow relative;
+  }
+  > .pui-sidebar-container__content__drawer {
+    @apply flex flex-col gap-2 shrink-0 grow-0 sticky top-12 p-2 overflow-y-auto;
+    height: calc(100dvh - 3rem - 2px);
+    max-width: 40%;
+  }
+}
+
+.pui-sidebar-drawer-section {
+  @apply flex flex-col;
+  @apply border rounded-1 overflow-hidden transition-colors;
+
+  .pui-sidebar-drawer-section__header {
+    @apply px-2 py-3;
+    @apply flex justify-start gap-2;
+    @apply text-primary-700 dark:text-primary-500 font-medium;
+
+    > i {
+      @apply icon-5;
+    }
+  }
+
+  .pui-sidebar-drawer-section__content {
+    @apply flex flex-col gap-1 items-stretch py-1 overflow-hidden;
+  }
+}
+
+.pui-divider {
+  > div {
+    @apply w-full border-t;
+  }
+}
+
+.pui-dropdown {
+  @apply w-full min-h-8 px-2 py-1.5;
+  @apply justify-between items-center text-start gap-0.5 rounded-1;
+  @apply bg-neutral-50 dark:bg-neutral-950 border transition-all;
+  > div {
+    @apply break-anywhere grow h-full;
+  }
+  > i {
+    @apply icon-4 text-secondary;
+  }
+  &:disabled {
+    @apply bg-black/5 dark:bg-white/5 border-transparent dark:border-transparent text-secondary pointer-events-none;
+  }
+}
+.pui-dropdown-overlay {
+  @apply flex flex-col items-stretch;
+  @apply bg-neutral-200 dark:bg-neutral-800 border rounded-1;
+}
+.pui-search-dropdown__search {
+  @apply px-2 py-2;
+  i {
+    @apply icon-4 mx-2 text-primary-800 dark:text-primary-200;
+  }
+}
+.pui-search-dropdown__suggestions {
+  @apply flex flex-col;
+}
+
+.pui-theme-toggle {
+  @apply rounded-1 px-4 py-2 bg-hover;
+  @apply flex flex-col items-center gap-1;
+
+  .pui-theme-toggle__title {
+    @apply uppercase font-bold tracking-tight text-primary-700 dark:text-primary-300;
+  }
+
+  > div {
+    @apply overflow-hidden w-12;
+  }
+
+  .pui-theme-toggle__modes-wrapper {
+    @apply grid grid-cols-3 w-36 transition-[translate];
+  }
+  .pui-theme-toggle__mode {
+    @apply flex flex-col items-center w-12 gap-0.5;
+    > span {
+      @apply font-light text-sm;
+    }
+    > i {
+      @apply icon-6;
+    }
+  }
+}
+
+.pui-language-toggle {
+  @apply rounded-1 px-4 py-2 bg-hover;
+  @apply flex flex-col items-center gap-1;
+
+  .pui-language-toggle__title {
+    @apply uppercase font-bold tracking-tight text-primary-700 dark:text-primary-300;
+  }
+
+  > div {
+    @apply overflow-hidden w-12;
+  }
+
+  .pui-language-toggle__lang-wrapper {
+    @apply grid grid-cols-3 w-36 transition-[translate];
+  }
+  .pui-language-toggle__lang {
+    @apply flex flex-col items-center w-12 gap-0.5;
+    > span {
+      @apply font-light text-sm;
+    }
+    > i {
+      @apply icon-6;
+    }
+  }
+}
+
+.pui-modal-dialog-backdrop {
+  @apply bg-black/10 dark:bg-black/20 backdrop-blur-sm z-[1000];
+}
+.pui-modal-dialog {
+  @apply border shadow-lg bg-neutral-100 dark:bg-neutral-900 rounded-2 max-h-50vh max-w-95vw sm:max-w-80vw xl:max-w-screen-lg;
+  .pui-modal-dialog__contents {
+    @apply grid px-4 py-2;
+    grid-template-columns: max-content 1fr;
+    grid-template-areas: "icon title"
+                         "placeholder details"
+                         "actions actions";
+  }
+  .pui-modal-dialog__icon {
+    grid-area: icon;
+    @apply icon-10 m-3 me-5 text-primary-600 dark:text-primary-500;
+  }
+  .pui-modal-dialog__title {
+    grid-area: title;
+    @apply pe-6 py-2 self-center text-primary-800 dark:text-primary-200;
+  }
+  .pui-modal-dialog__details {
+    grid-area: details;
+    @apply pb-3 text-primary-950 dark:text-primary-50;
+  }
+  .pui-modal-dialog__actions {
+    grid-area: actions;
+    @apply flex gap-4 justify-end py-2;
+    > button {
+      @apply grow max-w-[50%] rounded-1 px-2 py-2 text-sm font-medium;
+    }
+  }
+}
+
+.pui-tooltip {
+  @apply text-sm block bg-neutral-300 dark:bg-neutral-700 border px-2 py-1 rounded-1 overflow-hidden shadow-md;
+}
+
+.pui-array-field {
+  @apply flex items-center;
+  > span {
+    @apply text-sm text-secondary pe-2;
+  }
+  > button {
+    @apply self-stretch;
+    &:first-of-type {
+      @apply rounded-s-1 rounded-e-none border-y border-s;
+    }
+    &:last-of-type {
+      @apply rounded-e-1 rounded-s-none border-y border-e;
+    }
+    > i {
+      @apply icon-4;
+    }
+  }
+  > pui-input-field {
+    @apply basis-20 shrink rounded-none;
+    flex-grow: 0 !important;
+  }
+}
+
+.pui-table-of-contents {
+  @apply flex flex-col;
+  .pui-table-of-contents__entry {
+    @apply flex justify-start gap-2 py-1.5 transition-colors;
+    @apply text-secondary hover:text-black dark:hover:text-white;
+    @apply before:w-0.5 before:-my-1.5 before:self-stretch before:scale-x-50 hover:before:scale-x-100 before:transition;
+
+    @apply before:bg-neutral-400 dark:before:bg-neutral-600;
+    &[data-active=true] {
+      @apply before:scale-x-100;
+      @apply text-primary-600 before:bg-primary-500 dark:text-primary-400 dark:before:bg-primary-500;
+    }
+  }
+}

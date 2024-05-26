@@ -1,10 +1,12 @@
 {
   "cSpell.words": [
     "borderless",
+    "devkit",
     "Dexie",
     "hoverable",
     "iceborne",
-    "Phead",
+    "packagr",
+    "pui",
     "subgrid",
     "Transloco"
   ],
@@ -16,5 +18,8 @@
     "**/.DS_Store": true,
     "**/Thumbs.db": true,
     "**/node_modules": true
-  }
+  },
+  "exportall.config.folderListener": [
+    "/projects/portal-ui-ng/src/lib/base/ui/button"
+  ]
 }

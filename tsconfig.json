@@ -17,8 +17,8 @@
     "moduleResolution": "node",
     "importHelpers": true,
     "paths": {
-      "phead": [
-        "./dist/phead"
+      "portal-ui-ng": [
+        "./dist/portal-ui-ng"
       ]
     },
     "target": "ES2022",

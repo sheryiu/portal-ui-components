@@ -2,7 +2,7 @@ import { Component, inject } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { EffectFn } from '@ngneat/effects-ng';
-import { AccordionModule, FieldModule, ModalDialogService, SidebarModule } from 'phead';
+import { AccordionModule, FieldModule, ModalDialogService, SidebarModule } from 'portal-ui-ng';
 import { EMPTY, catchError, exhaustMap, finalize, tap } from 'rxjs';
 import { SharedModule } from '../../../../shared/shared.module';
 import { CreateTodo, TodoService } from '../../core/todo.service';

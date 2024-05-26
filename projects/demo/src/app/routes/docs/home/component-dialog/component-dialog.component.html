@@ -7,19 +7,19 @@
     'bg-primary-200 dark:bg-primary-900 border-transparent': active.isActive
   }"
 >
-  <div class="relative flex-none w-40 rounded-2 overflow-hidden bg-neutral-300 dark:bg-neutral-700 border-e z-10 group-hover:w-60 transition-[width]">
-    <div class="flex flex-col gap-4 absolute left-[20%] top-1/2 -translate-y-1/2 w-40 phead-modal-dialog">
-      <div class="phead-modal-dialog__contents px-3 py-2">
-        <i class="phead-modal-dialog__icon icon-5 text-red-700 dark:text-red-300">help</i>
-        <div class="phead-modal-dialog__title text-red-700 dark:text-red-300">Confirm?</div>
-        <div class="phead-modal-dialog__actions py-1 gap-2">
-          <button pheadHoverable class="py-1">No</button>
-          <button pheadHoverable class="py-1" pheadHardSurface color="red">Yes</button>
+  <div class="relative flex-none w-40 rounded-2 overflow-hidden bg-neutral-100 dark:bg-neutral-700 border-e z-10 group-hover:w-60 transition-[width]">
+    <div class="flex flex-col gap-4 absolute left-[20%] top-1/2 -translate-y-1/2 w-40 pui-modal-dialog">
+      <div class="pui-modal-dialog__contents px-3 py-2">
+        <i class="pui-modal-dialog__icon icon-5 text-red-700 dark:text-red-300">help</i>
+        <div class="pui-modal-dialog__title text-red-700 dark:text-red-300">Confirm?</div>
+        <div class="pui-modal-dialog__actions py-1 gap-2">
+          <button puiBaseButton class="py-1">No</button>
+          <button puiFilledButton color="red" class="py-1">Yes</button>
         </div>
       </div>
     </div>
   </div>
-  <div class="flex flex-col gap-1 grow -ms-2 ps-10 pe-6 justify-center items-start z-0" pheadHoverable>
+  <div class="flex flex-col gap-1 grow -ms-2 ps-10 pe-6 justify-center items-start z-0" puiHoverable>
     <h3 class="text-primary-800 dark:text-primary-200">Dialog</h3>
     <p>A popover modal for extra actions or messages</p>
   </div>

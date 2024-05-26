@@ -1,6 +1,6 @@
 import { Component, Signal, inject, input } from '@angular/core';
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
-import { HoverableDirective, SearchDropdownComponent } from 'phead';
+import { HoverableDirective, SearchDropdownComponent } from 'portal-ui-ng';
 import { map, switchMap } from 'rxjs';
 import { ArmorSet } from '../../../../data/armor-set';
 import { ArmorSetService } from '../../../../store/armor-set.service';

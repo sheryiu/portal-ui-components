@@ -7,15 +7,15 @@
     'bg-primary-200 dark:bg-primary-900 border-transparent': active.isActive
   }"
 >
-  <div class="relative flex-none w-40 rounded-2 overflow-hidden bg-neutral-300 dark:bg-neutral-700 border-e z-10 group-hover:w-60 transition-[width]">
+  <div class="relative flex-none w-40 rounded-2 overflow-hidden bg-neutral-100 dark:bg-neutral-700 border-e z-10 group-hover:w-60 transition-[width]">
     <div class="flex flex-col items-center gap-3 absolute left-12 top-1/2 -translate-y-1/2">
-      <button type="button" pheadHoverable class="rounded-1 w-36 px-2 py-1 border gap-1 text-primary-700 dark:text-primary-400 hover:border-current" pheadTooltip="Hello there" [pheadTooltipPosition]="position()">
+      <button type="button" puiHoverable class="rounded-1 w-36 px-2 py-1 border gap-1 text-primary-700 dark:text-primary-400 hover:border-current" puiTooltip="Hello there" [puiTooltipPosition]="position()">
         <i class="icon-4 font-variation-fill">arrow_selector_tool</i>
         <span class="whitespace-nowrap">Hover on me!</span>
       </button>
     </div>
   </div>
-  <div class="flex flex-col gap-1 grow -ms-2 ps-10 pe-6 justify-center items-start z-0" pheadHoverable>
+  <div class="flex flex-col gap-1 grow -ms-2 ps-10 pe-6 justify-center items-start z-0" puiHoverable>
     <h3 class="text-primary-800 dark:text-primary-200">Tooltip</h3>
     <p>A short concise and descriptive text that shows up when hovering on an element</p>
   </div>

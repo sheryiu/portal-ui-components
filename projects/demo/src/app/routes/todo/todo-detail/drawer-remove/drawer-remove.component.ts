@@ -1,7 +1,7 @@
 import { Component, inject, input } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { EffectFn } from '@ngneat/effects-ng';
-import { AccordionModule, ModalDialogData, ModalDialogService, RemoveConfirmComponent, SidebarModule } from 'phead';
+import { AccordionModule, ModalDialogData, ModalDialogService, RemoveConfirmComponent, SidebarModule } from 'portal-ui-ng';
 import { EMPTY, Observable, catchError, exhaustMap, tap } from 'rxjs';
 import { SharedModule } from '../../../../shared/shared.module';
 import { TodoService } from '../../core/todo.service';

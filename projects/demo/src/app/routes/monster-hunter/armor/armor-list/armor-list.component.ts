@@ -4,7 +4,7 @@ import { Component, ViewChild, computed, inject } from '@angular/core';
 import { toObservable } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { EffectFn } from '@ngneat/effects-ng';
-import { DropdownModule, LayeredContainerComponent, SegmentedOptionsModule, SidebarModule, TableModule, TimeDisplayComponent } from 'phead';
+import { DropdownModule, LayeredContainerComponent, SegmentedOptionsModule, SidebarModule, TableModule, TimeDisplayComponent } from 'portal-ui-ng';
 import { combineLatest, switchMap, tap } from 'rxjs';
 import { Armor } from '../../../../data/armor';
 import { ArmorSet } from '../../../../data/armor-set';
@@ -32,7 +32,7 @@ import { ArmorListDrawerCreateComponent } from './armor-list-drawer-create/armor
   ],
   templateUrl: './armor-list.component.html',
   styles: `
-  .phead-table-column-createdAt {
+  .pui-table-column-createdAt {
     @apply justify-end;
   }
   `

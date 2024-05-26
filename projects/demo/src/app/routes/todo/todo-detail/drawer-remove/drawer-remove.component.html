@@ -1,10 +1,10 @@
-<div pheadSidebarDrawerSection [class.bg-drawer-content]="trigger.isOpened$$()">
-  <button pheadSidebarDrawerSectionHeader pheadAccordionTrigger pheadHoverable #trigger="accordionTrigger">
+<div puiSidebarDrawerSection [class.bg-drawer-content]="trigger.isOpened$$()">
+  <button puiSidebarDrawerSectionHeader puiAccordionTrigger puiHoverable #trigger="accordionTrigger">
     <i>delete</i> Remove List
   </button>
   @if (trigger.isOpened$$()) {
-    <div pheadSidebarDrawerSectionContent>
-      <button class="rounded-1 mx-1 py-2 text-sm text-red-700 dark:text-red-500" pheadHoverable type="submit" (click)="onRemoveClick()">Delete</button>
+    <div puiSidebarDrawerSectionContent>
+      <button class="rounded-1 mx-1 py-2 text-sm text-red-700 dark:text-red-500" puiHoverable type="submit" (click)="onRemoveClick()">Delete</button>
     </div>
   }
 </div>

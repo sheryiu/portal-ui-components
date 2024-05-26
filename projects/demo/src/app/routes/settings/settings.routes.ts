@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-import { layeredContainer } from 'phead';
+import { layeredContainer } from 'portal-ui-ng';
 
 export const SETTINGS_ROUTES: Routes = [
   {

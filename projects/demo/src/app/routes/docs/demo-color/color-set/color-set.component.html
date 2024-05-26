@@ -1,0 +1,39 @@
+<div class="border rounded-2 py-2 flex flex-col gap-2">
+  <pui-fieldset [formControl]="formControl">
+    <pui-field-def
+      key="baseColor"
+      fieldType="string"
+      label="Base Color"
+      [templateRef]="colorTemplate"
+    >
+      <ng-template #colorTemplate let-key="key" let-formGroup="formGroup" let-valueUpdated$="valueUpdated$">
+        <ng-container [formGroup]="formGroup">
+          <input type="color" [formControlName]="key" (input)="valueUpdated$.next()">
+        </ng-container>
+      </ng-template>
+    </pui-field-def>
+    <pui-field-def
+      key="stepUpL"
+      fieldType="number"
+      label="Step Up Luminance %"
+    >
+    </pui-field-def>
+    <pui-field-def
+      key="stepDownL"
+      fieldType="number"
+      label="Step Down Luminance %"
+    >
+    </pui-field-def>
+  </pui-fieldset>
+  <div class="mx-2 flex rounded-2 overflow-hidden border items-stretch h-12">
+    @for (color of colorShades(); track $index) {
+      <div class="grow" [style.backgroundColor]="color"></div>
+    }
+  </div>
+  <div class="flex justify-end px-2">
+    <button puiBaseButton color="primary" class="rounded-1 p-1 gap-1 px-2" (click)="exportColors()">
+      <span>Export Values</span>
+      <i class="icon-5">data_object</i>
+    </button>
+  </div>
+</div>

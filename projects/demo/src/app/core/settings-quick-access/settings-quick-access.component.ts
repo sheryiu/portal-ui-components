@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { PheadOverlayRef, QuickAccessComponentDirective } from 'phead';
+import { PuiOverlayRef, QuickAccessComponentDirective } from 'portal-ui-ng';
 import { SharedModule } from '../../shared/shared.module';
 
 @Component({
@@ -17,7 +17,7 @@ import { SharedModule } from '../../shared/shared.module';
   }
 })
 export class SettingsQuickAccessComponent {
-  private overlayRef = inject(PheadOverlayRef);
+  private overlayRef = inject(PuiOverlayRef);
 
   onClick() {
     this.overlayRef.close();

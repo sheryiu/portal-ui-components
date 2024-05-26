@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { EffectFn } from '@ngneat/effects-ng';
-import { AccordionModule, FieldModule, SidebarModule } from 'phead';
+import { AccordionModule, FieldModule, SidebarModule } from 'portal-ui-ng';
 import { EMPTY, catchError, exhaustMap, filter, tap } from 'rxjs';
 import { SharedModule } from '../../../../../shared/shared.module';
 import { SkillCreateInput, SkillService } from '../../../../../store/skill.service';

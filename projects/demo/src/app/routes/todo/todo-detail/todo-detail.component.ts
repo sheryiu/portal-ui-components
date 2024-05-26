@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { ActivatedRoute } from '@angular/router';
-import { AccordionComponent, BreadcrumbsComponent, DividerComponent, LayeredContainerComponent, SidebarModule, TimeDisplayComponent } from 'phead';
+import { AccordionComponent, BreadcrumbsComponent, DividerComponent, LayeredContainerComponent, SidebarModule, TimeDisplayComponent } from 'portal-ui-ng';
 import { map, switchMap } from 'rxjs';
 import { SharedModule } from '../../../shared/shared.module';
 import { TodoService, UpdateTodoItem } from '../core/todo.service';

@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { AccordionModule, SidebarModule, TimeDisplayComponent } from 'phead';
+import { AccordionModule, SidebarModule, TimeDisplayComponent } from 'portal-ui-ng';
 import { Armor } from '../../../../../data/armor';
 import { SharedModule } from '../../../../../shared/shared.module';
 

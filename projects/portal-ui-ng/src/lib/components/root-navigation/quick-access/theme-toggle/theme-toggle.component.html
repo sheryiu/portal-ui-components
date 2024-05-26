@@ -1,0 +1,27 @@
+<button
+  puiQuickAccessComponent
+  type="button"
+  class="pui-theme-toggle"
+  (click)="onChangeTheme()"
+>
+  <span class="pui-theme-toggle__title">Theme</span>
+  <div>
+    <div
+      class="pui-theme-toggle__modes-wrapper"
+      [style.translate]="userPreference$$() === 'light' ? '0 0' : userPreference$$() === 'dark' ? '-33.33% 0' : '-66.67% 0'"
+    >
+      <div class="pui-theme-toggle__mode">
+        <span>Light</span>
+        <i>light_mode</i>
+      </div>
+      <div class="pui-theme-toggle__mode">
+        <span>Dark</span>
+        <i>dark_mode</i>
+      </div>
+      <div class="pui-theme-toggle__mode">
+        <span>System</span>
+        <i>phone_iphone</i>
+      </div>
+    </div>
+  </div>
+</button>

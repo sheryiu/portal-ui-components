@@ -1,10 +1,10 @@
-<div pheadSidebarDrawerSection [class.bg-drawer-content]="trigger.isOpened$$()">
+<div puiSidebarDrawerSection [class.bg-drawer-content]="trigger.isOpened$$()">
   <button
-    pheadSidebarDrawerSectionHeader
-    pheadHoverable
+    puiSidebarDrawerSectionHeader
+    puiHoverable
     role="button"
     type="button"
-    pheadAccordionTrigger
+    puiAccordionTrigger
     #trigger="accordionTrigger"
     [ngClass]="{ '!text-primary-950 dark:!text-primary-50': !trigger.isOpened$$() }"
   >
@@ -12,159 +12,159 @@
     <p>Add Level</p>
   </button>
   @if (trigger.isOpened$$()) {
-    <form pheadSidebarDrawerSectionContent (ngSubmit)="onSubmit()">
-      <phead-fieldset [formControl]="formControl">
-        <phead-field-def
+    <form puiSidebarDrawerSectionContent (ngSubmit)="onSubmit()">
+      <pui-fieldset [formControl]="formControl">
+        <pui-field-def
           key="description>en"
           label="English Description"
           fieldType="string"
-        ></phead-field-def>
-        <phead-field-def
+        ></pui-field-def>
+        <pui-field-def
           key="description>jp"
           label="Japanese Description"
           fieldType="string"
-        ></phead-field-def>
-        <phead-field-def
+        ></pui-field-def>
+        <pui-field-def
           key="level"
           label="Level"
           fieldType="number"
-        ></phead-field-def>
-        <phead-field-def
+        ></pui-field-def>
+        <pui-field-def
           key="isLocked"
           label="Locked"
           fieldType="boolean"
-        ></phead-field-def>
-        <phead-field-def
+        ></pui-field-def>
+        <pui-field-def
           key="duration"
           label="Duration (s)"
           fieldType="number"
-        ></phead-field-def>
-      </phead-fieldset>
-      <phead-divider></phead-divider>
+        ></pui-field-def>
+      </pui-fieldset>
+      <pui-divider></pui-divider>
       <div class="ps-3 pe-2 py-1 flex gap-2">
-        <phead-segmented-options color="primary" class="grow" [formControl]="effectType">
-          <i class="icon-4 font-variation-fill" *pheadOption="'attack'">swords</i>
-          <i class="icon-4" *pheadOption="'affinity'">stat_3</i>
-          <i class="icon-4 font-variation-fill text-transparent bg-gradient-conic elemental-gradient bg-clip-text" *pheadOption="'elementalAttack'">swords</i>
-          <i class="icon-4" *pheadOption="'defense'">shield</i>
-          <i class="icon-4 font-variation-fill text-transparent bg-gradient-conic elemental-gradient bg-clip-text" *pheadOption="'resistance'">shield</i>
-        </phead-segmented-options>
-        <button pheadHoverable class="px-2 rounded-1 text-primary-700 dark:text-primary-500 flex-none" [disabled]="effectType.value == null" (click)="addEffect()">
+        <pui-segmented-options color="primary" class="grow" [formControl]="effectType">
+          <i class="icon-4 font-variation-fill" *puiOption="'attack'">swords</i>
+          <i class="icon-4" *puiOption="'affinity'">stat_3</i>
+          <i class="icon-4 font-variation-fill text-transparent bg-gradient-conic elemental-gradient bg-clip-text" *puiOption="'elementalAttack'">swords</i>
+          <i class="icon-4" *puiOption="'defense'">shield</i>
+          <i class="icon-4 font-variation-fill text-transparent bg-gradient-conic elemental-gradient bg-clip-text" *puiOption="'resistance'">shield</i>
+        </pui-segmented-options>
+        <button puiHoverable class="px-2 rounded-1 text-primary-700 dark:text-primary-500 flex-none" [disabled]="effectType.value == null" (click)="addEffect()">
           <i class="icon-5">add</i>
         </button>
       </div>
       @for (effect of formControl.value?.effects; track $index) {
-        <phead-divider></phead-divider>
+        <pui-divider></pui-divider>
         @switch (effect.type) {
           @case ('attack') {
             <div class="px-3 pt-2 flex gap-1 items-center"><i class="icon-4 font-variation-fill">swords</i><span class="text-primary-800 dark:text-primary-200">Increase Attack</span></div>
-            <phead-fieldset [formControl]="formControl">
-              <phead-field-def
+            <pui-fieldset [formControl]="formControl">
+              <pui-field-def
                 [key]="'effects>' + $index + '>calculationType'"
                 fieldType="string"
                 label="Type"
                 [fieldConfig]="{
                   enum: ['additive', 'multiplicative']
                 }"
-              ></phead-field-def>
-              <phead-field-def
+              ></pui-field-def>
+              <pui-field-def
                 [key]="'effects>' + $index + '>value'"
                 fieldType="number"
                 label="Value"
-              ></phead-field-def>
-            </phead-fieldset>
+              ></pui-field-def>
+            </pui-fieldset>
           }
           @case ('affinity') {
             <div class="px-3 pt-2 flex gap-1 items-center"><i class="icon-4">stat_3</i><span class="text-primary-800 dark:text-primary-200">Increase Affinity</span></div>
-            <phead-fieldset [formControl]="formControl">
-              <phead-field-def
+            <pui-fieldset [formControl]="formControl">
+              <pui-field-def
                 [key]="'effects>' + $index + '>calculationType'"
                 fieldType="string"
                 label="Type"
                 [fieldConfig]="{
                   enum: ['additive', 'multiplicative']
                 }"
-              ></phead-field-def>
-              <phead-field-def
+              ></pui-field-def>
+              <pui-field-def
                 [key]="'effects>' + $index + '>value'"
                 fieldType="number"
                 label="Value"
-              ></phead-field-def>
-            </phead-fieldset>
+              ></pui-field-def>
+            </pui-fieldset>
           }
           @case ('elementalAttack') {
             <div class="px-3 pt-2 flex gap-1 items-center"><i class="icon-4 font-variation-fill text-transparent bg-gradient-conic elemental-gradient bg-clip-text">swords</i><span class="text-primary-800 dark:text-primary-200">Increase Elemental Damage</span></div>
-            <phead-fieldset [formControl]="formControl">
-              <phead-field-def
+            <pui-fieldset [formControl]="formControl">
+              <pui-field-def
                 [key]="'effects>' + $index + '>calculationType'"
                 fieldType="string"
                 label="Type"
                 [fieldConfig]="{
                   enum: ['additive', 'multiplicative']
                 }"
-              ></phead-field-def>
-              <phead-field-def
+              ></pui-field-def>
+              <pui-field-def
                 [key]="'effects>' + $index + '>value'"
                 fieldType="number"
                 label="Value"
-              ></phead-field-def>
-              <phead-field-def
+              ></pui-field-def>
+              <pui-field-def
                 [key]="'effects>' + $index + '>element'"
                 fieldType="string"
                 label="Element"
                 [fieldConfig]="{
                   enum: ['fire', 'water', 'thunder', 'ice', 'dragon']
                 }"
-              ></phead-field-def>
-            </phead-fieldset>
+              ></pui-field-def>
+            </pui-fieldset>
           }
           @case ('defense') {
             <div class="px-3 pt-2 flex gap-1 items-center"><i class="icon-4">shield</i><span class="text-primary-800 dark:text-primary-200">Increase Defense</span></div>
-            <phead-fieldset [formControl]="formControl">
-              <phead-field-def
+            <pui-fieldset [formControl]="formControl">
+              <pui-field-def
                 [key]="'effects>' + $index + '>calculationType'"
                 fieldType="string"
                 label="Type"
                 [fieldConfig]="{
                   enum: ['additive', 'multiplicative']
                 }"
-              ></phead-field-def>
-              <phead-field-def
+              ></pui-field-def>
+              <pui-field-def
                 [key]="'effects>' + $index + '>value'"
                 fieldType="number"
                 label="Value"
-              ></phead-field-def>
-            </phead-fieldset>
+              ></pui-field-def>
+            </pui-fieldset>
           }
           @case ('resistance') {
             <div class="px-3 pt-2 flex gap-1 items-center"><i class="icon-4 font-variation-fill text-transparent bg-gradient-conic elemental-gradient bg-clip-text">shield</i><span class="text-primary-800 dark:text-primary-200">Increase Elemental Resistance</span></div>
-            <phead-fieldset [formControl]="formControl">
-              <phead-field-def
+            <pui-fieldset [formControl]="formControl">
+              <pui-field-def
                 [key]="'effects>' + $index + '>calculationType'"
                 fieldType="string"
                 label="Type"
                 [fieldConfig]="{
                   enum: ['additive', 'multiplicative']
                 }"
-              ></phead-field-def>
-              <phead-field-def
+              ></pui-field-def>
+              <pui-field-def
                 [key]="'effects>' + $index + '>value'"
                 fieldType="number"
                 label="Value"
-              ></phead-field-def>
-              <phead-field-def
+              ></pui-field-def>
+              <pui-field-def
                 [key]="'effects>' + $index + '>element'"
                 fieldType="string"
                 label="Element"
                 [fieldConfig]="{
                   enum: ['fire', 'water', 'thunder', 'ice', 'dragon']
                 }"
-              ></phead-field-def>
-            </phead-fieldset>
+              ></pui-field-def>
+            </pui-fieldset>
           }
         }
       }
-      <button pheadHoverable class="rounded-1 mx-1 py-2 text-sm text-primary-700 dark:text-primary-500" type="submit">Add</button>
+      <button puiHoverable class="rounded-1 mx-1 py-2 text-sm text-primary-700 dark:text-primary-500" type="submit">Add</button>
     </form>
   }
 </div>

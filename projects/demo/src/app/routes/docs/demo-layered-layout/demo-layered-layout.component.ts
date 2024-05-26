@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { BreadcrumbsComponent, LayeredContainerComponent, SidebarModule } from 'phead';
+import { BreadcrumbsComponent, ButtonModule, LayeredContainerComponent, SidebarModule } from 'portal-ui-ng';
 import { SharedModule } from '../../../shared/shared.module';
 
 @Component({
@@ -12,6 +12,7 @@ import { SharedModule } from '../../../shared/shared.module';
     SidebarModule,
     BreadcrumbsComponent,
     RouterLink,
+    ButtonModule,
   ],
   templateUrl: './demo-layered-layout.component.html',
   styles: ``

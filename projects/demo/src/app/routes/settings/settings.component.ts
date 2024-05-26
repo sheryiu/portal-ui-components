@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { LayeredContainerComponent, SidebarModule, TabBarModule } from 'phead';
+import { LayeredContainerComponent, SidebarModule, TabBarModule } from 'portal-ui-ng';
 import { SharedModule } from '../../shared/shared.module';
 import { SettingsDatabaseComponent } from './settings-database/settings-database.component';
 

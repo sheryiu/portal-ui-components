@@ -2,7 +2,7 @@ import { CdkVirtualScrollViewport, ScrollingModule } from '@angular/cdk/scrollin
 import { Component, ViewChild, inject } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { EffectFn } from '@ngneat/effects-ng';
-import { AccordionModule, DividerComponent, LayeredContainerComponent, SidebarModule, TabBarModule, TableModule } from 'phead';
+import { AccordionModule, DividerComponent, LayeredContainerComponent, SidebarModule, TabBarModule, TableModule } from 'portal-ui-ng';
 import { map, switchMap } from 'rxjs';
 import { Skill } from '../../../../data/skill';
 import { SharedModule } from '../../../../shared/shared.module';

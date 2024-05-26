@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { BreadcrumbsComponent, LayeredContainerComponent, ModalDialogService, SidebarModule } from 'phead';
+import { BreadcrumbsComponent, ButtonModule, LayeredContainerComponent, ModalDialogService, SidebarModule } from 'portal-ui-ng';
 import { SharedModule } from '../../../shared/shared.module';
 
 @Component({
@@ -10,6 +10,7 @@ import { SharedModule } from '../../../shared/shared.module';
     LayeredContainerComponent,
     SidebarModule,
     BreadcrumbsComponent,
+    ButtonModule,
   ],
   templateUrl: './demo-dialog.component.html',
   styles: ``

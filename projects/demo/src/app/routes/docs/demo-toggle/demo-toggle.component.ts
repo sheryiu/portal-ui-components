@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { BreadcrumbsComponent, InputFieldComponent, LayeredContainerComponent, SidebarModule, ToggleComponent } from 'phead';
+import { BreadcrumbsComponent, InputFieldComponent, LayeredContainerComponent, SidebarModule, ToggleComponent } from 'portal-ui-ng';
 import { SharedModule } from '../../../shared/shared.module';
 
 @Component({

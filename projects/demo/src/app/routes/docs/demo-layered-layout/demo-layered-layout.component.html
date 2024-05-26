@@ -1,18 +1,18 @@
-<phead-layered-container>
-  <div pheadSidebarContainer>
-    <div pheadSidebarBreadcrumbs>
-      <phead-breadcrumbs></phead-breadcrumbs>
+<pui-layered-container>
+  <div puiSidebarContainer>
+    <div puiSidebarBreadcrumbs>
+      <pui-breadcrumbs></pui-breadcrumbs>
     </div>
-    <phead-sidebar-content class="max-w-screen-lg">
-      <div *pheadSidebarMain class="flex flex-col py-6 px-8 gap-4">
+    <pui-sidebar-content class="max-w-screen-lg">
+      <div *puiSidebarMain class="flex flex-col py-6 px-8 gap-4">
         <h1 class="text-primary-700 dark:text-primary-300">Layered Layout</h1>
         <div>
-          <button pheadHoverable pheadHardSurface color="primary" class="rounded-1 px-4 py-2" [routerLink]="['full']">Open Next Page in Full</button>
+          <button puiFilledButton color="primary" class="rounded-1 px-4 py-2" [routerLink]="['full']">Open Next Page in Full</button>
         </div>
         <div>
-          <button pheadHoverable pheadHardSurface color="primary" class="rounded-1 px-4 py-2" [routerLink]="['half']">Open Next Page in Half</button>
+          <button puiFilledButton color="primary" class="rounded-1 px-4 py-2" [routerLink]="['half']">Open Next Page in Half</button>
         </div>
       </div>
-    </phead-sidebar-content>
+    </pui-sidebar-content>
   </div>
-</phead-layered-container>
+</pui-layered-container>

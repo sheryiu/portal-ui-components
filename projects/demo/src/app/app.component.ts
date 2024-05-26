@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { RootNavigationModule } from 'phead';
+import { RootNavigationModule } from 'portal-ui-ng';
 import { SharedModule } from './shared/shared.module';
 
 @Component({

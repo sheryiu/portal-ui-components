@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { BreadcrumbsComponent, LayeredContainerComponent, SidebarModule } from 'phead';
+import { BreadcrumbsComponent, ButtonModule, LayeredContainerComponent, SidebarModule } from 'portal-ui-ng';
 import { SharedModule } from '../../../shared/shared.module';
 
 @Component({
@@ -10,6 +10,7 @@ import { SharedModule } from '../../../shared/shared.module';
     LayeredContainerComponent,
     SidebarModule,
     BreadcrumbsComponent,
+    ButtonModule,
   ],
   templateUrl: './demo-button.component.html',
   styles: ``

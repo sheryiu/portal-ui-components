@@ -1,72 +1,72 @@
-<phead-layered-container>
+<pui-layered-container>
   <div
-    pheadSidebarContainer
+    puiSidebarContainer
     cdkVirtualScrollingElement
     cdkScrollable
   >
-    <div pheadSidebarBreadcrumbs>
-      <phead-breadcrumbs></phead-breadcrumbs>
+    <div puiSidebarBreadcrumbs>
+      <pui-breadcrumbs></pui-breadcrumbs>
     </div>
-    <phead-sidebar-content>
-      <div *pheadSidebarMain class="py-4 flex flex-col gap-4">
+    <pui-sidebar-content>
+      <div *puiSidebarMain class="py-4 flex flex-col gap-4">
         <div class="flex justify-between items-center px-4 gap-4">
           @if (data$ | async; as data) {
             <h2 class="text-primary-800 dark:text-primary-200">{{ data.name?.jp }} / {{ data.name?.en }}</h2>
           }
           <div class="flex gap-2 items-center">
             @if (formControl.dirty) {
-              <button pheadHoverable class="rounded-1 px-3 py-2" (click)="onCancel()">Cancel</button>
-              <button pheadHoverable pheadHardSurface color="primary" class="rounded-1 px-3 py-2" (click)="onSave()">Save</button>
+              <button puiHoverable class="rounded-1 px-3 py-2" (click)="onCancel()">Cancel</button>
+              <button puiFilledButton color="primary" class="rounded-1 px-3 py-2" (click)="onSave()">Save</button>
             }
           </div>
         </div>
-        <phead-divider></phead-divider>
-        <phead-fieldset [formControl]="formControl">
-          <phead-field-def
+        <pui-divider></pui-divider>
+        <pui-fieldset [formControl]="formControl">
+          <pui-field-def
             key="name>en"
             label="English Name"
             fieldType="string"
             [fieldConfig]="{}"
-          ></phead-field-def>
-          <phead-field-def
+          ></pui-field-def>
+          <pui-field-def
             key="name>jp"
             label="Japanese Name"
             fieldType="string"
             [fieldConfig]="{}"
-          ></phead-field-def>
-          <phead-field-def
+          ></pui-field-def>
+          <pui-field-def
             key="rarity"
             label="Rarity"
             fieldType="number"
             [fieldConfig]="{}"
-          ></phead-field-def>
-          <phead-field-def
+          ></pui-field-def>
+          <pui-field-def
             key="rank"
             label="Rank"
             fieldType="string"
             [fieldConfig]="{
               enum: ['base', 'iceborne']
             }"
-          ></phead-field-def>
-          <phead-field-def
+          ></pui-field-def>
+          <pui-field-def
             key="setBonusId"
             label="Set Bonus"
             fieldType="string"
             [fieldConfig]="{
             }"
-          ></phead-field-def>
-          <phead-field-def
+          ></pui-field-def>
+          <pui-field-def
             key="createdAt"
             label="Created At"
             fieldType="date-time"
-          ></phead-field-def>
-          <phead-field-def
+          ></pui-field-def>
+          <pui-field-def
             key="updatedAt"
             label="Updated At"
             fieldType="date-time"
-          ></phead-field-def>
-        </phead-fieldset>
+          ></pui-field-def>
+        </pui-fieldset>
       </div>
-    </phead-sidebar-content>
+    </pui-sidebar-content>
   </div>
-</phead-layered-container>
+</pui-layered-container>

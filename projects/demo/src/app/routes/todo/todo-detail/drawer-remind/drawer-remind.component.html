@@ -1,17 +1,17 @@
-<div pheadSidebarDrawerSection [class.bg-drawer-content]="trigger.isOpened$$()">
-  <button pheadSidebarDrawerSectionHeader pheadAccordionTrigger pheadHoverable #trigger="accordionTrigger" opened>
+<div puiSidebarDrawerSection [class.bg-drawer-content]="trigger.isOpened$$()">
+  <button puiSidebarDrawerSectionHeader puiAccordionTrigger puiHoverable #trigger="accordionTrigger" opened>
     <i>timer</i> Set Reminder
   </button>
   @if (trigger.isOpened$$()) {
-    <form pheadSidebarDrawerSectionContent (ngSubmit)="onSubmit()">
-      <phead-fieldset [formControl]="formControl">
-        <phead-field-def
+    <form puiSidebarDrawerSectionContent (ngSubmit)="onSubmit()">
+      <pui-fieldset [formControl]="formControl">
+        <pui-field-def
           label="Remind me at"
           fieldType="date-time"
           key="remindOn"
-        ></phead-field-def>
-      </phead-fieldset>
-      <button class="rounded-1 mx-1 py-2 text-sm text-primary-700 dark:text-primary-500" pheadHoverable type="submit">Set</button>
+        ></pui-field-def>
+      </pui-fieldset>
+      <button class="rounded-1 mx-1 py-2 text-sm text-primary-700 dark:text-primary-500" puiHoverable type="submit">Set</button>
     </form>
   }
 </div>

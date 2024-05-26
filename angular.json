@@ -3,32 +3,32 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "phead": {
+    "portal-ui-ng": {
       "projectType": "library",
-      "root": "projects/phead",
-      "sourceRoot": "projects/phead/src",
+      "root": "projects/portal-ui-ng",
+      "sourceRoot": "projects/portal-ui-ng/src",
       "prefix": "lib",
       "schematics": {
         "@schematics/angular:component": {
-          "prefix": "phead",
+          "prefix": "pui",
           "inlineStyle": true
         },
         "@schematics/angular:directive": {
-          "prefix": "phead"
+          "prefix": "pui"
         }
       },
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:ng-packagr",
           "options": {
-            "project": "projects/phead/ng-package.json"
+            "project": "projects/portal-ui-ng/ng-package.json"
           },
           "configurations": {
             "production": {
-              "tsConfig": "projects/phead/tsconfig.lib.prod.json"
+              "tsConfig": "projects/portal-ui-ng/tsconfig.lib.prod.json"
             },
             "development": {
-              "tsConfig": "projects/phead/tsconfig.lib.json"
+              "tsConfig": "projects/portal-ui-ng/tsconfig.lib.json"
             }
           },
           "defaultConfiguration": "production"
@@ -36,7 +36,7 @@
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "tsConfig": "projects/phead/tsconfig.spec.json",
+            "tsConfig": "projects/portal-ui-ng/tsconfig.spec.json",
             "polyfills": [
               "zone.js",
               "zone.js/testing"

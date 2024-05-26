@@ -1,10 +1,10 @@
-<div pheadSidebarDrawerSection [class.bg-drawer-content]="trigger.isOpened$$()">
+<div puiSidebarDrawerSection [class.bg-drawer-content]="trigger.isOpened$$()">
   <button
-    pheadSidebarDrawerSectionHeader
-    pheadHoverable
+    puiSidebarDrawerSectionHeader
+    puiHoverable
     role="button"
     type="button"
-    pheadAccordionTrigger
+    puiAccordionTrigger
     #trigger="accordionTrigger"
     opened
     [ngClass]="{ '!text-primary-950 dark:!text-primary-50': !trigger.isOpened$$() }"
@@ -13,35 +13,35 @@
     <p>Insert New</p>
   </button>
   @if (trigger.isOpened$$()) {
-    <form pheadSidebarDrawerSectionContent (ngSubmit)="onSubmit()">
-      <phead-fieldset [formControl]="formControl">
-        <phead-field-def
+    <form puiSidebarDrawerSectionContent (ngSubmit)="onSubmit()">
+      <pui-fieldset [formControl]="formControl">
+        <pui-field-def
           key="name>en"
           label="English Name"
           fieldType="string"
-        ></phead-field-def>
-        <phead-field-def
+        ></pui-field-def>
+        <pui-field-def
           key="name>jp"
           label="Japanese Name"
           fieldType="string"
-        ></phead-field-def>
-        <phead-field-def
+        ></pui-field-def>
+        <pui-field-def
           key="description>en"
           label="English Description"
           fieldType="string"
-        ></phead-field-def>
-        <phead-field-def
+        ></pui-field-def>
+        <pui-field-def
           key="description>jp"
           label="Japanese Description"
           fieldType="string"
-        ></phead-field-def>
-        <phead-field-def
+        ></pui-field-def>
+        <pui-field-def
           key="color"
           label="Color"
           fieldType="string"
-        ></phead-field-def>
-      </phead-fieldset>
-      <button class="rounded-1 mx-1 py-2 text-sm text-primary-700 dark:text-primary-500" pheadHoverable role="button" type="submit">Add</button>
+        ></pui-field-def>
+      </pui-fieldset>
+      <button class="rounded-1 mx-1 py-2 text-sm text-primary-700 dark:text-primary-500" puiHoverable role="button" type="submit">Add</button>
     </form>
   }
 </div>

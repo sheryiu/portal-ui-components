@@ -1,7 +1,7 @@
 import { Component, computed, inject } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, RouterOutlet } from '@angular/router';
-import { LayeredContainerComponent, SidebarModule, TableModule } from 'phead';
+import { LayeredContainerComponent, SidebarModule, TableModule } from 'portal-ui-ng';
 import { SharedModule } from '../../../shared/shared.module';
 import { ArmorSetBonusService } from '../../../store/armor-set-bonus.service';
 import { ArmorSetService } from '../../../store/armor-set.service';

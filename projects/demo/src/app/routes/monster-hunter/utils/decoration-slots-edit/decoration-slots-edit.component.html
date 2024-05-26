@@ -2,7 +2,7 @@
   @for (slot of slots; track $index) {
     <button
       type="button"
-      pheadHoverable
+      puiHoverable
       class="rounded-2 p-2"
       [disabled]="isDisabled"
       (click)="toggleSlot($index)"
@@ -14,7 +14,7 @@
   }
   <button
     type="button"
-    pheadHoverable
+    puiHoverable
     class="rounded-2 p-2.5"
     (click)="addSlot()"
     [disabled]="isDisabled"

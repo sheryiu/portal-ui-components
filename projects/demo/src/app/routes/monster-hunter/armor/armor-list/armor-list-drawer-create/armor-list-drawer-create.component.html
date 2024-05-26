@@ -1,10 +1,10 @@
-<div pheadSidebarDrawerSection [class.bg-drawer-content]="trigger.isOpened$$()">
+<div puiSidebarDrawerSection [class.bg-drawer-content]="trigger.isOpened$$()">
   <button
-    pheadSidebarDrawerSectionHeader
-    pheadHoverable
+    puiSidebarDrawerSectionHeader
+    puiHoverable
     role="button"
     type="button"
-    pheadAccordionTrigger
+    puiAccordionTrigger
     #trigger="accordionTrigger"
     [ngClass]="{ '!text-primary-950 dark:!text-primary-50': !trigger.isOpened$$() }"
     opened
@@ -13,46 +13,46 @@
     <p>Insert New</p>
   </button>
   @if (trigger.isOpened$$()) {
-    <form pheadSidebarDrawerSectionContent (ngSubmit)="onSubmit()">
-      <phead-fieldset [formControl]="formControl">
-        <phead-field-def
+    <form puiSidebarDrawerSectionContent (ngSubmit)="onSubmit()">
+      <pui-fieldset [formControl]="formControl">
+        <pui-field-def
           key="name>en"
           label="English Name"
           fieldType="string"
-        ></phead-field-def>
-        <phead-field-def
+        ></pui-field-def>
+        <pui-field-def
           key="name>jp"
           label="Japanese Name"
           fieldType="string"
-        ></phead-field-def>
-        <phead-field-def
+        ></pui-field-def>
+        <pui-field-def
           key="position"
           label="Position"
           fieldType="string"
           [fieldConfig]="{
             enum: armorPosition
           }"
-        ></phead-field-def>
-        <phead-field-def
+        ></pui-field-def>
+        <pui-field-def
           key="armorSetId"
           label="Armor Set"
           fieldType="string"
           [templateRef]="armorSetIdInput"
         >
-        </phead-field-def>
-      </phead-fieldset>
-      <button class="rounded-1 mx-1 py-2 text-sm text-primary-700 dark:text-primary-500" pheadHoverable role="button" type="submit">Add</button>
+        </pui-field-def>
+      </pui-fieldset>
+      <button class="rounded-1 mx-1 py-2 text-sm text-primary-700 dark:text-primary-500" puiHoverable role="button" type="submit">Add</button>
     </form>
   }
 </div>
 
 <ng-template #armorSetIdInput let-key="key" let-formGroup="formGroup" let-valueUpdated$="valueUpdated$">
   <ng-container [formGroup]="formGroup">
-    <phead-dropdown [formControlName]="key" (valueChange)="valueUpdated$.next()">
-      <div *pheadDropdownTrigger="let value">{{ value }}</div>
-      <phead-search-dropdown *pheadDropdownOverlay>
+    <pui-dropdown [formControlName]="key" (valueChange)="valueUpdated$.next()">
+      <div *puiDropdownTrigger="let value">{{ value }}</div>
+      <pui-search-dropdown *puiDropdownOverlay>
         <demo-armor-set-search></demo-armor-set-search>
-      </phead-search-dropdown>
-    </phead-dropdown>
+      </pui-search-dropdown>
+    </pui-dropdown>
   </ng-container>
 </ng-template>

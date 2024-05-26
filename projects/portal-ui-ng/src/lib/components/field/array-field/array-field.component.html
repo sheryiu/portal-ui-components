@@ -1,0 +1,12 @@
+<div class="pui-array-field">
+  <span>Array Length:</span>
+  <button type="button" (click)="onMinusClick()" puiHoverable>
+    <i>remove</i>
+  </button>
+  <pui-input-field>
+    <input type="number" [formControl]="arrayLengthControl" (input)="handleInput()">
+  </pui-input-field>
+  <button type="button" (click)="onAddClick()" puiHoverable>
+    <i>add</i>
+  </button>
+</div>

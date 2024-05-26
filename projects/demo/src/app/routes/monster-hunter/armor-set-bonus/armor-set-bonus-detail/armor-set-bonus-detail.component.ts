@@ -2,7 +2,7 @@ import { ScrollingModule } from '@angular/cdk/scrolling';
 import { Component, inject } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { EffectFn } from '@ngneat/effects-ng';
-import { LayeredContainerComponent, SidebarModule } from 'phead';
+import { LayeredContainerComponent, SidebarModule } from 'portal-ui-ng';
 import { map, switchMap } from 'rxjs';
 import { SharedModule } from '../../../../shared/shared.module';
 import { ArmorSetBonusService } from '../../../../store/armor-set-bonus.service';

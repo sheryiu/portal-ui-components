@@ -1,7 +1,7 @@
 import { Component, Input, inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { EffectFn } from '@ngneat/effects-ng';
-import { AccordionModule, SidebarModule } from 'phead';
+import { AccordionModule, SidebarModule } from 'portal-ui-ng';
 import { EMPTY, catchError, exhaustMap, filter, tap } from 'rxjs';
 import { Skill } from '../../../../../data/skill';
 import { SharedModule } from '../../../../../shared/shared.module';

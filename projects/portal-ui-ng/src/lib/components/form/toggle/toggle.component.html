@@ -1,0 +1,27 @@
+<input
+  [id]="id"
+  hidden
+  type="checkbox"
+  (input)="handleInput($event)"
+  [disabled]="isDisabled$$()"
+/>
+<label
+  (click)="onTouched?.()"
+  [attr.for]="id"
+  class="pui-toggle"
+  role="button"
+  [class.pui-toggle--checked]="isChecked$$()"
+>
+  <div
+    puiHoverable
+    class="pui-toggle__trigger"
+  >
+    <i>drag_indicator</i>
+  </div>
+  <span class="pui-toggle__indicator" [ariaHidden]="!isChecked$$()">
+    On
+  </span>
+  <span class="pui-toggle__indicator" [ariaHidden]="isChecked$$()">
+    Off
+  </span>
+</label>

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ArrayPipe, BreadcrumbsComponent, LayeredContainerComponent, ScrollspyModule, SidebarModule, TableOfContentsModule } from 'phead';
+import { ArrayPipe, BreadcrumbsComponent, LayeredContainerComponent, ScrollspyModule, SidebarModule, TableOfContentsModule } from 'portal-ui-ng';
 import { SharedModule } from '../../../shared/shared.module';
 
 @Component({

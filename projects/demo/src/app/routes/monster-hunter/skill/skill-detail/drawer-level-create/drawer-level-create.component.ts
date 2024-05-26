@@ -1,7 +1,7 @@
 import { Component, Input, inject } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { EffectFn } from '@ngneat/effects-ng';
-import { AccordionModule, DividerComponent, FieldModule, SegmentedOptionsModule, SidebarModule } from 'phead';
+import { AccordionModule, DividerComponent, FieldModule, SegmentedOptionsModule, SidebarModule } from 'portal-ui-ng';
 import { EMPTY, catchError, exhaustMap, filter, tap } from 'rxjs';
 import { SkillEffect, SkillLevel } from '../../../../../data/skill';
 import { SharedModule } from '../../../../../shared/shared.module';

@@ -1,6 +1,6 @@
 import { Component, input } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
-import { TimeDisplayComponent } from 'phead';
+import { TimeDisplayComponent } from 'portal-ui-ng';
 import { SharedModule } from '../../../../shared/shared.module';
 import { Todo } from '../../core/todo.types';
 

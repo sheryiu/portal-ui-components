@@ -1,55 +1,55 @@
-<phead-layered-container>
+<pui-layered-container>
   <div
-    pheadSidebarContainer
+    puiSidebarContainer
     cdkVirtualScrollingElement
     cdkScrollable
   >
-    <div pheadSidebarBreadcrumbs>
-      <phead-breadcrumbs></phead-breadcrumbs>
+    <div puiSidebarBreadcrumbs>
+      <pui-breadcrumbs></pui-breadcrumbs>
     </div>
-    <phead-sidebar-content>
-      <phead-table
-        *pheadSidebarMain
+    <pui-sidebar-content>
+      <pui-table
+        *puiSidebarMain
         itemHeight="48"
         [columns]="['name']"
         [columnWidths]="['1fr']"
       >
-        <phead-table-header-cell *pheadTableHeaderCellDef="'name'" [filtered]="filterByName$$() != null">
+        <pui-table-header-cell *puiTableHeaderCellDef="'name'" [filtered]="filterByName$$() != null">
           Name
-          <div *pheadTableHeaderCellFilter cdkTrapFocus [cdkTrapFocusAutoCapture]="true">
-            <phead-input-field>
+          <div *puiTableHeaderCellFilter cdkTrapFocus [cdkTrapFocusAutoCapture]="true">
+            <pui-input-field>
               <input
                 type="search"
                 placeholder="Type to search"
                 [value]="filterByName$$() ?? ''"
                 (input)="onChangeFilter({ name: $any($event.currentTarget).value })">
-            </phead-input-field>
+            </pui-input-field>
           </div>
-        </phead-table-header-cell>
-        <phead-table-cell *pheadTableCellDef="'name'; let item">
+        </pui-table-header-cell>
+        <pui-table-cell *puiTableCellDef="'name'; let item">
           {{ item.name?.jp }} / {{ item.name?.en }}
-        </phead-table-cell>
+        </pui-table-cell>
 
         <cdk-virtual-scroll-viewport itemSize [extraHeight]="48 * 2">
-          <phead-table-body>
-            <phead-table-header-row>
-            </phead-table-header-row>
-            <phead-table-row
+          <pui-table-body>
+            <pui-table-header-row>
+            </pui-table-header-row>
+            <pui-table-row
               *cdkVirtualFor="let item of data$ | async; trackBy: trackingFn"
-              pheadHoverable
+              puiHoverable
               [route]="[item.id]"
               [item]="item"
             >
-            </phead-table-row>
-            <phead-table-footer-row class="px-4 py-1">
-              <phead-table-simple-footer></phead-table-simple-footer>
-            </phead-table-footer-row>
-          </phead-table-body>
+            </pui-table-row>
+            <pui-table-footer-row class="px-4 py-1">
+              <pui-table-simple-footer></pui-table-simple-footer>
+            </pui-table-footer-row>
+          </pui-table-body>
         </cdk-virtual-scroll-viewport>
-      </phead-table>
-      <phead-accordion>
-        <mhw-drawer-create *pheadSidebarDrawer></mhw-drawer-create>
-      </phead-accordion>
-    </phead-sidebar-content>
+      </pui-table>
+      <pui-accordion>
+        <mhw-drawer-create *puiSidebarDrawer></mhw-drawer-create>
+      </pui-accordion>
+    </pui-sidebar-content>
   </div>
-</phead-layered-container>
+</pui-layered-container>

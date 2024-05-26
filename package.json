@@ -3,8 +3,8 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "lib": "ng build phead",
-    "lib:watch": "ng build phead --watch",
+    "lib": "ng build portal-ui-ng",
+    "lib:watch": "ng build portal-ui-ng --watch",
     "start": "ng serve demo",
     "build": "ng build demo",
     "deploy": "ng deploy demo --base-href=/portal-ui-components/"

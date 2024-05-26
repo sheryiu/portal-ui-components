@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-import { breadcrumb, layeredContainer } from 'phead';
+import { breadcrumb, layeredContainer } from 'portal-ui-ng';
 import { map, switchMap } from 'rxjs';
 import { ArmorService } from '../../../store/armor.service';
 

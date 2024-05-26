@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { QuickAccessComponentDirective } from 'phead';
+import { QuickAccessComponentDirective } from 'portal-ui-ng';
 import { SharedModule } from '../../shared/shared.module';
 import { DatabaseService } from '../../store/database.service';
 

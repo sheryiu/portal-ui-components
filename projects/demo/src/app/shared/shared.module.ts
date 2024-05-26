@@ -1,18 +1,18 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { BreadcrumbsComponent, PheadBaseModule, TooltipModule } from 'phead';
+import { BreadcrumbsComponent, PuiBaseModule, TooltipModule } from 'portal-ui-ng';
 
 @NgModule({
   declarations: [],
   imports: [
     CommonModule,
-    PheadBaseModule,
+    PuiBaseModule,
     BreadcrumbsComponent,
     TooltipModule,
   ],
   exports: [
     CommonModule,
-    PheadBaseModule,
+    PuiBaseModule,
     BreadcrumbsComponent,
     TooltipModule,
   ]

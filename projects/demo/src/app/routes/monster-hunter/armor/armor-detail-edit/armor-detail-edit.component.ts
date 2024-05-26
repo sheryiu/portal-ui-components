@@ -3,7 +3,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { EffectFn } from '@ngneat/effects-ng';
-import { DividerComponent, DropdownModule, FieldModule, LayeredContainerComponent, SidebarModule } from 'phead';
+import { ButtonModule, DividerComponent, DropdownModule, FieldModule, LayeredContainerComponent, SidebarModule } from 'portal-ui-ng';
 import { map, switchMap, tap, withLatestFrom } from 'rxjs';
 import { Armor, ArmorPosition, ArmorUpdateInput } from '../../../../data/armor';
 import { SharedModule } from '../../../../shared/shared.module';
@@ -21,6 +21,7 @@ import { ArmorSetSearchComponent } from '../../utils/armor-set-search/armor-set-
     DropdownModule,
     ArmorSetSearchComponent,
     DividerComponent,
+    ButtonModule,
   ],
   templateUrl: './armor-detail-edit.component.html',
   styles: ``

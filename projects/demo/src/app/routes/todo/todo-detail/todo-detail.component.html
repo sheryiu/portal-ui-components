@@ -1,25 +1,25 @@
-<phead-layered-container>
-  <div pheadSidebarContainer>
-    <div pheadSidebarBreadcrumbs>
-      <phead-breadcrumbs></phead-breadcrumbs>
+<pui-layered-container>
+  <div puiSidebarContainer>
+    <div puiSidebarBreadcrumbs>
+      <pui-breadcrumbs></pui-breadcrumbs>
     </div>
-    <phead-sidebar-content class="max-w-screen-3xl">
-      <div *pheadSidebarMain class="flex flex-col gap-4 py-6 px-8">
+    <pui-sidebar-content class="max-w-screen-3xl">
+      <div *puiSidebarMain class="flex flex-col gap-4 py-6 px-8">
         @if (data()) {
-          <phead-input-field borderless class="text-2xl font-bold text-primary-700 dark:text-primary-300">
+          <pui-input-field borderless class="text-2xl font-bold text-primary-700 dark:text-primary-300">
             <input type="text" class="py-2" [value]="data()?.title" (input)="updateTitle($event)">
-          </phead-input-field>
+          </pui-input-field>
           <div class="flex items-center gap-1.5 px-2 -mt-3">
             <i class="icon-5" [ngClass]="{ 'font-variation-fill text-primary-800 dark:text-primary-200': !!data()?.label }">label</i>
-            <phead-input-field borderless class="text-primary-800 dark:text-primary-200">
+            <pui-input-field borderless class="text-primary-800 dark:text-primary-200">
               <input type="text" class="py-2" [value]="data()?.label" (input)="updateLabel($event)">
-            </phead-input-field>
+            </pui-input-field>
             @if (data()?.remindOn) {
               <i class="icon-5" [ngClass]="{ 'text-primary-800 dark:text-primary-200': !!data()?.label }">timer</i>
-              <phead-time-display [date]="data()?.remindOn" format="MMM dd, YYYY HH:mm"></phead-time-display>
+              <pui-time-display [date]="data()?.remindOn" format="MMM dd, YYYY HH:mm"></pui-time-display>
             }
           </div>
-          <phead-divider></phead-divider>
+          <pui-divider></pui-divider>
           <div class="flex flex-col px-1">
             @for (item of data()?.items; track item.id) {
               <demo-item [item]="item" (updateItem)="updateItem(item.id, $event)"></demo-item>
@@ -28,10 +28,10 @@
           </div>
         }
       </div>
-      <phead-accordion>
-        <demo-drawer-remind *pheadSidebarDrawer [todo]="data()"></demo-drawer-remind>
-        <demo-drawer-remove *pheadSidebarDrawer [todo]="data()"></demo-drawer-remove>
-      </phead-accordion>
-    </phead-sidebar-content>
+      <pui-accordion>
+        <demo-drawer-remind *puiSidebarDrawer [todo]="data()"></demo-drawer-remind>
+        <demo-drawer-remove *puiSidebarDrawer [todo]="data()"></demo-drawer-remove>
+      </pui-accordion>
+    </pui-sidebar-content>
   </div>
-</phead-layered-container>
+</pui-layered-container>

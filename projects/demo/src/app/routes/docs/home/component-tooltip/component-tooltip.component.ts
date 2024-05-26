@@ -1,7 +1,7 @@
 import { Component, DestroyRef, afterNextRender, inject, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { RouterLink, RouterLinkActive } from '@angular/router';
-import { TooltipDirective } from 'phead';
+import { TooltipDirective } from 'portal-ui-ng';
 import { timer } from 'rxjs';
 import { SharedModule } from '../../../../shared/shared.module';
 

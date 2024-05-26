@@ -1,46 +1,24 @@
-<phead-layered-container>
-  <div pheadSidebarContainer>
-    <div pheadSidebarBreadcrumbs>
-      <phead-breadcrumbs></phead-breadcrumbs>
+<pui-layered-container>
+  <div puiSidebarContainer>
+    <div puiSidebarBreadcrumbs>
+      <pui-breadcrumbs></pui-breadcrumbs>
     </div>
-    <phead-sidebar-content class="max-w-screen-lg">
-      <div *pheadSidebarMain class="flex flex-col py-6 px-8 gap-4">
+    <pui-sidebar-content class="max-w-screen-lg">
+      <div *puiSidebarMain class="flex flex-col py-6 px-8 gap-4">
         <h1 class="text-primary-700 dark:text-primary-300">Color</h1>
         <div class="flex flex-col gap-2">
           <h3>Primary Color</h3>
-          <phead-fieldset [formControl]="formControl" class="max-w-screen-md">
-            <phead-field-def
-              key="baseColor"
-              fieldType="string"
-              label="Base Color"
-              [templateRef]="colorTemplate"
-            >
-              <ng-template #colorTemplate let-key="key" let-formGroup="formGroup" let-valueUpdated$="valueUpdated$">
-                <ng-container [formGroup]="formGroup">
-                  <input type="color" [formControlName]="key" (input)="valueUpdated$.next()">
-                </ng-container>
-              </ng-template>
-            </phead-field-def>
-            <phead-field-def
-              key="stepUpL"
-              fieldType="number"
-              label="Step Up Luminance %"
-            >
-            </phead-field-def>
-            <phead-field-def
-              key="stepDownL"
-              fieldType="number"
-              label="Step Down Luminance %"
-            >
-            </phead-field-def>
-          </phead-fieldset>
-          <div class="flex rounded-2 overflow-hidden border items-stretch h-12">
-            @for (color of colorShades(); track $index) {
-              <div class="grow" [style.backgroundColor]="color"></div>
-            }
-          </div>
+          <demo-color-set name="primary" [defaultColor]="{ baseColor: '#6DBC4E', stepDownL: 40, stepUpL: 12 }"></demo-color-set>
+        </div>
+        <div class="flex flex-col gap-2">
+          <h3>Accent Color</h3>
+          <demo-color-set name="accent" [defaultColor]="{ baseColor: '#3e6e7a', stepDownL: 28, stepUpL: 21 }"></demo-color-set>
+        </div>
+        <div class="flex flex-col gap-2">
+          <h3>Neutral Color</h3>
+          <demo-color-set name="neutral" [defaultColor]="{ baseColor: '#CFCFCF', stepDownL: 40, stepUpL: 5 }"></demo-color-set>
         </div>
       </div>
-    </phead-sidebar-content>
+    </pui-sidebar-content>
   </div>
-</phead-layered-container>
+</pui-layered-container>

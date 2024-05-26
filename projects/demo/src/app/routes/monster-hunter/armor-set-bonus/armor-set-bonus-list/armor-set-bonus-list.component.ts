@@ -4,7 +4,7 @@ import { Component, ViewChild, computed, inject } from '@angular/core';
 import { toObservable } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, Router } from '@angular/router';
 import { EffectFn } from '@ngneat/effects-ng';
-import { AccordionModule, LayeredContainerComponent, PheadOverlayService, SidebarModule, TableModule } from 'phead';
+import { AccordionModule, LayeredContainerComponent, PuiOverlayService, SidebarModule, TableModule } from 'portal-ui-ng';
 import { combineLatest, switchMap, tap } from 'rxjs';
 import { ArmorSetBonus } from '../../../../data/armor-set-bonus';
 import { SharedModule } from '../../../../shared/shared.module';
@@ -28,7 +28,7 @@ import { DrawerCreateComponent } from './drawer-create/drawer-create.component';
 })
 export class ArmorSetBonusListComponent extends EffectFn {
   private service = inject(ArmorSetBonusService);
-  private overlay = inject(PheadOverlayService);
+  private overlay = inject(PuiOverlayService);
   private router = inject(Router);
   private route = inject(ActivatedRoute);
   @ViewChild(CdkVirtualScrollViewport) private scrollViewport?: CdkVirtualScrollViewport;

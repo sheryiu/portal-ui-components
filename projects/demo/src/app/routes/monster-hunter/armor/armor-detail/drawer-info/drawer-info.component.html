@@ -1,10 +1,10 @@
-<div pheadSidebarDrawerSection [class.bg-drawer-content]="trigger.isOpened$$()">
+<div puiSidebarDrawerSection [class.bg-drawer-content]="trigger.isOpened$$()">
   <button
-    pheadSidebarDrawerSectionHeader
-    pheadHoverable
+    puiSidebarDrawerSectionHeader
+    puiHoverable
     role="button"
     type="button"
-    pheadAccordionTrigger
+    puiAccordionTrigger
     #trigger="accordionTrigger"
     opened
     [ngClass]="{ '!text-primary-950 dark:!text-primary-50': !trigger.isOpened$$() }"
@@ -13,18 +13,18 @@
     <p>About</p>
   </button>
   @if (trigger.isOpened$$()) {
-    <div pheadSidebarDrawerSectionContent>
+    <div puiSidebarDrawerSectionContent>
       <div class="flex flex-col px-3 pb-3 gap-2">
         <p class="text-sm font-medium tracking-tighter text-accent-800 dark:text-accent-200">Last updated</p>
         @if (armor) {
-          <phead-time-display [date]="armor.updatedAt" [format]="'YYYY MMM dd, HH:mm'"></phead-time-display>
+          <pui-time-display [date]="armor.updatedAt" [format]="'YYYY MMM dd, HH:mm'"></pui-time-display>
         }
         <p class="text-sm font-medium tracking-tighter text-accent-800 dark:text-accent-200">Created at</p>
         @if (armor) {
-          <phead-time-display [date]="armor.createdAt" [format]="'YYYY MMM dd, HH:mm'"></phead-time-display>
+          <pui-time-display [date]="armor.createdAt" [format]="'YYYY MMM dd, HH:mm'"></pui-time-display>
         }
       </div>
-      <a pheadHoverable class="rounded-1 mx-1 py-2 text-sm text-primary-700 dark:text-primary-500" [routerLink]="['edit']">Edit Details</a>
+      <a puiHoverable class="rounded-1 mx-1 py-2 text-sm text-primary-700 dark:text-primary-500" [routerLink]="['edit']">Edit Details</a>
     </div>
   }
 </div>

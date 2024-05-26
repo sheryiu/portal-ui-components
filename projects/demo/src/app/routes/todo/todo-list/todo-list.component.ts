@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
-import { AccordionModule, BreadcrumbsComponent, DividerComponent, LayeredContainerComponent, SegmentedOptionsModule, SidebarModule } from 'phead';
+import { AccordionModule, BreadcrumbsComponent, DividerComponent, LayeredContainerComponent, SegmentedOptionsModule, SidebarModule } from 'portal-ui-ng';
 import { switchMap } from 'rxjs';
 import { SharedModule } from '../../../shared/shared.module';
 import { TodoService } from '../core/todo.service';
