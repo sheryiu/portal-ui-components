@@ -1,11 +1,11 @@
 import { provideHttpClient, withFetch } from '@angular/common/http';
 import { ApplicationConfig, isDevMode } from '@angular/core';
 import { provideClientHydration } from '@angular/platform-browser';
-import { provideAnimations, provideNoopAnimations } from '@angular/platform-browser/animations';
+import { provideAnimations } from '@angular/platform-browser/animations';
 import { NoPreloading, PreloadAllModules, provideRouter, withPreloading, withRouterConfig } from '@angular/router';
 import { provideServiceWorker } from '@angular/service-worker';
 import { provideTransloco } from '@ngneat/transloco';
-import { LanguageToggleComponent, ThemeToggleComponent, provideGlobalSearch, provideModalDialog, provideQuickAccess, provideRootNavigation, provideTheme, providepuiOverlay, themeGlobalSearch, withLogo, withProvider, withProviderFn, withWidget } from 'portal-ui-ng';
+import { LanguageToggleComponent, ThemeToggleComponent, provideGlobalSearch, provideModalDialog, providePuiOverlay, provideQuickAccess, provideRootNavigation, provideTheme, themeGlobalSearch, withLogo, withProvider, withProviderFn, withWidget } from 'portal-ui-ng';
 import { routes } from './app.routes';
 import { DatabaseInfoQuickAccessComponent } from './core/database-info-quick-access/database-info-quick-access.component';
 import { LogoComponent } from './core/logo/logo.component';
@@ -40,7 +40,7 @@ export const appConfig: ApplicationConfig = {
       },
       loader: TranslocoHttpLoader,
     }),
-    providepuiOverlay(),
+    providePuiOverlay(),
     provideModalDialog(),
     provideQuickAccess(
       withWidget(SettingsQuickAccessComponent),

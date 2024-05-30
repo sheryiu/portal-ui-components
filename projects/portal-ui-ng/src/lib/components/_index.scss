@@ -32,9 +32,8 @@
   }
 }
 
-.pui-quick-access-backdrop {
-  left: 6rem !important;
-  @apply bg-black/10 dark:bg-black/20 backdrop-blur-sm;
+.cdk-overlay-backdrop.pui-quick-access-backdrop {
+  @apply left-24 bg-black/10 dark:bg-black/20 backdrop-blur-sm;
 }
 
 .pui-quick-access {
