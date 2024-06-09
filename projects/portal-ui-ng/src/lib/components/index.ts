@@ -1,6 +1,5 @@
 export * from './accordion';
 export * from './autocomplete';
-export * from './background-graphics';
 export * from './breadcrumbs';
 export * from './calendar';
 export * from './divider';
@@ -15,3 +14,4 @@ export * from './tab-bar';
 export * from './table';
 export * from './table-of-contents';
 export * from './tooltip';
+

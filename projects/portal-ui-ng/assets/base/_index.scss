@@ -1,4 +1,4 @@
-@use "./ui/button";
+@use "./button";
 
 .pui-hoverable {
   @apply flex items-center justify-center relative overflow-hidden transition-all;
