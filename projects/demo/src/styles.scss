@@ -4,9 +4,8 @@
 @layer pui-styles {
   @tailwind base;
   @tailwind components;
-  @import 'portal-ui-ng/assets/base/_index.scss';
-  // @import '../../portal-ui-ng/src/lib/base/index';
-  // @import '../../portal-ui-ng/src/lib/components/index';
+  @import '../../portal-ui-ng/assets/base/index';
+  @import '../../portal-ui-ng/assets/components/index';
   *, *::before, *::after {
     @apply border-black/10;
   }
