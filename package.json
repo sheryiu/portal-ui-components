@@ -28,7 +28,6 @@
     "@ngneat/transloco": "^6.0.4",
     "@tailwindcss/container-queries": "^0.1.1",
     "colorjs.io": "^0.5.0",
-    "delaunator": "^5.0.1",
     "dexie": "^3.2.5",
     "dexie-export-import": "^4.1.1",
     "express": "^4.18.2",
