@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1717943280815,
+  "timestamp": 1718277199254,
   "index": "/portal-ui-components/index.html",
   "assetGroups": [
     {
@@ -66,7 +66,7 @@
         "/portal-ui-components/main-GLPTBEPS.js",
         "/portal-ui-components/manifest.webmanifest",
         "/portal-ui-components/polyfills-LZBJRJJE.js",
-        "/portal-ui-components/styles-Z3NI7RQQ.css"
+        "/portal-ui-components/styles-WUH76XQV.css"
       ],
       "patterns": []
     },
@@ -157,11 +157,11 @@
     "/portal-ui-components/chunk-YT5RKP36.js": "32f65904a62849ade7b72cb8409d3f75541c97bb",
     "/portal-ui-components/chunk-YVORFTXE.js": "c616497211ca97788f3f1336ed8e3ae360acda30",
     "/portal-ui-components/favicon.ico": "9c39f434fe1261f68c5e3eefdf734630d99c5670",
-    "/portal-ui-components/index.html": "59d1f6659855489d39259468364c8ce853b561c1",
+    "/portal-ui-components/index.html": "40fee6676f044a7cc2fa11e6bd9134500cb36cf8",
     "/portal-ui-components/main-GLPTBEPS.js": "86cd3b3b267fcd173c3fa8645d0d927e08bddec0",
     "/portal-ui-components/manifest.webmanifest": "b2ef5db6ca887221b9d237e89af051574c8aeb70",
     "/portal-ui-components/polyfills-LZBJRJJE.js": "fda1c82c5c620f1fa442f687b3df45a037f6fcc9",
-    "/portal-ui-components/styles-Z3NI7RQQ.css": "b3be888674ea9a80065d19fc84a3be1cd6200be3"
+    "/portal-ui-components/styles-WUH76XQV.css": "b2e0bd2b80019d51f3d461b6bf876a321d7f269e"
   },
   "navigationUrls": [
     {
