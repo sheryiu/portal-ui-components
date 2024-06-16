@@ -5,12 +5,13 @@ import { provideAnimations } from '@angular/platform-browser/animations';
 import { NoPreloading, PreloadAllModules, provideRouter, withPreloading, withRouterConfig } from '@angular/router';
 import { provideServiceWorker } from '@angular/service-worker';
 import { provideTransloco } from '@ngneat/transloco';
-import { LanguageToggleComponent, ThemeToggleComponent, provideGlobalSearch, provideModalDialog, providePuiOverlay, provideQuickAccess, provideRootNavigation, provideTheme, themeGlobalSearch, withLogo, withProvider, withProviderFn, withWidget } from 'portal-ui-ng';
+import { LanguageToggleComponent, ThemeToggleComponent, provideGlobalSearch, provideModalDialog, providePuiOverlay, provideQuickAccess, provideRootNavigation, provideTheme, themeGlobalSearch, withLogo, withProvider, withProviderFn, withUser, withWidget } from 'portal-ui-ng';
 import { routes } from './app.routes';
 import { DatabaseInfoQuickAccessComponent } from './core/database-info-quick-access/database-info-quick-access.component';
 import { LogoComponent } from './core/logo/logo.component';
 import { SettingsQuickAccessComponent } from './core/settings-quick-access/settings-quick-access.component';
 import { TranslocoHttpLoader } from './core/transloco-http-loader';
+import { UserComponent } from './core/user/user.component';
 import { ArmorSetBonusService } from './store/armor-set-bonus.service';
 import { ArmorSetService } from './store/armor-set.service';
 import { ArmorService } from './store/armor.service';
@@ -67,6 +68,7 @@ export const appConfig: ApplicationConfig = {
         },
       ],
       withLogo(LogoComponent),
+      withUser(UserComponent),
     ),
     provideGlobalSearch(
       undefined,

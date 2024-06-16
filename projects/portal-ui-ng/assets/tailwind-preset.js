@@ -33,9 +33,6 @@ module.exports = {
         120: "30rem"
       }),
       colors: {
-        secondary: "rgb(var(--color-secondary, 173 173 173) / <alpha-value>)",
-        hover:
-          "rgb(var(--color-hover, 125 125 125) / var(var(--color-hover-opacity, 0.1), <alpha-value>))",
         primary: {
           50: 'rgb(var(--color-primary-50, 223 231 220) / <alpha-value>)',
           100: 'rgb(var(--color-primary-100, 207 233 197) / <alpha-value>)',

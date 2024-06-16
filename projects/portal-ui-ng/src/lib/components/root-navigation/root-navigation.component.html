@@ -1,10 +1,9 @@
 <!-- top -->
 @if (logo) {
-  <button class="shrink-0 w-fit sm:w-18 rounded-2" puiHoverable>
-    <ng-container [ngComponentOutlet]="logo.component"></ng-container>
-  </button>
+  <div class="pui-root-logo">
+    <ng-container [ngComponentOutlet]="logo"></ng-container>
+  </div>
 }
-<pui-global-search-button></pui-global-search-button>
 <!-- tabs -->
 <div
   class="pui-root-tabs"
@@ -27,8 +26,13 @@
   }
 </div>
 <!-- bottom -->
-<div class="pui-root-options">
-  <button puiHoverable class="w-full py-3" (click)="onUserClick($event)">
-    <i class="icon-6 font-variation-fill">person</i>
-  </button>
-</div>
+@if (user) {
+  <div class="pui-root-user">
+    <ng-container [ngComponentOutlet]="user"></ng-container>
+  </div>
+  <!-- <div class="pui-root-user">
+    <button puiHoverable class="w-full py-3" (click)="onUserClick($event)">
+      <i class="icon-6 font-variation-fill">person</i>
+    </button>
+  </div> -->
+}

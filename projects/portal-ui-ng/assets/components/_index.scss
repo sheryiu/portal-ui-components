@@ -1,9 +1,13 @@
 .pui-root-navigation {
   @apply flex flex-col items-center border-e gap-4 z-[1000];
-  @apply px-3 pt-3 bg-neutral-200 dark:bg-neutral-800;
+  @apply bg-neutral-200 dark:bg-neutral-800;
+
+  .pui-root-logo {
+    @apply shrink-0 w-full;
+  }
 
   .pui-root-tabs {
-    @apply grow flex flex-col justify-center items-center gap-2 overflow-auto;
+    @apply px-3 grow flex flex-col justify-center items-center gap-2 overflow-auto;
 
     a {
       @apply size-18 rounded-full flex-col gap-1;
@@ -19,9 +23,8 @@
     }
   }
 
-  .pui-root-options {
-    @apply border-t flex-none -mx-3 self-stretch;
-    @apply flex;
+  .pui-root-user {
+    @apply shrink-0 w-full;
   }
 }
 
@@ -178,7 +181,7 @@
 }
 
 .pui-breadcrumbs {
-  @apply min-h-6 flex gap-0.5 items-center text-sm font-display;
+  @apply min-h-6 flex gap-0.5 items-center text-sm;
   > a {
     @apply px-1.5 py-1.5 rounded-1 justify-start;
     > span {
@@ -197,7 +200,6 @@
     &:has(> button[data-active=true]) {
       @apply before:transition-all before:absolute before:left-[--pui-selected-tab-x] before:rounded-1 before:w-[--pui-selected-tab-width] before:border before:bg-hover;
       &::before {
-        // TODO
         height: 2em;
       }
     }
@@ -304,7 +306,7 @@
   container-name: fieldset;
 }
 .pui-fieldset {
-  @apply grid grid-cols-1 @2xs/fieldset:grid-cols-2 gap-y-2;
+  @apply grid grid-cols-1 @[18rem]/fieldset:grid-cols-2 gap-y-2;
   .pui-fieldset__label {
     @apply flex justify-between items-center;
     @apply py-1 ps-4 pe-2 gap-1;

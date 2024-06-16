@@ -6,12 +6,12 @@
   @tailwind components;
   @import '../../portal-ui-ng/assets/base/index';
   @import '../../portal-ui-ng/assets/components/index';
-  *, *::before, *::after {
-    @apply border-black/10;
-  }
-  :where(.dark *), :where(.dark *::before), :where(.dark *::after) {
-    @apply border-white/10;
-  }
+  // *, *::before, *::after {
+  //   @apply border-black/10;
+  // }
+  // :where(.dark *), :where(.dark *::before), :where(.dark *::after) {
+  //   @apply border-white/10;
+  // }
 }
 
 @tailwind utilities;
@@ -19,19 +19,6 @@
 *, *::before, *::after {
   // TODO: add option to disable animations
   // transition: none !important;
-}
-
-:root {
-  --color-hover: 0 0 0;
-  --color-hover-opacity: 0.1;
-  --color-secondary: 120 120 120;
-}
-
-:root.dark {
-  --color-hover: 255 255 255;
-  --color-hover-opacity: 0.07;
-  --color-secondary: 173 173 173;
-  color-scheme: dark;
 }
 
 .error-dialog {

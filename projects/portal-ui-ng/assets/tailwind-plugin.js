@@ -68,5 +68,37 @@ module.exports = plugin(
         "scrollbar-gutter": "stable"
       }
     });
+    // bg-hover
+    addUtilities({
+      '.bg-hover': {
+        "background-color": "rgb(var(--color-hover, 0 0 0) / var(--color-hover-opacity, 0.1))",
+      }
+    });
+    // text-secondary
+    addUtilities({
+      '.text-secondary': {
+        "color": "rgb(var(--color-secondary, 150 150 150))",
+      }
+    });
+    // base
+    addBase({
+      '*, *::before, *::after': {
+        'border-color': 'rgb(0 0 0 / .1)',
+      },
+      ':where(.dark *), :where(.dark *)::before, :where(.dark *)::after': {
+        'border-color': 'rgb(255 255 255 / .1)'
+      },
+      ':root': {
+        '--color-hover': '0 0 0',
+        '--color-hover-opacity': '0.1',
+        '--color-secondary': '120 120 120',
+      },
+      '.dark': {
+        '--color-hover': '255 255 255',
+        '--color-hover-opacity': '0.07',
+        '--color-secondary': '173 173 173',
+        'color-scheme': 'dark',
+      }
+    })
   }
 )

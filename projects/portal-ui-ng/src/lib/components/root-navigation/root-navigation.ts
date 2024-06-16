@@ -28,19 +28,24 @@ type RootNavigationFeature = {
   provider: Provider,
 };
 
-export const ROOT_NAVIGATION_LOGO = new InjectionToken<{
-  feature: 'logo';
-  component: Type<unknown>;
-}>('quick access components');
+export const ROOT_NAVIGATION_LOGO = new InjectionToken<Type<unknown>>('root navigation logo');
 export function withLogo(type: Type<unknown>): RootNavigationFeature {
   return {
     [FEATURE_SYMBOL]: FEATURE_SYMBOL,
     provider: {
       provide: ROOT_NAVIGATION_LOGO,
-      useValue: {
-        feature: 'logo',
-        component: type,
-      },
+      useValue: type,
+    }
+  };
+}
+
+export const ROOT_NAVIGATION_USER = new InjectionToken<Type<unknown>>('root navigation user');
+export function withUser(type: Type<unknown>): RootNavigationFeature {
+  return {
+    [FEATURE_SYMBOL]: FEATURE_SYMBOL,
+    provider: {
+      provide: ROOT_NAVIGATION_USER,
+      useValue: type,
     }
   };
 }
