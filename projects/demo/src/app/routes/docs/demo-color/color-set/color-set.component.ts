@@ -3,8 +3,8 @@ import { Component, DestroyRef, Injector, OnInit, PLATFORM_ID, afterNextRender, 
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormBuilder } from '@angular/forms';
 import Color from 'colorjs.io';
-import { ButtonModule, FieldModule, ModalDialogService, PuiOverlayService } from 'portal-ui-ng';
-import { startWith, takeUntil } from 'rxjs';
+import { ButtonModule, FieldModule, ModalDialogService } from 'portal-ui-ng';
+import { startWith } from 'rxjs';
 
 @Component({
   selector: 'demo-color-set',

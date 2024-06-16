@@ -22,6 +22,9 @@
   "exports": {
     "./assets/tailwind-preset.js": {
       "default": "./assets/tailwind-preset.js"
+    },
+    "./assets/tailwind-plugin.js": {
+      "default": "./assets/tailwind-plugin.js"
     }
   },
   "sideEffects": false
