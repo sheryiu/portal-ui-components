@@ -32,6 +32,7 @@ export class QuickAccessService {
         positionStrategy,
         hasBackdrop: true,
         backdropClass: 'pui-quick-access-backdrop',
+        closeOnBackdropClick: true,
         ignorePointerEventsFrom: targetElement ? [targetElement] : undefined,
         height: '100vh',
       }

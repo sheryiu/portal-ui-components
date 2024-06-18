@@ -1,5 +1,5 @@
 @if (showing) {
-  <div @appear (@appear.done)="onAnimationEnd($event)" class="size-full">
+  <div @appear (@appear.done)="onAnimationEnd($event)">
     @if (component) {
       <ng-container [ngComponentOutlet]="component"></ng-container>
     } @else if (templateRef) {

@@ -88,7 +88,7 @@
               }
               @case ('boolean') {
                 <pui-input-field>
-                  <pui-toggle [id]="fieldDef.key" [formControlName]="fieldDef.key"></pui-toggle>
+                  <pui-toggle [id]="fieldDef.key" [formControlName]="fieldDef.key" (valueChange)="handleInput()"></pui-toggle>
                 </pui-input-field>
               }
               @case ('array') {

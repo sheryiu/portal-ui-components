@@ -53,6 +53,7 @@ export class GlobalSearchService {
         disposeOnNavigation: true,
         backdropClass: 'pui-global-search-backdrop',
         hasBackdrop: true,
+        closeOnBackdropClick: true,
       }
     )
     this.overlayRef?.afterClosed$.subscribe(() => {

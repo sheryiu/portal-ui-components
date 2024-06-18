@@ -51,6 +51,9 @@
 
 .pui-overlay-container {
   @apply contents;
+  > div {
+    @apply size-full;
+  }
 }
 
 .pui-hard-surface {
