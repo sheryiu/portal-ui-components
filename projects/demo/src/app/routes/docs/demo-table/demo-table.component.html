@@ -1,5 +1,9 @@
 <pui-layered-container>
-  <div puiSidebarContainer>
+  <div
+    puiSidebarContainer
+    cdkVirtualScrollingElement
+    cdkScrollable
+  >
     <div puiSidebarBreadcrumbs>
       <pui-breadcrumbs></pui-breadcrumbs>
     </div>
@@ -44,12 +48,14 @@
             <pui-table-cell *puiTableCellDef="'eyeColor'; let item">{{ item.eye_color }}</pui-table-cell>
             <pui-table-cell *puiTableCellDef="'gender'; let item">{{ item.gender }}</pui-table-cell>
 
-            <pui-table-body>
-              <pui-table-header-row></pui-table-header-row>
-              @for (item of filtered(); track $index) {
-                <pui-table-row puiHoverable [item]="item"></pui-table-row>
-              }
-            </pui-table-body>
+            <cdk-virtual-scroll-viewport itemSize [extraHeight]="48">
+              <pui-table-body>
+                <pui-table-header-row></pui-table-header-row>
+                @defer {
+                  <pui-table-row *cdkVirtualFor="let item of filtered(); trackBy: trackingFn; templateCacheSize: 0" puiHoverable [item]="item"></pui-table-row>
+                }
+              </pui-table-body>
+            </cdk-virtual-scroll-viewport>
           </pui-table>
 
         </div>

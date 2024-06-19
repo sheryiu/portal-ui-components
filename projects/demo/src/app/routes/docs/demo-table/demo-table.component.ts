@@ -1,5 +1,6 @@
+import { ScrollingModule } from '@angular/cdk/scrolling';
 import { Component, computed, signal } from '@angular/core';
-import { BreadcrumbsComponent, LayeredContainerComponent, SegmentedOptionsModule, SidebarModule, TableModule } from 'portal-ui-ng';
+import { BreadcrumbsComponent, LayeredContainerComponent, SegmentedOptionsModule, SidebarModule, TableModule, TimeDisplayComponent, VirtualScrollExtraDirective } from 'portal-ui-ng';
 import { SharedModule } from '../../../shared/shared.module';
 
 @Component({
@@ -12,6 +13,9 @@ import { SharedModule } from '../../../shared/shared.module';
     BreadcrumbsComponent,
     TableModule,
     SegmentedOptionsModule,
+    ScrollingModule,
+    VirtualScrollExtraDirective,
+    TimeDisplayComponent,
   ],
   templateUrl: './demo-table.component.html',
   styles: ``
@@ -179,6 +183,7 @@ export class DemoTableComponent {
       "gender": "Male"
     }
   ]
+  // private data = Array(1000).fill(0).map((_, i) => ({ name: Math.random().toString(), height: '0', mass: '0', i, date: new Date(Date.now() - i * 3600_000) }))
   filter = signal<{ key: keyof DemoTableComponent['data'][number] | null, value: string | null }>({ key: null, value: null });
   sort = signal<{ key: keyof DemoTableComponent['data'][number], direction: 'asc' | 'desc' }>({ key: 'name', direction: 'asc' });
   filtered = computed(() => {
@@ -186,4 +191,7 @@ export class DemoTableComponent {
       .filter(t => this.filter().key == null ? true : t[this.filter().key!].toLowerCase().includes(this.filter().value?.toLowerCase() ?? ''))
   });
 
+  trackingFn(index: number, item: any) {
+    return item;
+  }
 }

@@ -4,63 +4,6 @@
       <pui-breadcrumbs></pui-breadcrumbs>
     </div>
     <pui-sidebar-content class="max-w-screen-3xl" drawerSize="320">
-      <!-- <div *puiSidebarMain class="flex flex-col p-6 gap-4">
-        <h1 class="text-primary-700 dark:text-primary-300">Design Documentation</h1>
-        <h2 class="text-primary-800 dark:text-primary-200">Layouts</h2>
-        <div class="grid grid-cols-4 gap-6">
-          <div class="grid place-items-center border rounded-2 aspect-video bg-[color-mix(in_hsl,var(--color),white_30%)] dark:bg-[--color] bg-gradient-to-b from-black/10 dark:from-black/30 via-transparent dark:via-transparent to-black/10 dark:to-black/30 group" [style.--color]="'hsl(127, 38.00%, 43.50%)'" puiHoverable>
-            <p class="before:absolute before:h-full before:w-0 before:top-0 before:left-0 before:bg-white dark:before:bg-black group-hover:before:w-full before:transition-[width] px-4 py-2 text-xl font-bold text-[--color] relative after:mix-blend-multiply dark:after:mix-blend-difference after:content-['Layered_Container']"></p>
-          </div>
-          <div class="grid place-items-center border rounded-2 aspect-video bg-[color-mix(in_hsl,var(--color),white_30%)] dark:bg-[--color] bg-gradient-to-b from-black/10 dark:from-black/30 via-transparent dark:via-transparent to-black/10 dark:to-black/30 group" [style.--color]="'hsl(181, 40.40%, 52.50%)'" puiHoverable>
-            <p class="before:absolute before:h-full before:w-0 before:top-0 before:left-0 before:bg-white dark:before:bg-black group-hover:before:w-full before:transition-[width] px-4 py-2 text-xl font-bold text-[--color] relative after:mix-blend-multiply dark:after:mix-blend-difference after:content-['Sidebar_Container']"></p>
-          </div>
-          <div class="grid place-items-center border rounded-2 aspect-video bg-[color-mix(in_hsl,var(--color),white_30%)] dark:bg-[--color] bg-gradient-to-b from-black/10 dark:from-black/30 via-transparent dark:via-transparent to-black/10 dark:to-black/30 group" [style.--color]="'hsl(273, 55.10%, 56.30%)'" puiHoverable>
-            <p class="before:absolute before:h-full before:w-0 before:top-0 before:left-0 before:bg-white dark:before:bg-black group-hover:before:w-full before:transition-[width] px-4 py-2 text-xl font-bold text-[--color] relative after:mix-blend-multiply dark:after:mix-blend-difference after:content-['Dialog']"></p>
-          </div>
-        </div>
-        <h2 class="text-primary-800 dark:text-primary-200">Components</h2>
-        <div class="grid grid-cols-4 gap-6">
-          <div class="grid place-items-center border rounded-2 aspect-video bg-[color-mix(in_hsl,var(--color),white_30%)] dark:bg-[--color] bg-gradient-to-b from-black/10 dark:from-black/30 via-transparent dark:via-transparent to-black/10 dark:to-black/30 group" [style.--color]="'hsl(12, 40.40%, 52.50%)'" puiHoverable>
-            <p class="before:absolute before:h-full before:w-0 before:top-0 before:left-0 before:bg-white dark:before:bg-black group-hover:before:w-full before:transition-[width] px-4 py-2 text-xl font-bold text-[--color] relative after:mix-blend-multiply dark:after:mix-blend-difference after:content-['Accordion']"></p>
-          </div>
-          <div class="grid place-items-center border rounded-2 aspect-video bg-[color-mix(in_hsl,var(--color),white_30%)] dark:bg-[--color] bg-gradient-to-b from-black/10 dark:from-black/30 via-transparent dark:via-transparent to-black/10 dark:to-black/30 group" [style.--color]="'hsl(24, 40.40%, 52.50%)'" puiHoverable>
-            <p class="before:absolute before:h-full before:w-0 before:top-0 before:left-0 before:bg-white dark:before:bg-black group-hover:before:w-full before:transition-[width] px-4 py-2 text-xl font-bold text-[--color] relative after:mix-blend-multiply dark:after:mix-blend-difference after:content-['Autocomplete']"></p>
-          </div>
-          <div class="grid place-items-center border rounded-2 aspect-video bg-[color-mix(in_hsl,var(--color),white_30%)] dark:bg-[--color] bg-gradient-to-b from-black/10 dark:from-black/30 via-transparent dark:via-transparent to-black/10 dark:to-black/30 group" [style.--color]="'hsl(36, 40.40%, 52.50%)'" puiHoverable>
-            <p class="before:absolute before:h-full before:w-0 before:top-0 before:left-0 before:bg-white dark:before:bg-black group-hover:before:w-full before:transition-[width] px-4 py-2 text-xl font-bold text-[--color] relative after:mix-blend-multiply dark:after:mix-blend-difference after:content-['Breadcrumbs']"></p>
-          </div>
-          <div class="grid place-items-center border rounded-2 aspect-video bg-[color-mix(in_hsl,var(--color),white_30%)] dark:bg-[--color] bg-gradient-to-b from-black/10 dark:from-black/30 via-transparent dark:via-transparent to-black/10 dark:to-black/30 group" [style.--color]="'hsl(48, 40.40%, 52.50%)'" puiHoverable>
-            <p class="before:absolute before:h-full before:w-0 before:top-0 before:left-0 before:bg-white dark:before:bg-black group-hover:before:w-full before:transition-[width] px-4 py-2 text-xl font-bold text-[--color] relative after:mix-blend-multiply dark:after:mix-blend-difference after:content-['Calendar']"></p>
-          </div>
-          <div class="grid place-items-center border rounded-2 aspect-video bg-[color-mix(in_hsl,var(--color),white_30%)] dark:bg-[--color] bg-gradient-to-b from-black/10 dark:from-black/30 via-transparent dark:via-transparent to-black/10 dark:to-black/30 group" [style.--color]="'hsl(60, 40.40%, 52.50%)'" puiHoverable>
-            <p class="before:absolute before:h-full before:w-0 before:top-0 before:left-0 before:bg-white dark:before:bg-black group-hover:before:w-full before:transition-[width] px-4 py-2 text-xl font-bold text-[--color] relative after:mix-blend-multiply dark:after:mix-blend-difference after:content-['Dropdown']"></p>
-          </div>
-          <div class="grid place-items-center border rounded-2 aspect-video bg-[color-mix(in_hsl,var(--color),white_30%)] dark:bg-[--color] bg-gradient-to-b from-black/10 dark:from-black/30 via-transparent dark:via-transparent to-black/10 dark:to-black/30 group" [style.--color]="'hsl(72, 40.40%, 52.50%)'" puiHoverable>
-            <p class="before:absolute before:h-full before:w-0 before:top-0 before:left-0 before:bg-white dark:before:bg-black group-hover:before:w-full before:transition-[width] px-4 py-2 text-xl font-bold text-[--color] relative after:mix-blend-multiply dark:after:mix-blend-difference after:content-['Field']"></p>
-          </div>
-          <div class="grid place-items-center border rounded-2 aspect-video bg-[color-mix(in_hsl,var(--color),white_30%)] dark:bg-[--color] bg-gradient-to-b from-black/10 dark:from-black/30 via-transparent dark:via-transparent to-black/10 dark:to-black/30 group" [style.--color]="'hsl(84, 40.40%, 52.50%)'" puiHoverable>
-            <p class="before:absolute before:h-full before:w-0 before:top-0 before:left-0 before:bg-white dark:before:bg-black group-hover:before:w-full before:transition-[width] px-4 py-2 text-xl font-bold text-[--color] relative after:mix-blend-multiply dark:after:mix-blend-difference after:content-['Segmented_Options']"></p>
-          </div>
-          <div class="grid place-items-center border rounded-2 aspect-video bg-[color-mix(in_hsl,var(--color),white_30%)] dark:bg-[--color] bg-gradient-to-b from-black/10 dark:from-black/30 via-transparent dark:via-transparent to-black/10 dark:to-black/30 group" [style.--color]="'hsl(96, 40.40%, 52.50%)'" puiHoverable>
-            <p class="before:absolute before:h-full before:w-0 before:top-0 before:left-0 before:bg-white dark:before:bg-black group-hover:before:w-full before:transition-[width] px-4 py-2 text-xl font-bold text-[--color] relative after:mix-blend-multiply dark:after:mix-blend-difference after:content-['Tab_Bar']"></p>
-          </div>
-          <div class="grid place-items-center border rounded-2 aspect-video bg-[color-mix(in_hsl,var(--color),white_30%)] dark:bg-[--color] bg-gradient-to-b from-black/10 dark:from-black/30 via-transparent dark:via-transparent to-black/10 dark:to-black/30 group" [style.--color]="'hsl(108, 40.40%, 52.50%)'" puiHoverable>
-            <p class="before:absolute before:h-full before:w-0 before:top-0 before:left-0 before:bg-white dark:before:bg-black group-hover:before:w-full before:transition-[width] px-4 py-2 text-xl font-bold text-[--color] relative after:mix-blend-multiply dark:after:mix-blend-difference after:content-['Table']"></p>
-          </div>
-          <div class="grid place-items-center border rounded-2 aspect-video bg-[color-mix(in_hsl,var(--color),white_30%)] dark:bg-[--color] bg-gradient-to-b from-black/10 dark:from-black/30 via-transparent dark:via-transparent to-black/10 dark:to-black/30 group" [style.--color]="'hsl(120, 40.40%, 52.50%)'" puiHoverable>
-            <p class="before:absolute before:h-full before:w-0 before:top-0 before:left-0 before:bg-white dark:before:bg-black group-hover:before:w-full before:transition-[width] px-4 py-2 text-xl font-bold text-[--color] relative after:mix-blend-multiply dark:after:mix-blend-difference after:content-['Tooltip']"></p>
-          </div>
-        </div>
-        <h2 class="text-primary-800 dark:text-primary-200">Extra Systems</h2>
-        <div class="grid grid-cols-4 gap-6">
-          <div class="grid place-items-center border rounded-2 aspect-video bg-[color-mix(in_hsl,var(--color),white_30%)] dark:bg-[--color] bg-gradient-to-b from-black/10 dark:from-black/30 via-transparent dark:via-transparent to-black/10 dark:to-black/30 group" [style.--color]="'hsl(181, 40.40%, 52.50%)'" puiHoverable>
-            <p class="before:absolute before:h-full before:w-0 before:top-0 before:left-0 before:bg-white dark:before:bg-black group-hover:before:w-full before:transition-[width] px-4 py-2 text-xl font-bold text-[--color] relative after:mix-blend-multiply dark:after:mix-blend-difference after:content-['Global_Search']"></p>
-          </div>
-          <div class="grid place-items-center border rounded-2 aspect-video bg-[color-mix(in_hsl,var(--color),white_30%)] dark:bg-[--color] bg-gradient-to-b from-black/10 dark:from-black/30 via-transparent dark:via-transparent to-black/10 dark:to-black/30 group" [style.--color]="'hsl(181, 40.40%, 52.50%)'" puiHoverable>
-            <p class="before:absolute before:h-full before:w-0 before:top-0 before:left-0 before:bg-white dark:before:bg-black group-hover:before:w-full before:transition-[width] px-4 py-2 text-xl font-bold text-[--color] relative after:mix-blend-multiply dark:after:mix-blend-difference after:content-['Quick_Access']"></p>
-          </div>
-        </div>
-      </div> -->
       <div *puiSidebarMain class="flex flex-col py-6 px-8 gap-4" >
         <h1 class="text-primary-700 dark:text-primary-300">Documentation</h1>
         <h2 class="text-primary-800 dark:text-primary-200" puiScrollspyTrigger scrollspyId="layouts">Layouts</h2>
