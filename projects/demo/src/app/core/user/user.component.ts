@@ -14,7 +14,12 @@ export class UserComponent {
 
   onUserClick(event: MouseEvent) {
     this.quickAccessService.toggle(
-      this.overlay.position().global().left((event.currentTarget as Element).getBoundingClientRect().right + 'px'),
+      // this.overlay.position().global().left((event.currentTarget as Element).getBoundingClientRect().right + 'px'),
+      this.overlay.position().flexibleConnectedTo(event.currentTarget as Element)
+        .withPositions([
+          { originX: 'end', overlayX: 'end', originY: 'bottom', overlayY: 'top' },
+          // { originX: 'end', overlayX: 'end', originY: 'bottom', overlayY: 'bottom' },
+        ]),
       event.currentTarget as Element
     )
   }

@@ -1,18 +1,29 @@
 .pui-root-navigation {
   @apply flex flex-col items-center border-e gap-4 z-[1000];
   @apply bg-neutral-200 dark:bg-neutral-800;
+  @apply max-sm:flex-none max-sm:w-full;
+  @apply max-sm:border-e-0 max-sm:border-t;
+
+  @apply order-10;
 
   .pui-root-logo {
     @apply shrink-0 w-full;
+    @apply max-sm:hidden;
   }
 
   .pui-root-tabs {
     @apply px-3 grow flex flex-col justify-center items-center gap-2 overflow-auto;
+    @apply max-sm:w-full max-sm:flex-row max-sm:grow max-sm:justify-around max-sm:pt-2 max-sm:pb-[calc(.5rem_+_env(safe-area-inset-bottom,0))];
 
     a {
       @apply size-18 rounded-full flex-col gap-1;
+      @apply max-sm:h-12 max-sm:gap-0.5;
       &[data-active=true] {
         @apply bg-hover text-primary-700 dark:text-primary-500;
+        @apply max-sm:bg-transparent;
+      }
+      a.pui-hoverable::after {
+        @apply max-sm:hidden;
       }
       i {
         @apply icon-6 flex-none;
@@ -25,16 +36,25 @@
 
   .pui-root-user {
     @apply shrink-0 w-full;
+    @apply max-sm:hidden;
   }
 }
 
+.pui-root-appbar {
+  @apply hidden;
+  @apply max-sm:flex;
+  @apply h-16 px-3 border-b bg-neutral-200 dark:bg-neutral-800 justify-between items-center;
+
+  @apply order-1;
+}
+
 .cdk-overlay-backdrop.pui-quick-access-backdrop {
-  @apply left-24 bg-black/10 dark:bg-black/20 backdrop-blur-sm;
+  @apply max-sm:left-24 bg-black/10 dark:bg-black/20 backdrop-blur-sm;
 }
 
 .pui-quick-access {
   @apply shadow-lg border bg-neutral-200 dark:bg-neutral-800 rounded-2;
-  @apply ms-6 my-6 w-80 absolute bottom-0;
+  @apply ms-6 my-6 w-80 min-h-96 absolute max-sm:right-0 sm:bottom-0;
   max-height: calc(100% - 3rem);
   @apply grid grid-cols-2 place-content-end p-2 gap-2 overflow-auto;
   .pui-quick-access-component {
@@ -296,8 +316,9 @@
 
 .pui-global-search-button {
   @apply flex-col gap-1 bg-hover hover:bg-primary-200 dark:hover:bg-primary-800 rounded-full w-14 aspect-square self-center;
+  @apply max-sm:w-10;
   > i {
-    @apply icon-6 text-primary-950 dark:text-primary-50;
+    @apply icon-5 sm:icon-6 text-primary-950 dark:text-primary-50;
   }
 }
 

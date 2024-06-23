@@ -3,7 +3,6 @@ import { Component, inject } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { nanoid } from 'nanoid';
 import { HoverableDirective } from '../../base';
-import { TooltipModule } from '../tooltip';
 import { ROOT_NAVIGATION_LOGO, ROOT_NAVIGATION_TABS, ROOT_NAVIGATION_USER } from './root-navigation';
 
 @Component({
@@ -14,12 +13,8 @@ import { ROOT_NAVIGATION_LOGO, ROOT_NAVIGATION_TABS, ROOT_NAVIGATION_USER } from
     RouterLinkActive,
     HoverableDirective,
     NgComponentOutlet,
-    TooltipModule,
   ],
   templateUrl: './root-navigation.component.html',
-  host: {
-    class: 'pui-root-navigation'
-  }
 })
 export class RootNavigationComponent {
 

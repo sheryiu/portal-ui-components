@@ -34,7 +34,6 @@ export class QuickAccessService {
         backdropClass: 'pui-quick-access-backdrop',
         closeOnBackdropClick: true,
         ignorePointerEventsFrom: targetElement ? [targetElement] : undefined,
-        height: '100vh',
       }
     )
     this.quickAccessOverlayRef.afterClosed$.subscribe(() => {

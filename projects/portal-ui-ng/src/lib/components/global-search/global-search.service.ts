@@ -47,8 +47,8 @@ export class GlobalSearchService {
         positionStrategy: this.overlay.position().global()
           .centerHorizontally()
           .top('10svh'),
-        minWidth: this.option.minWidth ?? '480px',
-        width: this.option.width ?? '50svw',
+        minWidth: this.option.minWidth,
+        width: this.option.width ?? 'clamp(50svw, 90%, 480px)',
         scrollStrategy: this.overlay.scrollStrategies.noop(),
         disposeOnNavigation: true,
         backdropClass: 'pui-global-search-backdrop',
