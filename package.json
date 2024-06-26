@@ -1,6 +1,6 @@
 {
-  "name": "design-system-alpha",
-  "version": "0.0.3",
+  "name": "portal-ui-components",
+  "version": "0.0.4",
   "scripts": {
     "ng": "ng",
     "lib": "ng build portal-ui-ng",
