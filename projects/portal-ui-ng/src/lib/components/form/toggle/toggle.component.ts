@@ -1,4 +1,4 @@
-import { Component, Input, booleanAttribute, effect, forwardRef, output, signal } from '@angular/core';
+import { Component, Input, booleanAttribute, forwardRef, output, signal } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { nanoid } from 'nanoid';
 import { HoverableDirective } from '../../../base';
@@ -28,15 +28,10 @@ export class ToggleComponent implements ControlValueAccessor {
   onTouched?: () => void;
   valueChange = output<boolean>();
 
-  constructor() {
-    effect(() => {
-      this.onChange?.(this.isChecked$$());
-    })
-  }
-
   handleInput(event: Event) {
     const target = event.currentTarget as HTMLInputElement;
     this.isChecked$$.set(target.checked);
+    this.onChange?.(this.isChecked$$());
     this.valueChange.emit(this.isChecked$$())
   }
 

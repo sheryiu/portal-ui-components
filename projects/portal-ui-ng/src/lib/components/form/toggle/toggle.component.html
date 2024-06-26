@@ -2,12 +2,13 @@
   [id]="id"
   hidden
   type="checkbox"
-  (input)="handleInput($event)"
+  [checked]="isChecked$$()"
+  (change)="handleInput($event)"
   [disabled]="isDisabled$$()"
+  #checkbox
 />
-<label
-  (click)="onTouched?.()"
-  [attr.for]="id"
+<div
+  (click)="onTouched?.(); checkbox.click();"
   class="pui-toggle"
   role="button"
   [class.pui-toggle--checked]="isChecked$$()"
@@ -24,4 +25,4 @@
   <span class="pui-toggle__indicator" [ariaHidden]="isChecked$$()">
     Off
   </span>
-</label>
+</div>

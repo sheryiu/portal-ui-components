@@ -20,5 +20,7 @@ import { SharedModule } from '../../../shared/shared.module';
   styles: ``
 })
 export class DemoToggleComponent {
+  normalControl = inject(FormBuilder).control({ value: false, disabled: false });
+  onControl = inject(FormBuilder).control({ value: true, disabled: false });
   disabledControl = inject(FormBuilder).control({ value: false, disabled: true });
 }

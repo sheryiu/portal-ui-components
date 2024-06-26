@@ -9,12 +9,23 @@
         <div class="w-full px-8 py-6 rounded-2 border">
           <div class="flex gap-4">
             <pui-input-field>
-              <pui-toggle></pui-toggle>
+              <pui-toggle [formControl]="normalControl"></pui-toggle>
+            </pui-input-field>
+            <pui-input-field>
+              <pui-toggle [formControl]="onControl"></pui-toggle>
             </pui-input-field>
             <pui-input-field>
               <pui-toggle [formControl]="disabledControl"></pui-toggle>
             </pui-input-field>
           </div>
+        </div>
+        <div class="flex flex-col gap-1">
+          <span>Toggle 1</span>
+          <span>Is Dirty: {{ normalControl.dirty }}</span>
+          <span>Value: {{ normalControl.value }}</span>
+          <span class="mt-2">Toggle 2</span>
+          <span>Is Dirty: {{ onControl.dirty }}</span>
+          <span>Value: {{ onControl.value }}</span>
         </div>
       </div>
     </pui-sidebar-content>
