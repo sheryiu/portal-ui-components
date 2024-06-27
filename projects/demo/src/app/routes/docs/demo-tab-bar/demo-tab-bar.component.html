@@ -9,7 +9,7 @@
         <h3>Basic Tab Bar</h3>
         <div class="w-full px-8 py-6 rounded-2 border">
           <div class="flex gap-4">
-            <pui-tab-bar [currentTab]="'1'">
+            <pui-tab-bar [currentTab]="'1'" class="h-8">
               <div *puiTab="'1'">Tab 1</div>
               <div *puiTab="'2'">Tab 2</div>
               <div *puiTab="'3'">Tab 3</div>
@@ -19,7 +19,7 @@
         <h3>Scrollspy Tab Bar</h3>
         <div class="w-full px-8 py-6 rounded-2 border">
           <div class="flex flex-col gap-4">
-            <pui-tab-bar [scrollspy]="scrollspy">
+            <pui-tab-bar [scrollspy]="scrollspy" class="h-10">
               <div *puiTab="'paragraph0'">Paragraph 1</div>
               <div *puiTab="'paragraph1'">Paragraph 2</div>
               <div *puiTab="'paragraph2'">Paragraph 3</div>

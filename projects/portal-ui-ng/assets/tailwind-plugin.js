@@ -24,6 +24,7 @@ module.exports = plugin(
             "font-family": "'Material Symbols Rounded'",
             "font-weight": "400",
             "user-select": "none",
+            "flex": "none",
           };
         },
       },

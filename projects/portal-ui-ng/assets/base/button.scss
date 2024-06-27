@@ -84,6 +84,17 @@
     @apply bg-accent-200 dark:bg-accent-800;
     @apply text-accent-900 dark:text-accent-50;
   }
+  &[data-color=light] {
+    @apply bg-white dark:bg-black;
+    @apply text-black dark:text-white;
+  }
+  &[data-color=dark] {
+    @apply bg-black dark:bg-white;
+    @apply text-white dark:text-black;
+    &.pui-hoverable {
+      @apply enabled:hover:after:bg-white/15 enabled:hover:after:dark:bg-black/10;
+    }
+  }
   &[data-color=gray], &[data-color=grey] {
     @apply bg-gray-200 dark:bg-gray-800;
     @apply text-gray-900 dark:text-gray-50;

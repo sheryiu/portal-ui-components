@@ -216,18 +216,14 @@
 .pui-tab-bar {
   @apply block transition-all overflow-hidden;
   .pui-tab-bar-tabs {
-    @apply w-full flex gap-1.5 transition-all sticky;
+    @apply size-full flex gap-1.5 transition-all sticky;
     &:has(> button[data-active=true]) {
-      @apply before:transition-all before:absolute before:left-[--pui-selected-tab-x] before:rounded-1 before:w-[--pui-selected-tab-width] before:border before:bg-hover;
-      &::before {
-        height: 2em;
-      }
+      @apply before:transition-all before:absolute before:left-[--pui-selected-tab-x] before:h-full before:rounded-1 before:w-[--pui-selected-tab-width] before:border before:bg-hover;
     }
     > button {
-      @apply basis-full grow rounded-1 px-2 truncate min-w-fit;
-      height: 2em;
+      @apply h-full basis-full grow rounded-1 px-2 truncate min-w-fit;
       &[data-active=true] {
-        @apply text-primary-700 dark:text-primary-500 font-medium;
+        @apply text-primary-700 dark:text-primary-500;
       }
     }
   }
@@ -420,7 +416,7 @@
 .pui-sidebar-container__content {
   @apply grow flex relative;
   > .pui-sidebar-container__content__main {
-    @apply gutter-stable grow relative;
+    @apply gutter-stable grow relative w-full;
   }
   > .pui-sidebar-container__content__drawer {
     @apply flex flex-col gap-2 shrink-0 grow-0 sticky top-12 p-2 overflow-y-auto;

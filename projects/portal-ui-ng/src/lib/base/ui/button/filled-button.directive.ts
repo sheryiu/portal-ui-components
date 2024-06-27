@@ -18,6 +18,8 @@ export class FilledButtonDirective {
   @HostBinding('attr.data-color') @Input() color:
     | 'primary'
     | 'accent'
+    | 'light'
+    | 'dark'
     | 'gray'
     | 'grey'
     | 'red'
