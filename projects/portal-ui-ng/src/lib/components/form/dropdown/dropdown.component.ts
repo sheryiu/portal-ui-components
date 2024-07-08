@@ -83,9 +83,12 @@ export class DropdownComponent<T> implements ControlValueAccessor, OnInit {
           .withPositions([
             { overlayX: 'start', overlayY: 'top', originX: 'start', originY: 'bottom', offsetY: 8 },
             { overlayX: 'start', overlayY: 'bottom', originX: 'start', originY: 'top', offsetY: -8 },
-          ]),
+          ])
+          .withPush(false)
+          .withViewportMargin(8),
         scrollStrategy: this.overlay.scrollStrategies.reposition(),
-        width: this.elementRef.nativeElement.getBoundingClientRect().width,
+        minWidth: this.elementRef.nativeElement.getBoundingClientRect().width,
+        maxWidth: '90svw',
         ignorePointerEventsFrom: [event.currentTarget as Element],
       }
     )

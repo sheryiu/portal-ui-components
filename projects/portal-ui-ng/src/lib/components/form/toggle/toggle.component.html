@@ -7,7 +7,7 @@
   [disabled]="isDisabled$$()"
   #checkbox
 />
-<div
+<button
   (click)="onTouched?.(); checkbox.click();"
   class="pui-toggle"
   role="button"
@@ -25,4 +25,4 @@
   <span class="pui-toggle__indicator" [ariaHidden]="isChecked$$()">
     Off
   </span>
-</div>
+</button>

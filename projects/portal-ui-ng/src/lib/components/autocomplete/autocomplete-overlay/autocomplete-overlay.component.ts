@@ -55,7 +55,7 @@ export class AutocompleteOverlayComponent<D> implements AfterViewInit {
       ).subscribe(() => {
         this.selectedOption?.click();
       })
-    })
+    }, 100)
   }
 
   selectValue(value: D) {

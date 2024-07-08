@@ -1,6 +1,6 @@
 {
   "name": "portal-ui-ng",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "peerDependencies": {
     "@angular/cdk": "^17.3.0 || ^18.0.0",
     "@angular/common": "^17.3.0 || ^18.0.0",

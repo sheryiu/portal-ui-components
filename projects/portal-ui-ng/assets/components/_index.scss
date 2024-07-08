@@ -29,7 +29,7 @@
         @apply icon-6 flex-none;
       }
       span {
-        @apply text-sm font-medium line-clamp-1;
+        @apply font-medium line-clamp-1;
       }
     }
   }
@@ -141,7 +141,7 @@
   }
 
   .pui-table-footer-row {
-    @apply col-span-full grid grid-cols-1 items-center text-sm text-secondary uppercase h-12;
+    @apply col-span-full grid grid-cols-1 items-center text-secondary uppercase h-12;
   }
 
   .pui-table-cell {
@@ -156,7 +156,7 @@
       @apply border-e-0;
     }
     > button {
-      @apply grow justify-start truncate whitespace-nowrap font-medium text-sm px-3.5;
+      @apply grow justify-start truncate whitespace-nowrap font-medium px-3.5;
       @apply text-primary-800 dark:text-primary-200;
       &[data-overlay=true] {
         @apply bg-hover;
@@ -201,7 +201,7 @@
 }
 
 .pui-breadcrumbs {
-  @apply min-h-6 flex gap-0.5 items-center text-sm;
+  @apply min-h-6 flex gap-0.5 items-center;
   > a {
     @apply px-1.5 py-1.5 rounded-1 justify-start;
     > span {
@@ -248,7 +248,7 @@
     @apply hidden;
   }
   .pui-segmented-options-button {
-    @apply text-sm rounded-1 px-1 py-1.5;
+    @apply rounded-1 px-1 py-1.5;
     @apply w-full min-w-fit @[16rem]/segmented-options:grow @[16rem]/segmented-options:w-auto;
     &[data-checked=false] {
       @apply bg-none;
@@ -293,7 +293,7 @@
       }
     }
     .pui-global-search__category {
-      @apply font-bold text-sm tracking-tight text-secondary pt-3 pb-1 px-9 mx-4 mb-1 border-b;
+      @apply font-bold tracking-tight text-secondary pt-3 pb-1 px-9 mx-4 mb-1 border-b;
     }
     .pui-global-search__result__icon {
       @apply min-h-6 min-w-6;
@@ -304,7 +304,7 @@
     .pui-global-search__result__text {
       @apply flex flex-col gap-0.5;
       .pui-global-search__result__text-description {
-        @apply text-sm text-secondary;
+        @apply text-secondary;
       }
     }
   }
@@ -332,7 +332,7 @@
     }
   }
   .pui-fieldset__label__type {
-    @apply text-sm uppercase font-medium text-primary-800 dark:text-primary-200;
+    @apply uppercase font-medium text-primary-800 dark:text-primary-200;
   }
   .pui-fieldset__input {
     @apply flex justify-between items-center gap-2;
@@ -341,7 +341,7 @@
       @apply grow shrink min-w-0;
     }
     button {
-      @apply px-2 rounded-1 text-sm flex-none;
+      @apply px-2 rounded-1 flex-none;
     }
     i {
       @apply icon-4;
@@ -362,7 +362,7 @@
   .pui-fieldset__null {
     @apply self-stretch grow flex items-center;
     > span {
-      @apply grow truncate text-secondary italic text-sm;
+      @apply grow truncate text-secondary italic;
     }
   }
   .pui-fieldset__input__remove, .pui-fieldset__null__add {
@@ -371,8 +371,9 @@
 }
 
 .pui-toggle {
-  @apply rounded-1 h-full;
+  @apply rounded-1 outline-none;
   @apply flex items-center gap-2 p-1 relative transition-colors;
+  height: 2em;
   > .pui-toggle__trigger {
     @apply p-1 w-1/2 bg-neutral-300 dark:bg-neutral-700;
     @apply rounded-1 absolute top-0 bottom-0 left-0 transition-[left] z-0;
@@ -388,15 +389,16 @@
   }
   > .pui-toggle__indicator {
     min-width: 4ch;
-    @apply px-1 text-sm/5 uppercase text-center select-none grow shrink-0;
+    @apply px-1 uppercase text-center select-none grow shrink-0;
   }
 }
 
 .pui-autocomplete-overlay {
-  @apply flex flex-col items-stretch;
+  @apply flex flex-col items-stretch overflow-auto;
   @apply bg-neutral-200 dark:bg-neutral-800 border rounded-1;
+  max-height: min(24rem, 80svh);
   > button {
-    @apply text-start min-h-8;
+    @apply flex-none text-start min-h-8;
     &[data-selected=true] {
       @apply bg-hover;
     }
@@ -475,7 +477,8 @@
   }
 }
 .pui-search-dropdown__suggestions {
-  @apply flex flex-col;
+  @apply flex flex-col overflow-auto;
+  max-height: min(24rem, 80svh);
 }
 
 .pui-theme-toggle {
@@ -496,7 +499,7 @@
   .pui-theme-toggle__mode {
     @apply flex flex-col items-center w-12 gap-0.5;
     > span {
-      @apply font-light text-sm;
+      @apply font-light;
     }
     > i {
       @apply icon-6;
@@ -522,7 +525,7 @@
   .pui-language-toggle__lang {
     @apply flex flex-col items-center w-12 gap-0.5;
     > span {
-      @apply font-light text-sm;
+      @apply font-light;
     }
     > i {
       @apply icon-6;
@@ -558,19 +561,19 @@
     grid-area: actions;
     @apply flex gap-4 justify-end py-2;
     > button {
-      @apply grow max-w-[50%] rounded-1 px-2 py-2 text-sm font-medium;
+      @apply grow max-w-[50%] rounded-1 px-2 py-2 font-medium;
     }
   }
 }
 
 .pui-tooltip {
-  @apply text-sm block bg-neutral-300 dark:bg-neutral-700 border px-2 py-1 rounded-1 overflow-hidden shadow-md;
+  @apply block bg-neutral-300 dark:bg-neutral-700 border px-2 py-1 rounded-1 overflow-hidden shadow-md;
 }
 
 .pui-array-field {
   @apply flex items-center;
   > span {
-    @apply text-sm text-secondary pe-2;
+    @apply text-secondary pe-2;
   }
   > button {
     @apply self-stretch;

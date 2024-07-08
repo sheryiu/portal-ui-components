@@ -25,7 +25,7 @@ export class DemoDropdownComponent {
     'Feijoa',
     'Grape',
     'Huckleberry',
-    'Indian Gooseberry',
+    'Indian GooseberryIndian GooseberryIndian GooseberryIndian Gooseberry',
     'Jackfruit',
     'Kiwi',
     'Lemon',
