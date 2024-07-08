@@ -1,0 +1,1 @@
+import{a,b}from"./chunk-LZ7SV5Z7.js";import"./chunk-T4AAJPOD.js";import"./chunk-7GK5SYI2.js";import"./chunk-R6PKS6RY.js";import"./chunk-EYYPJTXZ.js";import"./chunk-CWTPBX7D.js";export{b as ROUTES,a as SKILL_DETAIL_ROUTES};
