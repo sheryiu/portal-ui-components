@@ -156,7 +156,7 @@
       @apply border-e-0;
     }
     > button {
-      @apply grow justify-start truncate whitespace-nowrap font-medium px-3.5;
+      @apply grow justify-start truncate whitespace-nowrap font-medium ps-4;
       @apply text-primary-800 dark:text-primary-200;
       &[data-overlay=true] {
         @apply bg-hover;
