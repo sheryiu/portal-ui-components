@@ -1,8 +1,9 @@
 import { AsyncPipe } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
-import { combineLatestAll, from, isObservable, map, of, switchMap } from 'rxjs';
+import { combineLatest, combineLatestAll, from, isObservable, map, of, switchMap } from 'rxjs';
 import { HoverableDirective } from '../../base';
+import { TooltipModule } from '../tooltip';
 import { getBreadcrumb } from './breadcrumbs';
 
 @Component({
@@ -15,6 +16,7 @@ import { getBreadcrumb } from './breadcrumbs';
     AsyncPipe,
     RouterLink,
     HoverableDirective,
+    TooltipModule,
   ],
   templateUrl: './breadcrumbs.component.html',
 })
@@ -43,17 +45,25 @@ export class BreadcrumbsComponent {
     this.breadcrumbs$ = of(breadcrumbs).pipe(
       map((breadcrumbs) =>
         breadcrumbs.map((b) => {
-          if ('titleFn' in b) {
-            const temp = b.titleFn(route, ...b.injectedDeps ?? []);
-            if (isObservable(temp)) return temp.pipe(
-              map(title => ({ ...b, title }))
+          if ('deps' in b) {
+            let tempTitle = b.titleFn(route, ...b.injectedDeps ?? []);
+            let tempTooltip = b.tooltipFn?.(route, ...b.injectedDeps ?? []);
+            if (!isObservable(tempTitle)) tempTitle = of(tempTitle);
+            if (tempTooltip && !isObservable(tempTooltip)) tempTooltip = of(tempTooltip);
+            return combineLatest([
+              tempTitle,
+              tempTooltip ?? of(null),
+            ]).pipe(
+              map(([title, tooltip]) => ({ ...b, title, tooltip }))
             )
-            return of({
-              ...b, title: temp,
-            });
           } else {
             return of({
-              ...b,
+              ...b as {
+                route: ActivatedRoute;
+                title: string;
+                tooltip?: string | null;
+                id: string;
+              },
             });
           }
         })

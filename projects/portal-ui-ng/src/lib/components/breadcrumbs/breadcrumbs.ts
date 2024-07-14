@@ -10,9 +10,11 @@ type MappedInstanceType<T extends readonly any[]> = {
 
 export type Breadcrumb<Deps extends readonly any[] = any[]> = {
   title: string;
+  tooltip?: string | null;
 } | {
   deps?: Deps;
   titleFn: (route: ActivatedRoute, ...deps: MappedInstanceType<Deps>) => Observable<string> | string;
+  tooltipFn?: (route: ActivatedRoute, ...deps: MappedInstanceType<Deps>) => Observable<string> | string;
 };
 
 export function getBreadcrumb(routeData: Data): (Breadcrumb & { id: string }) | undefined {

@@ -1,3 +1,4 @@
+export * from './base-dropdown';
 export * from './dropdown-overlay';
 export * from './dropdown.component';
 export * from './dropdown.module';

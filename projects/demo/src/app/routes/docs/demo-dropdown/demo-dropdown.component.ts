@@ -1,4 +1,5 @@
 import { Component, computed, signal } from '@angular/core';
+import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BreadcrumbsComponent, DropdownModule, LayeredContainerComponent, SidebarModule } from 'portal-ui-ng';
 import { SharedModule } from '../../../shared/shared.module';
 
@@ -11,6 +12,8 @@ import { SharedModule } from '../../../shared/shared.module';
     SidebarModule,
     BreadcrumbsComponent,
     DropdownModule,
+    FormsModule,
+    ReactiveFormsModule,
   ],
   templateUrl: './demo-dropdown.component.html',
   styles: ``
@@ -25,7 +28,7 @@ export class DemoDropdownComponent {
     'Feijoa',
     'Grape',
     'Huckleberry',
-    'Indian GooseberryIndian GooseberryIndian GooseberryIndian Gooseberry',
+    'Indian Gooseberry',
     'Jackfruit',
     'Kiwi',
     'Lemon',
@@ -38,6 +41,9 @@ export class DemoDropdownComponent {
   filtered = computed(() => {
     return this.data.filter(d => d.toLowerCase().includes(this.search().toLowerCase()));
   })
+
+  formControl1 = new FormControl(null as string | null)
+  formControl2 = new FormControl(null as string | null)
 
   onSearch(term: string) {
     this.search.set(term)

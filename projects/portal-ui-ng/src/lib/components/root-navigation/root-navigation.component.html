@@ -32,7 +32,9 @@
         #active="routerLinkActive"
         [attr.data-active]="active.isActive"
       >
-        <i [class.font-variation-fill]="active.isActive">{{ tab.icon }}</i>
+        @if (tab.icon) {
+          <i [class.font-variation-fill]="active.isActive">{{ tab.icon }}</i>
+        }
         @if (tab.label) {
           <span>{{ tab.label }}</span>
         }

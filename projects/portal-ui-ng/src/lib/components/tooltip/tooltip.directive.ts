@@ -25,7 +25,7 @@ export class TooltipDirective {
 
   private focusMonitor = inject(FocusMonitor);
   private elementRef = inject(ElementRef) as ElementRef<HTMLElement>;
-  private overlay = inject(PuiOverlayService);
+  private overlay = inject(PuiOverlayService, { optional: true });
   private overlayRef?: PuiOverlayRef;
   private destroyRef = inject(DestroyRef);
 
@@ -57,7 +57,8 @@ export class TooltipDirective {
 
   private showTooltip() {
     if (this.overlayRef) return;
-    this.overlayRef = this.overlay.open<TooltipComponent, TooltipData>(
+    if (!this.tooltip()) return;
+    this.overlayRef = this.overlay?.open<TooltipComponent, TooltipData>(
       TooltipComponent,
       {
         positionStrategy: this.overlay.position().flexibleConnectedTo(this.elementRef.nativeElement)
@@ -80,7 +81,7 @@ export class TooltipDirective {
         }
       }
     )
-    this.overlayRef.afterClosed$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(() => {
+    this.overlayRef?.afterClosed$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(() => {
       this.overlayRef = undefined;
     })
   }
