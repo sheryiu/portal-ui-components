@@ -67,12 +67,12 @@
 }
 
 .pui-bordered-button {
-  @apply border hover:border-current focus-visible:border-current focus-within:border-current;
+  @apply border enabled:hover:border-current enabled:focus-visible:border-current enabled:focus-within:border-current;
 }
 
 .pui-filled-button {
   @apply transition-colors;
-  @apply disabled:bg-black/15 disabled:dark:bg-white/15 disabled:opacity-70;
+  @apply disabled:bg-black/15 disabled:dark:bg-white/10 disabled:opacity-70;
   :is(.dark &) {
     box-shadow: inset 0px 2px 6px -4px rgb(255 255 255 / 0.1);
   }
