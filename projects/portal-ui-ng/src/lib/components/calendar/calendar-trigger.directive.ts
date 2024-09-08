@@ -1,6 +1,6 @@
 import { Directive, ElementRef, EventEmitter, HostListener, Input, OnChanges, Output, SimpleChanges, inject } from '@angular/core';
 import VanillaCalendar from 'vanilla-calendar-pro';
-import { ISelected } from 'vanilla-calendar-pro/types';
+import { FormatDateString, ISelected } from 'vanilla-calendar-pro/types';
 
 @Directive({
   selector: '[puiCalendarTrigger]',
@@ -55,7 +55,7 @@ export class CalendarTriggerDirective implements OnChanges {
 
   private asVanillaCalendarSelected(date: Date): ISelected {
     return {
-      dates: [`${ date.getFullYear() }-${ String(date.getMonth() + 1).padStart(2, '0') }-${ date.getDate().toString().padStart(2, '0') }`],
+      dates: [`${ date.getFullYear() }-${ String(date.getMonth() + 1).padStart(2, '0') }-${ date.getDate().toString().padStart(2, '0') }` as FormatDateString],
       month: date.getMonth(),
       year: date.getFullYear(),
       time: `${ date.getHours().toString().padStart(2, '0') }:${ date.getMinutes().toString().padStart(2, '0') }`,
