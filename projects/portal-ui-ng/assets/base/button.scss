@@ -172,6 +172,8 @@
 .pui-inverse-button {
   @apply flex items-center justify-center relative;
   @apply focus-visible:bg-hover;
+  @apply enabled:outline-2 enabled:outline-offset-2 enabled:outline-transparent;
+  @apply enabled:focus-visible:outline enabled:focus-visible:outline-primary-500;
   &[data-color=default] {
     @apply enabled:hover:bg-black enabled:hover:text-white;
     @apply enabled:hover:dark:bg-white enabled:hover:dark:text-black;
