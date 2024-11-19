@@ -1,4 +1,4 @@
-<div puiSidebarDrawerSection [class.bg-drawer-content]="trigger.isOpened$$()">
+<div puiSidebarDrawerSection [class.bg-drawer-content]="trigger.isOpened()">
   <button
     puiSidebarDrawerSectionHeader
     puiHoverable
@@ -7,12 +7,12 @@
     puiAccordionTrigger
     #trigger="accordionTrigger"
     opened
-    [ngClass]="{ '!text-primary-950 dark:!text-primary-50': !trigger.isOpened$$() }"
+    [ngClass]="{ '!text-primary-950 dark:!text-primary-50': !trigger.isOpened() }"
   >
     <i>info</i>
     <p>About</p>
   </button>
-  @if (trigger.isOpened$$()) {
+  @if (trigger.isOpened()) {
     <div puiSidebarDrawerSectionContent>
       <div class="flex flex-col px-3 pb-3 gap-2">
         <p class="text-sm font-medium tracking-tighter text-accent-800 dark:text-accent-200">Last updated</p>

@@ -1,4 +1,4 @@
-<div puiSidebarDrawerSection [class.bg-drawer-content]="trigger.isOpened$$()">
+<div puiSidebarDrawerSection [class.bg-drawer-content]="trigger.isOpened()">
   <button
     puiSidebarDrawerSectionHeader
     puiHoverable
@@ -6,12 +6,12 @@
     type="button"
     puiAccordionTrigger
     #trigger="accordionTrigger"
-    [ngClass]="{ '!text-primary-950 dark:!text-primary-50': !trigger.isOpened$$() }"
+    [ngClass]="{ '!text-primary-950 dark:!text-primary-50': !trigger.isOpened() }"
   >
     <i>delete</i>
     <p>Remove</p>
   </button>
-  @if (trigger.isOpened$$()) {
+  @if (trigger.isOpened()) {
     <div puiSidebarDrawerSectionContent>
       <button puiHoverable class="rounded-1 mx-1 py-2 text-sm text-red-700 dark:text-red-500" (click)="onRemoveClick()" [disabled]="skill == null">Remove</button>
     </div>

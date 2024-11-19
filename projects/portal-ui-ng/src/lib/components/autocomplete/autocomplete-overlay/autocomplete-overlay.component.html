@@ -1,16 +1,16 @@
 <div class="pui-autocomplete-overlay" cdkTrapFocus [cdkTrapFocusAutoCapture]="false">
-  @for (item of data.data; track $index) {
+  @for (item of items; track $index) {
     <button
       #options
       puiHoverable
       role="option"
-      (click)="selectValue(item)"
+      (click)="selectValue(item[0])"
       [attr.data-selected]="selectedOption === options"
     >
       <div>
         <ng-container
           [ngTemplateOutlet]="data.templateRef"
-          [ngTemplateOutletContext]="{ $implicit: item }"
+          [ngTemplateOutletContext]="{ $implicit: item[0], value: item[1] }"
         ></ng-container>
       </div>
     </button>

@@ -1,5 +1,4 @@
-import { Directive, HostBinding, inject } from '@angular/core';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { Directive, effect, HostBinding, inject } from '@angular/core';
 import { TableComponent } from './table.component';
 
 @Directive({
@@ -14,16 +13,12 @@ export class TableFooterRowDirective {
   private table = inject(TableComponent);
 
   constructor() {
-    this.checkColumns();
-    this.table.responsiveUpdated$.pipe(
-      takeUntilDestroyed(),
-    ).subscribe(() => {
-      this.checkColumns();
+    effect(() => {
+      const cells = this.table.activeColumns();
+      if (cells) {
+        this.hostColumnEnd = `span ${ cells?.length }`
+      }
     })
-  }
-
-  checkColumns() {
-    this.hostColumnEnd = `span ${ this.table.activeColumns?.length }`
   }
 
 }

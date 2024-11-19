@@ -1,8 +1,7 @@
 import { NgTemplateOutlet } from '@angular/common';
-import { AfterContentInit, Component, HostBinding, Input, TemplateRef, inject } from '@angular/core';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { Component, HostBinding, Input, computed, effect, inject } from '@angular/core';
 import { ActivatedRoute, RouterLink, RouterLinkActive } from '@angular/router';
-import { TableCellDefDirective } from './table-cell/table-cell-def.directive';
+import { isNonNull } from '../../base';
 import { TableComponent } from './table.component';
 
 @Component({
@@ -20,46 +19,41 @@ import { TableComponent } from './table.component';
     routerLinkActive
     #active="routerLinkActive"
     [attr.data-active]="active.isActive"
-    [style.height.px]="height"
+    [style.height.px]="height()"
   >
-    @for (def of cells; track def.columnName) {
+    @for (def of cells(); track def.columnName) {
       <ng-container [ngTemplateOutlet]="def.templateRef" [ngTemplateOutletContext]="{ $implicit: item }"></ng-container>
     }
   </a>
   `
 })
-export class TableRowComponent<T> implements AfterContentInit {
+export class TableRowComponent<T> {
   @Input({ required: true }) item!: T;
   @Input() route?: any[];
   @Input() relativeTo?: ActivatedRoute | null = inject(ActivatedRoute);
   @HostBinding('style.grid-column-end') private hostColumnEnd?: string;
   private table = inject(TableComponent);
-
-  height?: number;
-  cells?: { columnName: string; templateRef: TemplateRef<unknown> }[];
-
-  constructor() {
-    this.table.responsiveUpdated$.pipe(
-      takeUntilDestroyed(),
-    ).subscribe(() => {
-      this.checkColumns();
-    })
-  }
-
-  ngAfterContentInit(): void {
-    this.checkColumns();
-  }
-
-  checkColumns() {
-    this.height = this.table.activeItemHeight;
-    this.cells = this.table.activeColumns
-      ?.map(columnName => this.table.cellDefs?.find(def => def.columnName === columnName))
-      .filter((def): def is TableCellDefDirective => def != null)
+  height = this.table.activeItemHeight;
+  cells = computed(() => {
+    const columns = this.table.activeColumns();
+    if (columns == null) return undefined;
+    const cellDefs = this.table.cellDefs();
+    return columns
+      .map(columnName => cellDefs.find(def => def.columnName == columnName))
+      .filter(isNonNull)
       .map(def => ({
         columnName: def.columnName,
         templateRef: def.templateRef,
       }))
-    this.hostColumnEnd = `span ${ this.cells?.length }`
+  })
+
+  constructor() {
+    effect(() => {
+      const cells = this.cells();
+      if (cells) {
+        this.hostColumnEnd = `span ${ cells?.length }`
+      }
+    })
   }
 
 }

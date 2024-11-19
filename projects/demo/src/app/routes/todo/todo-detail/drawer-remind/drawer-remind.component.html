@@ -1,8 +1,8 @@
-<div puiSidebarDrawerSection [class.bg-drawer-content]="trigger.isOpened$$()">
+<div puiSidebarDrawerSection [class.bg-drawer-content]="trigger.isOpened()">
   <button puiSidebarDrawerSectionHeader puiAccordionTrigger puiHoverable #trigger="accordionTrigger" opened>
     <i>timer</i> Set Reminder
   </button>
-  @if (trigger.isOpened$$()) {
+  @if (trigger.isOpened()) {
     <form puiSidebarDrawerSectionContent (ngSubmit)="onSubmit()">
       <pui-fieldset [formControl]="formControl">
         <pui-field-def

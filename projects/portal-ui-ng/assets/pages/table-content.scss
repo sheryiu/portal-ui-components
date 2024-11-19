@@ -1,0 +1,20 @@
+@use './layout-control.scss';
+
+.pui-table-content {
+  @apply contents;
+  > main {
+    @apply light-glass-bg rounded-4 w-full p-8 grow;
+  }
+}
+
+.pui-table-cell > * {
+  @apply truncate;
+}
+
+.pui-table-cell__boolean-content {
+  @apply icon-5;
+  @apply text-red-500 dark:text-red-500;
+  &.pui-table-cell__boolean-content--true {
+    @apply text-green-600 dark:text-green-400;
+  }
+}

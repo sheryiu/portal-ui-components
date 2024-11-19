@@ -1,0 +1,116 @@
+<div puiAccordionContainer>
+  <ng-container [ngTemplateOutlet]="group" [ngTemplateOutletContext]="{ children: children() }"></ng-container>
+</div>
+
+<ng-template #group let-children="children" [typedTemplate]="typeForGroup">
+@for (child of children; track $index) {
+  @if (child.type == 'group') {
+    <!-- group -->
+    <div class="pui-vertical-navigation-menu__group">
+      @if (child.route(); as route) {
+        @let options = child.routerOptions();
+        @let activeOptions = child.activeOptions();
+        <a
+          puiBaseButton
+          class="pui-vertical-navigation-menu__item"
+          [routerLink]="route"
+          routerLinkActive
+          [routerLinkActiveOptions]="activeOptions ?? { exact: false }"
+          #active="routerLinkActive"
+          [ngClass]="{
+            'pui-vertical-navigation-menu__item--opened': trigger.isOpened(),
+            'pui-vertical-navigation-menu__item--active': active.isActive,
+          }"
+          [state]="options?.state"
+          [skipLocationChange]="options?.skipLocationChange"
+          [queryParams]="options?.queryParams"
+          [queryParamsHandling]="options?.queryParamsHandling"
+          [fragment]="options?.fragment"
+          [preserveFragment]="options?.preserveFragment"
+          [relativeTo]="options?.relativeTo"
+          [replaceUrl]="options?.replaceUrl"
+          puiAccordionTrigger
+          #trigger="accordionTrigger"
+        >
+          <ng-container [ngTemplateOutlet]="childContent" [ngTemplateOutletContext]="{ child: child }"></ng-container>
+        </a>
+        <div class="pui-vertical-navigation-menu__group__children">
+          <ng-container [ngTemplateOutlet]="group" [ngTemplateOutletContext]="{ children: child.children() }"></ng-container>
+        </div>
+      } @else {
+        <button
+          puiBaseButton
+          type="button"
+          class="pui-vertical-navigation-menu__item"
+          [ngClass]="{
+            'pui-vertical-navigation-menu__item--opened': trigger.isOpened(),
+          }"
+          (click)="child.click.emit($event)"
+          puiAccordionTrigger
+          #trigger="accordionTrigger"
+        >
+          <ng-container [ngTemplateOutlet]="childContent" [ngTemplateOutletContext]="{ child: child }"></ng-container>
+        </button>
+        <div class="pui-vertical-navigation-menu__group__children">
+          <ng-container [ngTemplateOutlet]="group" [ngTemplateOutletContext]="{ children: child.children() }"></ng-container>
+        </div>
+      }
+    </div>
+  } @else {
+    <!-- item -->
+    @if (child.route(); as route) {
+      @let options = child.routerOptions();
+      @let activeOptions = child.activeOptions();
+      <a
+        puiBaseButton
+        class="pui-vertical-navigation-menu__item"
+        [routerLink]="route"
+        routerLinkActive
+        [routerLinkActiveOptions]="activeOptions ?? { exact: false }"
+        #active="routerLinkActive"
+        [ngClass]="{
+          'pui-vertical-navigation-menu__item--active': active.isActive,
+        }"
+        [state]="options?.state"
+        [skipLocationChange]="options?.skipLocationChange"
+        [queryParams]="options?.queryParams"
+        [queryParamsHandling]="options?.queryParamsHandling"
+        [fragment]="options?.fragment"
+        [preserveFragment]="options?.preserveFragment"
+        [relativeTo]="options?.relativeTo"
+        [replaceUrl]="options?.replaceUrl"
+      >
+        <ng-container [ngTemplateOutlet]="childContent" [ngTemplateOutletContext]="{ child: child }"></ng-container>
+      </a>
+    } @else {
+      <button
+        puiBaseButton
+        type="button"
+        class="pui-vertical-navigation-menu__item"
+        (click)="child.click.emit($event)"
+      >
+        <ng-container [ngTemplateOutlet]="childContent" [ngTemplateOutletContext]="{ child: child }"></ng-container>
+      </button>
+    }
+  }
+}
+</ng-template>
+
+<ng-template #childContent let-child="child" [typedTemplate]="typeForChild">
+@let icon = child.icon();
+@let iconTemplateRef = child.iconTemplateRef();
+@if (icon) {
+  <i class="pui-vertical-navigation-menu__item__icon">{{ icon }}</i>
+} @else if (iconTemplateRef) {
+  <ng-container [ngTemplateOutlet]="iconTemplateRef"></ng-container>
+}
+<span class="pui-vertical-navigation-menu__item__label">{{ child.label() }}</span>
+<div class="spacer"></div>
+<i class="pui-vertical-navigation-menu__item__indicator">
+  @if (child.type == 'group') {
+    keyboard_arrow_down
+  } @else {
+    chevron_right
+  }
+</i>
+</ng-template>

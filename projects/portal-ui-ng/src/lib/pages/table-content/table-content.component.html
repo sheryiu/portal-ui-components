@@ -1,0 +1,62 @@
+<main>
+  <pui-table
+    [itemHeight]="48"
+    [columns]="columnsToDisplay() ?? []"
+  >
+
+    @for (config of columnConfig(); track config.key) {
+      <pui-table-header-cell *puiTableHeaderCellDef="config.key" [rightAligned]="config.isAlignEnd ?? false">{{ config.label }}</pui-table-header-cell>
+      <pui-table-cell *puiTableCellDef="config.key; let item" [rightAligned]="config.isAlignEnd ?? false">
+        @if (config.jsonSchema) {
+          @switch (config.jsonSchema.type) {
+            @case ('date-time') {
+              <pui-time-display
+                [mode]="config.jsonSchema.format == 'timeAgo' ? 'timeAgo' : 'normal'"
+                [format]="config.jsonSchema.format"
+                [date]="item[config.key]"
+              ></pui-time-display>
+              @if (config.jsonSchema.format == 'timeAgo') {
+                &nbsp;ago
+              }
+            }
+            @case ('boolean') {
+              @let value = item | lodashGet: config.path ?? config.key;
+              <i
+                class="pui-table-cell__boolean-content"
+                [class.pui-table-cell__boolean-content--true]="value === true"
+              >{{ value === true ? 'check' : value === false ? 'close' : '' }}</i>
+            }
+            @default {
+              <span>{{ item | lodashGet: config.path ?? config.key }}</span>
+            }
+          }
+        } @else {
+          <span>{{ item | lodashGet: config.path ?? config.key }}</span>
+        }
+      </pui-table-cell>
+    }
+
+    <pui-table-body>
+      <pui-table-header-row></pui-table-header-row>
+      <!-- TODO virtual scroll -->
+      @for (item of data(); track $index) {
+        <pui-table-row puiHoverable [item]="item" [route]="item[ROUTE_TO_DETAIL]"></pui-table-row>
+      }
+    </pui-table-body>
+  </pui-table>
+</main>
+
+@if (configuration?.hasRefreshControl) {
+  <pui-layout-control
+    label="Refresh"
+    icon="refresh"
+    (click)="onRefreshClick()"
+  ></pui-layout-control>
+}
+@if (configuration?.hasAddControl) {
+  <pui-layout-control
+    label="Add new"
+    icon="add"
+    (click)="onAddClick()"
+  ></pui-layout-control>
+}

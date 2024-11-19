@@ -1,6 +1,5 @@
 import { isPlatformBrowser } from '@angular/common';
-import { AfterViewInit, Component, ContentChildren, DestroyRef, ElementRef, HostBinding, Injector, Input, NgZone, OnDestroy, PLATFORM_ID, QueryList, afterNextRender, booleanAttribute, inject, numberAttribute } from '@angular/core';
-import { Subject } from 'rxjs';
+import { Component, DestroyRef, ElementRef, HostBinding, Injector, Input, NgZone, PLATFORM_ID, afterNextRender, booleanAttribute, computed, contentChildren, effect, inject, input, signal } from '@angular/core';
 import { TableCellDefDirective } from './table-cell/table-cell-def.directive';
 import { TableHeaderCellDefDirective } from './table-header-cell/table-header-cell-def.directive';
 
@@ -14,63 +13,56 @@ import { TableHeaderCellDefDirective } from './table-header-cell/table-header-ce
   },
   template: `<ng-content></ng-content>`
 })
-export class TableComponent implements AfterViewInit, OnDestroy {
-  @Input({ transform: numberAttribute, required: true }) itemHeight!: number;
-  @Input({ required: true }) columns!: string[];
-  @Input() columnWidths?: string[];
-  @Input({ transform: numberAttribute }) smHeight?: number;
-  @Input() smColumns?: string[];
-  @Input() smColumnWidths?: string[];
-  @Input({ transform: numberAttribute }) mdHeight?: number;
-  @Input() mdColumns?: string[];
-  @Input() mdColumnWidths?: string[];
-  @Input({ transform: numberAttribute }) lgHeight?: number;
-  @Input() lgColumns?: string[];
-  @Input() lgColumnWidths?: string[];
-  @Input({ transform: numberAttribute }) xlHeight?: number;
-  @Input() xlColumns?: string[];
-  @Input() xlColumnWidths?: string[];
-  // container width is larger than ...
-  private _activeResponsiveSize: 'initial' | 'null' | 'sm' | 'md' | 'lg' | 'xl' = 'initial';
-  /**
-   * Subscribe to responsiveUpdated$ to get updates
-   */
-  get activeColumns(): string[] | undefined {
-    if (this._activeResponsiveSize === 'initial') return;
-    const sizes = ['xl', 'lg', 'md', 'sm', 'null'];
-    const curr = sizes.indexOf(this._activeResponsiveSize);
-    const columns = [this.xlColumns, this.lgColumns, this.mdColumns, this.smColumns, this.columns];
-    return columns.find((c, i): c is string[] => i >= curr && c != null) ?? this.columns;
-  }
-  /**
-   * Subscribe to responsiveUpdated$ to get updates
-   */
-  get activeColumnWidths(): string[] | undefined {
-    if (this._activeResponsiveSize === 'initial') return;
-    const sizes = ['xl', 'lg', 'md', 'sm', 'null'];
-    const curr = sizes.indexOf(this._activeResponsiveSize);
-    const columns = [this.xlColumnWidths, this.lgColumnWidths, this.mdColumnWidths, this.smColumnWidths, this.columnWidths];
-    // TODO might need to change default from other values to prevent auto adjusting size
-    return columns.find((c, i): c is string[] => i >= curr && c != null) ?? this.columnWidths ?? [...this.activeColumns ?? []].fill('1fr');
-  }
-  /**
-   * Subscribe to responsiveUpdated$ to get updates
-   */
-  get activeItemHeight(): number | undefined {
-    if (this._activeResponsiveSize === 'initial') return;
-    const sizes = ['xl', 'lg', 'md', 'sm', 'null'];
-    const curr = sizes.indexOf(this._activeResponsiveSize);
-    const columns = [this.xlHeight, this.lgHeight, this.mdHeight, this.smHeight, this.itemHeight];
-    return columns.find((c, i): c is number => i >= curr && c != null) ?? this.itemHeight;
-  }
-  responsiveUpdated$ = new Subject<void>();
+export class TableComponent {
+  itemHeight = input.required<Record<'default' | `${number}px` | number, number> | number>();
+  columns = input.required<Record<'default' | `${number}px` | number, string[]> | string[]>();
+  columnWidths = input<Record<'default' | `${number}px` | number, string[]> | string[]>();
+  private currentWidth = signal<number | undefined>(undefined);
+
+  activeColumns = computed(() => {
+    const currentWidth = this.currentWidth();
+    if (currentWidth == null) return undefined;
+    const columns = this.columns();
+    if (Array.isArray(columns)) return columns;
+    const keys = (Object.keys(columns) as (number | `${number}px` | "default")[])
+      .map(key => key == 'default' ? 0 : key)
+      .sort((a, b) => {
+        const _a = (typeof a == 'string') ? Number(a.slice(0, -2)) : a;
+        const _b = (typeof b == 'string') ? Number(b.slice(0, -2)) : b;
+        return _b - _a;
+      });
+    const smallestKey = keys.find(key => {
+      const _key = (typeof key == 'string') ? Number(key.slice(0, -2)) : key;
+      return _key <= currentWidth
+    }) ?? 'default';
+    if (!(smallestKey in columns)) return undefined;
+    return columns[smallestKey];
+  })
+  activeItemHeight = computed(() => {
+    const currentWidth = this.currentWidth();
+    if (currentWidth == null) return undefined;
+    const itemHeight = this.itemHeight();
+    if (typeof itemHeight == 'number') return itemHeight;
+    const keys = (Object.keys(itemHeight) as (number | `${number}px` | "default")[])
+      .map(key => key == 'default' ? 0 : key)
+      .sort((a, b) => {
+        const _a = (typeof a == 'string') ? Number(a.slice(0, -2)) : a;
+        const _b = (typeof b == 'string') ? Number(b.slice(0, -2)) : b;
+        return _b - _a;
+      });
+    const smallestKey = keys.find(key => {
+      const _key = (typeof key == 'string') ? Number(key.slice(0, -2)) : key;
+      return _key <= currentWidth
+    }) ?? 'default';
+    if (!(smallestKey in itemHeight)) return undefined;
+    return itemHeight[smallestKey];
+  })
+
   @HostBinding('style.--pui-table-columns') private hostColumnWidths: string | undefined = undefined;
   @HostBinding('class.pui-table--borderless') @Input({ transform: booleanAttribute }) borderless: boolean = false;
 
-  @ContentChildren(TableCellDefDirective) private _cellDefs!: QueryList<TableCellDefDirective>;
-  get cellDefs() { return this._cellDefs }
-  @ContentChildren(TableHeaderCellDefDirective) private _headerCellDefs!: QueryList<TableHeaderCellDefDirective>;
-  get headerCellDefs() { return this._headerCellDefs }
+  cellDefs = contentChildren(TableCellDefDirective);
+  headerCellDefs = contentChildren(TableHeaderCellDefDirective);
 
   private elementRef = inject(ElementRef) as ElementRef<HTMLElement>;
   private platformId = inject(PLATFORM_ID);
@@ -78,23 +70,40 @@ export class TableComponent implements AfterViewInit, OnDestroy {
   private injector = inject(Injector);
   private destroyRef = inject(DestroyRef);
 
+  constructor() {
+    effect(() => {
+      const currentWidth = this.currentWidth();
+      const columnWidths = this.columnWidths();
+      if (currentWidth == null || columnWidths == null) return;
+      if (Array.isArray(columnWidths)) {
+        this.setColumnWidths(columnWidths);
+        return;
+      }
+      const keys = (Object.keys(columnWidths) as (number | `${number}px` | "default")[])
+        .map(key => key == 'default' ? 0 : key)
+        .sort((a, b) => {
+          const _a = (typeof a == 'string') ? Number(a.slice(0, -2)) : a;
+          const _b = (typeof b == 'string') ? Number(b.slice(0, -2)) : b;
+          return _b - _a;
+        });
+      const smallestKey = keys.find(key => {
+        const _key = (typeof key == 'string') ? Number(key.slice(0, -2)) : key;
+        return _key <= currentWidth
+      }) ?? 'default';
+      if (smallestKey in columnWidths) {
+        this.setColumnWidths(columnWidths[smallestKey]);
+      }
+    })
+  }
+
   ngAfterViewInit(): void {
     if (isPlatformBrowser(this.platformId)) {
       afterNextRender(() => {
-        const rem = parseFloat(getComputedStyle(document.documentElement).fontSize);
+        // const rem = parseFloat(getComputedStyle(document.documentElement).fontSize);
         const ro = new ResizeObserver((entries) => {
           this.zone.run(() => {
             const { width } = entries[0].contentRect;
-            const newSize: TableComponent['_activeResponsiveSize'] = (width >= 77 * rem) ? 'xl' :
-              (width >= 61 * rem) ? 'lg' :
-              (width >= 45 * rem) ? 'md' :
-              (width >= 37 * rem) ? 'sm' :
-              'null';
-            if (newSize != this._activeResponsiveSize) {
-              this._activeResponsiveSize = newSize;
-              this.hostColumnWidths = this.activeColumnWidths?.join(' ');
-              this.responsiveUpdated$.next();
-            }
+            this.currentWidth.set(width);
           })
         });
         ro.observe(this.elementRef.nativeElement);
@@ -105,7 +114,7 @@ export class TableComponent implements AfterViewInit, OnDestroy {
     }
   }
 
-  ngOnDestroy(): void {
-    this.responsiveUpdated$.complete();
+  private setColumnWidths(widths: string[]) {
+    this.hostColumnWidths = widths.join(' ')
   }
 }

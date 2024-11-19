@@ -1,11 +1,15 @@
 import { Component, effect, inject, input, output } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ControlContainer, FormBuilder, FormControl, FormRecord } from '@angular/forms';
 import { FieldDefDirective } from '../field-def.directive';
 
 @Component({
   selector: 'pui-array-field',
   templateUrl: './array-field.component.html',
-  styles: ``
+  styles: ``,
+  host: {
+    class: 'pui-array-field'
+  }
 })
 export class ArrayFieldComponent {
   def = input.required<FieldDefDirective>()
@@ -19,6 +23,12 @@ export class ArrayFieldComponent {
       const value = this.formRecord.controls[this.def().key].getRawValue();
       this.arrayLengthControl.setValue(Array.isArray(value) ? value.length : 0);
     })
+    this.formRecord.events.pipe(
+      takeUntilDestroyed()
+    ).subscribe(() => {
+      const value = this.formRecord.controls[this.def().key].getRawValue();
+      this.arrayLengthControl.setValue(Array.isArray(value) ? value.length : 0);
+    })
   }
 
   handleInput() {
@@ -27,12 +37,13 @@ export class ArrayFieldComponent {
       console.warn(`Value of ${ this.def().key } is not an array: ${ JSON.stringify(currValue) }`)
       return;
     }
+    if (this.arrayLengthControl.value < 0) return;
     let newValue = currValue;
     while (newValue.length < this.arrayLengthControl.value) {
-      newValue = currValue.toSpliced(currValue.length, 0, null);
+      newValue = newValue.toSpliced(newValue.length, 0, null);
     }
     while (newValue.length > this.arrayLengthControl.value) {
-      newValue = currValue.toSpliced(currValue.length - 1, 1);
+      newValue = newValue.toSpliced(newValue.length - 1, 1);
     }
     this.formRecord.controls[this.def().key].setValue(newValue)
     this.valueChange.emit();

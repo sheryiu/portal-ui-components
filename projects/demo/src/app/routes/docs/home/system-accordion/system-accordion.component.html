@@ -9,19 +9,19 @@
             class="px-3 py-1 justify-start gap-1 transition-colors"
             #trigger="accordionTrigger"
             [ngClass]="{
-              'text-primary-600 dark:text-primary-500 bg-hover': trigger.isOpened$$()
+              'text-primary-600 dark:text-primary-500 bg-hover': trigger.isOpened()
             }"
           >
             <i
               class="icon-4 transition-transform"
               [ngClass]="{
-                '-rotate-90': !trigger.isOpened$$(),
-                'rotate-0': trigger.isOpened$$(),
+                '-rotate-90': !trigger.isOpened(),
+                'rotate-0': trigger.isOpened(),
               }"
             >expand_more</i>
             Addition Information
           </div>
-          @if (trigger.isOpened$$()) {
+          @if (trigger.isOpened()) {
             <p class="px-3 py-1">Officia elit qui nulla ad deserunt excepteur ea proident.</p>
           }
         </div>

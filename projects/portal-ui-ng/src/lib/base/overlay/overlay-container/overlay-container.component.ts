@@ -1,7 +1,8 @@
 import { AnimationEvent, animate, style, transition, trigger } from '@angular/animations';
 import { NgComponentOutlet, NgTemplateOutlet } from '@angular/common';
 import { Component, Injector, TemplateRef, inject } from '@angular/core';
-import { OVERLAY_CONTENT, OVERLAY_DATA } from '../overlay';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { OVERLAY_CONFIG, OVERLAY_CONTENT, OVERLAY_DATA } from '../overlay';
 import { PuiOverlayRef } from '../pui-overlay-ref';
 
 @Component({
@@ -38,11 +39,34 @@ import { PuiOverlayRef } from '../pui-overlay-ref';
           translate: '0 -1rem',
         }))
       ]),
-    ])
+    ]),
+    trigger('appearSlideInEnd', [
+      transition(':enter', [
+        style({
+          opacity: 0,
+          translate: '4rem 0',
+        }),
+        animate('125ms ease-in-out', style({
+          opacity: 1,
+          translate: '0 0',
+        }))
+      ]),
+      transition(':leave', [
+        style({
+          opacity: 1,
+          translate: '0 0',
+        }),
+        animate('125ms ease-in-out', style({
+          opacity: 0,
+          translate: '4rem 0',
+        }))
+      ]),
+    ]),
   ]
 })
 export class OverlayContainerComponent {
   private content = inject(OVERLAY_CONTENT);
+  protected config = inject(OVERLAY_CONFIG);
   injector = inject(Injector);
   data = inject(OVERLAY_DATA);
   templateRef = this.content instanceof TemplateRef ? this.content : null;
@@ -54,6 +78,14 @@ export class OverlayContainerComponent {
   constructor() {
     this.overlayRef.afterOpened$.subscribe(() => this.showing = true);
     this.overlayRef._close$.subscribe(() => this.showing = false);
+    if (this.config.animation === null) {
+      this.overlayRef._close$.pipe(
+        takeUntilDestroyed()
+      ).subscribe(() => {
+        this.overlayRef.afterClosed$.next();
+        this.overlayRef.dispose();
+      })
+    }
   }
 
   onAnimationEnd(event: AnimationEvent) {

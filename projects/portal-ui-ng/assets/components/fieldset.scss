@@ -1,0 +1,70 @@
+.\@container\/fieldset {
+  container-type: inline-size;
+  container-name: fieldset;
+}
+.pui-fieldset {
+  @apply grid grid-cols-1 gap-y-2;
+  @apply max-w-screen-lg;
+}
+
+.pui-fieldset__input + .pui-fieldset__label {
+  @apply mt-2;
+}
+
+.pui-fieldset__label {
+  @apply flex justify-between items-center;
+  @apply px-4 py-1 gap-1;
+  @apply text-base font-light text-neutral-800 dark:text-neutral-200;
+  @apply transition-colors;
+  &:hover, &:has(+ :hover), &:has(+ :focus-within) {
+    @apply text-primary-800 dark:text-primary-200;
+  }
+}
+
+.pui-fieldset__input {
+  @apply flex justify-between items-start gap-2;
+  @apply min-h-9;
+  > * {
+    @apply grow shrink min-w-0;
+  }
+  > button {
+    @apply size-9 px-2 rounded-full flex-none;
+    i {
+      @apply icon-4;
+    }
+  }
+}
+.pui-fieldset__input .pui-input-field {
+  @apply self-stretch grow;
+  > button {
+    @apply self-stretch px-3 text-neutral-800 dark:text-neutral-200;
+    i {
+      @apply icon-4;
+    }
+  }
+}
+.pui-fieldset__input--boolean .pui-input-field {
+  @apply py-1 ps-1;
+}
+.pui-fieldset__input--boolean__remarks {
+  @apply text-sm text-neutral-800 dark:text-neutral-200 cursor-pointer;
+  @apply ps-3 pe-3 grow break-anywhere;
+}
+
+.pui-fieldset__null {
+  @apply self-stretch grow flex items-center;
+  @apply px-4;
+  @apply rounded-[1.25rem] border;
+  > span {
+    @apply grow truncate text-neutral-800 dark:text-neutral-200;
+    @apply leading-9 truncate text-sm italic font-light;
+  }
+}
+
+.pui-fieldset__input__remove, .pui-fieldset__null__add {
+  @apply self-stretch;
+}
+
+.pui-fieldset__enum-value {
+  @apply break-anywhere;
+}

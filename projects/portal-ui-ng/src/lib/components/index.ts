@@ -14,4 +14,5 @@ export * from './tab-bar';
 export * from './table';
 export * from './table-of-contents';
 export * from './tooltip';
+export * from './vertical-navigation-menu';
 

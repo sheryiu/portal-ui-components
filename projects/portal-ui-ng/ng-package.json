@@ -4,6 +4,9 @@
   "assets": [
     "./assets"
   ],
+  "allowedNonPeerDependencies": [
+    "lodash-es"
+  ],
   "lib": {
     "entryFile": "src/public-api.ts"
   }

@@ -12,11 +12,11 @@ import { FieldDefDirective } from '../field-def.directive';
       provide: NG_VALUE_ACCESSOR,
       useExisting: forwardRef(() => FieldsetComponent),
       multi: true,
-    }
+    },
   ]
 })
-export class FieldsetComponent<T extends Record<string, any>> implements ControlValueAccessor {
-  fieldDefs = contentChildren(FieldDefDirective);
+export class FieldsetComponent<T extends { [key: string | number | symbol]: any }> implements ControlValueAccessor {
+  fieldDefs = contentChildren(FieldDefDirective, { descendants: true });
 
   private formBuilder = inject(FormBuilder);
   formControl = this.formBuilder.record({});
@@ -72,7 +72,7 @@ export class FieldsetComponent<T extends Record<string, any>> implements Control
   }
 
   handleInput() {
-    let newValue: any = this.currentValue;
+    let newValue: any = structuredClone(this.currentValue);
     if (newValue == null) newValue = {};
     const formValue = this.formControl.getRawValue();
     try {
@@ -93,16 +93,21 @@ export class FieldsetComponent<T extends Record<string, any>> implements Control
               Object.seal(currPointingTo); // prevents items from added to the array
             }
           } else {
-            if (currPointingTo[path] == null) currPointingTo[path] = {};
+            try {
+              if (currPointingTo[path] == null) currPointingTo[path] = {};
+            } catch (e) { /* ignores as this is purposefully caused by the Object.seal */ }
             currPointingTo = currPointingTo[path];
           }
           i++;
         }
-        currPointingTo[paths.at(-1)!] = formValue[key];
+        try {
+          currPointingTo[paths.at(-1)!] = formValue[key];
+        } catch (e) { /* ignores as this is purposefully caused by the Object.seal */ }
       }
       this.onChange?.(newValue);
       this.valueChange.emit(newValue);
     } catch (e) {
+      console.warn('Unexpected error', e)
       // ignore
     }
   }

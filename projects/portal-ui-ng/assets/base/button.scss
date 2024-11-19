@@ -1,4 +1,5 @@
 .pui-base-button, .pui-bordered-button, .pui-inverse-button {
+  @apply text-base;
   @apply transition-colors;
   @apply disabled:bg-black/15 disabled:dark:bg-white/15 disabled:opacity-70;
   &[data-color=default] {
@@ -71,6 +72,7 @@
 }
 
 .pui-filled-button {
+  @apply text-base;
   @apply transition-colors;
   @apply disabled:bg-black/15 disabled:dark:bg-white/10 disabled:opacity-70;
   :is(.dark &) {

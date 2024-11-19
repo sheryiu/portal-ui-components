@@ -1,11 +1,13 @@
-import { Overlay, OverlayConfig } from '@angular/cdk/overlay';
+import { Overlay } from '@angular/cdk/overlay';
 import { ComponentPortal } from '@angular/cdk/portal';
-import { Injectable, Injector, TemplateRef, Type, ViewContainerRef, inject } from '@angular/core';
-import { OVERLAY_CONTENT, OVERLAY_DATA } from './overlay';
+import { Injectable, Injector, TemplateRef, Type, inject } from '@angular/core';
+import { OVERLAY_CONFIG, OVERLAY_CONTENT, OVERLAY_DATA, PuiOverlayConfig } from './overlay';
 import { OverlayContainerComponent } from './overlay-container/overlay-container.component';
 import { PuiOverlayRef } from './pui-overlay-ref';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class PuiOverlayService {
 
   private overlay = inject(Overlay);
@@ -15,13 +17,7 @@ export class PuiOverlayService {
 
   open<T, D>(
     component: Type<T> | TemplateRef<unknown>,
-    config: OverlayConfig & {
-      parentInjector?: Injector | undefined,
-      viewContainerRef?: ViewContainerRef | null | undefined,
-      data?: D,
-      closeOnBackdropClick?: boolean,
-      ignorePointerEventsFrom?: Element | Element[],
-    }
+    config: PuiOverlayConfig<D>,
   ) {
     const overlayRef = this.overlay.create({
       ...config,
@@ -38,6 +34,10 @@ export class PuiOverlayService {
           useValue: component,
         },
         {
+          provide: OVERLAY_CONFIG,
+          useValue: config,
+        },
+        {
           provide: PuiOverlayRef,
           useValue: overlayRefExtra,
         },
@@ -49,6 +49,9 @@ export class PuiOverlayService {
     overlayRefExtra.afterOpened$.next();
     if (config.hasBackdrop && config.closeOnBackdropClick) {
       overlayRefExtra.closeOnBackdropClick();
+    }
+    if (config.closeOnEscapeKeydown) {
+      overlayRefExtra.closeOnEscapeKeydown();
     }
     return overlayRefExtra;
   }

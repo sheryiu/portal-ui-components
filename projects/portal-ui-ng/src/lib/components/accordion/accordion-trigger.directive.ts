@@ -1,4 +1,4 @@
-import { DestroyRef, Directive, HostListener, Input, OnChanges, OnInit, SimpleChanges, booleanAttribute, inject, signal } from '@angular/core';
+import { DestroyRef, Directive, ElementRef, HostListener, OnInit, booleanAttribute, effect, inject, input, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { nanoid } from 'nanoid';
 import { AccordionService } from './accordion.service';
@@ -8,37 +8,46 @@ import { AccordionService } from './accordion.service';
   standalone: true,
   exportAs: 'accordionTrigger'
 })
-export class AccordionTriggerDirective implements OnInit, OnChanges {
+export class AccordionTriggerDirective implements OnInit {
+  elementRef = inject(ElementRef);
   private service = inject(AccordionService, { optional: true });
-  isOpened$$ = signal<boolean>(false);
+  opened = input(false, { transform: booleanAttribute });
+  isOpened = signal<boolean>(false);
+  disabled = input<boolean>(false, { alias: 'triggerDisabled' });
 
   readonly id = nanoid();
-  @Input({ transform: booleanAttribute }) opened = false;
 
   private destroyRef = inject(DestroyRef);
 
+  constructor() {
+    effect(() => {
+      this.isOpened.set(this.opened())
+    }, { allowSignalWrites: true })
+    effect(() => {
+      this.service?.toggleTrigger(this.id, this.isOpened());
+    })
+  }
+
   @HostListener('click')
   private hostClick() {
+    if (this.disabled()) return;
     if (this.service) {
-      this.service.toggleTrigger(this.id, !this.isOpened$$());
+      this.service.toggleTrigger(this.id, !this.isOpened());
     } else {
-      this.isOpened$$.update(b => !b)
+      this.isOpened.update(b => !b)
     }
   }
 
   ngOnInit(): void {
-    this.service?.registerTrigger(this.id, this.opened).pipe(
+    this.service?.registerTrigger(this.id, this.opened()).pipe(
       takeUntilDestroyed(this.destroyRef),
     ).subscribe(opened => {
-      this.isOpened$$.set(opened);
+      this.isOpened.set(opened);
     });
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes['opened']) {
-      this.isOpened$$.set(this.opened);
-      this.service?.toggleTrigger(this.id, this.isOpened$$());
-    }
+  toggle() {
+    this.isOpened.update(b => !b)
   }
 
 }

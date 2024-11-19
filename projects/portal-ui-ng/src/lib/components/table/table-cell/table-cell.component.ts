@@ -1,5 +1,5 @@
 import { isPlatformBrowser } from '@angular/common';
-import { Component, ElementRef, PLATFORM_ID, Renderer2, inject } from '@angular/core';
+import { booleanAttribute, Component, ElementRef, HostBinding, inject, Input, PLATFORM_ID, Renderer2 } from '@angular/core';
 import { TableCellDefDirective } from './table-cell-def.directive';
 
 @Component({
@@ -15,6 +15,8 @@ export class TableCellComponent {
   private renderer = inject(Renderer2);
   private isBrowser = isPlatformBrowser(inject(PLATFORM_ID));
   private tableCellDef = inject(TableCellDefDirective);
+
+  @HostBinding('attr.data-justify-end') @Input({ transform: booleanAttribute }) rightAligned: boolean = false;
 
   constructor() {
     const elRef = inject(ElementRef) as ElementRef<HTMLElement>;

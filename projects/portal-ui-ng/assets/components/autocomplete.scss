@@ -1,0 +1,14 @@
+.pui-autocomplete-overlay {
+  @apply h-full flex flex-col gap-1 items-stretch overflow-auto;
+  @apply border rounded-4 p-2;
+  @apply overlay-glass-bg;
+  > button {
+    @apply flex-none text-start min-h-8 rounded-2 border border-transparent;
+    &[data-selected=true] {
+      @apply bg-hover dark:border-primary-600;
+    }
+    > div {
+      @apply grow px-2 py-1;
+    }
+  }
+}

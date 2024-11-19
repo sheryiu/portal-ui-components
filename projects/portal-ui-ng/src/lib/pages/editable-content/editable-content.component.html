@@ -1,0 +1,39 @@
+<main>
+  <pui-fieldset [formControl]="formControl">
+    @for (control of flattenedControls(); track control.key) {
+      <pui-field-def
+        [key]="control.key"
+        [fieldType]="control.jsonSchema.type"
+        [label]="control.jsonSchema.description ?? control.key"
+        [fieldConfig]="control.jsonSchema.type == 'string'
+          ? { enum: control.jsonSchema.enum }
+          : control.jsonSchema.type == 'number'
+          ? { enum: control.jsonSchema.enum }
+          : {}"
+      ></pui-field-def>
+    }
+  </pui-fieldset>
+</main>
+
+@if (formControl.dirty) {
+  <pui-layout-control
+    label="Cancel"
+    icon="close"
+    mode="low-emphasis"
+    (click)="onCancelClick()"
+  ></pui-layout-control>
+  <pui-layout-control
+    label="Save"
+    icon="save"
+    (click)="onSaveClick()"
+  ></pui-layout-control>
+} @else {
+  @if (configuration?.hasRefreshControl) {
+    <pui-layout-control
+      label="Refresh"
+      icon="refresh"
+      mode="low-emphasis"
+      (click)="onRefreshClick()"
+    ></pui-layout-control>
+  }
+}

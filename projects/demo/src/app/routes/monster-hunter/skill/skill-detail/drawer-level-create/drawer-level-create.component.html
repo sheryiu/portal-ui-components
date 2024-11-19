@@ -1,4 +1,4 @@
-<div puiSidebarDrawerSection [class.bg-drawer-content]="trigger.isOpened$$()">
+<div puiSidebarDrawerSection [class.bg-drawer-content]="trigger.isOpened()">
   <button
     puiSidebarDrawerSectionHeader
     puiHoverable
@@ -6,12 +6,12 @@
     type="button"
     puiAccordionTrigger
     #trigger="accordionTrigger"
-    [ngClass]="{ '!text-primary-950 dark:!text-primary-50': !trigger.isOpened$$() }"
+    [ngClass]="{ '!text-primary-950 dark:!text-primary-50': !trigger.isOpened() }"
   >
     <i>exposure_plus_1</i>
     <p>Add Level</p>
   </button>
-  @if (trigger.isOpened$$()) {
+  @if (trigger.isOpened()) {
     <form puiSidebarDrawerSectionContent (ngSubmit)="onSubmit()">
       <pui-fieldset [formControl]="formControl">
         <pui-field-def

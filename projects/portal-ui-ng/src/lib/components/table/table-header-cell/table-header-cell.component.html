@@ -6,7 +6,9 @@
   [attr.data-justify-end]="rightAligned"
   (click)="openFilter(button)"
 >
-  <ng-content></ng-content>
+  <div class="pui-table-header-cell__label">
+    <ng-content></ng-content>
+  </div>
   @if (sortDirective?.templateRef || filterDirective?.templateRef) {
     <div class="pui-table-header-cell__gap"><!-- placeholder --></div>
     @if (!filtered && !sortedAsc && !sortedDesc) {

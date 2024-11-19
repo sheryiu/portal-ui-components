@@ -7,6 +7,8 @@ import { FormatDateString, ISelected } from 'vanilla-calendar-pro/types';
   standalone: true
 })
 export class CalendarTriggerDirective implements OnChanges {
+  // TODO add z-index as calendar will get hidden below overlay
+  // TODO the popup calendar will close overlay
   private elementRef = inject(ElementRef) as ElementRef<HTMLElement>;
   private calendar?: VanillaCalendar;
 

@@ -1,7 +1,6 @@
 import { NgTemplateOutlet } from '@angular/common';
-import { AfterContentInit, Component, HostBinding, TemplateRef, inject } from '@angular/core';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { TableHeaderCellDefDirective } from './table-header-cell/table-header-cell-def.directive';
+import { Component, HostBinding, computed, effect, inject } from '@angular/core';
+import { isNonNull } from '../../base';
 import { TableComponent } from './table.component';
 
 @Component({
@@ -14,37 +13,34 @@ import { TableComponent } from './table.component';
   },
   template: `
   <ng-content />
-  @for (def of cells; track def.columnName) {
+  @for (def of cells(); track def.columnName) {
     <ng-container [ngTemplateOutlet]="def.templateRef"></ng-container>
   }
   `
 })
-export class TableHeaderRowComponent implements AfterContentInit {
+export class TableHeaderRowComponent {
   @HostBinding('style.grid-column-end') private hostColumnEnd?: string;
   private table = inject(TableComponent);
 
-  cells?: { columnName: string; templateRef: TemplateRef<unknown> }[];
-
-  constructor() {
-    this.table.responsiveUpdated$.pipe(
-      takeUntilDestroyed(),
-    ).subscribe(() => {
-      this.checkColumns();
-    })
-  }
-
-  ngAfterContentInit(): void {
-    this.checkColumns();
-  }
-
-  checkColumns() {
-    this.cells = this.table.activeColumns
-      ?.map(columnName => this.table.headerCellDefs.find(def => def.columnName === columnName))
-      .filter((def): def is TableHeaderCellDefDirective => def != null)
+  cells = computed(() => {
+    const columns = this.table.activeColumns();
+    if (columns == null) return undefined;
+    const cellDefs = this.table.headerCellDefs();
+    return columns
+      .map(columnName => cellDefs.find(def => def.columnName == columnName))
+      .filter(isNonNull)
       .map(def => ({
         columnName: def.columnName,
         templateRef: def.templateRef,
       }))
-    this.hostColumnEnd = `span ${ this.cells?.length }`
+  })
+
+  constructor() {
+    effect(() => {
+      const cells = this.cells();
+      if (cells) {
+        this.hostColumnEnd = `span ${ cells?.length }`
+      }
+    })
   }
 }

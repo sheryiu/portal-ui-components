@@ -2,10 +2,10 @@ import { provideHttpClient, withFetch } from '@angular/common/http';
 import { ApplicationConfig, isDevMode } from '@angular/core';
 import { provideClientHydration } from '@angular/platform-browser';
 import { provideAnimations } from '@angular/platform-browser/animations';
-import { NoPreloading, PreloadAllModules, provideRouter, withPreloading, withRouterConfig } from '@angular/router';
+import { NoPreloading, PreloadAllModules, provideRouter, withInMemoryScrolling, withPreloading, withRouterConfig } from '@angular/router';
 import { provideServiceWorker } from '@angular/service-worker';
 import { provideTransloco } from '@ngneat/transloco';
-import { LanguageToggleComponent, ThemeToggleComponent, provideGlobalSearch, provideModalDialog, providePuiOverlay, provideQuickAccess, provideRootNavigation, provideTheme, themeGlobalSearch, withLogo, withProvider, withProviderFn, withUser, withWidget } from 'portal-ui-ng';
+import { LanguageToggleComponent, ThemeToggleComponent, provideGlobalSearch, provideQuickAccess, provideRootNavigation, provideTheme, themeGlobalSearch, withLogo, withProvider, withProviderFn, withUser, withWidget } from 'portal-ui-ng';
 import { routes } from './app.routes';
 import { DatabaseInfoQuickAccessComponent } from './core/database-info-quick-access/database-info-quick-access.component';
 import { LogoComponent } from './core/logo/logo.component';
@@ -22,14 +22,16 @@ export const appConfig: ApplicationConfig = {
     provideTheme(),
     provideHttpClient(withFetch()),
     // TODO toggle animation
+    // don't use provideAnimationsAsync, will cause dialog animation to act strange as it first loads the module
+    // provideAnimationsAsync(),
     provideAnimations(),
-    // provideNoopAnimations(),
     provideRouter(
       routes,
       withPreloading(isDevMode() ? NoPreloading : PreloadAllModules),
       withRouterConfig({
         paramsInheritanceStrategy: 'always',
       }),
+      withInMemoryScrolling({ scrollPositionRestoration: 'enabled' }),
     ),
     provideClientHydration(),
     provideTransloco({
@@ -41,8 +43,6 @@ export const appConfig: ApplicationConfig = {
       },
       loader: TranslocoHttpLoader,
     }),
-    providePuiOverlay(),
-    provideModalDialog(),
     provideQuickAccess(
       withWidget(SettingsQuickAccessComponent),
       withWidget(DatabaseInfoQuickAccessComponent),

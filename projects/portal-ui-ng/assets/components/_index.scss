@@ -1,3 +1,14 @@
+@import './tab-bar.scss';
+@import './table.scss';
+@import './fieldset.scss';
+@import './array-field.scss';
+@import './breadcrumbs.scss';
+@import './time-display.scss';
+@import './toggle.scss';
+@import './tooltip.scss';
+@import './vertical-navigation-menu.scss';
+@import './autocomplete.scss';
+
 .pui-root-navigation {
   @apply flex flex-col items-center border-e gap-4 z-[1000];
   @apply bg-neutral-200 dark:bg-neutral-800;
@@ -103,132 +114,6 @@
   }
 }
 
-.\@container\/table {
-  container-type: inline-size;
-  container-name: table;
-}
-.pui-table {
-  @apply block size-full;
-
-  .pui-table-body {
-    @apply grid;
-    grid-template-columns: var(--pui-table-columns)
-  }
-
-  .pui-table-row {
-    @apply col-span-full grid grid-cols-subgrid;
-    > a {
-      @apply col-span-full grid grid-cols-subgrid border-b relative;
-      &[data-active=true] {
-        @apply bg-hover;
-      }
-    }
-  }
-  &.pui-table--borderless {
-    .pui-table-row > a {
-      @apply border-b-0;
-    }
-  }
-
-  .pui-table-row:last-child {
-    > a {
-      @apply border-b-0;
-    }
-  }
-
-  .pui-table-header-row {
-    @apply col-span-full grid grid-cols-subgrid border-b h-12;
-  }
-
-  .pui-table-footer-row {
-    @apply col-span-full grid grid-cols-1 items-center text-secondary uppercase h-12;
-  }
-
-  .pui-table-cell {
-    /** truncate and line-clamp-1 will not work */
-    /** please add truncate on the element inside the table cell */
-    @apply px-4 py-2 flex items-center;
-  }
-
-  .pui-table-header-cell {
-    @apply flex border-e;
-    &:last-child {
-      @apply border-e-0;
-    }
-    > button {
-      @apply grow justify-start truncate whitespace-nowrap font-medium ps-4;
-      @apply text-primary-800 dark:text-primary-200;
-      &[data-overlay=true] {
-        @apply bg-hover;
-      }
-      &[data-justify-end=true] {
-        @apply justify-end;
-      }
-
-      .pui-table-header-cell__gap {
-        @apply grow;
-      }
-      &[data-justify-end=true] {
-        .pui-table-header-cell__gap {
-          @apply grow-0 shrink-0 basis-1;
-        }
-      }
-
-      .pui-table-header-cell__state {
-        @apply flex gap-2;
-        .pui-table-header-cell__state__active {
-          @apply rounded-full bg-primary-300 dark:bg-primary-600 text-primary-950 p-0.5 -my-0.5;
-        }
-      }
-
-      i {
-        @apply icon-4;
-        &.pui-table-header-cell__sort-asc {
-          @apply rotate-180 -scale-x-100;
-        }
-      }
-    }
-  }
-}
-
-.pui-table-header-cell-overlay {
-  @apply bg-neutral-200 dark:bg-neutral-800 shadow-lg border rounded-1 px-3 py-2 w-full overflow-auto max-h-full;
-  @apply flex flex-col;
-
-  pui-divider {
-    @apply my-2 -mx-3;
-  }
-}
-
-.pui-breadcrumbs {
-  @apply min-h-6 flex gap-0.5 items-center;
-  > a {
-    @apply px-1.5 py-1.5 rounded-1 justify-start;
-    > span {
-      @apply truncate;
-    }
-  }
-  > i {
-    @apply icon-4 shrink-0 text-primary-800 dark:text-primary-50;
-  }
-}
-
-.pui-tab-bar {
-  @apply block transition-all overflow-hidden;
-  .pui-tab-bar-tabs {
-    @apply size-full flex gap-1.5 transition-all sticky;
-    &:has(> button[data-active=true]) {
-      @apply before:transition-all before:absolute before:left-[--pui-selected-tab-x] before:h-full before:rounded-1 before:w-[--pui-selected-tab-width] before:border before:bg-hover;
-    }
-    > button {
-      @apply h-full basis-full grow rounded-1 px-2 truncate min-w-fit;
-      &[data-active=true] {
-        @apply text-primary-700 dark:text-primary-500;
-      }
-    }
-  }
-}
-
 .pui-tab-bar-header {
   @apply bg-hover text-primary-700 dark:text-primary-500 text-base font-medium;
   @apply border border-s-0 rounded-e-1 py-1 ps-4 pe-2 min-h-11;
@@ -315,96 +200,6 @@
   @apply max-sm:w-10;
   > i {
     @apply icon-5 sm:icon-6 text-primary-950 dark:text-primary-50;
-  }
-}
-
-.\@container\/fieldset {
-  container-type: inline-size;
-  container-name: fieldset;
-}
-.pui-fieldset {
-  @apply grid grid-cols-1 @[18rem]/fieldset:grid-cols-2 gap-y-2;
-  .pui-fieldset__label {
-    @apply flex justify-between items-center;
-    @apply py-1 ps-4 pe-2 gap-1;
-    &:hover, &:has(+ :hover) {
-      @apply text-primary-800 dark:text-primary-200;
-    }
-  }
-  .pui-fieldset__label__type {
-    @apply uppercase font-medium text-primary-800 dark:text-primary-200;
-  }
-  .pui-fieldset__input {
-    @apply flex justify-between items-center gap-2;
-    @apply px-2 min-h-8;
-    > * {
-      @apply grow shrink min-w-0;
-    }
-    button {
-      @apply px-2 rounded-1 flex-none;
-    }
-    i {
-      @apply icon-4;
-    }
-    .pui-input-field {
-      @apply self-stretch grow;
-      > button {
-        @apply self-stretch text-secondary;
-      }
-    }
-    &.pui-fieldset__input--boolean .pui-input-field {
-      @apply self-center grow-0 h-full;
-      > pui-toggle {
-        @apply h-full;
-      }
-    }
-  }
-  .pui-fieldset__null {
-    @apply self-stretch grow flex items-center;
-    > span {
-      @apply grow truncate text-secondary italic;
-    }
-  }
-  .pui-fieldset__input__remove, .pui-fieldset__null__add {
-    @apply self-stretch;
-  }
-}
-
-.pui-toggle {
-  @apply rounded-1 outline-none;
-  @apply flex items-center gap-2 p-1 relative transition-colors;
-  height: 2em;
-  > .pui-toggle__trigger {
-    @apply p-1 w-1/2 bg-neutral-300 dark:bg-neutral-700;
-    @apply rounded-1 absolute top-0 bottom-0 left-0 transition-[left] z-0;
-    i {
-      @apply icon-4;
-    }
-  }
-  &.pui-toggle--checked {
-    @apply bg-primary-300 dark:bg-primary-700;
-    > .pui-toggle__trigger {
-      @apply left-1/2;
-    }
-  }
-  > .pui-toggle__indicator {
-    min-width: 4ch;
-    @apply px-1 uppercase text-center select-none grow shrink-0;
-  }
-}
-
-.pui-autocomplete-overlay {
-  @apply flex flex-col items-stretch overflow-auto;
-  @apply bg-neutral-200 dark:bg-neutral-800 border rounded-1;
-  max-height: min(24rem, 80svh);
-  > button {
-    @apply flex-none text-start min-h-8;
-    &[data-selected=true] {
-      @apply bg-hover;
-    }
-    > div {
-      @apply grow px-2 py-0.5;
-    }
   }
 }
 
@@ -563,33 +358,6 @@
     > button {
       @apply grow max-w-[50%] rounded-1 px-2 py-2 font-medium;
     }
-  }
-}
-
-.pui-tooltip {
-  @apply block bg-neutral-300 dark:bg-neutral-700 border px-2 py-1 rounded-1 overflow-hidden shadow-md;
-}
-
-.pui-array-field {
-  @apply flex items-center;
-  > span {
-    @apply text-secondary pe-2;
-  }
-  > button {
-    @apply self-stretch;
-    &:first-of-type {
-      @apply rounded-s-1 rounded-e-none border-y border-s;
-    }
-    &:last-of-type {
-      @apply rounded-e-1 rounded-s-none border-y border-e;
-    }
-    > i {
-      @apply icon-4;
-    }
-  }
-  > pui-input-field {
-    @apply basis-20 shrink rounded-none;
-    flex-grow: 0 !important;
   }
 }
 

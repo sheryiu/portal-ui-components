@@ -1,6 +1,69 @@
-<div class="relative flex size-full min-h-100vh overflow-hidden flex-col sm:flex-row">
-  <pui-root-navigation class="contents"></pui-root-navigation>
-  <div class="grow order-2 sm:order-10">
-    <router-outlet></router-outlet>
+<div class="w-80 fixed left-8 top-8 bottom-8 flex flex-col gap-6">
+  <div class="px-2 flex items-center gap-4">
+    <div class="flex-none size-12 bg-gradient-to-br from-primary-600/70 from-20% to-accent-500/70 rounded-full p-2 isolate">
+      <i class="icon-8 mix-blend-overlay">identity_platform</i>
+    </div>
+    <h3 class="pt-0">Portal UI Demo</h3>
   </div>
+  <div class="light-glass-bg rounded-4 w-full grow flex flex-col">
+    <nav
+      class="grid grid-cols-4 gap-4 p-4 flex-none"
+    >
+      <button puiBorderedButton color="primary" class="rounded-2 p-2 aspect-square" puiTooltip="Home">
+        <i class="icon-6 font-variation-weight-light">home</i>
+      </button>
+      <button puiBorderedButton color="primary" class="rounded-2 p-2 aspect-square" puiTooltip="Dashboard">
+        <i class="icon-6 font-variation-weight-light">dashboard</i>
+      </button>
+      <button puiBorderedButton color="primary" class="rounded-2 p-2 aspect-square" puiTooltip="Sales">
+        <i class="icon-6 font-variation-weight-light">point_of_sale</i>
+      </button>
+      <button puiBorderedButton color="primary" class="rounded-2 p-2 aspect-square" puiTooltip="Settings">
+        <i class="icon-6 font-variation-weight-light">settings</i>
+      </button>
+    </nav>
+    <pui-divider></pui-divider>
+    <pui-vertical-navigation-menu>
+      <pui-menu-item
+        label="Home"
+        icon="home"
+        [route]="['/']"
+        [activeOptions]="{ exact: true }"
+      ></pui-menu-item>
+      <pui-menu-item
+        label="Dashboard"
+        [route]="['/dashboard']"
+      ></pui-menu-item>
+      <pui-menu-item
+        label="Real-time Monitoring"
+        [route]="['/monitoring']"
+      ></pui-menu-item>
+      <pui-menu-group
+        label="Inventory"
+        icon="trolley"
+      >
+        <pui-menu-item label="Items" [route]="['/inventory', 'item']"></pui-menu-item>
+        <pui-menu-item label="Shelves" [route]="['/inventory', 'shelf']"></pui-menu-item>
+      </pui-menu-group>
+      <pui-menu-group
+        label="Users"
+        icon="group"
+      >
+        <pui-menu-item label="Customers" [route]="['/user', 'customer']"></pui-menu-item>
+        <pui-menu-item label="Employees" [route]="['/user', 'employee']"></pui-menu-item>
+        <pui-menu-item label="Access Rights" [route]="['/user', 'access-right']"></pui-menu-item>
+      </pui-menu-group>
+      <pui-menu-item
+        label="Logs"
+        [route]="['/logs']"
+      ></pui-menu-item>
+      <pui-menu-item
+        label="Settings"
+        [route]="['/settings']"
+      ></pui-menu-item>
+    </pui-vertical-navigation-menu>
+  </div>
+</div>
+<div class="ml-88 px-8 min-h-full h-full">
+  <router-outlet></router-outlet>
 </div>

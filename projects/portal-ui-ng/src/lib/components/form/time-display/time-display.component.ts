@@ -9,7 +9,10 @@ import { TimeAgoPipe } from './time-ago.pipe';
     DatePipe,
     TimeAgoPipe,
   ],
-  templateUrl: `./time-display.component.html`
+  templateUrl: `./time-display.component.html`,
+  host: {
+    class: 'pui-time-display'
+  }
 })
 export class TimeDisplayComponent {
   @Input() date?: Date | null | undefined;

@@ -52,7 +52,6 @@ module.exports = {
           html: {
             "min-height": "100svh",
             height: "100%",
-            "overflow": "hidden",
           },
           body: {
             "min-height": "100svh",

@@ -3,4 +3,5 @@
  */
 export * from './lib/base';
 export * from './lib/components';
+export * from './lib/pages';
 
