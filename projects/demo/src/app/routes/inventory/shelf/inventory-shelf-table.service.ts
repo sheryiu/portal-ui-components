@@ -1,15 +1,16 @@
 import { inject, Injectable, signal, Signal, WritableSignal } from '@angular/core';
 import { ColumnConfig, TableContentDataProvider } from 'portal-ui-ng';
-import { InventoryShelfDataService } from '../../data/inventory-shelf-data.service';
-import { InventoryShelf } from '../../data/inventory.types';
+import { InventoryShelfDataService } from '../../../data/inventory-shelf-data.service';
+import { InventoryShelf } from '../../../data/inventory.types';
 
 @Injectable()
 export class InventoryShelfTableService implements TableContentDataProvider<InventoryShelf> {
   private dataService = inject(InventoryShelfDataService);
 
-  configuration?: { hasRefreshControl?: boolean; hasAddControl?: boolean; } = {
+  configuration = {
     hasAddControl: false,
     hasRefreshControl: true,
+    useVirtualScroll: true,
   };
   data: WritableSignal<InventoryShelf[]> = signal([]);
   columnsConfig: Signal<ColumnConfig[]> = signal<ColumnConfig[]>([
@@ -54,6 +55,6 @@ export class InventoryShelfTableService implements TableContentDataProvider<Inve
   }
 
   routeToDetail?(item: InventoryShelf): any[] {
-    return ['detail', item.id]
+    return ['../', 'detail', item.id]
   }
 }

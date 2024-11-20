@@ -38,9 +38,23 @@
 
     <pui-table-body>
       <pui-table-header-row></pui-table-header-row>
-      <!-- TODO virtual scroll -->
-      @for (item of data(); track $index) {
-        <pui-table-row puiHoverable [item]="item" [route]="item[ROUTE_TO_DETAIL]"></pui-table-row>
+      @if (configuration?.useVirtualScroll) {
+        @defer {
+          <!-- TODO item height -->
+          <cdk-virtual-scroll-viewport [style.--number-of-columns]="columnsToDisplay()?.length ?? 1" [style.height.px]="(data()?.length ?? 0) * 48" itemSize="48" scrollWindow>
+            <pui-table-row
+              *cdkVirtualFor="let item of data(); trackBy: trackingFn; templateCacheSize: 0"
+              puiHoverable
+              [item]="item"
+              [route]="item[ROUTE_TO_DETAIL]"
+              [style.height.px]="48"
+            ></pui-table-row>
+          </cdk-virtual-scroll-viewport>
+        }
+      } @else {
+        @for (item of data(); track $index) {
+          <pui-table-row puiHoverable [item]="item" [route]="item[ROUTE_TO_DETAIL]"></pui-table-row>
+        }
       }
     </pui-table-body>
   </pui-table>

@@ -4,6 +4,7 @@ import { map } from 'rxjs';
 import { InventoryShelfDetailService } from './inventory-shelf-detail.service';
 import { InventoryShelfEditService } from './inventory-shelf-edit.service';
 import { InventoryShelfListService } from './inventory-shelf-list.service';
+import { InventoryShelfMapComponent } from './inventory-shelf-map/inventory-shelf-map.component';
 import { InventoryShelfTableService } from './inventory-shelf-table.service';
 
 export const ROUTES: Routes = [
@@ -53,7 +54,11 @@ export const ROUTES: Routes = [
         ],
         children: [
           {
-            path: '',
+            path: 'map',
+            component: InventoryShelfMapComponent,
+          },
+          {
+            path: 'data',
             component: TableContentComponent,
             providers: [
               {
@@ -62,6 +67,10 @@ export const ROUTES: Routes = [
               }
             ]
           },
+          {
+            path: '**',
+            redirectTo: 'map',
+          }
         ]
       }
     ]

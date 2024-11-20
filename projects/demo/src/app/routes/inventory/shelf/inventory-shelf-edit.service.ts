@@ -2,8 +2,8 @@ import { effect, inject, Injectable, signal, Signal, WritableSignal } from '@ang
 import { toSignal } from '@angular/core/rxjs-interop';
 import { Params } from '@angular/router';
 import { EditableContentDataProvider, ObjectJsonSchema } from 'portal-ui-ng';
-import { InventoryShelfDataService } from '../../data/inventory-shelf-data.service';
-import { InventoryShelf } from '../../data/inventory.types';
+import { InventoryShelfDataService } from '../../../data/inventory-shelf-data.service';
+import { InventoryShelf } from '../../../data/inventory.types';
 
 @Injectable()
 export class InventoryShelfEditService implements EditableContentDataProvider<InventoryShelf> {

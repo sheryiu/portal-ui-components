@@ -1,3 +1,4 @@
+import { ScrollingModule } from '@angular/cdk/scrolling';
 import { Component, computed, inject, input, output } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ActivatedRoute } from '@angular/router';
@@ -15,6 +16,7 @@ import { TABLE_CONTENT_DATA_PROVIDER, TableContentDataProvider } from './table-c
     LayoutControlDirective,
     TimeDisplayComponent,
     LodashGetPipe,
+    ScrollingModule,
   ],
   templateUrl: './table-content.component.html',
   styles: ``,
@@ -32,7 +34,7 @@ export class TableContentComponent<T> {
   add = output<void>();
 
   protected readonly ROUTE_TO_DETAIL = Symbol();
-  configuration = this.dataProvider?.configuration;
+  protected configuration = this.dataProvider?.configuration;
 
   protected data = computed(() => {
     const data = this.dataProvider?.data() ?? this.inputData();
@@ -73,5 +75,9 @@ export class TableContentComponent<T> {
     } else {
       this.add.emit();
     }
+  }
+
+  protected trackingFn(i: number, item: T) {
+    return i;
   }
 }

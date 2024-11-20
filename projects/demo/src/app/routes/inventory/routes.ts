@@ -14,7 +14,7 @@ export const ROUTES: Routes = [
       },
       {
         path: 'shelf',
-        loadChildren: () => import('./inventory-shelf.routes').then(r => r.ROUTES),
+        loadChildren: () => import('./shelf/inventory-shelf.routes').then(r => r.ROUTES),
       },
     ]
   }

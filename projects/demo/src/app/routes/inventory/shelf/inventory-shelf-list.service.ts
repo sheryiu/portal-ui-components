@@ -7,5 +7,14 @@ export class InventoryShelfListService implements VerticalLayoutDataProvider {
 
   params: WritableSignal<Params> = signal({});
   heading: Signal<string> = signal('Warehouse Shelves');
-  tabs: Signal<TabConfig[]> = signal([]);
+  tabs: Signal<TabConfig[]> = signal<TabConfig[]>([
+    {
+      label: 'Map',
+      route: ['map']
+    },
+    {
+      label: 'Data',
+      route: ['data']
+    }
+  ]);
 }

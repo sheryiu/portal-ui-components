@@ -15,6 +15,7 @@ export interface TableContentDataProvider<T> {
   readonly configuration?: {
     hasRefreshControl?: boolean;
     hasAddControl?: boolean;
+    useVirtualScroll?: boolean;
   };
   params?: WritableSignal<Params>;
   queryParams?: WritableSignal<Params>;

@@ -64,7 +64,12 @@ export class VerticalLayoutComponent {
         const urlTree = this.router.createUrlTree(tab.route, { relativeTo: this.route })
         return this.router.isActive(urlTree, { paths: 'subset', queryParams: 'subset', fragment: 'ignored', matrixParams: 'ignored' })
       })
-      this.activeTab.set(activeTab?.label ?? null)
+      if (!activeTab) return;
+      this.activeTab.set(activeTab.label)
+      const route = this.route.routeConfig?.children?.find(child => child.path == '**');
+      if (route) {
+        route.redirectTo = activeTab.route.map(part => String(part).replaceAll('/', '%2F')).join('')
+      }
     })
   }
 

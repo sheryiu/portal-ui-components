@@ -9,9 +9,10 @@ export class InventoryItemTableService implements TableContentDataProvider<Inven
   private dataService = inject(InventoryItemDataService);
   private actionDrawer = inject(ActionDrawerOverlayService);
 
-  configuration?: { hasRefreshControl?: boolean; hasAddControl?: boolean; } = {
+  configuration = {
     hasAddControl: true,
     hasRefreshControl: true,
+    useVirtualScroll: true,
   };
   data: WritableSignal<InventoryItem[]> = signal([]);
   columnsConfig: Signal<ColumnConfig[]> = signal<ColumnConfig[]>([
