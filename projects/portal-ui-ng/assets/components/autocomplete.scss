@@ -1,5 +1,5 @@
 .pui-autocomplete-overlay {
-  @apply h-full flex flex-col gap-1 items-stretch overflow-auto;
+  @apply max-h-full flex flex-col gap-1 items-stretch overflow-auto;
   @apply border rounded-4 p-2;
   @apply overlay-glass-bg;
   > button {

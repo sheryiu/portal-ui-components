@@ -1,5 +1,4 @@
-import { Directive, effect, HostBinding, inject } from '@angular/core';
-import { TableComponent } from './table.component';
+import { Directive } from '@angular/core';
 
 @Directive({
   selector: 'pui-table-footer-row',
@@ -9,16 +8,4 @@ import { TableComponent } from './table.component';
   }
 })
 export class TableFooterRowDirective {
-  @HostBinding('style.grid-column-end') private hostColumnEnd?: string;
-  private table = inject(TableComponent);
-
-  constructor() {
-    effect(() => {
-      const cells = this.table.activeColumns();
-      if (cells) {
-        this.hostColumnEnd = `span ${ cells?.length }`
-      }
-    })
-  }
-
 }

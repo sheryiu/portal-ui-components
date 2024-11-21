@@ -1,5 +1,5 @@
 import { NgTemplateOutlet } from '@angular/common';
-import { Component, HostBinding, computed, effect, inject } from '@angular/core';
+import { Component, computed, inject } from '@angular/core';
 import { isNonNull } from '../../base';
 import { TableComponent } from './table.component';
 
@@ -19,7 +19,6 @@ import { TableComponent } from './table.component';
   `
 })
 export class TableHeaderRowComponent {
-  @HostBinding('style.grid-column-end') private hostColumnEnd?: string;
   private table = inject(TableComponent);
 
   cells = computed(() => {
@@ -34,13 +33,4 @@ export class TableHeaderRowComponent {
         templateRef: def.templateRef,
       }))
   })
-
-  constructor() {
-    effect(() => {
-      const cells = this.cells();
-      if (cells) {
-        this.hostColumnEnd = `span ${ cells?.length }`
-      }
-    })
-  }
 }

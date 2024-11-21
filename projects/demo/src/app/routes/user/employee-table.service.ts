@@ -9,9 +9,10 @@ export class EmployeeTableService implements TableContentDataProvider<Employee> 
   private dataService = inject(EmployeeDataService);
   private actionDrawer = inject(ActionDrawerOverlayService);
 
-  configuration?: { hasRefreshControl?: boolean; hasAddControl?: boolean; } | undefined = {
+  configuration = {
     hasAddControl: true,
     hasRefreshControl: true,
+    useVirtualScroll: true,
   }
   data = signal<Employee[]>([])
   columnsConfig: Signal<ColumnConfig[]> = signal<ColumnConfig[]>([
@@ -40,7 +41,7 @@ export class EmployeeTableService implements TableContentDataProvider<Employee> 
       label: 'Status'
     }
   ])
-  columnsToDisplay: Signal<string[] | Record<string | number, string[]>> = signal([
+  columnsToDisplay: Signal<string[]> = signal([
     'name', 'email', 'phone', 'department', 'position', 'status'
   ])
 

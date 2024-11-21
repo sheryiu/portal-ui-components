@@ -41,7 +41,11 @@
       @if (configuration?.useVirtualScroll) {
         @defer {
           <!-- TODO item height -->
-          <cdk-virtual-scroll-viewport [style.--number-of-columns]="columnsToDisplay()?.length ?? 1" [style.height.px]="(data()?.length ?? 0) * 48" itemSize="48" scrollWindow>
+          <cdk-virtual-scroll-viewport
+            [style.height.px]="(data()?.length ?? 0) * 48"
+            itemSize="48"
+            scrollWindow
+          >
             <pui-table-row
               *cdkVirtualFor="let item of data(); trackBy: trackingFn; templateCacheSize: 0"
               puiHoverable

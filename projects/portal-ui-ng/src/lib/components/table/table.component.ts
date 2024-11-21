@@ -1,5 +1,5 @@
 import { isPlatformBrowser } from '@angular/common';
-import { Component, DestroyRef, ElementRef, HostBinding, Injector, Input, NgZone, PLATFORM_ID, afterNextRender, booleanAttribute, computed, contentChildren, effect, inject, input, signal } from '@angular/core';
+import { Component, DestroyRef, ElementRef, HostBinding, Injector, NgZone, PLATFORM_ID, afterNextRender, computed, contentChildren, effect, inject, input, signal } from '@angular/core';
 import { TableCellDefDirective } from './table-cell/table-cell-def.directive';
 import { TableHeaderCellDefDirective } from './table-header-cell/table-header-cell-def.directive';
 
@@ -59,7 +59,7 @@ export class TableComponent {
   })
 
   @HostBinding('style.--pui-table-columns') private hostColumnWidths: string | undefined = undefined;
-  @HostBinding('class.pui-table--borderless') @Input({ transform: booleanAttribute }) borderless: boolean = false;
+  @HostBinding('style.--pui-table-number-of-columns') private hostNumberOfColumns: number | undefined = undefined;
 
   cellDefs = contentChildren(TableCellDefDirective);
   headerCellDefs = contentChildren(TableHeaderCellDefDirective);
@@ -93,6 +93,9 @@ export class TableComponent {
       if (smallestKey in columnWidths) {
         this.setColumnWidths(columnWidths[smallestKey]);
       }
+    })
+    effect(() => {
+      this.hostNumberOfColumns = this.activeColumns()?.length;
     })
   }
 

@@ -21,7 +21,7 @@ export interface TableContentDataProvider<T> {
   queryParams?: WritableSignal<Params>;
   data: Signal<T[]>;
   columnsConfig: Signal<ColumnConfig[]>;
-  columnsToDisplay: Signal<Record<string | number, string[]> | string[]>;
+  columnsToDisplay: Signal<string[]>;
   routeToDetail?(item: T): any[];
   refresh?(): void;
   add?(): void;

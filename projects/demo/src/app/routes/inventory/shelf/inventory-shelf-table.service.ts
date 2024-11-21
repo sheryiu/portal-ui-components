@@ -44,7 +44,7 @@ export class InventoryShelfTableService implements TableContentDataProvider<Inve
       }
     },
   ]);
-  columnsToDisplay: Signal<string[] | Record<string | number, string[]>> = signal([
+  columnsToDisplay: Signal<string[]> = signal([
     'aisle', 'row', 'layer', 'maxCapacity', 'isAllowFragileItems'
   ]);
 

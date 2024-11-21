@@ -5,7 +5,6 @@ export * from './calendar';
 export * from './divider';
 export * from './field';
 export * from './form';
-export * from './global-search';
 export * from './layered-container';
 export * from './modal-dialog';
 export * from './root-navigation';

@@ -11,17 +11,16 @@
   }
 
   .pui-table-row {
-    @apply col-span-full grid grid-cols-subgrid;
+    @apply grid grid-cols-subgrid;
+    grid-column-start: 1;
+    grid-column-end: span var(--pui-table-number-of-columns);
     > a {
-      @apply col-span-full grid grid-cols-subgrid relative border-b;
+      @apply grid grid-cols-subgrid relative border-b;
+      grid-column-start: 1;
+      grid-column-end: span var(--pui-table-number-of-columns);
       &[data-active=true] {
         @apply bg-hover;
       }
-    }
-  }
-  &.pui-table--borderless {
-    .pui-table-row > a {
-      @apply border-b-0;
     }
   }
 
@@ -32,11 +31,15 @@
   }
 
   .pui-table-header-row {
-    @apply col-span-full grid grid-cols-subgrid h-12 mb-1;
+    @apply grid grid-cols-subgrid h-12 mb-1;
+    grid-column-start: 1;
+    grid-column-end: span var(--pui-table-number-of-columns);
   }
 
   .pui-table-footer-row {
-    @apply col-span-full grid grid-cols-1 items-center text-secondary uppercase h-12;
+    @apply grid grid-cols-1 items-center text-secondary uppercase h-12;
+    grid-column-start: 1;
+    grid-column-end: span var(--pui-table-number-of-columns);
   }
 
   .pui-table-cell {
@@ -121,14 +124,16 @@
 .pui-table .cdk-virtual-scroll-viewport {
   display: grid !important;
   @apply w-full;
-  @apply col-span-full grid-cols-subgrid;
-  grid-column-end: span var(--number-of-columns);
+  @apply grid-cols-subgrid;
+  grid-column-start: 1;
+  grid-column-end: span var(--pui-table-number-of-columns);
   grid-auto-rows: 3rem; // TODO item height
   contain: unset !important;
   .cdk-virtual-scroll-content-wrapper {
     display: grid !important;
-    @apply col-span-full grid-cols-subgrid;
-    grid-column-end: span var(--number-of-columns);
+    @apply grid-cols-subgrid;
+    grid-column-start: 1;
+    grid-column-end: span var(--pui-table-number-of-columns);
     position: relative !important;
     contain: unset !important;
   }

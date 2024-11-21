@@ -1,4 +1,4 @@
-import { Directive, Input, TemplateRef, inject } from '@angular/core';
+import { Directive, TemplateRef, inject, input } from '@angular/core';
 
 @Directive({
   selector: '[puiTableCellDef]',
@@ -6,5 +6,5 @@ import { Directive, Input, TemplateRef, inject } from '@angular/core';
 })
 export class TableCellDefDirective {
   templateRef = inject(TemplateRef);
-  @Input({ required: true, alias: 'puiTableCellDef' }) columnName!: string;
+  columnName = input.required<string>({ alias: 'puiTableCellDef' })
 }

@@ -55,7 +55,7 @@ export class InventoryItemTableService implements TableContentDataProvider<Inven
       }
     },
   ]);
-  columnsToDisplay: Signal<string[] | Record<string | number, string[]>> = signal([
+  columnsToDisplay: Signal<string[]> = signal([
     'belongsTo', 'netWeight', 'grossWeight', 'isContainFragile', 'status', 'arrivedAt'
   ]);
 

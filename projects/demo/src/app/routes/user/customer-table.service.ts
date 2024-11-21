@@ -9,9 +9,10 @@ export class CustomerTableService implements TableContentDataProvider<Customer> 
   private dataService = inject(CustomerDataService);
   private actionDrawer = inject(ActionDrawerOverlayService);
 
-  configuration?: { hasRefreshControl?: boolean; hasAddControl?: boolean; } = {
+  configuration = {
     hasAddControl: true,
     hasRefreshControl: true,
+    useVirtualScroll: true,
   };
   data: WritableSignal<Customer[]> = signal([]);
   columnsConfig: Signal<ColumnConfig[]> = signal<ColumnConfig[]>([
@@ -46,7 +47,7 @@ export class CustomerTableService implements TableContentDataProvider<Customer> 
       }
     },
   ]);
-  columnsToDisplay: Signal<string[] | Record<string | number, string[]>> = signal([
+  columnsToDisplay: Signal<string[]> = signal([
     'name', 'username', 'email', 'phone', 'line2', 'registeredSince',
   ]);
 
