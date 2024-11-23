@@ -1,6 +1,6 @@
 import { inject, Injectable, Signal, signal, WritableSignal } from '@angular/core';
 import { faker } from '@faker-js/faker';
-import { ActionDrawerLayoutDataProvider, EditableContentComponent, EditableContentDataProvider, ObjectJsonSchema } from 'portal-ui-ng';
+import { ActionDrawerLayoutDataProvider, EditableContentComponent, EditableContentDataProvider, ObjectJsonSchema, PuiOverlayRef } from 'portal-ui-ng';
 import { CustomerDataService } from '../../data/customer-data.service';
 import { Customer } from '../../data/user.types';
 
@@ -103,10 +103,11 @@ export class CustomerAddService implements ActionDrawerLayoutDataProvider, Edita
       }
     }
   });
-  state: WritableSignal<{ isDisabled?: boolean; isDirty?: boolean; }> = signal({});
+  state: WritableSignal<{ isDisabled?: boolean; isDirty?: boolean; }> = signal({ isDirty: true });
   currentState: WritableSignal<{ isValid?: boolean; isDisabled?: boolean; isDirty?: boolean; }> = signal({});
   cancel(): void {
     this.data.set({} as any)
+    this.overlayRef()?.close()
   }
   save(value: Customer): void {
     value.id = faker.string.nanoid();
@@ -114,4 +115,5 @@ export class CustomerAddService implements ActionDrawerLayoutDataProvider, Edita
   }
 
   heading: Signal<string> = signal('Add Customer');
+  overlayRef: WritableSignal<PuiOverlayRef | null> = signal(null)
 }

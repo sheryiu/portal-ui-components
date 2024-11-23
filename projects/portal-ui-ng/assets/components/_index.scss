@@ -9,68 +9,8 @@
 @import './vertical-navigation-menu.scss';
 @import './autocomplete.scss';
 
-.pui-root-navigation {
-  @apply flex flex-col items-center border-e gap-4 z-[1000];
-  @apply bg-neutral-200 dark:bg-neutral-800;
-  @apply max-sm:flex-none max-sm:w-full;
-  @apply max-sm:border-e-0 max-sm:border-t;
-
-  @apply order-10;
-
-  .pui-root-logo {
-    @apply shrink-0 w-full;
-    @apply max-sm:hidden;
-  }
-
-  .pui-root-tabs {
-    @apply px-3 grow flex flex-col justify-center items-center gap-2 overflow-auto;
-    @apply max-sm:w-full max-sm:flex-row max-sm:grow max-sm:justify-around max-sm:pt-2 max-sm:pb-[calc(.5rem_+_env(safe-area-inset-bottom,0))];
-
-    a {
-      @apply size-18 rounded-full flex-col gap-1;
-      @apply max-sm:h-12 max-sm:gap-0.5;
-      &[data-active=true] {
-        @apply bg-hover text-primary-700 dark:text-primary-500;
-        @apply max-sm:bg-transparent;
-      }
-      a.pui-hoverable::after {
-        @apply max-sm:hidden;
-      }
-      i {
-        @apply icon-6 flex-none;
-      }
-      span {
-        @apply font-medium line-clamp-1;
-      }
-    }
-  }
-
-  .pui-root-user {
-    @apply shrink-0 w-full;
-    @apply max-sm:hidden;
-  }
-}
-
-.pui-root-appbar {
-  @apply hidden;
-  @apply max-sm:flex;
-  @apply h-16 px-3 border-b bg-neutral-200 dark:bg-neutral-800 justify-between items-center;
-
-  @apply order-1;
-}
-
 .cdk-overlay-backdrop.pui-quick-access-backdrop {
   @apply max-sm:left-24 bg-black/10 dark:bg-black/20 backdrop-blur-sm;
-}
-
-.pui-quick-access {
-  @apply shadow-lg border bg-neutral-200 dark:bg-neutral-800 rounded-2;
-  @apply ms-6 my-6 w-80 min-h-96 absolute max-sm:right-0 sm:bottom-0;
-  max-height: calc(100% - 3rem);
-  @apply grid grid-cols-2 place-content-end p-2 gap-2 overflow-auto;
-  .pui-quick-access-component {
-    @apply size-full rounded-1;
-  }
 }
 
 .pui-layered-container {
@@ -274,58 +214,6 @@
 .pui-search-dropdown__suggestions {
   @apply flex flex-col overflow-auto;
   max-height: min(24rem, 80svh);
-}
-
-.pui-theme-toggle {
-  @apply rounded-1 px-4 py-2 bg-hover;
-  @apply flex flex-col items-center gap-1;
-
-  .pui-theme-toggle__title {
-    @apply uppercase font-bold tracking-tight text-primary-700 dark:text-primary-300;
-  }
-
-  > div {
-    @apply overflow-hidden w-12;
-  }
-
-  .pui-theme-toggle__modes-wrapper {
-    @apply grid grid-cols-3 w-36 transition-[translate];
-  }
-  .pui-theme-toggle__mode {
-    @apply flex flex-col items-center w-12 gap-0.5;
-    > span {
-      @apply font-light;
-    }
-    > i {
-      @apply icon-6;
-    }
-  }
-}
-
-.pui-language-toggle {
-  @apply rounded-1 px-4 py-2 bg-hover;
-  @apply flex flex-col items-center gap-1;
-
-  .pui-language-toggle__title {
-    @apply uppercase font-bold tracking-tight text-primary-700 dark:text-primary-300;
-  }
-
-  > div {
-    @apply overflow-hidden w-12;
-  }
-
-  .pui-language-toggle__lang-wrapper {
-    @apply grid grid-cols-3 w-36 transition-[translate];
-  }
-  .pui-language-toggle__lang {
-    @apply flex flex-col items-center w-12 gap-0.5;
-    > span {
-      @apply font-light;
-    }
-    > i {
-      @apply icon-6;
-    }
-  }
 }
 
 .pui-modal-dialog-backdrop {

@@ -1,6 +1,6 @@
 import { inject, Injectable, signal, Signal, WritableSignal } from '@angular/core';
 import { faker } from '@faker-js/faker';
-import { ActionDrawerLayoutDataProvider, EditableContentComponent, EditableContentDataProvider, ObjectJsonSchema } from 'portal-ui-ng';
+import { ActionDrawerLayoutDataProvider, EditableContentComponent, EditableContentDataProvider, ObjectJsonSchema, PuiOverlayRef } from 'portal-ui-ng';
 import { InventoryItemDataService } from '../../data/inventory-item-data.service';
 import { InventoryItem, InventoryItemContentType, InventoryItemStatus } from '../../data/inventory.types';
 
@@ -75,10 +75,11 @@ export class InventoryItemAddService implements ActionDrawerLayoutDataProvider, 
       }
     }
   });
-  state: WritableSignal<{ isDisabled?: boolean; isDirty?: boolean; }> = signal({});
+  state: WritableSignal<{ isDisabled?: boolean; isDirty?: boolean; }> = signal({ isDirty: true });
   currentState: WritableSignal<{ isValid?: boolean; isDisabled?: boolean; isDirty?: boolean; }> = signal({});
   cancel(): void {
     this.data.set({} as any)
+    this.overlayRef()?.close();
   }
   save(value: InventoryItem): void {
     value.id = faker.string.nanoid();
@@ -90,4 +91,5 @@ export class InventoryItemAddService implements ActionDrawerLayoutDataProvider, 
 
   // ActionDrawerLayoutDataProvider
   heading: Signal<string> = signal('Add Item');
+  overlayRef: WritableSignal<PuiOverlayRef | null> = signal(null)
 }

@@ -1,5 +1,5 @@
 import { inject, Injectable, signal, Signal, WritableSignal } from '@angular/core';
-import { ActionDrawerOverlayService, ColumnConfig, EDITABLE_CONTENT_DATA_PROVIDER, TableContentDataProvider } from 'portal-ui-ng';
+import { ACTION_DRAWER_LAYOUT_DATA_PROVIDER, ActionDrawerOverlayService, ColumnConfig, EDITABLE_CONTENT_DATA_PROVIDER, TableContentDataProvider } from 'portal-ui-ng';
 import { InventoryItemDataService } from '../../data/inventory-item-data.service';
 import { InventoryItem } from '../../data/inventory.types';
 import { InventoryItemAddService } from './inventory-item-add.service';
@@ -72,10 +72,10 @@ export class InventoryItemTableService implements TableContentDataProvider<Inven
     this.actionDrawer.open(
       InventoryItemAddService,
       {
-        providers:[
+        providers: [
           {
             provide: EDITABLE_CONTENT_DATA_PROVIDER,
-            useClass: InventoryItemAddService,
+            useExisting: ACTION_DRAWER_LAYOUT_DATA_PROVIDER,
           }
         ]
       }

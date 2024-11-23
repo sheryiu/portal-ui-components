@@ -1,5 +1,5 @@
 import { inject, Injectable, signal, Signal, WritableSignal } from '@angular/core';
-import { ActionDrawerOverlayService, ColumnConfig, EDITABLE_CONTENT_DATA_PROVIDER, TableContentDataProvider } from 'portal-ui-ng';
+import { ACTION_DRAWER_LAYOUT_DATA_PROVIDER, ActionDrawerOverlayService, ColumnConfig, EDITABLE_CONTENT_DATA_PROVIDER, TableContentDataProvider } from 'portal-ui-ng';
 import { CustomerDataService } from '../../data/customer-data.service';
 import { Customer } from '../../data/user.types';
 import { CustomerAddService } from './customer-add.service';
@@ -67,7 +67,7 @@ export class CustomerTableService implements TableContentDataProvider<Customer> 
         providers: [
           {
             provide: EDITABLE_CONTENT_DATA_PROVIDER,
-            useClass: CustomerAddService,
+            useExisting: ACTION_DRAWER_LAYOUT_DATA_PROVIDER,
           }
         ]
       }

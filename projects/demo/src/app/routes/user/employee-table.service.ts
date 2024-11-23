@@ -1,5 +1,5 @@
 import { inject, Injectable, Signal, signal } from '@angular/core';
-import { ActionDrawerOverlayService, ColumnConfig, EDITABLE_CONTENT_DATA_PROVIDER, TableContentDataProvider } from 'portal-ui-ng';
+import { ACTION_DRAWER_LAYOUT_DATA_PROVIDER, ActionDrawerOverlayService, ColumnConfig, EDITABLE_CONTENT_DATA_PROVIDER, TableContentDataProvider } from 'portal-ui-ng';
 import { EmployeeDataService } from '../../data/employee-data.service';
 import { Employee } from '../../data/user.types';
 import { EmployeeAddService } from './employee-add.service';
@@ -61,7 +61,7 @@ export class EmployeeTableService implements TableContentDataProvider<Employee> 
         providers: [
           {
             provide: EDITABLE_CONTENT_DATA_PROVIDER,
-            useClass: EmployeeAddService,
+            useExisting: ACTION_DRAWER_LAYOUT_DATA_PROVIDER,
           }
         ]
       }

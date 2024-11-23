@@ -4,7 +4,7 @@ import { TableCellDefDirective } from './table-cell/table-cell-def.directive';
 import { TableCellComponent } from './table-cell/table-cell.component';
 import { TableFooterRowDirective } from './table-footer-row.directive';
 import { TableHeaderCellDefDirective } from './table-header-cell/table-header-cell-def.directive';
-import { TableHeaderCellComponent, TableHeaderCellFilterDirective, TableHeaderCellSortDirective } from './table-header-cell/table-header-cell.component';
+import { TableHeaderCellComponent } from './table-header-cell/table-header-cell.component';
 import { TableHeaderRowComponent } from './table-header-row.component';
 import { TableRowComponent } from './table-row.component';
 import { TableSimpleFooterComponent } from './table-simple-footer/table-simple-footer.component';
@@ -23,8 +23,6 @@ import { TableComponent } from './table.component';
     TableCellDefDirective,
     TableHeaderCellComponent,
     TableHeaderCellDefDirective,
-    TableHeaderCellSortDirective,
-    TableHeaderCellFilterDirective,
     TableFooterRowDirective,
     TableSimpleFooterComponent,
   ],
@@ -38,8 +36,6 @@ import { TableComponent } from './table.component';
     TableCellDefDirective,
     TableHeaderCellComponent,
     TableHeaderCellDefDirective,
-    TableHeaderCellSortDirective,
-    TableHeaderCellFilterDirective,
     TableFooterRowDirective,
     TableSimpleFooterComponent,
   ]
