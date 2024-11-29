@@ -1,48 +1,13 @@
 <button
-  #button
   puiHoverable
-  [hoverableEnabled]="sortDirective?.templateRef || filterDirective?.templateRef"
-  [attr.data-overlay]="overlayRef != null"
-  [attr.data-justify-end]="rightAligned"
-  (click)="openFilter(button)"
+  [attr.data-justify-end]="rightAligned()"
+  (click)="cellClick.emit($event)"
 >
   <div class="pui-table-header-cell__label">
     <ng-content></ng-content>
   </div>
-  @if (sortDirective?.templateRef || filterDirective?.templateRef) {
-    <div class="pui-table-header-cell__gap"><!-- placeholder --></div>
-    @if (!filtered && !sortedAsc && !sortedDesc) {
-      <i>arrow_drop_down</i>
-    } @else {
-      <div class="pui-table-header-cell__state">
-        @if (filtered) {
-          <div class="pui-table-header-cell__state__active">
-            <i>filter_alt</i>
-          </div>
-        }
-        @if (sortedAsc) {
-          <div class="pui-table-header-cell__state__active">
-            <i class="pui-table-header-cell__sort-asc">sort</i>
-          </div>
-        } @else if (sortedDesc) {
-          <div class="pui-table-header-cell__state__active">
-            <i>sort</i>
-          </div>
-        }
-      </div>
-    }
-  }
-</button>
-<ng-template #filterPopup>
-  <div class="pui-table-header-cell-overlay">
-    @if (sortDirective?.templateRef) {
-      <ng-container [ngTemplateOutlet]="sortDirective!.templateRef"></ng-container>
-    }
-    @if (sortDirective?.templateRef && filterDirective?.templateRef) {
-      <pui-divider></pui-divider>
-    }
-    @if (filterDirective?.templateRef) {
-      <ng-container [ngTemplateOutlet]="filterDirective!.templateRef"></ng-container>
-    }
+  <div class="pui-table-header-cell__gap"><!-- placeholder --></div>
+  <div class="pui-table-header-cell__state">
+    <i class="pui-table-header-cell__sort" [attr.data-ascending]="sortedAsc()" [attr.data-descending]="sortedDesc()"></i>
   </div>
-</ng-template>
+</button>

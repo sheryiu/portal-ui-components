@@ -10,11 +10,11 @@ export const ROUTES: Routes = [
     children: [
       {
         path: 'customer',
-        loadChildren: () => import('./customer.routes').then(r => r.ROUTES),
+        loadChildren: () => import('./customer/customer.routes').then(r => r.ROUTES),
       },
       {
         path: 'employee',
-        loadChildren: () => import('./employee.routes').then(r => r.ROUTES),
+        loadChildren: () => import('./employee/employee.routes').then(r => r.ROUTES),
       },
     ]
   }

@@ -1,17 +1,17 @@
 import { Routes } from '@angular/router';
 import { breadcrumb, EDITABLE_CONTENT_DATA_PROVIDER, EditableContentComponent, TABLE_CONTENT_DATA_PROVIDER, TableContentComponent, VERTICAL_LAYOUT_DATA_PROVIDER, VerticalLayoutComponent } from 'portal-ui-ng';
 import { map, switchMap } from 'rxjs';
-import { CustomerDataService } from '../../data/customer-data.service';
-import { CustomerDetailService } from './customer-detail.service';
-import { CustomerEditService } from './customer-edit.service';
-import { CustomerListService } from './customer-list.service';
-import { CustomerTableService } from './customer-table.service';
+import { EmployeeDataService } from '../../../data/employee-data.service';
+import { EmployeeDetailService } from './employee-detail.service';
+import { EmployeeEditService } from './employee-edit.service';
+import { EmployeeListService } from './employee-list.service';
+import { EmployeeTableService } from './employee-table.service';
 
 export const ROUTES: Routes = [
   {
     path: '',
     data: {
-      ...breadcrumb({ title: 'Customer' }),
+      ...breadcrumb({ title: 'Employee' }),
     },
     children: [
       {
@@ -19,7 +19,7 @@ export const ROUTES: Routes = [
         component: VerticalLayoutComponent,
         data: {
           ...breadcrumb({
-            deps: [CustomerDataService],
+            deps: [EmployeeDataService],
             titleFn: (route, service) => {
               return route.params.pipe(
                 switchMap(p => service.getList().pipe(
@@ -32,8 +32,8 @@ export const ROUTES: Routes = [
         providers: [
           {
             provide: VERTICAL_LAYOUT_DATA_PROVIDER,
-            useClass: CustomerDetailService,
-          },
+            useClass: EmployeeDetailService,
+          }
         ],
         children: [
           {
@@ -42,11 +42,11 @@ export const ROUTES: Routes = [
             providers: [
               {
                 provide: EDITABLE_CONTENT_DATA_PROVIDER,
-                useClass: CustomerEditService,
+                useClass: EmployeeEditService,
               }
             ]
           }
-        ],
+        ]
       },
       {
         path: '',
@@ -54,7 +54,7 @@ export const ROUTES: Routes = [
         providers: [
           {
             provide: VERTICAL_LAYOUT_DATA_PROVIDER,
-            useClass: CustomerListService,
+            useClass: EmployeeListService,
           }
         ],
         children: [
@@ -64,7 +64,7 @@ export const ROUTES: Routes = [
             providers: [
               {
                 provide: TABLE_CONTENT_DATA_PROVIDER,
-                useClass: CustomerTableService,
+                useClass: EmployeeTableService,
               }
             ]
           }

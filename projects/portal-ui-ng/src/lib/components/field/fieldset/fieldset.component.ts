@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output, contentChildren, effect, forwardRef, inject } from '@angular/core';
+import { Component, contentChildren, effect, forwardRef, inject, output } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ControlValueAccessor, FormBuilder, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Subject } from 'rxjs';
@@ -21,7 +21,7 @@ export class FieldsetComponent<T extends { [key: string | number | symbol]: any 
   private formBuilder = inject(FormBuilder);
   formControl = this.formBuilder.record({});
   valueUpdated$ = new Subject<void>();
-  @Output() valueChange = new EventEmitter<T>();
+  valueChange = output<T>();
 
   constructor() {
     this.valueUpdated$.pipe(
@@ -112,25 +112,25 @@ export class FieldsetComponent<T extends { [key: string | number | symbol]: any 
     }
   }
 
-  onSetNotNull(fieldDef: FieldDefDirective) {
+  protected onSetNotNull(fieldDef: FieldDefDirective) {
     if (!this.formControl.contains(fieldDef.key)) return;
     this.formControl.get(fieldDef.key)?.setValue(fieldDef.defaultValue ?? this.defaultValueForType(fieldDef));
     this.handleInput();
   }
 
-  onSetNull(fieldDef: FieldDefDirective) {
+  protected onSetNull(fieldDef: FieldDefDirective) {
     if (!this.formControl.contains(fieldDef.key)) return;
     this.formControl.get(fieldDef.key)?.setValue(null);
     this.handleInput();
   }
 
-  onAutocomplete(fieldDef: FieldDefDirective, value: string | number) {
+  protected onAutocomplete(fieldDef: FieldDefDirective, value: string | number) {
     if (!this.formControl.contains(fieldDef.key)) return;
     this.formControl.get(fieldDef.key)?.setValue(value);
     this.handleInput();
   }
 
-  onDateChange(fieldDef: FieldDefDirective, value: Date) {
+  protected onDateChange(fieldDef: FieldDefDirective, value: Date) {
     if (!this.formControl.contains(fieldDef.key)) return;
     this.formControl.get(fieldDef.key)?.setValue(value.toISOString());
     this.handleInput();
@@ -148,15 +148,15 @@ export class FieldsetComponent<T extends { [key: string | number | symbol]: any 
       })
     }
   }
-  onChange?: (val: T) => void;
+  protected onChange?: (val: T) => void;
   registerOnChange(fn: any): void {
     this.onChange = fn;
   }
-  onTouched?: () => void;
+  protected onTouched?: () => void;
   registerOnTouched(fn: any): void {
     this.onTouched = fn;
   }
-  isDisabled: boolean = false;
+  protected isDisabled: boolean = false;
   setDisabledState?(isDisabled: boolean): void {
     this.isDisabled = isDisabled;
     this.isDisabled ? this.formControl.disable() : this.formControl.enable();

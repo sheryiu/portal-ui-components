@@ -1,6 +1,6 @@
 import { InjectionToken, Signal, WritableSignal } from '@angular/core';
 import { Params } from '@angular/router';
-import { JsonSchema } from '../editable-content/editable-content';
+import { JsonSchema, ObjectJsonSchema } from '../editable-content/editable-content';
 
 export type ColumnConfig = {
   label: string;
@@ -8,6 +8,8 @@ export type ColumnConfig = {
   /** uses key for the default path */
   path?: string;
   isAlignEnd?: boolean;
+  isSortedAsc?: boolean;
+  isSortedDesc?: boolean;
   jsonSchema?: JsonSchema;
 }
 
@@ -15,6 +17,7 @@ export interface TableContentDataProvider<T> {
   readonly configuration?: {
     hasRefreshControl?: boolean;
     hasAddControl?: boolean;
+    hasAdvanceFilterControl?: boolean;
     useVirtualScroll?: boolean;
   };
   params?: WritableSignal<Params>;
@@ -22,7 +25,11 @@ export interface TableContentDataProvider<T> {
   data: Signal<T[]>;
   columnsConfig: Signal<ColumnConfig[]>;
   columnsToDisplay: Signal<string[]>;
+  simpleFilterConfig?: Signal<ObjectJsonSchema>;
+  currentSimpleFilter?: WritableSignal<any>;
   routeToDetail?(item: T): any[];
+  headerCellClick?(columnKey: string, event: MouseEvent): void;
+  filter?(filter: any): void;
   refresh?(): void;
   add?(): void;
 }

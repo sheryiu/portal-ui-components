@@ -2,8 +2,8 @@ import { effect, inject, Injectable, signal, WritableSignal } from '@angular/cor
 import { toSignal } from '@angular/core/rxjs-interop';
 import { Params } from '@angular/router';
 import { EditableContentDataProvider, ObjectJsonSchema } from 'portal-ui-ng';
-import { EmployeeDataService } from '../../data/employee-data.service';
-import { Employee, EmployeeDepartment, EmployeePosition, EmployeeStatus } from '../../data/user.types';
+import { EmployeeDataService } from '../../../data/employee-data.service';
+import { Employee, EmployeeDepartment, EmployeePosition, EmployeeStatus } from '../../../data/user.types';
 
 @Injectable()
 export class EmployeeEditService implements EditableContentDataProvider<Employee> {

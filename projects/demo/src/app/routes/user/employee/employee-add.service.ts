@@ -1,8 +1,8 @@
 import { inject, Injectable, Signal, signal, WritableSignal } from '@angular/core';
 import { faker } from '@faker-js/faker';
 import { ActionDrawerLayoutDataProvider, EditableContentComponent, EditableContentDataProvider, ObjectJsonSchema, PuiOverlayRef } from 'portal-ui-ng';
-import { EmployeeDataService } from '../../data/employee-data.service';
-import { Employee, EmployeeDepartment, EmployeePosition, EmployeeStatus } from '../../data/user.types';
+import { EmployeeDataService } from '../../../data/employee-data.service';
+import { Employee, EmployeeDepartment, EmployeePosition, EmployeeStatus } from '../../../data/user.types';
 
 @Injectable()
 export class EmployeeAddService implements ActionDrawerLayoutDataProvider, EditableContentDataProvider<Employee> {

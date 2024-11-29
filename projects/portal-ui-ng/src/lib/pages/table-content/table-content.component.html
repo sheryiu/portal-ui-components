@@ -1,11 +1,35 @@
 <main>
+  @let filterConfig = flattenSimpleFilterDef();
+  @if (filterConfig) {
+    <pui-fieldset [formControl]="simpleFilterFormControl">
+      @for (control of flattenSimpleFilterDef(); track control.key) {
+        <pui-field-def
+          [key]="control.key"
+          [fieldType]="control.jsonSchema.type"
+          [label]="control.jsonSchema.description ?? control.key"
+          [fieldConfig]="control.jsonSchema.type == 'string'
+            ? { enum: control.jsonSchema.enum }
+            : control.jsonSchema.type == 'number'
+            ? { enum: control.jsonSchema.enum }
+            : {}"
+        ></pui-field-def>
+      }
+    </pui-fieldset>
+  }
+
   <pui-table
     [itemHeight]="48"
     [columns]="columnsToDisplay() ?? []"
   >
 
     @for (config of columnConfig(); track config.key) {
-      <pui-table-header-cell *puiTableHeaderCellDef="config.key" [rightAligned]="config.isAlignEnd ?? false">{{ config.label }}</pui-table-header-cell>
+      <pui-table-header-cell
+        *puiTableHeaderCellDef="config.key"
+        [rightAligned]="config.isAlignEnd ?? false"
+        [sortedAsc]="config.isSortedAsc ?? false"
+        [sortedDesc]="config.isSortedDesc ?? false"
+        (cellClick)="onHeaderClick(config.key, $event)"
+      >{{ config.label }}</pui-table-header-cell>
       <pui-table-cell *puiTableCellDef="config.key; let item" [rightAligned]="config.isAlignEnd ?? false">
         @if (config.jsonSchema) {
           @switch (config.jsonSchema.type) {
@@ -64,6 +88,13 @@
   </pui-table>
 </main>
 
+@if (configuration?.hasAdvanceFilterControl) {
+  <pui-layout-control
+    label="Filter"
+    icon="filter_alt"
+    (click)="onFilterClick()"
+  ></pui-layout-control>
+}
 @if (configuration?.hasRefreshControl) {
   <pui-layout-control
     label="Refresh"

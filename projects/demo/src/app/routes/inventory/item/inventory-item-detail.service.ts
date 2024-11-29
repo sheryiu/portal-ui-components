@@ -2,7 +2,7 @@ import { computed, inject, Injectable, signal, Signal, WritableSignal } from '@a
 import { toSignal } from '@angular/core/rxjs-interop';
 import { Params } from '@angular/router';
 import { TabConfig, VerticalLayoutDataProvider } from 'portal-ui-ng';
-import { InventoryItemDataService } from '../../data/inventory-item-data.service';
+import { InventoryItemDataService } from '../../../data/inventory-item-data.service';
 
 @Injectable()
 export class InventoryItemDetailService implements VerticalLayoutDataProvider {

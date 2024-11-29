@@ -2,11 +2,11 @@ import { computed, inject, Injectable, signal, Signal, WritableSignal } from '@a
 import { toSignal } from '@angular/core/rxjs-interop';
 import { Params } from '@angular/router';
 import { TabConfig, VerticalLayoutDataProvider } from 'portal-ui-ng';
-import { CustomerDataService } from '../../data/customer-data.service';
+import { EmployeeDataService } from '../../../data/employee-data.service';
 
 @Injectable()
-export class CustomerDetailService implements VerticalLayoutDataProvider {
-  private dataService = inject(CustomerDataService)
+export class EmployeeDetailService implements VerticalLayoutDataProvider {
+  private dataService = inject(EmployeeDataService)
   private list = toSignal(this.dataService.getList())
 
   params: WritableSignal<Params> = signal({});

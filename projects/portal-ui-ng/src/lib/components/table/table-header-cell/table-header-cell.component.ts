@@ -1,7 +1,6 @@
-import { NgTemplateOutlet, isPlatformBrowser } from '@angular/common';
-import { Component, ElementRef, Input, PLATFORM_ID, Renderer2, booleanAttribute, inject } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
+import { Component, ElementRef, PLATFORM_ID, Renderer2, booleanAttribute, inject, input, output } from '@angular/core';
 import { HoverableDirective } from '../../../base';
-import { DividerComponent } from '../../divider';
 import { TableHeaderCellDefDirective } from './table-header-cell-def.directive';
 
 @Component({
@@ -9,8 +8,6 @@ import { TableHeaderCellDefDirective } from './table-header-cell-def.directive';
   standalone: true,
   imports: [
     HoverableDirective,
-    NgTemplateOutlet,
-    DividerComponent,
   ],
   host: {
     class: 'pui-table-header-cell',
@@ -19,13 +16,14 @@ import { TableHeaderCellDefDirective } from './table-header-cell-def.directive';
   templateUrl: './table-header-cell.component.html',
 })
 export class TableHeaderCellComponent {
-  @Input({ transform: booleanAttribute }) rightAligned: boolean = false;
-  @Input({ transform: booleanAttribute }) sortedAsc: boolean = false;
-  @Input({ transform: booleanAttribute }) sortedDesc: boolean = false;
-
   private renderer = inject(Renderer2);
   private isBrowser = isPlatformBrowser(inject(PLATFORM_ID));
   private tableCellDef = inject(TableHeaderCellDefDirective);
+
+  rightAligned = input(false, { transform: booleanAttribute })
+  sortedAsc = input(false, { transform: booleanAttribute })
+  sortedDesc = input(false, { transform: booleanAttribute })
+  cellClick = output<MouseEvent>();
 
   constructor() {
     const elRef = inject(ElementRef) as ElementRef<HTMLElement>;

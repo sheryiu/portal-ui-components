@@ -10,7 +10,7 @@ export const ROUTES: Routes = [
     children: [
       {
         path: 'item',
-        loadChildren: () => import('./inventory-item.routes').then(r => r.ROUTES),
+        loadChildren: () => import('./item/inventory-item.routes').then(r => r.ROUTES),
       },
       {
         path: 'shelf',

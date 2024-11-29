@@ -1,20 +1,21 @@
-import { inject, Injectable, signal, Signal, WritableSignal } from '@angular/core';
-import { faker } from '@faker-js/faker';
-import { ActionDrawerLayoutDataProvider, EditableContentComponent, EditableContentDataProvider, ObjectJsonSchema, PuiOverlayRef } from 'portal-ui-ng';
-import { InventoryItemDataService } from '../../data/inventory-item-data.service';
-import { InventoryItem, InventoryItemContentType, InventoryItemStatus } from '../../data/inventory.types';
+import { effect, inject, Injectable, signal, Signal, WritableSignal } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
+import { Params } from '@angular/router';
+import { EditableContentDataProvider, ObjectJsonSchema } from 'portal-ui-ng';
+import { InventoryItemDataService } from '../../../data/inventory-item-data.service';
+import { InventoryItem, InventoryItemContentType, InventoryItemStatus } from '../../../data/inventory.types';
 
 @Injectable()
-export class InventoryItemAddService implements ActionDrawerLayoutDataProvider, EditableContentDataProvider<InventoryItem> {
+export class InventoryItemEditService implements EditableContentDataProvider<InventoryItem> {
   private dataService = inject(InventoryItemDataService);
+  private list = toSignal(this.dataService.getList())
 
   configuration = {
-    content: EditableContentComponent,
-    hasRefreshControl: false,
-  };
+    hasRefreshControl: true,
+  }
 
-  // EditableContentDataProvider
-  data = signal(null);
+  params = signal<Params>({});
+  data = signal(this.list()?.find(v => v.id == this.params()['id']));
   jsonSchema: Signal<ObjectJsonSchema> = signal<ObjectJsonSchema>({
     type: 'object',
     properties: {
@@ -49,6 +50,10 @@ export class InventoryItemAddService implements ActionDrawerLayoutDataProvider, 
         items: {
           type: 'object',
           properties: {
+            id: {
+              type: 'string',
+              description: 'ID',
+            },
             description: {
               type: 'string',
               description: 'Description'
@@ -75,21 +80,25 @@ export class InventoryItemAddService implements ActionDrawerLayoutDataProvider, 
       }
     }
   });
-  state: WritableSignal<{ isDisabled?: boolean; isDirty?: boolean; }> = signal({ isDirty: true });
+  state: WritableSignal<{ isDisabled?: boolean; isDirty?: boolean; }> = signal({});
   currentState: WritableSignal<{ isValid?: boolean; isDisabled?: boolean; isDirty?: boolean; }> = signal({});
-  cancel(): void {
-    this.data.set({} as any)
-    this.overlayRef()?.close();
-  }
-  save(value: InventoryItem): void {
-    value.id = faker.string.nanoid();
-    value.contents?.forEach(content => {
-      content.id = faker.string.nanoid(12)
-    })
-    this.dataService.add(value);
+
+  constructor() {
+    effect(() => {
+      this.data.set(structuredClone(this.list()?.find(v => v.id == this.params()['id'])))
+    }, { allowSignalWrites: true })
   }
 
-  // ActionDrawerLayoutDataProvider
-  heading: Signal<string> = signal('Add Item');
-  overlayRef: WritableSignal<PuiOverlayRef | null> = signal(null)
+  refresh(): void {
+    this.data.set(structuredClone(this.list()?.find(v => v.id == this.params()['id'])))
+    this.state.set({ isDirty: false })
+  }
+  cancel(): void {
+    this.data.set(structuredClone(this.list()?.find(v => v.id == this.params()['id'])))
+    this.state.set({ isDirty: false })
+  }
+  save(value: InventoryItem): void {
+    this.dataService.save(value)
+    this.state.set({ isDirty: false })
+  }
 }

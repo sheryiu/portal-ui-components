@@ -1,22 +1,19 @@
-import { effect, inject, Injectable, signal, WritableSignal } from '@angular/core';
-import { toSignal } from '@angular/core/rxjs-interop';
-import { Params } from '@angular/router';
-import { EditableContentDataProvider, ObjectJsonSchema } from 'portal-ui-ng';
-import { CustomerDataService } from '../../data/customer-data.service';
-import { Customer } from '../../data/user.types';
+import { inject, Injectable, Signal, signal, WritableSignal } from '@angular/core';
+import { faker } from '@faker-js/faker';
+import { ActionDrawerLayoutDataProvider, EditableContentComponent, EditableContentDataProvider, ObjectJsonSchema, PuiOverlayRef } from 'portal-ui-ng';
+import { CustomerDataService } from '../../../data/customer-data.service';
+import { Customer } from '../../../data/user.types';
 
 @Injectable()
-export class CustomerEditService implements EditableContentDataProvider<Customer> {
+export class CustomerAddService implements ActionDrawerLayoutDataProvider, EditableContentDataProvider<Customer> {
   private dataService = inject(CustomerDataService);
-  private list = toSignal(this.dataService.getList())
 
   configuration = {
-    hasRefreshControl: true,
+    content: EditableContentComponent,
+    hasRefreshControl: false,
   }
 
-  params = signal<Params>({})
-  queryParams = signal<Params>({})
-  data = signal(this.list()?.find(v => v.id == this.params()['id']));
+  data = signal(null);
   jsonSchema = signal<ObjectJsonSchema>({
     type: 'object',
     properties: {
@@ -106,26 +103,17 @@ export class CustomerEditService implements EditableContentDataProvider<Customer
       }
     }
   });
-  state: WritableSignal<{ isDisabled?: boolean; isDirty?: boolean; }> = signal({});
+  state: WritableSignal<{ isDisabled?: boolean; isDirty?: boolean; }> = signal({ isDirty: true });
   currentState: WritableSignal<{ isValid?: boolean; isDisabled?: boolean; isDirty?: boolean; }> = signal({});
-
-  constructor() {
-    effect(() => {
-      this.data.set(structuredClone(this.list()?.find(v => v.id == this.params()['id'])))
-    }, { allowSignalWrites: true })
-  }
-
-  refresh(): void {
-    this.data.set(structuredClone(this.list()?.find(v => v.id == this.params()['id'])))
-    this.state.set({ isDirty: false })
-  }
   cancel(): void {
-    this.data.set(structuredClone(this.list()?.find(v => v.id == this.params()['id'])))
-    this.state.set({ isDirty: false })
+    this.data.set({} as any)
+    this.overlayRef()?.close()
   }
   save(value: Customer): void {
-    this.dataService.save(value)
-    this.state.set({ isDirty: false })
+    value.id = faker.string.nanoid();
+    this.dataService.add(value);
   }
 
+  heading: Signal<string> = signal('Add Customer');
+  overlayRef: WritableSignal<PuiOverlayRef | null> = signal(null)
 }

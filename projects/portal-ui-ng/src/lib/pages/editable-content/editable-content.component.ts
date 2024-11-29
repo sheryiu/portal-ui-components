@@ -8,7 +8,8 @@ import { FieldModule } from '../../components';
 import { LayoutControlDirective } from '../layout/layout-control.directive';
 import { EDITABLE_CONTENT_DATA_PROVIDER, EditableContentDataProvider, JsonSchema, ObjectJsonSchema } from './editable-content';
 
-function flattenObjectJsonSchema(jsonSchema: ObjectJsonSchema, data: any, keyPrefix: string, descriptionPrefix: string): Array<{ key: string; jsonSchema: JsonSchema; }> {
+/** @internal */
+export function flattenObjectJsonSchema(jsonSchema: ObjectJsonSchema, data: any, keyPrefix: string, descriptionPrefix: string): Array<{ key: string; jsonSchema: JsonSchema; }> {
   const entries = Object.entries(jsonSchema.properties);
   return entries.flatMap(([key, value]) => {
     if (value.type == 'object') return flattenObjectJsonSchema(value, data, `${keyPrefix}${key}>`, `${descriptionPrefix}${value.description??''} / `);
@@ -100,7 +101,7 @@ export class EditableContentComponent<T extends { [key: string | number | symbol
     const jsonSchema = this.jsonSchema();
     const data = this.formControlValue();
     if (!jsonSchema) return [];
-    const flatten = flattenObjectJsonSchema(jsonSchema, data, '', '');
+    const flatten = flattenObjectJsonSchema(jsonSchema, data, '', jsonSchema.description ? `${jsonSchema.description} / ` : '');
     return flatten;
   })
 
