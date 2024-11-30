@@ -4,6 +4,7 @@ import { ACTION_DRAWER_LAYOUT_DATA_PROVIDER, ActionDrawerOverlayService, ColumnC
 import { EmployeeDataService } from '../../../data/employee-data.service';
 import { Employee, EmployeeDepartment, EmployeeStatus } from '../../../data/user.types';
 import { EmployeeAddService } from './employee-add.service';
+import { EmployeeAdvanceFilterService } from './employee-advance-filter.service';
 
 @Injectable()
 export class EmployeeTableService implements TableContentDataProvider<Employee> {
@@ -14,6 +15,7 @@ export class EmployeeTableService implements TableContentDataProvider<Employee> 
   configuration = {
     hasAddControl: true,
     hasRefreshControl: true,
+    hasAdvanceFilterControl: true,
     useVirtualScroll: true,
   }
   data = signal<Employee[]>([])
@@ -52,12 +54,12 @@ export class EmployeeTableService implements TableContentDataProvider<Employee> 
       department: {
         type: 'string',
         description: 'Department',
-        enum: Object.values(EmployeeDepartment)
+        enum: [''].concat(Object.values(EmployeeDepartment))
       },
       status: {
         type: 'string',
         description: 'Status',
-        enum: Object.values(EmployeeStatus)
+        enum: [''].concat(Object.values(EmployeeStatus))
       }
     }
   })
@@ -109,6 +111,23 @@ export class EmployeeTableService implements TableContentDataProvider<Employee> 
     this.actionDrawer.open(
       EmployeeAddService,
       {
+        providers: [
+          {
+            provide: EDITABLE_CONTENT_DATA_PROVIDER,
+            useExisting: ACTION_DRAWER_LAYOUT_DATA_PROVIDER,
+          }
+        ]
+      }
+    )
+  }
+  filter(): void {
+    this.actionDrawer.open(
+      EmployeeAdvanceFilterService,
+      {
+        overlayData: {
+          filter: this.currentSimpleFilter(),
+          onFilterApply: (newFilter: any) => this.currentSimpleFilter.set(newFilter),
+        },
         providers: [
           {
             provide: EDITABLE_CONTENT_DATA_PROVIDER,

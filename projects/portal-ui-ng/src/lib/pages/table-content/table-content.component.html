@@ -12,6 +12,7 @@
             : control.jsonSchema.type == 'number'
             ? { enum: control.jsonSchema.enum }
             : {}"
+          [isNullable]="false"
         ></pui-field-def>
       }
     </pui-fieldset>

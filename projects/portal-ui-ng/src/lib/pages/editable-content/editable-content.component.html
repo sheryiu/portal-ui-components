@@ -1,18 +1,20 @@
 <main>
-  <pui-fieldset [formControl]="formControl">
-    @for (control of flattenedControls(); track control.key) {
-      <pui-field-def
-        [key]="control.key"
-        [fieldType]="control.jsonSchema.type"
-        [label]="control.jsonSchema.description ?? control.key"
-        [fieldConfig]="control.jsonSchema.type == 'string'
-          ? { enum: control.jsonSchema.enum }
-          : control.jsonSchema.type == 'number'
-          ? { enum: control.jsonSchema.enum }
-          : {}"
-      ></pui-field-def>
-    }
-  </pui-fieldset>
+  <form (submit)="onSubmit()">
+    <pui-fieldset [formControl]="formControl">
+      @for (control of flattenedControls(); track control.key) {
+        <pui-field-def
+          [key]="control.key"
+          [fieldType]="control.jsonSchema.type"
+          [label]="control.jsonSchema.description ?? control.key"
+          [fieldConfig]="control.jsonSchema.type == 'string'
+            ? { enum: control.jsonSchema.enum }
+            : control.jsonSchema.type == 'number'
+            ? { enum: control.jsonSchema.enum }
+            : {}"
+        ></pui-field-def>
+      }
+    </pui-fieldset>
+  </form>
 </main>
 
 @if (formControl.dirty) {

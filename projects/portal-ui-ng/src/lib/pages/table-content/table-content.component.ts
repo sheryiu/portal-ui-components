@@ -1,5 +1,5 @@
 import { ScrollingModule } from '@angular/cdk/scrolling';
-import { Component, computed, inject, input, output } from '@angular/core';
+import { Component, computed, effect, inject, input, output } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
@@ -84,6 +84,12 @@ export class TableContentComponent<T> {
         this.currentSimpleFilterUpdate.emit(this.simpleFilterFormControl.getRawValue())
       }
     })
+    effect(() => {
+      // TODO shouldn't use currentsimplefilter?
+      if (this.dataProvider?.currentSimpleFilter) {
+        this.simpleFilterFormControl.setValue(this.dataProvider?.currentSimpleFilter?.())
+      }
+    }, { allowSignalWrites: true })
   }
 
   protected onHeaderClick(columnKey: string, event: MouseEvent) {
@@ -96,7 +102,7 @@ export class TableContentComponent<T> {
 
   protected onFilterClick() {
     if (this.dataProvider) {
-      this.dataProvider.filter?.({});
+      this.dataProvider.filter?.();
     } else {
       this.filter.emit({});
     }

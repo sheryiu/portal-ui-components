@@ -1,5 +1,5 @@
 import { FocusMonitor } from '@angular/cdk/a11y';
-import { Directive, ElementRef, HostBinding, HostListener, TemplateRef, booleanAttribute, effect, inject, input, output } from '@angular/core';
+import { DestroyRef, Directive, ElementRef, HostBinding, HostListener, TemplateRef, booleanAttribute, effect, inject, input, output } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { PuiOverlayRef, PuiOverlayService } from '../../base';
 import { AutocompleteOverlayComponent, AutocompleteOverlayData } from './autocomplete-overlay/autocomplete-overlay.component';
@@ -19,6 +19,7 @@ export class AutocompleteTriggerDirective<D> {
   private overlay = inject(PuiOverlayService);
   private focusMonitor = inject(FocusMonitor);
   private elementRef = inject(ElementRef) as ElementRef<HTMLInputElement>;
+  private destroyRef = inject(DestroyRef);
 
   enabled = input(true, { alias: 'autocompleteEnabled', transform: booleanAttribute })
   values = input.required<D[]>({ alias: 'autocompleteValues' })
@@ -44,6 +45,9 @@ export class AutocompleteTriggerDirective<D> {
         this.hostAutocomplete = this.enabled() ? 'off' : undefined;
       })
     }
+    this.destroyRef.onDestroy(() => {
+      this.closeOverlay()
+    })
   }
 
   @HostListener('click')
@@ -89,6 +93,8 @@ export class AutocompleteTriggerDirective<D> {
           }
         },
         ignorePointerEventsFrom: this.elementRef.nativeElement,
+        closeOnEscapeKeydown: true,
+        closeOnBackdropClick: true,
       }
     )
     this.overlayRef.afterClosed$.subscribe(() => {

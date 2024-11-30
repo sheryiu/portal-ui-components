@@ -29,7 +29,7 @@ export interface TableContentDataProvider<T> {
   currentSimpleFilter?: WritableSignal<any>;
   routeToDetail?(item: T): any[];
   headerCellClick?(columnKey: string, event: MouseEvent): void;
-  filter?(filter: any): void;
+  filter?(): void;
   refresh?(): void;
   add?(): void;
 }

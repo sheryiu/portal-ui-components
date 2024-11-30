@@ -1,5 +1,5 @@
 import { inject, Injectable, Injector, Provider, Type } from '@angular/core';
-import { PuiOverlayService } from '../../base';
+import { OVERLAY_DATA, PuiOverlayService } from '../../base';
 import { ACTION_DRAWER_LAYOUT_DATA_PROVIDER, ActionDrawerLayoutComponent, ActionDrawerLayoutDataProvider } from './action-drawer-layout';
 
 @Injectable({
@@ -9,11 +9,13 @@ export class ActionDrawerOverlayService {
   private overlay = inject(PuiOverlayService);
   private injector = inject(Injector);
 
-  open(
+  open<D>(
     dataProvider: Type<ActionDrawerLayoutDataProvider>,
     config: {
       width?: string;
       providers?: Array<Provider>;
+      parent?: Injector;
+      overlayData?: D;
     } = {
       width: '30vw',
     }
@@ -28,15 +30,20 @@ export class ActionDrawerOverlayService {
       disposeOnNavigation: true,
       closeOnEscapeKeydown: true,
       animation: 'slideInEnd',
+      data: config.overlayData,
       parentInjector: Injector.create({
         providers: [
+          {
+            provide: OVERLAY_DATA,
+            useValue: config.overlayData,
+          },
           {
             provide: ACTION_DRAWER_LAYOUT_DATA_PROVIDER,
             useClass: dataProvider,
           },
           ...config.providers ?? [],
         ],
-        parent: this.injector,
+        parent: config.parent ?? this.injector,
       }),
     })
   }

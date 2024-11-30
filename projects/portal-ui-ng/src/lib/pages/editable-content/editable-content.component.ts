@@ -178,4 +178,8 @@ export class EditableContentComponent<T extends { [key: string | number | symbol
       this.save.emit(v);
     }
   }
+
+  protected onSubmit() {
+    this.onSaveClick()
+  }
 }
