@@ -1,7 +1,7 @@
-import { effect, inject, Injectable, signal, Signal, WritableSignal } from '@angular/core';
+import { computed, effect, inject, Injectable, signal, Signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { Params } from '@angular/router';
-import { EditableContentDataProvider, ObjectJsonSchema } from 'portal-ui-ng';
+import { EditableContentDataProvider, LayoutControlConfig, ObjectJsonSchema } from 'portal-ui-ng';
 import { InventoryShelfDataService } from '../../../data/inventory-shelf-data.service';
 import { InventoryShelf } from '../../../data/inventory.types';
 
@@ -9,10 +9,6 @@ import { InventoryShelf } from '../../../data/inventory.types';
 export class InventoryShelfEditService implements EditableContentDataProvider<InventoryShelf> {
   private dataService = inject(InventoryShelfDataService);
   private list = toSignal(this.dataService.getList())
-
-  configuration = {
-    hasRefreshControl: true,
-  }
 
   params = signal<Params>({});
   data = signal(this.list()?.find(v => v.id == this.params()['id']));
@@ -65,8 +61,31 @@ export class InventoryShelfEditService implements EditableContentDataProvider<In
       }
     }
   });
-  state: WritableSignal<{ isDisabled?: boolean; isDirty?: boolean; }> = signal({});
-  currentState: WritableSignal<{ isValid?: boolean; isDisabled?: boolean; isDirty?: boolean; }> = signal({});
+  private isDirty = signal(false)
+  private updatedValue = signal<InventoryShelf | undefined>(undefined)
+  controlsConfig = computed<LayoutControlConfig[]>(() => {
+    if (this.isDirty()) return [
+      {
+        id: 'cancel',
+        label: 'Cancel',
+        icon: 'close',
+        mode: 'low-emphasis'
+      },
+      {
+        id: 'save',
+        label: 'Save',
+        icon: 'save'
+      }
+    ]
+    else return [
+      {
+        id: 'refresh',
+        label: 'Refresh',
+        icon: 'refresh',
+        mode: 'low-emphasis'
+      }
+    ]
+  });
 
   constructor() {
     effect(() => {
@@ -76,14 +95,44 @@ export class InventoryShelfEditService implements EditableContentDataProvider<In
 
   refresh(): void {
     this.data.set(structuredClone(this.list()?.find(v => v.id == this.params()['id'])))
-    this.state.set({ isDirty: false })
+    this.updateState!({ isDirty: false })
   }
   cancel(): void {
     this.data.set(structuredClone(this.list()?.find(v => v.id == this.params()['id'])))
-    this.state.set({ isDirty: false })
+    this.updateState!({ isDirty: false })
   }
   save(value: InventoryShelf): void {
     this.dataService.save(value)
-    this.state.set({ isDirty: false })
+    this.updateState!({ isDirty: false })
+  }
+
+  private updateState?: (state: { isDisabled?: boolean; isDirty?: boolean; }) => void;
+  registerUpdateState(fn: (state: { isDisabled?: boolean; isDirty?: boolean; }) => void): void {
+    this.updateState = fn;
+  }
+
+  onStateChange(state: { isValid?: boolean; isDisabled?: boolean; isDirty?: boolean; }): void {
+    this.isDirty.update(curr => state.isDirty ?? curr)
+  }
+  onValueChange(value: InventoryShelf): void {
+    this.updatedValue.set(value)
+  }
+  onControlClick(key: string, event: MouseEvent): void {
+    switch (key) {
+      case 'refresh':
+      case 'cancel': {
+        this.data.set(structuredClone(this.list()?.find(v => v.id == this.params()['id'])))
+        this.updateState!({ isDirty: false })
+        break;
+      }
+      case 'save': {
+        const updatedValue = this.updatedValue()
+        if (updatedValue) {
+          this.dataService.save(updatedValue)
+          this.updateState!({ isDirty: false })
+        }
+        break;
+      }
+    }
   }
 }

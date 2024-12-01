@@ -101,7 +101,9 @@ export class FieldsetComponent<T extends { [key: string | number | symbol]: any 
           i++;
         }
         try {
-          currPointingTo[paths.at(-1)!] = formValue[key];
+          let fieldValue = formValue[key];
+          if (this.fieldDefs().find(def => def.key == key)?.fieldType == 'date-time' && typeof fieldValue == 'string') fieldValue = new Date(fieldValue)
+          currPointingTo[paths.at(-1)!] = fieldValue;
         } catch (e) { /* ignores as this is purposefully caused by the Object.seal */ }
       }
       this.onChange?.(newValue);

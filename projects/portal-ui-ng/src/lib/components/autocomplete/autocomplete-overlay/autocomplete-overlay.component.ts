@@ -32,7 +32,6 @@ export class AutocompleteOverlayComponent<D> {
 
   constructor() {
     const keydown = (event: KeyboardEvent) => {
-      // if ((event.target instanceof HTMLInputElement) || (event.target instanceof HTMLTextAreaElement) || (event.target instanceof HTMLElement && !!event.target.contentEditable)) return;
       this.zone.run(() => {
         if (event.key == 'ArrowDown') {
           this.nextOption();

@@ -1,5 +1,5 @@
 import { inject, Injectable, signal } from '@angular/core';
-import { ActionDrawerLayoutDataProvider, EditableContentComponent, EditableContentDataProvider, ObjectJsonSchema, OVERLAY_DATA, PuiOverlayRef } from 'portal-ui-ng';
+import { ActionDrawerLayoutDataProvider, EditableContentComponent, EditableContentDataProvider, LayoutControlConfig, ObjectJsonSchema, OVERLAY_DATA, PuiOverlayRef } from 'portal-ui-ng';
 import { EmployeeDepartment, EmployeeStatus } from '../../../data/user.types';
 
 @Injectable()
@@ -8,7 +8,6 @@ export class EmployeeAdvanceFilterService implements ActionDrawerLayoutDataProvi
 
   configuration = {
     content: EditableContentComponent,
-    hasRefreshControl: false,
   }
 
   // ActionDrawerLayoutDataProvider
@@ -32,13 +31,42 @@ export class EmployeeAdvanceFilterService implements ActionDrawerLayoutDataProvi
       }
     }
   })
-  state = signal<{ isDisabled?: boolean; isDirty?: boolean; }>({});
-  currentState = signal<{ isValid?: boolean; isDisabled?: boolean; isDirty?: boolean; }>({});
-  cancel(): void {
-    this.overlayRef()?.close()
+  controlsConfig = signal<LayoutControlConfig[]>([
+    {
+      id: 'cancel',
+      label: 'Cancel',
+      icon: 'close'
+    },
+    {
+      id: 'apply',
+      label: 'Apply',
+      icon: 'filter_alt'
+    }
+  ]);
+  private updatedValue = signal<any>(undefined)
+
+  private updateState?: (state: { isDisabled?: boolean; isDirty?: boolean; }) => void;
+  registerUpdateState(fn: (state: { isDisabled?: boolean; isDirty?: boolean; }) => void): void {
+    this.updateState = fn;
+    this.updateState({ isDirty: true })
   }
-  save(value: any): void {
-    this.overlayData?.['onFilterApply']?.(value)
-    this.overlayRef()?.close()
+  onValueChange(value: any): void {
+    this.updatedValue.set(value)
+  }
+  onControlClick(key: string, event: MouseEvent): void {
+    switch (key) {
+      case 'cancel': {
+        this.overlayRef()?.close()
+        break;
+      }
+      case 'apply': {
+        const updatedValue = this.updatedValue();
+        if (updatedValue) {
+          this.overlayData?.['onFilterApply']?.(updatedValue)
+          this.overlayRef()?.close()
+        }
+        break;
+      }
+    }
   }
 }

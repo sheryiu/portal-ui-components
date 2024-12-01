@@ -78,8 +78,8 @@ export class AutocompleteTriggerDirective<D> {
         minWidth: this.overlayConfig()?.minWidth ?? '20svw',
         width: this.elementRef.nativeElement.getBoundingClientRect().width,
         maxWidth: this.overlayConfig()?.maxWidth ?? '90svw',
-        minHeight: this.overlayConfig()?.minHeight ?? '24rem',
-        maxHeight: this.overlayConfig()?.maxHeight ?? '10svh',
+        minHeight: this.overlayConfig()?.minHeight ?? '4rem',
+        maxHeight: this.overlayConfig()?.maxHeight ?? '40svh',
         data: {
           templateRef: templateRef,
           items: values,

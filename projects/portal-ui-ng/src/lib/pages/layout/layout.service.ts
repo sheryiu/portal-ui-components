@@ -2,11 +2,11 @@ import { computed, Injectable, signal, TemplateRef } from '@angular/core';
 
 export type LayoutControlMode = 'auto' | 'low-emphasis';
 export type LayoutControlConfig = {
-  id: symbol;
+  id: string;
   label: string;
-  isDisabled: boolean;
-  weight: number;
-  mode: LayoutControlMode;
+  isDisabled?: boolean;
+  weight?: number;
+  mode?: LayoutControlMode;
   icon?: string;
   iconTemplateRef?: TemplateRef<unknown>;
 }
@@ -14,39 +14,37 @@ export type LayoutControlConfig = {
 @Injectable()
 export class LayoutService {
   private _controls = signal<Array<LayoutControlConfig>>([])
-  controls = computed(() => this._controls().toSorted((a, b) => a.weight - b.weight));
-  mostEmphasizedControlId = computed(() => this.controls().filter(c => c.mode == 'auto').at(-1)?.id)
+  controls = computed(() => this._controls().toSorted((a, b) => (a.weight ?? 0) - (b.weight ?? 0)));
+  mostEmphasizedControlId = computed(() => this.controls().filter(c => !c.mode || c.mode == 'auto').at(-1)?.id)
 
-  private eventsMap: Record<symbol, {
+  private eventsMap: Record<string, {
     click?: (event: MouseEvent) => void;
   }> = {};
 
   registerControl(
-    config: Omit<LayoutControlConfig, 'id'>,
+    config: LayoutControlConfig,
     events: {
       click?: (event: MouseEvent) => void;
     }
   ) {
-    const id = Symbol();
     this._controls.update(curr => [
       ...curr,
       {
-        id,
         ...config,
       }
     ])
-    this.eventsMap[id] = events;
+    this.eventsMap[config.id] = events;
     return {
-      update: (config: Omit<LayoutControlConfig, 'id'>) => {
-        this._controls.update(curr => curr.map(c => c.id == id ? {...c, ...config} : c))
+      update: (config: LayoutControlConfig) => {
+        this._controls.update(curr => curr.map(c => c.id == config.id ? {...c, ...config} : c))
       },
       dispose: () => {
-        this._controls.update(curr => curr.filter(c => c.id != id))
+        this._controls.update(curr => curr.filter(c => c.id != config.id))
       }
     }
   }
 
-  controlOnClick(id: symbol, event: MouseEvent) {
+  controlOnClick(id: string, event: MouseEvent) {
     this.eventsMap[id]?.click?.(event)
   }
 }

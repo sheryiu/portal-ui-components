@@ -1,6 +1,7 @@
 import { InjectionToken, Signal, WritableSignal } from '@angular/core';
 import { Params } from '@angular/router';
 import { LiteralUnion } from '../../base';
+import { LayoutControlConfig } from '../layout/layout.service';
 
 // TODO actually not json schema, rename later
 export type JsonSchema = ObjectJsonSchema | NumberJsonSchema | BooleanJsonSchema | StringJsonSchema | ArrayJsonSchema | DateTimeJsonSchema;
@@ -42,25 +43,29 @@ export type DateTimeJsonSchema = {
 }
 
 export interface EditableContentDataProvider<T> {
-  readonly configuration?: {
-    hasRefreshControl?: boolean;
-  };
   params?: WritableSignal<Params>;
   queryParams?: WritableSignal<Params>;
+  // data
   data: Signal<T | null | undefined>;
   jsonSchema: Signal<ObjectJsonSchema>;
-  state: WritableSignal<{
-    isDisabled?: boolean;
-    isDirty?: boolean;
-  }>;
-  currentState: WritableSignal<{
+  registerUpdateState?(fn: (state: { isDisabled?: boolean; isDirty?: boolean }) => void): void;
+  onStateChange?(state: {
     isValid?: boolean;
     isDisabled?: boolean;
     isDirty?: boolean;
-  }>;
-  refresh?(): void;
-  cancel(): void;
-  save(value: T): void;
+  }): void;
+  onValueChange?(value: T): void;
+  // controls
+  controlsConfig?: Signal<LayoutControlConfig[]>;
+  onControlClick?(key: string, event: MouseEvent): void;
 }
 
+export const EDITABLE_CONTENT_DEFAULT_CONTROLS: ReadonlyArray<LayoutControlConfig> = [
+  {
+    id: 'refresh',
+    label: 'Refresh',
+    icon: 'refresh',
+    mode: 'low-emphasis'
+  }
+]
 export const EDITABLE_CONTENT_DATA_PROVIDER = new InjectionToken<EditableContentDataProvider<any>>('editable content data provider')

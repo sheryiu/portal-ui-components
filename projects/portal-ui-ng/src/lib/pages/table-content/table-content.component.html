@@ -1,7 +1,7 @@
 <main>
   @let filterConfig = flattenSimpleFilterDef();
-  @if (filterConfig) {
-    <pui-fieldset [formControl]="simpleFilterFormControl">
+  @if (filterConfig.length > 0) {
+    <pui-fieldset [formControl]="simpleFilterFormControl" (valueChange)="onSimpleFilterValueChange($event)">
       @for (control of flattenSimpleFilterDef(); track control.key) {
         <pui-field-def
           [key]="control.key"
@@ -20,7 +20,7 @@
 
   <pui-table
     [itemHeight]="48"
-    [columns]="columnsToDisplay() ?? []"
+    [columns]="columnsToDisplay()"
   >
 
     @for (config of columnConfig(); track config.key) {
@@ -67,7 +67,7 @@
         @defer {
           <!-- TODO item height -->
           <cdk-virtual-scroll-viewport
-            [style.height.px]="(data()?.length ?? 0) * 48"
+            [style.height.px]="data().length * 48"
             itemSize="48"
             scrollWindow
           >
@@ -89,24 +89,15 @@
   </pui-table>
 </main>
 
-@if (configuration?.hasAdvanceFilterControl) {
+@for (config of controlsConfig(); track config.id) {
   <pui-layout-control
-    label="Filter"
-    icon="filter_alt"
-    (click)="onFilterClick()"
-  ></pui-layout-control>
-}
-@if (configuration?.hasRefreshControl) {
-  <pui-layout-control
-    label="Refresh"
-    icon="refresh"
-    (click)="onRefreshClick()"
-  ></pui-layout-control>
-}
-@if (configuration?.hasAddControl) {
-  <pui-layout-control
-    label="Add new"
-    icon="add"
-    (click)="onAddClick()"
+    [id]="config.id"
+    [label]="config.label"
+    [icon]="config.icon"
+    [iconTemplateRef]="config.iconTemplateRef"
+    [disabled]="config.isDisabled"
+    [weight]="config.weight"
+    [mode]="config.mode"
+    (click)="onControlClick(config.id, $event)"
   ></pui-layout-control>
 }

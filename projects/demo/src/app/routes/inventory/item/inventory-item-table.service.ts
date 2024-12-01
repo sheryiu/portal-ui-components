@@ -1,4 +1,4 @@
-import { computed, effect, inject, Injectable, signal, Signal, WritableSignal } from '@angular/core';
+import { computed, effect, inject, Injectable, signal, Signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { ACTION_DRAWER_LAYOUT_DATA_PROVIDER, ActionDrawerOverlayService, ColumnConfig, EDITABLE_CONTENT_DATA_PROVIDER, TableContentDataProvider } from 'portal-ui-ng';
 import { InventoryItemDataService } from '../../../data/inventory-item-data.service';
@@ -12,11 +12,9 @@ export class InventoryItemTableService implements TableContentDataProvider<Inven
   private rawData = toSignal(this.dataService.getList())
 
   configuration = {
-    hasAddControl: true,
-    hasRefreshControl: true,
     useVirtualScroll: true,
   };
-  data: WritableSignal<InventoryItem[]> = signal([]);
+  data = signal<InventoryItem[]>([]);
   columnsConfig = signal<ColumnConfig[]>([
     {
       key: 'belongsTo',
@@ -61,13 +59,11 @@ export class InventoryItemTableService implements TableContentDataProvider<Inven
   columnsToDisplay: Signal<string[]> = signal([
     'belongsTo', 'netWeight', 'grossWeight', 'isContainFragile', 'status', 'arrivedAt'
   ]);
-  currentSimpleFilter = signal<any>({})
+  simpleFilterValue = signal<any>({})
   private sortFn = computed<(a: InventoryItem, b: InventoryItem) => number>(() => {
     const column = this.columnsConfig().find(config => config.isSortedAsc || config.isSortedDesc)
     if (!column) return () => 0;
-    const isDesc = column.isSortedDesc
-      ? -1
-      : 1;
+    const isDesc = column.isSortedDesc ? -1 : 1;
     return (a, b) => {
       switch (column.key) {
         case 'arrivedAt': return (a.arrivedAt.getTime() - b.arrivedAt.getTime()) * isDesc;
@@ -75,25 +71,27 @@ export class InventoryItemTableService implements TableContentDataProvider<Inven
       }
     }
   })
+  private filterFn = computed<(item: InventoryItem) => boolean>(() => {
+    const filter = this.simpleFilterValue();
+    const hasFilter = Object.values(filter ?? {}).some(v => !!v);
+    return (item) => true
+  })
 
   constructor() {
     effect(() => {
-      const filter = this.currentSimpleFilter()
       const rawData = this.rawData()
       if (!rawData) return;
-      const hasFilter = Object.values(filter ?? {}).some(v => !!v);
-      this.data.set(
-        (hasFilter
-          ? rawData.filter(item => {
-            return true;
-          })
-          : rawData)
-          .toSorted(this.sortFn())
+      this.data.set(rawData
+        .filter(this.filterFn())
+        .sort(this.sortFn())
       )
     }, { allowSignalWrites: true })
   }
 
-  headerCellClick(columnKey: string, event: MouseEvent): void {
+  routeToDetail?(item: InventoryItem): any[] {
+    return ['detail', item.id]
+  }
+  onHeaderCellClick(columnKey: string, event: MouseEvent): void {
     this.columnsConfig.update(columns => {
       return columns.map(config => config.key == columnKey
         ? { ...config, isSortedAsc: (!config.isSortedAsc && !config.isSortedDesc) ? true : !!config.isSortedDesc, isSortedDesc: !!config.isSortedAsc }
@@ -101,20 +99,22 @@ export class InventoryItemTableService implements TableContentDataProvider<Inven
       )
     })
   }
-  routeToDetail?(item: InventoryItem): any[] {
-    return ['detail', item.id]
-  }
-  add(): void {
-    this.actionDrawer.open(
-      InventoryItemAddService,
-      {
-        providers: [
+  onControlClick(key: string, event: MouseEvent): void {
+    switch (key) {
+      case 'add': {
+        this.actionDrawer.open(
+          InventoryItemAddService,
           {
-            provide: EDITABLE_CONTENT_DATA_PROVIDER,
-            useExisting: ACTION_DRAWER_LAYOUT_DATA_PROVIDER,
+            providers: [
+              {
+                provide: EDITABLE_CONTENT_DATA_PROVIDER,
+                useExisting: ACTION_DRAWER_LAYOUT_DATA_PROVIDER,
+              }
+            ]
           }
-        ]
+        )
+        break;
       }
-    )
+    }
   }
 }

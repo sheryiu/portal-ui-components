@@ -1,6 +1,6 @@
-import { computed, effect, inject, Injectable, signal, Signal, WritableSignal } from '@angular/core';
+import { computed, effect, inject, Injectable, signal, Signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { ColumnConfig, TableContentDataProvider } from 'portal-ui-ng';
+import { ColumnConfig, LayoutControlConfig, TableContentDataProvider } from 'portal-ui-ng';
 import { InventoryShelfDataService } from '../../../data/inventory-shelf-data.service';
 import { InventoryShelf } from '../../../data/inventory.types';
 
@@ -10,11 +10,9 @@ export class InventoryShelfTableService implements TableContentDataProvider<Inve
   private rawData = toSignal(this.dataService.getList())
 
   configuration = {
-    hasAddControl: false,
-    hasRefreshControl: true,
     useVirtualScroll: true,
   };
-  data: WritableSignal<InventoryShelf[]> = signal([]);
+  data = signal<InventoryShelf[]>([]);
   columnsConfig = signal<ColumnConfig[]>([
     {
       key: 'aisle',
@@ -49,13 +47,19 @@ export class InventoryShelfTableService implements TableContentDataProvider<Inve
   columnsToDisplay: Signal<string[]> = signal([
     'aisle', 'row', 'layer', 'maxCapacity', 'isAllowFragileItems'
   ]);
-  currentSimpleFilter = signal<any>({})
+  controlsConfig = signal<LayoutControlConfig[]>([
+    {
+      id: 'refresh',
+      label: 'Refresh',
+      icon: 'refresh',
+      mode: 'low-emphasis'
+    }
+  ]);
+  simpleFilterValue = signal<any>({})
   private sortFn = computed<(a: InventoryShelf, b: InventoryShelf) => number>(() => {
     const column = this.columnsConfig().find(config => config.isSortedAsc || config.isSortedDesc)
     if (!column) return () => 0;
-    const isDesc = column.isSortedDesc
-      ? -1
-      : 1;
+    const isDesc = column.isSortedDesc ? -1 : 1;
     return (a, b) => {
       switch (column.key) {
         case 'aisle':
@@ -66,25 +70,24 @@ export class InventoryShelfTableService implements TableContentDataProvider<Inve
       }
     }
   })
+  private filterFn = computed<(item: InventoryShelf) => boolean>(() => {
+    const filter = this.simpleFilterValue();
+    const hasFilter = Object.values(filter ?? {}).some(v => !!v);
+    return (item) => true
+  })
 
   constructor() {
     effect(() => {
-      const filter = this.currentSimpleFilter()
       const rawData = this.rawData()
       if (!rawData) return;
-      const hasFilter = Object.values(filter ?? {}).some(v => !!v);
-      this.data.set(
-        (hasFilter
-          ? rawData.filter(item => {
-            return true;
-          })
-          : rawData)
-          .toSorted(this.sortFn())
+      this.data.set(rawData
+        .filter(this.filterFn())
+        .sort(this.sortFn())
       )
     }, { allowSignalWrites: true })
   }
 
-  headerCellClick(columnKey: string, event: MouseEvent): void {
+  onHeaderCellClick(columnKey: string, event: MouseEvent): void {
     this.columnsConfig.update(columns => {
       return columns.map(config => config.key == columnKey
         ? { ...config, isSortedAsc: (!config.isSortedAsc && !config.isSortedDesc) ? true : !!config.isSortedDesc, isSortedDesc: !!config.isSortedAsc }

@@ -1,6 +1,6 @@
 import { inject, Injectable, signal, Signal, WritableSignal } from '@angular/core';
 import { faker } from '@faker-js/faker';
-import { ActionDrawerLayoutDataProvider, EditableContentComponent, EditableContentDataProvider, ObjectJsonSchema, PuiOverlayRef } from 'portal-ui-ng';
+import { ActionDrawerLayoutDataProvider, EditableContentComponent, EditableContentDataProvider, LayoutControlConfig, ObjectJsonSchema, PuiOverlayRef } from 'portal-ui-ng';
 import { InventoryItemDataService } from '../../../data/inventory-item-data.service';
 import { InventoryItem, InventoryItemContentType, InventoryItemStatus } from '../../../data/inventory.types';
 
@@ -10,7 +10,6 @@ export class InventoryItemAddService implements ActionDrawerLayoutDataProvider, 
 
   configuration = {
     content: EditableContentComponent,
-    hasRefreshControl: false,
   };
 
   // EditableContentDataProvider
@@ -75,18 +74,50 @@ export class InventoryItemAddService implements ActionDrawerLayoutDataProvider, 
       }
     }
   });
-  state: WritableSignal<{ isDisabled?: boolean; isDirty?: boolean; }> = signal({ isDirty: true });
-  currentState: WritableSignal<{ isValid?: boolean; isDisabled?: boolean; isDirty?: boolean; }> = signal({});
-  cancel(): void {
-    this.data.set({} as any)
-    this.overlayRef()?.close();
+  controlsConfig = signal<LayoutControlConfig[]>([
+    {
+      id: 'cancel',
+      label: 'Cancel',
+      icon: 'close',
+      mode: 'low-emphasis'
+    },
+    {
+      id: 'save',
+      label: 'Save',
+      icon: 'save'
+    }
+  ]);
+  private updatedValue = signal<InventoryItem | undefined>(undefined)
+
+  private updateState?: (state: { isDisabled?: boolean; isDirty?: boolean; }) => void;
+  registerUpdateState(fn: (state: { isDisabled?: boolean; isDirty?: boolean; }) => void): void {
+    this.updateState = fn;
+    this.updateState({ isDirty: true })
   }
-  save(value: InventoryItem): void {
-    value.id = faker.string.nanoid();
-    value.contents?.forEach(content => {
-      content.id = faker.string.nanoid(12)
-    })
-    this.dataService.add(value);
+
+  onValueChange(value: InventoryItem): void {
+    this.updatedValue.set(value)
+  }
+  onControlClick(key: string, event: MouseEvent): void {
+    switch (key) {
+      case 'cancel': {
+        this.data.set({} as any)
+        this.overlayRef()?.close()
+        break;
+      }
+      case 'save': {
+        let updatedValue = this.updatedValue()
+        if (updatedValue) {
+          updatedValue = Object.assign(updatedValue, {
+            id: faker.string.nanoid(),
+            contents: updatedValue.contents.map(c => Object.assign(c, { id: faker.string.nanoid(12) }))
+          })
+          this.dataService.add(updatedValue);
+          this.overlayRef()?.close()
+        }
+        break;
+      }
+    }
   }
 
   // ActionDrawerLayoutDataProvider

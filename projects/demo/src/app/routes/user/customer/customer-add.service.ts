@@ -1,6 +1,6 @@
 import { inject, Injectable, Signal, signal, WritableSignal } from '@angular/core';
 import { faker } from '@faker-js/faker';
-import { ActionDrawerLayoutDataProvider, EditableContentComponent, EditableContentDataProvider, ObjectJsonSchema, PuiOverlayRef } from 'portal-ui-ng';
+import { ActionDrawerLayoutDataProvider, EditableContentComponent, EditableContentDataProvider, LayoutControlConfig, ObjectJsonSchema, PuiOverlayRef } from 'portal-ui-ng';
 import { CustomerDataService } from '../../../data/customer-data.service';
 import { Customer } from '../../../data/user.types';
 
@@ -10,9 +10,9 @@ export class CustomerAddService implements ActionDrawerLayoutDataProvider, Edita
 
   configuration = {
     content: EditableContentComponent,
-    hasRefreshControl: false,
   }
 
+  // EditableContentDataProvider
   data = signal(null);
   jsonSchema = signal<ObjectJsonSchema>({
     type: 'object',
@@ -103,17 +103,50 @@ export class CustomerAddService implements ActionDrawerLayoutDataProvider, Edita
       }
     }
   });
-  state: WritableSignal<{ isDisabled?: boolean; isDirty?: boolean; }> = signal({ isDirty: true });
-  currentState: WritableSignal<{ isValid?: boolean; isDisabled?: boolean; isDirty?: boolean; }> = signal({});
-  cancel(): void {
-    this.data.set({} as any)
-    this.overlayRef()?.close()
-  }
-  save(value: Customer): void {
-    value.id = faker.string.nanoid();
-    this.dataService.add(value);
+  controlsConfig = signal<LayoutControlConfig[]>([
+    {
+      id: 'cancel',
+      label: 'Cancel',
+      icon: 'close',
+      mode: 'low-emphasis'
+    },
+    {
+      id: 'save',
+      label: 'Save',
+      icon: 'save'
+    }
+  ]);
+  private updatedValue = signal<Customer | undefined>(undefined)
+
+  private updateState?: (state: { isDisabled?: boolean; isDirty?: boolean; }) => void;
+  registerUpdateState(fn: (state: { isDisabled?: boolean; isDirty?: boolean; }) => void): void {
+    this.updateState = fn;
+    this.updateState({ isDirty: true })
   }
 
+  onValueChange(value: Customer): void {
+    this.updatedValue.set(value)
+  }
+  onControlClick(key: string, event: MouseEvent): void {
+    switch (key) {
+      case 'cancel': {
+        this.data.set({} as any)
+        this.overlayRef()?.close()
+        break;
+      }
+      case 'save': {
+        let updatedValue = this.updatedValue()
+        if (updatedValue) {
+          updatedValue = Object.assign(updatedValue, { id: faker.string.nanoid() })
+          this.dataService.add(updatedValue);
+          this.overlayRef()?.close()
+        }
+        break;
+      }
+    }
+  }
+
+  // ActionDrawerLayoutDataProvider
   heading: Signal<string> = signal('Add Customer');
   overlayRef: WritableSignal<PuiOverlayRef | null> = signal(null)
 }
