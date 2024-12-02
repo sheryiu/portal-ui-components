@@ -13,6 +13,10 @@
       /** anchoring to bottom causes strange animations */
     }
   }
+
+  .pui-divider {
+    @apply px-3;
+  }
 }
 
 .pui-vertical-navigation-menu__item {
@@ -57,7 +61,7 @@
     @apply before:-inset-1;
   }
   &:has(> .pui-vertical-navigation-menu__item--opened) > .pui-vertical-navigation-menu__group__children > * {
-    @apply ms-2;
+    @apply mx-1;
   }
 }
 

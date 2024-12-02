@@ -6,8 +6,8 @@ import { IsActiveMatchOptions, NavigationBehaviorOptions, UrlCreationOptions } f
   standalone: true,
 })
 export abstract class VerticalNavigationMenuChild {
-  readonly abstract type: 'item' | 'group';
-  label = input.required<string>();
+  readonly abstract type: 'item' | 'group' | 'divider';
+  label = input<string>();
   icon = input<string>();
   iconTemplateRef = input<TemplateRef<unknown>>();
   route = input<any[]>();

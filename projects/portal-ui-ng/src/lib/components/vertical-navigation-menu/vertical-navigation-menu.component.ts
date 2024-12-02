@@ -3,6 +3,8 @@ import { afterNextRender, Component, contentChildren, DestroyRef, inject, Inject
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { ButtonModule, TypedTemplateDirective } from '../../base';
 import { AccordionModule, AccordionTriggerDirective } from '../accordion';
+import { DividerComponent } from '../divider';
+import { MenuDividerDirective } from './menu-divider.directive';
 import { MenuGroupDirective } from './menu-group.directive';
 import { MenuItemDirective } from './menu-item.directive';
 import { VERTICAL_NAVIGATION_MENU_CHILD } from './vertical-navigation-menu';
@@ -18,6 +20,7 @@ import { VERTICAL_NAVIGATION_MENU_CHILD } from './vertical-navigation-menu';
     RouterLinkActive,
     TypedTemplateDirective,
     AccordionModule,
+    DividerComponent
   ],
   templateUrl: './vertical-navigation-menu.component.html',
   styles: ``,
@@ -31,10 +34,10 @@ export class VerticalNavigationMenuComponent {
   private injector = inject(Injector)
 
   protected typeForGroup!: {
-    children: (MenuItemDirective | MenuGroupDirective)[];
+    children: (MenuItemDirective | MenuGroupDirective | MenuDividerDirective)[];
   }
   protected typeForChild!: {
-    child: MenuItemDirective | MenuGroupDirective;
+    child: MenuItemDirective | MenuGroupDirective | MenuDividerDirective;
   };
   protected children = contentChildren(VERTICAL_NAVIGATION_MENU_CHILD)
   private accordionTriggers = viewChildren(AccordionTriggerDirective)

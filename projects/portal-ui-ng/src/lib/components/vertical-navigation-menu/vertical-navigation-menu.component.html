@@ -4,7 +4,9 @@
 
 <ng-template #group let-children="children" [typedTemplate]="typeForGroup">
 @for (child of children; track $index) {
-  @if (child.type == 'group') {
+  @if (child.type == 'divider') {
+    <pui-divider></pui-divider>
+  } @else if (child.type == 'group') {
     <!-- group -->
     <div class="pui-vertical-navigation-menu__group">
       @if (child.route(); as route) {
