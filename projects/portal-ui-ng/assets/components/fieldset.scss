@@ -35,7 +35,7 @@
   }
 }
 .pui-fieldset__input .pui-input-field {
-  @apply self-stretch grow;
+  @apply self-stretch grow text-base;
   > button {
     @apply self-stretch px-3 text-neutral-800 dark:text-neutral-200;
     i {

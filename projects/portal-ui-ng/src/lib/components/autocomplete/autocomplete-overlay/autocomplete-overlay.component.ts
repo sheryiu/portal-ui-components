@@ -1,7 +1,7 @@
 import { A11yModule } from '@angular/cdk/a11y';
 import { NgTemplateOutlet } from '@angular/common';
 import { Component, DestroyRef, ElementRef, NgZone, TemplateRef, afterNextRender, effect, inject, viewChildren } from '@angular/core';
-import { HoverableDirective, OVERLAY_DATA } from '../../../base';
+import { ButtonModule, OVERLAY_DATA } from '../../../base';
 
 export type AutocompleteOverlayData<D> = {
   templateRef: TemplateRef<{ $implicit: D; value: string; }>;
@@ -17,7 +17,7 @@ export type AutocompleteOverlayData<D> = {
   imports: [
     NgTemplateOutlet,
     A11yModule,
-    HoverableDirective,
+    ButtonModule,
   ],
   templateUrl: './autocomplete-overlay.component.html',
 })

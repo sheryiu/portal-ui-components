@@ -56,7 +56,7 @@ export interface EditableContentDataProvider<T> {
   }): void;
   onValueChange?(value: T): void;
   // controls
-  controlsConfig?: Signal<LayoutControlConfig[]>;
+  controlsConfig?: Signal<ReadonlyArray<LayoutControlConfig>>;
   onControlClick?(key: string, event: MouseEvent): void;
 }
 
@@ -66,6 +66,19 @@ export const EDITABLE_CONTENT_DEFAULT_CONTROLS: ReadonlyArray<LayoutControlConfi
     label: 'Refresh',
     icon: 'refresh',
     mode: 'low-emphasis'
+  }
+]
+export const EDITABLE_CONTENT_DIRTY_CONTROLS: ReadonlyArray<LayoutControlConfig> = [
+  {
+    id: 'cancel',
+    label: 'Cancel',
+    icon: 'close',
+    mode: 'low-emphasis'
+  },
+  {
+    id: 'save',
+    label: 'Save',
+    icon: 'save'
   }
 ]
 export const EDITABLE_CONTENT_DATA_PROVIDER = new InjectionToken<EditableContentDataProvider<any>>('editable content data provider')

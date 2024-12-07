@@ -1,7 +1,7 @@
 import { computed, effect, inject, Injectable, signal, Signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { Params } from '@angular/router';
-import { EditableContentDataProvider, LayoutControlConfig, ObjectJsonSchema } from 'portal-ui-ng';
+import { EDITABLE_CONTENT_DEFAULT_CONTROLS, EDITABLE_CONTENT_DIRTY_CONTROLS, EditableContentDataProvider, ObjectJsonSchema } from 'portal-ui-ng';
 import { InventoryShelfDataService } from '../../../data/inventory-shelf-data.service';
 import { InventoryShelf } from '../../../data/inventory.types';
 
@@ -63,47 +63,15 @@ export class InventoryShelfEditService implements EditableContentDataProvider<In
   });
   private isDirty = signal(false)
   private updatedValue = signal<InventoryShelf | undefined>(undefined)
-  controlsConfig = computed<LayoutControlConfig[]>(() => {
-    if (this.isDirty()) return [
-      {
-        id: 'cancel',
-        label: 'Cancel',
-        icon: 'close',
-        mode: 'low-emphasis'
-      },
-      {
-        id: 'save',
-        label: 'Save',
-        icon: 'save'
-      }
-    ]
-    else return [
-      {
-        id: 'refresh',
-        label: 'Refresh',
-        icon: 'refresh',
-        mode: 'low-emphasis'
-      }
-    ]
+  controlsConfig = computed(() => {
+    if (this.isDirty()) return EDITABLE_CONTENT_DIRTY_CONTROLS
+    else return EDITABLE_CONTENT_DEFAULT_CONTROLS
   });
 
   constructor() {
     effect(() => {
       this.data.set(structuredClone(this.list()?.find(v => v.id == this.params()['id'])))
     }, { allowSignalWrites: true })
-  }
-
-  refresh(): void {
-    this.data.set(structuredClone(this.list()?.find(v => v.id == this.params()['id'])))
-    this.updateState!({ isDirty: false })
-  }
-  cancel(): void {
-    this.data.set(structuredClone(this.list()?.find(v => v.id == this.params()['id'])))
-    this.updateState!({ isDirty: false })
-  }
-  save(value: InventoryShelf): void {
-    this.dataService.save(value)
-    this.updateState!({ isDirty: false })
   }
 
   private updateState?: (state: { isDisabled?: boolean; isDirty?: boolean; }) => void;

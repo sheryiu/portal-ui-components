@@ -2,7 +2,7 @@
   @for (item of items; track $index) {
     <button
       #options
-      puiHoverable
+      puiBaseButton
       role="option"
       (click)="selectValue(item[0])"
       [attr.data-selected]="selectedOption === options"

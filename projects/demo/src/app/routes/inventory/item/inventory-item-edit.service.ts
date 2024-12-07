@@ -1,7 +1,7 @@
 import { computed, effect, inject, Injectable, signal, Signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { Params } from '@angular/router';
-import { EditableContentDataProvider, LayoutControlConfig, ObjectJsonSchema } from 'portal-ui-ng';
+import { EDITABLE_CONTENT_DEFAULT_CONTROLS, EDITABLE_CONTENT_DIRTY_CONTROLS, EditableContentDataProvider, ObjectJsonSchema } from 'portal-ui-ng';
 import { InventoryItemDataService } from '../../../data/inventory-item-data.service';
 import { InventoryItem, InventoryItemContentType, InventoryItemStatus } from '../../../data/inventory.types';
 
@@ -78,28 +78,9 @@ export class InventoryItemEditService implements EditableContentDataProvider<Inv
   });
   private isDirty = signal(false)
   private updatedValue = signal<InventoryItem | undefined>(undefined)
-  controlsConfig = computed<LayoutControlConfig[]>(() => {
-    if (this.isDirty()) return [
-      {
-        id: 'cancel',
-        label: 'Cancel',
-        icon: 'close',
-        mode: 'low-emphasis'
-      },
-      {
-        id: 'save',
-        label: 'Save',
-        icon: 'save'
-      }
-    ]
-    else return [
-      {
-        id: 'refresh',
-        label: 'Refresh',
-        icon: 'refresh',
-        mode: 'low-emphasis'
-      }
-    ]
+  controlsConfig = computed(() => {
+    if (this.isDirty()) return EDITABLE_CONTENT_DIRTY_CONTROLS
+    else return EDITABLE_CONTENT_DEFAULT_CONTROLS
   });
 
   constructor() {

@@ -1,5 +1,9 @@
 export type Customer = {
   id: string;
+  profile: {
+    color: string;
+    icon: string;
+  };
   name: string;
   username: string;
   email: string;

@@ -12,5 +12,18 @@ export class CustomerDetailService implements VerticalLayoutDataProvider {
   params: WritableSignal<Params> = signal({});
   queryParams: WritableSignal<Params> = signal({});
   heading: Signal<string> = computed(() => this.list()?.find(v => v.id == this.params()['id'])?.name ?? '--');
-  tabs: Signal<TabConfig[]> = signal([]);
+  tabs = signal<TabConfig[]>([
+    {
+      label: 'Info',
+      route: ['info'],
+    },
+    {
+      label: 'Addresses',
+      route: ['address'],
+    },
+    {
+      label: 'Raw',
+      route: ['raw']
+    }
+  ]);
 }
