@@ -64,7 +64,7 @@
     <pui-table-body>
       <pui-table-header-row></pui-table-header-row>
       @if (configuration?.useVirtualScroll) {
-        @defer {
+        @if (isBrowser) {
           <!-- TODO item height -->
           <cdk-virtual-scroll-viewport
             [style.height.px]="data().length * 48"

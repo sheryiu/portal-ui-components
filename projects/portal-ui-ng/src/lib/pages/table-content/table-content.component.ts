@@ -1,5 +1,6 @@
 import { ScrollingModule } from '@angular/cdk/scrolling';
-import { Component, computed, effect, inject } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
+import { Component, computed, effect, inject, PLATFORM_ID } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
@@ -30,6 +31,7 @@ import { TABLE_CONTENT_DATA_PROVIDER, TABLE_CONTENT_DEFAULT_CONTROLS, TableConte
 export class TableContentComponent<T> {
   private route = inject(ActivatedRoute);
   private dataProvider = inject(TABLE_CONTENT_DATA_PROVIDER) as (TableContentDataProvider<T>)
+  protected isBrowser = isPlatformBrowser(inject(PLATFORM_ID))
 
   protected readonly ROUTE_TO_DETAIL = Symbol();
   protected configuration = this.dataProvider.configuration;

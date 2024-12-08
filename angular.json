@@ -97,7 +97,7 @@
             ],
             "styles": [
               "projects/demo/src/styles.scss",
-              "node_modules/vanilla-calendar-pro/build/vanilla-calendar.min.css"
+              "node_modules/vanilla-calendar-pro/styles/index.css"
             ],
             "scripts": [],
             "server": "projects/demo/src/main.server.ts",

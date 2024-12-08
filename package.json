@@ -34,7 +34,7 @@
     "nanoid": "^5.0.3",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
-    "vanilla-calendar-pro": "^2.9.10",
+    "vanilla-calendar-pro": "^3.0.1",
     "zone.js": "~0.14.10"
   },
   "devDependencies": {
