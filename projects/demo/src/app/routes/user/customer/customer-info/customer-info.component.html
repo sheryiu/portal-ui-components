@@ -1,13 +1,106 @@
 <main class="grow light-glass-bg rounded-4 p-8">
   <div class="grid grid-cols-3 gap-8">
+    <!-- overall card -->
+    <div class="light-glass-bg-subtle rounded-4 p-8 col-span-2">
+      <div class="flex flex-row gap-4 items-stretch h-full overflow-x-auto">
+        <div class="rounded-3 flex-1 border dark:bg-blue-800 flex flex-col p-4 transition-colors">
+          <h3 class="dark:text-blue-200">Completed<br/>Sales</h3>
+          <div class="spacer"></div>
+          <span class="text-2xl font-bold self-end text-end tabular-nums">$2,000</span>
+        </div>
+        <div class="rounded-3 flex-1 border dark:bg-emerald-800 flex flex-col p-4 transition-colors" [ngClass]="{
+          'bg-emerald-300 dark:bg-emerald-800': awaitingPaymentsCount() > 0,
+          'border-emerald-300/70 dark:border-emerald-800/70': awaitingPaymentsCount() == 0
+        }">
+          <h3 class="dark:text-emerald-200">Awaiting<br/>Payments</h3>
+          <div class="spacer"></div>
+          <span class="text-2xl font-bold self-end text-end tabular-nums">{{ awaitingPaymentsCount() }}</span>
+        </div>
+        <div class="rounded-3 flex-1 border flex flex-col p-4 transition-colors" [ngClass]="{
+          'bg-amber-300 dark:bg-amber-800': repackageCount() > 0,
+          'border-amber-300/70 dark:border-amber-800/70': repackageCount() == 0
+        }">
+          <h3 class="text-amber-700 dark:text-amber-200">Repackage<br/>Requests</h3>
+          <div class="spacer"></div>
+          <span class="text-2xl font-bold self-end text-end tabular-nums">{{ repackageCount() }}</span>
+        </div>
+      </div>
+    </div>
     <!-- profile card -->
     <div class="light-glass-bg-subtle rounded-4 p-8">
       <div class="flex flex-col items-center gap-2">
-        <div class="p-4 rounded-full bg-neutral-500 shadow-md shadow-neutral-500 transition-colors" [style.--color-neutral-500]="data()?.profile?.color">
-          <i class="icon-10 font-variation-fill">{{ data()?.profile?.icon }}</i>
+        <div class="p-4 rounded-full bg-neutral-500 shadow-md shadow-neutral-500 transition-colors" [style.--color-neutral-500]="customer()?.profile?.color">
+          <i class="icon-10 font-variation-fill">{{ customer()?.profile?.icon }}</i>
         </div>
-        <h2 class="w-full text-center break-anywhere whitespace-normal">{{ data()?.name }}</h2>
-        <span class="text-base">Joined since <pui-time-display [date]="data()?.registeredSince" [format]="'dd MMM yyyy'"></pui-time-display></span>
+        <h2 class="w-full text-center break-anywhere whitespace-normal">{{ customer()?.username ?? '---' }}</h2>
+        <span class="text-sm text-center text-neutral-800 dark:text-neutral-200 before:content-['#']">{{ customer()?.id ?? '----' }}</span>
+        <span class="text-base text-center">Joined since <pui-time-display [date]="customer()?.registeredSince" [format]="'dd MMM yyyy'"></pui-time-display></span>
+      </div>
+    </div>
+    <!-- historic data card -->
+    <div class="light-glass-bg-subtle rounded-4 p-8 col-span-2">
+      <h3>Recent Inventory</h3>
+      <pui-table-content></pui-table-content>
+      <div class="flex flex-row justify-end items-center">
+        <button
+          puiBorderedButton
+          color="primary"
+          class="rounded-full px-4 py-2"
+        >
+          View all ({{ inventoryItems().length }})
+        </button>
+      </div>
+    </div>
+    <!-- additional details -->
+    <div class="light-glass-bg-subtle rounded-4 p-8">
+      <h3>Detailed information</h3>
+      <div class="flex flex-col pt-6 gap-4">
+        <div class="flex flex-row items-center gap-2">
+          <i class="icon-6 font-variation-weight-light text-neutral-800 dark:text-neutral-200">person</i>
+          <div class="flex flex-col gap-1">
+            <span class="text-sm text-neutral-800 dark:text-neutral-200">Fullname</span>
+            <span class="text-base">{{ customer()?.name ?? '----' }}</span>
+          </div>
+        </div>
+        <pui-divider></pui-divider>
+        <div class="flex flex-row items-center gap-2">
+          <i class="icon-6 font-variation-weight-light text-neutral-800 dark:text-neutral-200">person</i>
+          <div class="flex flex-col gap-1">
+            <span class="text-sm text-neutral-800 dark:text-neutral-200">Username</span>
+            <span class="text-base">{{ customer()?.username ?? '----' }}</span>
+          </div>
+        </div>
+        <pui-divider></pui-divider>
+        <div class="flex flex-row items-center gap-2">
+          <i class="icon-6 font-variation-weight-light text-neutral-800 dark:text-neutral-200">phone</i>
+          <div class="flex flex-col gap-1">
+            <span class="text-sm text-neutral-800 dark:text-neutral-200">Phone number</span>
+            <span class="text-base">{{ customer()?.phone ?? '----' }}</span>
+          </div>
+        </div>
+        <pui-divider></pui-divider>
+        <div class="flex flex-row items-center gap-2">
+          <i class="icon-6 font-variation-weight-light text-neutral-800 dark:text-neutral-200">email</i>
+          <div class="flex flex-col gap-1">
+            <span class="text-sm text-neutral-800 dark:text-neutral-200">Email address</span>
+            <span class="text-base">{{ customer()?.email ?? '----' }}</span>
+          </div>
+        </div>
+        <pui-divider></pui-divider>
+        <div class="flex flex-row items-center gap-2">
+          <i class="icon-6 font-variation-weight-light text-neutral-800 dark:text-neutral-200">location_on</i>
+          <div class="flex flex-col gap-1">
+            <span class="text-sm text-neutral-800 dark:text-neutral-200">Main address</span>
+            @if (customer()?.address) {
+              <span class="text-base">{{ customer()?.address?.line1 }}</span>
+              <span class="text-base">{{ customer()?.address?.line2 }}</span>
+              <span class="text-base">{{ customer()?.address?.city }}, {{ customer()?.address?.state }}</span>
+              <span class="text-base">{{ customer()?.address?.country }} {{ customer()?.address?.postalCode }}</span>
+            } @else {
+              <span class="text-base">----</span>
+            }
+          </div>
+        </div>
       </div>
     </div>
   </div>

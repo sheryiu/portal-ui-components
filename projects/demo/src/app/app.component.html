@@ -39,6 +39,15 @@
         [route]="['/monitoring']"
       ></pui-menu-item>
       <pui-menu-group
+        label="Sales"
+        icon="point_of_sale"
+      >
+        <pui-menu-item label="Orders" [route]="['/sales', 'order']"></pui-menu-item>
+        <pui-menu-item label="Payments" [route]="['/sales', 'payment']"></pui-menu-item>
+        <pui-menu-divider></pui-menu-divider>
+        <pui-menu-item label="Reports" icon="monitoring" [route]="['/sales', 'report']"></pui-menu-item>
+      </pui-menu-group>
+      <pui-menu-group
         label="Inventory"
         icon="trolley"
       >

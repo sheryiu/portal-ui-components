@@ -1,6 +1,6 @@
 import { computed, effect, inject, Injectable, signal, Signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { ACTION_DRAWER_LAYOUT_DATA_PROVIDER, ActionDrawerOverlayService, ColumnConfig, EDITABLE_CONTENT_DATA_PROVIDER, TableContentDataProvider } from 'portal-ui-ng';
+import { ACTION_DRAWER_LAYOUT_DATA_PROVIDER, ActionDrawerOverlayService, ColumnConfig, EDITABLE_CONTENT_DATA_PROVIDER, ObjectJsonSchema, TableContentDataProvider } from 'portal-ui-ng';
 import { CustomerDataService } from '../../../data/customer-data.service';
 import { Customer } from '../../../data/user.types';
 import { CustomerAddService } from './customer-add.service';
@@ -51,6 +51,19 @@ export class CustomerTableService implements TableContentDataProvider<Customer> 
   columnsToDisplay: Signal<string[]> = signal([
     'name', 'username', 'email', 'phone', 'line2', 'registeredSince',
   ]);
+  simpleFilterConfig = signal<ObjectJsonSchema>({
+    type: 'object',
+    properties: {
+      name: {
+        type: 'string',
+        description: 'Name',
+      },
+      id: {
+        type: 'string',
+        description: 'ID',
+      }
+    }
+  })
   simpleFilterValue = signal<any>({})
   private sortFn = computed<(a: Customer, b: Customer) => number>(() => {
     const column = this.columnsConfig().find(config => config.isSortedAsc || config.isSortedDesc)
@@ -67,7 +80,11 @@ export class CustomerTableService implements TableContentDataProvider<Customer> 
   private filterFn = computed<(item: Customer) => boolean>(() => {
     const filter = this.simpleFilterValue();
     const hasFilter = Object.values(filter ?? {}).some(v => !!v);
-    return (item) => true
+    return (item) => (hasFilter && !!filter['id'] && !item.id.toLowerCase().includes(filter['id'].toLowerCase()))
+      ? false
+      : (hasFilter && !!filter['name'] && !(item.username.toLowerCase().includes(filter['name'].toLowerCase()) || item.name.toLowerCase().includes(filter['name'].toLowerCase())))
+      ? false
+      : true
   })
 
   constructor() {
@@ -91,6 +108,9 @@ export class CustomerTableService implements TableContentDataProvider<Customer> 
         : { ...config, isSortedAsc: false, isSortedDesc: false }
       )
     })
+  }
+  onUpdateSimpleFilter(value: any): void {
+    this.simpleFilterValue.set(value)
   }
   onControlClick(key: string, event: MouseEvent): void {
     switch (key) {

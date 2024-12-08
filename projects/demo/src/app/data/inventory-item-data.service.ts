@@ -1,7 +1,9 @@
 import { ApplicationRef, inject, Injectable } from '@angular/core';
 import { faker } from '@faker-js/faker';
 import { BehaviorSubject, delay, first } from 'rxjs';
+import { CustomerDataService } from './customer-data.service';
 import { InventoryItem, InventoryItemContentType, InventoryItemStatus } from './inventory.types';
+import { Customer } from './user.types';
 
 @Injectable({
   providedIn: 'root'
@@ -9,9 +11,10 @@ import { InventoryItem, InventoryItemContentType, InventoryItemStatus } from './
 export class InventoryItemDataService {
 
   private appRef = inject(ApplicationRef);
+  private customerData = inject(CustomerDataService)
   private list = new BehaviorSubject<InventoryItem[]>([]);
 
-  private createMock(): InventoryItem {
+  private createMock(customers: Customer[]): InventoryItem {
     const netWeight = faker.helpers.rangeToNumber({ min: 250, max: 1500 });
     return {
       id: faker.string.nanoid(),
@@ -27,7 +30,7 @@ export class InventoryItemDataService {
       })),
       isContainFragile: faker.datatype.boolean(),
       arrivedAt: faker.date.past({ years: 1 }),
-      belongsTo: faker.string.nanoid(12),
+      belongsTo: customers.at(faker.helpers.rangeToNumber({ min: 0, max: faker.helpers.rangeToNumber(customers.length) - 1 }))!.id,
       status: faker.helpers.enumValue(InventoryItemStatus),
     }
   }
@@ -36,18 +39,22 @@ export class InventoryItemDataService {
   private initialize() {
     if (this.isInitialized) return;
     this.isInitialized = true;
-    this.list.next(Array(100)
-      .fill(0)
-      .map(() => {
-        return this.createMock();
-      })
-      .sort((a, b) => b.arrivedAt.getTime() - a.arrivedAt.getTime()))
+    this.customerData.getList().pipe(
+      first(data => data.length > 0)
+    ).subscribe(customers => {
+      this.list.next(Array(100)
+        .fill(0)
+        .map(() => {
+          return this.createMock(customers);
+        })
+        .sort((a, b) => b.arrivedAt.getTime() - a.arrivedAt.getTime()))
+    })
   }
 
   getList() {
     this.appRef.isStable.pipe(
       first(stable => stable),
-      delay(1000),
+      delay(50),
     ).subscribe(() => {
       this.initialize();
     })
