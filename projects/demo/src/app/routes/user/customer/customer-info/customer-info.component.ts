@@ -14,7 +14,7 @@ import { InventoryItem, InventoryItemStatus } from '../../../../data/inventory.t
   imports: [TimeDisplayComponent, DividerComponent, TableContentComponent, ButtonModule, NgClass],
   templateUrl: './customer-info.component.html',
   styles: `
-  ::ng-deep .pui-table-content main {
+  ::ng-deep demo-customer-info .pui-table-content main {
     @apply bg-transparent backdrop-filter-none shadow-none;
     @apply px-0;
   }

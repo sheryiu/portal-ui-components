@@ -20,6 +20,16 @@ module.exports = {
       screens: {
         '3xl': '1920px'
       },
+      // containers: {
+      //   screen: '120px'
+      // },
+      containers: ({ theme }) => ({
+        'screen-sm': theme('screens.sm'),
+        'screen-md': theme('screens.md'),
+        'screen-lg': theme('screens.lg'),
+        'screen-xl': theme('screens.xl'),
+        'screen-2xl': theme('screens.2xl')
+      }),
       spacing: () => ({
         ...Array(20)
           .fill(0)
@@ -36,7 +46,9 @@ module.exports = {
         22: "5.5rem",
         26: "6.5rem",
         88: "22rem",
-        120: "30rem"
+        120: "30rem",
+        160: "40rem",
+        200: "50rem"
       }),
       colors: {
         primary: {

@@ -6,6 +6,7 @@ import { filter, startWith } from 'rxjs';
 import { ButtonModule, filterNonNull } from '../../base';
 import { BreadcrumbsComponent, TabBarModule } from '../../components';
 import { LayoutService } from '../layout/layout.service';
+import { PeekLayoutComponent } from "../peek-layout/peek-layout.component";
 import { TabConfig, VERTICAL_LAYOUT_DATA_PROVIDER } from './vertical-layout';
 
 @Component({
@@ -18,7 +19,8 @@ import { TabConfig, VERTICAL_LAYOUT_DATA_PROVIDER } from './vertical-layout';
     TabBarModule,
     RouterLink,
     NgTemplateOutlet,
-  ],
+    PeekLayoutComponent
+],
   providers: [LayoutService],
   templateUrl: './vertical-layout.component.html',
   styles: ``,

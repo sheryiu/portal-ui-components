@@ -1,0 +1,29 @@
+.pui-peek-layout:not(:has(.pui-peek-layout__content > :nth-child(2))) {
+  @apply hidden;
+}
+
+.pui-peek-layout:has(.pui-peek-layout__content > :nth-child(2)) {
+  @apply fixed top-0 end-0 bottom-0;
+  @apply w-50vw max-w-200;
+  @apply bg-neutral-900 border-s;
+  @apply overflow-x-auto;
+  @apply flex flex-col;
+}
+
+.pui-peek-layout__nav {
+  @apply sticky top-0 w-full;
+  @apply px-8 py-2 z-100 h-12;
+  @apply flex flex-row;
+  @apply bg-neutral-900 border-b;
+}
+
+.pui-peek-layout__nav-button {
+  @apply p-2 rounded-1;
+  i {
+    @apply icon-4 font-variation-weight-light text-neutral-800 dark:text-neutral-200;
+  }
+}
+
+.pui-peek-layout__content {
+  @apply ps-8 pe-8 -mt-4;
+}

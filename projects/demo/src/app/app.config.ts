@@ -23,7 +23,7 @@ export const appConfig: ApplicationConfig = {
       withRouterConfig({
         paramsInheritanceStrategy: 'always',
       }),
-      withInMemoryScrolling({ scrollPositionRestoration: 'enabled' }),
+      withInMemoryScrolling({ scrollPositionRestoration: 'disabled' }),
     ),
     provideClientHydration(),
     provideTransloco({

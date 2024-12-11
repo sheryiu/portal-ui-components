@@ -12,7 +12,7 @@ export class CustomerTableService implements TableContentDataProvider<Customer> 
   private rawData = toSignal(this.dataService.getList())
 
   configuration = {
-    useVirtualScroll: true,
+    // useVirtualScroll: true,
   };
   data = signal<Customer[]>([]);
   columnsConfig = signal<ColumnConfig[]>([
@@ -99,7 +99,7 @@ export class CustomerTableService implements TableContentDataProvider<Customer> 
   }
 
   routeToDetail?(item: Customer): any[] {
-    return ['detail', item.id]
+    return ['/user', 'customer', { outlets: { peek: [item.id] } }]
   }
   onHeaderCellClick(columnKey: string, event: MouseEvent): void {
     this.columnsConfig.update(columns => {

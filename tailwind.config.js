@@ -9,27 +9,13 @@ module.exports = {
     require('./projects/portal-ui-ng/assets/tailwind-preset'),
   ],
   theme: {
-    containers: {
-      '2xs': '18rem',
-      xs: '25rem',
-      sm: '37rem',
-      md: '45rem',
-      lg: '61rem',
-      xl: '77rem',
-    },
     fontSize: {
-      kbd: ["0.75rem", "1"],
       sm: ["0.8125rem", "1rem"],
       base: ["0.875rem", "1.125rem"],
       xl: ["1.25rem", "1.625rem"],
       '2xl': ["1.75rem", "2.25rem"],
     },
     extend: {
-      backgroundImage: {
-        "gradient-160": "linear-gradient(160deg, var(--tw-gradient-stops))",
-        'gradient-radial': 'radial-gradient(var(--gradient-radial-shape, circle) at var(--gradient-position, center), var(--tw-gradient-stops))',
-        'gradient-conic': 'conic-gradient(from 0deg at var(--gradient-position, center), var(--tw-gradient-stops))',
-      },
       fontFamily: {
         sans: ["Nunito", ...defaultTheme.fontFamily.sans],
         display: ["'MuseoModerno'", ...defaultTheme.fontFamily.sans],
@@ -37,7 +23,6 @@ module.exports = {
     },
   },
   plugins: [
-    require('@tailwindcss/container-queries'),
     plugin(
       ({
         addVariant,
