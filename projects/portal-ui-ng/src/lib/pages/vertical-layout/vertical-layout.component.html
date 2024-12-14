@@ -3,7 +3,7 @@
     <pui-breadcrumbs></pui-breadcrumbs>
     <h1>{{ heading() }}</h1>
   </header>
-  @if (tabs()?.length! > 0 || controls().length > 0) {
+  @if (tabs().length > 0 || controls().length > 0) {
     <header class="pui-vertical-layout__controls">
       @if (tabs()?.length! > 0) {
         <pui-tab-bar class="pui-vertical-layout__tabs" [currentTab]="activeTab()" (tabChange)="onTabChanged($event)">
@@ -50,5 +50,5 @@
     </header>
   }
   <router-outlet></router-outlet>
-  <pui-peek-layout></pui-peek-layout>
+  <pui-peekable-addon></pui-peekable-addon>
 </div>

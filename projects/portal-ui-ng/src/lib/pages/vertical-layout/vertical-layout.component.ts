@@ -1,13 +1,13 @@
 import { NgTemplateOutlet } from '@angular/common';
-import { Component, computed, inject, input, signal } from '@angular/core';
+import { Component, computed, inject, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, NavigationEnd, Router, RouterLink, RouterOutlet } from '@angular/router';
 import { filter, startWith } from 'rxjs';
 import { ButtonModule, filterNonNull } from '../../base';
 import { BreadcrumbsComponent, TabBarModule } from '../../components';
 import { LayoutService } from '../layout/layout.service';
-import { PeekLayoutComponent } from "../peek-layout/peek-layout.component";
-import { TabConfig, VERTICAL_LAYOUT_DATA_PROVIDER } from './vertical-layout';
+import { PeekableAddonComponent } from "../peekable-addon/peekable-addon.component";
+import { VERTICAL_LAYOUT_DATA_PROVIDER } from './vertical-layout';
 
 @Component({
   selector: 'pui-vertical-layout',
@@ -19,7 +19,7 @@ import { TabConfig, VERTICAL_LAYOUT_DATA_PROVIDER } from './vertical-layout';
     TabBarModule,
     RouterLink,
     NgTemplateOutlet,
-    PeekLayoutComponent
+    PeekableAddonComponent
 ],
   providers: [LayoutService],
   templateUrl: './vertical-layout.component.html',
@@ -29,17 +29,14 @@ import { TabConfig, VERTICAL_LAYOUT_DATA_PROVIDER } from './vertical-layout';
   }
 })
 export class VerticalLayoutComponent {
-  private dataProvider = inject(VERTICAL_LAYOUT_DATA_PROVIDER, { optional: true })
+  private dataProvider = inject(VERTICAL_LAYOUT_DATA_PROVIDER)
   protected layoutService = inject(LayoutService, { self: true });
   private router = inject(Router);
   private route = inject(ActivatedRoute);
 
-  protected inputHeading = input<string | undefined>(undefined, { alias: 'heading' });
-  protected inputTabs = input<TabConfig[] | undefined>(undefined, { alias: 'tabs' });
-
   activeTab = signal<string | null>(null)
-  protected heading = computed(() => this.dataProvider?.heading() ?? this.inputHeading());
-  protected tabs = computed(() => this.dataProvider?.tabs() ?? this.inputTabs());
+  protected heading = computed(() => this.dataProvider.heading());
+  protected tabs = computed(() => this.dataProvider.tabs());
   protected controls = this.layoutService.controls;
   protected mostEmphasizedControlId = this.layoutService.mostEmphasizedControlId;
 
@@ -47,12 +44,12 @@ export class VerticalLayoutComponent {
     this.route.params.pipe(
       takeUntilDestroyed(),
     ).subscribe((params) => {
-      this.dataProvider?.params?.set(params)
+      this.dataProvider.params?.set(params)
     })
     this.route.queryParams.pipe(
       takeUntilDestroyed(),
     ).subscribe((params) => {
-      this.dataProvider?.queryParams?.set(params);
+      this.dataProvider.queryParams?.set(params);
     })
     this.router.events.pipe(
       filter(e => e instanceof NavigationEnd),

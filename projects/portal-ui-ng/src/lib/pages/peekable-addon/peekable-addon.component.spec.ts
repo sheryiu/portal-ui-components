@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PeekLayoutComponent } from './peek-layout.component';
+import { PeekableAddonComponent } from './peekable-addon.component';
 
-describe('PeekLayoutComponent', () => {
-  let component: PeekLayoutComponent;
-  let fixture: ComponentFixture<PeekLayoutComponent>;
+describe('PeekableAddonComponent', () => {
+  let component: PeekableAddonComponent;
+  let fixture: ComponentFixture<PeekableAddonComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [PeekLayoutComponent]
+      imports: [PeekableAddonComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(PeekLayoutComponent);
+    fixture = TestBed.createComponent(PeekableAddonComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -1,0 +1,30 @@
+.pui-peekable-addon:not(:has(.pui-peekable-addon__content > :nth-child(2))) {
+  @apply hidden;
+}
+
+.pui-peekable-addon:has(.pui-peekable-addon__content > :nth-child(2)) {
+  @apply fixed top-0 end-0 bottom-0;
+  @apply w-60vw min-w-96 max-w-200;
+  // @apply bg-neutral-900 border-s;
+  @apply overflow-x-auto;
+  @apply flex flex-col;
+  @apply bg-gradient-to-l from-90% dark:from-neutral-950/95 dark:to-neutral-950/0;
+}
+
+.pui-peekable-addon__nav {
+  @apply sticky top-2;
+  @apply ms-[10%] me-8 my-2 p-2 z-100 h-12;
+  @apply flex flex-row;
+  @apply light-glass-bg rounded-2;
+}
+
+.pui-peekable-addon__nav-button {
+  @apply p-2 rounded-1;
+  i {
+    @apply icon-4 font-variation-weight-light text-neutral-800 dark:text-neutral-200;
+  }
+}
+
+.pui-peekable-addon__content {
+  @apply ps-[10%] pe-8 -mt-4;
+}
