@@ -102,9 +102,7 @@
             "scripts": [],
             "server": "projects/demo/src/main.server.ts",
             "prerender": true,
-            "ssr": {
-              "entry": "projects/demo/server.ts"
-            }
+            "ssr": false
           },
           "configurations": {
             "production": {
