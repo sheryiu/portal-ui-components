@@ -1,7 +1,7 @@
 {
   "configVersion": 1,
-  "timestamp": 1734278372965,
-  "index": "/portal-ui-components/index.csr.html",
+  "timestamp": 1734278671220,
+  "index": "/portal-ui-components/index.html",
   "assetGroups": [
     {
       "name": "app",
@@ -22,6 +22,7 @@
         "/portal-ui-components/chunk-YM4RELYR.js",
         "/portal-ui-components/chunk-ZSR6BV7A.js",
         "/portal-ui-components/favicon.ico",
+        "/portal-ui-components/index.html",
         "/portal-ui-components/main-XRPHJ2TB.js",
         "/portal-ui-components/manifest.webmanifest",
         "/portal-ui-components/polyfills-SCHOHYNV.js",
@@ -78,6 +79,7 @@
     "/portal-ui-components/chunk-YM4RELYR.js": "ac99bb060cbc7826234bf1103a6986c53cd5836c",
     "/portal-ui-components/chunk-ZSR6BV7A.js": "51c6788773fbad7a0cbb2263c8446ef24d95e10b",
     "/portal-ui-components/favicon.ico": "9c39f434fe1261f68c5e3eefdf734630d99c5670",
+    "/portal-ui-components/index.html": "462afa9c71be4af295a46a3f419388400b4c02ec",
     "/portal-ui-components/main-XRPHJ2TB.js": "9c15b68ec8d0b0791ab433c0bebcb55ac06d6f6e",
     "/portal-ui-components/manifest.webmanifest": "b2ef5db6ca887221b9d237e89af051574c8aeb70",
     "/portal-ui-components/polyfills-SCHOHYNV.js": "d45c76c5960bab3ace7fd6d211b9579456241f8a",
