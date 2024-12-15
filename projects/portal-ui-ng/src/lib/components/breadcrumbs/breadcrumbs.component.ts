@@ -45,7 +45,7 @@ export class BreadcrumbsComponent {
     this.breadcrumbs$ = of(breadcrumbs).pipe(
       map((breadcrumbs) =>
         breadcrumbs.map((b) => {
-          if ('deps' in b) {
+          if ('deps' in b || 'titleFn' in b) {
             let tempTitle = b.titleFn(route, ...b.injectedDeps ?? []);
             let tempTooltip = b.tooltipFn?.(route, ...b.injectedDeps ?? []);
             if (!isObservable(tempTitle)) tempTitle = of(tempTitle);

@@ -3,7 +3,9 @@ import { Injectable, inject } from '@angular/core';
 import { PuiOverlayService } from '../../base';
 import { ModalDialogComponent, ModalDialogData } from './modal-dialog.component';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class ModalDialogService {
 
   private overlay = inject(PuiOverlayService);

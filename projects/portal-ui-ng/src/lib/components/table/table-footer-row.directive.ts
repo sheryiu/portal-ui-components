@@ -1,6 +1,4 @@
-import { Directive, HostBinding, inject } from '@angular/core';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { TableComponent } from './table.component';
+import { Directive } from '@angular/core';
 
 @Directive({
   selector: 'pui-table-footer-row',
@@ -10,20 +8,4 @@ import { TableComponent } from './table.component';
   }
 })
 export class TableFooterRowDirective {
-  @HostBinding('style.grid-column-end') private hostColumnEnd?: string;
-  private table = inject(TableComponent);
-
-  constructor() {
-    this.checkColumns();
-    this.table.responsiveUpdated$.pipe(
-      takeUntilDestroyed(),
-    ).subscribe(() => {
-      this.checkColumns();
-    })
-  }
-
-  checkColumns() {
-    this.hostColumnEnd = `span ${ this.table.activeColumns?.length }`
-  }
-
 }

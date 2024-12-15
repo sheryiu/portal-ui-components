@@ -1,0 +1,44 @@
+@import './peekable-addon.scss';
+
+.pui-vertical-layout {
+  @apply contents;
+  > div {
+    @apply flex flex-col min-h-full gap-6 pb-8;
+  }
+  router-outlet {
+    @apply hidden;
+  }
+}
+
+.pui-vertical-layout__heading {
+  @apply pt-12 px-4;
+  @apply flex flex-col;
+  h1 {
+    @apply pt-1;
+  }
+  .pui-breadcrumbs {
+    @apply -ms-2.5;
+  }
+}
+
+.pui-vertical-layout__controls {
+  @apply flex items-center gap-2;
+  @apply min-h-12;
+  .spacer {
+    @apply grow shrink-0 basis-auto;
+  }
+}
+
+.pui-vertical-layout__controls__most-emphasized {
+  @apply rounded-full h-10 gap-1 px-4;
+  > i {
+    @apply icon-5;
+  }
+}
+
+.pui-vertical-layout__controls__normal {
+  @apply rounded-full size-10;
+  > i {
+    @apply icon-5;
+  }
+}

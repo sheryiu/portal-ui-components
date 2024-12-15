@@ -1,9 +1,37 @@
-@if (showing) {
-  <div @appear (@appear.done)="onAnimationEnd($event)">
-    @if (component) {
-      <ng-container [ngComponentOutlet]="component"></ng-container>
-    } @else if (templateRef) {
-      <ng-container [ngTemplateOutlet]="templateRef" [ngTemplateOutletInjector]="injector" [ngTemplateOutletContext]="{ $implicit: data }"></ng-container>
-    }
-  </div>
-}
+@if (showing) { @switch (config.animation) { @case (null) {
+<div>
+  @if (component) {
+  <ng-container [ngComponentOutlet]="component"></ng-container>
+  } @else if (templateRef) {
+  <ng-container
+    [ngTemplateOutlet]="templateRef"
+    [ngTemplateOutletInjector]="injector"
+    [ngTemplateOutletContext]="{ $implicit: data }"
+  ></ng-container>
+  }
+</div>
+} @case ('slideInEnd') {
+<div @appearSlideInEnd (@appearSlideInEnd.done)="onAnimationEnd($event)">
+  @if (component) {
+  <ng-container [ngComponentOutlet]="component"></ng-container>
+  } @else if (templateRef) {
+  <ng-container
+    [ngTemplateOutlet]="templateRef"
+    [ngTemplateOutletInjector]="injector"
+    [ngTemplateOutletContext]="{ $implicit: data }"
+  ></ng-container>
+  }
+</div>
+} @default {
+<div @appear (@appear.done)="onAnimationEnd($event)">
+  @if (component) {
+  <ng-container [ngComponentOutlet]="component"></ng-container>
+  } @else if (templateRef) {
+  <ng-container
+    [ngTemplateOutlet]="templateRef"
+    [ngTemplateOutletInjector]="injector"
+    [ngTemplateOutletContext]="{ $implicit: data }"
+  ></ng-container>
+  }
+</div>
+} } }

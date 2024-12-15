@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HoverableDirective, InputFieldComponent } from '../../base';
 import { AutocompleteModule } from '../autocomplete';
-import { CalendarTriggerDirective } from '../calendar';
+import { CalendarTriggerDirective } from '../calendar-trigger';
 import { ToggleComponent } from '../form';
 import { ArrayFieldComponent } from './array-field/array-field.component';
 import { FieldDefDirective } from './field-def.directive';

@@ -1,12 +1,29 @@
-<div class="pui-array-field">
-  <span>Array Length:</span>
-  <button type="button" (click)="onMinusClick()" puiHoverable>
+<div>
+  <i class="pui-array-field__icon">data_array</i>
+  <span class="pui-array-field__label">Array Length:</span>
+  <button
+    class="pui-array-field__length-control"
+    type="button"
+    (click)="onMinusClick()"
+    puiHoverable
+  >
     <i>remove</i>
   </button>
-  <pui-input-field>
-    <input type="number" [formControl]="arrayLengthControl" (input)="handleInput()">
+  <pui-input-field class="pui-array-field__length-field">
+    <input
+      type="number"
+      [formControl]="arrayLengthControl"
+      (input)="handleInput()"
+      min="0"
+      step="1"
+    />
   </pui-input-field>
-  <button type="button" (click)="onAddClick()" puiHoverable>
+  <button
+    class="pui-array-field__length-control"
+    type="button"
+    (click)="onAddClick()"
+    puiHoverable
+  >
     <i>add</i>
   </button>
 </div>

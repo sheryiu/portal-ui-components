@@ -1,0 +1,34 @@
+<main>
+  @if (flattenedControls().length > 0) {
+    <!-- TODO add onsubmit function -->
+    <form>
+      <pui-fieldset [formControl]="formControl">
+        @for (control of flattenedControls(); track control.key) {
+          <pui-field-def
+            [key]="control.key"
+            [fieldType]="control.jsonSchema.type"
+            [label]="control.jsonSchema.description ?? control.key"
+            [fieldConfig]="control.jsonSchema.type == 'string'
+              ? { enum: control.jsonSchema.enum }
+              : control.jsonSchema.type == 'number'
+              ? { enum: control.jsonSchema.enum }
+              : {}"
+          ></pui-field-def>
+        }
+      </pui-fieldset>
+    </form>
+  }
+</main>
+
+@for (config of controlsConfig(); track config.id) {
+  <pui-layout-control
+    [id]="config.id"
+    [label]="config.label"
+    [icon]="config.icon"
+    [iconTemplateRef]="config.iconTemplateRef"
+    [disabled]="config.isDisabled"
+    [weight]="config.weight"
+    [mode]="config.mode"
+    (click)="onControlClick(config.id, $event)"
+  ></pui-layout-control>
+}

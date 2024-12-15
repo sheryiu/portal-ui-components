@@ -32,13 +32,30 @@ export class PuiOverlayRef {
   }
   afterOpened$ = new ReplaySubject<void>(1);
   afterClosed$ = new ReplaySubject<void>(1);
+  /** @internal */
   _close$ = new ReplaySubject<void>(1);
+  /** @internal */
   closeOnBackdropClick() {
     this.overlayRef.backdropClick().pipe(
       take(1),
       takeUntil(this.afterClosed$),
     ).subscribe(() => {
       this.close();
+    })
+  }
+  /** @internal */
+  closeOnEscapeKeydown() {
+    this.overlayRef.keydownEvents().pipe(
+      takeUntil(this.afterClosed$),
+    ).subscribe(event => {
+      // use this to check if event target is inside overlay
+      // !this.overlayRef.overlayElement.contains(event.target as HTMLElement)
+      if (event.type == 'keydown' && event.key == 'Escape'
+        // TODO
+        //  && [HTMLInputElement, HTMLTextAreaElement].every(type => !(event.target instanceof type)) && (event.target as HTMLElement).contentEditable !== 'true'
+        ) {
+        this.close();
+      }
     })
   }
 }

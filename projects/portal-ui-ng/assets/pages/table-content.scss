@@ -1,0 +1,32 @@
+@use './layout-control.scss';
+
+.pui-table-content {
+  @apply contents;
+  > main {
+    @apply light-glass-bg rounded-4 w-full p-8 grow;
+    @apply flex flex-col gap-6;
+  }
+}
+
+.pui-table-cell > * {
+  @apply truncate;
+}
+
+.pui-table-cell__boolean-content {
+  @apply icon-5;
+  @apply text-red-500 dark:text-red-500;
+  &.pui-table-cell__boolean-content--true {
+    @apply text-green-600 dark:text-green-400;
+  }
+}
+
+.pui-table-content .pui-fieldset {
+  max-width: unset;
+  @apply flex flex-row;
+}
+.pui-table-content .pui-fieldset__input {
+  @apply basis-56 shrink-0;
+}
+.pui-table-content .pui-fieldset__input + .pui-fieldset__label {
+  @apply mt-0 ms-4;
+}

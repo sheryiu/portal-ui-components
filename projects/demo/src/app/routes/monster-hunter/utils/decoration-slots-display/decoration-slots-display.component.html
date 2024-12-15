@@ -1,9 +1,0 @@
-<div class="flex gap-2">
-  @for (slot of slots; track $index) {
-    @if (slot == 1 || slot == 2 || slot == 3 || slot == 4) {
-      <mhw-decoration-slot [size]="slot" class="size-6 text-accent-500"></mhw-decoration-slot>
-    }
-  } @empty {
-    <span class="text-sm font-medium text-secondary uppercase">No Slots</span>
-  }
-</div>

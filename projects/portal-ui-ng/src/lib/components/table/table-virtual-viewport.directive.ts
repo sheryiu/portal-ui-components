@@ -1,6 +1,5 @@
-import { FixedSizeVirtualScrollStrategy, VIRTUAL_SCROLL_STRATEGY } from '@angular/cdk/scrolling';
+import { VIRTUAL_SCROLL_STRATEGY } from '@angular/cdk/scrolling';
 import { Directive, inject } from '@angular/core';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { TableComponent } from './table.component';
 
 @Directive({
@@ -13,14 +12,14 @@ export class TableVirtualViewportDirective {
 
   constructor() {
     if (!this.table) return;
-    if (this.cdkViewport instanceof FixedSizeVirtualScrollStrategy) {
-      (this.table.activeItemHeight != null) && (this.cdkViewport as FixedSizeVirtualScrollStrategy)!.updateItemAndBufferSize(this.table.activeItemHeight, 200, 200);
-      this.table.responsiveUpdated$.pipe(
-        takeUntilDestroyed(),
-      ).subscribe(() => {
-        (this.table!.activeItemHeight != null) && (this.cdkViewport as FixedSizeVirtualScrollStrategy)!.updateItemAndBufferSize(this.table!.activeItemHeight, 200, 200);
-      })
-    }
+    // if (this.cdkViewport instanceof FixedSizeVirtualScrollStrategy) {
+    //   (this.table.activeItemHeight != null) && (this.cdkViewport as FixedSizeVirtualScrollStrategy)!.updateItemAndBufferSize(this.table.activeItemHeight, 200, 200);
+    //   this.table.responsiveUpdated$.pipe(
+    //     takeUntilDestroyed(),
+    //   ).subscribe(() => {
+    //     (this.table!.activeItemHeight != null) && (this.cdkViewport as FixedSizeVirtualScrollStrategy)!.updateItemAndBufferSize(this.table!.activeItemHeight, 200, 200);
+    //   })
+    // }
   }
 
 }

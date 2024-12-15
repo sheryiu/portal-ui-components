@@ -22,21 +22,21 @@ import { HoverableDirective } from '../../../base';
 export class ToggleComponent implements ControlValueAccessor {
 
   @Input() id: string = nanoid();
-  isChecked$$ = signal<boolean>(false);
-  isDisabled$$ = signal<boolean>(false);
+  isChecked = signal<boolean>(false);
+  isDisabled = signal<boolean>(false);
   onChange?: (val: boolean) => void;
   onTouched?: () => void;
   valueChange = output<boolean>();
 
   handleInput(event: Event) {
     const target = event.currentTarget as HTMLInputElement;
-    this.isChecked$$.set(target.checked);
-    this.onChange?.(this.isChecked$$());
-    this.valueChange.emit(this.isChecked$$())
+    this.isChecked.set(target.checked);
+    this.onChange?.(this.isChecked());
+    this.valueChange.emit(this.isChecked())
   }
 
   writeValue(obj: any): void {
-    this.isChecked$$.set(booleanAttribute(obj));
+    this.isChecked.set(booleanAttribute(obj));
   }
   registerOnChange(fn: any): void {
     this.onChange = fn;
@@ -45,7 +45,7 @@ export class ToggleComponent implements ControlValueAccessor {
     this.onTouched = fn;
   }
   setDisabledState?(isDisabled: boolean): void {
-    this.isDisabled$$.set(isDisabled);
+    this.isDisabled.set(isDisabled);
   }
 
 }

@@ -2,22 +2,24 @@
   "name": "portal-ui-ng",
   "version": "0.0.10",
   "peerDependencies": {
-    "@angular/cdk": "^18.0.0",
-    "@angular/common": "^18.0.0",
-    "@angular/core": "^18.0.0",
-    "@angular/forms": "^18.0.0",
-    "@angular/router": "^18.0.0",
-    "@ngneat/effects-ng": "^3.1.4",
-    "@ngneat/hotkeys": "^4.0.0",
+    "@angular/cdk": ">=18.0.0 || >=19.0.0",
+    "@angular/common": ">=18.0.0 || >=19.0.0",
+    "@angular/core": ">=18.0.0 || >=19.0.0",
+    "@angular/forms": ">=18.0.0 || >=19.0.0",
+    "@angular/router": ">=18.0.0 || >=19.0.0",
     "@tailwindcss/container-queries": "^0.1.1",
     "fuse.js": "^7.0.0",
     "humanize-duration": "^3.31.0",
-    "nanoid": "^5.0.3",
-    "tailwindcss": "^3.4.10",
-    "vanilla-calendar-pro": "^2.9.10"
+    "tailwindcss": ">=3.4.10",
+    "vanilla-calendar-pro": "^3.0.1"
   },
   "dependencies": {
+    "lodash-es": ">=4.17.0",
+    "nanoid": "^5.0.3",
     "tslib": "^2.3.0"
+  },
+  "devDependencies": {
+    "@types/lodash-es": ">=4.17.0"
   },
   "exports": {
     "./assets/tailwind-preset.js": {

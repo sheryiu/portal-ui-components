@@ -1,0 +1,8 @@
+@use './layout-control.scss';
+
+.pui-editable-content {
+  @apply contents;
+  > main {
+    @apply light-glass-bg rounded-4 w-full p-8 grow;
+  }
+}

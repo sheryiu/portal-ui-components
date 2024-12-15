@@ -1,4 +1,4 @@
-import { Directive, Input, TemplateRef, Type } from '@angular/core';
+import { booleanAttribute, Directive, input, Input, TemplateRef, Type } from '@angular/core';
 import { LiteralUnion } from '../../base';
 
 type SupportedTypes = 'string' | 'number' | 'date-time' | 'boolean' | 'array';
@@ -20,6 +20,7 @@ export class FieldDefDirective {
     'number'?: {},
   }
   @Input() defaultValue?: any;
+  isNullable = input(true, { transform: booleanAttribute })
 
   @Input() templateRef?: TemplateRef<unknown>;
 }

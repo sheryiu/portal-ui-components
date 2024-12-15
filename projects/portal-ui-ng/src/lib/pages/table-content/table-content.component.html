@@ -1,0 +1,112 @@
+<main>
+  @let filterConfig = flattenSimpleFilterDef();
+  @if (filterConfig.length > 0) {
+    <pui-fieldset [formControl]="simpleFilterFormControl" (valueChange)="onSimpleFilterValueChange($event)">
+      @for (control of flattenSimpleFilterDef(); track control.key) {
+        <pui-field-def
+          [key]="control.key"
+          [fieldType]="control.jsonSchema.type"
+          [label]="control.jsonSchema.description ?? control.key"
+          [fieldConfig]="control.jsonSchema.type == 'string'
+            ? { enum: control.jsonSchema.enum }
+            : control.jsonSchema.type == 'number'
+            ? { enum: control.jsonSchema.enum }
+            : {}"
+          [isNullable]="false"
+        ></pui-field-def>
+      }
+    </pui-fieldset>
+  }
+
+  <pui-table
+    [itemHeight]="48"
+    [columns]="columnsToDisplay()"
+    [selectionMode]="selectionMode()"
+  >
+
+    @for (config of columnConfig(); track config.key) {
+      <pui-table-header-cell
+        *puiTableHeaderCellDef="config.key"
+        [rightAligned]="config.isAlignEnd ?? false"
+        [sortedAsc]="config.isSortedAsc ?? false"
+        [sortedDesc]="config.isSortedDesc ?? false"
+        (cellClick)="onHeaderClick(config.key, $event)"
+      >{{ config.label }}</pui-table-header-cell>
+      <pui-table-cell *puiTableCellDef="config.key; let item" [rightAligned]="config.isAlignEnd ?? false">
+        @if (config.jsonSchema) {
+          @switch (config.jsonSchema.type) {
+            @case ('date-time') {
+              <pui-time-display
+                [mode]="config.jsonSchema.format == 'timeAgo' ? 'timeAgo' : 'normal'"
+                [format]="config.jsonSchema.format"
+                [date]="item[config.key]"
+              ></pui-time-display>
+              @if (config.jsonSchema.format == 'timeAgo') {
+                &nbsp;ago
+              }
+            }
+            @case ('boolean') {
+              @let value = item | lodashGet: config.path ?? config.key;
+              <i
+                class="pui-table-cell__boolean-content"
+                [class.pui-table-cell__boolean-content--true]="value === true"
+              >{{ value === true ? 'check' : value === false ? 'close' : '' }}</i>
+            }
+            @default {
+              <span>{{ item | lodashGet: config.path ?? config.key }}</span>
+            }
+          }
+        } @else {
+          <span>{{ item | lodashGet: config.path ?? config.key }}</span>
+        }
+      </pui-table-cell>
+    }
+
+    <pui-table-body>
+      <pui-table-header-row></pui-table-header-row>
+      @if (configuration?.useVirtualScroll) {
+        @if (isBrowser) {
+          <!-- TODO item height -->
+          <cdk-virtual-scroll-viewport
+            [style.height.px]="data().length * 48"
+            itemSize="48"
+            scrollWindow
+          >
+            <pui-table-row
+              *cdkVirtualFor="let item of data(); trackBy: trackingFn; templateCacheSize: 0"
+              puiHoverable
+              [item]="item"
+              [route]="item[ROUTE_TO_DETAIL]"
+              [style.height.px]="48"
+              [selected]="item | isInSet: selectedItems(): cmpFn"
+              (click)="onRowClick(item)"
+            ></pui-table-row>
+          </cdk-virtual-scroll-viewport>
+        }
+      } @else {
+        @for (item of data(); track $index) {
+          <pui-table-row
+            puiHoverable
+            [item]="item"
+            [route]="item[ROUTE_TO_DETAIL]"
+            [selected]="item | isInSet: selectedItems(): cmpFn"
+            (click)="onRowClick(item)"
+          ></pui-table-row>
+        }
+      }
+    </pui-table-body>
+  </pui-table>
+</main>
+
+@for (config of controlsConfig(); track config.id) {
+  <pui-layout-control
+    [id]="config.id"
+    [label]="config.label"
+    [icon]="config.icon"
+    [iconTemplateRef]="config.iconTemplateRef"
+    [disabled]="config.isDisabled"
+    [weight]="config.weight"
+    [mode]="config.mode"
+    (click)="onControlClick(config.id, $event)"
+  ></pui-layout-control>
+}

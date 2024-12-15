@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output, contentChildren, effect, forwardRef, inject } from '@angular/core';
+import { Component, contentChildren, effect, forwardRef, inject, output } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ControlValueAccessor, FormBuilder, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Subject } from 'rxjs';
@@ -12,16 +12,16 @@ import { FieldDefDirective } from '../field-def.directive';
       provide: NG_VALUE_ACCESSOR,
       useExisting: forwardRef(() => FieldsetComponent),
       multi: true,
-    }
+    },
   ]
 })
-export class FieldsetComponent<T extends Record<string, any>> implements ControlValueAccessor {
-  fieldDefs = contentChildren(FieldDefDirective);
+export class FieldsetComponent<T extends { [key: string | number | symbol]: any }> implements ControlValueAccessor {
+  fieldDefs = contentChildren(FieldDefDirective, { descendants: true });
 
   private formBuilder = inject(FormBuilder);
   formControl = this.formBuilder.record({});
   valueUpdated$ = new Subject<void>();
-  @Output() valueChange = new EventEmitter<T>();
+  valueChange = output<T>();
 
   constructor() {
     this.valueUpdated$.pipe(
@@ -72,7 +72,7 @@ export class FieldsetComponent<T extends Record<string, any>> implements Control
   }
 
   handleInput() {
-    let newValue: any = this.currentValue;
+    let newValue: any = structuredClone(this.currentValue);
     if (newValue == null) newValue = {};
     const formValue = this.formControl.getRawValue();
     try {
@@ -93,39 +93,46 @@ export class FieldsetComponent<T extends Record<string, any>> implements Control
               Object.seal(currPointingTo); // prevents items from added to the array
             }
           } else {
-            if (currPointingTo[path] == null) currPointingTo[path] = {};
+            try {
+              if (currPointingTo[path] == null) currPointingTo[path] = {};
+            } catch (e) { /* ignores as this is purposefully caused by the Object.seal */ }
             currPointingTo = currPointingTo[path];
           }
           i++;
         }
-        currPointingTo[paths.at(-1)!] = formValue[key];
+        try {
+          let fieldValue = formValue[key];
+          if (this.fieldDefs().find(def => def.key == key)?.fieldType == 'date-time' && typeof fieldValue == 'string') fieldValue = new Date(fieldValue)
+          currPointingTo[paths.at(-1)!] = fieldValue;
+        } catch (e) { /* ignores as this is purposefully caused by the Object.seal */ }
       }
       this.onChange?.(newValue);
       this.valueChange.emit(newValue);
     } catch (e) {
+      console.warn('Unexpected error', e)
       // ignore
     }
   }
 
-  onSetNotNull(fieldDef: FieldDefDirective) {
+  protected onSetNotNull(fieldDef: FieldDefDirective) {
     if (!this.formControl.contains(fieldDef.key)) return;
     this.formControl.get(fieldDef.key)?.setValue(fieldDef.defaultValue ?? this.defaultValueForType(fieldDef));
     this.handleInput();
   }
 
-  onSetNull(fieldDef: FieldDefDirective) {
+  protected onSetNull(fieldDef: FieldDefDirective) {
     if (!this.formControl.contains(fieldDef.key)) return;
     this.formControl.get(fieldDef.key)?.setValue(null);
     this.handleInput();
   }
 
-  onAutocomplete(fieldDef: FieldDefDirective, value: string | number) {
+  protected onAutocomplete(fieldDef: FieldDefDirective, value: string | number) {
     if (!this.formControl.contains(fieldDef.key)) return;
     this.formControl.get(fieldDef.key)?.setValue(value);
     this.handleInput();
   }
 
-  onDateChange(fieldDef: FieldDefDirective, value: Date) {
+  protected onDateChange(fieldDef: FieldDefDirective, value: Date) {
     if (!this.formControl.contains(fieldDef.key)) return;
     this.formControl.get(fieldDef.key)?.setValue(value.toISOString());
     this.handleInput();
@@ -143,15 +150,15 @@ export class FieldsetComponent<T extends Record<string, any>> implements Control
       })
     }
   }
-  onChange?: (val: T) => void;
+  protected onChange?: (val: T) => void;
   registerOnChange(fn: any): void {
     this.onChange = fn;
   }
-  onTouched?: () => void;
+  protected onTouched?: () => void;
   registerOnTouched(fn: any): void {
     this.onTouched = fn;
   }
-  isDisabled: boolean = false;
+  protected isDisabled: boolean = false;
   setDisabledState?(isDisabled: boolean): void {
     this.isDisabled = isDisabled;
     this.isDisabled ? this.formControl.disable() : this.formControl.enable();

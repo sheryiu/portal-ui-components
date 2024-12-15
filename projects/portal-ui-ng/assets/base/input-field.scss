@@ -1,0 +1,33 @@
+.pui-input-field {
+  @apply flex rounded-[1.25rem] border transition-all;
+  @apply light-glass-bg-subtle;
+  &[data-borderless=true] {
+    @apply border-transparent dark:border-transparent;
+  }
+  > :where(input:not([type]), input[type="text"], input[type="search"], input[type="number"], input[type="password"], input[type="email"], input[type="tel"], input[type="url"]) {
+    @apply rounded-[1.25rem] min-h-9;
+    @apply w-full min-w-0 px-4 py-1.5;
+    @apply bg-transparent outline-none;
+    @apply outline-2 outline-offset-2 outline-transparent;
+    &:not(:first-child) {
+      @apply ps-2; // makes the gap between any content before the field not so large
+    }
+  }
+  &:has(> textarea) {
+    @apply py-1.5;
+    &:not(:first-child) > textarea {
+      @apply ps-2; // makes the gap between any content before the field not so large
+    }
+  }
+  > textarea {
+    @apply w-full min-w-0 px-4;
+    @apply bg-transparent outline-none;
+    @apply outline-2 outline-offset-2 outline-transparent;
+  }
+  &:has(:focus-visible:enabled) {
+    @apply outline outline-primary-500;
+  }
+  &:has(:disabled) {
+    @apply bg-black/5 dark:bg-white/5 border-transparent dark:border-transparent text-secondary pointer-events-none;
+  }
+}

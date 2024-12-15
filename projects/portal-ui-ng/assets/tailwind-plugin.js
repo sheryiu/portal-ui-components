@@ -9,6 +9,24 @@ module.exports = plugin(
     matchUtilities,
     theme,
   }) => {
+
+    addComponents({
+      '.overlay-glass-bg': {
+        'backdrop-filter': 'blur(16px)',
+        'background': 'hsl(0deg 0% 15% / .7)',
+        'box-shadow': 'inset rgb(255 255 255 / .03) 0 0 4px, rgb(0 0 0 / .1) 12px 12px 6px'
+      },
+      '.light-glass-bg': {
+        'backdrop-filter': 'blur(6px)',
+        'background': 'hsl(0deg 0% 75% / .05)',
+        'box-shadow': 'inset rgb(255 255 255 / .03) 0 0 4px, rgb(0 0 0 / .1) 12px 12px 6px'
+      },
+      '.light-glass-bg-subtle': {
+        'background': 'hsl(0deg 0% 75% / .05)',
+        'box-shadow': 'inset rgb(255 255 255 / .03) 0 0 4px, rgb(0 0 0 / .1) 4px 2px 3px'
+      },
+    })
+
     // Icons
     matchUtilities(
       {
@@ -20,6 +38,7 @@ module.exports = plugin(
             width: theme("spacing." + value),
             height: theme("spacing." + value),
             "font-size": theme("spacing." + value),
+            "line-height": "1",
             "font-style": "normal",
             "font-family": "'Material Symbols Rounded'",
             "font-weight": "400",
@@ -79,6 +98,12 @@ module.exports = plugin(
     addUtilities({
       '.text-secondary': {
         "color": "rgb(var(--color-secondary, 150 150 150))",
+      }
+    });
+    // spacer
+    addUtilities({
+      '.spacer': {
+        "flex": "1 0 auto",
       }
     });
     // base
