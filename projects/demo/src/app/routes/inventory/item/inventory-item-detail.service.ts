@@ -13,8 +13,12 @@ export class InventoryItemDetailService implements VerticalLayoutDataProvider {
   heading: Signal<string> = computed(() => this.list()?.find(v => v.id == this.params()['id'])?.id ?? '--');
   tabs: Signal<TabConfig[]> = signal<TabConfig[]>([
     {
+      label: 'Info',
+      route: ['info']
+    },
+    {
       label: 'Raw',
-      route: ['./']
+      route: ['raw']
     }
   ]);
 }

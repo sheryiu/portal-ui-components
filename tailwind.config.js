@@ -12,6 +12,7 @@ module.exports = {
     fontSize: {
       sm: ["0.8125rem", "1rem"],
       base: ["0.875rem", "1.125rem"],
+      md: ["1rem", "1.25rem"],
       xl: ["1.25rem", "1.625rem"],
       '2xl': ["1.75rem", "2.25rem"],
     },
@@ -67,6 +68,15 @@ module.exports = {
           h3: {
             "font-size": "1.25rem",
             "line-height": "1.625rem",
+            "font-family": theme("fontFamily.display"),
+            "font-weight": "400",
+            "text-overflow": "ellipsis",
+            "overflow": "hidden",
+            "white-space": "nowrap",
+          },
+          h3: {
+            "font-size": "1rem",
+            "line-height": "1.375rem",
             "font-family": theme("fontFamily.display"),
             "font-weight": "400",
             "text-overflow": "ellipsis",

@@ -1,0 +1,110 @@
+<div class="@container">
+  <main class="grow light-glass-bg rounded-4 p-8 flex flex-col gap-8">
+    <div class="grid @screen-md:grid-cols-3 gap-8">
+      <!-- status card -->
+      <div class="light-glass-bg-subtle rounded-4 px-8 py-4 overflow-hidden">
+        <h4 class="text-neutral-700 dark:text-neutral-300">Status</h4>
+        <p class="text-md">{{ inventoryItem()?.status ?? '--' }}</p>
+      </div>
+      <!-- customer card -->
+      <a
+        class="light-glass-bg-subtle rounded-4 px-8 py-4 overflow-hidden justify-start text-start"
+        puiHoverable
+        [hoverableEnabled]="!isEditing() && customer() != null"
+        [routerLink]="(!isEditing() && !!customer()) ? ['/user', 'customer', 'detail', customer()?.id] : null"
+      >
+        <div class="flex flex-row gap-2 justify-start items-center w-full">
+          <i class="icon-6 text-neutral-700 dark:text-neutral-300">person</i>
+          <div class="flex flex-col">
+            <h4 class="text-neutral-700 dark:text-neutral-300">Customer</h4>
+            <p class="text-md">{{ updatedValues().customer?.name ?? customer()?.name ?? '--' }}</p>
+          </div>
+          @if (isEditing()) {
+            <div class="spacer"></div>
+            <button puiBorderedButton color="primary" class="rounded-full px-4 py-2" (click)="onUpdateCustomerClick()">
+              <span>Update</span>
+            </button>
+          }
+        </div>
+      </a>
+      <!-- shelf card -->
+      <div class="light-glass-bg-subtle rounded-4 px-8 py-4 overflow-hidden">
+        <div class="flex flex-row gap-2 justify-start items-center">
+          <i class="icon-6 text-neutral-700 dark:text-neutral-300">shelves</i>
+          <div class="flex flex-col">
+            <h4 class="text-neutral-700 dark:text-neutral-300">Shelf</h4>
+            <p class="text-md uppercase">{{ shelf() ? (shelf()?.location?.aisle! + shelf()?.location?.row + shelf()?.location?.layer) : '--' }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="grid items-center grid-cols-[min-content_minmax(0,1fr)] gap-x-4 gap-y-3">
+      <span class="col-start-1 text-base font-medium whitespace-nowrap text-neutral-700 dark:text-neutral-300">ID</span>
+      <span class="col-start-2 text-md">{{ inventoryItem()?.id ?? '---' }}</span>
+      <span class="col-start-1 text-base font-medium whitespace-nowrap text-neutral-700 dark:text-neutral-300">Arrived at</span>
+      <pui-time-display class="col-start-2 text-md" [date]="inventoryItem()?.arrivedAt" [format]="'yyyy-MM-dd HH:mm'"></pui-time-display>
+      <span class="col-start-1 text-base font-medium whitespace-nowrap text-neutral-700 dark:text-neutral-300">Net weight</span>
+      <span class="col-start-2 text-md">{{ inventoryItem()?.netWeight ?? '---' }} g</span>
+      <span class="col-start-1 text-base font-medium whitespace-nowrap text-neutral-700 dark:text-neutral-300">Gross weight</span>
+      <span class="col-start-2 text-md">{{ inventoryItem()?.grossWeight ?? '---' }} g</span>
+      <span class="col-start-1 text-base font-medium whitespace-nowrap text-neutral-700 dark:text-neutral-300">Fragile</span>
+      @if (inventoryItem()?.isContainFragile === true) {
+        <i class="icon-5 text-green-600 dark:text-green-400">check</i>
+      } @else if (inventoryItem()?.isContainFragile === false) {
+        <i class="icon-5 text-red-600 dark:text-red-400">close</i>
+      } @else {
+        <span class="col-start-2 text-md">----</span>
+      }
+    </div>
+    @if (inventoryItem()) {
+      <pui-divider></pui-divider>
+      <h2>Contents</h2>
+      <pui-table [itemHeight]="48" [columns]="['description', 'isbn', 'quantity', 'totalPrice']">
+        <pui-table-header-cell *puiTableHeaderCellDef="'description'">Item</pui-table-header-cell>
+        <pui-table-header-cell *puiTableHeaderCellDef="'isbn'">ISBN</pui-table-header-cell>
+        <pui-table-header-cell *puiTableHeaderCellDef="'quantity'">Quantity</pui-table-header-cell>
+        <pui-table-header-cell *puiTableHeaderCellDef="'totalPrice'">Total Price</pui-table-header-cell>
+
+        <pui-table-cell *puiTableCellDef="'description'; let item">{{ item.description }}</pui-table-cell>
+        <pui-table-cell *puiTableCellDef="'isbn'; let item">{{ item.isbn }}</pui-table-cell>
+        <pui-table-cell *puiTableCellDef="'quantity'; let item">x {{ item.quantity }}</pui-table-cell>
+        <pui-table-cell *puiTableCellDef="'totalPrice'; let item" class="tabular-nums">$ {{ item.totalPrice }}</pui-table-cell>
+
+        <pui-table-body>
+          <pui-table-header-row></pui-table-header-row>
+          @for (item of inventoryItem()!.contents; track item.id) {
+            <pui-table-row
+              [item]="item"
+            ></pui-table-row>
+          }
+        </pui-table-body>
+      </pui-table>
+    }
+  </main>
+</div>
+@if (showEditButton()) {
+  @if (isEditing()) {
+    <pui-layout-control
+      id="cancel"
+      icon="close"
+      label="Cancel"
+      mode="low-emphasis"
+      (click)="onCancelClick()"
+    ></pui-layout-control>
+    <pui-layout-control
+      id="save"
+      icon="save"
+      label="Save"
+      mode="auto"
+      (click)="onSaveClick()"
+    ></pui-layout-control>
+  } @else {
+    <pui-layout-control
+      id="edit"
+      icon="edit"
+      label="Edit"
+      mode="auto"
+      (click)="onEditClick()"
+    ></pui-layout-control>
+  }
+}

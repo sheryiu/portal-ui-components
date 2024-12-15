@@ -17,6 +17,7 @@ export class TableComponent {
   itemHeight = input.required<Record<'default' | `${number}px` | number, number> | number>();
   columns = input.required<Record<'default' | `${number}px` | number, string[]> | string[]>();
   columnWidths = input<Record<'default' | `${number}px` | number, string[]> | string[]>();
+  selectionMode = input<'single' | 'multi' | null>(null)
   private currentWidth = signal<number | undefined>(undefined);
 
   activeColumns = computed(() => {
@@ -58,6 +59,8 @@ export class TableComponent {
     return itemHeight[smallestKey];
   })
 
+  @HostBinding('class.pui-table--single') private hostSingleClass = false;
+  @HostBinding('class.pui-table--multi') private hostMultiClass = false;
   @HostBinding('style.--pui-table-columns') private hostColumnWidths: string | undefined = undefined;
   @HostBinding('style.--pui-table-number-of-columns') private hostNumberOfColumns: number | undefined = undefined;
 
@@ -96,6 +99,10 @@ export class TableComponent {
     })
     effect(() => {
       this.hostNumberOfColumns = this.activeColumns()?.length;
+    })
+    effect(() => {
+      this.hostSingleClass = this.selectionMode() == 'single';
+      this.hostMultiClass = this.selectionMode() == 'multi';
     })
   }
 

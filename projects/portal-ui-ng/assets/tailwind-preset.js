@@ -20,9 +20,6 @@ module.exports = {
       screens: {
         '3xl': '1920px'
       },
-      // containers: {
-      //   screen: '120px'
-      // },
       containers: ({ theme }) => ({
         'screen-sm': theme('screens.sm'),
         'screen-md': theme('screens.md'),

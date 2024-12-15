@@ -11,6 +11,7 @@ import { TableComponent } from './table.component';
   host: {
     class: 'pui-table-row',
     role: 'row',
+    '[class.pui-table-row--selected]': 'selected()'
   },
   template: `
   @let options = routerOptions();
@@ -44,6 +45,7 @@ export class TableRowComponent<T> {
   route = input<any[]>()
   routerOptions = input<NavigationBehaviorOptions & UrlCreationOptions>();
   activeOptions = input<IsActiveMatchOptions | { exact: boolean; }>();
+  selected = input<boolean>();
   height = this.table.activeItemHeight;
 
   cells = computed(() => {

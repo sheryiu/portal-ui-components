@@ -27,7 +27,11 @@ export interface TableContentDataProvider<T> {
   data: Signal<T[]>;
   columnsConfig: Signal<ColumnConfig[]>;
   columnsToDisplay: Signal<string[]>;
+  selectionMode?: Signal<null | 'single' | 'multi'>;
+  selectedItems?: WritableSignal<Set<T>>;
   routeToDetail?(item: T): any[];
+  compareFn?(a: T, b: T): boolean;
+  onTableRowClick?(item: T): void;
   onHeaderCellClick?(columnKey: string, event: MouseEvent): void;
   // filter
   simpleFilterConfig?: Signal<ObjectJsonSchema>;

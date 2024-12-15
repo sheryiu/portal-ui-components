@@ -21,6 +21,7 @@
   <pui-table
     [itemHeight]="48"
     [columns]="columnsToDisplay()"
+    [selectionMode]="selectionMode()"
   >
 
     @for (config of columnConfig(); track config.key) {
@@ -77,12 +78,20 @@
               [item]="item"
               [route]="item[ROUTE_TO_DETAIL]"
               [style.height.px]="48"
+              [selected]="item | isInSet: selectedItems(): cmpFn"
+              (click)="onRowClick(item)"
             ></pui-table-row>
           </cdk-virtual-scroll-viewport>
         }
       } @else {
         @for (item of data(); track $index) {
-          <pui-table-row puiHoverable [item]="item" [route]="item[ROUTE_TO_DETAIL]"></pui-table-row>
+          <pui-table-row
+            puiHoverable
+            [item]="item"
+            [route]="item[ROUTE_TO_DETAIL]"
+            [selected]="item | isInSet: selectedItems(): cmpFn"
+            (click)="onRowClick(item)"
+          ></pui-table-row>
         }
       }
     </pui-table-body>

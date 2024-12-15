@@ -3,6 +3,7 @@ import { breadcrumb, EDITABLE_CONTENT_DATA_PROVIDER, EditableContentComponent, T
 import { map } from 'rxjs';
 import { InventoryItemDetailService } from './inventory-item-detail.service';
 import { InventoryItemEditService } from './inventory-item-edit.service';
+import { InventoryItemInfoComponent } from './inventory-item-info/inventory-item-info.component';
 import { InventoryItemListService } from './inventory-item-list.service';
 import { InventoryItemTableService } from './inventory-item-table.service';
 
@@ -13,6 +14,7 @@ export const ROUTES: Routes = [
       ...breadcrumb({ title: 'Item' }),
     },
     children: [
+      // detail
       {
         path: 'detail/:id',
         component: VerticalLayoutComponent,
@@ -31,7 +33,11 @@ export const ROUTES: Routes = [
         ],
         children: [
           {
-            path: '',
+            path: 'info',
+            component: InventoryItemInfoComponent,
+          },
+          {
+            path: 'raw',
             component: EditableContentComponent,
             providers: [
               {
@@ -39,9 +45,14 @@ export const ROUTES: Routes = [
                 useClass: InventoryItemEditService,
               }
             ]
+          },
+          {
+            path: '**',
+            redirectTo: 'info'
           }
         ]
       },
+      // list
       {
         path: '',
         component: VerticalLayoutComponent,

@@ -7,6 +7,7 @@ export type InventoryItem = {
   arrivedAt: Date;
   belongsTo: string;
   status: InventoryItemStatus;
+  locatedIn: InventoryShelf['id'] | null;
 }
 
 export type InventoryItemContent = {

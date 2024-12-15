@@ -4,7 +4,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, NavigationEnd, Router, RouterLink, RouterOutlet } from '@angular/router';
 import { filter, startWith } from 'rxjs';
 import { ButtonModule, filterNonNull } from '../../base';
-import { BreadcrumbsComponent, TabBarModule } from '../../components';
+import { BreadcrumbsComponent, TabBarModule, TooltipModule } from '../../components';
 import { LayoutService } from '../layout/layout.service';
 import { PeekableAddonComponent } from "../peekable-addon/peekable-addon.component";
 import { VERTICAL_LAYOUT_DATA_PROVIDER } from './vertical-layout';
@@ -19,7 +19,8 @@ import { VERTICAL_LAYOUT_DATA_PROVIDER } from './vertical-layout';
     TabBarModule,
     RouterLink,
     NgTemplateOutlet,
-    PeekableAddonComponent
+    PeekableAddonComponent,
+    TooltipModule,
 ],
   providers: [LayoutService],
   templateUrl: './vertical-layout.component.html',

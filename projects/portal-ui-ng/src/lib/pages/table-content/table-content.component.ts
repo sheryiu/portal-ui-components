@@ -4,7 +4,7 @@ import { Component, computed, effect, inject, PLATFORM_ID } from '@angular/core'
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { HoverableDirective, LodashGetPipe } from '../../base';
+import { HoverableDirective, IsInSetPipe, LodashGetPipe } from '../../base';
 import { FieldModule, TableModule, TimeDisplayComponent } from '../../components';
 import { flattenObjectJsonSchema } from '../editable-content/editable-content.component';
 import { LayoutControlDirective } from '../layout/layout-control.directive';
@@ -21,6 +21,7 @@ import { TABLE_CONTENT_DATA_PROVIDER, TABLE_CONTENT_DEFAULT_CONTROLS, TableConte
     LodashGetPipe,
     ScrollingModule,
     FieldModule,
+    IsInSetPipe,
   ],
   templateUrl: './table-content.component.html',
   styles: ``,
@@ -46,6 +47,12 @@ export class TableContentComponent<T> {
   })
   protected columnsToDisplay = computed(() => {
     return this.dataProvider.columnsToDisplay();
+  })
+  protected selectionMode = computed(() => {
+    return this.dataProvider.selectionMode?.() ?? null;
+  })
+  protected selectedItems = computed(() => {
+    return this.dataProvider.selectedItems?.() ?? new Set();
   })
   protected controlsConfig = computed(() => {
     return this.dataProvider.controlsConfig?.() ?? TABLE_CONTENT_DEFAULT_CONTROLS
@@ -75,6 +82,23 @@ export class TableContentComponent<T> {
     }, { allowSignalWrites: true })
   }
 
+  protected onRowClick(item: T) {
+    if (this.dataProvider.selectionMode?.() == 'single') {
+      this.dataProvider.selectedItems?.set(new Set([item]))
+    } else if (this.dataProvider.selectionMode?.() == 'multi') {
+      this.dataProvider.selectedItems?.update(old => {
+        const clone = new Set(old)
+        if (old.has(item)) {
+          clone.delete(item)
+        } else {
+          clone.add(item)
+        }
+        return clone;
+      })
+    }
+    this.dataProvider.onTableRowClick?.(item)
+  }
+
   protected onHeaderClick(columnKey: string, event: MouseEvent) {
     this.dataProvider.onHeaderCellClick?.(columnKey, event)
   }
@@ -90,4 +114,6 @@ export class TableContentComponent<T> {
   protected trackingFn(i: number, item: T) {
     return i;
   }
+
+  protected cmpFn = this.dataProvider.compareFn ?? ((a, b) => a == b);
 }

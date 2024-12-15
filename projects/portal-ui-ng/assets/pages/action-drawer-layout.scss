@@ -20,6 +20,10 @@
   }
 }
 
+.pui-action-drawer-layout__content {
+  @apply overflow-auto;
+}
+
 .pui-action-drawer-layout__controls {
   @apply flex items-center justify-end gap-3;
   @apply min-h-12;

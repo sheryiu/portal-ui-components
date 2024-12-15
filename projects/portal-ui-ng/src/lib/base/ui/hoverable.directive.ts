@@ -8,6 +8,8 @@ import { Directive, HostBinding, Input, booleanAttribute } from '@angular/core';
   }
 })
 export class HoverableDirective {
-  @HostBinding('attr.data-enabled') @Input({ transform: booleanAttribute }) hoverableEnabled = true;
+  @HostBinding('attr.data-enabled')
+  @Input({ transform: booleanAttribute })
+  hoverableEnabled = true;
 
 }
