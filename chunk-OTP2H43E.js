@@ -1,1 +1,0 @@
-import{ad as o}from"./chunk-GGV4OHPW.js";import{a as t}from"./chunk-EQDQRRRY.js";var a=[{path:"",loadComponent:()=>import("./chunk-FCWMOUIU.js").then(n=>n.SettingsComponent),data:t({},o("full"))}];export{a as SETTINGS_ROUTES};
