@@ -1,5 +1,5 @@
 import { ApplicationRef, inject, Injectable } from '@angular/core';
-import { faker } from '@faker-js/faker';
+import { faker } from '@faker-js/faker/locale/base';
 import { BehaviorSubject, delay, first } from 'rxjs';
 import { Address, Customer } from './user.types';
 

@@ -7,7 +7,8 @@
     "lib:watch": "ng build portal-ui-ng --watch",
     "start": "ng serve demo",
     "build": "ng build demo",
-    "deploy": "ng deploy demo --base-href=/portal-ui-components/ --repo=https://github.com/sheryiu/portal-ui-components.git"
+    "deploy": "ng deploy demo --base-href=/portal-ui-components/ --repo=https://github.com/sheryiu/portal-ui-components.git",
+    "analyze-bundle": "ng build demo --configuration=analyze-bundle && source-map-explorer dist/**/*.js --no-border-checks"
   },
   "private": true,
   "dependencies": {
@@ -23,7 +24,7 @@
     "@angular/router": "^18.2.3",
     "@angular/service-worker": "^18.2.3",
     "@angular/ssr": "^18.2.3",
-    "@faker-js/faker": "^9.0.3",
+    "@faker-js/faker": "^9.3.0",
     "@ngneat/transloco": "^6.0.4",
     "@tailwindcss/container-queries": "^0.1.1",
     "express": "^4.18.2",
@@ -47,6 +48,7 @@
     "autoprefixer": "^10.4.16",
     "ng-packagr": "^18.2.1",
     "postcss": "^8.4.45",
+    "source-map-explorer": "^2.5.3",
     "tailwindcss": "^3.4.14",
     "typescript": "~5.5.4"
   }

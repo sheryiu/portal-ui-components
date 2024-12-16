@@ -1,5 +1,5 @@
 import { inject, Injectable, signal, Signal, WritableSignal } from '@angular/core';
-import { faker } from '@faker-js/faker';
+import { faker } from '@faker-js/faker/locale/base';
 import { ActionDrawerLayoutDataProvider, EditableContentComponent, EditableContentDataProvider, LayoutControlConfig, ObjectJsonSchema, PuiOverlayRef } from 'portal-ui-ng';
 import { InventoryItemDataService } from '../../../data/inventory-item-data.service';
 import { InventoryItem, InventoryItemContentType, InventoryItemStatus } from '../../../data/inventory.types';

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { faker } from '@faker-js/faker';
+import { faker } from '@faker-js/faker/locale/base';
 import { ButtonModule, DividerComponent, MenuDividerDirective, MenuGroupDirective, MenuItemDirective, TabBarModule, TableModule, TooltipModule, VerticalNavigationMenuComponent } from 'portal-ui-ng';
 import { SharedModule } from './shared/shared.module';
 

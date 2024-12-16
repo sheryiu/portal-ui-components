@@ -125,6 +125,11 @@
               "optimization": false,
               "extractLicenses": false,
               "sourceMap": true
+            },
+            "analyze-bundle": {
+              "sourceMap": true,
+              "outputHashing": "none",
+              "namedChunks": true
             }
           },
           "defaultConfiguration": "production"

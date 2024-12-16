@@ -1,5 +1,5 @@
 import { ApplicationRef, inject, Injectable } from '@angular/core';
-import { faker } from '@faker-js/faker';
+import { faker } from '@faker-js/faker/locale/base';
 import { BehaviorSubject, combineLatest, delay, first } from 'rxjs';
 import { CustomerDataService } from './customer-data.service';
 import { InventoryShelfDataService } from './inventory-shelf-data.service';
