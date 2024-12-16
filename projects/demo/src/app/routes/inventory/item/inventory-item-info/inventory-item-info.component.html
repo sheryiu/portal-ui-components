@@ -2,7 +2,7 @@
   <main class="grow light-glass-bg rounded-4 p-8 flex flex-col gap-8">
     <div class="grid @screen-md:grid-cols-3 gap-8">
       <!-- status card -->
-      <div class="light-glass-bg-subtle rounded-4 px-8 py-4 overflow-hidden">
+      <div class="light-glass-bg-subtle rounded-4 px-8 py-4 overflow-hidden flex flex-col justify-center">
         <h4 class="text-neutral-700 dark:text-neutral-300">Status</h4>
         <p class="text-md">{{ inventoryItem()?.status ?? '--' }}</p>
       </div>
@@ -28,15 +28,20 @@
         </div>
       </a>
       <!-- shelf card -->
-      <div class="light-glass-bg-subtle rounded-4 px-8 py-4 overflow-hidden">
+      <a
+        class="light-glass-bg-subtle rounded-4 px-8 py-4 overflow-hidden justify-start"
+        puiHoverable
+        [hoverableEnabled]="!isEditing() && shelf() != null"
+        [routerLink]="(!isEditing() && !!shelf()) ? ['/inventory', 'shelf', 'detail', shelf()?.id] : null"
+      >
         <div class="flex flex-row gap-2 justify-start items-center">
           <i class="icon-6 text-neutral-700 dark:text-neutral-300">shelves</i>
           <div class="flex flex-col">
             <h4 class="text-neutral-700 dark:text-neutral-300">Shelf</h4>
-            <p class="text-md uppercase">{{ shelf() ? (shelf()?.location?.aisle! + shelf()?.location?.row + shelf()?.location?.layer) : '--' }}</p>
+            <p class="text-md uppercase">{{ shelf() ? (shelf()?.location?.aisle! + shelf()?.location?.row + ' - ' + shelf()?.location?.layer) : '--' }}</p>
           </div>
         </div>
-      </div>
+      </a>
     </div>
     <div class="grid items-center grid-cols-[min-content_minmax(0,1fr)] gap-x-4 gap-y-3">
       <span class="col-start-1 text-base font-medium whitespace-nowrap text-neutral-700 dark:text-neutral-300">ID</span>
@@ -65,10 +70,18 @@
         <pui-table-header-cell *puiTableHeaderCellDef="'quantity'">Quantity</pui-table-header-cell>
         <pui-table-header-cell *puiTableHeaderCellDef="'totalPrice'">Total Price</pui-table-header-cell>
 
-        <pui-table-cell *puiTableCellDef="'description'; let item">{{ item.description }}</pui-table-cell>
-        <pui-table-cell *puiTableCellDef="'isbn'; let item">{{ item.isbn }}</pui-table-cell>
-        <pui-table-cell *puiTableCellDef="'quantity'; let item">x {{ item.quantity }}</pui-table-cell>
-        <pui-table-cell *puiTableCellDef="'totalPrice'; let item" class="tabular-nums">$ {{ item.totalPrice }}</pui-table-cell>
+        <pui-table-cell *puiTableCellDef="'description'; let item">
+          <span class="truncate">{{ item.description }}</span>
+        </pui-table-cell>
+        <pui-table-cell *puiTableCellDef="'isbn'; let item">
+          <span class="truncate">{{ item.isbn }}</span>
+        </pui-table-cell>
+        <pui-table-cell *puiTableCellDef="'quantity'; let item">
+          x <span class="truncate">{{ item.quantity }}</span>
+        </pui-table-cell>
+        <pui-table-cell *puiTableCellDef="'totalPrice'; let item" class="tabular-nums">
+          $ <span class="truncate">{{ item.totalPrice }}</span>
+        </pui-table-cell>
 
         <pui-table-body>
           <pui-table-header-row></pui-table-header-row>
