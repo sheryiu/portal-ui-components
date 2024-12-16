@@ -1,5 +1,5 @@
 import { inject, Injectable, Signal, signal, WritableSignal } from '@angular/core';
-import { faker } from '@faker-js/faker/locale/base';
+import { faker } from '@faker-js/faker';
 import { ActionDrawerLayoutDataProvider, EditableContentComponent, EditableContentDataProvider, LayoutControlConfig, ObjectJsonSchema, PuiOverlayRef } from 'portal-ui-ng';
 import { CustomerDataService } from '../../../data/customer-data.service';
 import { Customer } from '../../../data/user.types';

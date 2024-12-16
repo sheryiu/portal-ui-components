@@ -1,5 +1,5 @@
 import { ApplicationRef, inject, Injectable } from '@angular/core';
-import { faker } from '@faker-js/faker/locale/base';
+import { faker } from '@faker-js/faker';
 import { BehaviorSubject, delay, first } from 'rxjs';
 import { Address, Customer } from './user.types';
 
@@ -32,7 +32,7 @@ export class CustomerDataService {
         icon: faker.helpers.arrayElement(['pentagon', 'square', 'hexagon', 'shapes', 'stack', 'lightbulb', 'all_out'])
       },
       name: faker.person.fullName({ firstName, lastName }),
-      username: faker.helpers.maybe(() => faker.internet.userName({ firstName, lastName })) ?? faker.internet.userName(),
+      username: faker.helpers.maybe(() => faker.internet.username({ firstName, lastName })) ?? faker.internet.username(),
       email: faker.internet.email({ firstName, lastName }),
       phone: faker.phone.number(),
       address: this.createMockAddress(),

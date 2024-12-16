@@ -1,5 +1,5 @@
 import { ApplicationRef, inject, Injectable } from '@angular/core';
-import { faker } from '@faker-js/faker/locale/base';
+import { faker } from '@faker-js/faker';
 import { BehaviorSubject, delay, first } from 'rxjs';
 import { InventoryShelf } from './inventory.types';
 
