@@ -11,6 +11,9 @@ const SUPPORTED = humanizeDuration.getSupportedLanguages().map(s => s.toLowerCas
   standalone: true,
   pure: false,
 })
+/**
+ * install humanize-duration to use timeAgo
+ */
 export class TimeAgoPipe implements PipeTransform {
 
   private isBrowser = isPlatformBrowser(inject(PLATFORM_ID));

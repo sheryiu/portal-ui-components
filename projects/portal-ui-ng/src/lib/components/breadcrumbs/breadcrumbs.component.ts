@@ -62,7 +62,7 @@ export class BreadcrumbsComponent {
                 route: ActivatedRoute;
                 title: string;
                 tooltip?: string | null;
-                id: string;
+                id: Symbol;
               },
             });
           }

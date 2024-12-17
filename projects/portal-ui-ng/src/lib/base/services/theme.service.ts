@@ -27,7 +27,9 @@ export function provideTheme(options: ThemeOptions = {
   ])
 }
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class ThemeService {
   private platformId = inject(PLATFORM_ID);
   private document = inject(DOCUMENT);

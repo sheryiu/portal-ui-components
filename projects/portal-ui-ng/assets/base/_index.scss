@@ -1,25 +1,13 @@
 @use "./button";
 @use "./input-field.scss";
+@use "./scrollbar.scss";
+@use "./hoverable.scss";
 
 .dark {
   --color-hover: 255 255 255;
   --color-hover-opacity: 0.07;
   --color-secondary: 173 173 173;
   color-scheme: dark;
-}
-
-.pui-hoverable {
-  @apply flex items-center justify-center relative overflow-hidden transition-all;
-  &[data-enabled=true], &:enabled {
-    @apply cursor-pointer after:absolute after:inset-0 after:transition-colors after:touch-none after:pointer-events-none hover:after:bg-hover focus-visible:after:bg-hover;
-    @apply outline-2 outline-offset-2 outline-transparent;
-    &:focus-visible {
-      @apply outline outline-primary-500;
-    }
-  }
-  &[data-enabled=false], &:disabled {
-    @apply outline-none;
-  }
 }
 
 .pui-overlay-container {

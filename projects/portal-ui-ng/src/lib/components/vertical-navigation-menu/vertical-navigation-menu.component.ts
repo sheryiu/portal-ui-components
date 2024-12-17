@@ -1,8 +1,7 @@
 import { Location, NgClass, NgTemplateOutlet } from '@angular/common';
-import { afterNextRender, Component, contentChildren, DestroyRef, inject, Injector, viewChildren } from '@angular/core';
+import { afterNextRender, Component, contentChildren, DestroyRef, ElementRef, inject, Injector, signal, viewChildren } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
-import { ButtonModule, TypedTemplateDirective } from '../../base';
-import { AccordionModule, AccordionTriggerDirective } from '../accordion';
+import { ButtonModule, IsInSetPipe, TypedTemplateDirective } from '../../base';
 import { DividerComponent } from '../divider';
 import { MenuDividerDirective } from './menu-divider.directive';
 import { MenuGroupDirective } from './menu-group.directive';
@@ -19,8 +18,8 @@ import { VERTICAL_NAVIGATION_MENU_CHILD } from './vertical-navigation-menu';
     RouterLink,
     RouterLinkActive,
     TypedTemplateDirective,
-    AccordionModule,
-    DividerComponent
+    DividerComponent,
+    IsInSetPipe,
   ],
   templateUrl: './vertical-navigation-menu.component.html',
   styles: ``,
@@ -40,19 +39,35 @@ export class VerticalNavigationMenuComponent {
     child: MenuItemDirective | MenuGroupDirective | MenuDividerDirective;
   };
   protected children = contentChildren(VERTICAL_NAVIGATION_MENU_CHILD)
-  private accordionTriggers = viewChildren(AccordionTriggerDirective)
+  private groupElements = viewChildren('groupEl', { read: ElementRef })
+
+  protected openedChildren = signal(new Set<HTMLElement>())
 
   constructor() {
     const ref = this.location.onUrlChange(() => {
       afterNextRender(() => {
-        this.accordionTriggers().forEach(trigger => {
-          const hasActiveChild = !!(trigger.elementRef.nativeElement as HTMLElement).nextElementSibling?.querySelector('.pui-vertical-navigation-menu__item--active')
+        this.groupElements().forEach(el => {
+          const hasActiveChild = !!(el.nativeElement as HTMLElement).nextElementSibling?.querySelector('.pui-vertical-navigation-menu__item--active')
           if (hasActiveChild) {
-            trigger.isOpened.set(true);
+            this.openedChildren.update(set => {
+              return new Set(set).add(el.nativeElement)
+            })
           }
         })
       }, { injector: this.injector })
     })
     this.destroyRef.onDestroy(() => ref())
+  }
+
+  protected toggleGroup(element: HTMLElement) {
+    this.openedChildren.update(set => {
+      const clone = new Set(set);
+      if (set.has(element)) {
+        clone.delete(element);
+      } else {
+        clone.add(element);
+      }
+      return clone;
+    })
   }
 }

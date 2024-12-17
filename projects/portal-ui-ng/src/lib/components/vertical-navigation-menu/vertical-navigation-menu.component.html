@@ -1,4 +1,4 @@
-<div puiAccordionContainer>
+<div>
   <ng-container [ngTemplateOutlet]="group" [ngTemplateOutletContext]="{ children: children() }"></ng-container>
 </div>
 
@@ -13,6 +13,7 @@
         @let options = child.routerOptions();
         @let activeOptions = child.activeOptions();
         <a
+          #groupEl
           puiBaseButton
           class="pui-vertical-navigation-menu__item"
           [routerLink]="route"
@@ -20,7 +21,7 @@
           [routerLinkActiveOptions]="activeOptions ?? { exact: false }"
           #active="routerLinkActive"
           [ngClass]="{
-            'pui-vertical-navigation-menu__item--opened': trigger.isOpened(),
+            'pui-vertical-navigation-menu__item--opened': groupEl | isInSet: openedChildren(),
             'pui-vertical-navigation-menu__item--active': active.isActive,
           }"
           [state]="options?.state"
@@ -31,8 +32,7 @@
           [preserveFragment]="options?.preserveFragment"
           [relativeTo]="options?.relativeTo"
           [replaceUrl]="options?.replaceUrl"
-          puiAccordionTrigger
-          #trigger="accordionTrigger"
+          (click)="toggleGroup(groupEl)"
         >
           <ng-container [ngTemplateOutlet]="childContent" [ngTemplateOutletContext]="{ child: child }"></ng-container>
         </a>
@@ -41,15 +41,14 @@
         </div>
       } @else {
         <button
+          #groupEl
           puiBaseButton
           type="button"
           class="pui-vertical-navigation-menu__item"
           [ngClass]="{
-            'pui-vertical-navigation-menu__item--opened': trigger.isOpened(),
+            'pui-vertical-navigation-menu__item--opened': groupEl | isInSet: openedChildren(),
           }"
-          (click)="child.click.emit($event)"
-          puiAccordionTrigger
-          #trigger="accordionTrigger"
+          (click)="toggleGroup(groupEl); child.click.emit($event)"
         >
           <ng-container [ngTemplateOutlet]="childContent" [ngTemplateOutletContext]="{ child: child }"></ng-container>
         </button>

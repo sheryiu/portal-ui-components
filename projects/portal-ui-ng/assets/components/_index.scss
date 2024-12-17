@@ -9,37 +9,6 @@
 @import './vertical-navigation-menu.scss';
 @import './autocomplete.scss';
 
-.cdk-overlay-backdrop.pui-quick-access-backdrop {
-  @apply max-sm:left-24 bg-black/10 dark:bg-black/20 backdrop-blur-sm;
-}
-
-.pui-tab-bar-header {
-  @apply bg-hover text-primary-700 dark:text-primary-500 text-base font-medium;
-  @apply border border-s-0 rounded-e-1 py-1 ps-4 pe-2 min-h-11;
-  @apply flex justify-between items-center gap-2;
-}
-
-.\@container\/segmented-options {
-  container-type: inline-size;
-  container-name: segmented-options;
-}
-.pui-segmented-options {
-  > div > div {
-    @apply flex flex-col items-stretch gap-0.5 rounded-1 bg-neutral-50 dark:bg-neutral-950 border p-px;
-    @apply @[16rem]/segmented-options:flex-row @[16rem]/segmented-options:items-center;
-  }
-  input[type=radio] {
-    @apply hidden;
-  }
-  .pui-segmented-options-button {
-    @apply rounded-1 px-1 py-1.5;
-    @apply w-full min-w-fit @[16rem]/segmented-options:grow @[16rem]/segmented-options:w-auto;
-    &[data-checked=false] {
-      @apply bg-none;
-    }
-  }
-}
-
 .pui-linear-progress-display {
   @apply w-full flex items-center gap-1 overflow-hidden;
 }
@@ -108,21 +77,6 @@
     @apply flex gap-4 justify-end py-2;
     > button {
       @apply grow max-w-[50%] rounded-1 px-2 py-2 font-medium;
-    }
-  }
-}
-
-.pui-table-of-contents {
-  @apply flex flex-col;
-  .pui-table-of-contents__entry {
-    @apply flex justify-start gap-2 py-1.5 transition-colors;
-    @apply text-secondary hover:text-black dark:hover:text-white;
-    @apply before:w-0.5 before:-my-1.5 before:self-stretch before:scale-x-50 hover:before:scale-x-100 before:transition;
-
-    @apply before:bg-neutral-400 dark:before:bg-neutral-600;
-    &[data-active=true] {
-      @apply before:scale-x-100;
-      @apply text-primary-600 before:bg-primary-500 dark:text-primary-400 dark:before:bg-primary-500;
     }
   }
 }

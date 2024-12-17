@@ -1,6 +1,6 @@
-import { Component, Input, booleanAttribute, forwardRef, output, signal } from '@angular/core';
+import { Component, booleanAttribute, forwardRef, input, output, signal } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { nanoid } from 'nanoid';
+import { uniqueId } from 'lodash-es';
 import { HoverableDirective } from '../../../base';
 
 @Component({
@@ -21,7 +21,7 @@ import { HoverableDirective } from '../../../base';
 })
 export class ToggleComponent implements ControlValueAccessor {
 
-  @Input() id: string = nanoid();
+  id = input<string>(`toggle-${uniqueId()}`)
   isChecked = signal<boolean>(false);
   isDisabled = signal<boolean>(false);
   onChange?: (val: boolean) => void;
