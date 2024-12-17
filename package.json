@@ -8,7 +8,7 @@
     "start": "ng serve demo",
     "build": "ng build demo",
     "deploy": "ng deploy demo --base-href=/portal-ui-components/ --repo=https://github.com/sheryiu/portal-ui-components.git",
-    "analyze-bundle": "ng build demo --configuration=analyze-bundle && source-map-explorer dist/**/*.js --no-border-checks"
+    "analyze-bundle": "ng build demo --configuration=analyze-bundle && source-map-explorer dist/demo/**/*.js --no-border-checks"
   },
   "private": true,
   "dependencies": {

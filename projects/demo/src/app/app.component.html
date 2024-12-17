@@ -1,11 +1,11 @@
-<div class="w-80 fixed left-8 top-8 bottom-8 flex flex-col gap-6">
+<div class="w-80 fixed left-8 top-8 bottom-8 flex flex-col gap-6 overflow-hidden">
   <div class="px-2 flex items-center gap-4">
     <div class="flex-none size-12 bg-gradient-to-br from-primary-600/70 from-20% to-accent-500/70 rounded-full p-2 isolate">
       <i class="icon-8 mix-blend-overlay">identity_platform</i>
     </div>
     <h3 class="pt-0">Portal UI Demo</h3>
   </div>
-  <div class="light-glass-bg rounded-4 w-full grow flex flex-col">
+  <div class="light-glass-bg rounded-4 w-full grow flex flex-col overflow-hidden">
     <nav
       class="grid grid-cols-4 gap-4 p-4 flex-none"
     >
@@ -23,7 +23,7 @@
       </button>
     </nav>
     <pui-divider></pui-divider>
-    <pui-vertical-navigation-menu>
+    <pui-vertical-navigation-menu class="overflow-auto">
       <pui-menu-item
         label="Home"
         icon="home"
