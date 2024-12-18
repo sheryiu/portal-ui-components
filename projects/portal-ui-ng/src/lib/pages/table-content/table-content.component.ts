@@ -40,7 +40,7 @@ export class TableContentComponent<T> {
   protected data = computed(() => {
     const data = this.dataProvider.data();
     const routeToDetail = this.dataProvider.routeToDetail;
-    return data?.map(item => Object.assign({}, item, { [this.ROUTE_TO_DETAIL]: routeToDetail?.(item) }))
+    return data?.map(item => Object.assign({}, item, { [this.ROUTE_TO_DETAIL]: routeToDetail?.bind(this.dataProvider)?.(item) }))
   })
   protected columnConfig = computed(() => {
     return this.dataProvider.columnsConfig();

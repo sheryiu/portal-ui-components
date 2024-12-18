@@ -37,7 +37,7 @@ module.exports = {
         addBase({
           html: {
             "min-height": "100svh",
-            height: "100%",
+            // height: "100%",
           },
           body: {
             "min-height": "100svh",
@@ -93,56 +93,7 @@ module.exports = {
             "font-weight": "500"
           }
         });
-        addComponents({
-          ".bg-drawer-content": {
-            ".dark &": {
-              background: theme('colors.neutral.900')
-            },
-            background: theme('colors.neutral.100')
-          }
-        });
-        matchUtilities({
-          'gradient-shape': (value) => {
-            return {
-              '--gradient-radial-shape': value
-            }
-          }
-        }, {
-          type: ['position'],
-          values: {
-            'circle': 'circle',
-            'ellipse': 'ellipse',
-          }
-        });
-        matchUtilities({
-          'gradient-position': (value) => {
-            return {
-              '--gradient-position': value,
-            }
-          }
-        }, {
-          type: ['position'],
-          values: {
-            'center': 'center'
-          }
-        })
       }
     ),
-    // monster hunter module only
-    plugin(
-      ({ addComponents }) => {
-        addComponents({
-          '.elemental-gradient': {
-            '.dark &': {
-              '--tw-gradient-stops': 'hsl(0deg 50% 50%), hsl(224deg 50% 50%), hsl(60deg 65% 70%), hsl(195deg 50% 55%), hsl(245deg 60% 50%), hsl(0deg 50% 50%)'
-            },
-            '--tw-gradient-stops': 'hsl(0deg 50% 65%), hsl(224deg 40% 60%), hsl(60deg 65% 70%), hsl(195deg 50% 75%), hsl(245deg 40% 60%), hsl(0deg 50% 65%)'
-          },
-          '.hexagon-mask': {
-            'clip-path': 'polygon(50% 0%, 95% 25%, 95% 75%, 50% 100%, 5% 75%, 5% 25%)'
-          }
-        })
-      }
-    )
   ],
 };

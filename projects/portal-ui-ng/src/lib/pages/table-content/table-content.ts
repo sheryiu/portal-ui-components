@@ -26,7 +26,7 @@ export interface TableContentDataProvider<T> {
   // table
   data: Signal<T[]>;
   columnsConfig: Signal<ColumnConfig[]>;
-  columnsToDisplay: Signal<string[]>;
+  columnsToDisplay: Signal<Record<'default' | `${number}px` | number, string[]> | string[]>;
   selectionMode?: Signal<null | 'single' | 'multi'>;
   selectedItems?: WritableSignal<Set<T>>;
   routeToDetail?(item: T): any[];

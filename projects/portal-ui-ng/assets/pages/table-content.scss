@@ -22,7 +22,7 @@
 
 .pui-table-content .pui-fieldset {
   max-width: unset;
-  @apply flex flex-row;
+  @apply flex flex-row flex-wrap;
 }
 .pui-table-content .pui-fieldset__input {
   @apply basis-56 shrink-0;

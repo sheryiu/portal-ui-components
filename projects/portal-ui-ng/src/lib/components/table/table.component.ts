@@ -14,9 +14,12 @@ import { TableHeaderCellDefDirective } from './table-header-cell/table-header-ce
   template: `<ng-content></ng-content>`
 })
 export class TableComponent {
-  itemHeight = input.required<Record<'default' | `${number}px` | number, number> | number>();
-  columns = input.required<Record<'default' | `${number}px` | number, string[]> | string[]>();
-  columnWidths = input<Record<'default' | `${number}px` | number, string[]> | string[]>();
+  itemHeight = input.required<Record<'default' | number, number> | number>();
+  /**
+   * when using Record<number, string[]>, the number represents the minimum width that the display columns will become active
+   */
+  columns = input.required<Record<'default' | number, string[]> | string[]>();
+  columnWidths = input<Record<'default' | number, string[]> | string[]>();
   selectionMode = input<'single' | 'multi' | null>(null)
   private currentWidth = signal<number | undefined>(undefined);
 
@@ -25,17 +28,10 @@ export class TableComponent {
     if (currentWidth == null) return undefined;
     const columns = this.columns();
     if (Array.isArray(columns)) return columns;
-    const keys = (Object.keys(columns) as (number | `${number}px` | "default")[])
-      .map(key => key == 'default' ? 0 : key)
-      .sort((a, b) => {
-        const _a = (typeof a == 'string') ? Number(a.slice(0, -2)) : a;
-        const _b = (typeof b == 'string') ? Number(b.slice(0, -2)) : b;
-        return _b - _a;
-      });
-    const smallestKey = keys.find(key => {
-      const _key = (typeof key == 'string') ? Number(key.slice(0, -2)) : key;
-      return _key <= currentWidth
-    }) ?? 'default';
+    const keys = (Object.keys(columns) as (number | "default")[])
+      .filter(key => key != 'default')
+      .sort((a, b) =>  b - a);
+    const smallestKey = keys.find(key => key <= currentWidth) ?? 'default';
     if (!(smallestKey in columns)) return undefined;
     return columns[smallestKey];
   })
@@ -44,17 +40,10 @@ export class TableComponent {
     if (currentWidth == null) return undefined;
     const itemHeight = this.itemHeight();
     if (typeof itemHeight == 'number') return itemHeight;
-    const keys = (Object.keys(itemHeight) as (number | `${number}px` | "default")[])
-      .map(key => key == 'default' ? 0 : key)
-      .sort((a, b) => {
-        const _a = (typeof a == 'string') ? Number(a.slice(0, -2)) : a;
-        const _b = (typeof b == 'string') ? Number(b.slice(0, -2)) : b;
-        return _b - _a;
-      });
-    const smallestKey = keys.find(key => {
-      const _key = (typeof key == 'string') ? Number(key.slice(0, -2)) : key;
-      return _key <= currentWidth
-    }) ?? 'default';
+    const keys = (Object.keys(itemHeight) as (number | "default")[])
+      .filter(key => key != 'default')
+      .sort((a, b) =>  b - a);
+    const smallestKey = keys.find(key => key <= currentWidth) ?? 'default';
     if (!(smallestKey in itemHeight)) return undefined;
     return itemHeight[smallestKey];
   })
@@ -82,17 +71,10 @@ export class TableComponent {
         this.setColumnWidths(columnWidths);
         return;
       }
-      const keys = (Object.keys(columnWidths) as (number | `${number}px` | "default")[])
-        .map(key => key == 'default' ? 0 : key)
-        .sort((a, b) => {
-          const _a = (typeof a == 'string') ? Number(a.slice(0, -2)) : a;
-          const _b = (typeof b == 'string') ? Number(b.slice(0, -2)) : b;
-          return _b - _a;
-        });
-      const smallestKey = keys.find(key => {
-        const _key = (typeof key == 'string') ? Number(key.slice(0, -2)) : key;
-        return _key <= currentWidth
-      }) ?? 'default';
+      const keys = (Object.keys(columnWidths) as (number | "default")[])
+        .filter(key => key != 'default')
+        .sort((a, b) =>  b - a);
+      const smallestKey = keys.find(key => key <= currentWidth) ?? 'default';
       if (smallestKey in columnWidths) {
         this.setColumnWidths(columnWidths[smallestKey]);
       }

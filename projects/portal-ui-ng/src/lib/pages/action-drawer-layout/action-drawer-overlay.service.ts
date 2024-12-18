@@ -17,12 +17,13 @@ export class ActionDrawerOverlayService {
       parent?: Injector;
       overlayData?: D;
     } = {
-      width: '30vw',
+      width: '480px',
     }
   ) {
     this.overlay.open(ActionDrawerLayoutComponent, {
       positionStrategy: this.overlay.position().global().right('0').centerVertically(),
-      width: config.width ?? '30vw',
+      maxWidth: '90vw',
+      width: config.width ?? '480px',
       height: '100%',
       hasBackdrop: true,
       backdropClass: 'pui-action-drawer-backdrop',

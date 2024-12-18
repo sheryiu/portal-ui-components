@@ -1,6 +1,6 @@
-import { computed, effect, inject, Injectable, signal, Signal } from '@angular/core';
+import { computed, effect, inject, Injectable, signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { ACTION_DRAWER_LAYOUT_DATA_PROVIDER, ActionDrawerOverlayService, ColumnConfig, EDITABLE_CONTENT_DATA_PROVIDER, ObjectJsonSchema, TableContentDataProvider } from 'portal-ui-ng';
+import { ACTION_DRAWER_LAYOUT_DATA_PROVIDER, ActionDrawerOverlayService, ColumnConfig, EDITABLE_CONTENT_DATA_PROVIDER, ObjectJsonSchema, ScreenWidthDetectorService, TableContentDataProvider } from 'portal-ui-ng';
 import { CustomerDataService } from '../../../data/customer-data.service';
 import { Customer } from '../../../data/user.types';
 import { CustomerAddService } from './customer-add.service';
@@ -9,10 +9,11 @@ import { CustomerAddService } from './customer-add.service';
 export class CustomerTableService implements TableContentDataProvider<Customer> {
   private dataService = inject(CustomerDataService);
   private actionDrawer = inject(ActionDrawerOverlayService);
+  private screenWidth = inject(ScreenWidthDetectorService)
   private rawData = toSignal(this.dataService.getList())
 
   configuration = {
-    // useVirtualScroll: true,
+    useVirtualScroll: true,
   };
   data = signal<Customer[]>([]);
   columnsConfig = signal<ColumnConfig[]>([
@@ -48,9 +49,11 @@ export class CustomerTableService implements TableContentDataProvider<Customer> 
       }
     },
   ]);
-  columnsToDisplay: Signal<string[]> = signal([
-    'name', 'username', 'email', 'phone', 'line2', 'registeredSince',
-  ]);
+  columnsToDisplay = signal({
+    default: ['name', 'phone'],
+    768: ['name', 'email', 'phone', 'registeredSince'],
+    1536: ['name', 'username', 'email', 'phone', 'line2', 'registeredSince'],
+  });
   simpleFilterConfig = signal<ObjectJsonSchema>({
     type: 'object',
     properties: {
@@ -99,7 +102,10 @@ export class CustomerTableService implements TableContentDataProvider<Customer> 
   }
 
   routeToDetail?(item: Customer): any[] {
-    return ['/user', 'customer', { outlets: { peek: [item.id] } }]
+    if (this.screenWidth.above().sm()) {
+      return ['/user', 'customer', { outlets: { peek: [item.id] } }]
+    }
+    return ['/user', 'customer', 'detail', item.id]
   }
   onHeaderCellClick(columnKey: string, event: MouseEvent): void {
     this.columnsConfig.update(columns => {

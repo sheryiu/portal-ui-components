@@ -1,4 +1,4 @@
-import { computed, effect, inject, Injectable, signal, Signal } from '@angular/core';
+import { computed, effect, inject, Injectable, signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { ACTION_DRAWER_LAYOUT_DATA_PROVIDER, ActionDrawerOverlayService, ColumnConfig, EDITABLE_CONTENT_DATA_PROVIDER, TableContentDataProvider } from 'portal-ui-ng';
 import { InventoryItemDataService } from '../../../data/inventory-item-data.service';
@@ -56,9 +56,11 @@ export class InventoryItemTableService implements TableContentDataProvider<Inven
       }
     },
   ]);
-  columnsToDisplay: Signal<string[]> = signal([
-    'belongsTo', 'netWeight', 'grossWeight', 'isContainFragile', 'status', 'arrivedAt'
-  ]);
+  columnsToDisplay = signal({
+    default: ['belongsTo', 'status'],
+    768: ['belongsTo', 'netWeight', 'status', 'arrivedAt'],
+    1280: ['belongsTo', 'netWeight', 'grossWeight', 'isContainFragile', 'status', 'arrivedAt']
+  });
   simpleFilterValue = signal<any>({})
   private sortFn = computed<(a: InventoryItem, b: InventoryItem) => number>(() => {
     const column = this.columnsConfig().find(config => config.isSortedAsc || config.isSortedDesc)

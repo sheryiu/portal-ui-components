@@ -86,9 +86,11 @@ export class CustomerInfoComponent implements TableContentDataProvider<Inventory
       }
     },
   ]);
-  columnsToDisplay = signal([
-    'netWeight', 'grossWeight', 'isContainFragile', 'status', 'arrivedAt'
-  ]);
+  columnsToDisplay = signal({
+    default: ['netWeight', 'status'],
+    768: ['netWeight', 'status', 'arrivedAt'],
+    1280: ['netWeight', 'grossWeight', 'isContainFragile', 'status', 'arrivedAt']
+  });
   routeToDetail(item: InventoryItem) {
     return ['/', 'inventory', 'item', 'detail', item.id]
   }
