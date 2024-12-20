@@ -1,0 +1,1 @@
+import{Xa as r,a as e}from"./chunk-7ZWV2HLD.js";var a=[{path:"",data:e({},r({title:"User"})),children:[{path:"customer",loadChildren:()=>import("./chunk-O7YWTSW2.js").then(t=>t.ROUTES)},{path:"employee",loadChildren:()=>import("./chunk-DKTBCI4Y.js").then(t=>t.ROUTES)}]}];export{a as ROUTES};
