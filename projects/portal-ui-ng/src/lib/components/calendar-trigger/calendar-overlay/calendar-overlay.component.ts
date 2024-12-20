@@ -9,7 +9,9 @@ import { OVERLAY_DATA } from '../../../base';
   template: `
     <div #calendar></div>
   `,
-  styles: ``
+  host: {
+    class: 'pui-calendar-overlay'
+  }
 })
 export class CalendarOverlayComponent {
   private data = inject(OVERLAY_DATA) as { date: Date | null | undefined; onDateChange: (date: Date) => void };
@@ -28,6 +30,7 @@ export class CalendarOverlayComponent {
           selectedDates: date ? [`${String(date.getFullYear()).padStart(4, '0')}-${String(date.getMonth()+1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`] : undefined,
           selectedTime: date ? `${String(date.getHours()).padStart(2, '0')}:${String(date.getMinutes()).padStart(2, '0')}` : undefined,
           enableJumpToSelectedDate: true,
+          firstWeekday: 0,
           selectionTimeMode: 24,
           onChangeTime: (self, event) => {
             this.onChange()
@@ -39,7 +42,10 @@ export class CalendarOverlayComponent {
         this.calendar.init()
       }
     }, { manualCleanup: true })
-    this.destroyRef.onDestroy(() => ref.destroy())
+    this.destroyRef.onDestroy(() => {
+      this.calendar.destroy()
+      ref.destroy()
+    })
   }
 
   private onChange() {

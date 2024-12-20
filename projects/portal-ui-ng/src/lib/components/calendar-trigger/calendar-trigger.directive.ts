@@ -1,5 +1,6 @@
-import { Directive, ElementRef, HostListener, inject, input, output } from '@angular/core';
-import { PuiOverlayService } from '../../base';
+import { DestroyRef, Directive, ElementRef, HostListener, inject, input, output } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { PuiOverlayRef, PuiOverlayService } from '../../base';
 import { CalendarOverlayComponent } from './calendar-overlay/calendar-overlay.component';
 
 @Directive({
@@ -9,13 +10,20 @@ import { CalendarOverlayComponent } from './calendar-overlay/calendar-overlay.co
 export class CalendarTriggerDirective {
   private overlay = inject(PuiOverlayService);
   private elementRef = inject(ElementRef) as ElementRef<HTMLElement>;
+  private destroyRef = inject(DestroyRef)
 
   date = input<Date | null | undefined>();
   dateChange = output<Date>();
+  private overlayRef?: PuiOverlayRef;
 
   @HostListener('click')
   openOverlay() {
-    this.overlay.open(
+    if (this.overlayRef) {
+      this.overlayRef.close();
+      this.overlayRef = undefined;
+      return;
+    }
+    this.overlayRef = this.overlay.open(
       CalendarOverlayComponent,
       {
         positionStrategy: this.overlay.position().flexibleConnectedTo(this.elementRef.nativeElement)
@@ -35,6 +43,11 @@ export class CalendarTriggerDirective {
         }
       }
     )
+    this.overlayRef.afterClosed$.pipe(
+      takeUntilDestroyed(this.destroyRef)
+    ).subscribe(() => {
+      this.overlayRef = undefined;
+    })
   }
 
 }
