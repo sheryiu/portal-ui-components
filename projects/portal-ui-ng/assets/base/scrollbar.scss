@@ -1,4 +1,4 @@
-@media (hover: hover) {
+@media (hover: hover) and (pointer: fine) {
   :where([data-os=other]) {
     ::-webkit-scrollbar {
       background: hsl(0, 0%, 15%);
