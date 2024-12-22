@@ -62,3 +62,43 @@ export type Employee = {
   dateOfLeaving: Date | null;
   status: EmployeeStatus;
 }
+
+export type AccessControl = {
+  id: string;
+  userNumber: string;
+  employeeId: string;
+  isEnabled: boolean;
+  permissions: {
+    customer: Permission;
+    employee: Permission;
+    inventoryItem: Permission;
+  };
+  conditions: {
+    location: {
+      isEnabled: boolean;
+      allowedIps: string[] | null;
+      countries: string[] | null;
+    }
+    timeRange: {
+      isEnabled: boolean;
+      allowedAfter: string | null;
+      allowedBefore: string | null;
+    }
+  }
+  // queryHistory: QueryHistory[];
+}
+
+export type Permission = {
+  canCreate: boolean;
+  canRead: boolean;
+  canWrite: boolean;
+  canDelete: boolean;
+}
+
+export type QueryHistory = {
+  id: string;
+  timestamp: Date;
+  ip: string;
+  headers: string;
+  action: string;
+}

@@ -72,7 +72,7 @@ export class InventoryShelfTableService implements TableContentDataProvider<Inve
   })
   private filterFn = computed<(item: InventoryShelf) => boolean>(() => {
     const filter = this.simpleFilterValue();
-    const hasFilter = Object.values(filter ?? {}).some(v => !!v);
+    const hasFilter = Object.values(filter ?? {}).some(v => (typeof v == 'string') ? !!v : (v != null));
     return (item) => true
   })
 

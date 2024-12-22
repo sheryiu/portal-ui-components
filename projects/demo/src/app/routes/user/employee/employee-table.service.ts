@@ -81,7 +81,7 @@ export class EmployeeTableService implements TableContentDataProvider<Employee> 
   })
   private filterFn = computed<(item: Employee) => boolean>(() => {
     const filter = this.simpleFilterValue();
-    const hasFilter = Object.values(filter ?? {}).some(v => !!v);
+    const hasFilter = Object.values(filter ?? {}).some(v => (typeof v == 'string') ? !!v : (v != null));
     return (item) => (hasFilter && !!filter['status'] && item.status != filter['status'])
       ? false
       : (hasFilter && !!filter['department'] && item.department != filter['department'])
@@ -120,12 +120,10 @@ export class EmployeeTableService implements TableContentDataProvider<Employee> 
         this.actionDrawer.open(
           EmployeeAddService,
           {
-            providers: [
-              {
-                provide: EDITABLE_CONTENT_DATA_PROVIDER,
-                useExisting: ACTION_DRAWER_LAYOUT_DATA_PROVIDER,
-              }
-            ]
+            providers: [{
+              provide: EDITABLE_CONTENT_DATA_PROVIDER,
+              useExisting: ACTION_DRAWER_LAYOUT_DATA_PROVIDER,
+            }]
           }
         )
         break;
@@ -138,12 +136,10 @@ export class EmployeeTableService implements TableContentDataProvider<Employee> 
               filter: this.simpleFilterValue(),
               onFilterApply: (newFilter: any) => this.simpleFilterValue.set(newFilter),
             },
-            providers: [
-              {
-                provide: EDITABLE_CONTENT_DATA_PROVIDER,
-                useExisting: ACTION_DRAWER_LAYOUT_DATA_PROVIDER,
-              }
-            ]
+            providers: [{
+              provide: EDITABLE_CONTENT_DATA_PROVIDER,
+              useExisting: ACTION_DRAWER_LAYOUT_DATA_PROVIDER,
+            }]
           }
         )
         break;

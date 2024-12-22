@@ -127,7 +127,7 @@
 
 .pui-table .cdk-virtual-scroll-viewport {
   display: grid !important;
-  @apply w-full;
+  @apply w-full overflow-hidden;
   @apply grid-cols-subgrid;
   grid-column-start: 1;
   grid-column-end: span var(--pui-table-number-of-columns);

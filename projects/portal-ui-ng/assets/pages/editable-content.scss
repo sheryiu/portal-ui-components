@@ -3,6 +3,6 @@
 .pui-editable-content {
   @apply contents;
   > main {
-    @apply light-glass-bg rounded-4 w-full p-8 grow;
+    @apply light-glass-bg rounded-4 w-full h-full p-8 grow overflow-auto;
   }
 }

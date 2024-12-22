@@ -82,7 +82,7 @@ export class CustomerTableService implements TableContentDataProvider<Customer> 
   })
   private filterFn = computed<(item: Customer) => boolean>(() => {
     const filter = this.simpleFilterValue();
-    const hasFilter = Object.values(filter ?? {}).some(v => !!v);
+    const hasFilter = Object.values(filter ?? {}).some(v => (typeof v == 'string') ? !!v : (v != null));
     return (item) => (hasFilter && !!filter['id'] && !item.id.toLowerCase().includes(filter['id'].toLowerCase()))
       ? false
       : (hasFilter && !!filter['name'] && !(item.username.toLowerCase().includes(filter['name'].toLowerCase()) || item.name.toLowerCase().includes(filter['name'].toLowerCase())))

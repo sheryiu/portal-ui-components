@@ -16,6 +16,10 @@ export const ROUTES: Routes = [
         path: 'employee',
         loadChildren: () => import('./employee/employee.routes').then(r => r.ROUTES),
       },
+      {
+        path: 'access-control',
+        loadChildren: () => import('./access-control/access-control.routes').then(r => r.ROUTES),
+      }
     ]
   }
 ]
