@@ -14,6 +14,7 @@ export const ROUTES: Routes = [
       ...breadcrumb({ title: 'Employee' }),
     },
     children: [
+      // detail
       {
         path: 'detail/:id',
         component: VerticalLayoutComponent,
@@ -29,25 +30,22 @@ export const ROUTES: Routes = [
             }
           })
         },
-        providers: [
-          {
-            provide: VERTICAL_LAYOUT_DATA_PROVIDER,
-            useClass: EmployeeDetailService,
-          }
-        ],
+        providers: [{
+          provide: VERTICAL_LAYOUT_DATA_PROVIDER,
+          useClass: EmployeeDetailService,
+        }],
         children: [
           {
             path: '',
             component: EditableContentComponent,
-            providers: [
-              {
-                provide: EDITABLE_CONTENT_DATA_PROVIDER,
-                useClass: EmployeeEditService,
-              }
-            ]
+            providers: [{
+              provide: EDITABLE_CONTENT_DATA_PROVIDER,
+              useClass: EmployeeEditService,
+            }]
           }
         ]
       },
+      // list
       {
         path: '',
         component: VerticalLayoutComponent,

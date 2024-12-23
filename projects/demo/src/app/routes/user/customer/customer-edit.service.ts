@@ -62,6 +62,39 @@ export class CustomerEditService implements EditableContentDataProvider<Customer
           }
         }
       },
+      savedAddresses: {
+        type: 'array',
+        description: 'Saved Address',
+        items: {
+          type: 'object',
+          properties: {
+            line1: {
+              type: 'string',
+              description: 'Line 1',
+            },
+            line2: {
+              type: 'string',
+              description: 'Line 2',
+            },
+            city: {
+              type: 'string',
+              description: 'City',
+            },
+            state: {
+              type: 'string',
+              description: 'State',
+            },
+            postalCode: {
+              type: 'string',
+              description: 'Postal Code',
+            },
+            country: {
+              type: 'string',
+              description: 'Country',
+            }
+          }
+        }
+      },
       registeredSince: {
         type: 'date-time',
         description: 'Registered Since'
