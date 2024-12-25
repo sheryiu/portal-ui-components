@@ -22,29 +22,27 @@ export class AccessControlDataService {
         customer: {
           canCreate: faker.datatype.boolean(),
           canRead: faker.datatype.boolean(),
-          canWrite: faker.datatype.boolean(),
+          canUpdate: faker.datatype.boolean(),
           canDelete: faker.datatype.boolean(),
         },
         employee: {
           canCreate: faker.datatype.boolean(),
           canRead: faker.datatype.boolean(),
-          canWrite: faker.datatype.boolean(),
+          canUpdate: faker.datatype.boolean(),
           canDelete: faker.datatype.boolean(),
         },
         inventoryItem: {
           canCreate: faker.datatype.boolean(),
           canRead: faker.datatype.boolean(),
-          canWrite: faker.datatype.boolean(),
+          canUpdate: faker.datatype.boolean(),
           canDelete: faker.datatype.boolean(),
         },
       },
       conditions: {
         location: {
           isEnabled: faker.datatype.boolean(),
-          allowedIps: faker.helpers.maybe(() =>
-            Array(faker.helpers.rangeToNumber(5)).fill(0).map(() => faker.internet.ip())) ?? null,
-          countries: faker.helpers.maybe(() =>
-            Array(faker.helpers.rangeToNumber(2)).fill(0).map(() => faker.location.country()), { probability: 0.2 }) ?? null,
+          allowedIps: Array(faker.helpers.rangeToNumber(5)).fill(0).map(() => faker.internet.ip()),
+          countries: Array(faker.helpers.rangeToNumber(2)).fill(0).map(() => faker.location.country()),
         },
         timeRange: {
           isEnabled: faker.datatype.boolean(),

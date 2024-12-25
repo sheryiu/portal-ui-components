@@ -21,6 +21,7 @@ import { HoverableDirective } from '../../../base';
 })
 export class ToggleComponent implements ControlValueAccessor {
 
+  /** the id must be passed in as [id]="" instead of id="" */
   id = input<string>(`toggle-${uniqueId()}`)
   isChecked = signal<boolean>(false);
   isDisabled = signal<boolean>(false);

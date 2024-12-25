@@ -25,6 +25,9 @@ module.exports = plugin(
         'background': 'hsl(0deg 0% 75% / .05)',
         'box-shadow': 'inset rgb(255 255 255 / .03) 0 0 4px, rgb(0 0 0 / .1) 4px 2px 3px'
       },
+      '.transparency-mask-to-r': {
+        'mask-image': 'linear-gradient(to right, black var(--tw-gradient-from-position, 0%), transparent var(--tw-gradient-to-position, 100%))'
+      }
     })
 
     // Icons

@@ -76,8 +76,8 @@ export type AccessControl = {
   conditions: {
     location: {
       isEnabled: boolean;
-      allowedIps: string[] | null;
-      countries: string[] | null;
+      allowedIps: string[];
+      countries: string[];
     }
     timeRange: {
       isEnabled: boolean;
@@ -91,7 +91,7 @@ export type AccessControl = {
 export type Permission = {
   canCreate: boolean;
   canRead: boolean;
-  canWrite: boolean;
+  canUpdate: boolean;
   canDelete: boolean;
 }
 

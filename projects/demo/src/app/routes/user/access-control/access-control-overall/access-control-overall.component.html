@@ -1,4 +1,227 @@
 <div class="@container">
   <main class="grow light-glass-bg rounded-4 p-8">
+    <div class="flex flex-col @screen-lg:flex-row gap-8">
+      <!-- info -->
+      <div class="flex flex-col gap-4 @screen-lg:basis-1/4 sticky top-8 h-fit">
+        <div class="flex flex-row items-center gap-2">
+          <i class="icon-6 font-variation-weight-light text-neutral-800 dark:text-neutral-200">key</i>
+          <div class="flex flex-col gap-1">
+            <span class="text-sm text-neutral-800 dark:text-neutral-200">User #</span>
+            <span class="text-base">{{ accessControl()?.userNumber ?? '----' }}</span>
+          </div>
+        </div>
+        <pui-divider></pui-divider>
+        <div class="flex flex-row items-center gap-2">
+          <i class="icon-6 font-variation-weight-light text-neutral-800 dark:text-neutral-200">badge</i>
+          <div class="flex flex-col gap-1">
+            <span class="text-sm text-neutral-800 dark:text-neutral-200">Employee ID</span>
+            <span class="text-base">{{ accessControl()?.employeeId ?? '----' }}</span>
+          </div>
+        </div>
+        <!-- employee card -->
+        @if (employee(); as employee) {
+          <div class="flex-none basis-2"></div>
+          <a
+            class="light-glass-bg-subtle rounded-4 p-8 overflow-hidden"
+            puiHoverable
+            [hoverableEnabled]="employee != null"
+            [routerLink]="employee != null ? ['/user', 'employee', 'detail', employee.id] : null"
+          >
+            <div class="flex flex-col items-center gap-2">
+              <h2 class="w-full text-center break-anywhere whitespace-normal">{{ employee.name }}</h2>
+              <p class="text-sm text-center">
+                <span class="text-neutral-700 dark:text-neutral-300">{{ employee.department }}</span>
+                <span> / </span>
+                <span>{{ employee.position }}</span>
+              </p>
+              <p class="text-base text-center flex items-center gap-1">
+                <i
+                  class="icon-4 font-variation-fill"
+                  [ngClass]="{
+                    'dark:text-red-400': employee.status == employeeStatus.TERMINATED || employee.status == employeeStatus.INACTIVE || employee.status == employeeStatus.RETIRED,
+                    'dark:text-orange-400': employee.status == employeeStatus.ON_LEAVE || employee.status == employeeStatus.PROBATION,
+                    'dark:text-green-400': employee.status == employeeStatus.ACTIVE || employee.status == employeeStatus.CONTRACT,
+                  }"
+                >label_important</i>
+                <span>{{ employee.status }}</span>
+              </p>
+            </div>
+          </a>
+        }
+      </div>
+      <!-- permissions -->
+      <form class="flex flex-col gap-8 @screen-lg:basis-3/4" [formGroup]="formGroup">
+        <div class="flex flex-row items-center gap-4">
+          <pui-toggle [id]="'isEnabled'" formControlName="isEnabled"></pui-toggle>
+          <label class="flex flex-col gap-1 grow" for="isEnabled">
+            <p class="text-base font-medium">Enable</p>
+            <p class="text-neutral-700 dark:text-neutral-300 text-sm font-light">Enable this account to login and access system resources</p>
+          </label>
+        </div>
+        <!-- customer -->
+        <div
+          class="relative rounded-4 before:absolute before:inset-0 before:light-glass-bg-subtle before:rounded-4 before:transparency-mask-to-r before:-z-10 justify-start"
+          puiHoverable
+          tabindex="0"
+          (click)="onToggleAll('customer')"
+        >
+          <div class="flex flex-col px-6 py-4 gap-4 grow" formGroupName="customer">
+            <h3>Customer</h3>
+            <div class="flex flex-row items-center gap-4">
+              <pui-toggle [id]="'customerCanCreate'" (click)="$event.stopPropagation()" formControlName="canCreate"></pui-toggle>
+              <label class="flex flex-col gap-1 grow" (click)="$event.stopPropagation()" for="customerCanCreate">
+                <p class="text-base font-medium">Create</p>
+              </label>
+            </div>
+            <div class="flex flex-row items-center gap-4">
+              <pui-toggle [id]="'customerCanRead'" (click)="$event.stopPropagation()" formControlName="canRead"></pui-toggle>
+              <label class="flex flex-col gap-1 grow" (click)="$event.stopPropagation()" for="customerCanRead">
+                <p class="text-base font-medium">Read</p>
+              </label>
+            </div>
+            <div class="flex flex-row items-center gap-4">
+              <pui-toggle [id]="'customerCanUpdate'" (click)="$event.stopPropagation()" formControlName="canUpdate"></pui-toggle>
+              <label class="flex flex-col gap-1 grow" (click)="$event.stopPropagation()" for="customerCanUpdate">
+                <p class="text-base font-medium">Update</p>
+              </label>
+            </div>
+            <div class="flex flex-row items-center gap-4">
+              <pui-toggle [id]="'customerCanDelete'" (click)="$event.stopPropagation()" formControlName="canDelete"></pui-toggle>
+              <label class="flex flex-col gap-1 grow" (click)="$event.stopPropagation()" for="customerCanDelete">
+                <p class="text-base font-medium">Delete</p>
+              </label>
+            </div>
+          </div>
+        </div>
+        <!-- employee -->
+        <div
+          class="relative rounded-4 before:absolute before:inset-0 before:light-glass-bg-subtle before:rounded-4 before:transparency-mask-to-r before:-z-10 justify-start"
+          puiHoverable
+          tabindex="0"
+          (click)="onToggleAll('employee')"
+        >
+          <div class="flex flex-col px-6 py-4 gap-4 grow" formGroupName="employee">
+            <h3>Employee</h3>
+            <div class="flex flex-row items-center gap-4">
+              <pui-toggle [id]="'employeeCanCreate'" (click)="$event.stopPropagation()" formControlName="canCreate"></pui-toggle>
+              <label class="flex flex-col gap-1 grow" (click)="$event.stopPropagation()" for="employeeCanCreate">
+                <p class="text-base font-medium">Create</p>
+              </label>
+            </div>
+            <div class="flex flex-row items-center gap-4">
+              <pui-toggle [id]="'employeeCanRead'" (click)="$event.stopPropagation()" formControlName="canRead"></pui-toggle>
+              <label class="flex flex-col gap-1 grow" (click)="$event.stopPropagation()" for="employeeCanRead">
+                <p class="text-base font-medium">Read</p>
+              </label>
+            </div>
+            <div class="flex flex-row items-center gap-4">
+              <pui-toggle [id]="'employeeCanUpdate'" (click)="$event.stopPropagation()" formControlName="canUpdate"></pui-toggle>
+              <label class="flex flex-col gap-1 grow" (click)="$event.stopPropagation()" for="employeeCanUpdate">
+                <p class="text-base font-medium">Update</p>
+              </label>
+            </div>
+            <div class="flex flex-row items-center gap-4">
+              <pui-toggle [id]="'employeeCanDelete'" (click)="$event.stopPropagation()" formControlName="canDelete"></pui-toggle>
+              <label class="flex flex-col gap-1 grow" (click)="$event.stopPropagation()" for="employeeCanDelete">
+                <p class="text-base font-medium">Delete</p>
+              </label>
+            </div>
+          </div>
+        </div>
+        <!-- inventoryItem -->
+        <div
+          class="relative rounded-4 before:absolute before:inset-0 before:light-glass-bg-subtle before:rounded-4 before:transparency-mask-to-r before:-z-10 justify-start"
+          puiHoverable
+          tabindex="0"
+          (click)="onToggleAll('inventoryItem')"
+        >
+          <div class="flex flex-col px-6 py-4 gap-4 grow" formGroupName="inventoryItem">
+            <h3>Inventory Item</h3>
+            <div class="flex flex-row items-center gap-4">
+              <pui-toggle [id]="'inventoryItemCanCreate'" (click)="$event.stopPropagation()" formControlName="canCreate"></pui-toggle>
+              <label class="flex flex-col gap-1 grow" (click)="$event.stopPropagation()" for="inventoryItemCanCreate">
+                <p class="text-base font-medium">Create</p>
+              </label>
+            </div>
+            <div class="flex flex-row items-center gap-4">
+              <pui-toggle [id]="'inventoryItemCanRead'" (click)="$event.stopPropagation()" formControlName="canRead"></pui-toggle>
+              <label class="flex flex-col gap-1 grow" (click)="$event.stopPropagation()" for="inventoryItemCanRead">
+                <p class="text-base font-medium">Read</p>
+              </label>
+            </div>
+            <div class="flex flex-row items-center gap-4">
+              <pui-toggle [id]="'inventoryItemCanUpdate'" (click)="$event.stopPropagation()" formControlName="canUpdate"></pui-toggle>
+              <label class="flex flex-col gap-1 grow" (click)="$event.stopPropagation()" for="inventoryItemCanUpdate">
+                <p class="text-base font-medium">Update</p>
+              </label>
+            </div>
+            <div class="flex flex-row items-center gap-4">
+              <pui-toggle [id]="'inventoryItemCanDelete'" (click)="$event.stopPropagation()" formControlName="canDelete"></pui-toggle>
+              <label class="flex flex-col gap-1 grow" (click)="$event.stopPropagation()" for="inventoryItemCanDelete">
+                <p class="text-base font-medium">Delete</p>
+              </label>
+            </div>
+          </div>
+        </div>
+        <pui-divider></pui-divider>
+        <h2>Conditions</h2>
+        <!-- location -->
+        <div
+          class="relative rounded-4 before:absolute before:inset-0 before:light-glass-bg-subtle before:rounded-4 before:transparency-mask-to-r before:-z-10 justify-start"
+        >
+          <div class="flex flex-col px-6 py-4 gap-4 grow" formGroupName="location">
+            <h3>Location-Based</h3>
+            <div class="flex flex-row items-center gap-4">
+              <pui-toggle [id]="'locationIsEnabled'" (click)="$event.stopPropagation()" formControlName="isEnabled"></pui-toggle>
+              <label class="flex flex-col gap-1 grow" (click)="$event.stopPropagation()" for="locationIsEnabled">
+                <p class="text-base font-medium">Enabled</p>
+                <p class="text-neutral-700 dark:text-neutral-300 text-sm font-light">Blocks access according to location related metadata</p>
+              </label>
+            </div>
+            <div class="grid grid-cols-1 @screen-md:grid-cols-2 gap-4">
+              <!-- ip address -->
+              <div class="light-glass-bg-subtle rounded-4 p-4">
+                <div class="flex flex-col gap-4" formArrayName="allowedIps">
+                  <h3 class="px-4">Allowed IP Address</h3>
+                  <div class="flex flex-col">
+                    @for (control of formGroup.controls.location.controls.allowedIps.controls; track $index) {
+                      <pui-input-field class="py-1" [ngClass]="{ 'rounded-t-2': $first, 'rounded-t-none': !$first, 'rounded-b-2': $last, 'rounded-b-none': !$last }">
+                        <input [formControlName]="$index">
+                        <button puiBaseButton class="rounded-full p-2 me-2"><i class="icon-4">close</i></button>
+                      </pui-input-field>
+                    } @empty {
+                      <p class="text-sm text-neutral-700 dark:text-neutral-300 px-4">All IP are allowed</p>
+                    }
+                  </div>
+                  <div class="self-end">
+                    <button puiBorderedButton class="rounded-full p-2" color="primary"><i class="icon-5">add</i></button>
+                  </div>
+                </div>
+              </div>
+              <!-- country -->
+              <div class="light-glass-bg-subtle rounded-4 p-4">
+                <div class="flex flex-col gap-4" formArrayName="countries">
+                  <h3 class="px-4">Country</h3>
+                  <div class="flex flex-col">
+                    @for (control of formGroup.controls.location.controls.countries.controls; track $index) {
+                      <pui-input-field class="py-1" [ngClass]="{ 'rounded-t-2': $first, 'rounded-t-none': !$first, 'rounded-b-2': $last, 'rounded-b-none': !$last }">
+                        <input [formControlName]="$index">
+                        <button puiBaseButton class="rounded-full p-2 me-2"><i class="icon-4">close</i></button>
+                      </pui-input-field>
+                    } @empty {
+                      <p class="text-sm text-neutral-700 dark:text-neutral-300 px-4">All countries are allowed</p>
+                    }
+                  </div>
+                  <div class="self-end">
+                    <button puiBorderedButton class="rounded-full p-2" color="primary"><i class="icon-5">add</i></button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- TODO timeRange -->
+      </form>
+    </div>
   </main>
 </div>
