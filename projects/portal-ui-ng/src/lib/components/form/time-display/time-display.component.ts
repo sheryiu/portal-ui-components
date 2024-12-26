@@ -1,5 +1,5 @@
 import { DatePipe } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, computed, input } from '@angular/core';
 import { TimeAgoPipe } from './time-ago.pipe';
 
 @Component({
@@ -15,10 +15,12 @@ import { TimeAgoPipe } from './time-ago.pipe';
   }
 })
 export class TimeDisplayComponent {
-  @Input() date?: Date | null | undefined;
-  @Input() mode?: 'normal' | 'timeAgo' = 'normal'
+  date = input.required<Date | null | undefined>()
+  mode = input<'normal' | 'timeAgo'>('normal')
   /**
    * Only applicable when mode = 'normal'
    */
-  @Input() format?: string;
+  format = input<string>()
+
+  protected isInvalid = computed(() => isNaN(this.date()?.getTime()!))
 }

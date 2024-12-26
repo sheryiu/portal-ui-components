@@ -1,7 +1,7 @@
 import { computed, effect, inject, Injectable, signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { Params } from '@angular/router';
-import { EDITABLE_CONTENT_DEFAULT_CONTROLS, EDITABLE_CONTENT_DIRTY_CONTROLS, EditableContentDataProvider, ObjectJsonSchema } from 'portal-ui-ng';
+import { EDITABLE_CONTENT_DEFAULT_CONTROLS, EDITABLE_CONTENT_DIRTY_CONTROLS, EditableContentDataProvider, ObjectFieldConfiguration } from 'portal-ui-ng';
 import { CustomerDataService } from '../../../data/customer-data.service';
 import { Customer } from '../../../data/user.types';
 
@@ -9,11 +9,10 @@ import { Customer } from '../../../data/user.types';
 export class CustomerEditService implements EditableContentDataProvider<Customer> {
   private dataService = inject(CustomerDataService);
   private list = toSignal(this.dataService.getList())
+  private id = signal<string | undefined>(undefined)
 
-  params = signal<Params>({})
-  queryParams = signal<Params>({})
-  data = signal(this.list()?.find(v => v.id == this.params()['id']));
-  jsonSchema = signal<ObjectJsonSchema>({
+  data = signal<Customer | undefined>(undefined);
+  fieldConfiguration = signal<ObjectFieldConfiguration>({
     type: 'object',
     properties: {
       name: {
@@ -110,7 +109,7 @@ export class CustomerEditService implements EditableContentDataProvider<Customer
 
   constructor() {
     effect(() => {
-      this.data.set(structuredClone(this.list()?.find(v => v.id == this.params()['id'])))
+      this.data.set(structuredClone(this.list()?.find(v => v.id == this.id())))
     }, { allowSignalWrites: true })
   }
 
@@ -129,7 +128,7 @@ export class CustomerEditService implements EditableContentDataProvider<Customer
     switch (key) {
       case 'refresh':
       case 'cancel': {
-        this.data.set(structuredClone(this.list()?.find(v => v.id == this.params()['id'])))
+        this.data.set(structuredClone(this.list()?.find(v => v.id == this.id())))
         this.updateState!({ isDirty: false })
         break;
       }
@@ -142,6 +141,9 @@ export class CustomerEditService implements EditableContentDataProvider<Customer
         break;
       }
     }
+  }
+  onParamsChange(params: Params, queryParams: Params): void {
+    this.id.set(params['id'])
   }
 
 }

@@ -1,4 +1,4 @@
-import { computed, inject, Injectable, signal, Signal, WritableSignal } from '@angular/core';
+import { computed, inject, Injectable, signal, Signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { Params } from '@angular/router';
 import { TabConfig, VerticalLayoutDataProvider } from 'portal-ui-ng';
@@ -8,9 +8,9 @@ import { InventoryItemDataService } from '../../../data/inventory-item-data.serv
 export class InventoryItemDetailService implements VerticalLayoutDataProvider {
   private dataService = inject(InventoryItemDataService);
   private list = toSignal(this.dataService.getList())
+  private id = signal<string | undefined>(undefined)
 
-  params: WritableSignal<Params> = signal({});
-  heading: Signal<string> = computed(() => this.list()?.find(v => v.id == this.params()['id'])?.id ?? '--');
+  heading = computed(() => this.list()?.find(v => v.id == this.id())?.id ?? '--')
   tabs: Signal<TabConfig[]> = signal<TabConfig[]>([
     {
       label: 'Info',
@@ -21,4 +21,8 @@ export class InventoryItemDetailService implements VerticalLayoutDataProvider {
       route: ['raw']
     }
   ]);
+
+  onParamsChange(params: Params, queryParams: Params): void {
+    this.id.set(params['id'])
+  }
 }

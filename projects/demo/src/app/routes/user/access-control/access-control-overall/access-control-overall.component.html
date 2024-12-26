@@ -2,7 +2,7 @@
   <main class="grow light-glass-bg rounded-4 p-8">
     <div class="flex flex-col @screen-lg:flex-row gap-8">
       <!-- info -->
-      <div class="flex flex-col gap-4 @screen-lg:basis-1/4 sticky top-8 h-fit">
+      <div class="flex flex-col gap-4 @screen-lg:basis-1/4 @screen-lg:sticky top-8 h-fit">
         <div class="flex flex-row items-center gap-2">
           <i class="icon-6 font-variation-weight-light text-neutral-800 dark:text-neutral-200">key</i>
           <div class="flex flex-col gap-1">
@@ -185,7 +185,14 @@
                   <h3 class="px-4">Allowed IP Address</h3>
                   <div class="flex flex-col">
                     @for (control of formGroup.controls.location.controls.allowedIps.controls; track $index) {
-                      <pui-input-field class="py-1" [ngClass]="{ 'rounded-t-2': $first, 'rounded-t-none': !$first, 'rounded-b-2': $last, 'rounded-b-none': !$last }">
+                      <pui-input-field
+                        class="py-1 text-base"
+                        [ngClass]="{
+                          'rounded-t-2': $first,
+                          'rounded-t-none': !$first,
+                          'rounded-b-2': $last,
+                          'rounded-b-none': !$last
+                      }">
                         <input [formControlName]="$index">
                         <button puiBaseButton class="rounded-full p-2 me-2"><i class="icon-4">close</i></button>
                       </pui-input-field>
@@ -193,7 +200,7 @@
                       <p class="text-sm text-neutral-700 dark:text-neutral-300 px-4">All IP are allowed</p>
                     }
                   </div>
-                  <div class="self-end">
+                  <div class="self-end px-1">
                     <button puiBorderedButton class="rounded-full p-2" color="primary"><i class="icon-5">add</i></button>
                   </div>
                 </div>
@@ -204,7 +211,15 @@
                   <h3 class="px-4">Country</h3>
                   <div class="flex flex-col">
                     @for (control of formGroup.controls.location.controls.countries.controls; track $index) {
-                      <pui-input-field class="py-1" [ngClass]="{ 'rounded-t-2': $first, 'rounded-t-none': !$first, 'rounded-b-2': $last, 'rounded-b-none': !$last }">
+                      <pui-input-field
+                        class="py-1 text-base"
+                        [ngClass]="{
+                          'rounded-t-2': $first,
+                          'rounded-t-none': !$first,
+                          'rounded-b-2': $last,
+                          'rounded-b-none': !$last
+                        }"
+                      >
                         <input [formControlName]="$index">
                         <button puiBaseButton class="rounded-full p-2 me-2"><i class="icon-4">close</i></button>
                       </pui-input-field>
@@ -212,7 +227,7 @@
                       <p class="text-sm text-neutral-700 dark:text-neutral-300 px-4">All countries are allowed</p>
                     }
                   </div>
-                  <div class="self-end">
+                  <div class="self-end px-1">
                     <button puiBorderedButton class="rounded-full p-2" color="primary"><i class="icon-5">add</i></button>
                   </div>
                 </div>

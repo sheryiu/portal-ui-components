@@ -1,7 +1,7 @@
-import { computed, effect, inject, Injectable, signal, Signal } from '@angular/core';
+import { computed, effect, inject, Injectable, signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { Params } from '@angular/router';
-import { EDITABLE_CONTENT_DEFAULT_CONTROLS, EDITABLE_CONTENT_DIRTY_CONTROLS, EditableContentDataProvider, ObjectJsonSchema } from 'portal-ui-ng';
+import { EDITABLE_CONTENT_DEFAULT_CONTROLS, EDITABLE_CONTENT_DIRTY_CONTROLS, EditableContentDataProvider, ObjectFieldConfiguration } from 'portal-ui-ng';
 import { InventoryShelfDataService } from '../../../data/inventory-shelf-data.service';
 import { InventoryShelf } from '../../../data/inventory.types';
 
@@ -9,10 +9,10 @@ import { InventoryShelf } from '../../../data/inventory.types';
 export class InventoryShelfEditService implements EditableContentDataProvider<InventoryShelf> {
   private dataService = inject(InventoryShelfDataService);
   private list = toSignal(this.dataService.getList())
+    private id = signal<string | undefined>(undefined)
 
-  params = signal<Params>({});
-  data = signal(this.list()?.find(v => v.id == this.params()['id']));
-  jsonSchema: Signal<ObjectJsonSchema> = signal<ObjectJsonSchema>({
+  data = signal<InventoryShelf | undefined>(undefined);
+  fieldConfiguration = signal<ObjectFieldConfiguration>({
     type: 'object',
     properties: {
       location: {
@@ -70,7 +70,7 @@ export class InventoryShelfEditService implements EditableContentDataProvider<In
 
   constructor() {
     effect(() => {
-      this.data.set(structuredClone(this.list()?.find(v => v.id == this.params()['id'])))
+      this.data.set(structuredClone(this.list()?.find(v => v.id == this.id())))
     }, { allowSignalWrites: true })
   }
 
@@ -89,7 +89,7 @@ export class InventoryShelfEditService implements EditableContentDataProvider<In
     switch (key) {
       case 'refresh':
       case 'cancel': {
-        this.data.set(structuredClone(this.list()?.find(v => v.id == this.params()['id'])))
+        this.data.set(structuredClone(this.list()?.find(v => v.id == this.id())))
         this.updateState!({ isDirty: false })
         break;
       }
@@ -102,5 +102,8 @@ export class InventoryShelfEditService implements EditableContentDataProvider<In
         break;
       }
     }
+  }
+  onParamsChange(params: Params, queryParams: Params): void {
+    this.id.set(params['id'])
   }
 }

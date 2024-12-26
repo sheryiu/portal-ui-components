@@ -1,5 +1,5 @@
 import { inject, Injectable, signal } from '@angular/core';
-import { ActionDrawerLayoutDataProvider, EditableContentComponent, EditableContentDataProvider, LayoutControlConfig, ObjectJsonSchema, OVERLAY_DATA, PuiOverlayRef } from 'portal-ui-ng';
+import { ActionDrawerLayoutDataProvider, EditableContentComponent, EditableContentDataProvider, LayoutControlConfig, ObjectFieldConfiguration, OVERLAY_DATA, PuiOverlayRef } from 'portal-ui-ng';
 import { EmployeeDepartment, EmployeeStatus } from '../../../data/user.types';
 
 @Injectable()
@@ -12,11 +12,14 @@ export class EmployeeAdvanceFilterService implements ActionDrawerLayoutDataProvi
 
   // ActionDrawerLayoutDataProvider
   heading = signal("Filter Employee")
-  overlayRef = signal<PuiOverlayRef | null>(null);
+  private overlayRef!: PuiOverlayRef;
+  onActionDrawerInit(overlayRef: PuiOverlayRef): void {
+    this.overlayRef = overlayRef;
+  }
 
   // EditableContentDataProvider
   data = signal(this.overlayData?.['filter'] ?? {});
-  jsonSchema = signal<ObjectJsonSchema>({
+  fieldConfiguration = signal<ObjectFieldConfiguration>({
     type: 'object',
     properties: {
       department: {
@@ -56,14 +59,14 @@ export class EmployeeAdvanceFilterService implements ActionDrawerLayoutDataProvi
   onControlClick(key: string, event: MouseEvent): void {
     switch (key) {
       case 'cancel': {
-        this.overlayRef()?.close()
+        this.overlayRef.close()
         break;
       }
       case 'apply': {
         const updatedValue = this.updatedValue();
         if (updatedValue) {
           this.overlayData?.['onFilterApply']?.(updatedValue)
-          this.overlayRef()?.close()
+          this.overlayRef.close()
         }
         break;
       }

@@ -95,10 +95,28 @@ export type Permission = {
   canDelete: boolean;
 }
 
-export type QueryHistory = {
+// export type QueryHistory = {
+//   id: string;
+//   timestamp: Date;
+//   ip: string;
+//   headers: string;
+//   action: string;
+// }
+
+export type EmployeeCalendarEvent = {
   id: string;
-  timestamp: Date;
-  ip: string;
-  headers: string;
-  action: string;
+  employeeId: string;
+  startsFrom: Date;
+  endsAt: Date;
+  isFullDay: boolean;
+  label: string;
+  type: EmployeeCalendarEventType;
+}
+
+export enum EmployeeCalendarEventType {
+  ANNUAL_LEAVE = "Annual Leave",
+  SICK_LEAVE = "Sick Leave",
+  PERSONAL_LEAVE = "Personal Leave",
+  BUSINESS_TRIP = "Business Trip",
+  PUBLIC_HOLIDAY = "Public Holiday"
 }

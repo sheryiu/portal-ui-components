@@ -23,21 +23,21 @@ export class InventoryItemTableService implements TableContentDataProvider<Inven
     {
       key: 'netWeight',
       label: 'Net Weight (g)',
-      jsonSchema: {
+      fieldConfiguration: {
         type: 'number',
       }
     },
     {
       key: 'grossWeight',
       label: 'Gross Weight (g)',
-      jsonSchema: {
+      fieldConfiguration: {
         type: 'number',
       }
     },
     {
       key: 'isContainFragile',
       label: 'Fragile',
-      jsonSchema: {
+      fieldConfiguration: {
         type: 'boolean',
       }
     },
@@ -50,7 +50,7 @@ export class InventoryItemTableService implements TableContentDataProvider<Inven
       label: 'Arrived',
       isAlignEnd: true,
       isSortedDesc: true,
-      jsonSchema: {
+      fieldConfiguration: {
         type: 'date-time',
         format: 'yyyy-MM-dd HH:mm'
       }
@@ -61,7 +61,7 @@ export class InventoryItemTableService implements TableContentDataProvider<Inven
     768: ['belongsTo', 'netWeight', 'status', 'arrivedAt'],
     1280: ['belongsTo', 'netWeight', 'grossWeight', 'isContainFragile', 'status', 'arrivedAt']
   });
-  simpleFilterValue = signal<any>({})
+  filterValue = signal<any>({})
   private sortFn = computed<(a: InventoryItem, b: InventoryItem) => number>(() => {
     const column = this.columnsConfig().find(config => config.isSortedAsc || config.isSortedDesc)
     if (!column) return () => 0;
@@ -74,7 +74,7 @@ export class InventoryItemTableService implements TableContentDataProvider<Inven
     }
   })
   private filterFn = computed<(item: InventoryItem) => boolean>(() => {
-    const filter = this.simpleFilterValue();
+    const filter = this.filterValue();
     const hasFilter = Object.values(filter ?? {}).some(v => (typeof v == 'string') ? !!v : (v != null));
     return (item) => true
   })

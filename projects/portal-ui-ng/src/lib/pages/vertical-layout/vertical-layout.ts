@@ -1,4 +1,4 @@
-import { InjectionToken, Signal, WritableSignal } from '@angular/core';
+import { InjectionToken, Signal } from '@angular/core';
 import { Params } from '@angular/router';
 
 export type TabConfig = {
@@ -7,8 +7,7 @@ export type TabConfig = {
 }
 
 export interface VerticalLayoutDataProvider {
-  params?: WritableSignal<Params>;
-  queryParams?: WritableSignal<Params>;
+  onParamsChange?(params: Params, queryParams: Params): void;
   heading: Signal<string>;
   tabs: Signal<TabConfig[]>;
 }

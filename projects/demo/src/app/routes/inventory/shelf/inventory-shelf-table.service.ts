@@ -32,14 +32,14 @@ export class InventoryShelfTableService implements TableContentDataProvider<Inve
     {
       key: 'maxCapacity',
       label: 'Maximum Capacity (g)',
-      jsonSchema: {
+      fieldConfiguration: {
         type: 'number',
       }
     },
     {
       key: 'isAllowFragileItems',
       label: 'Allows Fragile',
-      jsonSchema: {
+      fieldConfiguration: {
         type: 'boolean',
       }
     },
@@ -55,7 +55,7 @@ export class InventoryShelfTableService implements TableContentDataProvider<Inve
       mode: 'low-emphasis'
     }
   ]);
-  simpleFilterValue = signal<any>({})
+  filterValue = signal<any>({})
   private sortFn = computed<(a: InventoryShelf, b: InventoryShelf) => number>(() => {
     const column = this.columnsConfig().find(config => config.isSortedAsc || config.isSortedDesc)
     if (!column) return () => 0;
@@ -71,7 +71,7 @@ export class InventoryShelfTableService implements TableContentDataProvider<Inve
     }
   })
   private filterFn = computed<(item: InventoryShelf) => boolean>(() => {
-    const filter = this.simpleFilterValue();
+    const filter = this.filterValue();
     const hasFilter = Object.values(filter ?? {}).some(v => (typeof v == 'string') ? !!v : (v != null));
     return (item) => true
   })

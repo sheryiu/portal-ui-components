@@ -1,17 +1,17 @@
 <main>
   <div>
-    @let filterConfig = flattenSimpleFilterDef();
+    @let filterConfig = flattenFilterDef();
     @if (filterConfig.length > 0) {
-      <pui-fieldset [formControl]="simpleFilterFormControl" (valueChange)="onSimpleFilterValueChange($event)">
-        @for (control of flattenSimpleFilterDef(); track control.key) {
+      <pui-fieldset [formControl]="filterFormControl" (valueChange)="onFilterValueChange($event)">
+        @for (control of flattenFilterDef(); track control.key) {
           <pui-field-def
             [key]="control.key"
-            [fieldType]="control.jsonSchema.type"
-            [label]="control.jsonSchema.description ?? control.key"
-            [fieldConfig]="control.jsonSchema.type == 'string'
-              ? { enum: control.jsonSchema.enum }
-              : control.jsonSchema.type == 'number'
-              ? { enum: control.jsonSchema.enum }
+            [fieldType]="control.fieldConfiguration.type"
+            [label]="control.fieldConfiguration.description ?? control.key"
+            [fieldConfig]="control.fieldConfiguration.type == 'string'
+              ? { enum: control.fieldConfiguration.enum }
+              : control.fieldConfiguration.type == 'number'
+              ? { enum: control.fieldConfiguration.enum }
               : {}"
             [isNullable]="false"
           ></pui-field-def>
@@ -34,15 +34,15 @@
           (cellClick)="onHeaderClick(config.key, $event)"
         >{{ config.label }}</pui-table-header-cell>
         <pui-table-cell *puiTableCellDef="config.key; let item" [rightAligned]="config.isAlignEnd ?? false">
-          @if (config.jsonSchema) {
-            @switch (config.jsonSchema.type) {
+          @if (config.fieldConfiguration) {
+            @switch (config.fieldConfiguration.type) {
               @case ('date-time') {
                 <pui-time-display
-                  [mode]="config.jsonSchema.format == 'timeAgo' ? 'timeAgo' : 'normal'"
-                  [format]="config.jsonSchema.format"
+                  [mode]="config.fieldConfiguration.format == 'timeAgo' ? 'timeAgo' : 'normal'"
+                  [format]="config.fieldConfiguration.format"
                   [date]="item[config.key]"
                 ></pui-time-display>
-                @if (config.jsonSchema.format == 'timeAgo') {
+                @if (config.fieldConfiguration.format == 'timeAgo') {
                   &nbsp;ago
                 }
               }

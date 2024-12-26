@@ -53,21 +53,21 @@ export class CustomerInfoComponent implements TableContentDataProvider<Inventory
     {
       key: 'netWeight',
       label: 'Net Weight (g)',
-      jsonSchema: {
+      fieldConfiguration: {
         type: 'number',
       }
     },
     {
       key: 'grossWeight',
       label: 'Gross Weight (g)',
-      jsonSchema: {
+      fieldConfiguration: {
         type: 'number',
       }
     },
     {
       key: 'isContainFragile',
       label: 'Fragile',
-      jsonSchema: {
+      fieldConfiguration: {
         type: 'boolean',
       }
     },
@@ -80,7 +80,7 @@ export class CustomerInfoComponent implements TableContentDataProvider<Inventory
       label: 'Arrived',
       isAlignEnd: true,
       isSortedDesc: true,
-      jsonSchema: {
+      fieldConfiguration: {
         type: 'date-time',
         format: 'yyyy-MM-dd HH:mm'
       }

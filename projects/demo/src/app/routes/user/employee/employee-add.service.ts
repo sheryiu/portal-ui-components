@@ -1,6 +1,6 @@
-import { inject, Injectable, Signal, signal, WritableSignal } from '@angular/core';
+import { inject, Injectable, Signal, signal } from '@angular/core';
 import { faker } from '@faker-js/faker';
-import { ActionDrawerLayoutDataProvider, EditableContentComponent, EditableContentDataProvider, LayoutControlConfig, ObjectJsonSchema, PuiOverlayRef } from 'portal-ui-ng';
+import { ActionDrawerLayoutDataProvider, EditableContentComponent, EditableContentDataProvider, LayoutControlConfig, ObjectFieldConfiguration, PuiOverlayRef } from 'portal-ui-ng';
 import { EmployeeDataService } from '../../../data/employee-data.service';
 import { Employee, EmployeeDepartment, EmployeePosition, EmployeeStatus } from '../../../data/user.types';
 
@@ -14,7 +14,7 @@ export class EmployeeAddService implements ActionDrawerLayoutDataProvider, Edita
 
   // EditableContentDataProvider
   data = signal(null);
-  jsonSchema = signal<ObjectJsonSchema>({
+  fieldConfiguration = signal<ObjectFieldConfiguration>({
     type: 'object',
     properties: {
       name: {
@@ -82,7 +82,7 @@ export class EmployeeAddService implements ActionDrawerLayoutDataProvider, Edita
     switch (key) {
       case 'cancel': {
         this.data.set({} as any)
-        this.overlayRef()?.close()
+        this.overlayRef.close()
         break;
       }
       case 'save': {
@@ -90,7 +90,7 @@ export class EmployeeAddService implements ActionDrawerLayoutDataProvider, Edita
         if (updatedValue) {
           updatedValue = Object.assign(updatedValue, { id: faker.string.nanoid() })
           this.dataService.add(updatedValue);
-          this.overlayRef()?.close()
+          this.overlayRef.close()
         }
         break;
       }
@@ -98,6 +98,9 @@ export class EmployeeAddService implements ActionDrawerLayoutDataProvider, Edita
   }
 
   // ActionDrawerLayoutDataProvider
+  private overlayRef!: PuiOverlayRef;
   heading: Signal<string> = signal('Add Employee');
-  overlayRef: WritableSignal<PuiOverlayRef | null> = signal(null)
+  onActionDrawerInit(overlayRef: PuiOverlayRef): void {
+    this.overlayRef = overlayRef;
+  }
 }

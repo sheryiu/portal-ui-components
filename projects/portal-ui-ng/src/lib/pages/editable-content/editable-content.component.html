@@ -6,12 +6,12 @@
         @for (control of flattenedControls(); track control.key) {
           <pui-field-def
             [key]="control.key"
-            [fieldType]="control.jsonSchema.type"
-            [label]="control.jsonSchema.description ?? control.key"
-            [fieldConfig]="control.jsonSchema.type == 'string'
-              ? { enum: control.jsonSchema.enum }
-              : control.jsonSchema.type == 'number'
-              ? { enum: control.jsonSchema.enum }
+            [fieldType]="control.fieldConfiguration.type"
+            [label]="control.fieldConfiguration.description ?? control.key"
+            [fieldConfig]="control.fieldConfiguration.type == 'string'
+              ? { enum: control.fieldConfiguration.enum }
+              : control.fieldConfiguration.type == 'number'
+              ? { enum: control.fieldConfiguration.enum }
               : {}"
           ></pui-field-def>
         }

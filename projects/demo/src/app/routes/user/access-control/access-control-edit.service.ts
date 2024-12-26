@@ -1,11 +1,11 @@
 import { computed, effect, inject, Injectable, signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { Params } from '@angular/router';
-import { EDITABLE_CONTENT_DEFAULT_CONTROLS, EDITABLE_CONTENT_DIRTY_CONTROLS, EditableContentDataProvider, ObjectJsonSchema } from 'portal-ui-ng';
+import { EDITABLE_CONTENT_DEFAULT_CONTROLS, EDITABLE_CONTENT_DIRTY_CONTROLS, EditableContentDataProvider, ObjectFieldConfiguration } from 'portal-ui-ng';
 import { AccessControlDataService } from '../../../data/access-control-data.service';
 import { AccessControl } from '../../../data/user.types';
 
-const PermissionJsonSchema: ObjectJsonSchema = {
+const Permission: ObjectFieldConfiguration = {
   type: 'object',
   properties: {
     canCreate: {
@@ -16,9 +16,9 @@ const PermissionJsonSchema: ObjectJsonSchema = {
       type: 'boolean',
       description: 'Can Read'
     },
-    canWrite: {
+    canUpdate: {
       type: 'boolean',
-      description: 'Can Write'
+      description: 'Can Update'
     },
     canDelete: {
       type: 'boolean',
@@ -31,10 +31,10 @@ const PermissionJsonSchema: ObjectJsonSchema = {
 export class AccessControlEditService implements EditableContentDataProvider<AccessControl> {
   private dataService = inject(AccessControlDataService)
   private list = toSignal(this.dataService.getList())
+    private id = signal<string | undefined>(undefined)
 
-  params = signal<Params>({});
   data = signal<AccessControl | undefined>(undefined);
-  jsonSchema = signal<ObjectJsonSchema>({
+  fieldConfiguration = signal<ObjectFieldConfiguration>({
     type: 'object',
     properties: {
       userNumber: {
@@ -55,15 +55,15 @@ export class AccessControlEditService implements EditableContentDataProvider<Acc
         properties: {
           customer: {
             description: 'Customer',
-            ...PermissionJsonSchema
+            ...Permission
           },
           employee: {
             description: 'Employee',
-            ...PermissionJsonSchema
+            ...Permission
           },
           inventoryItem: {
             description: 'Inventory Item',
-            ...PermissionJsonSchema
+            ...Permission
           },
         }
       },
@@ -126,7 +126,7 @@ export class AccessControlEditService implements EditableContentDataProvider<Acc
 
   constructor() {
     effect(() => {
-      this.data.set(structuredClone(this.list()?.find(v => v.id == this.params()['id'])))
+      this.data.set(structuredClone(this.list()?.find(v => v.id == this.id())))
     }, { allowSignalWrites: true })
   }
 
@@ -144,7 +144,7 @@ export class AccessControlEditService implements EditableContentDataProvider<Acc
     switch (key) {
       case 'refresh':
       case 'cancel': {
-        this.data.set(structuredClone(this.list()?.find(v => v.id == this.params()['id'])))
+        this.data.set(structuredClone(this.list()?.find(v => v.id == this.id())))
         this.updateState!({ isDirty: false })
         break;
       }
@@ -157,5 +157,8 @@ export class AccessControlEditService implements EditableContentDataProvider<Acc
         break;
       }
     }
+  }
+  onParamsChange(params: Params, queryParams: Params): void {
+    this.id.set(params['id'])
   }
 }

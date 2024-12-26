@@ -1,6 +1,6 @@
 import { computed, effect, inject, Injectable, signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { ACTION_DRAWER_LAYOUT_DATA_PROVIDER, ActionDrawerOverlayService, ColumnConfig, EDITABLE_CONTENT_DATA_PROVIDER, ObjectJsonSchema, ScreenWidthDetectorService, TableContentDataProvider } from 'portal-ui-ng';
+import { ACTION_DRAWER_LAYOUT_DATA_PROVIDER, ActionDrawerOverlayService, ColumnConfig, EDITABLE_CONTENT_DATA_PROVIDER, ObjectFieldConfiguration, ScreenWidthDetectorService, TableContentDataProvider } from 'portal-ui-ng';
 import { CustomerDataService } from '../../../data/customer-data.service';
 import { Customer } from '../../../data/user.types';
 import { CustomerAddService } from './customer-add.service';
@@ -43,7 +43,7 @@ export class CustomerTableService implements TableContentDataProvider<Customer> 
       label: 'Registered',
       isAlignEnd: true,
       isSortedDesc: true,
-      jsonSchema: {
+      fieldConfiguration: {
         type: 'date-time',
         format: 'yyyy-MM-dd HH:mm'
       }
@@ -54,7 +54,7 @@ export class CustomerTableService implements TableContentDataProvider<Customer> 
     768: ['name', 'email', 'phone', 'registeredSince'],
     1536: ['name', 'username', 'email', 'phone', 'line2', 'registeredSince'],
   });
-  simpleFilterConfig = signal<ObjectJsonSchema>({
+  filterConfig = signal<ObjectFieldConfiguration>({
     type: 'object',
     properties: {
       name: {
@@ -67,7 +67,7 @@ export class CustomerTableService implements TableContentDataProvider<Customer> 
       }
     }
   })
-  simpleFilterValue = signal<any>({})
+  filterValue = signal<any>({})
   private sortFn = computed<(a: Customer, b: Customer) => number>(() => {
     const column = this.columnsConfig().find(config => config.isSortedAsc || config.isSortedDesc)
     if (!column) return () => 0;
@@ -81,7 +81,7 @@ export class CustomerTableService implements TableContentDataProvider<Customer> 
     }
   })
   private filterFn = computed<(item: Customer) => boolean>(() => {
-    const filter = this.simpleFilterValue();
+    const filter = this.filterValue();
     const hasFilter = Object.values(filter ?? {}).some(v => (typeof v == 'string') ? !!v : (v != null));
     return (item) => (hasFilter && !!filter['id'] && !item.id.toLowerCase().includes(filter['id'].toLowerCase()))
       ? false
@@ -115,8 +115,8 @@ export class CustomerTableService implements TableContentDataProvider<Customer> 
       )
     })
   }
-  onUpdateSimpleFilter(value: any): void {
-    this.simpleFilterValue.set(value)
+  onFilterChange(value: any): void {
+    this.filterValue.set(value)
   }
   onControlClick(key: string, event: MouseEvent): void {
     switch (key) {

@@ -1,9 +1,8 @@
-import { InjectionToken, Signal, WritableSignal } from '@angular/core';
+import { InjectionToken, Signal } from '@angular/core';
 import { Params } from '@angular/router';
 
 export interface PeekableAddonDataProvider {
-  params?: WritableSignal<Params>;
-  queryParams?: WritableSignal<Params>;
+  onParamsChange?(params: Params, queryParams: Params): void;
   /** provide a null or undefined value to remove the button */
   routeToFullContent: Signal<any[] | null | undefined>;
 }

@@ -1,42 +1,41 @@
-import { InjectionToken, Signal, WritableSignal } from '@angular/core';
+import { InjectionToken, Signal } from '@angular/core';
 import { Params } from '@angular/router';
-import { JsonSchema, ObjectJsonSchema } from '../editable-content/editable-content';
+import { FieldConfiguration, ObjectFieldConfiguration } from '../field-configuration';
 import { LayoutControlConfig } from '../layout/layout.service';
 
 export type ColumnConfig = {
   label: string;
   key: string;
-  /** uses key for the default path */
+  /** @default path - equals to key */
   path?: string;
   isAlignEnd?: boolean;
   isSortedAsc?: boolean;
   isSortedDesc?: boolean;
-  jsonSchema?: JsonSchema;
+  fieldConfiguration?: FieldConfiguration;
 }
 
 export interface TableContentDataProvider<T> {
   readonly configuration?: {
     useVirtualScroll?: boolean;
   };
-  params?: WritableSignal<Params>;
-  queryParams?: WritableSignal<Params>;
+  onParamsChange?(params: Params, queryParams: Params): void;
   // controls
-  controlsConfig?: Signal<LayoutControlConfig[]>;
+  controlsConfig?: Signal<ReadonlyArray<LayoutControlConfig>>;
   onControlClick?(key: string, event: MouseEvent): void;
   // table
   data: Signal<T[]>;
   columnsConfig: Signal<ColumnConfig[]>;
   columnsToDisplay: Signal<Record<'default' | `${number}px` | number, string[]> | string[]>;
   selectionMode?: Signal<null | 'single' | 'multi'>;
-  selectedItems?: WritableSignal<Set<T>>;
+  selectedItems?: Signal<Set<T>>;
   routeToDetail?(item: T): any[];
   compareFn?(a: T, b: T): boolean;
   onTableRowClick?(item: T): void;
   onHeaderCellClick?(columnKey: string, event: MouseEvent): void;
   // filter
-  simpleFilterConfig?: Signal<ObjectJsonSchema>;
-  simpleFilterValue?: Signal<any>;
-  onUpdateSimpleFilter?(value: any): void;
+  filterConfig?: Signal<ObjectFieldConfiguration>;
+  filterValue?: Signal<any>;
+  onFilterChange?(value: any): void;
 }
 
 export const TABLE_CONTENT_DEFAULT_CONTROLS: ReadonlyArray<LayoutControlConfig> = [

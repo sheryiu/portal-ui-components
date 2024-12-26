@@ -2,7 +2,7 @@ import { NgTemplateOutlet } from '@angular/common';
 import { Component, computed, inject, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, NavigationEnd, Router, RouterLink, RouterOutlet } from '@angular/router';
-import { filter, startWith } from 'rxjs';
+import { combineLatest, filter, startWith } from 'rxjs';
 import { ButtonModule, filterNonNull } from '../../base';
 import { BreadcrumbsComponent, TabBarModule, TooltipModule } from '../../components';
 import { LayoutService } from '../layout/layout.service';
@@ -42,16 +42,12 @@ export class VerticalLayoutComponent {
   protected mostEmphasizedControlId = this.layoutService.mostEmphasizedControlId;
 
   constructor() {
-    this.route.params.pipe(
+    combineLatest([
+      this.route.params,
+      this.route.queryParams,
+    ]).pipe(
       takeUntilDestroyed(),
-    ).subscribe((params) => {
-      this.dataProvider.params?.set(params)
-    })
-    this.route.queryParams.pipe(
-      takeUntilDestroyed(),
-    ).subscribe((params) => {
-      this.dataProvider.queryParams?.set(params);
-    })
+    ).subscribe(([p, qp]) => this.dataProvider.onParamsChange?.(p, qp))
     this.router.events.pipe(
       filter(e => e instanceof NavigationEnd),
       startWith(this.router.lastSuccessfulNavigation?.finalUrl),
@@ -68,7 +64,11 @@ export class VerticalLayoutComponent {
       this.activeTab.set(activeTab.label)
       const route = this.route.routeConfig?.children?.find(child => child.path == '**');
       if (route) {
-        route.redirectTo = activeTab.route.map(part => String(part).replaceAll('/', '%2F')).join('')
+        route.redirectTo = activeTab.route
+          .map(part => String(part).replaceAll('/', '%2F'))
+          .join('')
+          .replaceAll('..%2F', '')
+          .replaceAll('.%2F', '')
       }
     })
   }

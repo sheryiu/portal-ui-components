@@ -1,6 +1,7 @@
 import { Component, contentChildren, effect, forwardRef, inject, output } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ControlValueAccessor, FormBuilder, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { get, set } from 'lodash-es';
 import { Subject } from 'rxjs';
 import { FieldDefDirective } from '../field-def.directive';
 
@@ -31,28 +32,21 @@ export class FieldsetComponent<T extends { [key: string | number | symbol]: any 
     })
     effect(() => {
       this.fieldDefs().map(fieldDef => {
-        if (this.formControl.contains(fieldDef.key)) return;
-        this.formControl.addControl(fieldDef.key, this.formBuilder.control({
+        if (this.formControl.contains(fieldDef.base64Key())) return;
+        this.formControl.addControl(fieldDef.base64Key(), this.formBuilder.control({
           disabled: this.isDisabled,
           value: this.formControlValueForField(fieldDef)
         }));
       })
       Object.keys(this.formControl.controls).map(name => {
-        if (this.fieldDefs().some(f => f.key === name)) return;
+        if (this.fieldDefs().some(f => f.base64Key() === name)) return;
         this.formControl.removeControl(name);
       })
     })
   }
 
   private formControlValueForField(fieldDef: FieldDefDirective) {
-    const paths = fieldDef.key.split('>');
-    let value: any = this.currentValue;
-    for (const path of paths) {
-      if (value == null) return null;
-      if (!(path in value)) return null;
-      if (typeof value[path] === 'function') return null;
-      value = value[path];
-    }
+    let value: any = get(this.currentValue, fieldDef.key())
     if (fieldDef.fieldType === 'date-time' && value && value instanceof Date) {
       return value.toISOString();
     }
@@ -75,66 +69,45 @@ export class FieldsetComponent<T extends { [key: string | number | symbol]: any 
     let newValue: any = structuredClone(this.currentValue);
     if (newValue == null) newValue = {};
     const formValue = this.formControl.getRawValue();
-    try {
-      for (const key in formValue) {
-        if (typeof formValue[key] == 'undefined') continue;
-        // only ignore undefined
-        // null values should be taken into account
-        let currPointingTo = newValue;
-        const paths = key.split('>');
-        let i = 0;
-        for (const path of paths.slice(0, -1)) {
-          if (/^\d+$/.test(paths.at(i + 1)!)) {
-            if (currPointingTo[path] == null) {
-              currPointingTo[path] = [];
-              currPointingTo = currPointingTo[path];
-            } else {
-              currPointingTo = currPointingTo[path];
-              Object.seal(currPointingTo); // prevents items from added to the array
-            }
-          } else {
-            try {
-              if (currPointingTo[path] == null) currPointingTo[path] = {};
-            } catch (e) { /* ignores as this is purposefully caused by the Object.seal */ }
-            currPointingTo = currPointingTo[path];
-          }
-          i++;
-        }
-        try {
-          let fieldValue = formValue[key];
-          if (this.fieldDefs().find(def => def.key == key)?.fieldType == 'date-time' && typeof fieldValue == 'string') fieldValue = new Date(fieldValue)
-          currPointingTo[paths.at(-1)!] = fieldValue;
-        } catch (e) { /* ignores as this is purposefully caused by the Object.seal */ }
+    for (const key in formValue) {
+      if (typeof formValue[key] == 'undefined') continue;
+      // only ignore undefined
+      // null values should be taken into account
+      const fieldDef = this.fieldDefs().find(f => f.base64Key() == key);
+      if (!fieldDef) continue;
+      let fieldValue = formValue[key];
+      try {
+        if (fieldDef.fieldType == 'date-time' && typeof fieldValue == 'string') fieldValue = new Date(fieldValue)
+      } catch (e) {
+        console.warn(`String cannot be parsed as a date (value: ${ fieldValue })`, e)
       }
-      this.onChange?.(newValue);
-      this.valueChange.emit(newValue);
-    } catch (e) {
-      console.warn('Unexpected error', e)
-      // ignore
+      set(newValue, fieldDef.key(), fieldValue)
     }
+    this.onChange?.(newValue);
+    this.valueChange.emit(newValue);
   }
 
   protected onSetNotNull(fieldDef: FieldDefDirective) {
-    if (!this.formControl.contains(fieldDef.key)) return;
-    this.formControl.get(fieldDef.key)?.setValue(fieldDef.defaultValue ?? this.defaultValueForType(fieldDef));
+    if (!this.formControl.contains(fieldDef.base64Key())) return;
+    this.formControl.get(fieldDef.base64Key())?.setValue(fieldDef.defaultValue ?? this.defaultValueForType(fieldDef));
     this.handleInput();
   }
 
   protected onSetNull(fieldDef: FieldDefDirective) {
-    if (!this.formControl.contains(fieldDef.key)) return;
-    this.formControl.get(fieldDef.key)?.setValue(null);
+    if (!this.formControl.contains(fieldDef.base64Key())) return;
+    this.formControl.get(fieldDef.base64Key())?.setValue(null);
     this.handleInput();
   }
 
   protected onAutocomplete(fieldDef: FieldDefDirective, value: string | number) {
-    if (!this.formControl.contains(fieldDef.key)) return;
-    this.formControl.get(fieldDef.key)?.setValue(value);
+    if (!this.formControl.contains(fieldDef.base64Key())) return;
+    this.formControl.get(fieldDef.base64Key())?.setValue(value);
     this.handleInput();
   }
 
   protected onDateChange(fieldDef: FieldDefDirective, value: Date) {
-    if (!this.formControl.contains(fieldDef.key)) return;
-    this.formControl.get(fieldDef.key)?.setValue(value.toISOString());
+    if (!this.formControl.contains(fieldDef.base64Key())) return;
+    this.formControl.get(fieldDef.base64Key())?.setValue(value.toISOString());
     this.handleInput();
   }
 
@@ -146,7 +119,7 @@ export class FieldsetComponent<T extends { [key: string | number | symbol]: any 
       this.formControl.reset();
     } else {
       this.fieldDefs()?.forEach(fieldDef => {
-        this.formControl.get(fieldDef.key)?.setValue(this.formControlValueForField(fieldDef));
+        this.formControl.get(fieldDef.base64Key())?.setValue(this.formControlValueForField(fieldDef));
       })
     }
   }

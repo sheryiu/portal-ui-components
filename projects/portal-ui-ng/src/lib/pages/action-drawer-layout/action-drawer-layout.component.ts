@@ -24,7 +24,7 @@ import { ACTION_DRAWER_LAYOUT_DATA_PROVIDER } from './action-drawer-layout';
   },
 })
 export class ActionDrawerLayoutComponent {
-  private overlayRef = inject(PuiOverlayRef, { optional: true })
+  private overlayRef = inject(PuiOverlayRef)
   private dataProvider = inject(ACTION_DRAWER_LAYOUT_DATA_PROVIDER)
   protected layoutService = inject(LayoutService, { self: true });
   configuration = this.dataProvider?.configuration;
@@ -34,6 +34,6 @@ export class ActionDrawerLayoutComponent {
   protected mostEmphasizedControlId = this.layoutService.mostEmphasizedControlId;
 
   constructor() {
-    this.dataProvider.overlayRef?.set(this.overlayRef)
+    this.dataProvider.onActionDrawerInit?.(this.overlayRef)
   }
 }

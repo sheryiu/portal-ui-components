@@ -3,11 +3,11 @@
     <!-- use $index to track, or else the ordering could mess up if fieldDefs get updated -->
     @for (fieldDef of fieldDefs(); track $index) {
       <div class="pui-fieldset__label">
-        <label [for]="fieldDef.key">{{ fieldDef.label }}</label>
+        <label [for]="fieldDef.base64Key()">{{ fieldDef.label }}</label>
       </div>
       <div class="pui-fieldset__input" [ngClass]="'pui-fieldset__input--' + fieldDef.fieldType">
-        @if (formControl.controls[fieldDef.key]) {
-          @if (formControl.controls[fieldDef.key].value == null && fieldDef.isNullable()) {
+        @if (formControl.controls[fieldDef.base64Key()]) {
+          @if (formControl.controls[fieldDef.base64Key()].value == null && fieldDef.isNullable()) {
             <div class="pui-fieldset__null">
               <span>null</span>
             </div>
@@ -21,7 +21,7 @@
               <i>edit</i>
             </button>
           } @else if (fieldDef.templateRef) {
-            <ng-container [ngTemplateOutlet]="fieldDef.templateRef" [ngTemplateOutletContext]="{ key: fieldDef.key, formGroup: formControl, valueUpdated$: valueUpdated$ }"></ng-container>
+            <ng-container [ngTemplateOutlet]="fieldDef.templateRef" [ngTemplateOutletContext]="{ key: fieldDef.base64Key(), formGroup: formControl, valueUpdated$: valueUpdated$ }"></ng-container>
             <button
               puiHoverable
               type="button"
@@ -36,10 +36,10 @@
               @case ('string') {
                 <pui-input-field>
                   <input
-                    [id]="fieldDef.key"
+                    [id]="fieldDef.base64Key()"
                     type="text"
-                    [name]="fieldDef.key"
-                    [formControlName]="fieldDef.key"
+                    [name]="fieldDef.base64Key()"
+                    [formControlName]="fieldDef.base64Key()"
                     (input)="handleInput()"
                     puiAutocompleteTrigger
                     [autocompleteEnabled]="fieldDef.fieldConfig?.enum != null"
@@ -52,10 +52,10 @@
               @case ('number') {
                 <pui-input-field>
                   <input
-                    [id]="fieldDef.key"
+                    [id]="fieldDef.base64Key()"
                     type="number"
-                    [name]="fieldDef.key"
-                    [formControlName]="fieldDef.key"
+                    [name]="fieldDef.base64Key()"
+                    [formControlName]="fieldDef.base64Key()"
                     (input)="handleInput()"
                     puiAutocompleteTrigger
                     [autocompleteEnabled]="fieldDef.fieldConfig?.enum != null"
@@ -72,25 +72,25 @@
                     puiCalendarTrigger
                     role="button"
                     type="button"
-                    [date]="$any(formControl.controls[fieldDef.key].value)"
+                    [date]="$any(formControl.controls[fieldDef.base64Key()].value)"
                     (dateChange)="onDateChange(fieldDef, $event)"
                   >
                     <i>calendar_month</i>
                   </button>
                   <input
                     #dateTimeInput
-                    [id]="fieldDef.key"
+                    [id]="fieldDef.base64Key()"
                     type="text"
-                    [name]="fieldDef.key"
-                    [formControlName]="fieldDef.key"
+                    [name]="fieldDef.base64Key()"
+                    [formControlName]="fieldDef.base64Key()"
                     (input)="handleInput()"
                   />
                 </pui-input-field>
               }
               @case ('boolean') {
                 <pui-input-field>
-                  <pui-toggle [id]="fieldDef.key" [formControlName]="fieldDef.key" (valueChange)="handleInput()"></pui-toggle>
-                  <label [htmlFor]="fieldDef.key" class="pui-fieldset__input--boolean__remarks">{{ fieldDef.label }}</label>
+                  <pui-toggle [id]="fieldDef.base64Key()" [formControlName]="fieldDef.base64Key()" (valueChange)="handleInput()"></pui-toggle>
+                  <label [htmlFor]="fieldDef.base64Key()" class="pui-fieldset__input--boolean__remarks">{{ fieldDef.label }}</label>
                 </pui-input-field>
               }
               @case ('array') {

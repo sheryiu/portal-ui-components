@@ -1,6 +1,6 @@
-import { inject, Injectable, signal, Signal, WritableSignal } from '@angular/core';
+import { inject, Injectable, signal, Signal } from '@angular/core';
 import { faker } from '@faker-js/faker';
-import { ActionDrawerLayoutDataProvider, EditableContentComponent, EditableContentDataProvider, LayoutControlConfig, ObjectJsonSchema, PuiOverlayRef } from 'portal-ui-ng';
+import { ActionDrawerLayoutDataProvider, EditableContentComponent, EditableContentDataProvider, LayoutControlConfig, ObjectFieldConfiguration, PuiOverlayRef } from 'portal-ui-ng';
 import { InventoryItemDataService } from '../../../data/inventory-item-data.service';
 import { InventoryItem, InventoryItemContentType, InventoryItemStatus } from '../../../data/inventory.types';
 
@@ -14,7 +14,7 @@ export class InventoryItemAddService implements ActionDrawerLayoutDataProvider, 
 
   // EditableContentDataProvider
   data = signal(null);
-  jsonSchema: Signal<ObjectJsonSchema> = signal<ObjectJsonSchema>({
+  fieldConfiguration = signal<ObjectFieldConfiguration>({
     type: 'object',
     properties: {
       netWeight: {
@@ -102,7 +102,7 @@ export class InventoryItemAddService implements ActionDrawerLayoutDataProvider, 
     switch (key) {
       case 'cancel': {
         this.data.set({} as any)
-        this.overlayRef()?.close()
+        this.overlayRef.close()
         break;
       }
       case 'save': {
@@ -113,7 +113,7 @@ export class InventoryItemAddService implements ActionDrawerLayoutDataProvider, 
             contents: updatedValue.contents.map(c => Object.assign(c, { id: faker.string.nanoid(12) }))
           })
           this.dataService.add(updatedValue);
-          this.overlayRef()?.close()
+          this.overlayRef.close()
         }
         break;
       }
@@ -121,6 +121,9 @@ export class InventoryItemAddService implements ActionDrawerLayoutDataProvider, 
   }
 
   // ActionDrawerLayoutDataProvider
+  private overlayRef!: PuiOverlayRef;
   heading: Signal<string> = signal('Add Item');
-  overlayRef: WritableSignal<PuiOverlayRef | null> = signal(null)
+  onActionDrawerInit(overlayRef: PuiOverlayRef): void {
+    this.overlayRef = overlayRef;
+  }
 }

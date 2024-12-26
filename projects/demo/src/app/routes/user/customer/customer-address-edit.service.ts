@@ -1,7 +1,7 @@
 import { Injectable, computed, effect, inject, signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { Params } from '@angular/router';
-import { EDITABLE_CONTENT_DEFAULT_CONTROLS, EDITABLE_CONTENT_DIRTY_CONTROLS, EditableContentDataProvider, ObjectJsonSchema } from 'portal-ui-ng';
+import { EDITABLE_CONTENT_DEFAULT_CONTROLS, EDITABLE_CONTENT_DIRTY_CONTROLS, EditableContentDataProvider, ObjectFieldConfiguration } from 'portal-ui-ng';
 import { CustomerDataService } from '../../../data/customer-data.service';
 import { Address } from '../../../data/user.types';
 
@@ -9,11 +9,11 @@ import { Address } from '../../../data/user.types';
 export class CustomerAddressEditService implements EditableContentDataProvider<Address> {
   private dataService = inject(CustomerDataService);
   private list = toSignal(this.dataService.getList())
+  private id = signal<string | undefined>(undefined)
+  private index = signal<string | undefined>(undefined)
 
-  params = signal<Params>({})
-  queryParams = signal<Params>({})
-  data = signal(this.list()?.find(v => v.id == this.params()['id'])?.savedAddresses.at(Number(this.params()['index'])));
-  jsonSchema = signal<ObjectJsonSchema>({
+  data = signal<Address | undefined>(undefined);
+  fieldConfiguration = signal<ObjectFieldConfiguration>({
     type: 'object',
     properties: {
       line1: {
@@ -53,9 +53,9 @@ export class CustomerAddressEditService implements EditableContentDataProvider<A
     effect(() => {
       this.data.set(structuredClone(
         this.list()
-          ?.find(v => v.id == this.params()['id'])
+          ?.find(v => v.id == this.id())
           ?.savedAddresses
-          .at(Number(this.params()['index']))
+          .at(Number(this.index()))
       ))
     }, { allowSignalWrites: true })
   }
@@ -77,9 +77,9 @@ export class CustomerAddressEditService implements EditableContentDataProvider<A
       case 'cancel': {
         this.data.set(structuredClone(
           this.list()
-            ?.find(v => v.id == this.params()['id'])
+            ?.find(v => v.id == this.id())
             ?.savedAddresses
-            .at(Number(this.params()['index']))
+            .at(Number(this.index()))
         ))
         this.updateState!({ isDirty: false })
         break;
@@ -87,11 +87,15 @@ export class CustomerAddressEditService implements EditableContentDataProvider<A
       case 'save': {
         const updatedValue = this.updatedValue()
         if (updatedValue) {
-          this.dataService.updateAddress(this.params()['id'], this.params()['index'], updatedValue)
+          this.dataService.updateAddress(this.id()!, Number(this.index()), updatedValue)
           this.updateState!({ isDirty: false })
         }
         break;
       }
     }
+  }
+  onParamsChange(params: Params, queryParams: Params): void {
+    this.id.set(params['id'])
+    this.index.set(params['index'])
   }
 }

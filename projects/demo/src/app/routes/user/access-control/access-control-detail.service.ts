@@ -8,9 +8,9 @@ import { AccessControlDataService } from '../../../data/access-control-data.serv
 export class AccessControlDetailService implements VerticalLayoutDataProvider {
   private dataService = inject(AccessControlDataService)
   private list = toSignal(this.dataService.getList())
+  private id = signal<string | undefined>(undefined)
 
-  params = signal<Params>({});
-  heading = computed(() => this.list()?.find(v => v.id == this.params()['id'])?.userNumber ?? '--')
+  heading = computed(() => this.list()?.find(v => v.id == this.id())?.userNumber ?? '--')
   tabs = signal<TabConfig[]>([{
     label: 'Overall',
     route: ['overall'],
@@ -18,4 +18,8 @@ export class AccessControlDetailService implements VerticalLayoutDataProvider {
     label: 'Raw',
     route: ['raw'],
   }]);
+
+  onParamsChange(params: Params, queryParams: Params): void {
+    this.id.set(params['id'])
+  }
 }

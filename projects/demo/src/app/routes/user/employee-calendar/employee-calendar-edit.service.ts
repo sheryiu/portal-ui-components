@@ -1,59 +1,50 @@
 import { computed, effect, inject, Injectable, signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { Params } from '@angular/router';
-import { EDITABLE_CONTENT_DEFAULT_CONTROLS, EDITABLE_CONTENT_DIRTY_CONTROLS, EditableContentDataProvider, ObjectFieldConfiguration } from 'portal-ui-ng';
-import { EmployeeDataService } from '../../../data/employee-data.service';
-import { Employee, EmployeeDepartment, EmployeePosition, EmployeeStatus } from '../../../data/user.types';
+import { EDITABLE_CONTENT_DEFAULT_CONTROLS, EDITABLE_CONTENT_DIRTY_CONTROLS, ObjectFieldConfiguration } from 'portal-ui-ng';
+import { EditableContentDataProvider } from '../../../../../../portal-ui-ng/src/public-api';
+import { EmployeeCalendarEventDataService } from '../../../data/employee-calendar-event-data.service';
+import { EmployeeCalendarEvent, EmployeeCalendarEventType } from '../../../data/user.types';
 
 @Injectable()
-export class EmployeeEditService implements EditableContentDataProvider<Employee> {
-  private dataService = inject(EmployeeDataService);
-  private list = toSignal(this.dataService.getList())
+export class EmployeeCalendarEditService implements EditableContentDataProvider<EmployeeCalendarEvent> {
+  private dataService = inject(EmployeeCalendarEventDataService);
+  private list = toSignal(this.dataService.getList());
   private id = signal<string | undefined>(undefined)
 
-  data = signal<Employee | undefined>(undefined);
+  data = signal<EmployeeCalendarEvent | undefined>(undefined);
   fieldConfiguration = signal<ObjectFieldConfiguration>({
     type: 'object',
     properties: {
-      name: {
+      employeeId: {
         type: 'string',
-        description: 'Name',
+        description: 'Employee ID',
       },
-      email: {
-        type: 'string',
-        description: 'Email',
-      },
-      phone: {
-        type: 'string',
-        description: 'Phone',
-      },
-      department: {
-        type: 'string',
-        description: 'Department',
-        enum: Object.values(EmployeeDepartment),
-      },
-      position: {
-        type: 'string',
-        description: 'Position',
-        enum: Object.values(EmployeePosition),
-      },
-      dateOfJoining: {
+      startsFrom: {
         type: 'date-time',
-        description: 'Date of Joining',
+        description: 'Starts From',
       },
-      dateOfLeaving: {
+      endsAt: {
         type: 'date-time',
-        description: 'Date of Leaving',
+        description: 'Ends At',
       },
-      status: {
+      isFullDay: {
+        type: 'boolean',
+        description: 'Full Day',
+      },
+      label: {
         type: 'string',
-        description: 'Status',
-        enum: Object.values(EmployeeStatus),
-      }
+        description: 'Label',
+      },
+      type: {
+        type: 'string',
+        description: 'Type',
+        enum: Object.values(EmployeeCalendarEventType)
+      },
     }
   });
   private isDirty = signal(false)
-  private updatedValue = signal<Employee | undefined>(undefined)
+  private updatedValue = signal<EmployeeCalendarEvent | undefined>(undefined)
   controlsConfig = computed(() => {
     if (this.isDirty()) return EDITABLE_CONTENT_DIRTY_CONTROLS
     else return EDITABLE_CONTENT_DEFAULT_CONTROLS
@@ -73,7 +64,7 @@ export class EmployeeEditService implements EditableContentDataProvider<Employee
   onStateChange(state: { isValid?: boolean; isDisabled?: boolean; isDirty?: boolean; }): void {
     this.isDirty.update(curr => state.isDirty ?? curr)
   }
-  onValueChange(value: Employee): void {
+  onValueChange(value: EmployeeCalendarEvent): void {
     this.updatedValue.set(value)
   }
   onControlClick(key: string, event: MouseEvent): void {
@@ -97,5 +88,4 @@ export class EmployeeEditService implements EditableContentDataProvider<Employee
   onParamsChange(params: Params, queryParams: Params): void {
     this.id.set(params['id'])
   }
-
 }

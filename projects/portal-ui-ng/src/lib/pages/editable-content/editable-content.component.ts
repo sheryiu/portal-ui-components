@@ -2,61 +2,11 @@ import { Component, computed, effect, inject, untracked } from '@angular/core';
 import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
 import { FormControl, ValueChangeEvent } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { filter, map } from 'rxjs';
+import { combineLatest, filter, map } from 'rxjs';
 import { FieldModule } from '../../components';
+import { flatten } from '../field-configuration';
 import { LayoutControlDirective } from '../layout/layout-control.directive';
-import { EDITABLE_CONTENT_DATA_PROVIDER, EDITABLE_CONTENT_DEFAULT_CONTROLS, EditableContentDataProvider, JsonSchema, ObjectJsonSchema } from './editable-content';
-
-/** @internal */
-export function flattenObjectJsonSchema(jsonSchema: ObjectJsonSchema, data: any, keyPrefix: string, descriptionPrefix: string): Array<{ key: string; jsonSchema: JsonSchema; }> {
-  const entries = Object.entries(jsonSchema.properties);
-  return entries.flatMap(([key, value]) => {
-    if (value.type == 'object') return flattenObjectJsonSchema(value, data, `${keyPrefix}${key}>`, `${descriptionPrefix}${value.description??''} / `);
-    if (value.type == 'array') {
-      const propertyKey = keyPrefix + key;
-      const description = descriptionPrefix + value.description;
-      const paths = propertyKey.split('>');
-      let currPointingTo = data;
-      for (const path of paths) {
-        if (currPointingTo?.[path] == null) break;
-        if (/^\d+$/.test(path)) {
-          currPointingTo = currPointingTo[path];
-        } else {
-          currPointingTo = currPointingTo[path];
-        }
-      }
-      return [
-        {
-          key: propertyKey,
-          jsonSchema: {
-            ...value,
-            description,
-          }
-        },
-        ...(Array.isArray(currPointingTo)
-          ? currPointingTo.flatMap((_, i) => value.items.type == 'object'
-            ? [...flattenObjectJsonSchema(value.items, data, `${propertyKey}>${i}>`, `${description} / #${i} / `)]
-            : [{
-              key: propertyKey + '>' + i,
-              jsonSchema: {
-                ...value.items,
-                description: description + '#' + i + ' / ' + value.description,
-              }
-            }])
-          : [])
-      ]
-    }
-    return [
-      {
-        key: keyPrefix + key,
-        jsonSchema: {
-          ...value,
-          description: descriptionPrefix + value.description,
-        }
-      }
-    ]
-  })
-}
+import { EDITABLE_CONTENT_DATA_PROVIDER, EDITABLE_CONTENT_DEFAULT_CONTROLS, EditableContentDataProvider } from './editable-content';
 
 @Component({
   selector: 'pui-editable-content',
@@ -78,14 +28,14 @@ export class EditableContentComponent<T extends { [key: string | number | symbol
   protected formControl = new FormControl<T | undefined>(undefined)
 
   protected data = computed(() => this.dataProvider.data())
-  protected jsonSchema = computed(() => this.dataProvider.jsonSchema())
+  protected fieldConfiguration = computed(() => this.dataProvider.fieldConfiguration())
   private formControlValue = toSignal(this.formControl.events.pipe(filter(e => e instanceof ValueChangeEvent), map(e => e.value)));
   protected flattenedControls = computed(() => {
-    const jsonSchema = this.jsonSchema();
+    const fieldConfiguration = this.fieldConfiguration();
     const data = this.formControlValue();
-    if (!jsonSchema) return [];
-    const flatten = flattenObjectJsonSchema(jsonSchema, data, '', jsonSchema.description ? `${jsonSchema.description} / ` : '');
-    return flatten;
+    if (!fieldConfiguration) return [];
+    const flattened = flatten(fieldConfiguration, data, '', fieldConfiguration.description ? `${fieldConfiguration.description} / ` : '');
+    return flattened;
   })
   protected controlsConfig = computed(() => {
     return this.dataProvider.controlsConfig?.() ?? EDITABLE_CONTENT_DEFAULT_CONTROLS;
@@ -100,16 +50,12 @@ export class EditableContentComponent<T extends { [key: string | number | symbol
       const value = this.formControlValue();
       untracked(() => this.dataProvider.onValueChange?.(value))
     })
-    this.route.params.pipe(
+    combineLatest([
+      this.route.params,
+      this.route.queryParams,
+    ]).pipe(
       takeUntilDestroyed(),
-    ).subscribe((params) => {
-      this.dataProvider.params?.set(params);
-    })
-    this.route.queryParams.pipe(
-      takeUntilDestroyed(),
-    ).subscribe((params) => {
-      this.dataProvider.queryParams?.set(params);
-    })
+    ).subscribe(([p, qp]) => this.dataProvider.onParamsChange?.(p, qp))
     this.formControl.events.pipe(
       takeUntilDestroyed(),
     ).subscribe(() => {

@@ -1,7 +1,7 @@
-import { computed, effect, inject, Injectable, signal, Signal } from '@angular/core';
+import { computed, effect, inject, Injectable, signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { Params } from '@angular/router';
-import { EDITABLE_CONTENT_DEFAULT_CONTROLS, EDITABLE_CONTENT_DIRTY_CONTROLS, EditableContentDataProvider, ObjectJsonSchema } from 'portal-ui-ng';
+import { EDITABLE_CONTENT_DEFAULT_CONTROLS, EDITABLE_CONTENT_DIRTY_CONTROLS, EditableContentDataProvider, ObjectFieldConfiguration } from 'portal-ui-ng';
 import { InventoryItemDataService } from '../../../data/inventory-item-data.service';
 import { InventoryItem, InventoryItemContentType, InventoryItemStatus } from '../../../data/inventory.types';
 
@@ -9,10 +9,10 @@ import { InventoryItem, InventoryItemContentType, InventoryItemStatus } from '..
 export class InventoryItemEditService implements EditableContentDataProvider<InventoryItem> {
   private dataService = inject(InventoryItemDataService);
   private list = toSignal(this.dataService.getList())
+  private id = signal<string | undefined>(undefined)
 
-  params = signal<Params>({});
-  data = signal(this.list()?.find(v => v.id == this.params()['id']));
-  jsonSchema: Signal<ObjectJsonSchema> = signal<ObjectJsonSchema>({
+  data = signal<InventoryItem | undefined>(undefined);
+  fieldConfiguration = signal<ObjectFieldConfiguration>({
     type: 'object',
     properties: {
       netWeight: {
@@ -85,7 +85,7 @@ export class InventoryItemEditService implements EditableContentDataProvider<Inv
 
   constructor() {
     effect(() => {
-      this.data.set(structuredClone(this.list()?.find(v => v.id == this.params()['id'])))
+      this.data.set(structuredClone(this.list()?.find(v => v.id == this.id())))
     }, { allowSignalWrites: true })
   }
 
@@ -104,7 +104,7 @@ export class InventoryItemEditService implements EditableContentDataProvider<Inv
     switch (key) {
       case 'refresh':
       case 'cancel': {
-        this.data.set(structuredClone(this.list()?.find(v => v.id == this.params()['id'])))
+        this.data.set(structuredClone(this.list()?.find(v => v.id == this.id())))
         this.updateState!({ isDirty: false })
         break;
       }
@@ -117,5 +117,8 @@ export class InventoryItemEditService implements EditableContentDataProvider<Inv
         break;
       }
     }
+  }
+  onParamsChange(params: Params, queryParams: Params): void {
+    this.id.set(params['id'])
   }
 }

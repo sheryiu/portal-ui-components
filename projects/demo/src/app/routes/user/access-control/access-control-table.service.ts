@@ -1,6 +1,6 @@
 import { computed, effect, inject, Injectable, signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { ColumnConfig, LayoutControlConfig, ObjectJsonSchema, TableContentDataProvider } from 'portal-ui-ng';
+import { ColumnConfig, LayoutControlConfig, ObjectFieldConfiguration, TableContentDataProvider } from 'portal-ui-ng';
 import { AccessControlDataService } from '../../../data/access-control-data.service';
 import { EmployeeDataService } from '../../../data/employee-data.service';
 import { AccessControl } from '../../../data/user.types';
@@ -25,12 +25,12 @@ export class AccessControlTableService implements TableContentDataProvider<Acces
   }, {
     key: 'isEnabled',
     label: 'Enabled',
-    jsonSchema: {
+    fieldConfiguration: {
       type: 'boolean'
     }
   }]);
   columnsToDisplay = signal<string[] | Record<number | 'default' | `${ number }px`, string[]>>(['userNumber', 'employeeName', 'isEnabled']);
-  simpleFilterConfig = signal<ObjectJsonSchema>({
+  filterConfig = signal<ObjectFieldConfiguration>({
     type: 'object',
     properties: {
       isEnabled: {
@@ -39,7 +39,7 @@ export class AccessControlTableService implements TableContentDataProvider<Acces
       }
     }
   });
-  simpleFilterValue = signal<any>({
+  filterValue = signal<any>({
     isEnabled: true,
   });
 
@@ -75,7 +75,7 @@ export class AccessControlTableService implements TableContentDataProvider<Acces
     }
   })
   private filterFn = computed<(item: AccessControl) => boolean>(() => {
-    const filter = this.simpleFilterValue();
+    const filter = this.filterValue();
     const hasFilter = Object.values(filter ?? {}).some(v => (typeof v == 'string') ? !!v : (v != null));
     return (item) => (hasFilter && filter['isEnabled'] != null && filter['isEnabled'] != item.isEnabled)
       ? false
@@ -93,7 +93,7 @@ export class AccessControlTableService implements TableContentDataProvider<Acces
       )
     })
   }
-  onUpdateSimpleFilter(value: any): void {
-    this.simpleFilterValue.set(value)
+  onFilterChange(value: any): void {
+    this.filterValue.set(value)
   }
 }

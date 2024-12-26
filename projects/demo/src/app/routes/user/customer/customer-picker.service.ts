@@ -16,33 +16,29 @@ export class CustomerPickerService implements ActionDrawerLayoutDataProvider, Ta
     content: TableContentComponent,
     useVirtualScroll: false,
   }
-  heading = signal('Pick customer');
-  overlayRef = signal<PuiOverlayRef | null>(null);
 
   // table content
   onControlClick(key: string, event: MouseEvent): void {
     if (key == 'select') {
       this.overlayData?.onSave(this.selectedItems().values().next().value!)
-      this.overlayRef()?.close();
+      this.overlayRef.close();
     }
   }
   data = toSignal(this.dataService.getList(), { initialValue: [] })
-  columnsConfig = signal<ColumnConfig[]>([
-    {
-      key: 'name',
-      label: 'Name',
-      jsonSchema: {
-        type: 'string'
-      }
-    },
-    {
-      key: 'phone',
-      label: 'Phone',
-      jsonSchema: {
-        type: 'string'
-      }
-    },
-  ])
+  columnsConfig = signal<ColumnConfig[]>([{
+    key: 'name',
+    label: 'Name',
+    fieldConfiguration: {
+      type: 'string'
+    }
+  },
+  {
+    key: 'phone',
+    label: 'Phone',
+    fieldConfiguration: {
+      type: 'string'
+    }
+  }])
   columnsToDisplay = signal(['name', 'phone']);
   selectionMode = signal('single' as const)
   selectedItems = signal(this.overlayData.initialValue);
@@ -55,5 +51,14 @@ export class CustomerPickerService implements ActionDrawerLayoutDataProvider, Ta
   ]);
   compareFn(a: Customer, b: Customer): boolean {
     return a.id == b.id;
+  }
+  onTableRowClick(item: Customer): void {
+    this.selectedItems.set(new Set([item]))
+  }
+
+  private overlayRef!: PuiOverlayRef;
+  heading = signal('Pick customer');
+  onActionDrawerInit(overlayRef: PuiOverlayRef): void {
+    this.overlayRef = overlayRef;
   }
 }

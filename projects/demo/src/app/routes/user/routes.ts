@@ -19,6 +19,10 @@ export const ROUTES: Routes = [
       {
         path: 'access-control',
         loadChildren: () => import('./access-control/access-control.routes').then(r => r.ROUTES),
+      },
+      {
+        path: 'employee-calendar',
+        loadChildren: () => import('./employee-calendar/employee-calendar.routes').then(r => r.ROUTES),
       }
     ]
   }

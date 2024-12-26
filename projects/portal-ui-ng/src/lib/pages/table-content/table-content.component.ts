@@ -4,9 +4,10 @@ import { Component, computed, effect, inject, PLATFORM_ID } from '@angular/core'
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { combineLatest } from 'rxjs';
 import { HoverableDirective, IsInSetPipe, LodashGetPipe } from '../../base';
 import { FieldModule, TableModule, TimeDisplayComponent } from '../../components';
-import { flattenObjectJsonSchema } from '../editable-content/editable-content.component';
+import { flatten } from '../field-configuration';
 import { LayoutControlDirective } from '../layout/layout-control.directive';
 import { TABLE_CONTENT_DATA_PROVIDER, TABLE_CONTENT_DEFAULT_CONTROLS, TableContentDataProvider } from './table-content';
 
@@ -57,45 +58,28 @@ export class TableContentComponent<T> {
   protected controlsConfig = computed(() => {
     return this.dataProvider.controlsConfig?.() ?? TABLE_CONTENT_DEFAULT_CONTROLS
   })
-  protected flattenSimpleFilterDef = computed(() => {
-    const config = this.dataProvider.simpleFilterConfig?.();
+  protected flattenFilterDef = computed(() => {
+    const config = this.dataProvider.filterConfig?.();
     if (!config) return [];
-    return flattenObjectJsonSchema(config, {}, '', config.description ? `${config.description} / ` : '')
+    return flatten(config, {}, '', config.description ? `${config.description} / ` : '')
   })
-  protected simpleFilterFormControl = inject(FormBuilder).nonNullable.control({} as any)
+  protected filterFormControl = inject(FormBuilder).nonNullable.control({} as any)
 
   constructor() {
-    this.route.params.pipe(
+    combineLatest([
+      this.route.params,
+      this.route.queryParams,
+    ]).pipe(
       takeUntilDestroyed(),
-    ).subscribe((params) => {
-      this.dataProvider.params?.set(params);
-    })
-    this.route.queryParams.pipe(
-      takeUntilDestroyed(),
-    ).subscribe((params) => {
-      this.dataProvider.queryParams?.set(params);
-    })
+    ).subscribe(([p, qp]) => this.dataProvider.onParamsChange?.(p, qp))
     effect(() => {
-      if (this.dataProvider.simpleFilterValue) {
-        this.simpleFilterFormControl.setValue(this.dataProvider.simpleFilterValue?.(), { emitEvent: false })
+      if (this.dataProvider.filterValue) {
+        this.filterFormControl.setValue(this.dataProvider.filterValue?.(), { emitEvent: false })
       }
     }, { allowSignalWrites: true })
   }
 
   protected onRowClick(item: T) {
-    if (this.dataProvider.selectionMode?.() == 'single') {
-      this.dataProvider.selectedItems?.set(new Set([item]))
-    } else if (this.dataProvider.selectionMode?.() == 'multi') {
-      this.dataProvider.selectedItems?.update(old => {
-        const clone = new Set(old)
-        if (old.has(item)) {
-          clone.delete(item)
-        } else {
-          clone.add(item)
-        }
-        return clone;
-      })
-    }
     this.dataProvider.onTableRowClick?.(item)
   }
 
@@ -107,8 +91,8 @@ export class TableContentComponent<T> {
     this.dataProvider.onControlClick?.(id, event)
   }
 
-  protected onSimpleFilterValueChange(value: any) {
-    this.dataProvider.onUpdateSimpleFilter?.(value)
+  protected onFilterValueChange(value: any) {
+    this.dataProvider.onFilterChange?.(value)
   }
 
   protected trackingFn(i: number, item: T) {

@@ -1,6 +1,6 @@
 import { computed, effect, inject, Injectable, Signal, signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { ACTION_DRAWER_LAYOUT_DATA_PROVIDER, ActionDrawerOverlayService, ColumnConfig, EDITABLE_CONTENT_DATA_PROVIDER, LayoutControlConfig, ObjectJsonSchema, TABLE_CONTENT_DEFAULT_CONTROLS, TableContentDataProvider } from 'portal-ui-ng';
+import { ACTION_DRAWER_LAYOUT_DATA_PROVIDER, ActionDrawerOverlayService, ColumnConfig, EDITABLE_CONTENT_DATA_PROVIDER, LayoutControlConfig, ObjectFieldConfiguration, TABLE_CONTENT_DEFAULT_CONTROLS, TableContentDataProvider } from 'portal-ui-ng';
 import { EmployeeDataService } from '../../../data/employee-data.service';
 import { Employee, EmployeeDepartment, EmployeeStatus } from '../../../data/user.types';
 import { EmployeeAddService } from './employee-add.service';
@@ -45,7 +45,7 @@ export class EmployeeTableService implements TableContentDataProvider<Employee> 
   columnsToDisplay: Signal<string[]> = signal([
     'name', 'email', 'phone', 'department', 'position', 'status'
   ])
-  simpleFilterConfig = signal<ObjectJsonSchema>({
+  filterConfig = signal<ObjectFieldConfiguration>({
     type: 'object',
     properties: {
       department: {
@@ -60,7 +60,7 @@ export class EmployeeTableService implements TableContentDataProvider<Employee> 
       }
     }
   })
-  simpleFilterValue = signal<any>({})
+  filterValue = signal<any>({})
   controlsConfig = signal<LayoutControlConfig[]>([
     {
       id: 'filter',
@@ -80,7 +80,7 @@ export class EmployeeTableService implements TableContentDataProvider<Employee> 
     }
   })
   private filterFn = computed<(item: Employee) => boolean>(() => {
-    const filter = this.simpleFilterValue();
+    const filter = this.filterValue();
     const hasFilter = Object.values(filter ?? {}).some(v => (typeof v == 'string') ? !!v : (v != null));
     return (item) => (hasFilter && !!filter['status'] && item.status != filter['status'])
       ? false
@@ -111,8 +111,8 @@ export class EmployeeTableService implements TableContentDataProvider<Employee> 
       )
     })
   }
-  onUpdateSimpleFilter(value: any): void {
-    this.simpleFilterValue.set(value)
+  onFilterChange(value: any): void {
+    this.filterValue.set(value)
   }
   onControlClick(key: string, event: MouseEvent): void {
     switch (key) {
@@ -133,8 +133,8 @@ export class EmployeeTableService implements TableContentDataProvider<Employee> 
           EmployeeAdvanceFilterService,
           {
             overlayData: {
-              filter: this.simpleFilterValue(),
-              onFilterApply: (newFilter: any) => this.simpleFilterValue.set(newFilter),
+              filter: this.filterValue(),
+              onFilterApply: (newFilter: any) => this.filterValue.set(newFilter),
             },
             providers: [{
               provide: EDITABLE_CONTENT_DATA_PROVIDER,

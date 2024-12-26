@@ -1,4 +1,4 @@
-import { booleanAttribute, Directive, input, Input, TemplateRef, Type } from '@angular/core';
+import { booleanAttribute, computed, Directive, input, Input, TemplateRef, Type } from '@angular/core';
 import { LiteralUnion } from '../../base';
 
 type SupportedTypes = 'string' | 'number' | 'date-time' | 'boolean' | 'array';
@@ -8,9 +8,10 @@ type SupportedTypes = 'string' | 'number' | 'date-time' | 'boolean' | 'array';
 })
 export class FieldDefDirective {
   /**
-   * @description Delimited by `>` character
+   * @description Path to the value
    */
-  @Input() key!: string;
+  key = input.required<string>();
+  base64Key = computed(() => btoa(this.key()))
   @Input() label!: string;
   @Input() description?: string | Type<unknown>;
   @Input() fieldType!: LiteralUnion<SupportedTypes>;
