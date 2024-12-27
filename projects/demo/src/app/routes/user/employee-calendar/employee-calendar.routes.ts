@@ -51,6 +51,9 @@ export const ROUTES: Routes = [
         useClass: EmployeeCalendarListService,
       }],
       children: [{
+        path: 'monthly/:timestamp',
+        loadComponent: () => import('./employee-calendar-monthly/employee-calendar-monthly.component').then(c => c.EmployeeCalendarMonthlyComponent),
+      }, {
         path: 'data',
         component: TableContentComponent,
         providers: [{
@@ -59,7 +62,7 @@ export const ROUTES: Routes = [
         }]
       }, {
         path: '**',
-        redirectTo: 'data',
+        redirectTo: 'monthly/-1',
       }]
     }]
   }

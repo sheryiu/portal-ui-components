@@ -8,7 +8,7 @@ export class EmployeeCalendarListService implements VerticalLayoutDataProvider {
   tabs = signal<TabConfig[]>([
     {
       label: 'Monthly',
-      route: ['monthly'],
+      route: ['monthly', '-1'],
     }, {
       label: 'Weekly',
       route: ['weekly'],

@@ -1,4 +1,4 @@
-<div class="sticky sm:hidden top-0 w-full h-20 bg-gradient-to-b from-primary-900 to-primary-800 z-0 flex items-center px-6 pb-4">
+<div class="sticky lg:hidden top-0 w-full h-20 bg-gradient-to-b from-primary-900 to-primary-800 z-0 flex items-center px-6 pb-4">
   <button
     puiBaseButton
     class="rounded-1 p-1"
@@ -15,7 +15,7 @@
   </div>
 </div>
 <div
-  class="absolute inset-0 sm:hidden transition z-100"
+  class="absolute inset-0 lg:hidden transition z-100"
   [ngClass]="{
     'dark:bg-black/25 backdrop-blur-lg': isNavVisible(),
     'pointer-events-none': !isNavVisible()
@@ -23,13 +23,13 @@
   (click)="isNavVisible.set(false)"
 ></div>
 <div
-  class="w-full sm:w-80 fixed top-20 sm:left-8 sm:top-8 bottom-8 max-sm:px-4 flex flex-col gap-6 overflow-hidden transition-all z-100"
+  class="w-full lg:w-80 fixed top-20 lg:left-8 lg:top-8 bottom-8 max-lg:px-4 flex flex-col gap-6 overflow-hidden transition-all z-100"
   [ngClass]="{
-    'max-sm:translate-x-0': isNavVisible(),
-    'max-sm:-translate-x-full': !isNavVisible(),
+    'max-lg:translate-x-0': isNavVisible(),
+    'max-lg:-translate-x-full': !isNavVisible(),
   }"
 >
-  <div class="hidden sm:flex items-center gap-4 px-2">
+  <div class="hidden lg:flex items-center gap-4 px-2">
     <div class="flex-none size-12 bg-gradient-to-br from-primary-600/70 from-20% to-accent-500/70 rounded-full p-2 isolate">
       <i class="icon-8 mix-blend-overlay">identity_platform</i>
     </div>
@@ -111,6 +111,6 @@
     </pui-vertical-navigation-menu>
   </div>
 </div>
-<div class="px-4 sm:ml-88 sm:px-8 min-h-full h-full max-sm:rounded-t-4 max-sm:-mt-4 max-sm:bg-neutral-900 max-sm:z-10 max-sm:relative max-sm:shadow-[0_-4px_3px_rgb(0_0_0_/_0.1)]">
+<div class="px-4 lg:ml-88 lg:px-8 min-h-full h-full max-lg:rounded-t-4 max-lg:-mt-4 max-lg:bg-neutral-900 max-lg:z-10 max-lg:relative max-lg:shadow-[0_-4px_3px_rgb(0_0_0_/_0.1)]">
   <router-outlet></router-outlet>
 </div>

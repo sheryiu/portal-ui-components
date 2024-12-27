@@ -1,5 +1,5 @@
-<div class="@container">
-  <main class="grow light-glass-bg rounded-4 p-8">
+<div class="@container grow">
+  <main class="light-glass-bg rounded-4 p-8">
     <div class="flex flex-col @screen-lg:flex-row gap-8">
       <!-- info -->
       <div class="flex flex-col gap-4 @screen-lg:basis-1/4 @screen-lg:sticky top-8 h-fit">
@@ -58,108 +58,68 @@
             <p class="text-neutral-700 dark:text-neutral-300 text-sm font-light">Enable this account to login and access system resources</p>
           </label>
         </div>
-        <!-- customer -->
-        <div
-          class="relative rounded-4 before:absolute before:inset-0 before:light-glass-bg-subtle before:rounded-4 before:transparency-mask-to-r before:-z-10 justify-start"
-          puiHoverable
-          tabindex="0"
-          (click)="onToggleAll('customer')"
-        >
-          <div class="flex flex-col px-6 py-4 gap-4 grow" formGroupName="customer">
-            <h3>Customer</h3>
-            <div class="flex flex-row items-center gap-4">
+        <div class="flex flex-col gap-2">
+          <!-- header -->
+          <div class="flex flex-row justify-end items-center px-6 gap-4">
+            <div class="px-5 py-2" puiTooltip="Create">
+              <i class="icon-6 font-variation-weight-light">add</i>
+            </div>
+            <div class="px-5 py-2" puiTooltip="Read">
+              <i class="icon-6 font-variation-weight-light">visibility</i>
+            </div>
+            <div class="px-5 py-2" puiTooltip="Update">
+              <i class="icon-6 font-variation-weight-light">edit</i>
+            </div>
+            <div class="px-5 py-2" puiTooltip="Delete">
+              <i class="icon-6 font-variation-weight-light">delete</i>
+            </div>
+          </div>
+          <!-- customer -->
+          <div
+            class="relative rounded-4 before:absolute before:inset-0 before:light-glass-bg-subtle before:rounded-4 before:transparency-mask-to-r before:-z-10 justify-start"
+            puiHoverable
+            tabindex="0"
+            (click)="onToggleAll('customer')"
+          >
+            <div class="flex flex-row items-center px-6 py-4 gap-4 grow" formGroupName="customer">
+              <h3>Customer</h3>
+              <div class="spacer"></div>
               <pui-toggle [id]="'customerCanCreate'" (click)="$event.stopPropagation()" formControlName="canCreate"></pui-toggle>
-              <label class="flex flex-col gap-1 grow" (click)="$event.stopPropagation()" for="customerCanCreate">
-                <p class="text-base font-medium">Create</p>
-              </label>
-            </div>
-            <div class="flex flex-row items-center gap-4">
               <pui-toggle [id]="'customerCanRead'" (click)="$event.stopPropagation()" formControlName="canRead"></pui-toggle>
-              <label class="flex flex-col gap-1 grow" (click)="$event.stopPropagation()" for="customerCanRead">
-                <p class="text-base font-medium">Read</p>
-              </label>
-            </div>
-            <div class="flex flex-row items-center gap-4">
               <pui-toggle [id]="'customerCanUpdate'" (click)="$event.stopPropagation()" formControlName="canUpdate"></pui-toggle>
-              <label class="flex flex-col gap-1 grow" (click)="$event.stopPropagation()" for="customerCanUpdate">
-                <p class="text-base font-medium">Update</p>
-              </label>
-            </div>
-            <div class="flex flex-row items-center gap-4">
               <pui-toggle [id]="'customerCanDelete'" (click)="$event.stopPropagation()" formControlName="canDelete"></pui-toggle>
-              <label class="flex flex-col gap-1 grow" (click)="$event.stopPropagation()" for="customerCanDelete">
-                <p class="text-base font-medium">Delete</p>
-              </label>
             </div>
           </div>
-        </div>
-        <!-- employee -->
-        <div
-          class="relative rounded-4 before:absolute before:inset-0 before:light-glass-bg-subtle before:rounded-4 before:transparency-mask-to-r before:-z-10 justify-start"
-          puiHoverable
-          tabindex="0"
-          (click)="onToggleAll('employee')"
-        >
-          <div class="flex flex-col px-6 py-4 gap-4 grow" formGroupName="employee">
-            <h3>Employee</h3>
-            <div class="flex flex-row items-center gap-4">
+          <!-- employee -->
+          <div
+            class="relative rounded-4 before:absolute before:inset-0 before:light-glass-bg-subtle before:rounded-4 before:transparency-mask-to-r before:-z-10 justify-start"
+            puiHoverable
+            tabindex="0"
+            (click)="onToggleAll('employee')"
+          >
+            <div class="flex flex-row items-center px-6 py-4 gap-4 grow" formGroupName="employee">
+              <h3>Employee</h3>
+              <div class="spacer"></div>
               <pui-toggle [id]="'employeeCanCreate'" (click)="$event.stopPropagation()" formControlName="canCreate"></pui-toggle>
-              <label class="flex flex-col gap-1 grow" (click)="$event.stopPropagation()" for="employeeCanCreate">
-                <p class="text-base font-medium">Create</p>
-              </label>
-            </div>
-            <div class="flex flex-row items-center gap-4">
               <pui-toggle [id]="'employeeCanRead'" (click)="$event.stopPropagation()" formControlName="canRead"></pui-toggle>
-              <label class="flex flex-col gap-1 grow" (click)="$event.stopPropagation()" for="employeeCanRead">
-                <p class="text-base font-medium">Read</p>
-              </label>
-            </div>
-            <div class="flex flex-row items-center gap-4">
               <pui-toggle [id]="'employeeCanUpdate'" (click)="$event.stopPropagation()" formControlName="canUpdate"></pui-toggle>
-              <label class="flex flex-col gap-1 grow" (click)="$event.stopPropagation()" for="employeeCanUpdate">
-                <p class="text-base font-medium">Update</p>
-              </label>
-            </div>
-            <div class="flex flex-row items-center gap-4">
               <pui-toggle [id]="'employeeCanDelete'" (click)="$event.stopPropagation()" formControlName="canDelete"></pui-toggle>
-              <label class="flex flex-col gap-1 grow" (click)="$event.stopPropagation()" for="employeeCanDelete">
-                <p class="text-base font-medium">Delete</p>
-              </label>
             </div>
           </div>
-        </div>
-        <!-- inventoryItem -->
-        <div
-          class="relative rounded-4 before:absolute before:inset-0 before:light-glass-bg-subtle before:rounded-4 before:transparency-mask-to-r before:-z-10 justify-start"
-          puiHoverable
-          tabindex="0"
-          (click)="onToggleAll('inventoryItem')"
-        >
-          <div class="flex flex-col px-6 py-4 gap-4 grow" formGroupName="inventoryItem">
-            <h3>Inventory Item</h3>
-            <div class="flex flex-row items-center gap-4">
+          <!-- inventoryItem -->
+          <div
+            class="relative rounded-4 before:absolute before:inset-0 before:light-glass-bg-subtle before:rounded-4 before:transparency-mask-to-r before:-z-10 justify-start"
+            puiHoverable
+            tabindex="0"
+            (click)="onToggleAll('inventoryItem')"
+          >
+            <div class="flex flex-row items-center px-6 py-4 gap-4 grow" formGroupName="inventoryItem">
+              <h3>Inventory Item</h3>
+              <div class="spacer"></div>
               <pui-toggle [id]="'inventoryItemCanCreate'" (click)="$event.stopPropagation()" formControlName="canCreate"></pui-toggle>
-              <label class="flex flex-col gap-1 grow" (click)="$event.stopPropagation()" for="inventoryItemCanCreate">
-                <p class="text-base font-medium">Create</p>
-              </label>
-            </div>
-            <div class="flex flex-row items-center gap-4">
               <pui-toggle [id]="'inventoryItemCanRead'" (click)="$event.stopPropagation()" formControlName="canRead"></pui-toggle>
-              <label class="flex flex-col gap-1 grow" (click)="$event.stopPropagation()" for="inventoryItemCanRead">
-                <p class="text-base font-medium">Read</p>
-              </label>
-            </div>
-            <div class="flex flex-row items-center gap-4">
               <pui-toggle [id]="'inventoryItemCanUpdate'" (click)="$event.stopPropagation()" formControlName="canUpdate"></pui-toggle>
-              <label class="flex flex-col gap-1 grow" (click)="$event.stopPropagation()" for="inventoryItemCanUpdate">
-                <p class="text-base font-medium">Update</p>
-              </label>
-            </div>
-            <div class="flex flex-row items-center gap-4">
               <pui-toggle [id]="'inventoryItemCanDelete'" (click)="$event.stopPropagation()" formControlName="canDelete"></pui-toggle>
-              <label class="flex flex-col gap-1 grow" (click)="$event.stopPropagation()" for="inventoryItemCanDelete">
-                <p class="text-base font-medium">Delete</p>
-              </label>
             </div>
           </div>
         </div>
@@ -170,11 +130,10 @@
           class="relative rounded-4 before:absolute before:inset-0 before:light-glass-bg-subtle before:rounded-4 before:transparency-mask-to-r before:-z-10 justify-start"
         >
           <div class="flex flex-col px-6 py-4 gap-4 grow" formGroupName="location">
-            <h3>Location-Based</h3>
             <div class="flex flex-row items-center gap-4">
               <pui-toggle [id]="'locationIsEnabled'" (click)="$event.stopPropagation()" formControlName="isEnabled"></pui-toggle>
               <label class="flex flex-col gap-1 grow" (click)="$event.stopPropagation()" for="locationIsEnabled">
-                <p class="text-base font-medium">Enabled</p>
+                <h3>Location based permission conditions</h3>
                 <p class="text-neutral-700 dark:text-neutral-300 text-sm font-light">Blocks access according to location related metadata</p>
               </label>
             </div>

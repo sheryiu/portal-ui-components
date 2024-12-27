@@ -3,7 +3,7 @@ import { Component, computed, effect, inject, untracked } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute, RouterLink } from '@angular/router';
-import { ButtonModule, DividerComponent, HoverableDirective, InputFieldComponent, LayoutControlDirective, matchFormArrayLength, ToggleComponent } from 'portal-ui-ng';
+import { ButtonModule, DividerComponent, HoverableDirective, InputFieldComponent, matchFormArrayLength, ToggleComponent, TooltipModule } from 'portal-ui-ng';
 import { map } from 'rxjs';
 import { AccessControlDataService } from '../../../../data/access-control-data.service';
 import { EmployeeDataService } from '../../../../data/employee-data.service';
@@ -18,12 +18,12 @@ import { EmployeeStatus } from '../../../../data/user.types';
     HoverableDirective,
     RouterLink,
     ToggleComponent,
-    LayoutControlDirective,
     FormsModule,
     ReactiveFormsModule,
     DividerComponent,
     InputFieldComponent,
     ButtonModule,
+    TooltipModule,
 ],
   templateUrl: './access-control-overall.component.html',
   styles: ``,
