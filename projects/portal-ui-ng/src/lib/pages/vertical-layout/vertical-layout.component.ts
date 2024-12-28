@@ -65,10 +65,10 @@ export class VerticalLayoutComponent {
       const route = this.route.routeConfig?.children?.find(child => child.path == '**');
       if (route) {
         route.redirectTo = activeTab.route
-          .map(part => String(part).replaceAll('/', '%2F'))
-          .join('')
-          .replaceAll('..%2F', '')
-          .replaceAll('.%2F', '')
+          .map(part => String(part)
+            .replaceAll('..%2F', '')
+            .replaceAll('.%2F', ''))
+          .join('/')
       }
     })
   }

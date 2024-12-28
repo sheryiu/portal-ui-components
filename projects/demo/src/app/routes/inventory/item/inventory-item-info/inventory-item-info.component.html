@@ -1,14 +1,14 @@
 <div class="@container grow">
-  <main class="light-glass-bg rounded-4 p-8 flex flex-col gap-8">
+  <main class="pui-card rounded-4 p-8 flex flex-col gap-8">
     <div class="grid @screen-md:grid-cols-3 gap-8">
       <!-- status card -->
-      <div class="light-glass-bg-subtle rounded-4 px-8 py-4 overflow-hidden flex flex-col justify-center">
+      <div class="pui-card--subtle rounded-4 px-8 py-4 overflow-hidden flex flex-col justify-center">
         <h4 class="text-neutral-700 dark:text-neutral-300">Status</h4>
         <p class="text-md">{{ inventoryItem()?.status ?? '--' }}</p>
       </div>
       <!-- customer card -->
       <a
-        class="light-glass-bg-subtle rounded-4 px-8 py-4 overflow-hidden justify-start text-start"
+        class="pui-card--subtle rounded-4 px-8 py-4 overflow-hidden justify-start text-start"
         puiHoverable
         [hoverableEnabled]="!isEditing() && customer() != null"
         [routerLink]="(!isEditing() && !!customer()) ? ['/user', 'customer', 'detail', customer()?.id] : null"
@@ -29,7 +29,7 @@
       </a>
       <!-- shelf card -->
       <a
-        class="light-glass-bg-subtle rounded-4 px-8 py-4 overflow-hidden justify-start"
+        class="pui-card--subtle rounded-4 px-8 py-4 overflow-hidden justify-start"
         puiHoverable
         [hoverableEnabled]="!isEditing() && shelf() != null"
         [routerLink]="(!isEditing() && !!shelf()) ? ['/inventory', 'shelf', 'detail', shelf()?.id] : null"

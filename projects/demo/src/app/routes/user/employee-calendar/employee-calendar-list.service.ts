@@ -17,4 +17,9 @@ export class EmployeeCalendarListService implements VerticalLayoutDataProvider {
       route: ['data']
     }
   ]);
+
+  storedSelectedTime = new Date();
+  updateSelectedTime(time: Date) {
+    this.storedSelectedTime = time;
+  }
 }

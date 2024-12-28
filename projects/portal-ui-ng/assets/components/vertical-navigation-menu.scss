@@ -55,7 +55,7 @@
 
 .pui-vertical-navigation-menu__group {
   @apply flex flex-col gap-1 my-0 relative transition-all;
-  @apply before:absolute before:inset-0 before:light-glass-bg-subtle before:rounded-[1.375rem] before:transition-all;
+  @apply before:absolute before:inset-0 before:pui-card--subtle before:rounded-[1.375rem] before:transition-all;
   &:has(> .pui-vertical-navigation-menu__item--opened) {
     @apply my-2.5;
     @apply before:-inset-1;

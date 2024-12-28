@@ -11,17 +11,17 @@ module.exports = plugin(
   }) => {
 
     addComponents({
-      '.overlay-glass-bg': {
+      '.pui-card--overlay': {
         'backdrop-filter': 'blur(16px)',
         'background': 'hsl(0deg 0% 15% / .7)',
         'box-shadow': 'inset rgb(255 255 255 / .03) 0 0 4px, rgb(0 0 0 / .1) 12px 12px 6px'
       },
-      '.light-glass-bg': {
+      '.pui-card': {
         'backdrop-filter': 'blur(6px)',
         'background': 'hsl(0deg 0% 75% / .05)',
         'box-shadow': 'inset rgb(255 255 255 / .03) 0 0 4px, rgb(0 0 0 / .1) 12px 12px 6px'
       },
-      '.light-glass-bg-subtle': {
+      '.pui-card--subtle': {
         'background': 'hsl(0deg 0% 75% / .05)',
         'box-shadow': 'inset rgb(255 255 255 / .03) 0 0 4px, rgb(0 0 0 / .1) 4px 2px 3px'
       },
@@ -52,7 +52,7 @@ module.exports = plugin(
       },
       {
         type: "length",
-        values: { 4: 4, 5: 5, 6: 6, 8: 8, 10: 10 },
+        values: { 4: 4, 5: 5, 6: 6, 8: 8, 10: 10, 12: 12, 16: 16, 20: 20, 24: 24 },
       }
     );
     matchUtilities(

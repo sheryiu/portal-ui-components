@@ -1,5 +1,5 @@
 <div class="@container grow">
-  <main class="light-glass-bg rounded-4 p-8">
+  <main class="pui-card rounded-4 p-8">
     <div class="flex flex-col @screen-lg:flex-row gap-8">
       <!-- info -->
       <div class="flex flex-col gap-4 @screen-lg:basis-1/4 @screen-lg:sticky top-8 h-fit">
@@ -22,7 +22,7 @@
         @if (employee(); as employee) {
           <div class="flex-none basis-2"></div>
           <a
-            class="light-glass-bg-subtle rounded-4 p-8 overflow-hidden"
+            class="pui-card--subtle rounded-4 p-8 overflow-hidden"
             puiHoverable
             [hoverableEnabled]="employee != null"
             [routerLink]="employee != null ? ['/user', 'employee', 'detail', employee.id] : null"
@@ -76,7 +76,7 @@
           </div>
           <!-- customer -->
           <div
-            class="relative rounded-4 before:absolute before:inset-0 before:light-glass-bg-subtle before:rounded-4 before:transparency-mask-to-r before:-z-10 justify-start"
+            class="relative rounded-4 before:absolute before:inset-0 before:pui-card--subtle before:rounded-4 before:transparency-mask-to-r before:-z-10 justify-start"
             puiHoverable
             tabindex="0"
             (click)="onToggleAll('customer')"
@@ -92,7 +92,7 @@
           </div>
           <!-- employee -->
           <div
-            class="relative rounded-4 before:absolute before:inset-0 before:light-glass-bg-subtle before:rounded-4 before:transparency-mask-to-r before:-z-10 justify-start"
+            class="relative rounded-4 before:absolute before:inset-0 before:pui-card--subtle before:rounded-4 before:transparency-mask-to-r before:-z-10 justify-start"
             puiHoverable
             tabindex="0"
             (click)="onToggleAll('employee')"
@@ -108,7 +108,7 @@
           </div>
           <!-- inventoryItem -->
           <div
-            class="relative rounded-4 before:absolute before:inset-0 before:light-glass-bg-subtle before:rounded-4 before:transparency-mask-to-r before:-z-10 justify-start"
+            class="relative rounded-4 before:absolute before:inset-0 before:pui-card--subtle before:rounded-4 before:transparency-mask-to-r before:-z-10 justify-start"
             puiHoverable
             tabindex="0"
             (click)="onToggleAll('inventoryItem')"
@@ -127,7 +127,7 @@
         <h2>Conditions</h2>
         <!-- location -->
         <div
-          class="relative rounded-4 before:absolute before:inset-0 before:light-glass-bg-subtle before:rounded-4 before:transparency-mask-to-r before:-z-10 justify-start"
+          class="relative rounded-4 before:absolute before:inset-0 before:pui-card--subtle before:rounded-4 before:transparency-mask-to-r before:-z-10 justify-start"
         >
           <div class="flex flex-col px-6 py-4 gap-4 grow" formGroupName="location">
             <div class="flex flex-row items-center gap-4">
@@ -139,7 +139,7 @@
             </div>
             <div class="grid grid-cols-1 @screen-md:grid-cols-2 gap-4">
               <!-- ip address -->
-              <div class="light-glass-bg-subtle rounded-4 p-4">
+              <div class="pui-card--subtle rounded-4 p-4">
                 <div class="flex flex-col gap-4" formArrayName="allowedIps">
                   <h3 class="px-4">Allowed IP Address</h3>
                   <div class="flex flex-col">
@@ -165,7 +165,7 @@
                 </div>
               </div>
               <!-- country -->
-              <div class="light-glass-bg-subtle rounded-4 p-4">
+              <div class="pui-card--subtle rounded-4 p-4">
                 <div class="flex flex-col gap-4" formArrayName="countries">
                   <h3 class="px-4">Country</h3>
                   <div class="flex flex-col">

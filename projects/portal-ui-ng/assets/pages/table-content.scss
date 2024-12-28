@@ -3,7 +3,7 @@
 .pui-table-content {
   @apply contents;
   > main {
-    @apply light-glass-bg rounded-4 w-full h-full p-8 grow overflow-auto;
+    @apply pui-card rounded-4 w-full h-full p-8 grow overflow-auto;
     > div {
       @apply flex flex-col gap-6;
     }

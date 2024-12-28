@@ -1,0 +1,8 @@
+<div class="flex flex-col gap-0.5 overflow-hidden w-full">
+  @for (event of events(); track event.id) {
+    <a type="button" puiBaseButton class="justify-start text-start text-sm ps-1 pe-2 py-0.5 gap-1" [routerLink]="['../../', 'detail', event.id]">
+      <span class="tabular-nums dark:text-neutral-400 font-medium">{{ event.startsFrom | date: 'HH:mm' }}</span>
+      <span class="truncate">{{ event.label }}</span>
+    </a>
+  }
+</div>

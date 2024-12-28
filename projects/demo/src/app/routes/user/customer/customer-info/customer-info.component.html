@@ -1,8 +1,8 @@
 <div class="@container grow">
-  <main class="light-glass-bg rounded-4 p-8">
+  <main class="pui-card rounded-4 p-8">
     <div class="grid @screen-md:grid-cols-3 gap-8">
       <!-- overall card -->
-      <div class="light-glass-bg-subtle rounded-4 p-8 overflow-hidden @screen-md:col-span-2">
+      <div class="pui-card--subtle rounded-4 p-8 overflow-hidden @screen-md:col-span-2">
         <div class="flex flex-col sm:flex-row gap-4 items-stretch h-full overflow-x-auto">
           <div class="rounded-3 flex-1 border dark:bg-blue-800 flex flex-col p-4 transition-colors">
             <h3 class="dark:text-blue-200">Completed<br/>Sales</h3>
@@ -28,7 +28,7 @@
         </div>
       </div>
       <!-- profile card -->
-      <div class="light-glass-bg-subtle rounded-4 p-8 overflow-hidden">
+      <div class="pui-card--subtle rounded-4 p-8 overflow-hidden">
         <div class="flex flex-col items-center gap-2">
           <div class="p-4 rounded-full bg-neutral-500 shadow-md shadow-neutral-500 transition-colors" [style.--color-neutral-500]="customer()?.profile?.color">
             <i class="icon-10 font-variation-fill">{{ customer()?.profile?.icon }}</i>
@@ -39,7 +39,7 @@
         </div>
       </div>
       <!-- historic data card -->
-      <div class="light-glass-bg-subtle rounded-4 p-8 overflow-hidden @screen-md:col-span-2">
+      <div class="pui-card--subtle rounded-4 p-8 overflow-hidden @screen-md:col-span-2 flex flex-col">
         <h3>Recent Inventory</h3>
         <pui-table-content></pui-table-content>
         <div class="flex flex-row justify-end items-center">
@@ -53,7 +53,7 @@
         </div>
       </div>
       <!-- additional details -->
-      <div class="light-glass-bg-subtle rounded-4 p-8 overflow-hidden">
+      <div class="pui-card--subtle rounded-4 p-8 overflow-hidden">
         <h3>Detailed information</h3>
         <div class="flex flex-col pt-6 gap-4">
           <div class="flex flex-row items-center gap-2">

@@ -1,6 +1,6 @@
 .pui-calendar-overlay {
   [data-vc=calendar].vc {
-    @apply light-glass-bg backdrop-blur-xl;
+    @apply pui-card backdrop-blur-xl;
   }
 
   [data-vc-theme=dark] .vc-month, [data-vc-theme=dark] .vc-year {

@@ -1,6 +1,6 @@
 .pui-input-field {
   @apply flex rounded-[1.25rem] border transition-all;
-  @apply light-glass-bg-subtle;
+  @apply pui-card--subtle;
   &[data-borderless=true] {
     @apply border-transparent dark:border-transparent;
   }

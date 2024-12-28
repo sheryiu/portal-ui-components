@@ -2,7 +2,7 @@
   @apply block;
 }
 .pui-tab-bar-tabs {
-  @apply rounded-full light-glass-bg flex gap-2 p-2 relative w-fit;
+  @apply rounded-full pui-card flex gap-2 p-2 relative w-fit;
   &:has(> button[data-active=true]) {
     @apply before:transition-all before:absolute before:top-2 before:bottom-2 before:rounded-full;
     @apply before:left-[--pui-selected-tab-x] before:w-[--pui-selected-tab-width];

@@ -53,6 +53,10 @@ export const ROUTES: Routes = [
       children: [{
         path: 'monthly/:timestamp',
         loadComponent: () => import('./employee-calendar-monthly/employee-calendar-monthly.component').then(c => c.EmployeeCalendarMonthlyComponent),
+        providers: [{
+          provide: EmployeeCalendarListService,
+          useExisting: VERTICAL_LAYOUT_DATA_PROVIDER,
+        }]
       }, {
         path: 'data',
         component: TableContentComponent,

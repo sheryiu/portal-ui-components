@@ -1,12 +1,12 @@
 <div class="flex flex-row gap-8 grow">
-  <div class="light-glass-bg rounded-4 basis-80 shrink-0 grow-0 p-4 h-fit max-h-[calc(100svh_-_8.5rem)] overflow-y-auto sticky top-26">
+  <div class="pui-card rounded-4 basis-80 shrink-0 grow-0 p-4 h-fit max-h-[calc(100svh_-_8.5rem)] overflow-y-auto sticky top-26">
     <div class="flex flex-col gap-4">
       @for (addr of data(); track $index) {
         <a
           [routerLink]="['./', $index]"
           routerLinkActive
           #active="routerLinkActive"
-          class="rounded-3 light-glass-bg-subtle border p-4 text-start justify-start"
+          class="rounded-3 pui-card--subtle border p-4 text-start justify-start"
           [ngClass]="{ 'border-primary-300 dark:border-primary-700 bg-hover': active.isActive }"
           puiHoverable
         >

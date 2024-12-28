@@ -1,5 +1,5 @@
 <div class="@container grow flex flex-col">
-  <main class="light-glass-bg rounded-4 h-full grow overflow-hidden flex flex-col">
+  <main class="pui-card rounded-4 h-full grow overflow-hidden flex flex-col">
     <div class="rounded-t-4 px-8 pt-6 pb-12 bg-gradient-to-br from-primary-800/20 to-primary-900/20">
       <span class="text-xl font-display">{{ selectedTime() | date: 'MMMM yyyy' }}</span>
     </div>
@@ -11,10 +11,10 @@
       <div class="text-center pt-2 pb-1 uppercase font-bold text-base/none border-r">Thu</div>
       <div class="text-center pt-2 pb-1 uppercase font-bold text-base/none border-r">Fri</div>
       <div class="text-center pt-2 pb-1 uppercase font-bold text-base/none dark:text-red-400">Sat</div>
-      @for (visibleDay of daysVisible(); track $index) {
+      @for (visibleDay of daysWithData(); track $index) {
         <div
           puiHoverable
-          class="flex flex-col items-center justify-start"
+          class="flex flex-col items-center justify-start gap-1.5"
           [ngClass]="{
             'border-b': $index < 28,
             'border-r': ($index % 7) != 6
@@ -23,11 +23,13 @@
           <span
             class="mt-2 text-base/none relative z-0"
             [ngClass]="{
-              'dark:text-neutral-300': (visibleDay.isLastMonth || visibleDay.isNextMonth) && !visibleDay.isToday,
-              'font-bold': !visibleDay.isLastMonth && !visibleDay.isNextMonth,
-              'text-white before:rounded-full before:-top-1 before:-bottom-0.5 before:-left-3 before:-right-3 before:absolute before:-z-10 before:bg-primary-700': visibleDay.isToday,
+              'dark:text-neutral-400': (visibleDay.isLastMonth || visibleDay.isNextMonth) && !visibleDay.isToday,
+              'font-medium': !visibleDay.isLastMonth && !visibleDay.isNextMonth,
+              'dark:text-primary-50 before:rounded-full before:-top-1 before:-bottom-0.5 before:-left-3 before:-right-3 before:absolute before:-z-10 before:bg-primary-700': visibleDay.isToday,
+              'dark:text-red-400': visibleDay.isWeekend,
             }"
           >{{ visibleDay.date | date: (visibleDay.isStartOfMonth ? 'MMM dd' : 'dd') }}</span>
+          <demo-calendar-events [events]="visibleDay.events"></demo-calendar-events>
         </div>
       }
     </div>
@@ -40,6 +42,7 @@
   mode="low-emphasis"
   icon="arrow_back"
   [weight]="-100"
+  (click)="onLastMonthClick()"
 ></pui-layout-control>
 <pui-layout-control
   id="today"
@@ -47,6 +50,7 @@
   mode="auto"
   icon="today"
   [weight]="0"
+  (click)="onTodayClick()"
 ></pui-layout-control>
 <pui-layout-control
   id="nextMonth"
@@ -54,4 +58,5 @@
   mode="low-emphasis"
   icon="arrow_forward"
   [weight]="100"
+  (click)="onNextMonthClick()"
 ></pui-layout-control>
