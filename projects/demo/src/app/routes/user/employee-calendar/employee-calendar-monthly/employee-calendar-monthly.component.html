@@ -3,32 +3,35 @@
     <div class="rounded-t-4 px-8 pt-6 pb-12 bg-gradient-to-br from-primary-800/20 to-primary-900/20">
       <span class="text-xl font-display">{{ selectedTime() | date: 'MMMM yyyy' }}</span>
     </div>
-    <div class="grow -mt-6 bg-neutral-800 rounded-t-4 border-t grid grid-cols-7 grid-rows-[min-content_repeat(5,1fr)]">
-      <div class="text-center pt-2 pb-1 uppercase font-bold text-base/none dark:text-red-400 border-r">Sun</div>
-      <div class="text-center pt-2 pb-1 uppercase font-bold text-base/none border-r">Mon</div>
-      <div class="text-center pt-2 pb-1 uppercase font-bold text-base/none border-r">Tue</div>
-      <div class="text-center pt-2 pb-1 uppercase font-bold text-base/none border-r">Wed</div>
-      <div class="text-center pt-2 pb-1 uppercase font-bold text-base/none border-r">Thu</div>
-      <div class="text-center pt-2 pb-1 uppercase font-bold text-base/none border-r">Fri</div>
-      <div class="text-center pt-2 pb-1 uppercase font-bold text-base/none dark:text-red-400">Sat</div>
+    <div class="grow -mt-6 bg-neutral-800 rounded-t-4 border-t grid grid-cols-7" [ngClass]="{ 'grid-rows-[min-content_repeat(6,1fr)]': daysWithData().length > 35, 'grid-rows-[min-content_repeat(5,1fr)]': daysWithData().length <= 35 }">
+      @for (visibleDay of daysWithData() | slice: 0: 7; track $index) {
+        <div class="text-center pt-2 pb-1 uppercase font-bold text-base/none" [ngClass]="{ 'border-r': !$last, 'dark:text-red-400': visibleDay.isWeekend }">{{ visibleDay.date | date: 'EE' }}</div>
+      }
       @for (visibleDay of daysWithData(); track $index) {
         <div
           puiHoverable
-          class="flex flex-col items-center justify-start gap-1.5"
+          class="flex flex-col items-center justify-start gap-1.5 relative"
           [ngClass]="{
-            'border-b': $index < 28,
+            'border-b': $index < $count - 7,
             'border-r': ($index % 7) != 6
           }"
         >
           <span
-            class="mt-2 text-base/none relative z-0"
+            class="mt-2 text-[72px]/none text-end absolute z-0 -bottom-2 -right-1 whitespace-nowrap font-display pointer-events-none select-none"
             [ngClass]="{
               'dark:text-neutral-400': (visibleDay.isLastMonth || visibleDay.isNextMonth) && !visibleDay.isToday,
-              'font-medium': !visibleDay.isLastMonth && !visibleDay.isNextMonth,
-              'dark:text-primary-50 before:rounded-full before:-top-1 before:-bottom-0.5 before:-left-3 before:-right-3 before:absolute before:-z-10 before:bg-primary-700': visibleDay.isToday,
+              'font-black opacity-20': !visibleDay.isLastMonth && !visibleDay.isNextMonth,
+              'font-medium opacity-10': visibleDay.isLastMonth || visibleDay.isNextMonth,
+              'dark:text-primary-50 before:rounded-full before:-top-2 before:-bottom-2 before:-left-6 before:-right-6 before:absolute before:-z-10 before:bg-primary-700': visibleDay.isToday,
               'dark:text-red-400': visibleDay.isWeekend,
             }"
-          >{{ visibleDay.date | date: (visibleDay.isStartOfMonth ? 'MMM dd' : 'dd') }}</span>
+          >
+          @if (visibleDay.isStartOfMonth) {
+            {{ visibleDay.date | date: 'MMM' }}<br/>{{ visibleDay.date | date: 'dd' }}
+          } @else {
+            {{ visibleDay.date | date: 'dd' }}
+          }
+          </span>
           <demo-calendar-events [events]="visibleDay.events"></demo-calendar-events>
         </div>
       }

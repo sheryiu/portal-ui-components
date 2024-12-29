@@ -57,7 +57,7 @@
   @apply flex flex-col gap-1 my-0 relative transition-all;
   @apply before:absolute before:inset-0 before:pui-card--subtle before:rounded-[1.375rem] before:transition-all;
   &:has(> .pui-vertical-navigation-menu__item--opened) {
-    @apply my-2.5;
+    @apply my-2;
     @apply before:-inset-1;
   }
   &:has(> .pui-vertical-navigation-menu__item--opened) > .pui-vertical-navigation-menu__group__children > * {
@@ -66,7 +66,7 @@
 }
 
 .pui-vertical-navigation-menu__group__children {
-  @apply h-0 overflow-hidden hidden;
+  @apply h-0 pb-0.5 overflow-hidden hidden;
   .pui-vertical-navigation-menu__item--opened + & {
     @apply h-auto flex flex-col gap-1;
   }

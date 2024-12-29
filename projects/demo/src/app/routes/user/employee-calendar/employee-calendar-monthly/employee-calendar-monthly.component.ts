@@ -1,4 +1,4 @@
-import { DatePipe, NgClass } from '@angular/common';
+import { DatePipe, NgClass, SlicePipe } from '@angular/common';
 import { Component, computed, inject } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -18,6 +18,7 @@ import { CalendarEventsComponent } from './calendar-events/calendar-events.compo
     DatePipe,
     NgClass,
     CalendarEventsComponent,
+    SlicePipe,
   ],
   templateUrl: './employee-calendar-monthly.component.html',
   styles: ``,
