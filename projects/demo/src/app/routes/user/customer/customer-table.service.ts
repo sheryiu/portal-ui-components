@@ -1,6 +1,6 @@
-import { computed, effect, inject, Injectable, signal } from '@angular/core';
+import { computed, inject, Injectable, signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { ACTION_DRAWER_LAYOUT_DATA_PROVIDER, ActionDrawerOverlayService, ColumnConfig, EDITABLE_CONTENT_DATA_PROVIDER, ObjectFieldConfiguration, ScreenWidthDetectorService, TableContentDataProvider } from 'portal-ui-ng';
+import { ACTION_DRAWER_LAYOUT_DATA_PROVIDER, ActionDrawerOverlayService, ColumnConfig, computeFilterFunction, computeSortFunction, EDITABLE_CONTENT_DATA_PROVIDER, ObjectFieldConfiguration, ScreenWidthDetectorService, TableContentDataProvider } from 'portal-ui-ng';
 import { CustomerDataService } from '../../../data/customer-data.service';
 import { Customer } from '../../../data/user.types';
 import { CustomerAddService } from './customer-add.service';
@@ -15,7 +15,10 @@ export class CustomerTableService implements TableContentDataProvider<Customer> 
   configuration = {
     useVirtualScroll: true,
   };
-  data = signal<Customer[]>([]);
+  data = computed(() => (this.rawData() ?? [])
+    .filter(this.filterFn())
+    .toSorted(this.sortFn())
+  )
   columnsConfig = signal<ColumnConfig[]>([
     {
       key: 'name',
@@ -67,39 +70,16 @@ export class CustomerTableService implements TableContentDataProvider<Customer> 
       }
     }
   })
-  filterValue = signal<any>({})
+  filterValue = signal<{ id?: string, name?: string }>({})
   private sortFn = computed<(a: Customer, b: Customer) => number>(() => {
-    const column = this.columnsConfig().find(config => config.isSortedAsc || config.isSortedDesc)
-    if (!column) return () => 0;
-    const isDesc = column.isSortedDesc ? -1 : 1;
-    return (a, b) => {
-      switch (column.key) {
-        case 'registeredSince': return (a.registeredSince.getTime() - b.registeredSince.getTime()) * isDesc;
-        case 'line2': return ((a as any)['address'][column.key] > (b as any)['address'][column.key]) ? (isDesc) : ((a as any)['address'][column.key] < (b as any)['address'][column.key]) ? (-1 * isDesc) : 0;
-        default: return ((a as any)[column.key] > (b as any)[column.key]) ? (isDesc) : ((a as any)[column.key] < (b as any)[column.key]) ? (-1 * isDesc) : 0;
-      }
-    }
+    return computeSortFunction(this.columnsConfig())
   })
   private filterFn = computed<(item: Customer) => boolean>(() => {
-    const filter = this.filterValue();
-    const hasFilter = Object.values(filter ?? {}).some(v => (typeof v == 'string') ? !!v : (v != null));
-    return (item) => (hasFilter && !!filter['id'] && !item.id.toLowerCase().includes(filter['id'].toLowerCase()))
-      ? false
-      : (hasFilter && !!filter['name'] && !(item.username.toLowerCase().includes(filter['name'].toLowerCase()) || item.name.toLowerCase().includes(filter['name'].toLowerCase())))
-      ? false
-      : true
+    return computeFilterFunction(this.filterValue(), {
+      'id': (item, key, value) => !!value && item.id.toLowerCase().includes(value.toLowerCase()),
+      'name': (item, key, value) => !!value && (item.username.toLowerCase().includes(value.toLowerCase()) || item.name.toLowerCase().includes(value.toLowerCase()))
+    })
   })
-
-  constructor() {
-    effect(() => {
-      const rawData = this.rawData()
-      if (!rawData) return;
-      this.data.set(rawData
-        .filter(this.filterFn())
-        .sort(this.sortFn())
-      )
-    }, { allowSignalWrites: true })
-  }
 
   routeToDetail?(item: Customer): any[] {
     if (this.screenWidth.above().sm()) {

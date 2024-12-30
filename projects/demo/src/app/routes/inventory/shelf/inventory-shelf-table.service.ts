@@ -1,6 +1,6 @@
-import { computed, effect, inject, Injectable, signal, Signal } from '@angular/core';
+import { computed, inject, Injectable, signal, Signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { ColumnConfig, LayoutControlConfig, TableContentDataProvider } from 'portal-ui-ng';
+import { ColumnConfig, computeSortFunction, LayoutControlConfig, TableContentDataProvider } from 'portal-ui-ng';
 import { InventoryShelfDataService } from '../../../data/inventory-shelf-data.service';
 import { InventoryShelf } from '../../../data/inventory.types';
 
@@ -12,7 +12,9 @@ export class InventoryShelfTableService implements TableContentDataProvider<Inve
   configuration = {
     useVirtualScroll: true,
   };
-  data = signal<InventoryShelf[]>([]);
+  data = computed(() => (this.rawData() ?? [])
+    .toSorted(this.sortFn())
+  )
   columnsConfig = signal<ColumnConfig[]>([
     {
       key: 'aisle',
@@ -55,37 +57,9 @@ export class InventoryShelfTableService implements TableContentDataProvider<Inve
       mode: 'low-emphasis'
     }
   ]);
-  filterValue = signal<any>({})
   private sortFn = computed<(a: InventoryShelf, b: InventoryShelf) => number>(() => {
-    const column = this.columnsConfig().find(config => config.isSortedAsc || config.isSortedDesc)
-    if (!column) return () => 0;
-    const isDesc = column.isSortedDesc ? -1 : 1;
-    return (a, b) => {
-      switch (column.key) {
-        case 'aisle':
-        case 'row':
-        case 'layer':
-          return ((a as any)['location'][column.key] > (b as any)['location'][column.key]) ? (isDesc) : ((a as any)['location'][column.key] < (b as any)['location'][column.key]) ? (-1 * isDesc) : 0;
-        default: return ((a as any)[column.key] > (b as any)[column.key]) ? (isDesc) : ((a as any)[column.key] < (b as any)[column.key]) ? (-1 * isDesc) : 0;
-      }
-    }
+    return computeSortFunction(this.columnsConfig())
   })
-  private filterFn = computed<(item: InventoryShelf) => boolean>(() => {
-    const filter = this.filterValue();
-    const hasFilter = Object.values(filter ?? {}).some(v => (typeof v == 'string') ? !!v : (v != null));
-    return (item) => true
-  })
-
-  constructor() {
-    effect(() => {
-      const rawData = this.rawData()
-      if (!rawData) return;
-      this.data.set(rawData
-        .filter(this.filterFn())
-        .sort(this.sortFn())
-      )
-    }, { allowSignalWrites: true })
-  }
 
   onHeaderCellClick(columnKey: string, event: MouseEvent): void {
     this.columnsConfig.update(columns => {

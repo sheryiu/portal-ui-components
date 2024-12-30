@@ -22,6 +22,7 @@ export const appConfig: ApplicationConfig = {
         paramsInheritanceStrategy: 'always',
       }),
       withInMemoryScrolling({ scrollPositionRestoration: 'disabled' }),
+      // withViewTransitions(),
     ),
     provideClientHydration(),
     provideServiceWorker('ngsw-worker.js', {

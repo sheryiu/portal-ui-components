@@ -7,8 +7,7 @@ export * from './layout/layout-control.directive';
 export * from './layout/layout.service';
 export * from './peekable-addon/peekable-addon';
 export * from './peekable-addon/peekable-addon.component';
-export * from './table-content/table-content';
-export * from './table-content/table-content.component';
+export * from './table-content';
 export * from './vertical-layout/vertical-layout';
 export * from './vertical-layout/vertical-layout.component';
 

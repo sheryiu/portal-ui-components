@@ -1,6 +1,6 @@
-import { computed, effect, inject, Injectable, signal } from '@angular/core';
+import { computed, inject, Injectable, signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { ColumnConfig, LayoutControlConfig, ObjectFieldConfiguration, TableContentDataProvider } from 'portal-ui-ng';
+import { ColumnConfig, computeFilterFunction, computeSortFunction, LayoutControlConfig, ObjectFieldConfiguration, TableContentDataProvider } from 'portal-ui-ng';
 import { AccessControlDataService } from '../../../data/access-control-data.service';
 import { EmployeeDataService } from '../../../data/employee-data.service';
 import { AccessControl } from '../../../data/user.types';
@@ -13,7 +13,15 @@ export class AccessControlTableService implements TableContentDataProvider<Acces
   private employeeList = toSignal(this.employeeDataService.getList())
 
   configuration = { useVirtualScroll: true };
-  data = signal<AccessControl[]>([]);
+  data = computed(() => {
+    const rawData = this.rawData()
+    const employeeData = this.employeeList()
+    if (!rawData || !employeeData) return [];
+    return rawData
+      .map(e => ({ ...e, employee: employeeData.find(_e => _e.id == e.employeeId) }))
+      .filter(this.filterFn())
+      .toSorted(this.sortFn())
+  })
   columnsConfig = signal<ColumnConfig[]>([{
     key: 'userNumber',
     label: '#',
@@ -39,7 +47,7 @@ export class AccessControlTableService implements TableContentDataProvider<Acces
       }
     }
   });
-  filterValue = signal<any>({
+  filterValue = signal({
     isEnabled: true,
   });
 
@@ -50,36 +58,13 @@ export class AccessControlTableService implements TableContentDataProvider<Acces
     mode: 'low-emphasis'
   }]);
 
-  constructor() {
-    effect(() => {
-      const rawData = this.rawData()
-      const employeeData = this.employeeList()
-      if (!rawData || !employeeData) return;
-      this.data.set(rawData
-        .map(e => ({ ...e, employee: employeeData.find(_e => _e.id == e.employeeId) }))
-        .filter(this.filterFn())
-        .sort(this.sortFn())
-      )
-    }, { allowSignalWrites: true })
-  }
-
   private sortFn = computed<(a: AccessControl, b: AccessControl) => number>(() => {
-    const column = this.columnsConfig().find(config => config.isSortedAsc || config.isSortedDesc)
-    if (!column) return () => 0;
-    const isDesc = column.isSortedDesc ? -1 : 1;
-    return (a, b) => {
-      switch (column.key) {
-        case 'employeeName': return ((a as any)['employee']?.['name'] > (b as any)['employee']?.['name']) ? (isDesc) : ((a as any)['employee']?.['name'] < (b as any)['employee']?.['name']) ? (-1 * isDesc) : 0;
-        default: return ((a as any)[column.key] > (b as any)[column.key]) ? (isDesc) : ((a as any)[column.key] < (b as any)[column.key]) ? (-1 * isDesc) : 0;
-      }
-    }
+    return computeSortFunction(this.columnsConfig())
   })
   private filterFn = computed<(item: AccessControl) => boolean>(() => {
-    const filter = this.filterValue();
-    const hasFilter = Object.values(filter ?? {}).some(v => (typeof v == 'string') ? !!v : (v != null));
-    return (item) => (hasFilter && filter['isEnabled'] != null && filter['isEnabled'] != item.isEnabled)
-      ? false
-      : true
+    return computeFilterFunction(this.filterValue(), {
+      'isEnabled': (item, key, value) => value != null && item.isEnabled === value
+    })
   })
 
   routeToDetail(item: AccessControl): any[] {

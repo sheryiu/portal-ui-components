@@ -1,6 +1,6 @@
-import { computed, effect, inject, Injectable, signal } from '@angular/core';
+import { computed, inject, Injectable, signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { ColumnConfig, TableContentDataProvider } from 'portal-ui-ng';
+import { ColumnConfig, computeSortFunction, TableContentDataProvider } from 'portal-ui-ng';
 import { EmployeeCalendarEventDataService } from '../../../data/employee-calendar-event-data.service';
 import { EmployeeDataService } from '../../../data/employee-data.service';
 import { EmployeeCalendarEvent } from '../../../data/user.types';
@@ -15,7 +15,14 @@ export class EmployeeCalendarTableService implements TableContentDataProvider<Em
   configuration = {
     useVirtualScroll: true,
   }
-  data = signal<EmployeeCalendarEvent[]>([]);
+  data = computed(() => {
+    const rawData = this.rawData()
+    const employeeData = this.employeeList()
+    if (!rawData || !employeeData) return [];
+    return rawData
+      .map(e => ({ ...e, employee: employeeData.find(_e => _e.id == e.employeeId) }))
+      .toSorted(this.sortFn())
+  })
   columnsConfig = signal<ColumnConfig[]>([{
     key: 'employeeName',
     label: 'Employee',
@@ -29,42 +36,24 @@ export class EmployeeCalendarTableService implements TableContentDataProvider<Em
     fieldConfiguration: {
       type: 'date-time',
       format: 'yyyy-MM-dd HH:mm'
-    }
+    },
+    isSortedDesc: true,
   }, {
     key: 'endsAt',
     label: 'Ends',
     fieldConfiguration: {
       type: 'date-time',
       format: 'yyyy-MM-dd HH:mm'
-    }
+    },
+    isAlignEnd: true,
   }]);
   columnsToDisplay = signal<string[] | Record<number | 'default' | `${ number }px`, string[]>>(
     ['employeeName', 'label', 'startsFrom', 'endsAt']
   );
   controlsConfig = signal([]);
 
-  constructor() {
-    effect(() => {
-      const rawData = this.rawData()
-      const employeeData = this.employeeList()
-      if (!rawData || !employeeData) return;
-      this.data.set(rawData
-        .map(e => ({ ...e, employee: employeeData.find(_e => _e.id == e.employeeId) }))
-        .sort(this.sortFn())
-      )
-    }, { allowSignalWrites: true })
-  }
-
   private sortFn = computed<(a: EmployeeCalendarEvent, b: EmployeeCalendarEvent) => number>(() => {
-    const column = this.columnsConfig().find(config => config.isSortedAsc || config.isSortedDesc)
-    if (!column) return () => 0;
-    const isDesc = column.isSortedDesc ? -1 : 1;
-    return (a, b) => {
-      switch (column.key) {
-        case 'employeeName': return ((a as any)['employee']?.['name'] > (b as any)['employee']?.['name']) ? (isDesc) : ((a as any)['employee']?.['name'] < (b as any)['employee']?.['name']) ? (-1 * isDesc) : 0;
-        default: return ((a as any)[column.key] > (b as any)[column.key]) ? (isDesc) : ((a as any)[column.key] < (b as any)[column.key]) ? (-1 * isDesc) : 0;
-      }
-    }
+    return computeSortFunction(this.columnsConfig())
   })
 
   routeToDetail?(item: EmployeeCalendarEvent): any[] {

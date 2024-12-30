@@ -1,6 +1,6 @@
-import { computed, effect, inject, Injectable, Signal, signal } from '@angular/core';
+import { computed, inject, Injectable, Signal, signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { ACTION_DRAWER_LAYOUT_DATA_PROVIDER, ActionDrawerOverlayService, ColumnConfig, EDITABLE_CONTENT_DATA_PROVIDER, LayoutControlConfig, ObjectFieldConfiguration, TABLE_CONTENT_DEFAULT_CONTROLS, TableContentDataProvider } from 'portal-ui-ng';
+import { ACTION_DRAWER_LAYOUT_DATA_PROVIDER, ActionDrawerOverlayService, ColumnConfig, computeFilterFunction, computeSortFunction, EDITABLE_CONTENT_DATA_PROVIDER, LayoutControlConfig, ObjectFieldConfiguration, TABLE_CONTENT_DEFAULT_CONTROLS, TableContentDataProvider } from 'portal-ui-ng';
 import { EmployeeDataService } from '../../../data/employee-data.service';
 import { Employee, EmployeeDepartment, EmployeeStatus } from '../../../data/user.types';
 import { EmployeeAddService } from './employee-add.service';
@@ -15,7 +15,10 @@ export class EmployeeTableService implements TableContentDataProvider<Employee> 
   configuration = {
     useVirtualScroll: true,
   }
-  data = signal<Employee[]>([])
+  data = computed(() => (this.rawData() ?? [])
+    .filter(this.filterFn())
+    .toSorted(this.sortFn())
+  )
   columnsConfig = signal<ColumnConfig[]>([
     {
       key: 'name',
@@ -60,7 +63,7 @@ export class EmployeeTableService implements TableContentDataProvider<Employee> 
       }
     }
   })
-  filterValue = signal<any>({})
+  filterValue = signal<{ department?: EmployeeDepartment, status?: EmployeeStatus }>({})
   controlsConfig = signal<LayoutControlConfig[]>([
     {
       id: 'filter',
@@ -70,35 +73,14 @@ export class EmployeeTableService implements TableContentDataProvider<Employee> 
     ...TABLE_CONTENT_DEFAULT_CONTROLS
   ]);
   private sortFn = computed<(a: Employee, b: Employee) => number>(() => {
-    const column = this.columnsConfig().find(config => config.isSortedAsc || config.isSortedDesc)
-    if (!column) return () => 0;
-    const isDesc = column.isSortedDesc ? -1 : 1;
-    return (a, b) => {
-      switch (column.key) {
-        default: return ((a as any)[column.key] > (b as any)[column.key]) ? (isDesc) : ((a as any)[column.key] < (b as any)[column.key]) ? (-1 * isDesc) : 0;
-      }
-    }
+    return computeSortFunction(this.columnsConfig())
   })
   private filterFn = computed<(item: Employee) => boolean>(() => {
-    const filter = this.filterValue();
-    const hasFilter = Object.values(filter ?? {}).some(v => (typeof v == 'string') ? !!v : (v != null));
-    return (item) => (hasFilter && !!filter['status'] && item.status != filter['status'])
-      ? false
-      : (hasFilter && !!filter['department'] && item.department != filter['department'])
-      ? false
-      : true
+    return computeFilterFunction(this.filterValue(), {
+      'department': (item, key, value) => !!value && item.department == value,
+      'status': (item, key, value) => !!value && item.status == value,
+    })
   })
-
-  constructor() {
-    effect(() => {
-      const rawData = this.rawData()
-      if (!rawData) return;
-      this.data.set(rawData
-        .filter(this.filterFn())
-        .sort(this.sortFn())
-      )
-    }, { allowSignalWrites: true })
-  }
 
   routeToDetail(item: Employee): any[] {
     return ['detail', item.id]

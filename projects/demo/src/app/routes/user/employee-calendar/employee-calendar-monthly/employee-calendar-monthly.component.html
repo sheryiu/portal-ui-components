@@ -17,7 +17,7 @@
           }"
         >
           <span
-            class="mt-2 text-[72px]/none text-end absolute z-0 -bottom-2 -right-1 whitespace-nowrap font-display pointer-events-none select-none"
+            class="mt-2 text-[36px]/none @screen-md:text-[48px]/none @screen-xl:text-[64px]/none @screen-2xl:text-[78px]/none text-end absolute z-0 -bottom-2 -right-1 whitespace-nowrap font-display pointer-events-none select-none"
             [ngClass]="{
               'dark:text-neutral-400': (visibleDay.isLastMonth || visibleDay.isNextMonth) && !visibleDay.isToday,
               'font-black opacity-20': !visibleDay.isLastMonth && !visibleDay.isNextMonth,
@@ -27,7 +27,7 @@
             }"
           >
           @if (visibleDay.isStartOfMonth) {
-            {{ visibleDay.date | date: 'MMM' }}<br/>{{ visibleDay.date | date: 'dd' }}
+            <span class="text-[24px]/none @screen-md:text-[32px]/none @screen-xl:text-[40px]/none @screen-2xl:text-[54px]/none">{{ visibleDay.date | date: 'MMM' }}</span><br/>{{ visibleDay.date | date: 'dd' }}
           } @else {
             {{ visibleDay.date | date: 'dd' }}
           }

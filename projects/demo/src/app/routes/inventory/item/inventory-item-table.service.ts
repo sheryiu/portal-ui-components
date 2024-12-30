@@ -1,6 +1,6 @@
-import { computed, effect, inject, Injectable, signal } from '@angular/core';
+import { computed, inject, Injectable, signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { ACTION_DRAWER_LAYOUT_DATA_PROVIDER, ActionDrawerOverlayService, ColumnConfig, EDITABLE_CONTENT_DATA_PROVIDER, TableContentDataProvider } from 'portal-ui-ng';
+import { ACTION_DRAWER_LAYOUT_DATA_PROVIDER, ActionDrawerOverlayService, ColumnConfig, computeSortFunction, EDITABLE_CONTENT_DATA_PROVIDER, TableContentDataProvider } from 'portal-ui-ng';
 import { InventoryItemDataService } from '../../../data/inventory-item-data.service';
 import { InventoryItem } from '../../../data/inventory.types';
 import { InventoryItemAddService } from './inventory-item-add.service';
@@ -14,7 +14,9 @@ export class InventoryItemTableService implements TableContentDataProvider<Inven
   configuration = {
     useVirtualScroll: true,
   };
-  data = signal<InventoryItem[]>([]);
+  data = computed(() => (this.rawData() ?? [])
+    .toSorted(this.sortFn())
+  )
   columnsConfig = signal<ColumnConfig[]>([
     {
       key: 'belongsTo',
@@ -63,32 +65,8 @@ export class InventoryItemTableService implements TableContentDataProvider<Inven
   });
   filterValue = signal<any>({})
   private sortFn = computed<(a: InventoryItem, b: InventoryItem) => number>(() => {
-    const column = this.columnsConfig().find(config => config.isSortedAsc || config.isSortedDesc)
-    if (!column) return () => 0;
-    const isDesc = column.isSortedDesc ? -1 : 1;
-    return (a, b) => {
-      switch (column.key) {
-        case 'arrivedAt': return (a.arrivedAt.getTime() - b.arrivedAt.getTime()) * isDesc;
-        default: return ((a as any)[column.key] > (b as any)[column.key]) ? (isDesc) : ((a as any)[column.key] < (b as any)[column.key]) ? (-1 * isDesc) : 0;
-      }
-    }
+    return computeSortFunction(this.columnsConfig())
   })
-  private filterFn = computed<(item: InventoryItem) => boolean>(() => {
-    const filter = this.filterValue();
-    const hasFilter = Object.values(filter ?? {}).some(v => (typeof v == 'string') ? !!v : (v != null));
-    return (item) => true
-  })
-
-  constructor() {
-    effect(() => {
-      const rawData = this.rawData()
-      if (!rawData) return;
-      this.data.set(rawData
-        .filter(this.filterFn())
-        .sort(this.sortFn())
-      )
-    }, { allowSignalWrites: true })
-  }
 
   routeToDetail?(item: InventoryItem): any[] {
     return ['detail', item.id]
