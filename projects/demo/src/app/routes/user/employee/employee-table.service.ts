@@ -1,6 +1,6 @@
 import { computed, inject, Injectable, Signal, signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { ACTION_DRAWER_LAYOUT_DATA_PROVIDER, ActionDrawerOverlayService, ColumnConfig, computeFilterFunction, computeSortFunction, EDITABLE_CONTENT_DATA_PROVIDER, LayoutControlConfig, ObjectFieldConfiguration, TABLE_CONTENT_DEFAULT_CONTROLS, TableContentDataProvider } from 'portal-ui-ng';
+import { ACTION_DRAWER_LAYOUT_DATA_PROVIDER, ActionDrawerOverlayService, ColumnConfig, computeFilterFunction, computeSortFunction, EDITABLE_CONTENT_DATA_PROVIDER, LayoutControlConfig, ObjectFieldConfiguration, TABLE_CONTENT_DEFAULT_CONTROLS, TableContentDataProvider, updateSortedColumn } from 'portal-ui-ng';
 import { EmployeeDataService } from '../../../data/employee-data.service';
 import { Employee, EmployeeDepartment, EmployeeStatus } from '../../../data/user.types';
 import { EmployeeAddService } from './employee-add.service';
@@ -86,12 +86,7 @@ export class EmployeeTableService implements TableContentDataProvider<Employee> 
     return ['detail', item.id]
   }
   onHeaderCellClick(columnKey: string, event: MouseEvent): void {
-    this.columnsConfig.update(columns => {
-      return columns.map(config => config.key == columnKey
-        ? { ...config, isSortedAsc: (!config.isSortedAsc && !config.isSortedDesc) ? true : !!config.isSortedDesc, isSortedDesc: !!config.isSortedAsc }
-        : { ...config, isSortedAsc: false, isSortedDesc: false }
-      )
-    })
+    this.columnsConfig.update(columns => updateSortedColumn(columns, columnKey))
   }
   onFilterChange(value: any): void {
     this.filterValue.set(value)

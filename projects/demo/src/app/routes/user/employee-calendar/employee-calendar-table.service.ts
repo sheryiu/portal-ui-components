@@ -1,6 +1,6 @@
 import { computed, inject, Injectable, signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { ColumnConfig, computeSortFunction, TableContentDataProvider } from 'portal-ui-ng';
+import { ColumnConfig, computeSortFunction, TableContentDataProvider, updateSortedColumn } from 'portal-ui-ng';
 import { EmployeeCalendarEventDataService } from '../../../data/employee-calendar-event-data.service';
 import { EmployeeDataService } from '../../../data/employee-data.service';
 import { EmployeeCalendarEvent } from '../../../data/user.types';
@@ -60,11 +60,6 @@ export class EmployeeCalendarTableService implements TableContentDataProvider<Em
     return ['../detail', item.id]
   }
   onHeaderCellClick?(columnKey: string, event: MouseEvent): void {
-    this.columnsConfig.update(columns => {
-      return columns.map(config => config.key == columnKey
-        ? { ...config, isSortedAsc: (!config.isSortedAsc && !config.isSortedDesc) ? true : !!config.isSortedDesc, isSortedDesc: !!config.isSortedAsc }
-        : { ...config, isSortedAsc: false, isSortedDesc: false }
-      )
-    })
+    this.columnsConfig.update(columns => updateSortedColumn(columns, columnKey))
   }
 }

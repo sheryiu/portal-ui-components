@@ -26,11 +26,11 @@
               'dark:text-red-400': visibleDay.isWeekend,
             }"
           >
-          @if (visibleDay.isStartOfMonth) {
-            <span class="text-[24px]/none @screen-md:text-[32px]/none @screen-xl:text-[40px]/none @screen-2xl:text-[54px]/none">{{ visibleDay.date | date: 'MMM' }}</span><br/>{{ visibleDay.date | date: 'dd' }}
-          } @else {
-            {{ visibleDay.date | date: 'dd' }}
-          }
+            @if (visibleDay.isStartOfMonth) {
+              <span class="text-[24px]/none @screen-md:text-[32px]/none @screen-xl:text-[40px]/none @screen-2xl:text-[54px]/none">{{ visibleDay.date | date: 'MMM' }}</span>
+              <br/>
+            }
+            <span>{{ visibleDay.date | date: 'dd' }}</span>
           </span>
           <demo-calendar-events [events]="visibleDay.events"></demo-calendar-events>
         </div>

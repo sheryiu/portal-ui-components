@@ -1,6 +1,6 @@
 import { computed, inject, Injectable, signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { ColumnConfig, computeFilterFunction, computeSortFunction, LayoutControlConfig, ObjectFieldConfiguration, TableContentDataProvider } from 'portal-ui-ng';
+import { ColumnConfig, computeFilterFunction, computeSortFunction, LayoutControlConfig, ObjectFieldConfiguration, TableContentDataProvider, updateSortedColumn } from 'portal-ui-ng';
 import { AccessControlDataService } from '../../../data/access-control-data.service';
 import { EmployeeDataService } from '../../../data/employee-data.service';
 import { AccessControl } from '../../../data/user.types';
@@ -71,12 +71,7 @@ export class AccessControlTableService implements TableContentDataProvider<Acces
     return ['detail', item.id];
   }
   onHeaderCellClick(columnKey: string, event: MouseEvent): void {
-    this.columnsConfig.update(columns => {
-      return columns.map(config => config.key == columnKey
-        ? { ...config, isSortedAsc: (!config.isSortedAsc && !config.isSortedDesc) ? true : !!config.isSortedDesc, isSortedDesc: !!config.isSortedAsc }
-        : { ...config, isSortedAsc: false, isSortedDesc: false }
-      )
-    })
+    this.columnsConfig.update(columns => updateSortedColumn(columns, columnKey))
   }
   onFilterChange(value: any): void {
     this.filterValue.set(value)

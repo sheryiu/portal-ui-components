@@ -1,6 +1,6 @@
 import { computed, inject, Injectable, signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { ACTION_DRAWER_LAYOUT_DATA_PROVIDER, ActionDrawerOverlayService, ColumnConfig, computeFilterFunction, computeSortFunction, EDITABLE_CONTENT_DATA_PROVIDER, ObjectFieldConfiguration, ScreenWidthDetectorService, TableContentDataProvider } from 'portal-ui-ng';
+import { ACTION_DRAWER_LAYOUT_DATA_PROVIDER, ActionDrawerOverlayService, ColumnConfig, computeFilterFunction, computeSortFunction, EDITABLE_CONTENT_DATA_PROVIDER, ObjectFieldConfiguration, ScreenWidthDetectorService, TableContentDataProvider, updateSortedColumn } from 'portal-ui-ng';
 import { CustomerDataService } from '../../../data/customer-data.service';
 import { Customer } from '../../../data/user.types';
 import { CustomerAddService } from './customer-add.service';
@@ -88,12 +88,7 @@ export class CustomerTableService implements TableContentDataProvider<Customer> 
     return ['/user', 'customer', 'detail', item.id]
   }
   onHeaderCellClick(columnKey: string, event: MouseEvent): void {
-    this.columnsConfig.update(columns => {
-      return columns.map(config => config.key == columnKey
-        ? { ...config, isSortedAsc: (!config.isSortedAsc && !config.isSortedDesc) ? true : !!config.isSortedDesc, isSortedDesc: !!config.isSortedAsc }
-        : { ...config, isSortedAsc: false, isSortedDesc: false }
-      )
-    })
+    this.columnsConfig.update(columns => updateSortedColumn(columns, columnKey))
   }
   onFilterChange(value: any): void {
     this.filterValue.set(value)

@@ -1,6 +1,6 @@
 import { computed, inject, Injectable, signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { ACTION_DRAWER_LAYOUT_DATA_PROVIDER, ActionDrawerOverlayService, ColumnConfig, computeSortFunction, EDITABLE_CONTENT_DATA_PROVIDER, TableContentDataProvider } from 'portal-ui-ng';
+import { ACTION_DRAWER_LAYOUT_DATA_PROVIDER, ActionDrawerOverlayService, ColumnConfig, computeSortFunction, EDITABLE_CONTENT_DATA_PROVIDER, TableContentDataProvider, updateSortedColumn } from 'portal-ui-ng';
 import { InventoryItemDataService } from '../../../data/inventory-item-data.service';
 import { InventoryItem } from '../../../data/inventory.types';
 import { InventoryItemAddService } from './inventory-item-add.service';
@@ -72,12 +72,7 @@ export class InventoryItemTableService implements TableContentDataProvider<Inven
     return ['detail', item.id]
   }
   onHeaderCellClick(columnKey: string, event: MouseEvent): void {
-    this.columnsConfig.update(columns => {
-      return columns.map(config => config.key == columnKey
-        ? { ...config, isSortedAsc: (!config.isSortedAsc && !config.isSortedDesc) ? true : !!config.isSortedDesc, isSortedDesc: !!config.isSortedAsc }
-        : { ...config, isSortedAsc: false, isSortedDesc: false }
-      )
-    })
+    this.columnsConfig.update(columns => updateSortedColumn(columns, columnKey))
   }
   onControlClick(key: string, event: MouseEvent): void {
     switch (key) {
