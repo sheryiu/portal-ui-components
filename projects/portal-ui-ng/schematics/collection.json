@@ -1,0 +1,10 @@
+{
+  "$schema": "../../../node_modules/@angular-devkit/schematics/collection-schema.json",
+  "schematics": {
+    "crud": {
+      "description": "Generate 4 services for CRUD operations, and 1 routes file.",
+      "factory": "./crud/index#crudServices",
+      "schema": "./crud/schema.json"
+    }
+  }
+}

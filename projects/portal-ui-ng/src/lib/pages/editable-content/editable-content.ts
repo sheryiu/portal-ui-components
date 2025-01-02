@@ -14,7 +14,7 @@ export interface EditableContentDataProvider<T> {
     isDisabled?: boolean;
     isDirty?: boolean;
   }): void;
-  onValueChange?(value: T): void;
+  onValueChange?(value: any): void;
   // controls
   controlsConfig?: Signal<ReadonlyArray<LayoutControlConfig>>;
   onControlClick?(key: string, event: MouseEvent): void;

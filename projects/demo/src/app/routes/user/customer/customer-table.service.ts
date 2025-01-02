@@ -83,9 +83,9 @@ export class CustomerTableService implements TableContentDataProvider<Customer> 
 
   routeToDetail?(item: Customer): any[] {
     if (this.screenWidth.above().sm()) {
-      return ['/user', 'customer', { outlets: { peek: [item.id] } }]
+      return ['../', 'customer', { outlets: { peek: [item.id] } }]
     }
-    return ['/user', 'customer', 'detail', item.id]
+    return ['../', 'customer', 'detail', item.id]
   }
   onHeaderCellClick(columnKey: string, event: MouseEvent): void {
     this.columnsConfig.update(columns => updateSortedColumn(columns, columnKey))

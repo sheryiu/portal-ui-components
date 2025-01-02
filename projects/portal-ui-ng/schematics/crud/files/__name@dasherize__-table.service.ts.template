@@ -1,0 +1,70 @@
+import { computed, inject, Injectable, signal } from '@angular/core';
+import { ColumnConfig, computeFilterFunction, computeSortFunction, ObjectFieldConfiguration, ScreenWidthDetectorService, TABLE_CONTENT_DEFAULT_CONTROLS, TableContentDataProvider, updateSortedColumn } from 'portal-ui-ng';
+
+@Injectable()
+export class <%= classify(name) %>TableService implements TableContentDataProvider<<%= classify(name) %>> {
+  private screenWidth = inject(ScreenWidthDetectorService);
+  private rawData = signal<<%= classify(name) %>[]>([
+    // TODO supply with data
+  ]);
+
+  configuration = {
+    useVirtualScroll: true,
+  };
+  data = computed(() => {
+    const rawData = this.rawData();
+    return rawData
+      .toSorted(this.sortFn())
+      .filter(this.filterFn());
+  });
+  columnsConfig = signal<ColumnConfig[]>([
+    // TODO columns configuration
+  ]);
+  columnsToDisplay = signal<string[] | Record<number | 'default' | `${ number }px`, string[]>>(
+    // TODO keys of columns to display
+  );
+  controlsConfig = signal(TABLE_CONTENT_DEFAULT_CONTROLS);
+  filterConfig = signal<ObjectFieldConfiguration>({
+    type: 'object',
+    properties: {
+      // TODO filter fields configuration
+    }
+  })
+  filterValue = signal<{
+    // TODO filter value type
+  }>({})
+
+  private sortFn = computed<(a: <%= classify(name) %>, b: <%= classify(name) %>) => number>(() => {
+    return computeSortFunction(this.columnsConfig())
+  })
+  private filterFn = computed<(item: <%= classify(name) %>) => boolean>(() => {
+    return computeFilterFunction(this.filterValue(), {
+      // TODO filter matching methods
+    })
+  })
+
+  routeToDetail(item: <%= classify(name) %>): any[] {
+    if (this.screenWidth.above().sm()) {
+      return ['../', '<%= dasherize(name) %>', { outlets: { peek: [item.id] } }]
+    }
+    return ['../', '<%= dasherize(name) %>', 'detail', item.id]
+  }
+  onHeaderCellClick(columnKey: string, event: MouseEvent): void {
+    this.columnsConfig.update(columns => updateSortedColumn(columns, columnKey))
+  }
+  onFilterChange(value: any): void {
+    this.filterValue.set(value)
+  }
+  onControlClick(key: string, event: MouseEvent): void {
+    switch (key) {
+      case 'add': {
+        // TODO on add click
+        break;
+      }
+      case 'refresh': {
+        // TODO on refresh click
+        break;
+      }
+    }
+  }
+}

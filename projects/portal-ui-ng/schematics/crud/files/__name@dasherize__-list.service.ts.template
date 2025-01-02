@@ -1,0 +1,14 @@
+import { Injectable, signal } from '@angular/core';
+import { TabConfig, VerticalLayoutDataProvider } from 'portal-ui-ng';
+
+@Injectable()
+export class <%= classify(name) %>ListService implements VerticalLayoutDataProvider {
+
+  heading = signal('<%= classify(name) %>');
+  tabs = signal<TabConfig[]>([
+    {
+      label: 'Raw',
+      route: ['raw']
+    }
+  ]);
+}

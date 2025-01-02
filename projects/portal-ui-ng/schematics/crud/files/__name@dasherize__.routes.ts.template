@@ -1,0 +1,95 @@
+import { Routes } from '@angular/router';
+import { breadcrumb, EDITABLE_CONTENT_DATA_PROVIDER, EditableContentComponent, PEEKABLE_ADDON_DATA_PROVIDER, TABLE_CONTENT_DATA_PROVIDER, TableContentComponent, VERTICAL_LAYOUT_DATA_PROVIDER, VerticalLayoutComponent } from 'portal-ui-ng';
+import { map } from 'rxjs';
+import { <%= classify(name) %>DetailService } from './<%= dasherize(name) %>-detail.service';
+import { <%= classify(name) %>EditService } from './<%= dasherize(name) %>-edit.service';
+import { <%= classify(name) %>ListService } from './<%= dasherize(name) %>-list.service';
+import { <%= classify(name) %>TableService } from './<%= dasherize(name) %>-table.service';
+
+const <%= uppercase(underscore(name)) %>_DETAIL_CHILDREN: Routes = [
+  {
+    path: 'raw',
+    component: EditableContentComponent,
+    providers: [
+      {
+        provide: EDITABLE_CONTENT_DATA_PROVIDER,
+        useClass: <%= classify(name) %>EditService,
+      }
+    ]
+  },
+  {
+    path: '**',
+    redirectTo: 'raw',
+  }
+]
+
+export const ROUTES: Routes = [
+  {
+    path: '',
+    data: {
+      ...breadcrumb({ title: '<%= capitalize(name) %>' }),
+    },
+    children: [
+      // detail
+      {
+        path: 'detail/:id',
+        component: VerticalLayoutComponent,
+        data: {
+          ...breadcrumb({
+            titleFn: (route) => {
+              return route.params.pipe(
+                map(params => params['id'])
+              )
+            }
+          })
+        },
+        providers: [{
+          provide: VERTICAL_LAYOUT_DATA_PROVIDER,
+          useClass: <%= classify(name) %>DetailService,
+        }],
+        children: <%= uppercase(underscore(name)) %>_DETAIL_CHILDREN,
+      },
+      // list
+      {
+        path: '',
+        component: VerticalLayoutComponent,
+        providers: [{
+          provide: VERTICAL_LAYOUT_DATA_PROVIDER,
+          useClass: <%= classify(name) %>ListService,
+        }, {
+          provide: PEEKABLE_ADDON_DATA_PROVIDER,
+          useClass: <%= classify(name) %>DetailService,
+        }],
+        children: [
+          {
+            path: ':id',
+            outlet: 'peek',
+            component: VerticalLayoutComponent,
+            data: {
+              ...breadcrumb({
+                titleFn: (route) => {
+                  return route.params.pipe(
+                    map(params => params['id'])
+                  )
+                }
+              })
+            },
+            providers: [{
+              provide: VERTICAL_LAYOUT_DATA_PROVIDER,
+              useClass: <%= classify(name) %>DetailService,
+            }],
+            children: <%= uppercase(underscore(name)) %>_DETAIL_CHILDREN,
+          },
+          {
+            path: '',
+            component: TableContentComponent,
+            providers: [{
+              provide: TABLE_CONTENT_DATA_PROVIDER,
+              useClass: <%= classify(name) %>TableService,
+            }],
+          }
+        ]
+      }
+    ]
+  }
+]

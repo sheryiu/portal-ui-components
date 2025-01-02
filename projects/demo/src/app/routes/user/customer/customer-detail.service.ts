@@ -27,7 +27,7 @@ export class CustomerDetailService implements VerticalLayoutDataProvider, Peekab
   ]);
 
   routeToFullContent = computed(() => {
-    return ['/', 'user', 'customer', { outlets: {
+    return ['../', 'customer', { outlets: {
       primary: ['detail', this.id()],
       peek: null,
     } }]

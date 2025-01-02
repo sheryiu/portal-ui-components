@@ -1,6 +1,11 @@
 {
   "name": "portal-ui-ng",
-  "version": "0.1.1",
+  "version": "0.1.2",
+  "scripts": {
+    "build": "tsc -p tsconfig.schematics.json",
+    "postbuild": "copyfiles schematics/*/schema.json schematics/*/files/** schematics/collection.json ../../dist/portal-ui-ng/"
+  },
+  "schematics": "./schematics/collection.json",
   "dependencies": {
     "tslib": "^2.3.0"
   },

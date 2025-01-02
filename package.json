@@ -1,9 +1,11 @@
 {
   "name": "portal-ui-components",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "scripts": {
     "ng": "ng",
-    "lib": "ng build portal-ui-ng",
+    "lib:build": "ng build portal-ui-ng",
+    "lib:schematics": "cd projects/portal-ui-ng && npm run build",
+    "lib": "npm run lib:build && npm run lib:schematics",
     "lib:watch": "ng build portal-ui-ng --watch",
     "start": "ng serve demo",
     "build": "ng build demo",
@@ -46,6 +48,7 @@
     "@types/node": "^18.18.0",
     "angular-cli-ghpages": "^2.0.3",
     "autoprefixer": "^10.4.16",
+    "copyfiles": "^2.4.1",
     "ng-packagr": "^18.2.1",
     "postcss": "^8.4.45",
     "source-map-explorer": "^2.5.3",
