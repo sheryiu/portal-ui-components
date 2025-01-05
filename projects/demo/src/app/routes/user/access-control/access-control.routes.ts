@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
-import { breadcrumb, EDITABLE_CONTENT_DATA_PROVIDER, EditableContentComponent, TABLE_CONTENT_DATA_PROVIDER, TableContentComponent, VERTICAL_LAYOUT_DATA_PROVIDER, VerticalLayoutComponent } from 'portal-ui-ng';
+import { breadcrumb } from 'portal-ui-ng/components';
+import { EDITABLE_CONTENT_DATA_PROVIDER, EditableContentComponent, TABLE_CONTENT_DATA_PROVIDER, TableContentComponent, VERTICAL_LAYOUT_DATA_PROVIDER, VerticalLayoutComponent } from 'portal-ui-ng/pages';
 import { map, switchMap } from 'rxjs';
 import { AccessControlDataService } from '../../../data/access-control-data.service';
 import { AccessControlDetailService } from './access-control-detail.service';

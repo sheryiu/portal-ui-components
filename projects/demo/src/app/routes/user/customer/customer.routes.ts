@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
-import { breadcrumb, EDITABLE_CONTENT_DATA_PROVIDER, EditableContentComponent, PEEKABLE_ADDON_DATA_PROVIDER, TABLE_CONTENT_DATA_PROVIDER, TableContentComponent, VERTICAL_LAYOUT_DATA_PROVIDER, VerticalLayoutComponent } from 'portal-ui-ng';
+import { breadcrumb } from 'portal-ui-ng/components';
+import { EDITABLE_CONTENT_DATA_PROVIDER, EditableContentComponent, PEEKABLE_ADDON_DATA_PROVIDER, TABLE_CONTENT_DATA_PROVIDER, TableContentComponent, VERTICAL_LAYOUT_DATA_PROVIDER, VerticalLayoutComponent } from 'portal-ui-ng/pages';
 import { map, switchMap } from 'rxjs';
 import { CustomerDataService } from '../../../data/customer-data.service';
 import { CustomerAddressEditService } from './customer-address-edit.service';

@@ -1,5 +1,6 @@
 import { computed, inject, Injectable, signal } from '@angular/core';
-import { ColumnConfig, computeFilterFunction, computeSortFunction, ObjectFieldConfiguration, ScreenWidthDetectorService, TABLE_CONTENT_DEFAULT_CONTROLS, TableContentDataProvider, updateSortedColumn } from 'portal-ui-ng';
+import { ScreenWidthDetectorService } from 'portal-ui-ng';
+import { ColumnConfig, computeFilterFunction, computeSortFunction, ObjectFieldConfiguration, TABLE_CONTENT_DEFAULT_CONTROLS, TableContentDataProvider, updateSortedColumn } from 'portal-ui-ng/pages';
 
 @Injectable()
 export class <%= classify(name) %>TableService implements TableContentDataProvider<<%= classify(name) %>> {

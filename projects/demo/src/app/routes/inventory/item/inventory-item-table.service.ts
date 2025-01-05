@@ -1,6 +1,6 @@
 import { computed, inject, Injectable, signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { ACTION_DRAWER_LAYOUT_DATA_PROVIDER, ActionDrawerOverlayService, ColumnConfig, computeSortFunction, EDITABLE_CONTENT_DATA_PROVIDER, TableContentDataProvider, updateSortedColumn } from 'portal-ui-ng';
+import { ACTION_DRAWER_LAYOUT_DATA_PROVIDER, ActionDrawerOverlayService, ColumnConfig, computeSortFunction, EDITABLE_CONTENT_DATA_PROVIDER, TableContentDataProvider, updateSortedColumn } from 'portal-ui-ng/pages';
 import { InventoryItemDataService } from '../../../data/inventory-item-data.service';
 import { InventoryItem } from '../../../data/inventory.types';
 import { InventoryItemAddService } from './inventory-item-add.service';

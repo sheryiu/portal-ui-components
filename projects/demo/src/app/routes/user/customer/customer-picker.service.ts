@@ -1,6 +1,7 @@
 import { computed, inject, Injectable, signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { ActionDrawerLayoutDataProvider, ColumnConfig, LayoutControlConfig, OVERLAY_DATA, PuiOverlayRef, TableContentComponent, TableContentDataProvider } from 'portal-ui-ng';
+import { OVERLAY_DATA, PuiOverlayRef } from 'portal-ui-ng/base';
+import { ActionDrawerLayoutDataProvider, ColumnConfig, LayoutControlConfig, TableContentComponent, TableContentDataProvider } from 'portal-ui-ng/pages';
 import { CustomerDataService } from '../../../data/customer-data.service';
 import { Customer } from '../../../data/user.types';
 

@@ -1,7 +1,7 @@
 import { computed, inject, Injectable, signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { Params } from '@angular/router';
-import { PeekableAddonDataProvider, TabConfig, VerticalLayoutDataProvider } from 'portal-ui-ng';
+import { PeekableAddonDataProvider, TabConfig, VerticalLayoutDataProvider } from 'portal-ui-ng/pages';
 import { CustomerDataService } from '../../../data/customer-data.service';
 
 @Injectable()

@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
-import { breadcrumb, EDITABLE_CONTENT_DATA_PROVIDER, EditableContentComponent, TABLE_CONTENT_DATA_PROVIDER, TableContentComponent, VERTICAL_LAYOUT_DATA_PROVIDER, VerticalLayoutComponent } from 'portal-ui-ng';
+import { breadcrumb } from 'portal-ui-ng/components';
+import { EDITABLE_CONTENT_DATA_PROVIDER, EditableContentComponent, TABLE_CONTENT_DATA_PROVIDER, TableContentComponent, VERTICAL_LAYOUT_DATA_PROVIDER, VerticalLayoutComponent } from 'portal-ui-ng/pages';
 import { map } from 'rxjs';
 import { InventoryShelfDetailService } from './inventory-shelf-detail.service';
 import { InventoryShelfEditService } from './inventory-shelf-edit.service';

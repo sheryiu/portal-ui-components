@@ -1,5 +1,6 @@
 import { inject, Injectable, signal } from '@angular/core';
-import { ActionDrawerLayoutDataProvider, EditableContentComponent, EditableContentDataProvider, LayoutControlConfig, ObjectFieldConfiguration, OVERLAY_DATA, PuiOverlayRef } from 'portal-ui-ng';
+import { OVERLAY_DATA, PuiOverlayRef } from 'portal-ui-ng/base';
+import { ActionDrawerLayoutDataProvider, EditableContentComponent, EditableContentDataProvider, LayoutControlConfig, ObjectFieldConfiguration } from 'portal-ui-ng/pages';
 import { EmployeeDepartment, EmployeeStatus } from '../../../data/user.types';
 
 @Injectable()

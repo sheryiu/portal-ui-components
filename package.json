@@ -1,10 +1,10 @@
 {
   "name": "portal-ui-components",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "scripts": {
     "ng": "ng",
     "lib:build": "ng build portal-ui-ng",
-    "lib:schematics": "cd projects/portal-ui-ng && npm run build",
+    "lib:schematics": "cd projects/portal-ui-ng && npm run build:schematics",
     "lib": "npm run lib:build && npm run lib:schematics",
     "lib:watch": "ng build portal-ui-ng --watch",
     "start": "ng serve demo",

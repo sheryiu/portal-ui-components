@@ -5,6 +5,8 @@ import { provideAnimations } from '@angular/platform-browser/animations';
 import { NoPreloading, PreloadAllModules, provideRouter, withInMemoryScrolling, withPreloading, withRouterConfig } from '@angular/router';
 import { provideServiceWorker } from '@angular/service-worker';
 import { providePlatformDetector, provideTheme } from 'portal-ui-ng';
+import { provideVanillaCalendarProCalendarOverlay } from 'portal-ui-ng/components/calendar-overlay/vanilla-calendar-pro';
+import { provideHumanizeDurationTimeAgo } from 'portal-ui-ng/components/time-ago/humanize-duration';
 import { routes } from './app.routes';
 
 export const appConfig: ApplicationConfig = {
@@ -29,5 +31,7 @@ export const appConfig: ApplicationConfig = {
       enabled: !isDevMode(),
       registrationStrategy: 'registerImmediately',
     }),
+    provideHumanizeDurationTimeAgo(),
+    provideVanillaCalendarProCalendarOverlay(),
   ]
 };

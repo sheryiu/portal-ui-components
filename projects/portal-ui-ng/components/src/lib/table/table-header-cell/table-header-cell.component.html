@@ -1,0 +1,13 @@
+<button
+  puiHoverable
+  [attr.data-justify-end]="rightAligned()"
+  (click)="cellClick.emit($event)"
+>
+  <div class="pui-table-header-cell__label">
+    <ng-content></ng-content>
+  </div>
+  <div class="pui-table-header-cell__gap"><!-- placeholder --></div>
+  <div class="pui-table-header-cell__state">
+    <i class="pui-table-header-cell__sort" [attr.data-ascending]="sortedAsc()" [attr.data-descending]="sortedDesc()"></i>
+  </div>
+</button>

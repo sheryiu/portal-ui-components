@@ -2,7 +2,8 @@ import { NgClass } from '@angular/common';
 import { Component, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { faker } from '@faker-js/faker';
-import { ButtonModule, DividerComponent, MenuDividerDirective, MenuGroupDirective, MenuItemDirective, TooltipModule, VerticalNavigationMenuComponent } from 'portal-ui-ng';
+import { ButtonModule } from 'portal-ui-ng/base';
+import { DividerComponent, MenuDividerDirective, MenuGroupDirective, MenuItemDirective, TooltipModule, VerticalNavigationMenuComponent } from 'portal-ui-ng/components';
 
 @Component({
   selector: 'demo-root',

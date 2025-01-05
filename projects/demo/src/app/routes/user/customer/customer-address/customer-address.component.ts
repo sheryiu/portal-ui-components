@@ -2,7 +2,8 @@ import { NgClass } from '@angular/common';
 import { Component, computed, inject } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
-import { HoverableDirective, TableModule } from 'portal-ui-ng';
+import { HoverableDirective } from 'portal-ui-ng/base';
+import { TableModule } from 'portal-ui-ng/components';
 import { map } from 'rxjs';
 import { CustomerDataService } from '../../../../data/customer-data.service';
 

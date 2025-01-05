@@ -1,6 +1,6 @@
 import { computed, inject, Injectable, signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { ColumnConfig, computeSortFunction, TableContentDataProvider, updateSortedColumn } from 'portal-ui-ng';
+import { ColumnConfig, computeSortFunction, TableContentDataProvider, updateSortedColumn } from 'portal-ui-ng/pages';
 import { EmployeeCalendarEventDataService } from '../../../data/employee-calendar-event-data.service';
 import { EmployeeDataService } from '../../../data/employee-data.service';
 import { EmployeeCalendarEvent } from '../../../data/user.types';

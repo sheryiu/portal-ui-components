@@ -1,0 +1,49 @@
+<div>
+  <header class="pui-action-drawer-layout__heading">
+    <pui-breadcrumbs></pui-breadcrumbs>
+    <h1>{{ heading() }}</h1>
+  </header>
+  <div class="pui-action-drawer-layout__content">
+    @if (configuration && configuration.content) {
+      <ng-container [ngComponentOutlet]="configuration.content"></ng-container>
+    }
+  </div>
+  <div class="pui-action-drawer-layout__controls">
+    @for (control of controls(); track control.id) {
+      @if (control.id == mostEmphasizedControlId()) {
+        <button
+          puiFilledButton
+          color="accent"
+          class="pui-action-drawer-layout__controls__most-emphasized"
+          [disabled]="control.isDisabled"
+          [hoverableEnabled]="!control.isDisabled"
+          (click)="layoutService.controlOnClick(control.id, $event)"
+        >
+          @if (control.icon) {
+            <i>{{ control.icon }}</i>
+          } @else if (control.iconTemplateRef) {
+            <ng-container [ngTemplateOutlet]="control.iconTemplateRef"></ng-container>
+          }
+          <span class="font-medium">{{ control.label }}</span>
+        </button>
+      } @else if (control.icon || control.iconTemplateRef) {
+        <button
+          puiBorderedButton
+          color="accent"
+          class="pui-action-drawer-layout__controls__normal"
+          [disabled]="control.isDisabled"
+          [hoverableEnabled]="!control.isDisabled"
+          (click)="layoutService.controlOnClick(control.id, $event)"
+        >
+          @if (control.icon) {
+            <i>{{ control.icon }}</i>
+          } @else if (control.iconTemplateRef) {
+            <ng-container [ngTemplateOutlet]="control.iconTemplateRef"></ng-container>
+          }
+        </button>
+      } @else {
+        <!-- TODO -->
+      }
+    }
+  </div>
+</div>

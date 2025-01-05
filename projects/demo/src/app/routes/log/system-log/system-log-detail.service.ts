@@ -1,6 +1,6 @@
 import { computed, Injectable, signal } from '@angular/core';
 import { Params } from '@angular/router';
-import { PeekableAddonDataProvider, TabConfig, VerticalLayoutDataProvider } from 'portal-ui-ng';
+import { PeekableAddonDataProvider, TabConfig, VerticalLayoutDataProvider } from 'portal-ui-ng/pages';
 
 @Injectable()
 export class SystemLogDetailService implements VerticalLayoutDataProvider, PeekableAddonDataProvider {

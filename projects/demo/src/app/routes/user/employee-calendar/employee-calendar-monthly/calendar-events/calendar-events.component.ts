@@ -1,7 +1,7 @@
 import { DatePipe } from '@angular/common';
 import { Component, input } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { BaseButtonDirective } from 'portal-ui-ng';
+import { BaseButtonDirective } from 'portal-ui-ng/base';
 import { EmployeeCalendarEvent } from '../../../../../data/user.types';
 
 @Component({

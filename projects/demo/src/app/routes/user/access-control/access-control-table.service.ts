@@ -1,6 +1,6 @@
 import { computed, inject, Injectable, signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { ColumnConfig, computeFilterFunction, computeSortFunction, LayoutControlConfig, ObjectFieldConfiguration, TableContentDataProvider, updateSortedColumn } from 'portal-ui-ng';
+import { ColumnConfig, computeFilterFunction, computeSortFunction, LayoutControlConfig, ObjectFieldConfiguration, TableContentDataProvider, updateSortedColumn } from 'portal-ui-ng/pages';
 import { AccessControlDataService } from '../../../data/access-control-data.service';
 import { EmployeeDataService } from '../../../data/employee-data.service';
 import { AccessControl } from '../../../data/user.types';

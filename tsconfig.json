@@ -18,6 +18,21 @@
     "paths": {
       "portal-ui-ng": [
         "./dist/portal-ui-ng"
+      ],
+      "portal-ui-ng/base": [
+        "./dist/portal-ui-ng/base"
+      ],
+      "portal-ui-ng/components": [
+        "./dist/portal-ui-ng/components"
+      ],
+      "portal-ui-ng/pages": [
+        "./dist/portal-ui-ng/pages"
+      ],
+      "portal-ui-ng/components/calendar-overlay/vanilla-calendar-pro": [
+        "./dist/portal-ui-ng/components/calendar-overlay/vanilla-calendar-pro"
+      ],
+      "portal-ui-ng/components/time-ago/humanize-duration": [
+        "./dist/portal-ui-ng/components/time-ago/humanize-duration"
       ]
     },
     "target": "ES2022",

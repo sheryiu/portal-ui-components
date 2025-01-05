@@ -47,7 +47,10 @@
       <span class="col-start-1 text-base font-medium whitespace-nowrap text-neutral-700 dark:text-neutral-300">ID</span>
       <span class="col-start-2 text-md">{{ inventoryItem()?.id ?? '---' }}</span>
       <span class="col-start-1 text-base font-medium whitespace-nowrap text-neutral-700 dark:text-neutral-300">Arrived at</span>
-      <pui-time-display class="col-start-2 text-md" [date]="inventoryItem()?.arrivedAt" [format]="'yyyy-MM-dd HH:mm'"></pui-time-display>
+      <span class="col-start-2 text-md">
+        <pui-time-display [date]="inventoryItem()?.arrivedAt" [format]="'yyyy-MM-dd HH:mm'"></pui-time-display>
+        (<pui-time-display [date]="inventoryItem()?.arrivedAt" [mode]="'timeAgo'"></pui-time-display> ago )
+      </span>
       <span class="col-start-1 text-base font-medium whitespace-nowrap text-neutral-700 dark:text-neutral-300">Net weight</span>
       <span class="col-start-2 text-md">{{ inventoryItem()?.netWeight ?? '---' }} g</span>
       <span class="col-start-1 text-base font-medium whitespace-nowrap text-neutral-700 dark:text-neutral-300">Gross weight</span>

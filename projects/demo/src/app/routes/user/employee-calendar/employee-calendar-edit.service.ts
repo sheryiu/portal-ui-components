@@ -1,8 +1,7 @@
 import { computed, effect, inject, Injectable, signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { Params } from '@angular/router';
-import { EDITABLE_CONTENT_DEFAULT_CONTROLS, EDITABLE_CONTENT_DIRTY_CONTROLS, ObjectFieldConfiguration } from 'portal-ui-ng';
-import { EditableContentDataProvider } from '../../../../../../portal-ui-ng/src/public-api';
+import { EDITABLE_CONTENT_DEFAULT_CONTROLS, EDITABLE_CONTENT_DIRTY_CONTROLS, EditableContentDataProvider, ObjectFieldConfiguration } from 'portal-ui-ng/pages';
 import { EmployeeCalendarEventDataService } from '../../../data/employee-calendar-event-data.service';
 import { EmployeeCalendarEvent, EmployeeCalendarEventType } from '../../../data/user.types';
 

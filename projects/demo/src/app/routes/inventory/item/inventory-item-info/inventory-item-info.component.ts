@@ -1,7 +1,10 @@
 import { Component, computed, inject, signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, RouterLink } from '@angular/router';
-import { ACTION_DRAWER_LAYOUT_DATA_PROVIDER, ActionDrawerOverlayService, ButtonModule, DividerComponent, HoverableDirective, isNonNull, LayoutControlDirective, TABLE_CONTENT_DATA_PROVIDER, TableModule, TimeDisplayComponent } from 'portal-ui-ng';
+import { isNonNull } from 'portal-ui-ng';
+import { ButtonModule, HoverableDirective } from 'portal-ui-ng/base';
+import { DividerComponent, TableModule, TimeDisplayComponent } from 'portal-ui-ng/components';
+import { ACTION_DRAWER_LAYOUT_DATA_PROVIDER, ActionDrawerOverlayService, LayoutControlDirective, TABLE_CONTENT_DATA_PROVIDER } from 'portal-ui-ng/pages';
 import { map } from 'rxjs';
 import { CustomerDataService } from '../../../../data/customer-data.service';
 import { InventoryItemDataService } from '../../../../data/inventory-item-data.service';

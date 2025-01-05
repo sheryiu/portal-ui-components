@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-import { breadcrumb } from 'portal-ui-ng';
+import { breadcrumb } from 'portal-ui-ng/components';
 
 export const ROUTES: Routes = [
   {

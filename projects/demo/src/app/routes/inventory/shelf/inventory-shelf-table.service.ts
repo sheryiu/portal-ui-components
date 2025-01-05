@@ -1,6 +1,6 @@
 import { computed, inject, Injectable, signal, Signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { ColumnConfig, computeSortFunction, LayoutControlConfig, TableContentDataProvider, updateSortedColumn } from 'portal-ui-ng';
+import { ColumnConfig, computeSortFunction, LayoutControlConfig, TableContentDataProvider, updateSortedColumn } from 'portal-ui-ng/pages';
 import { InventoryShelfDataService } from '../../../data/inventory-shelf-data.service';
 import { InventoryShelf } from '../../../data/inventory.types';
 
