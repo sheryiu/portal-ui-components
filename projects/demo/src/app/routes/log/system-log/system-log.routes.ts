@@ -28,7 +28,7 @@ export const ROUTES: Routes = [
   {
     path: '',
     data: {
-      ...breadcrumb({ title: 'System-log' }),
+      ...breadcrumb({ title: 'System Log' }),
     },
     children: [
       // detail

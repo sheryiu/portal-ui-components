@@ -1,38 +1,91 @@
 import { computed, inject, Injectable, signal } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
 import { ScreenWidthDetectorService } from 'portal-ui-ng';
 import { ColumnConfig, computeFilterFunction, computeSortFunction, ObjectFieldConfiguration, TABLE_CONTENT_DEFAULT_CONTROLS, TableContentDataProvider, updateSortedColumn } from 'portal-ui-ng/pages';
+import { CustomerDataService } from '../../../data/customer-data.service';
+import { EmployeeDataService } from '../../../data/employee-data.service';
+import { SystemLog, SystemLogLevel } from '../../../data/log.types';
+import { SystemLogDataService } from '../../../data/system-log-data.service';
 
 @Injectable()
 export class SystemLogTableService implements TableContentDataProvider<SystemLog> {
   private screenWidth = inject(ScreenWidthDetectorService);
-  private rawData = signal<SystemLog[]>([
-    // TODO supply with data
-  ]);
+  private dataService = inject(SystemLogDataService);
+  private rawData = toSignal(this.dataService.getList())
+  private customerDataService = inject(CustomerDataService);
+  private customerData = toSignal(this.customerDataService.getList())
+  private employeeDataService = inject(EmployeeDataService);
+  private employeeData = toSignal(this.employeeDataService.getList())
 
   configuration = {
     useVirtualScroll: true,
   };
   data = computed(() => {
-    const rawData = this.rawData();
+    const rawData = this.rawData() ?? [];
+    const customerData = this.customerData() ?? [];
+    const employeeData = this.employeeData() ?? [];
     return rawData
       .toSorted(this.sortFn())
-      .filter(this.filterFn());
+      .filter(this.filterFn())
+      .map(item => Object.assign(item, {
+        user: item.customerId
+          ? customerData.find(c => c.id == item.customerId)
+          : item.employeeId
+          ? employeeData.find(e => e.id == item.employeeId)
+          : null,
+      }));
   });
   columnsConfig = signal<ColumnConfig[]>([
-    // TODO columns configuration
+    {
+      key: 'timestamp',
+      label: 'Timestamp',
+      fieldConfiguration: {
+        type: 'date-time',
+        format: 'yyyy-MM-dd HH:mm:ss.SSS'
+      },
+      isSortedDesc: true,
+    },
+    {
+      key: 'level',
+      label: 'Level',
+    },
+    {
+      key: 'message',
+      label: 'Message',
+    },
+    {
+      key: 'user',
+      path: 'user.name',
+      label: 'User',
+    }
   ]);
-  columnsToDisplay = signal<string[] | Record<number | 'default' | `${ number }px`, string[]>>(
-    // TODO keys of columns to display
-  );
+  columnsToDisplay = signal<string[] | Record<number | 'default' | `${ number }px`, string[]>>({
+    default: ['timestamp', 'level', 'message'],
+    1280: ['timestamp', 'level', 'message', 'user']
+  });
   controlsConfig = signal(TABLE_CONTENT_DEFAULT_CONTROLS);
   filterConfig = signal<ObjectFieldConfiguration>({
     type: 'object',
     properties: {
-      // TODO filter fields configuration
+      id: {
+        type: 'string',
+        description: 'ID',
+      },
+      level: {
+        type: 'string',
+        description: 'Level',
+        enum: Object.values(SystemLogLevel),
+      },
+      message: {
+        type: 'string',
+        description: 'Message',
+      }
     }
   })
   filterValue = signal<{
-    // TODO filter value type
+    id?: string;
+    level?: SystemLogLevel;
+    message?: string;
   }>({})
 
   private sortFn = computed<(a: SystemLog, b: SystemLog) => number>(() => {
@@ -40,7 +93,9 @@ export class SystemLogTableService implements TableContentDataProvider<SystemLog
   })
   private filterFn = computed<(item: SystemLog) => boolean>(() => {
     return computeFilterFunction(this.filterValue(), {
-      // TODO filter matching methods
+      id: (item, key, value) => !!value && item.id == value,
+      message: (item, key, value) => !!value && item.message.includes(value),
+      level: (item, key, value) => !!value && item.level == value,
     })
   })
 

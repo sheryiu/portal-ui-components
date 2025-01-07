@@ -4,7 +4,7 @@ import { TabConfig, VerticalLayoutDataProvider } from 'portal-ui-ng/pages';
 @Injectable()
 export class <%= classify(name) %>ListService implements VerticalLayoutDataProvider {
 
-  heading = signal('<%= classify(name) %>');
+  heading = signal('<%= capitalize(name) %>');
   tabs = signal<TabConfig[]>([
     {
       label: 'Raw',
