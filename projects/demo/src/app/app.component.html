@@ -17,25 +17,26 @@
 <div
   class="absolute inset-0 lg:hidden transition z-100"
   [ngClass]="{
-    'dark:bg-black/25 backdrop-blur-lg': isNavVisible(),
+    'dark:bg-black/25 backdrop-blur-3xl': isNavVisible(),
     'pointer-events-none': !isNavVisible()
   }"
   (click)="isNavVisible.set(false)"
+  role="button"
 ></div>
 <div
-  class="w-full lg:w-80 fixed top-20 lg:left-8 lg:top-8 bottom-8 max-lg:px-4 flex flex-col gap-6 overflow-hidden transition-all z-100"
+  class="w-full lg:w-80 fixed top-8 bottom-8 lg:left-8 max-lg:px-4 flex flex-col gap-6 overflow-hidden transition-all z-100 pointer-events-none"
   [ngClass]="{
     'max-lg:translate-x-0': isNavVisible(),
     'max-lg:-translate-x-full': !isNavVisible(),
   }"
 >
-  <div class="hidden lg:flex items-center gap-4 px-2">
+  <div class="flex items-center gap-4 px-2">
     <div class="flex-none size-12 bg-gradient-to-br from-primary-600/70 from-20% to-accent-500/70 rounded-full p-2 isolate">
       <i class="icon-8 mix-blend-overlay">identity_platform</i>
     </div>
     <h3 class="pt-0">Portal UI Demo</h3>
   </div>
-  <div class="pui-card rounded-4 w-full grow flex flex-col overflow-hidden">
+  <div class="pui-card rounded-4 w-full grow flex flex-col overflow-hidden max-lg:max-w-screen-sm pointer-events-auto">
     <nav
       class="grid grid-cols-4 gap-4 p-4 flex-none"
     >

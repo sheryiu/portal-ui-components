@@ -82,12 +82,16 @@ export const ROUTES: Routes = [
             children: <%= uppercase(underscore(name)) %>_DETAIL_CHILDREN,
           },
           {
-            path: '',
+            path: 'raw',
             component: TableContentComponent,
             providers: [{
               provide: TABLE_CONTENT_DATA_PROVIDER,
               useClass: <%= classify(name) %>TableService,
             }],
+          },
+          {
+            path: '**',
+            redirectTo: 'raw',
           }
         ]
       }

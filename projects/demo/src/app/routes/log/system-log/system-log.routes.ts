@@ -82,12 +82,20 @@ export const ROUTES: Routes = [
             children: SYSTEM_LOG_DETAIL_CHILDREN,
           },
           {
-            path: '',
+            path: 'dashboard',
+            loadComponent: () => import('./system-log-dashboard/system-log-dashboard.component').then(c => c.SystemLogDashboardComponent),
+          },
+          {
+            path: 'raw',
             component: TableContentComponent,
             providers: [{
               provide: TABLE_CONTENT_DATA_PROVIDER,
               useClass: SystemLogTableService,
             }],
+          },
+          {
+            path: '**',
+            redirectTo: 'raw'
           }
         ]
       }

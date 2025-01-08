@@ -26,11 +26,11 @@
   .pui-fieldset {
     max-width: unset;
     @apply flex flex-col flex-wrap gap-x-4 gap-y-2;
-    @apply @screen-xs/fieldset:flex-row;
+    @apply @screen-xs/fieldset:flex-row @screen-lg/fieldset:gap-x-8;
   }
   .pui-fieldset__field {
     @apply flex-row basis-auto;
-    @apply @screen-xs/fieldset:basis-58;
+    @apply @screen-xs/fieldset:basis-58 @screen-lg/fieldset:basis-72;
   }
   .pui-fieldset__input {
     @apply shrink grow;
