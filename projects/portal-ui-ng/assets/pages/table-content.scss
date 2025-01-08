@@ -3,7 +3,9 @@
 .pui-table-content {
   @apply contents;
   > main {
-    @apply pui-card rounded-4 w-full h-full p-8 grow overflow-auto;
+    @apply p-4 w-full h-full grow overflow-auto;
+    // no need to use container query to change the styling
+    @apply lg:pui-card lg:rounded-4 lg:p-8;
     > div {
       @apply flex flex-col gap-6;
     }
@@ -23,12 +25,23 @@
 
   .pui-fieldset {
     max-width: unset;
-    @apply flex flex-row flex-wrap;
+    @apply flex flex-col flex-wrap gap-x-4 gap-y-2;
+    @apply @screen-xs/fieldset:flex-row;
+  }
+  .pui-fieldset__field {
+    @apply flex-row basis-auto;
+    @apply @screen-xs/fieldset:basis-58;
   }
   .pui-fieldset__input {
-    @apply basis-56 shrink-0;
+    @apply shrink grow;
   }
-  .pui-fieldset__input + .pui-fieldset__label {
-    @apply mt-0 ms-4;
+  .pui-fieldset__label {
+    @apply ps-0 pe-4;
+    width: 30%;
+    max-width: 45%;
+    > label {
+      @apply truncate;
+    }
+    @apply @screen-xs/fieldset:w-fit @screen-xs/fieldset:max-w-fit;
   }
 }

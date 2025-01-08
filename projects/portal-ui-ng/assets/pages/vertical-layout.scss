@@ -4,6 +4,8 @@
   @apply contents;
   > div {
     @apply flex flex-col min-h-full gap-6 pb-8;
+    container-type: inline-size;
+    container-name: layout;
   }
   router-outlet {
     @apply hidden;

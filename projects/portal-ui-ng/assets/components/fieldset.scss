@@ -3,12 +3,12 @@
   container-name: fieldset;
 }
 .pui-fieldset {
-  @apply grid grid-cols-1 gap-y-2;
+  @apply flex flex-col gap-y-4;
   @apply max-w-screen-lg;
 }
 
-.pui-fieldset__input + .pui-fieldset__label {
-  @apply mt-2;
+.pui-fieldset__field {
+  @apply flex flex-col gap-y-1 flex-none;
 }
 
 .pui-fieldset__label {

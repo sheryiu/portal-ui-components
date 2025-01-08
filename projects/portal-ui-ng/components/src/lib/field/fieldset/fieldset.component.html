@@ -1,106 +1,46 @@
 <div class="@container/fieldset">
-  <div class="pui-fieldset" (click)="onTouched?.()" [formGroup]="formControl" #ngForm="ngForm">
+  <div
+    class="pui-fieldset"
+    (click)="onTouched?.()"
+    [formGroup]="formControl"
+    #ngForm="ngForm"
+  >
     <!-- use $index to track, or else the ordering could mess up if fieldDefs get updated -->
     @for (fieldDef of fieldDefs(); track $index) {
-      <div class="pui-fieldset__label">
-        <label [for]="fieldDef.base64Key()">{{ fieldDef.label }}</label>
-      </div>
-      <div class="pui-fieldset__input" [ngClass]="'pui-fieldset__input--' + fieldDef.fieldType">
-        @if (formControl.controls[fieldDef.base64Key()]) {
-          @if (formControl.controls[fieldDef.base64Key()].value == null && fieldDef.isNullable()) {
-            <div class="pui-fieldset__null">
-              <span>null</span>
-            </div>
-            <button
-              puiHoverable
-              (click)="onSetNotNull(fieldDef)"
-              role="button"
-              type="button"
-              class="pui-fieldset__null__add"
-            >
-              <i>edit</i>
-            </button>
-          } @else if (fieldDef.templateRef) {
-            <ng-container [ngTemplateOutlet]="fieldDef.templateRef" [ngTemplateOutletContext]="{ key: fieldDef.base64Key(), formGroup: formControl, valueUpdated$: valueUpdated$ }"></ng-container>
-            <button
-              puiHoverable
-              type="button"
-              role="button"
-              (click)="onSetNull(fieldDef)"
-              class="pui-fieldset__input__remove"
-            >
-              <i>close</i>
-            </button>
-          } @else {
-            @switch (fieldDef.fieldType) {
-              @case ('string') {
-                <pui-input-field>
-                  <input
-                    [id]="fieldDef.base64Key()"
-                    type="text"
-                    [name]="fieldDef.base64Key()"
-                    [formControlName]="fieldDef.base64Key()"
-                    (input)="handleInput()"
-                    puiAutocompleteTrigger
-                    [autocompleteEnabled]="fieldDef.fieldConfig?.enum != null"
-                    [autocompleteValues]="fieldDef.fieldConfig?.enum ?? []"
-                    [autocompleteTemplateRef]="enumAutocomplete"
-                    (autocompleteChange)="onAutocomplete(fieldDef, $event)"
-                  />
-                </pui-input-field>
-              }
-              @case ('number') {
-                <pui-input-field>
-                  <input
-                    [id]="fieldDef.base64Key()"
-                    type="number"
-                    [name]="fieldDef.base64Key()"
-                    [formControlName]="fieldDef.base64Key()"
-                    (input)="handleInput()"
-                    puiAutocompleteTrigger
-                    [autocompleteEnabled]="fieldDef.fieldConfig?.enum != null"
-                    [autocompleteValues]="fieldDef.fieldConfig?.enum ?? []"
-                    [autocompleteTemplateRef]="enumAutocomplete"
-                    (autocompleteChange)="onAutocomplete(fieldDef, $event)"
-                  />
-                </pui-input-field>
-              }
-              @case ('date-time') {
-                <pui-input-field>
-                  <button
-                    puiHoverable
-                    puiCalendarTrigger
-                    role="button"
-                    type="button"
-                    [date]="$any(formControl.controls[fieldDef.base64Key()].value)"
-                    (dateChange)="onDateChange(fieldDef, $event)"
-                  >
-                    <i>calendar_month</i>
-                  </button>
-                  <input
-                    #dateTimeInput
-                    [id]="fieldDef.base64Key()"
-                    type="text"
-                    [name]="fieldDef.base64Key()"
-                    [formControlName]="fieldDef.base64Key()"
-                    (input)="handleInput()"
-                  />
-                </pui-input-field>
-              }
-              @case ('boolean') {
-                <pui-input-field>
-                  <pui-toggle [id]="fieldDef.base64Key()" [formControlName]="fieldDef.base64Key()" (valueChange)="handleInput()"></pui-toggle>
-                  <label [htmlFor]="fieldDef.base64Key()" class="pui-fieldset__input--boolean__remarks">{{ fieldDef.label }}</label>
-                </pui-input-field>
-              }
-              @case ('array') {
-                <pui-array-field [def]="fieldDef" (valueChange)="handleInput()"></pui-array-field>
-              }
-              @default {
-                <div>Unsupported Type</div>
-              }
-            }
-            @if (fieldDef.isNullable()) {
+      <div class="pui-fieldset__field">
+        <div class="pui-fieldset__label">
+          <label [for]="fieldDef.base64Key()">{{ fieldDef.label }}</label>
+        </div>
+        <div
+          class="pui-fieldset__input"
+          [ngClass]="'pui-fieldset__input--' + fieldDef.fieldType"
+        >
+          @if (formControl.controls[fieldDef.base64Key()]) {
+            @if (
+              formControl.controls[fieldDef.base64Key()].value == null &&
+              fieldDef.isNullable()
+            ) {
+              <div class="pui-fieldset__null">
+                <span>null</span>
+              </div>
+              <button
+                puiHoverable
+                (click)="onSetNotNull(fieldDef)"
+                role="button"
+                type="button"
+                class="pui-fieldset__null__add"
+              >
+                <i>edit</i>
+              </button>
+            } @else if (fieldDef.templateRef) {
+              <ng-container
+                [ngTemplateOutlet]="fieldDef.templateRef"
+                [ngTemplateOutletContext]="{
+                  key: fieldDef.base64Key(),
+                  formGroup: formControl,
+                  valueUpdated$: valueUpdated$,
+                }"
+              ></ng-container>
               <button
                 puiHoverable
                 type="button"
@@ -110,9 +50,102 @@
               >
                 <i>close</i>
               </button>
+            } @else {
+              @switch (fieldDef.fieldType) {
+                @case ("string") {
+                  <pui-input-field>
+                    <input
+                      [id]="fieldDef.base64Key()"
+                      type="text"
+                      [name]="fieldDef.base64Key()"
+                      [formControlName]="fieldDef.base64Key()"
+                      (input)="handleInput()"
+                      puiAutocompleteTrigger
+                      [autocompleteEnabled]="fieldDef.fieldConfig?.enum != null"
+                      [autocompleteValues]="fieldDef.fieldConfig?.enum ?? []"
+                      [autocompleteTemplateRef]="enumAutocomplete"
+                      (autocompleteChange)="onAutocomplete(fieldDef, $event)"
+                    />
+                  </pui-input-field>
+                }
+                @case ("number") {
+                  <pui-input-field>
+                    <input
+                      [id]="fieldDef.base64Key()"
+                      type="number"
+                      [name]="fieldDef.base64Key()"
+                      [formControlName]="fieldDef.base64Key()"
+                      (input)="handleInput()"
+                      puiAutocompleteTrigger
+                      [autocompleteEnabled]="fieldDef.fieldConfig?.enum != null"
+                      [autocompleteValues]="fieldDef.fieldConfig?.enum ?? []"
+                      [autocompleteTemplateRef]="enumAutocomplete"
+                      (autocompleteChange)="onAutocomplete(fieldDef, $event)"
+                    />
+                  </pui-input-field>
+                }
+                @case ("date-time") {
+                  <pui-input-field>
+                    <button
+                      puiHoverable
+                      puiCalendarTrigger
+                      role="button"
+                      type="button"
+                      [date]="
+                        $any(formControl.controls[fieldDef.base64Key()].value)
+                      "
+                      (dateChange)="onDateChange(fieldDef, $event)"
+                    >
+                      <i>calendar_month</i>
+                    </button>
+                    <input
+                      #dateTimeInput
+                      [id]="fieldDef.base64Key()"
+                      type="text"
+                      [name]="fieldDef.base64Key()"
+                      [formControlName]="fieldDef.base64Key()"
+                      (input)="handleInput()"
+                    />
+                  </pui-input-field>
+                }
+                @case ("boolean") {
+                  <pui-input-field>
+                    <pui-toggle
+                      [id]="fieldDef.base64Key()"
+                      [formControlName]="fieldDef.base64Key()"
+                      (valueChange)="handleInput()"
+                    ></pui-toggle>
+                    <label
+                      [htmlFor]="fieldDef.base64Key()"
+                      class="pui-fieldset__input--boolean__remarks"
+                      >{{ fieldDef.label }}</label
+                    >
+                  </pui-input-field>
+                }
+                @case ("array") {
+                  <pui-array-field
+                    [def]="fieldDef"
+                    (valueChange)="handleInput()"
+                  ></pui-array-field>
+                }
+                @default {
+                  <div>Unsupported Type</div>
+                }
+              }
+              @if (fieldDef.isNullable()) {
+                <button
+                  puiHoverable
+                  type="button"
+                  role="button"
+                  (click)="onSetNull(fieldDef)"
+                  class="pui-fieldset__input__remove"
+                >
+                  <i>close</i>
+                </button>
+              }
             }
           }
-        }
+        </div>
       </div>
     }
   </div>

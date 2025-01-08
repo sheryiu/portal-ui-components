@@ -46,6 +46,7 @@ export class CalendarTriggerDirective {
               { originX: 'end', overlayX: 'end', originY: 'top', overlayY: 'bottom', offsetY: -8 },
             ])
             .withViewportMargin(16)
+            .withFlexibleDimensions(true)
             .withPush(true),
           scrollStrategy: this.overlay.scrollStrategies.reposition(),
           disposeOnNavigation: true,

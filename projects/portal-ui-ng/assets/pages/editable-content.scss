@@ -3,6 +3,8 @@
 .pui-editable-content {
   @apply contents;
   > main {
-    @apply pui-card rounded-4 w-full h-full p-8 grow overflow-auto;
+    @apply pb-4 w-full h-full grow;
+    // no need to use container query to change the styling
+    @apply lg:pui-card lg:rounded-4 lg:p-8;
   }
 }

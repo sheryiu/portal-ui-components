@@ -18,9 +18,11 @@ module.exports = {
         100: '100',
       },
       screens: {
+        'xs': '480px',
         '3xl': '1920px'
       },
       containers: ({ theme }) => ({
+        'screen-xs': theme('screens.xs'),
         'screen-sm': theme('screens.sm'),
         'screen-md': theme('screens.md'),
         'screen-lg': theme('screens.lg'),
@@ -42,6 +44,7 @@ module.exports = {
         18: "4.5rem",
         22: "5.5rem",
         26: "6.5rem",
+        58: "14.5rem",
         88: "22rem",
         120: "30rem",
         160: "40rem",

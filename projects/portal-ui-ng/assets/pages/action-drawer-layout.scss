@@ -3,6 +3,8 @@
   > div {
     @apply w-full h-dvh overflow-y-auto;
     @apply flex flex-col gap-6 pb-8 pe-8;
+    container-type: inline-size;
+    container-name: layout;
   }
   router-outlet {
     @apply hidden;
