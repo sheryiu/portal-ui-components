@@ -1,0 +1,21 @@
+<div class="pui-card rounded-4">
+  <div class="px-8 pb-4 pt-2 w-full flex items-center justify-between">
+    <h2>Errors</h2>
+    <button puiBorderedButton color="primary" class="rounded-2 px-4 py-2 mt-2">View all</button>
+  </div>
+  <pui-table
+    [itemHeight]="64"
+    [columns]="['timestamp']"
+  >
+    <pui-table-cell *puiTableCellDef="'timestamp'; type: type; let item">
+      <pui-time-display [date]="item.timestamp" [format]="'yyyy-MM-dd HH:mm:ss.SSS'"></pui-time-display>
+      <span></span>
+    </pui-table-cell>
+
+    <pui-table-body>
+      @for (log of processed(); track log.id) {
+        <pui-table-row [item]="log"></pui-table-row>
+      }
+    </pui-table-body>
+  </pui-table>
+</div>

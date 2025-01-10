@@ -19,7 +19,7 @@ export class SystemLogDataService {
     return {
       id: faker.string.nanoid(),
       timestamp: faker.date.recent({ days: 20 }),
-      level: faker.helpers.enumValue(SystemLogLevel),
+      level: faker.helpers.maybe(() => faker.helpers.arrayElement([SystemLogLevel.DEBUG, SystemLogLevel.INFO]), { probability: 0.8 }) ?? faker.helpers.arrayElement([SystemLogLevel.ERROR, SystemLogLevel.WARN]),
       message: faker.git.commitMessage(),
       context: faker.helpers.arrayElement(['access-control', 'customer', 'employee-calendar-event', 'employee', 'inventory-item', 'inventory-shelf']),
       employeeId: employee?.id ?? null,
@@ -41,7 +41,7 @@ export class SystemLogDataService {
         first(list => list.length > 0)
       ),
     ]).subscribe(([employees, customer]) => {
-      this.list.next(Array(300)
+      this.list.next(Array(500)
         .fill(0)
         .map((_, i) => {
           const isCustomer = faker.datatype.boolean(0.7);

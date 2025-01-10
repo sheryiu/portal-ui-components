@@ -95,7 +95,7 @@ export const ROUTES: Routes = [
           },
           {
             path: '**',
-            redirectTo: 'raw'
+            redirectTo: 'dashboard'
           }
         ]
       }

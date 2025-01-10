@@ -1,0 +1,72 @@
+<div class="pui-card rounded-4 overflow-hidden">
+  <div class="px-8 pb-4 pt-2">
+    <h2>All logs from all systems</h2>
+    <p class="text-sm dark:text-neutral-300 pt-2">
+      Data aggregated from
+      <pui-time-display
+        [date]="startDate()"
+        format="d MMM yyyy HH:mm"
+      ></pui-time-display>
+      to
+      <pui-time-display
+        [date]="endDate()"
+        format="d MMM yyyy HH:mm"
+      ></pui-time-display>
+    </p>
+  </div>
+  <div class="flex @screen-lg:flex-row">
+    <div class="flex flex-col gap-4 p-4">
+      <button
+        puiBorderedButton
+        class="px-4 py-2.5 rounded-2 gap-2 items-center"
+        (click)="showDebugs.set(!showDebugs())"
+        [style.border-color]="showDebugs() ? 'rgb(53, 69, 83)' : undefined"
+      >
+        <div
+          class="rounded-full size-3"
+          style="background-color: rgb(53, 69, 83)"
+        ></div>
+        <span class="uppercase text-base/none font-medium" [ngClass]="{ 'dark:text-neutral-500': !showDebugs() }">Debug</span>
+      </button>
+      <button
+        puiBorderedButton
+        class="px-4 py-2.5 rounded-2 gap-2 items-center"
+        (click)="showInfos.set(!showInfos())"
+        [style.border-color]="showInfos() ? 'rgb(47, 112, 153)' : undefined"
+      >
+        <div
+          class="rounded-full size-3"
+          style="background-color: rgb(47, 112, 153)"
+        ></div>
+        <span class="uppercase text-base/none font-medium" [ngClass]="{ 'dark:text-neutral-500': !showInfos() }">Info</span>
+      </button>
+      <button
+        puiBorderedButton
+        class="px-4 py-2.5 rounded-2 gap-2 items-center"
+        (click)="showWarns.set(!showWarns())"
+        [style.border-color]="showWarns() ? 'rgb(176, 121, 20)' : undefined"
+      >
+        <div
+          class="rounded-full size-3"
+          style="background-color: rgb(176, 121, 20)"
+        ></div>
+        <span class="uppercase text-base/none font-medium" [ngClass]="{ 'dark:text-neutral-500': !showWarns() }">Warn</span>
+      </button>
+      <button
+        puiBorderedButton
+        class="px-4 py-2.5 rounded-2 gap-2 items-center"
+        (click)="showErrors.set(!showErrors())"
+        [style.border-color]="showErrors() ? 'rgb(202, 56, 56)' : undefined"
+      >
+        <div
+          class="rounded-full size-3"
+          style="background-color: rgb(202, 56, 56)"
+        ></div>
+        <span class="uppercase text-base/none font-medium" [ngClass]="{ 'dark:text-neutral-500': !showErrors() }">Error</span>
+      </button>
+    </div>
+    <div class="relative h-[240px] grow">
+      <canvas #chart></canvas>
+    </div>
+  </div>
+</div>

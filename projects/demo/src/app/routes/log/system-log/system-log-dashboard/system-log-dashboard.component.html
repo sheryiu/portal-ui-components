@@ -1,7 +1,7 @@
 <main class="@container grow">
   <div class="grid @screen-md/layout:grid-cols-[1fr,480px] gap-8">
     <div class="pui-card rounded-4 p-4 @screen-md/layout:col-span-2">
-      <div class="flex flex-row items-center justify-between">
+      <div class="flex flex-col @screen-md:flex-row @screen-md:items-center justify-between gap-y-4">
         <div class="flex items-center gap-4">
           <div class="flex flex-row gap-2 items-center" puiTooltip="Errors">
             <div class="dark:bg-red-700/50 rounded-full p-2 flex items-center justify-center">
@@ -35,14 +35,16 @@
         </div>
       </div>
     </div>
-    <div class="flex flex-col gap-8">
-      <div class="pui-card rounded-4 overflow-hidden h-[300px] relative">
-        <canvas #chart></canvas>
-      </div>
-      <div class="pui-card rounded-4 p-8">
-        <h1>Errors List</h1>
-        <p>Table</p>
-      </div>
+    <div class="flex flex-col gap-8 overflow-hidden">
+      <demo-system-log-chart
+        [startDate]="startDate()"
+        [endDate]="endDate()"
+        [errors]="errors() ?? []"
+        [warns]="warnings() ?? []"
+        [infos]="infos() ?? []"
+        [debugs]="debugs() ?? []"
+      ></demo-system-log-chart>
+      <demo-system-log-errors [errors]="errors() ?? []"></demo-system-log-errors>
       <pui-divider></pui-divider>
       <h2>Export</h2>
       <div class="pui-card rounded-4 p-8">

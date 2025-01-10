@@ -24,19 +24,19 @@
   role="button"
 ></div>
 <div
-  class="w-full lg:w-80 fixed top-8 bottom-8 lg:left-8 max-lg:px-4 flex flex-col gap-6 overflow-hidden transition-all z-100 pointer-events-none"
+  class="w-full lg:w-80 lg:border-r fixed h-full max-lg:top-8 max-lg:bottom-8 max-lg:px-4 flex flex-col gap-6 overflow-hidden transition-all z-100 pointer-events-none"
   [ngClass]="{
     'max-lg:translate-x-0': isNavVisible(),
     'max-lg:-translate-x-full': !isNavVisible(),
   }"
 >
-  <div class="flex items-center gap-4 px-2">
+  <div class="flex items-center gap-4 px-2 lg:pt-12 lg:px-6">
     <div class="flex-none size-12 bg-gradient-to-br from-primary-600/70 from-20% to-accent-500/70 rounded-full p-2 isolate">
       <i class="icon-8 mix-blend-overlay">identity_platform</i>
     </div>
     <h3 class="pt-0">Portal UI Demo</h3>
   </div>
-  <div class="pui-card rounded-4 w-full grow flex flex-col overflow-hidden max-lg:max-w-screen-sm pointer-events-auto">
+  <div class="max-lg:pui-card max-lg:rounded-4 w-full grow flex flex-col overflow-hidden max-lg:max-w-screen-sm pointer-events-auto">
     <nav
       class="grid grid-cols-4 gap-4 p-4 flex-none"
     >
@@ -112,6 +112,6 @@
     </pui-vertical-navigation-menu>
   </div>
 </div>
-<div class="px-4 lg:ml-88 lg:px-8 min-h-full max-lg:rounded-t-4 max-lg:-mt-4 max-lg:bg-neutral-900 max-lg:z-10 max-lg:relative max-lg:shadow-[0_-4px_3px_rgb(0_0_0_/_0.1)]">
+<div class="px-4 lg:ml-80 lg:px-8 min-h-full max-lg:rounded-t-4 max-lg:-mt-4 max-lg:bg-neutral-900 max-lg:z-10 max-lg:relative max-lg:shadow-[0_-4px_3px_rgb(0_0_0_/_0.1)]">
   <router-outlet></router-outlet>
 </div>
