@@ -1,4 +1,4 @@
-.pui-calendar-overlay {
+.pui-vanilla-calendar-pro {
   [data-vc=calendar].vc {
     @apply pui-card backdrop-blur-xl;
   }
@@ -21,6 +21,16 @@
   [data-vc-theme=dark] .vc-date__btn {
     @apply bg-transparent;
     @apply hover:bg-hover hover:text-primary-200;
+  }
+
+  [data-vc-theme=dark] .vc-date[data-vc-date-today] .vc-date__btn {
+    @apply bg-transparent;
+    @apply border-primary-400 border;
+  }
+
+  [data-vc-theme=dark] .vc-date[data-vc-date-today][data-vc-date-weekend] .vc-date__btn {
+    @apply bg-transparent;
+    @apply border-red-400 border;
   }
 
   [data-vc-theme=dark] .vc-date[data-vc-date-weekend] .vc-date__btn {

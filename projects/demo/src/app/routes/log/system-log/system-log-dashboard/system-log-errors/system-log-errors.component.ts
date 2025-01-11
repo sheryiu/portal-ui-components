@@ -1,5 +1,6 @@
-import { Component, computed, input } from '@angular/core';
-import { ButtonModule } from 'portal-ui-ng/base';
+import { Component, computed, inject, input } from '@angular/core';
+import { ScreenWidthDetectorService } from 'portal-ui-ng';
+import { ButtonModule, HoverableDirective } from 'portal-ui-ng/base';
 import { TableModule, TimeDisplayComponent } from 'portal-ui-ng/components';
 import { SystemLog } from '../../../../../data/log.types';
 
@@ -10,13 +11,23 @@ import { SystemLog } from '../../../../../data/log.types';
     ButtonModule,
     TableModule,
     TimeDisplayComponent,
+    HoverableDirective
   ],
   templateUrl: './system-log-errors.component.html',
   styles: ``
 })
 export class SystemLogErrorsComponent {
+  private screenWidth = inject(ScreenWidthDetectorService)
   errors = input.required<SystemLog[]>()
-  protected processed = computed(() => this.errors().toSorted((a, b) => b.timestamp.getTime() - a.timestamp.getTime()).slice(0, 20))
+  protected processed = computed(() => {
+    const array = this.errors().toSorted((a, b) => b.timestamp.getTime() - a.timestamp.getTime()).slice(0, 20);
+    return array.map(log => ({
+      ...log,
+      __route: this.screenWidth.above().sm()
+        ? ['../../', 'system-log', { outlets: { peek: [log.id] } }]
+        : ['../', 'detail', log.id]
+    }))
+  })
 
-  type!: SystemLog
+  type!: SystemLog;
 }

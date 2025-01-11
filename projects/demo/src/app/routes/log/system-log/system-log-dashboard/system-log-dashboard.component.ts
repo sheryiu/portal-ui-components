@@ -6,8 +6,11 @@ import { ButtonModule } from 'portal-ui-ng/base';
 import { DividerComponent, TimeDisplayComponent, TooltipModule } from 'portal-ui-ng/components';
 import { SystemLogLevel } from '../../../../data/log.types';
 import { SystemLogDataService } from '../../../../data/system-log-data.service';
+import { SystemLogCalendarComponent } from './system-log-calendar/system-log-calendar.component';
 import { SystemLogChartComponent } from "./system-log-chart/system-log-chart.component";
 import { SystemLogErrorsComponent } from "./system-log-errors/system-log-errors.component";
+import { SystemLogExportComponent } from "./system-log-export/system-log-export.component";
+import { SystemLogSystemsComponent } from "./system-log-systems/system-log-systems.component";
 
 @Component({
   selector: 'demo-system-log-dashboard',
@@ -19,7 +22,10 @@ import { SystemLogErrorsComponent } from "./system-log-errors/system-log-errors.
     ButtonModule,
     DecimalPipe,
     SystemLogChartComponent,
-    SystemLogErrorsComponent
+    SystemLogErrorsComponent,
+    SystemLogCalendarComponent,
+    SystemLogExportComponent,
+    SystemLogSystemsComponent
 ],
   templateUrl: './system-log-dashboard.component.html',
   styles: ``

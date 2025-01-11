@@ -101,9 +101,9 @@ export class SystemLogTableService implements TableContentDataProvider<SystemLog
 
   routeToDetail(item: SystemLog): any[] {
     if (this.screenWidth.above().sm()) {
-      return ['../', 'system-log', { outlets: { peek: [item.id] } }]
+      return ['../../', 'system-log', { outlets: { peek: [item.id] } }]
     }
-    return ['../', 'system-log', 'detail', item.id]
+    return ['../', 'detail', item.id]
   }
   onHeaderCellClick(columnKey: string, event: MouseEvent): void {
     this.columnsConfig.update(columns => updateSortedColumn(columns, columnKey))

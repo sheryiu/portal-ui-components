@@ -6,6 +6,8 @@ import { ButtonModule } from 'portal-ui-ng/base';
 import { TimeDisplayComponent } from 'portal-ui-ng/components';
 import { SystemLog } from '../../../../../data/log.types';
 
+const CHART_ORDER: string[] = ['Errors', 'Warnings', 'Infos', 'Debugs']
+
 @Component({
   selector: 'demo-system-log-chart',
   standalone: true,
@@ -81,40 +83,75 @@ export class SystemLogChartComponent {
       })
       effect(() => {
         this.chart.data.labels = eachDayOfInterval({ start: this.startDate(), end: this.endDate() }).map(day => format(day, 'd MMM'));
-        this.chart.data.datasets = [
-          ...(this.showErrors() ? [{
-            label: 'Errors',
-            data: eachDayOfInterval({ start: this.startDate(), end: this.endDate() }).map(day => this.errors().filter(l => isSameDay(l.timestamp, day)).length),
-            borderColor: `rgb(202, 56, 56)`,
-            fill: true,
-            backgroundColor: 'rgba(202, 56, 56, 0.2)',
-            tension: 0.3,
-          }] : []),
-          ...(this.showWarns() ? [{
-            label: 'Warnings',
-            data: eachDayOfInterval({ start: this.startDate(), end: this.endDate() }).map(day => this.warns().filter(l => isSameDay(l.timestamp, day)).length),
-            borderColor: `rgb(176, 121, 20)`,
-            fill: true,
-            backgroundColor: 'rgba(176, 121, 20, 0.1)',
-            tension: 0.3,
-          }] : []),
-          ...(this.showInfos() ? [{
-            label: 'Info',
-            data: eachDayOfInterval({ start: this.startDate(), end: this.endDate() }).map(day => this.infos().filter(l => isSameDay(l.timestamp, day)).length),
-            borderColor: `rgb(47, 112, 153)`,
-            fill: true,
-            backgroundColor: 'rgba(47, 112, 153, 0.1)',
-            tension: 0.3,
-          }] : []),
-          ...(this.showDebugs() ? [{
-            label: 'Debug',
-            data: eachDayOfInterval({ start: this.startDate(), end: this.endDate() }).map(day => this.debugs().filter(l => isSameDay(l.timestamp, day)).length),
-            borderColor: `rgb(53, 69, 83)`,
-            fill: true,
-            backgroundColor: 'rgba(53, 69, 83, 0.1)',
-            tension: 0.3,
-          }] : [])
-        ];
+        // Errors
+        if (this.showErrors()) {
+          if (this.chart.data.datasets.some(d => d.label == 'Errors')) {
+            this.chart.data.datasets.find(d  => d.label == 'Errors')!.data = eachDayOfInterval({ start: this.startDate(), end: this.endDate() }).map(day => this.errors().filter(l => isSameDay(l.timestamp, day)).length);
+          } else {
+            this.chart.data.datasets.splice(0, 0, {
+              label: 'Errors',
+              data: eachDayOfInterval({ start: this.startDate(), end: this.endDate() }).map(day => this.errors().filter(l => isSameDay(l.timestamp, day)).length),
+              borderColor: `rgb(202, 56, 56)`,
+              fill: true,
+              backgroundColor: 'rgba(202, 56, 56, 0.2)',
+              tension: 0.3,
+            })
+          }
+        } else if (!this.showErrors() && this.chart.data.datasets.some(d => d.label == 'Errors')) {
+          this.chart.data.datasets.splice(this.chart.data.datasets.findIndex(d => d.label == 'Errors'), 1)
+        }
+        // Warnings
+        if (this.showWarns()) {
+          if (this.chart.data.datasets.some(d => d.label == 'Warnings')) {
+            this.chart.data.datasets.find(d  => d.label == 'Warnings')!.data = eachDayOfInterval({ start: this.startDate(), end: this.endDate() }).map(day => this.warns().filter(l => isSameDay(l.timestamp, day)).length);
+          } else {
+            this.chart.data.datasets.splice(0, 0, {
+              label: 'Warnings',
+              data: eachDayOfInterval({ start: this.startDate(), end: this.endDate() }).map(day => this.warns().filter(l => isSameDay(l.timestamp, day)).length),
+              borderColor: `rgb(176, 121, 20)`,
+              fill: true,
+              backgroundColor: 'rgba(176, 121, 20, 0.1)',
+              tension: 0.3,
+            })
+          }
+        } else if (!this.showWarns() && this.chart.data.datasets.some(d => d.label == 'Warnings')) {
+          this.chart.data.datasets.splice(this.chart.data.datasets.findIndex(d => d.label == 'Warnings'), 1)
+        }
+        // Infos
+        if (this.showInfos()) {
+          if (this.chart.data.datasets.some(d => d.label == 'Infos')) {
+            this.chart.data.datasets.find(d  => d.label == 'Infos')!.data = eachDayOfInterval({ start: this.startDate(), end: this.endDate() }).map(day => this.infos().filter(l => isSameDay(l.timestamp, day)).length);
+          } else {
+            this.chart.data.datasets.splice(0, 0, {
+              label: 'Infos',
+              data: eachDayOfInterval({ start: this.startDate(), end: this.endDate() }).map(day => this.infos().filter(l => isSameDay(l.timestamp, day)).length),
+              borderColor: `rgb(47, 112, 153)`,
+              fill: true,
+              backgroundColor: 'rgba(47, 112, 153, 0.1)',
+              tension: 0.3,
+            })
+          }
+        } else if (!this.showInfos() && this.chart.data.datasets.some(d => d.label == 'Infos')) {
+          this.chart.data.datasets.splice(this.chart.data.datasets.findIndex(d => d.label == 'Infos'), 1)
+        }
+        // Debugs
+        if (this.showDebugs() && !this.chart.data.datasets.some(d => d.label == 'Debugs')) {
+          if (this.chart.data.datasets.some(d => d.label == 'Debugs')) {
+            this.chart.data.datasets.find(d  => d.label == 'Debugs')!.data = eachDayOfInterval({ start: this.startDate(), end: this.endDate() }).map(day => this.debugs().filter(l => isSameDay(l.timestamp, day)).length);
+          } else {
+            this.chart.data.datasets.splice(0, 0, {
+              label: 'Debugs',
+              data: eachDayOfInterval({ start: this.startDate(), end: this.endDate() }).map(day => this.debugs().filter(l => isSameDay(l.timestamp, day)).length),
+              borderColor: `rgb(53, 69, 83)`,
+              fill: true,
+              backgroundColor: 'rgba(53, 69, 83, 0.1)',
+              tension: 0.3,
+            })
+          }
+        } else if (!this.showDebugs() && this.chart.data.datasets.some(d => d.label == 'Debugs')) {
+          this.chart.data.datasets.splice(this.chart.data.datasets.findIndex(d => d.label == 'Debugs'), 1)
+        }
+        this.chart.data.datasets.sort((a, b) => CHART_ORDER.indexOf(a.label!) - CHART_ORDER.indexOf(b.label!))
         this.chart.update();
       }, { injector: this.injector })
       this.injector.get(DestroyRef).onDestroy(() => {

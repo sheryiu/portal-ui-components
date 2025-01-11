@@ -1,20 +1,32 @@
-<div class="pui-card rounded-4">
+<div class="pui-card rounded-4 overflow-hidden">
   <div class="px-8 pb-4 pt-2 w-full flex items-center justify-between">
-    <h2>Errors</h2>
+    <h2>Events</h2>
     <button puiBorderedButton color="primary" class="rounded-2 px-4 py-2 mt-2">View all</button>
   </div>
   <pui-table
-    [itemHeight]="64"
+    [itemHeight]="{ default: 96, '640': 72 }"
     [columns]="['timestamp']"
   >
-    <pui-table-cell *puiTableCellDef="'timestamp'; type: type; let item">
-      <pui-time-display [date]="item.timestamp" [format]="'yyyy-MM-dd HH:mm:ss.SSS'"></pui-time-display>
-      <span></span>
+    <pui-table-cell *puiTableCellDef="'timestamp'; type: type; let item" class="flex-col sm:flex-row justify-center max-sm:items-start gap-1.5 px-6">
+      <div class="flex flex-col items-start gap-1.5 sm:grow">
+        <span class="text-md font-medium capitalize">{{ item.message }}</span>
+        <div class="flex flex-row flex-wrap gap-1">
+          <span class="text-sm dark:text-neutral-300 uppercase rounded-full border bg-neutral-700 px-4 py-0.5">{{ item.context }}</span>
+          @if (item.ipAddress != null) {
+            <span class="text-sm dark:text-neutral-300 uppercase rounded-full border bg-neutral-700 px-4 py-0.5"><i class="icon-4 !inline-flex align-bottom -ms-1 me-1">public</i>Network req</span>
+          }
+          <span class="text-sm dark:text-neutral-300 uppercase rounded-full border bg-[rgb(202,56,56)]/30 px-4 py-0.5">{{ item.level }}</span>
+        </div>
+      </div>
+      <div class="flex flex-col items-end">
+        <pui-time-display class="text-base font-medium tabular-nums whitespace-nowrap" [date]="item.timestamp" [format]="'yyyy-MM-dd HH:mm:ss.SSS'"></pui-time-display>
+        <span class="hidden sm:inline text-sm font-medium dark:text-neutral-300 whitespace-nowrap">(<pui-time-display [date]="item.timestamp" [mode]="'timeAgo'"></pui-time-display> ago )</span>
+      </div>
     </pui-table-cell>
 
     <pui-table-body>
       @for (log of processed(); track log.id) {
-        <pui-table-row [item]="log"></pui-table-row>
+        <pui-table-row [item]="log" [route]="log.__route" puiHoverable></pui-table-row>
       }
     </pui-table-body>
   </pui-table>

@@ -11,7 +11,7 @@ import { Calendar } from 'vanilla-calendar-pro';
     <div #calendar></div>
   `,
   host: {
-    class: 'pui-calendar-overlay'
+    class: 'pui-calendar-overlay pui-vanilla-calendar-pro'
   }
 })
 export class CalendarOverlayComponent {

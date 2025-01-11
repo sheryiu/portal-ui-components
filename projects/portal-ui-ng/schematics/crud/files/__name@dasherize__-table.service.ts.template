@@ -46,9 +46,9 @@ export class <%= classify(name) %>TableService implements TableContentDataProvid
 
   routeToDetail(item: <%= classify(name) %>): any[] {
     if (this.screenWidth.above().sm()) {
-      return ['../', '<%= dasherize(name) %>', { outlets: { peek: [item.id] } }]
+      return ['../../', '<%= dasherize(name) %>', { outlets: { peek: [item.id] } }]
     }
-    return ['../', '<%= dasherize(name) %>', 'detail', item.id]
+    return ['../', 'detail', item.id]
   }
   onHeaderCellClick(columnKey: string, event: MouseEvent): void {
     this.columnsConfig.update(columns => updateSortedColumn(columns, columnKey))
