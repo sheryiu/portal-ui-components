@@ -92,7 +92,7 @@ export class AutocompleteTriggerDirective<D> {
             this.closeOverlay();
           }
         },
-        ignorePointerEventsFrom: this.elementRef.nativeElement,
+        stayOpenedOnOutsideClicksContainedIn: this.elementRef.nativeElement,
         closeOnEscapeKeydown: true,
         closeOnBackdropClick: true,
       }

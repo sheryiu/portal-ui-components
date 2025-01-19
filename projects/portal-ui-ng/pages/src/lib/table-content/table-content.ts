@@ -19,6 +19,8 @@ export interface TableContentDataProvider<T> {
     useVirtualScroll?: boolean;
   };
   onParamsChange?(params: Params, queryParams: Params): void;
+  onInit?(): void;
+  onDestroy?(): void;
   // controls
   controlsConfig?: Signal<ReadonlyArray<LayoutControlConfig>>;
   onControlClick?(key: string, event: MouseEvent): void;

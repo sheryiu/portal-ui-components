@@ -23,6 +23,10 @@ export const ROUTES: Routes = [
       {
         path: 'employee-calendar',
         loadChildren: () => import('./employee-calendar/employee-calendar.routes').then(r => r.ROUTES),
+      },
+      {
+        path: 'salary',
+        loadChildren: () => import('./salary/salary.routes').then(r => r.ROUTES),
       }
     ]
   }

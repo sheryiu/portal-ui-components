@@ -2,13 +2,18 @@ import { OverlayRef } from '@angular/cdk/overlay';
 import { ReplaySubject, concat, filter, take, takeUntil, tap, timer } from 'rxjs';
 
 export class PuiOverlayRef {
-  constructor(public overlayRef: OverlayRef, ignoreEventsFrom?: Element | Element[]) {
-    const ignore = Array.isArray(ignoreEventsFrom) ? ignoreEventsFrom : [ignoreEventsFrom]
+  constructor(public overlayRef: OverlayRef, stayOpenedOnOutsideClicks?: boolean, stayOpenedOnOutsideClicksContainedIn?: Element | Element[]) {
+    if (stayOpenedOnOutsideClicks == true) return;
+    const ignore = stayOpenedOnOutsideClicksContainedIn == null
+      ? []
+      : Array.isArray(stayOpenedOnOutsideClicksContainedIn)
+      ? stayOpenedOnOutsideClicksContainedIn
+      : [stayOpenedOnOutsideClicksContainedIn]
     concat(
-      // the timer delay can be removed
+      // TODO check if the timer delay can be removed
       timer(100),
       overlayRef.outsidePointerEvents().pipe(
-        ignoreEventsFrom ? filter(e => e.target instanceof Element && ignore.every(i => !i?.contains(e.target as Element))) : tap(),
+        (ignore.length == 0) ? tap() : filter(e => e.target instanceof Element && !ignore.some(i => i.contains(e.target as Element))),
         take(1)
       ),
     ).pipe(

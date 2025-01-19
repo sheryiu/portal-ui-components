@@ -1,0 +1,9 @@
+<div
+  class="pui-error-overlay"
+>
+  <i class="pui-error-overlay__icon">{{ icon() }}</i>
+  <span class="pui-error-overlay__message" [innerHTML]="message()"></span>
+  <button class="pui-error-overlay__close" color="red" puiBaseButton (click)="onCloseClick()">
+    <i>close</i>
+  </button>
+</div>

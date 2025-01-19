@@ -10,8 +10,13 @@ export type PuiOverlayConfig<D> = OverlayConfig & {
   viewContainerRef?: ViewContainerRef | null | undefined;
   data?: D;
   closeOnBackdropClick?: boolean;
-  ignorePointerEventsFrom?: Element | Element[];
   closeOnEscapeKeydown?: boolean;
+  stayOpenedOnOutsideClicks?: boolean;
+  /**
+   * can be used to customized which events to ignore when `stayOpenedOnOutsideClicks` is `false | undefined`
+   * @see stayOpenedOnOutsideClicks
+   */
+  stayOpenedOnOutsideClicksContainedIn?: Element | Element[];
 }
 
 export const OVERLAY_DATA = new InjectionToken('overlay data');

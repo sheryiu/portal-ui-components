@@ -1,6 +1,6 @@
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { isPlatformBrowser } from '@angular/common';
-import { Component, computed, effect, inject, PLATFORM_ID } from '@angular/core';
+import { Component, computed, effect, inject, OnDestroy, OnInit, PLATFORM_ID } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
@@ -31,7 +31,7 @@ import { TABLE_CONTENT_DATA_PROVIDER, TABLE_CONTENT_DEFAULT_CONTROLS, TableConte
     class: 'pui-table-content'
   }
 })
-export class TableContentComponent<T> {
+export class TableContentComponent<T> implements OnInit, OnDestroy {
   private route = inject(ActivatedRoute);
   private dataProvider = inject(TABLE_CONTENT_DATA_PROVIDER) as (TableContentDataProvider<T>)
   protected isBrowser = isPlatformBrowser(inject(PLATFORM_ID))
@@ -78,6 +78,14 @@ export class TableContentComponent<T> {
         this.filterFormControl.setValue(this.dataProvider.filterValue?.(), { emitEvent: false })
       }
     }, { allowSignalWrites: true })
+  }
+
+  ngOnInit(): void {
+    this.dataProvider?.onInit?.();
+  }
+
+  ngOnDestroy(): void {
+    this.dataProvider?.onDestroy?.();
   }
 
   protected onRowClick(item: T) {
