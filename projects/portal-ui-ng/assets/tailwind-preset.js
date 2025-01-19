@@ -29,7 +29,7 @@ module.exports = {
         'screen-xl': theme('screens.xl'),
         'screen-2xl': theme('screens.2xl')
       }),
-      spacing: () => ({
+      spacing: ({ theme }) => ({
         ...Array(20)
           .fill(0)
           .map((_, i) => (i + 1) * 5)
@@ -48,7 +48,13 @@ module.exports = {
         88: "22rem",
         120: "30rem",
         160: "40rem",
-        200: "50rem"
+        200: "50rem",
+        'screen-xs': theme('screens.xs'),
+        'screen-sm': theme('screens.sm'),
+        'screen-md': theme('screens.md'),
+        'screen-lg': theme('screens.lg'),
+        'screen-xl': theme('screens.xl'),
+        'screen-2xl': theme('screens.2xl')
       }),
       colors: {
         primary: {

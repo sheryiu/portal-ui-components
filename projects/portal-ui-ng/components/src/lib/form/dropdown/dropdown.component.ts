@@ -89,7 +89,7 @@ export class DropdownComponent<T> implements ControlValueAccessor, OnInit {
         scrollStrategy: this.overlay.scrollStrategies.reposition(),
         minWidth: this.elementRef.nativeElement.getBoundingClientRect().width,
         maxWidth: '90svw',
-        ignorePointerEventsFrom: [event.currentTarget as Element],
+        stayOpenedOnOutsideClicksContainedIn: [event.currentTarget as Element],
       }
     )
     this.overlayRef.afterClosed$.pipe(

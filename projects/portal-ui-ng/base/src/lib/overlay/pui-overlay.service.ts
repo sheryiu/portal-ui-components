@@ -22,7 +22,7 @@ export class PuiOverlayService {
     const overlayRef = this.overlay.create({
       ...config,
     });
-    const overlayRefExtra = new PuiOverlayRef(overlayRef, config.ignorePointerEventsFrom);
+    const overlayRefExtra = new PuiOverlayRef(overlayRef, config.stayOpenedOnOutsideClicks ?? false, config.stayOpenedOnOutsideClicksContainedIn ?? []);
     const injector = Injector.create({
       providers: [
         {

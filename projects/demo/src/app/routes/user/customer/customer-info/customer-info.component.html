@@ -10,7 +10,7 @@
         <div
           class="rounded-3 flex-1 border dark:bg-blue-800 flex flex-col p-4 transition-colors"
         >
-          <h3 class="dark:text-blue-200">Completed<br />Sales</h3>
+          <h3 class="dark:text-blue-200 flex-none">Completed<br />Sales</h3>
           <div class="spacer"></div>
           <span class="text-2xl font-bold self-end text-end tabular-nums"
             >$2,000</span
@@ -24,7 +24,7 @@
               awaitingPaymentsCount() == 0,
           }"
         >
-          <h3 class="dark:text-emerald-200">Awaiting<br />Payments</h3>
+          <h3 class="dark:text-emerald-200 flex-none">Awaiting<br />Payments</h3>
           <div class="spacer"></div>
           <span class="text-2xl font-bold self-end text-end tabular-nums">{{
             awaitingPaymentsCount()
@@ -38,7 +38,7 @@
               repackageCount() == 0,
           }"
         >
-          <h3 class="text-amber-700 dark:text-amber-200">
+          <h3 class="dark:text-amber-200 flex-none">
             Repackage<br />Requests
           </h3>
           <div class="spacer"></div>
@@ -79,7 +79,7 @@
     <div
       class="pui-card rounded-4 p-8 overflow-hidden @screen-md:col-span-2 flex flex-col"
     >
-      <h3>Recent Inventory</h3>
+      <h3 class="flex-none">Recent Inventory</h3>
       <pui-table-content></pui-table-content>
       <div class="flex flex-row justify-end items-center">
         <button
@@ -93,7 +93,7 @@
     </div>
     <!-- additional details -->
     <div class="pui-card rounded-4 p-8 overflow-hidden">
-      <h3>Detailed information</h3>
+      <h3 class="flex-none">Detailed information</h3>
       <div class="flex flex-col pt-6 gap-4">
         <div class="flex flex-row items-center gap-2">
           <i

@@ -1,0 +1,37 @@
+.pui-error-overlay {
+  @apply max-w-90vw min-w-80 w-screen-md rounded-4 relative overflow-hidden;
+  @apply pui-card--overlay px-4 py-3 md:px-6 md:py-3;
+  @apply border-2 border-red-600/20;
+  &::before {
+    content: '';
+    @apply absolute inset-0.5 -z-10 rounded-3;
+    @apply bg-gradient-to-b from-red-700/50 to-red-700/10;
+  }
+
+  @apply flex flex-row items-center gap-2;
+}
+
+.pui-error-overlay__icon {
+  @apply icon-8 font-variation-weight-light flex-none dark:text-red-400;
+}
+
+.pui-error-overlay__message {
+  @apply grow text-base;
+}
+
+.pui-error-overlay__close {
+  @apply flex-none rounded-full p-2;
+  // animation: test 10s linear;
+  i {
+    @apply icon-4;
+  }
+}
+
+// @keyframes test {
+//   from {
+//     background-image: conic-gradient(rgb(0 0 0 / 0.5) 99%, transparent 100%);
+//   }
+//   to {
+//     background-image: conic-gradient(rgb(0 0 0 / 0.5) 0%, transparent 1%);
+//   }
+// }
