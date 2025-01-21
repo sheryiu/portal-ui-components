@@ -36,6 +36,9 @@
   > i {
     @apply icon-5;
   }
+  > span {
+    @apply font-medium;
+  }
 }
 
 .pui-vertical-layout__controls__normal {

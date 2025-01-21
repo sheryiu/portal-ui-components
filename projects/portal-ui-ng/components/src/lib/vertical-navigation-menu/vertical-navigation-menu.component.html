@@ -8,7 +8,10 @@
     <pui-divider></pui-divider>
   } @else if (child.type == 'group') {
     <!-- group -->
-    <div class="pui-vertical-navigation-menu__group">
+    <div
+      class="pui-vertical-navigation-menu__group"
+      [ariaDisabled]="child.disabled()"
+    >
       @if (child.route(); as route) {
         @let options = child.routerOptions();
         @let activeOptions = child.activeOptions();
@@ -16,7 +19,7 @@
           #groupEl
           puiBaseButton
           class="pui-vertical-navigation-menu__item"
-          [routerLink]="route"
+          [routerLink]="child.disabled() ? null : route"
           routerLinkActive
           [routerLinkActiveOptions]="activeOptions ?? { exact: false }"
           #active="routerLinkActive"
@@ -32,7 +35,9 @@
           [preserveFragment]="options?.preserveFragment"
           [relativeTo]="options?.relativeTo"
           [replaceUrl]="options?.replaceUrl"
-          (click)="toggleGroup(groupEl)"
+          (click)="child.disabled() ? {} : toggleGroup(groupEl)"
+          [ariaDisabled]="child.disabled()"
+          [hoverableEnabled]="!child.disabled()"
         >
           <ng-container [ngTemplateOutlet]="childContent" [ngTemplateOutletContext]="{ child: child }"></ng-container>
         </a>
@@ -49,6 +54,9 @@
             'pui-vertical-navigation-menu__item--opened': groupEl | isInSet: openedChildren(),
           }"
           (click)="toggleGroup(groupEl); child.click.emit($event)"
+          [disabled]="child.disabled()"
+          [ariaDisabled]="child.disabled()"
+          [hoverableEnabled]="!child.disabled()"
         >
           <ng-container [ngTemplateOutlet]="childContent" [ngTemplateOutletContext]="{ child: child }"></ng-container>
         </button>
@@ -65,7 +73,7 @@
       <a
         puiBaseButton
         class="pui-vertical-navigation-menu__item"
-        [routerLink]="route"
+        [routerLink]="child.disabled() ? null : route"
         routerLinkActive
         [routerLinkActiveOptions]="activeOptions ?? { exact: false }"
         #active="routerLinkActive"
@@ -80,6 +88,8 @@
         [preserveFragment]="options?.preserveFragment"
         [relativeTo]="options?.relativeTo"
         [replaceUrl]="options?.replaceUrl"
+        [ariaDisabled]="child.disabled()"
+        [hoverableEnabled]="!child.disabled()"
       >
         <ng-container [ngTemplateOutlet]="childContent" [ngTemplateOutletContext]="{ child: child }"></ng-container>
       </a>
@@ -89,6 +99,9 @@
         type="button"
         class="pui-vertical-navigation-menu__item"
         (click)="child.click.emit($event)"
+        [disabled]="child.disabled()"
+        [ariaDisabled]="child.disabled()"
+        [hoverableEnabled]="!child.disabled()"
       >
         <ng-container [ngTemplateOutlet]="childContent" [ngTemplateOutletContext]="{ child: child }"></ng-container>
       </button>

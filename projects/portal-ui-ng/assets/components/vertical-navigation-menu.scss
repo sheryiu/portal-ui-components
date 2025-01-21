@@ -24,6 +24,9 @@
   .spacer {
     @apply grow shrink-0 basis-auto;
   }
+  &[aria-disabled=true] {
+    @apply opacity-70;
+  }
 }
 
 .pui-vertical-navigation-menu__item--opened {
@@ -51,11 +54,17 @@
     @apply rotate-180;
     @apply text-primary-700 dark:text-primary-300;
   }
+  [aria-disabled=true] > & {
+    @apply hidden;
+  }
 }
 
 .pui-vertical-navigation-menu__group {
   @apply flex flex-col gap-1 my-0 relative transition-all;
   @apply before:absolute before:inset-0 before:pui-card--subtle before:rounded-[1.375rem] before:transition-all;
+  &[aria-disabled=true] {
+    @apply before:hidden;
+  }
   &:has(> .pui-vertical-navigation-menu__item--opened) {
     @apply my-2;
     @apply before:-inset-1;

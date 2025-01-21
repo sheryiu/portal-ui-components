@@ -1,113 +1,90 @@
-<!-- nav -->
-<div class="fixed lg:w-80 inset-0 max-lg:bg-gradient-to-b from-primary-900 to-primary-800 z-0 flex flex-col lg:border-r">
-  <!-- header -->
-  <div class="flex items-center px-6 py-4 lg:pt-12 flex-none">
-    <button
-      puiBaseButton
-      class="rounded-full p-2 lg:hidden"
-      (click)="isNavVisible.set(!isNavVisible())"
+<pui-root-sidenav>
+  <div class="pui-root-sidenav__header__logo flex flex-row-reverse lg:flex-row items-center gap-3">
+    <div class="flex-none size-10 bg-gradient-to-br from-primary-600/70 from-20% to-accent-500/70 rounded-full p-2 isolate">
+      <i class="icon-6 font-variation-weight-light mix-blend-overlay">identity_platform</i>
+    </div>
+    <h3 class="pt-0">Portal UI Demo</h3>
+  </div>
+
+  <div class="pui-root-sidenav__nav">
+    <nav
+      class="grid grid-cols-4 gap-4 p-4 flex-none"
     >
-      <i class="icon-6">menu</i>
-    </button>
-    <div class="spacer lg:hidden"></div>
-    <div class="flex flex-row-reverse lg:flex-row items-center gap-3">
-      <div class="flex-none size-10 bg-gradient-to-br from-primary-600/70 from-20% to-accent-500/70 rounded-full p-2 isolate">
-        <i class="icon-6 font-variation-weight-light mix-blend-overlay">identity_platform</i>
-      </div>
-      <h3 class="pt-0">Portal UI Demo</h3>
-    </div>
-  </div>
-  <!-- nav -->
-  <div
-    class="w-[80%] lg:w-full grow flex flex-col gap-6 overflow-hidden"
-  >
-    <div class="w-full grow flex flex-col max-lg:max-w-screen-xs">
-      <nav
-        class="grid grid-cols-4 gap-4 p-4 flex-none"
+      <button puiBorderedButton color="primary" class="rounded-2 p-2 max-h-16 w-full aspect-square" puiTooltip="Home">
+        <i class="icon-6 font-variation-weight-light">home</i>
+      </button>
+      <button puiBorderedButton color="primary" class="rounded-2 p-2 max-h-16 w-full aspect-square" puiTooltip="Dashboard">
+        <i class="icon-6 font-variation-weight-light">dashboard</i>
+      </button>
+      <button puiBorderedButton color="primary" class="rounded-2 p-2 max-h-16 w-full aspect-square" puiTooltip="Sales">
+        <i class="icon-6 font-variation-weight-light">point_of_sale</i>
+      </button>
+      <button puiBorderedButton color="primary" class="rounded-2 p-2 max-h-16 w-full aspect-square" puiTooltip="Settings">
+        <i class="icon-6 font-variation-weight-light">settings</i>
+      </button>
+    </nav>
+    <pui-divider></pui-divider>
+    <pui-vertical-navigation-menu class="overflow-auto">
+      <pui-menu-item
+        label="Home"
+        icon="home"
+        [route]="['/']"
+        [activeOptions]="{ exact: true }"
+      ></pui-menu-item>
+      <pui-menu-item
+        label="Dashboard"
+        [route]="['/dashboard']"
+        disabled
+      ></pui-menu-item>
+      <pui-menu-item
+        label="Real-time Monitoring"
+        [route]="['/monitoring']"
+        disabled
+      ></pui-menu-item>
+      <pui-menu-group
+        label="Sales"
+        icon="point_of_sale"
+        disabled
       >
-        <button puiBorderedButton color="primary" class="rounded-2 p-2 max-h-16 w-full aspect-square" puiTooltip="Home">
-          <i class="icon-6 font-variation-weight-light">home</i>
-        </button>
-        <button puiBorderedButton color="primary" class="rounded-2 p-2 max-h-16 w-full aspect-square" puiTooltip="Dashboard">
-          <i class="icon-6 font-variation-weight-light">dashboard</i>
-        </button>
-        <button puiBorderedButton color="primary" class="rounded-2 p-2 max-h-16 w-full aspect-square" puiTooltip="Sales">
-          <i class="icon-6 font-variation-weight-light">point_of_sale</i>
-        </button>
-        <button puiBorderedButton color="primary" class="rounded-2 p-2 max-h-16 w-full aspect-square" puiTooltip="Settings">
-          <i class="icon-6 font-variation-weight-light">settings</i>
-        </button>
-      </nav>
-      <pui-divider></pui-divider>
-      <pui-vertical-navigation-menu class="overflow-auto">
-        <pui-menu-item
-          label="Home"
-          icon="home"
-          [route]="['/']"
-          [activeOptions]="{ exact: true }"
-        ></pui-menu-item>
-        <!-- <pui-menu-item
-          label="Dashboard"
-          [route]="['/dashboard']"
-        ></pui-menu-item>
-        <pui-menu-item
-          label="Real-time Monitoring"
-          [route]="['/monitoring']"
-        ></pui-menu-item> -->
-        <!-- <pui-menu-group
-          label="Sales"
-          icon="point_of_sale"
-        >
-          <pui-menu-item label="Orders" [route]="['/sales', 'order']"></pui-menu-item>
-          <pui-menu-item label="Payments" [route]="['/sales', 'payment']"></pui-menu-item>
-          <pui-menu-divider></pui-menu-divider>
-          <pui-menu-item label="Reports" icon="monitoring" [route]="['/sales', 'report']"></pui-menu-item>
-        </pui-menu-group> -->
-        <pui-menu-group
-          label="Inventory"
-          icon="trolley"
-        >
-          <pui-menu-item label="Items" [route]="['/inventory', 'item']"></pui-menu-item>
-          <pui-menu-item label="Shelves" [route]="['/inventory', 'shelf']"></pui-menu-item>
-        </pui-menu-group>
-        <pui-menu-group
-          label="Users"
-          icon="group"
-        >
-          <pui-menu-item label="Customers" [route]="['/user', 'customer']"></pui-menu-item>
-          <pui-menu-item label="Employees" [route]="['/user', 'employee']"></pui-menu-item>
-          <pui-menu-divider></pui-menu-divider>
-          <pui-menu-item label="Access Control" [route]="['/user', 'access-control']"></pui-menu-item>
-          <pui-menu-item label="Employee Calendar" [route]="['/user', 'employee-calendar']"></pui-menu-item>
-          <pui-menu-item label="Salary" [route]="['/user', 'salary']"></pui-menu-item>
-        </pui-menu-group>
-        <pui-menu-item
-          label="Logs"
-          [route]="['/log', 'system-log']"
-        ></pui-menu-item>
-        <!-- <pui-menu-item
-          label="Settings"
-          [route]="['/settings']"
-        ></pui-menu-item> -->
+        <pui-menu-item label="Orders" [route]="['/sales', 'order']"></pui-menu-item>
+        <pui-menu-item label="Payments" [route]="['/sales', 'payment']"></pui-menu-item>
         <pui-menu-divider></pui-menu-divider>
-        <pui-menu-item
-          label="Documentation"
-          [route]="['/documentation']"
-          icon="integration_instructions"
-        ></pui-menu-item>
-      </pui-vertical-navigation-menu>
-    </div>
+        <pui-menu-item label="Reports" icon="monitoring" [route]="['/sales', 'report']"></pui-menu-item>
+      </pui-menu-group>
+      <pui-menu-group
+        label="Inventory"
+        icon="trolley"
+      >
+        <pui-menu-item label="Items" [route]="['/inventory', 'item']"></pui-menu-item>
+        <pui-menu-item label="Shelves" [route]="['/inventory', 'shelf']"></pui-menu-item>
+      </pui-menu-group>
+      <pui-menu-group
+        label="Users"
+        icon="group"
+      >
+        <pui-menu-item label="Customers" [route]="['/user', 'customer']"></pui-menu-item>
+        <pui-menu-item label="Employees" [route]="['/user', 'employee']"></pui-menu-item>
+        <pui-menu-divider></pui-menu-divider>
+        <pui-menu-item label="Access Control" [route]="['/user', 'access-control']"></pui-menu-item>
+        <pui-menu-item label="Employee Calendar" [route]="['/user', 'employee-calendar']"></pui-menu-item>
+        <pui-menu-item label="Salary" [route]="['/user', 'salary']"></pui-menu-item>
+      </pui-menu-group>
+      <pui-menu-item
+        label="Logs"
+        [route]="['/log', 'system-log']"
+      ></pui-menu-item>
+      <pui-menu-item
+        label="Settings"
+        [route]="['/settings']"
+        disabled
+      ></pui-menu-item>
+      <pui-menu-divider></pui-menu-divider>
+      <pui-menu-item
+        label="Documentation"
+        [route]="['/documentation']"
+        icon="integration_instructions"
+        disabled
+      ></pui-menu-item>
+    </pui-vertical-navigation-menu>
   </div>
-</div>
-<!-- content -->
-<div class="max-lg:mt-16 h-px min-h-full max-lg:overflow-x-clip lg:contents">
-  <div
-    class="px-4 lg:ml-80 lg:px-8 min-h-full lg:h-full max-lg:translate-y-2 max-lg:transition-transform duration-300 max-lg:relative max-lg:before:absolute max-lg:before:-z-10 max-lg:before:inset-0 max-lg:before:rounded-t-4 max-lg:before:bg-neutral-900 max-lg:before:shadow-[-4px_-3px_5px_rgb(0_0_0_/_0.2)]"
-    [ngClass]="{
-      'max-[600px]:translate-x-[80%] max-lg:translate-x-screen-xs': isNavVisible(),
-      'max-lg:translate-x-0': !isNavVisible(),
-    }"
-  >
-    <router-outlet></router-outlet>
-  </div>
-</div>
+</pui-root-sidenav>

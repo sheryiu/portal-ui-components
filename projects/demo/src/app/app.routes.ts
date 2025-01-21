@@ -12,5 +12,9 @@ export const routes: Routes = [
   {
     path: 'log',
     loadChildren: () => import('./routes/log/routes').then(r => r.ROUTES)
-  }
+  },
+  {
+    path: '',
+    loadChildren: () => import('./routes/home/routes').then(r => r.ROUTES)
+  },
 ];

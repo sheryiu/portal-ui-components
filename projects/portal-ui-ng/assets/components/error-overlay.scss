@@ -13,6 +13,7 @@
 
 .pui-error-overlay__icon {
   @apply icon-8 font-variation-weight-light flex-none dark:text-red-400;
+  @apply max-lg:hidden;
 }
 
 .pui-error-overlay__message {

@@ -3,7 +3,7 @@ import { Component, computed, inject, signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { differenceInCalendarDays, endOfDay, startOfDay, sub } from 'date-fns';
 import { ButtonModule } from 'portal-ui-ng/base';
-import { DividerComponent, TimeDisplayComponent, TooltipModule } from 'portal-ui-ng/components';
+import { DividerComponent, TimeDisplayComponent, TooltipDirective } from 'portal-ui-ng/components';
 import { SystemLogLevel } from '../../../../data/log.types';
 import { SystemLogDataService } from '../../../../data/system-log-data.service';
 import { SystemLogCalendarComponent } from './system-log-calendar/system-log-calendar.component';
@@ -16,7 +16,7 @@ import { SystemLogSystemsComponent } from "./system-log-systems/system-log-syste
   selector: 'demo-system-log-dashboard',
   standalone: true,
   imports: [
-    TooltipModule,
+    TooltipDirective,
     DividerComponent,
     TimeDisplayComponent,
     ButtonModule,
@@ -26,7 +26,7 @@ import { SystemLogSystemsComponent } from "./system-log-systems/system-log-syste
     SystemLogCalendarComponent,
     SystemLogExportComponent,
     SystemLogSystemsComponent
-],
+  ],
   templateUrl: './system-log-dashboard.component.html',
   styles: ``
 })

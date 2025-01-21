@@ -1,3 +1,4 @@
+import { NgComponentOutlet } from '@angular/common';
 import { Component, Injector, Type, inject } from '@angular/core';
 import { OVERLAY_DATA } from 'portal-ui-ng/base';
 
@@ -12,7 +13,11 @@ export type TooltipData = {
   host: {
     class: 'pui-tooltip',
   },
-  styles: ``
+  styles: ``,
+  standalone: true,
+  imports: [
+    NgComponentOutlet
+  ]
 })
 export class TooltipComponent {
   data = inject(OVERLAY_DATA) as TooltipData;

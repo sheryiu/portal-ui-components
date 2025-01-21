@@ -1,26 +1,25 @@
-import { NgClass } from '@angular/common';
 import { Component, inject, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
+import { NavigationEnd, Router } from '@angular/router';
 import { faker } from '@faker-js/faker';
 import { ButtonModule } from 'portal-ui-ng/base';
-import { DividerComponent, MenuDividerDirective, MenuGroupDirective, MenuItemDirective, TooltipModule, VerticalNavigationMenuComponent } from 'portal-ui-ng/components';
+import { DividerComponent, MenuDividerDirective, MenuGroupDirective, MenuItemDirective, TooltipDirective, VerticalNavigationMenuComponent } from 'portal-ui-ng/components';
+import { RootSidenavComponent } from 'portal-ui-ng/pages';
 import { debounceTime, filter } from 'rxjs';
 
 @Component({
   selector: 'demo-root',
   standalone: true,
   imports: [
-    NgClass,
-    RouterOutlet,
     ButtonModule,
     DividerComponent,
-    TooltipModule,
+    TooltipDirective,
     VerticalNavigationMenuComponent,
     MenuItemDirective,
     MenuGroupDirective,
-    MenuDividerDirective
-],
+    MenuDividerDirective,
+    RootSidenavComponent,
+  ],
   templateUrl: './app.component.html',
 })
 export class AppComponent {

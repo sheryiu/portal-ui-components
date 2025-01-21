@@ -1,0 +1,30 @@
+<!-- nav -->
+<div class="pui-root-sidenav">
+  <!-- header -->
+  <div class="pui-root-sidenav__header">
+    <button
+      puiBaseButton
+      class="pui-root-sidenav__header__hamburger"
+      (click)="toggleSidenav()"
+    >
+      <i>menu</i>
+    </button>
+    <div class="spacer"></div>
+    <ng-content select=".pui-root-sidenav__header__logo"></ng-content>
+  </div>
+  <!-- nav -->
+  <div
+    class="pui-root-sidenav__nav-wrapper"
+  >
+    <ng-content select=".pui-root-sidenav__nav"></ng-content>
+  </div>
+</div>
+<!-- content -->
+<div class="pui-root-sidenav__content-wrapper">
+  <div
+    class="pui-root-sidenav__content"
+    [attr.data-sidenav]="isSidenavVisible() ? 'visible' : 'hidden'"
+  >
+    <router-outlet></router-outlet>
+  </div>
+</div>

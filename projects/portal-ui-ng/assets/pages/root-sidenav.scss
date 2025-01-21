@@ -1,0 +1,52 @@
+.pui-root-sidenav {
+  @apply fixed inset-0 bg-gradient-to-b from-primary-900 to-primary-800 z-0 flex flex-col;
+  @apply lg:w-80 lg:border-r lg:bg-none;
+}
+
+.pui-root-sidenav__header {
+  @apply flex items-center px-6 py-4 flex-none;
+  @apply lg:pt-12;
+  .spacer {
+    @apply grow shrink-0 basis-auto;
+    @apply lg:hidden;
+  }
+}
+
+.pui-root-sidenav__header__hamburger {
+  @apply rounded-full p-2;
+  @apply lg:hidden;
+  > i {
+    @apply icon-6;
+  }
+}
+
+.pui-root-sidenav__nav-wrapper {
+  @apply w-[80%] grow flex flex-col gap-6 overflow-hidden;
+  @apply lg:w-full;
+}
+
+.pui-root-sidenav__nav {
+  @apply max-w-screen-xs w-full grow flex flex-col overflow-y-auto;
+  @apply lg:max-w-[unset];
+}
+
+.pui-root-sidenav__content-wrapper {
+  @apply lg:contents;
+  @apply max-lg:mt-16 max-lg:h-px max-lg:min-h-full max-lg:overflow-x-clip;
+}
+
+.pui-root-sidenav__content {
+  @apply px-4 min-h-full;
+  @apply lg:ml-80 lg:px-8 lg:h-full;
+  @apply max-lg:translate-y-2 max-lg:transition-transform max-lg:duration-300;
+  /** the background */
+  @apply max-lg:relative;
+  @apply max-lg:before:absolute max-lg:before:-z-[9999] max-lg:before:inset-0 max-lg:before:rounded-t-4 max-lg:before:bg-neutral-900 max-lg:before:shadow-[-4px_-3px_5px_rgb(0_0_0_/_0.2)];
+
+  &[data-sidenav=visible] {
+    @apply max-[600px]:translate-x-[80%] max-lg:translate-x-screen-xs;
+  }
+  &[data-sidenav=hidden] {
+    @apply max-lg:translate-x-0;
+  }
+}

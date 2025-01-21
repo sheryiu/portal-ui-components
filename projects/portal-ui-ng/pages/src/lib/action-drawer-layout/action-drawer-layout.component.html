@@ -24,7 +24,7 @@
           } @else if (control.iconTemplateRef) {
             <ng-container [ngTemplateOutlet]="control.iconTemplateRef"></ng-container>
           }
-          <span class="font-medium">{{ control.label }}</span>
+          <span>{{ control.label }}</span>
         </button>
       } @else if (control.icon || control.iconTemplateRef) {
         <button

@@ -4,7 +4,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, NavigationEnd, Router, RouterLink, RouterOutlet } from '@angular/router';
 import { filterNonNull } from 'portal-ui-ng';
 import { ButtonModule } from 'portal-ui-ng/base';
-import { BreadcrumbsComponent, TabBarModule, TooltipModule } from 'portal-ui-ng/components';
+import { BreadcrumbsComponent, TabBarModule, TooltipDirective } from 'portal-ui-ng/components';
 import { combineLatest, filter, startWith } from 'rxjs';
 import { LayoutService } from '../layout/layout.service';
 import { PeekableAddonComponent } from "../peekable-addon/peekable-addon.component";
@@ -21,7 +21,7 @@ import { VERTICAL_LAYOUT_DATA_PROVIDER } from './vertical-layout';
     RouterLink,
     NgTemplateOutlet,
     PeekableAddonComponent,
-    TooltipModule,
+    TooltipDirective,
 ],
   providers: [LayoutService],
   templateUrl: './vertical-layout.component.html',

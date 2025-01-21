@@ -2,7 +2,7 @@ import { Component, computed, inject } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, RouterLink, RouterOutlet } from '@angular/router';
 import { ButtonModule, } from 'portal-ui-ng/base';
-import { TooltipModule } from 'portal-ui-ng/components';
+import { TooltipDirective } from 'portal-ui-ng/components';
 import { combineLatest } from 'rxjs';
 import { PEEKABLE_ADDON_DATA_PROVIDER } from './peekable-addon';
 
@@ -13,7 +13,7 @@ import { PEEKABLE_ADDON_DATA_PROVIDER } from './peekable-addon';
     RouterOutlet,
     RouterLink,
     ButtonModule,
-    TooltipModule,
+    TooltipDirective,
   ],
   templateUrl: './peekable-addon.component.html',
   styles: ``,

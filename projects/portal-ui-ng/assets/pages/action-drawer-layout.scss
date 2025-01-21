@@ -36,6 +36,9 @@
   > i {
     @apply icon-5;
   }
+  > span {
+    @apply font-medium;
+  }
 }
 
 .pui-action-drawer-layout__controls__normal {

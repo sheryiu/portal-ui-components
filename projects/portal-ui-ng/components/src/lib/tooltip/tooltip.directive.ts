@@ -20,6 +20,7 @@ const BottomPositions: ConnectedPosition[] = [
 
 @Directive({
   selector: '[puiTooltip]',
+  standalone: true,
 })
 export class TooltipDirective {
 
@@ -75,6 +76,7 @@ export class TooltipDirective {
           .withPush(true),
         scrollStrategy: this.overlay.scrollStrategies.reposition(),
         disposeOnNavigation: true,
+        panelClass: 'pui-tooltip-overlay',
         data: {
           message: this.tooltip(),
           component: this.component(),

@@ -5,7 +5,7 @@ import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { matchFormArrayLength } from 'portal-ui-ng';
 import { ButtonModule, HoverableDirective, InputFieldComponent } from 'portal-ui-ng/base';
-import { DividerComponent, ToggleComponent, TooltipModule } from 'portal-ui-ng/components';
+import { DividerComponent, ToggleComponent, TooltipDirective } from 'portal-ui-ng/components';
 import { map } from 'rxjs';
 import { AccessControlDataService } from '../../../../data/access-control-data.service';
 import { EmployeeDataService } from '../../../../data/employee-data.service';
@@ -25,8 +25,8 @@ import { EmployeeStatus } from '../../../../data/user.types';
     DividerComponent,
     InputFieldComponent,
     ButtonModule,
-    TooltipModule,
-],
+    TooltipDirective,
+  ],
   templateUrl: './access-control-overall.component.html',
   styles: ``,
   host: {

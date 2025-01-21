@@ -24,6 +24,9 @@
   @apply ms-[10%] me-8 my-2 p-2 z-100 h-12;
   @apply flex flex-row;
   @apply pui-card rounded-2;
+  .spacer {
+    @apply grow shrink-0 basis-auto;
+  }
 }
 
 .pui-peekable-addon__nav-button {

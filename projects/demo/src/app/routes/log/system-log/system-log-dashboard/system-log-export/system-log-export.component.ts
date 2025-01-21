@@ -10,7 +10,7 @@ import { DividerComponent, TimeDisplayComponent, ToggleComponent } from 'portal-
     TimeDisplayComponent,
     DividerComponent,
     ToggleComponent,
-],
+  ],
   templateUrl: './system-log-export.component.html',
   styles: ``
 })

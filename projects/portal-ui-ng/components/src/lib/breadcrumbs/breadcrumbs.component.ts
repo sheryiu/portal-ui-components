@@ -3,7 +3,7 @@ import { Component, inject } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { HoverableDirective } from 'portal-ui-ng/base';
 import { combineLatest, combineLatestAll, from, isObservable, map, of, switchMap } from 'rxjs';
-import { TooltipModule } from '../tooltip';
+import { TooltipDirective } from '../tooltip';
 import { getBreadcrumb } from './breadcrumbs';
 
 @Component({
@@ -16,7 +16,7 @@ import { getBreadcrumb } from './breadcrumbs';
     AsyncPipe,
     RouterLink,
     HoverableDirective,
-    TooltipModule,
+    TooltipDirective,
   ],
   templateUrl: './breadcrumbs.component.html',
 })
