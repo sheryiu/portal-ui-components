@@ -14,6 +14,10 @@ export const routes: Routes = [
     loadChildren: () => import('./routes/log/routes').then(r => r.ROUTES)
   },
   {
+    path: 'media',
+    loadChildren: () => import('./routes/media/routes').then(r => r.ROUTES)
+  },
+  {
     path: '',
     loadChildren: () => import('./routes/home/routes').then(r => r.ROUTES)
   },

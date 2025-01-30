@@ -1,0 +1,15 @@
+<div class="flex flex-row gap-x-3">
+  <div class="spacer"></div>
+  <button puiBorderedButton class="rounded-full flex-row px-4 gap-2" puiTooltip="Sort by filename">
+    <i class="icon-4 font-variation-weight-light rotate-180 -scale-x-100">sort</i>
+    <span>Filename</span>
+  </button>
+  <pui-tab-bar>
+    <div *puiTab="'grid'" puiTooltip="Grid View">
+      <i class="icon-5 font-variation-weight-light">grid_view</i>
+    </div>
+    <div *puiTab="'list'" puiTooltip="List View">
+      <i class="icon-5 font-variation-weight-bold">list</i>
+    </div>
+  </pui-tab-bar>
+</div>

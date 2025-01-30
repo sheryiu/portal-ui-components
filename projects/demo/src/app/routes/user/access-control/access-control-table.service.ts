@@ -37,7 +37,7 @@ export class AccessControlTableService implements TableContentDataProvider<Acces
       type: 'boolean'
     }
   }]);
-  columnsToDisplay = signal<string[] | Record<number | 'default' | `${ number }px`, string[]>>(['userNumber', 'employeeName', 'isEnabled']);
+  columnsToDisplay = signal<string[] | Record<number | 'default', string[]>>(['userNumber', 'employeeName', 'isEnabled']);
   filterConfig = signal<ObjectFieldConfiguration>({
     type: 'object',
     properties: {

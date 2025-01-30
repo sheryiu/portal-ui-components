@@ -1,29 +1,59 @@
 import { computed, inject, Injectable, signal } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
 import { ScreenWidthDetectorService } from 'portal-ui-ng';
 import { ColumnConfig, computeFilterFunction, computeSortFunction, ObjectFieldConfiguration, TABLE_CONTENT_DEFAULT_CONTROLS, TableContentDataProvider, updateSortedColumn } from 'portal-ui-ng/pages';
+import { MediaDataService } from '../../data/media-data.service';
+import { Media } from '../../data/media.types';
 
 @Injectable()
-export class <%= classify(name) %>TableService implements TableContentDataProvider<<%= classify(name) %>> {
+export class MediaTableService implements TableContentDataProvider<Media> {
+  private dataService = inject(MediaDataService);
+
   private screenWidth = inject(ScreenWidthDetectorService);
-  private rawData = signal<<%= classify(name) %>[]>([
-    // TODO supply with data
-  ]);
+  private rawData = toSignal(this.dataService.getList())
 
   configuration = {
     useVirtualScroll: true,
   };
   data = computed(() => {
-    const rawData = this.rawData();
+    const rawData = this.rawData() ?? [];
     return rawData
       .toSorted(this.sortFn())
       .filter(this.filterFn());
   });
   columnsConfig = signal<ColumnConfig[]>([
-    // TODO columns configuration
+    {
+      key: 'filename',
+      label: 'Filename',
+    },
+    {
+      key: 'sizeBytes',
+      label: 'Size (Bytes)'
+    },
+    {
+      key: 'type',
+      label: 'Type',
+    },
+    {
+      key: 'createdAt',
+      label: 'Created At',
+      fieldConfiguration: {
+        type: 'date-time',
+      }
+    },
+    {
+      key: 'lastModifiedAt',
+      label: 'Last Modified At',
+      fieldConfiguration: {
+        type: 'date-time',
+      }
+    }
   ]);
-  columnsToDisplay = signal<string[] | Record<number | 'default', string[]>>(
-    // TODO keys of columns to display
-  );
+  columnsToDisplay = signal<string[] | Record<number | 'default', string[]>>({
+    default: ['filename', 'sizeBytes'],
+    768: ['filename', 'sizeBytes', 'createdAt'],
+    1280: ['filename', 'sizeBytes', 'type', 'createdAt', 'lastModifiedAt'],
+  });
   controlsConfig = signal(TABLE_CONTENT_DEFAULT_CONTROLS);
   filterConfig = signal<ObjectFieldConfiguration>({
     type: 'object',
@@ -35,18 +65,18 @@ export class <%= classify(name) %>TableService implements TableContentDataProvid
     // TODO filter value type
   }>({})
 
-  private sortFn = computed<(a: <%= classify(name) %>, b: <%= classify(name) %>) => number>(() => {
+  private sortFn = computed<(a: Media, b: Media) => number>(() => {
     return computeSortFunction(this.columnsConfig())
   })
-  private filterFn = computed<(item: <%= classify(name) %>) => boolean>(() => {
+  private filterFn = computed<(item: Media) => boolean>(() => {
     return computeFilterFunction(this.filterValue(), {
       // TODO filter matching methods
     })
   })
 
-  routeToDetail(item: <%= classify(name) %>): any[] {
+  routeToDetail(item: Media): any[] {
     if (this.screenWidth.above().sm()) {
-      return ['../../', '<%= dasherize(name) %>', { outlets: { peek: [item.id] } }]
+      return ['../../', 'media', { outlets: { peek: [item.id] } }]
     }
     return ['../', 'detail', item.id]
   }

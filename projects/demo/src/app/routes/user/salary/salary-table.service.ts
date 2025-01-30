@@ -18,7 +18,7 @@ export class SalaryTableService implements TableContentDataProvider<any> {
       path: 'employee.name'
     },
   ]);
-  columnsToDisplay = signal<string[] | Record<number | `${ number }px` | 'default', string[]>>(['id', 'employeeName']);
+  columnsToDisplay = signal<string[] | Record<number | 'default', string[]>>(['id', 'employeeName']);
 
   routeToDetail(item: any): any[] {
     return ['../detail', item.id]

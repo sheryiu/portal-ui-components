@@ -47,7 +47,7 @@ export class EmployeeCalendarTableService implements TableContentDataProvider<Em
     },
     isAlignEnd: true,
   }]);
-  columnsToDisplay = signal<string[] | Record<number | 'default' | `${ number }px`, string[]>>(
+  columnsToDisplay = signal<string[] | Record<number | 'default', string[]>>(
     ['employeeName', 'label', 'startsFrom', 'endsAt']
   );
   controlsConfig = signal([]);

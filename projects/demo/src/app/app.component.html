@@ -32,13 +32,15 @@
         [activeOptions]="{ exact: true }"
       ></pui-menu-item>
       <pui-menu-item
-        label="Dashboard"
-        [route]="['/dashboard']"
-        disabled
+        label="Media Manager"
+        [route]="['/media']"
+        icon="folder"
       ></pui-menu-item>
+      <pui-menu-divider></pui-menu-divider>
       <pui-menu-item
-        label="Real-time Monitoring"
+        label="Dashboard"
         [route]="['/monitoring']"
+        icon="analytics"
         disabled
       ></pui-menu-item>
       <pui-menu-group

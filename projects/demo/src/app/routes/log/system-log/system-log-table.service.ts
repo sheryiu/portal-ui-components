@@ -59,7 +59,7 @@ export class SystemLogTableService implements TableContentDataProvider<SystemLog
       label: 'User',
     }
   ]);
-  columnsToDisplay = signal<string[] | Record<number | 'default' | `${ number }px`, string[]>>({
+  columnsToDisplay = signal<string[] | Record<number | 'default', string[]>>({
     default: ['timestamp', 'level', 'message'],
     1280: ['timestamp', 'level', 'message', 'user']
   });
