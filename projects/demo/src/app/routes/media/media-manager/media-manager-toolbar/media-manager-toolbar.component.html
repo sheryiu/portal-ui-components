@@ -1,15 +1,40 @@
-<div class="flex flex-row gap-x-3">
-  <div class="spacer"></div>
-  <button puiBorderedButton class="rounded-full flex-row px-4 gap-2" puiTooltip="Sort by filename">
-    <i class="icon-4 font-variation-weight-light rotate-180 -scale-x-100">sort</i>
-    <span>Filename</span>
-  </button>
-  <pui-tab-bar>
-    <div *puiTab="'grid'" puiTooltip="Grid View">
-      <i class="icon-5 font-variation-weight-light">grid_view</i>
+<div class="@container">
+  <div class="flex flex-row flex-wrap @screen-sm:flex-nowrap gap-x-3 gap-y-4">
+    <div class="overflow-x-auto flex items-center basis-full">
+      <div class="flex flex-row-reverse items-center gap-1 overflow-x-auto">
+        @for (parent of parentFolders(); track parent?.id) {
+          <a
+            puiBaseButton
+            class="rounded-1 px-4 py-2 @screen-sm:px-2 gap-2 items-center flex-none"
+            [ngClass]="{ 'bg-hover': $first }"
+            [routerLink]="navigateWithRouter() ? ['../', parent?.id ?? null] : null"
+            (click)="navigateTo.emit(parent)"
+          >
+            @if (parent == null) {
+              <i class="icon-4 font-variation-fill">home</i>
+              <span class="font-medium text-base/none pt-px">Home</span>
+            } @else {
+              <span class="text-base/none">{{ parent.filename }}</span>
+            }
+          </a>
+          @if (!$last) {
+            <i class="icon-4 font-variation-weight-bold dark:text-primary-50">chevron_right</i>
+          }
+        }
+      </div>
     </div>
-    <div *puiTab="'list'" puiTooltip="List View">
-      <i class="icon-5 font-variation-weight-bold">list</i>
-    </div>
-  </pui-tab-bar>
+    <div class="shrink grow basis-48 hidden @screen-sm:block"></div>
+    <button puiBorderedButton class="rounded-full flex-row px-4 gap-2 flex-none" puiTooltip="Sort by filename">
+      <i class="icon-4 font-variation-weight-light rotate-180 -scale-x-100">sort</i>
+      <span>Filename</span>
+    </button>
+    <pui-tab-bar class="flex-none" [currentTab]="viewMode()" (tabChange)="viewModeChange.emit($any($event))">
+      <div *puiTab="'grid'" puiTooltip="Grid View">
+        <i class="icon-5 font-variation-weight-light">grid_view</i>
+      </div>
+      <div *puiTab="'list'" puiTooltip="List View">
+        <i class="icon-5 font-variation-weight-bold">list</i>
+      </div>
+    </pui-tab-bar>
+  </div>
 </div>

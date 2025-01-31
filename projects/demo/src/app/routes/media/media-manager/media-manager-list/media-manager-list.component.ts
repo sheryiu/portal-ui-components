@@ -1,16 +1,18 @@
+import { DecimalPipe } from '@angular/common';
 import { Component, computed, input, output } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { ButtonModule } from 'portal-ui-ng/base';
+import { HoverableDirective } from 'portal-ui-ng/base';
+import { TableModule, TimeDisplayComponent } from 'portal-ui-ng/components';
 import { Media, MediaType } from '../../../../data/media.types';
 
 @Component({
-  selector: 'demo-media-manager-grid',
+  selector: 'demo-media-manager-list',
   standalone: true,
-  imports: [ButtonModule, RouterLink],
-  templateUrl: './media-manager-grid.component.html',
+  imports: [RouterLink, TableModule, HoverableDirective, DecimalPipe, TimeDisplayComponent],
+  templateUrl: './media-manager-list.component.html',
   styles: ``
 })
-export class MediaManagerGridComponent {
+export class MediaManagerListComponent {
   media = input.required<Media[]>()
   navigateWithRouter = input.required<boolean>()
   navigateTo = output<Media>()
@@ -18,6 +20,7 @@ export class MediaManagerGridComponent {
   processed = computed(() => {
     return this.media()
       .toSorted((a, b) => a.filename < b.filename ? -1 : a.filename > b.filename ? 1 : 0)
+      .toSorted((a, b) => a.type == b.type ? 0 : a.type == MediaType.FOLDER ? -1 : b.type == MediaType.FOLDER ? 1 : 0)
   })
 
   folders = computed(() => {
@@ -26,4 +29,7 @@ export class MediaManagerGridComponent {
   files = computed(() => {
     return this.processed().filter(media => media.type == MediaType.FILE)
   })
+
+  rowType!: Media;
+  mediaType = MediaType
 }

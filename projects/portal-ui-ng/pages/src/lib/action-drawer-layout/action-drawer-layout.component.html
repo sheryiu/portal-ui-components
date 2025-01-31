@@ -5,7 +5,7 @@
   </header>
   <div class="pui-action-drawer-layout__content">
     @if (configuration && configuration.content) {
-      <ng-container [ngComponentOutlet]="configuration.content"></ng-container>
+      <ng-container [ngComponentOutlet]="configuration.content" [ngComponentOutletInputs]="contentInputs()"></ng-container>
     }
   </div>
   <div class="pui-action-drawer-layout__controls">

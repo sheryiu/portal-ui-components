@@ -7,6 +7,7 @@ export interface ActionDrawerLayoutDataProvider {
     content: Type<unknown>;
   };
   heading: Signal<string>;
+  contentInputs?: Signal<Record<string, unknown>>;
   onActionDrawerInit?(overlayRef: PuiOverlayRef): void;
 }
 

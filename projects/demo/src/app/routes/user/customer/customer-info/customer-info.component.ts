@@ -3,17 +3,18 @@ import { Component, computed, forwardRef, inject, signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { ActivatedRoute } from '@angular/router';
 import { ButtonModule } from 'portal-ui-ng/base';
-import { DividerComponent, TimeDisplayComponent } from 'portal-ui-ng/components';
-import { ColumnConfig, TABLE_CONTENT_DATA_PROVIDER, TableContentComponent, TableContentDataProvider } from 'portal-ui-ng/pages';
+import { DividerComponent, TimeDisplayComponent, TooltipDirective } from 'portal-ui-ng/components';
+import { ActionDrawerOverlayService, ColumnConfig, TABLE_CONTENT_DATA_PROVIDER, TableContentComponent, TableContentDataProvider } from 'portal-ui-ng/pages';
 import { map } from 'rxjs';
 import { CustomerDataService } from '../../../../data/customer-data.service';
 import { InventoryItemDataService } from '../../../../data/inventory-item-data.service';
 import { InventoryItem, InventoryItemStatus } from '../../../../data/inventory.types';
+import { MediaManagerPickerService } from '../../../media/media-manager/media-manager-picker/media-manager-picker.service';
 
 @Component({
   selector: 'demo-customer-info',
   standalone: true,
-  imports: [TimeDisplayComponent, DividerComponent, TableContentComponent, ButtonModule, NgClass],
+  imports: [TimeDisplayComponent, DividerComponent, TableContentComponent, ButtonModule, NgClass, TooltipDirective],
   templateUrl: './customer-info.component.html',
   styles: `
   ::ng-deep demo-customer-info .pui-table-content main {
@@ -38,6 +39,7 @@ export class CustomerInfoComponent implements TableContentDataProvider<Inventory
   private list = toSignal(this.dataService.getList())
   private id = toSignal(this.route.params.pipe(map(p => p['id'])))
   private allInventoryItems = toSignal(this.inventoryItemService.getList())
+  private actionDrawer = inject(ActionDrawerOverlayService)
 
   customer = computed(() => {
     return this.list()?.find(c => c.id == this.id());
@@ -97,4 +99,8 @@ export class CustomerInfoComponent implements TableContentDataProvider<Inventory
     return ['/', 'inventory', 'item', 'detail', item.id]
   }
   controlsConfig = signal([])
+
+  onProfilePicEdit() {
+    this.actionDrawer.open(MediaManagerPickerService)
+  }
 }

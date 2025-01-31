@@ -1,0 +1,57 @@
+<pui-table
+  [itemHeight]="64"
+  [columns]="{
+    'default': ['thumbnail', 'filename'],
+    '640': ['thumbnail', 'filename', 'size'],
+    '1280': ['thumbnail', 'filename', 'size', 'createdAt']
+  }"
+  [columnWidths]="{
+    'default': ['64px', 'minmax(0, 1fr)'],
+    '640': ['64px', 'minmax(0, 1fr)', 'minmax(0, 1fr)'],
+    '1280': ['64px', 'minmax(0, 1fr)', 'minmax(0, 1fr)', 'minmax(0, 1fr)'],
+  }"
+>
+  <pui-table-cell *puiTableCellDef="'thumbnail'; type: rowType; let item" class="p-0 justify-center">
+    @if (item.type == mediaType.FILE) {
+      @if (item.thumbnail != null) {
+        <img class="aspect-square h-16 object-cover" [src]="item.thumbnail">
+      } @else {
+        <i class="icon-8 font-variation-fill opacity-70">draft</i>
+      }
+    } @else {
+      <i class="icon-8 font-variation-fill opacity-70">folder</i>
+    }
+  </pui-table-cell>
+  <pui-table-cell *puiTableCellDef="'filename'; type: rowType; let item">
+    <span>{{ item.filename }}</span>
+  </pui-table-cell>
+  <pui-table-cell *puiTableCellDef="'size'; type: rowType; let item">
+    @if (item.sizeBytes! > 1048576) {
+      <span>{{ item.sizeBytes! / 1024 / 1024 | number: '1.0-0' }} MB</span>
+    } @else if (item.sizeBytes! > 1024) {
+      <span>{{ item.sizeBytes! / 1024 | number: '1.0-0' }} KB</span>
+    } @else if (item.sizeBytes != null) {
+      <span>{{ item.sizeBytes }} Bytes</span>
+    }
+  </pui-table-cell>
+  <pui-table-cell *puiTableCellDef="'createdAt'; type: rowType; let item" [rightAligned]="true">
+    <pui-time-display [date]="item.createdAt" [format]="'yyyy MMM dd, HH:mm'"></pui-time-display>
+  </pui-table-cell>
+
+  <pui-table-header-cell *puiTableHeaderCellDef="'thumbnail'"></pui-table-header-cell>
+  <pui-table-header-cell *puiTableHeaderCellDef="'filename'">Name</pui-table-header-cell>
+  <pui-table-header-cell *puiTableHeaderCellDef="'size'">Size</pui-table-header-cell>
+  <pui-table-header-cell *puiTableHeaderCellDef="'createdAt'" [rightAligned]="true">Date created</pui-table-header-cell>
+
+  <pui-table-body>
+    <pui-table-header-row></pui-table-header-row>
+    @for (media of processed(); track media.id) {
+      <pui-table-row
+      [item]="media"
+      puiHoverable
+      [route]="navigateWithRouter() ? ['../', media.id] : undefined"
+      (rowClick)="navigateWithRouter() ? {} : navigateTo.emit(media)"
+      ></pui-table-row>
+    }
+  </pui-table-body>
+</pui-table>

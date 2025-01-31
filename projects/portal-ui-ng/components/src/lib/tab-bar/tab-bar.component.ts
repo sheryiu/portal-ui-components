@@ -1,4 +1,6 @@
+import { NgTemplateOutlet } from '@angular/common';
 import { AfterViewInit, Component, DestroyRef, ElementRef, HostBinding, Injector, NgZone, afterNextRender, contentChildren, effect, inject, input, output, signal, viewChildren } from '@angular/core';
+import { HoverableDirective } from 'portal-ui-ng/base';
 import { TabDirective } from './tab.directive';
 
 @Component({
@@ -6,7 +8,12 @@ import { TabDirective } from './tab.directive';
   templateUrl: './tab-bar.component.html',
   host: {
     class: 'pui-tab-bar',
-  }
+  },
+  imports: [
+    NgTemplateOutlet,
+    HoverableDirective,
+  ],
+  standalone: true,
 })
 export class TabBarComponent implements AfterViewInit {
   private elementRef = inject(ElementRef) as ElementRef<HTMLElement>;

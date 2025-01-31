@@ -1,19 +1,26 @@
 <div class="flex flex-col gap-4">
-  <div class="grid gap-4" style="grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));">
-    <h3 class="col-span-full">Folders</h3>
+  <div class="grid gap-4" style="grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));">
+    @if (folders().length > 0) {
+      <h3 class="col-span-full">Folders</h3>
+    }
     @for (folder of folders(); track folder.id) {
-      <a class="basis-[280px] grow shrink-0 overflow-hidden rounded-2 bg-hover justify-start py-3 px-6 gap-3" puiBaseButton [routerLink]="['../', folder.id]">
+      <a
+        class="basis-[240px] grow shrink-0 overflow-hidden rounded-2 bg-hover justify-start py-3 px-6 gap-3"
+        puiBaseButton
+        [routerLink]="navigateWithRouter() ? ['../', folder.id] : null"
+        (click)="navigateWithRouter() ? {} : navigateTo.emit(folder)"
+      >
         <i class="icon-6 font-variation-fill opacity-70">folder</i>
         <span class="truncate">{{ folder.filename }}</span>
       </a>
     }
     <h3 class="pt-2 col-span-full">Files</h3>
     @for (file of files(); track file.id) {
-      <button class="basis-[280px] grow shrink-0 overflow-hidden rounded-2 bg-hover items-start flex-col" puiBaseButton>
+      <button class="basis-[240px] grow shrink-0 overflow-hidden rounded-2 bg-hover items-start flex-col" puiBaseButton>
         @if (file.thumbnail != null) {
-          <img [src]="file.thumbnail" class="aspect-video w-full">
+          <img [src]="file.thumbnail" class="aspect-[21/9] @screen-sm:aspect-video w-full object-cover bg-hover">
         } @else {
-          <div class="aspect-video w-full bg-hover flex justify-center items-center">
+          <div class="aspect-[21/9] @screen-sm:aspect-video w-full bg-hover flex justify-center items-center">
             <i class="icon-12 font-variation-weight-bold font-variation-fill dark:text-primary-600">files</i>
           </div>
         }
@@ -22,6 +29,11 @@
           <span class="truncate">{{ file.filename }}</span>
         </div>
       </button>
+    } @empty {
+      <div class="col-span-full flex flex-col gap-6 justify-center items-center py-12">
+        <i class="icon-24 opacity-30">document_search</i>
+        <span class="text-xl font-medium opacity-30">No files here</span>
+      </div>
     }
   </div>
 </div>

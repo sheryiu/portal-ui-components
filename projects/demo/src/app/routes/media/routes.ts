@@ -85,10 +85,6 @@ export const ROUTES: Routes = [
             path: 'file',
             children: [
               {
-                path: 'null',
-                loadComponent: () => import('./media-manager/media-manager.component').then(c => c.MediaManagerComponent),
-              },
-              {
                 path: ':folderId',
                 loadComponent: () => import('./media-manager/media-manager.component').then(c => c.MediaManagerComponent),
               },

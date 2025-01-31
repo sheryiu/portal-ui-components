@@ -52,12 +52,15 @@
     <div class="pui-card rounded-4 p-8 overflow-hidden">
       <div class="flex flex-col items-center gap-2">
         <div
-          class="p-4 rounded-full bg-neutral-500 shadow-md shadow-neutral-500 transition-colors"
+          class="p-4 rounded-full bg-neutral-500 shadow-md shadow-neutral-500 transition-colors relative"
           [style.--color-neutral-500]="customer()?.profile?.color"
         >
           <i class="icon-10 font-variation-fill">{{
             customer()?.profile?.icon
           }}</i>
+          <button puiBaseButton class="absolute size-8 rounded-full dark:bg-neutral-600 shadow-md -bottom-2 -right-2 justify-center items-center" puiTooltip="Edit" (click)="onProfilePicEdit()">
+            <i class="icon-5 font-variation-weight-extra-light">edit</i>
+          </button>
         </div>
         <h2 class="w-full text-center break-anywhere whitespace-normal">
           {{ customer()?.username ?? "---" }}

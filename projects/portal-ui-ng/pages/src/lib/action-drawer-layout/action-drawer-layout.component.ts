@@ -30,6 +30,7 @@ export class ActionDrawerLayoutComponent {
   configuration = this.dataProvider?.configuration;
 
   protected heading = computed(() => this.dataProvider.heading());
+  protected contentInputs = computed(() => this.dataProvider.contentInputs?.() ?? {});
   protected controls = this.layoutService.controls;
   protected mostEmphasizedControlId = this.layoutService.mostEmphasizedControlId;
 

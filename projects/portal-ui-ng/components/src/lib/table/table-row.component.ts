@@ -1,5 +1,5 @@
 import { NgTemplateOutlet } from '@angular/common';
-import { Component, computed, inject, input } from '@angular/core';
+import { Component, computed, inject, input, output } from '@angular/core';
 import { IsActiveMatchOptions, NavigationBehaviorOptions, RouterLink, RouterLinkActive, UrlCreationOptions } from '@angular/router';
 import { isNonNull } from 'portal-ui-ng';
 import { TableComponent } from './table.component';
@@ -31,6 +31,7 @@ import { TableComponent } from './table.component';
     [routerLinkActiveOptions]="routerLinkActiveOptions ?? { exact: false }"
     [attr.data-active]="active.isActive"
     [style.height.px]="height()"
+    (click)="rowClick.emit($event)"
   >
     @for (def of cells(); track def.columnName) {
       <ng-container [ngTemplateOutlet]="def.templateRef" [ngTemplateOutletContext]="{ $implicit: item() }"></ng-container>
@@ -46,6 +47,7 @@ export class TableRowComponent<T> {
   routerOptions = input<NavigationBehaviorOptions & UrlCreationOptions>();
   activeOptions = input<IsActiveMatchOptions | { exact: boolean; }>();
   selected = input<boolean>();
+  rowClick = output<MouseEvent>();
   height = this.table.activeItemHeight;
 
   cells = computed(() => {
