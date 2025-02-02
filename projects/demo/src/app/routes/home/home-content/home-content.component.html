@@ -1,3 +1,59 @@
 <div class="pui-card rounded-4 px-8 pt-4 pb-12">
   <h1>Home</h1>
+  <h2>Installation guide</h2>
+  <div class="flex flex-col gap-6 pt-6">
+    <h3>1. Install from NPM</h3>
+    <blockquote class="border rounded-4 overflow-auto p-4 whitespace-pre font-mono font-light text-base/6 dark:text-neutral-200">npm i portal-ui-ng&commat;&Hat;0.1.7
+npm install -D tailwindcss&commat;3 postcss autoprefixer &commat;tailwindcss/container-queries
+npx tailwindcss init
+    </blockquote>
+    <h3>2. Update tailwind.config.js</h3>
+    <blockquote class="border rounded-4 overflow-auto p-4 whitespace-pre font-mono font-light text-base/6 dark:text-neutral-200">/** &commat;type &lbrace;import('tailwindcss').Config&rbrace; */
+module.exports = &lbrace;
+&nbsp;&nbsp;content: [
+&nbsp;&nbsp;&nbsp;&nbsp;"./src/**/*.&lbrace;html,ts&rbrace;",
+&nbsp;&nbsp;],
+&nbsp;&nbsp;darkMode: "class",
+&nbsp;&nbsp;presets: [
+&nbsp;&nbsp;&nbsp;&nbsp;require('portal-ui-ng/assets/tailwind-preset.js'),
+&nbsp;&nbsp;],
+&nbsp;&nbsp;theme: &lbrace;
+&nbsp;&nbsp;&nbsp;&nbsp;extend: &lbrace;&rbrace;,
+&nbsp;&nbsp;&rbrace;,
+&nbsp;&nbsp;plugins: [
+&nbsp;&nbsp;&nbsp;&nbsp;require('&commat;tailwindcss/container-queries'),
+&nbsp;&nbsp;],
+&rbrace;
+    </blockquote>
+    <h3>3. Update styles.scss</h3>
+    <blockquote class="border rounded-4 overflow-auto p-4 whitespace-pre font-mono font-light text-base/6 dark:text-neutral-200">/* You can add global styles to this file, and also import other style files */
+&commat;use '&commat;angular/cdk/overlay-prebuilt.css';
+&commat;use '&commat;angular/cdk/text-field-prebuilt.css';
+
+&commat;use 'portal-ui-ng/assets/base';
+&commat;use 'portal-ui-ng/assets/components';
+&commat;use 'portal-ui-ng/assets/pages';
+
+&commat;tailwind base;
+&commat;tailwind components;
+&commat;tailwind utilities;
+    </blockquote>
+    <h3>4. Update app.config.ts</h3>
+    <blockquote class="border rounded-4 overflow-auto p-4 whitespace-pre font-mono font-light text-base/6 dark:text-neutral-200">import &lbrace; ApplicationConfig, provideZoneChangeDetection &rbrace; from '&commat;angular/core';
+import &lbrace; provideClientHydration, withEventReplay &rbrace; from '&commat;angular/platform-browser';
+import &lbrace; provideRouter &rbrace; from '&commat;angular/router';
+import &lbrace; providePlatformDetector, provideTheme &rbrace; from 'portal-ui-ng';
+import &lbrace; routes &rbrace; from './app.routes';
+
+export const appConfig: ApplicationConfig = &lbrace;
+&nbsp;&nbsp;providers: [
+&nbsp;&nbsp;&nbsp;&nbsp;provideZoneChangeDetection(&lbrace; eventCoalescing: true &rbrace;),
+&nbsp;&nbsp;&nbsp;&nbsp;provideRouter(routes),
+&nbsp;&nbsp;&nbsp;&nbsp;provideClientHydration(withEventReplay()),
+&nbsp;&nbsp;&nbsp;&nbsp;provideTheme(),
+&nbsp;&nbsp;&nbsp;&nbsp;providePlatformDetector()
+&nbsp;&nbsp;]
+&rbrace;;
+    </blockquote>
+  </div>
 </div>
