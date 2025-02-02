@@ -13,13 +13,12 @@ export type AutocompleteOverlayData<D> = {
 
 @Component({
   selector: 'pui-autocomplete-overlay',
-  standalone: true,
   imports: [
     NgTemplateOutlet,
     A11yModule,
     ButtonModule,
   ],
-  templateUrl: './autocomplete-overlay.component.html',
+  templateUrl: './autocomplete-overlay.component.html'
 })
 export class AutocompleteOverlayComponent<D> {
   private zone = inject(NgZone);

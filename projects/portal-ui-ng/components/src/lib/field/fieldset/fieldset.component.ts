@@ -1,13 +1,31 @@
+import { NgClass, NgTemplateOutlet } from '@angular/common';
 import { Component, contentChildren, effect, forwardRef, inject, output } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { ControlValueAccessor, FormBuilder, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { ControlValueAccessor, FormBuilder, FormsModule, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
 import { get, set } from 'lodash-es';
+import { HoverableDirective, InputFieldComponent } from 'portal-ui-ng/base';
 import { Subject } from 'rxjs';
+import { AutocompleteModule } from '../../autocomplete';
+import { CalendarTriggerDirective } from '../../calendar-trigger';
+import { ToggleComponent } from '../../form/toggle';
+import { ArrayFieldComponent } from '../array-field/array-field.component';
 import { FieldDefDirective } from '../field-def.directive';
 
 @Component({
   selector: 'pui-fieldset',
   templateUrl: './fieldset.component.html',
+  imports: [
+    FormsModule,
+    ReactiveFormsModule,
+    NgClass,
+    NgTemplateOutlet,
+    InputFieldComponent,
+    AutocompleteModule,
+    CalendarTriggerDirective,
+    ArrayFieldComponent,
+    HoverableDirective,
+    ToggleComponent,
+  ],
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,

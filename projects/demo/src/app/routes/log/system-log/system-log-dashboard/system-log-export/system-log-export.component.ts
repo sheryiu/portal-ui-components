@@ -4,7 +4,6 @@ import { DividerComponent, TimeDisplayComponent, ToggleComponent } from 'portal-
 
 @Component({
   selector: 'demo-system-log-export',
-  standalone: true,
   imports: [
     ButtonModule,
     TimeDisplayComponent,

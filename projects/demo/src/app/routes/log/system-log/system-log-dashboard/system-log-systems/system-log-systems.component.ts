@@ -5,7 +5,6 @@ import { SystemLog } from '../../../../../data/log.types';
 
 @Component({
   selector: 'demo-system-log-systems',
-  standalone: true,
   imports: [],
   templateUrl: './system-log-systems.component.html',
   styles: ``

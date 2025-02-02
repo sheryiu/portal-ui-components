@@ -7,7 +7,6 @@ import { Media } from '../../../../data/media.types';
 
 @Component({
   selector: 'demo-media-manager-toolbar',
-  standalone: true,
   imports: [TabBarModule, TooltipDirective, ButtonModule, RouterLink, NgClass],
   templateUrl: './media-manager-toolbar.component.html',
   styles: `

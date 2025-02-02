@@ -5,7 +5,6 @@ import { TableHeaderCellDefDirective } from './table-header-cell/table-header-ce
 
 @Component({
   selector: 'pui-table',
-  standalone: true,
   imports: [],
   host: {
     role: 'table',

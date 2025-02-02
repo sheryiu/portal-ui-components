@@ -6,7 +6,6 @@ import { EmployeeCalendarEvent } from '../../../../../data/user.types';
 
 @Component({
   selector: 'demo-calendar-events',
-  standalone: true,
   imports: [
     BaseButtonDirective,
     DatePipe,

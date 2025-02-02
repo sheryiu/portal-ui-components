@@ -13,7 +13,6 @@ import { EmployeeStatus } from '../../../../data/user.types';
 
 @Component({
   selector: 'demo-access-control-overall',
-  standalone: true,
   imports: [
     DividerComponent,
     NgClass,

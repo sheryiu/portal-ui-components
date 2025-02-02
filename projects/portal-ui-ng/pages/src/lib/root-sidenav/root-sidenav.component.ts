@@ -4,7 +4,6 @@ import { ButtonModule } from 'portal-ui-ng/base';
 
 @Component({
   selector: 'pui-root-sidenav',
-  standalone: true,
   imports: [
     ButtonModule,
     RouterOutlet,

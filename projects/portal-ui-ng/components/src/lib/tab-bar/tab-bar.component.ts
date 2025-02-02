@@ -12,8 +12,7 @@ import { TabDirective } from './tab.directive';
   imports: [
     NgTemplateOutlet,
     HoverableDirective,
-  ],
-  standalone: true,
+  ]
 })
 export class TabBarComponent implements AfterViewInit {
   private elementRef = inject(ElementRef) as ElementRef<HTMLElement>;

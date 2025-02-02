@@ -8,7 +8,6 @@ import { getBreadcrumb } from './breadcrumbs';
 
 @Component({
   selector: 'pui-breadcrumbs',
-  standalone: true,
   host: {
     class: 'pui-breadcrumbs',
   },
@@ -18,7 +17,7 @@ import { getBreadcrumb } from './breadcrumbs';
     HoverableDirective,
     TooltipDirective,
   ],
-  templateUrl: './breadcrumbs.component.html',
+  templateUrl: './breadcrumbs.component.html'
 })
 export class BreadcrumbsComponent {
 

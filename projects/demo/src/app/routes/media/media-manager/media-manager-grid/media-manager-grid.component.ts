@@ -5,7 +5,6 @@ import { Media, MediaType } from '../../../../data/media.types';
 
 @Component({
   selector: 'demo-media-manager-grid',
-  standalone: true,
   imports: [ButtonModule, RouterLink],
   templateUrl: './media-manager-grid.component.html',
   styles: ``

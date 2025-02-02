@@ -13,7 +13,6 @@ import { MediaManagerPickerService } from '../../../media/media-manager/media-ma
 
 @Component({
   selector: 'demo-customer-info',
-  standalone: true,
   imports: [TimeDisplayComponent, DividerComponent, TableContentComponent, ButtonModule, NgClass, TooltipDirective],
   templateUrl: './customer-info.component.html',
   styles: `

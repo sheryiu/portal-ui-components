@@ -14,7 +14,6 @@ import { TABLE_CONTENT_DATA_PROVIDER, TABLE_CONTENT_DEFAULT_CONTROLS, TableConte
 
 @Component({
   selector: 'pui-table-content',
-  standalone: true,
   imports: [
     TableModule,
     HoverableDirective,

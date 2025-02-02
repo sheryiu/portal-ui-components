@@ -5,7 +5,6 @@ import { Calendar } from 'vanilla-calendar-pro';
 
 @Component({
   selector: 'pui-calendar-overlay',
-  standalone: true,
   imports: [],
   template: `
     <div #calendar></div>

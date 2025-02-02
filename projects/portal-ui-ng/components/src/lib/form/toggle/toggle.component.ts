@@ -5,7 +5,6 @@ import { HoverableDirective } from 'portal-ui-ng/base';
 
 @Component({
   selector: 'pui-toggle',
-  standalone: true,
   imports: [
     HoverableDirective,
   ],

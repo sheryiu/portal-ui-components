@@ -14,7 +14,6 @@ import { SystemLogSystemsComponent } from "./system-log-systems/system-log-syste
 
 @Component({
   selector: 'demo-system-log-dashboard',
-  standalone: true,
   imports: [
     TooltipDirective,
     DividerComponent,

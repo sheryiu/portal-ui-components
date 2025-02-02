@@ -7,7 +7,6 @@ import { ErrorOverlayData, ErrorOverlayDuration } from '../error-overlay';
 
 @Component({
   selector: 'pui-error-overlay',
-  standalone: true,
   imports: [
     ButtonModule
   ],

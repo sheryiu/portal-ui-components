@@ -3,7 +3,6 @@ import { TabConfig, VERTICAL_LAYOUT_DATA_PROVIDER, VerticalLayoutComponent, Vert
 
 @Component({
   selector: 'demo-home',
-  standalone: true,
   imports: [
     VerticalLayoutComponent,
   ],

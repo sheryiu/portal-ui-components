@@ -9,7 +9,6 @@ import { CustomerDataService } from '../../../../data/customer-data.service';
 
 @Component({
   selector: 'demo-customer-address',
-  standalone: true,
   imports: [
     TableModule,
     HoverableDirective,

@@ -1,14 +1,12 @@
 import { DecimalPipe } from '@angular/common';
 import { Component, computed, input, output } from '@angular/core';
-import { RouterLink } from '@angular/router';
 import { HoverableDirective } from 'portal-ui-ng/base';
 import { TableModule, TimeDisplayComponent } from 'portal-ui-ng/components';
 import { Media, MediaType } from '../../../../data/media.types';
 
 @Component({
   selector: 'demo-media-manager-list',
-  standalone: true,
-  imports: [RouterLink, TableModule, HoverableDirective, DecimalPipe, TimeDisplayComponent],
+  imports: [TableModule, HoverableDirective, DecimalPipe, TimeDisplayComponent],
   templateUrl: './media-manager-list.component.html',
   styles: ``
 })

@@ -1,5 +1,5 @@
 import { DOCUMENT, isPlatformBrowser } from '@angular/common';
-import { APP_INITIALIZER, Injectable, InjectionToken, PLATFORM_ID, inject, makeEnvironmentProviders } from '@angular/core';
+import { Injectable, InjectionToken, PLATFORM_ID, inject, makeEnvironmentProviders, provideAppInitializer } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Subject, defer, filter, fromEvent, iif, map, merge, of, shareReplay, startWith, switchMap, tap } from 'rxjs';
 
@@ -18,12 +18,9 @@ export function provideTheme(options: ThemeOptions = {
       provide: THEME_OPTIONS,
       useValue: options,
     },
-    {
-      provide: APP_INITIALIZER,
-      multi: true,
-      deps: [ThemeService],
-      useFactory: () => () => of(),
-    }
+    provideAppInitializer(() => {
+      inject(ThemeService)
+    })
   ])
 }
 

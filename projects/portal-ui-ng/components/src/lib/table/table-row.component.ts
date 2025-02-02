@@ -6,7 +6,6 @@ import { TableComponent } from './table.component';
 
 @Component({
   selector: 'pui-table-row',
-  standalone: true,
   imports: [RouterLink, RouterLinkActive, NgTemplateOutlet],
   host: {
     class: 'pui-table-row',

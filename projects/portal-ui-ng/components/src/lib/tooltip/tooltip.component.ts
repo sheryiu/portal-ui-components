@@ -14,7 +14,6 @@ export type TooltipData = {
     class: 'pui-tooltip',
   },
   styles: ``,
-  standalone: true,
   imports: [
     NgComponentOutlet
   ]

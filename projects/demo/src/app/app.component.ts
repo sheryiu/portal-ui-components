@@ -9,7 +9,6 @@ import { debounceTime, filter } from 'rxjs';
 
 @Component({
   selector: 'demo-root',
-  standalone: true,
   imports: [
     ButtonModule,
     DividerComponent,
@@ -20,7 +19,7 @@ import { debounceTime, filter } from 'rxjs';
     MenuDividerDirective,
     RootSidenavComponent,
   ],
-  templateUrl: './app.component.html',
+  templateUrl: './app.component.html'
 })
 export class AppComponent {
   isNavVisible = signal(false)

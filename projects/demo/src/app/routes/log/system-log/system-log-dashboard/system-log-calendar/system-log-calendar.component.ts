@@ -5,7 +5,6 @@ import { Calendar } from 'vanilla-calendar-pro';
 
 @Component({
   selector: 'demo-system-log-calendar',
-  standalone: true,
   imports: [],
   templateUrl: './system-log-calendar.component.html',
   styles: ``

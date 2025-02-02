@@ -4,9 +4,8 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'pui-table-simple-footer',
-  standalone: true,
   imports: [],
-  template: `{{ dataCount }} Loaded`,
+  template: `{{ dataCount }} Loaded`
 })
 export class TableSimpleFooterComponent {
   private viewport = inject(CdkVirtualScrollViewport, { optional: true });

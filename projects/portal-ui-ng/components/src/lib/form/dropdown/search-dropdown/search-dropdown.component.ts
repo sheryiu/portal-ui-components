@@ -6,7 +6,6 @@ import { DropdownOverlay } from '../dropdown-overlay/dropdown-overlay.component'
 
 @Component({
   selector: 'pui-search-dropdown',
-  standalone: true,
   imports: [
     InputFieldComponent,
     A11yModule,

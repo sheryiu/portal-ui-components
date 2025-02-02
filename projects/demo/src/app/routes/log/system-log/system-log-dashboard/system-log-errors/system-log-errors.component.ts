@@ -6,7 +6,6 @@ import { SystemLog } from '../../../../../data/log.types';
 
 @Component({
   selector: 'demo-system-log-errors',
-  standalone: true,
   imports: [
     ButtonModule,
     TableModule,

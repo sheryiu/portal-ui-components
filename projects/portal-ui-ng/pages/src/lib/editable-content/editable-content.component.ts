@@ -10,7 +10,6 @@ import { EDITABLE_CONTENT_DATA_PROVIDER, EDITABLE_CONTENT_DEFAULT_CONTROLS, Edit
 
 @Component({
   selector: 'pui-editable-content',
-  standalone: true,
   imports: [
     FieldModule,
     LayoutControlDirective,

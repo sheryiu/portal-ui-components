@@ -10,7 +10,6 @@ const CHART_ORDER: string[] = ['Errors', 'Warnings', 'Infos', 'Debugs']
 
 @Component({
   selector: 'demo-system-log-chart',
-  standalone: true,
   imports: [
     TimeDisplayComponent,
     ButtonModule,

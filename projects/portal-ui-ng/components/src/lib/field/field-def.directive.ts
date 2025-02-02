@@ -4,7 +4,7 @@ import { LiteralUnion } from 'portal-ui-ng';
 type SupportedTypes = 'string' | 'number' | 'date-time' | 'boolean' | 'array';
 
 @Directive({
-  selector: 'pui-field-def',
+  selector: 'pui-field-def'
 })
 export class FieldDefDirective {
   /**

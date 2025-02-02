@@ -8,7 +8,6 @@ import { PEEKABLE_ADDON_DATA_PROVIDER } from './peekable-addon';
 
 @Component({
   selector: 'pui-peekable-addon',
-  standalone: true,
   imports: [
     RouterOutlet,
     RouterLink,

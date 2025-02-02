@@ -4,11 +4,10 @@ import { ReplaySubject } from 'rxjs';
 
 @Component({
   selector: 'pui-remove-confirm',
-  standalone: true,
   imports: [
     InputFieldComponent,
   ],
-  templateUrl: './remove-confirm.component.html',
+  templateUrl: './remove-confirm.component.html'
 })
 export class RemoveConfirmComponent implements OnDestroy {
   @Input() stringToCheck!: string;

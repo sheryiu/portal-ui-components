@@ -12,7 +12,6 @@ import { CalendarEventsComponent } from './calendar-events/calendar-events.compo
 
 @Component({
   selector: 'demo-employee-calendar-monthly',
-  standalone: true,
   imports: [
     LayoutControlDirective,
     HoverableDirective,

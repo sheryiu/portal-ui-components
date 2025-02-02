@@ -11,7 +11,6 @@ import { VERTICAL_NAVIGATION_MENU_CHILD } from './vertical-navigation-menu';
 
 @Component({
   selector: 'pui-vertical-navigation-menu',
-  standalone: true,
   imports: [
     NgTemplateOutlet,
     NgClass,

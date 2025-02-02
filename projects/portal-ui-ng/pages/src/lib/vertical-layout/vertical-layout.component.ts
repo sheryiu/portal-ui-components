@@ -12,7 +12,6 @@ import { VERTICAL_LAYOUT_DATA_PROVIDER } from './vertical-layout';
 
 @Component({
   selector: 'pui-vertical-layout',
-  standalone: true,
   imports: [
     RouterOutlet,
     BreadcrumbsComponent,
@@ -22,7 +21,7 @@ import { VERTICAL_LAYOUT_DATA_PROVIDER } from './vertical-layout';
     NgTemplateOutlet,
     PeekableAddonComponent,
     TooltipDirective,
-],
+  ],
   providers: [LayoutService],
   templateUrl: './vertical-layout.component.html',
   styles: ``,

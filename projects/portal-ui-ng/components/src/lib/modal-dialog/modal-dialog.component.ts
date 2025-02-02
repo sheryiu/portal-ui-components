@@ -43,7 +43,6 @@ export type ModalDialogData<C = undefined> = {
 
 @Component({
   selector: 'pui-modal-dialog',
-  standalone: true,
   imports: [
     NgClass,
     NgComponentOutlet,

@@ -1,4 +1,10 @@
-import { AnimationEvent, animate, style, transition, trigger } from '@angular/animations';
+import {
+  AnimationEvent,
+  animate,
+  style,
+  transition,
+  trigger,
+} from '@angular/animations';
 import { NgComponentOutlet, NgTemplateOutlet } from '@angular/common';
 import { Component, Injector, TemplateRef, inject } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
@@ -7,7 +13,6 @@ import { PuiOverlayRef } from '../pui-overlay-ref';
 
 @Component({
   selector: 'pui-overlay-container',
-  standalone: true,
   imports: [NgComponentOutlet, NgTemplateOutlet],
   templateUrl: './overlay-container.component.html',
   host: {
@@ -21,11 +26,14 @@ import { PuiOverlayRef } from '../pui-overlay-ref';
           scale: 0.95,
           translate: '0 -1rem',
         }),
-        animate('75ms ease-out', style({
-          opacity: 1,
-          scale: 1,
-          translate: '0 0',
-        }))
+        animate(
+          '75ms ease-out',
+          style({
+            opacity: 1,
+            scale: 1,
+            translate: '0 0',
+          }),
+        ),
       ]),
       transition(':leave', [
         style({
@@ -33,11 +41,14 @@ import { PuiOverlayRef } from '../pui-overlay-ref';
           scale: 1,
           translate: '0 0',
         }),
-        animate('75ms ease-out', style({
-          opacity: 0,
-          scale: 0.95,
-          translate: '0 -1rem',
-        }))
+        animate(
+          '75ms ease-out',
+          style({
+            opacity: 0,
+            scale: 0.95,
+            translate: '0 -1rem',
+          }),
+        ),
       ]),
     ]),
     trigger('appearSlideInEnd', [
@@ -46,23 +57,29 @@ import { PuiOverlayRef } from '../pui-overlay-ref';
           opacity: 0,
           translate: '4rem 0',
         }),
-        animate('125ms ease-in-out', style({
-          opacity: 1,
-          translate: '0 0',
-        }))
+        animate(
+          '125ms ease-in-out',
+          style({
+            opacity: 1,
+            translate: '0 0',
+          }),
+        ),
       ]),
       transition(':leave', [
         style({
           opacity: 1,
           translate: '0 0',
         }),
-        animate('125ms ease-in-out', style({
-          opacity: 0,
-          translate: '4rem 0',
-        }))
+        animate(
+          '125ms ease-in-out',
+          style({
+            opacity: 0,
+            translate: '4rem 0',
+          }),
+        ),
       ]),
     ]),
-  ]
+  ],
 })
 export class OverlayContainerComponent {
   private content = inject(OVERLAY_CONTENT);
@@ -76,15 +93,13 @@ export class OverlayContainerComponent {
   showing = false;
 
   constructor() {
-    this.overlayRef.afterOpened$.subscribe(() => this.showing = true);
-    this.overlayRef._close$.subscribe(() => this.showing = false);
+    this.overlayRef.afterOpened$.subscribe(() => (this.showing = true));
+    this.overlayRef._close$.subscribe(() => (this.showing = false));
     if (this.config.animation === null) {
-      this.overlayRef._close$.pipe(
-        takeUntilDestroyed()
-      ).subscribe(() => {
+      this.overlayRef._close$.pipe(takeUntilDestroyed()).subscribe(() => {
         this.overlayRef.afterClosed$.next();
         this.overlayRef.dispose();
-      })
+      });
     }
   }
 

@@ -1,7 +1,6 @@
 import { Platform } from '@angular/cdk/platform';
 import { DOCUMENT } from '@angular/common';
-import { APP_INITIALIZER, inject, Injectable, makeEnvironmentProviders } from '@angular/core';
-import { of } from 'rxjs';
+import { inject, Injectable, makeEnvironmentProviders, provideAppInitializer } from '@angular/core';
 
 /**
  * Adds a `data-os` attribute to the HTML element
@@ -13,12 +12,9 @@ import { of } from 'rxjs';
 export function providePlatformDetector() {
   return makeEnvironmentProviders([
     PlatformDetectorService,
-    {
-      provide: APP_INITIALIZER,
-      multi: true,
-      deps: [PlatformDetectorService],
-      useFactory: () => () => of(),
-    }
+    provideAppInitializer(() => {
+      inject(PlatformDetectorService);
+    })
   ])
 }
 

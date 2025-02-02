@@ -7,7 +7,6 @@ import { MediaManagerFolderComponent } from "./media-manager-folder/media-manage
 
 @Component({
   selector: 'demo-media-manager',
-  standalone: true,
   imports: [MediaManagerFolderComponent, LayoutControlDirective],
   templateUrl: './media-manager.component.html',
   styles: ``

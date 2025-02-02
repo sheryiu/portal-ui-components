@@ -9,7 +9,6 @@ import { MediaManagerToolbarComponent } from "../media-manager-toolbar/media-man
 
 @Component({
   selector: 'demo-media-manager-folder',
-  standalone: true,
   imports: [MediaManagerToolbarComponent, DividerComponent, MediaManagerGridComponent, MediaManagerListComponent],
   templateUrl: './media-manager-folder.component.html',
   styles: ``

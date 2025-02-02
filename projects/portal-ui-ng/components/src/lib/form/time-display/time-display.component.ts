@@ -4,7 +4,6 @@ import { TimeAgoPipe } from 'portal-ui-ng';
 
 @Component({
   selector: 'pui-time-display',
-  standalone: true,
   imports: [
     DatePipe,
     TimeAgoPipe,

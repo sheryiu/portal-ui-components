@@ -1,17 +1,18 @@
+import { NgTemplateOutlet } from '@angular/common';
 import { Component, ContentChild, DestroyRef, Directive, ElementRef, Injector, OnInit, TemplateRef, booleanAttribute, computed, effect, forwardRef, inject, input, output, signal, untracked } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { PuiOverlayRef, PuiOverlayService } from 'portal-ui-ng/base';
+import { HoverableDirective, PuiOverlayRef, PuiOverlayService } from 'portal-ui-ng/base';
 
 @Directive({
-  selector: '[puiDropdownTrigger]',
+  selector: '[puiDropdownTrigger]'
 })
 export class DropdownTriggerDirective {
   templateRef = inject(TemplateRef);
 }
 
 @Directive({
-  selector: '[puiDropdownOverlay]',
+  selector: '[puiDropdownOverlay]'
 })
 export class DropdownOverlayDirective {
   templateRef = inject(TemplateRef);
@@ -20,14 +21,17 @@ export class DropdownOverlayDirective {
 @Component({
   selector: 'pui-dropdown',
   templateUrl: './dropdown.component.html',
-  styles: ``,
+  imports: [
+    HoverableDirective,
+    NgTemplateOutlet,
+  ],
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
       useExisting: forwardRef(() => DropdownComponent),
       multi: true,
     }
-  ],
+  ]
 })
 export class DropdownComponent<T> implements ControlValueAccessor, OnInit {
   @ContentChild(DropdownTriggerDirective) trigger?: DropdownTriggerDirective;

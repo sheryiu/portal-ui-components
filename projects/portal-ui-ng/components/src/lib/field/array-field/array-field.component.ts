@@ -1,11 +1,18 @@
 import { Component, effect, inject, input, output } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { ControlContainer, FormBuilder, FormControl, FormRecord } from '@angular/forms';
+import { ControlContainer, FormBuilder, FormControl, FormRecord, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HoverableDirective, InputFieldComponent } from 'portal-ui-ng/base';
 import { FieldDefDirective } from '../field-def.directive';
 
 @Component({
   selector: 'pui-array-field',
   templateUrl: './array-field.component.html',
+  imports: [
+    FormsModule,
+    ReactiveFormsModule,
+    InputFieldComponent,
+    HoverableDirective,
+  ],
   styles: ``,
   host: {
     class: 'pui-array-field'

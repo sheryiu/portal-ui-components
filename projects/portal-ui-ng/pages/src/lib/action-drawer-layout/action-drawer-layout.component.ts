@@ -7,7 +7,6 @@ import { ACTION_DRAWER_LAYOUT_DATA_PROVIDER } from './action-drawer-layout';
 
 @Component({
   selector: 'pui-action-drawer-layout',
-  standalone: true,
   imports: [
     BreadcrumbsComponent,
     NgComponentOutlet,
@@ -21,7 +20,7 @@ import { ACTION_DRAWER_LAYOUT_DATA_PROVIDER } from './action-drawer-layout';
   styles: ``,
   host: {
     class: 'pui-action-drawer-layout',
-  },
+  }
 })
 export class ActionDrawerLayoutComponent {
   private overlayRef = inject(PuiOverlayRef)

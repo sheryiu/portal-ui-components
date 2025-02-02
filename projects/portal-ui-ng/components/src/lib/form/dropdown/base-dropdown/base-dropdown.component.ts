@@ -5,7 +5,6 @@ import { SearchDropdownComponent } from '../search-dropdown/search-dropdown.comp
 
 @Component({
   selector: 'pui-base-dropdown',
-  standalone: true,
   imports: [],
   templateUrl: './base-dropdown.component.html',
   styles: ``,

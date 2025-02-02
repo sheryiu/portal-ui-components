@@ -15,7 +15,6 @@ import { CustomerPickerService } from '../../../user/customer/customer-picker.se
 
 @Component({
   selector: 'demo-inventory-item-info',
-  standalone: true,
   imports: [
     HoverableDirective,
     RouterLink,
@@ -29,7 +28,7 @@ import { CustomerPickerService } from '../../../user/customer/customer-picker.se
   styles: ``,
   host: {
     class: 'contents'
-  },
+  }
 })
 export class InventoryItemInfoComponent {
   private dataService = inject(InventoryItemDataService)

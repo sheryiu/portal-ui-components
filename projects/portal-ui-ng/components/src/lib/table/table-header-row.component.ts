@@ -5,7 +5,6 @@ import { TableComponent } from './table.component';
 
 @Component({
   selector: 'pui-table-header-row',
-  standalone: true,
   imports: [NgTemplateOutlet],
   host: {
     class: 'pui-table-header-row',

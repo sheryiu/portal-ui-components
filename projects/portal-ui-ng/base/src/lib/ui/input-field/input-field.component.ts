@@ -3,7 +3,6 @@ import { HoverableDirective } from '../hoverable.directive';
 
 @Component({
   selector: 'pui-input-field',
-  standalone: true,
   imports: [],
   template: `<ng-content></ng-content>`,
   host: {

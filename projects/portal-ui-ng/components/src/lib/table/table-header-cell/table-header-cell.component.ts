@@ -5,7 +5,6 @@ import { TableHeaderCellDefDirective } from './table-header-cell-def.directive';
 
 @Component({
   selector: 'pui-table-header-cell',
-  standalone: true,
   imports: [
     HoverableDirective,
   ],
@@ -13,7 +12,7 @@ import { TableHeaderCellDefDirective } from './table-header-cell-def.directive';
     class: 'pui-table-header-cell',
     role: 'cell',
   },
-  templateUrl: './table-header-cell.component.html',
+  templateUrl: './table-header-cell.component.html'
 })
 export class TableHeaderCellComponent {
   private renderer = inject(Renderer2);
