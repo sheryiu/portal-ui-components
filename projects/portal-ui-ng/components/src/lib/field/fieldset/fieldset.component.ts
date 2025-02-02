@@ -1,5 +1,5 @@
 import { NgClass, NgTemplateOutlet } from '@angular/common';
-import { Component, contentChildren, effect, forwardRef, inject, output } from '@angular/core';
+import { Component, contentChildren, effect, forwardRef, inject, Injector, output } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ControlValueAccessor, FormBuilder, FormsModule, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
 import { get, set } from 'lodash-es';
@@ -37,6 +37,7 @@ import { FieldDefDirective } from '../field-def.directive';
 export class FieldsetComponent<T extends { [key: string | number | symbol]: any }> implements ControlValueAccessor {
   fieldDefs = contentChildren(FieldDefDirective, { descendants: true });
 
+  private injector = inject(Injector)
   private formBuilder = inject(FormBuilder);
   formControl = this.formBuilder.record({});
   valueUpdated$ = new Subject<void>();
@@ -50,6 +51,11 @@ export class FieldsetComponent<T extends { [key: string | number | symbol]: any 
     })
     effect(() => {
       this.fieldDefs().map(fieldDef => {
+        try {
+          fieldDef.key()
+        } catch (e) {
+          return;
+        }
         if (this.formControl.contains(fieldDef.base64Key())) return;
         this.formControl.addControl(fieldDef.base64Key(), this.formBuilder.control({
           disabled: this.isDisabled,
@@ -65,14 +71,14 @@ export class FieldsetComponent<T extends { [key: string | number | symbol]: any 
 
   private formControlValueForField(fieldDef: FieldDefDirective) {
     let value: any = get(this.currentValue, fieldDef.key())
-    if (fieldDef.fieldType === 'date-time' && value && value instanceof Date) {
+    if (fieldDef.fieldType() === 'date-time' && value && value instanceof Date) {
       return value.toISOString();
     }
     return value;
   }
 
   private defaultValueForType(fieldDef: FieldDefDirective) {
-    switch (fieldDef.fieldType) {
+    switch (fieldDef.fieldType()) {
       case 'string': return '';
       case 'number': return 0;
       case 'date-time': return new Date().toISOString();
@@ -95,7 +101,7 @@ export class FieldsetComponent<T extends { [key: string | number | symbol]: any 
       if (!fieldDef) continue;
       let fieldValue = formValue[key];
       try {
-        if (fieldDef.fieldType == 'date-time' && typeof fieldValue == 'string') fieldValue = new Date(fieldValue)
+        if (fieldDef.fieldType() == 'date-time' && typeof fieldValue == 'string') fieldValue = new Date(fieldValue)
       } catch (e) {
         console.warn(`String cannot be parsed as a date (value: ${ fieldValue })`, e)
       }
@@ -107,7 +113,7 @@ export class FieldsetComponent<T extends { [key: string | number | symbol]: any 
 
   protected onSetNotNull(fieldDef: FieldDefDirective) {
     if (!this.formControl.contains(fieldDef.base64Key())) return;
-    this.formControl.get(fieldDef.base64Key())?.setValue(fieldDef.defaultValue ?? this.defaultValueForType(fieldDef));
+    this.formControl.get(fieldDef.base64Key())?.setValue(fieldDef.defaultValue() ?? this.defaultValueForType(fieldDef));
     this.handleInput();
   }
 

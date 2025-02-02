@@ -49,7 +49,7 @@ export class LayoutControlDirective {
       } else {
         updateFn(config)
       }
-    }, { allowSignalWrites: true })
+    })
     this.destroyRef.onDestroy(() => {
       disposeFn?.();
     })

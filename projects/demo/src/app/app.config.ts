@@ -1,6 +1,5 @@
 import { provideHttpClient, withFetch } from '@angular/common/http';
 import { ApplicationConfig, isDevMode } from '@angular/core';
-import { provideClientHydration } from '@angular/platform-browser';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { NoPreloading, PreloadAllModules, provideRouter, withInMemoryScrolling, withPreloading, withRouterConfig } from '@angular/router';
 import { provideServiceWorker } from '@angular/service-worker';
@@ -26,7 +25,7 @@ export const appConfig: ApplicationConfig = {
       withInMemoryScrolling({ scrollPositionRestoration: 'disabled' }),
       // withViewTransitions(),
     ),
-    provideClientHydration(),
+    // provideClientHydration(),
     provideServiceWorker('ngsw-worker.js', {
       enabled: !isDevMode(),
       registrationStrategy: 'registerImmediately',

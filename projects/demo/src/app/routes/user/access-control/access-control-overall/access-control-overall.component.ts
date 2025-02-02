@@ -110,7 +110,7 @@ export class AccessControlOverallComponent {
           }
         })
       })
-    }, { allowSignalWrites: true })
+    })
   }
 
   onToggleAll(groupName: 'customer' | 'employee' | 'inventoryItem') {

@@ -1,4 +1,4 @@
-import { Directive, HostBinding, Input } from '@angular/core';
+import { Directive, input } from '@angular/core';
 import { HoverableDirective } from '../hoverable.directive';
 
 @Directive({
@@ -12,10 +12,11 @@ import { HoverableDirective } from '../hoverable.directive';
   ],
   host: {
     class: 'pui-bordered-button',
+    '[attr.data-color]': 'color()',
   },
 })
 export class BorderedButtonDirective {
-  @HostBinding('attr.data-color') @Input() color:
+  readonly color = input<
     | 'default'
     | 'primary'
     | 'accent'
@@ -37,6 +38,6 @@ export class BorderedButtonDirective {
     | 'purple'
     | 'fuchsia'
     | 'pink'
-    | 'rose' = 'default';
-
+    | 'rose'
+  >('default');
 }

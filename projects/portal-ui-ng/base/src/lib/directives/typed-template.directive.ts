@@ -1,5 +1,4 @@
-import { Directive, Input, TemplateRef, inject } from '@angular/core';
-
+import { Directive, TemplateRef, inject, input } from '@angular/core';
 
 /**
  * Declare a property in .ts like:
@@ -19,8 +18,7 @@ import { Directive, Input, TemplateRef, inject } from '@angular/core';
   standalone: true
 })
 export class TypedTemplateDirective<T> {
-  @Input('typedTemplate')
-  typeToken!: T;
+  readonly typeToken = input.required<T>({ alias: "typedTemplate" });
 
   private templateRef = inject(TemplateRef) as TemplateRef<T>;
 

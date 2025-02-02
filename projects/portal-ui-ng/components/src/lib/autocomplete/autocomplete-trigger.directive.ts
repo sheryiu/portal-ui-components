@@ -1,5 +1,5 @@
 import { FocusMonitor } from '@angular/cdk/a11y';
-import { DestroyRef, Directive, ElementRef, HostBinding, HostListener, TemplateRef, booleanAttribute, effect, inject, input, output } from '@angular/core';
+import { DestroyRef, Directive, ElementRef, TemplateRef, booleanAttribute, effect, inject, input, output } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { PuiOverlayRef, PuiOverlayService } from 'portal-ui-ng/base';
 import { AutocompleteOverlayComponent, AutocompleteOverlayData } from './autocomplete-overlay/autocomplete-overlay.component';
@@ -13,7 +13,11 @@ export type AutocompleteTriggerOverlayConfig = {
 
 @Directive({
   selector: 'input[puiAutocompleteTrigger]',
-  standalone: true
+  standalone: true,
+  host: {
+    '[attr.autocomplete]': 'hostAutocomplete',
+    '(click)': 'hostClick()'
+  }
 })
 export class AutocompleteTriggerDirective<D> {
   private overlay = inject(PuiOverlayService);
@@ -28,7 +32,7 @@ export class AutocompleteTriggerDirective<D> {
   valueFn = input<(v: D) => string>(String, { alias: 'autocompleteValueFn' })
   autocompleteChange = output<D>()
 
-  @HostBinding('attr.autocomplete') private hostAutocomplete?: string;
+  private hostAutocomplete?: string;
 
   private overlayRef?: PuiOverlayRef;
 
@@ -50,7 +54,6 @@ export class AutocompleteTriggerDirective<D> {
     })
   }
 
-  @HostListener('click')
   private hostClick() {
     this.openOverlay();
   }

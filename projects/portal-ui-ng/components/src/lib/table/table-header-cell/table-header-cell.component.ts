@@ -1,5 +1,5 @@
 import { isPlatformBrowser } from '@angular/common';
-import { Component, ElementRef, PLATFORM_ID, Renderer2, booleanAttribute, inject, input, output } from '@angular/core';
+import { Component, ElementRef, PLATFORM_ID, Renderer2, booleanAttribute, effect, inject, input, output } from '@angular/core';
 import { HoverableDirective } from 'portal-ui-ng/base';
 import { TableHeaderCellDefDirective } from './table-header-cell-def.directive';
 
@@ -27,7 +27,9 @@ export class TableHeaderCellComponent {
   constructor() {
     const elRef = inject(ElementRef) as ElementRef<HTMLElement>;
     if (this.isBrowser && elRef.nativeElement) {
-      this.renderer.addClass(elRef.nativeElement, `pui-table-column-${ this.tableCellDef.columnName }`)
+      effect(() => {
+        this.renderer.addClass(elRef.nativeElement, `pui-table-column-${ this.tableCellDef.columnName() }`)
+      })
     }
   }
 }

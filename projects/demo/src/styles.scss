@@ -1,13 +1,13 @@
-@import '@angular/cdk/overlay-prebuilt.css';
-@import '@angular/cdk/text-field-prebuilt.css';
+@use '@angular/cdk/overlay-prebuilt.css';
+@use '@angular/cdk/text-field-prebuilt.css';
 
 // @layer pui-styles {
+@use '../../portal-ui-ng/assets/base';
+@use '../../portal-ui-ng/assets/components';
+@use '../../portal-ui-ng/assets/pages';
+// }
 @tailwind base;
 @tailwind components;
-@import '../../portal-ui-ng/assets/base/index';
-@import '../../portal-ui-ng/assets/components/index';
-@import '../../portal-ui-ng/assets/pages/index';
-// }
 
 @tailwind utilities;
 

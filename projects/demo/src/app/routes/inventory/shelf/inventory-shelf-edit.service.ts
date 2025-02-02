@@ -71,7 +71,7 @@ export class InventoryShelfEditService implements EditableContentDataProvider<In
   constructor() {
     effect(() => {
       this.data.set(structuredClone(this.list()?.find(v => v.id == this.id())))
-    }, { allowSignalWrites: true })
+    })
   }
 
   private updateState?: (state: { isDisabled?: boolean; isDirty?: boolean; }) => void;

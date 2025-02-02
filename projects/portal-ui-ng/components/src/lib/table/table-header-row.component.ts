@@ -25,10 +25,10 @@ export class TableHeaderRowComponent {
     if (columns == null) return undefined;
     const cellDefs = this.table.headerCellDefs();
     return columns
-      .map(columnName => cellDefs.find(def => def.columnName == columnName))
+      .map(columnName => cellDefs.find(def => def.columnName() == columnName))
       .filter(isNonNull)
       .map(def => ({
-        columnName: def.columnName,
+        columnName: def.columnName(),
         templateRef: def.templateRef,
       }))
   })

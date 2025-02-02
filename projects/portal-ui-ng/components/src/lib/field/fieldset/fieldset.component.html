@@ -9,11 +9,11 @@
     @for (fieldDef of fieldDefs(); track $index) {
       <div class="pui-fieldset__field">
         <div class="pui-fieldset__label">
-          <label [for]="fieldDef.base64Key()">{{ fieldDef.label }}</label>
+          <label [for]="fieldDef.base64Key()">{{ fieldDef.label() }}</label>
         </div>
         <div
           class="pui-fieldset__input"
-          [ngClass]="'pui-fieldset__input--' + fieldDef.fieldType"
+          [ngClass]="'pui-fieldset__input--' + fieldDef.fieldType()"
         >
           @if (formControl.controls[fieldDef.base64Key()]) {
             @if (
@@ -32,9 +32,9 @@
               >
                 <i>edit</i>
               </button>
-            } @else if (fieldDef.templateRef) {
+            } @else if (fieldDef.templateRef()) {
               <ng-container
-                [ngTemplateOutlet]="fieldDef.templateRef"
+                [ngTemplateOutlet]="fieldDef.templateRef()!"
                 [ngTemplateOutletContext]="{
                   key: fieldDef.base64Key(),
                   formGroup: formControl,
@@ -51,7 +51,7 @@
                 <i>close</i>
               </button>
             } @else {
-              @switch (fieldDef.fieldType) {
+              @switch (fieldDef.fieldType()) {
                 @case ("string") {
                   <pui-input-field>
                     <input
@@ -61,8 +61,8 @@
                       [formControlName]="fieldDef.base64Key()"
                       (input)="handleInput()"
                       puiAutocompleteTrigger
-                      [autocompleteEnabled]="fieldDef.fieldConfig?.enum != null"
-                      [autocompleteValues]="fieldDef.fieldConfig?.enum ?? []"
+                      [autocompleteEnabled]="fieldDef.fieldConfig()?.enum != null"
+                      [autocompleteValues]="fieldDef.fieldConfig()?.enum ?? []"
                       [autocompleteTemplateRef]="enumAutocomplete"
                       (autocompleteChange)="onAutocomplete(fieldDef, $event)"
                     />
@@ -77,8 +77,8 @@
                       [formControlName]="fieldDef.base64Key()"
                       (input)="handleInput()"
                       puiAutocompleteTrigger
-                      [autocompleteEnabled]="fieldDef.fieldConfig?.enum != null"
-                      [autocompleteValues]="fieldDef.fieldConfig?.enum ?? []"
+                      [autocompleteEnabled]="fieldDef.fieldConfig()?.enum != null"
+                      [autocompleteValues]="fieldDef.fieldConfig()?.enum ?? []"
                       [autocompleteTemplateRef]="enumAutocomplete"
                       (autocompleteChange)="onAutocomplete(fieldDef, $event)"
                     />
@@ -118,7 +118,7 @@
                     <label
                       [htmlFor]="fieldDef.base64Key()"
                       class="pui-fieldset__input--boolean__remarks"
-                      >{{ fieldDef.label }}</label
+                      >{{ fieldDef.label() }}</label
                     >
                   </pui-input-field>
                 }

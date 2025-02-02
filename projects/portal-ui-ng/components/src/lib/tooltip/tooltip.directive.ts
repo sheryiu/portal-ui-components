@@ -1,6 +1,6 @@
 import { FocusMonitor } from '@angular/cdk/a11y';
 import { ConnectedPosition } from '@angular/cdk/overlay';
-import { DestroyRef, Directive, ElementRef, HostListener, Type, inject, input } from '@angular/core';
+import { DestroyRef, Directive, ElementRef, Type, inject, input } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { PuiOverlayRef, PuiOverlayService } from 'portal-ui-ng/base';
 import { TooltipComponent, TooltipData } from './tooltip.component';
@@ -21,6 +21,10 @@ const BottomPositions: ConnectedPosition[] = [
 @Directive({
   selector: '[puiTooltip]',
   standalone: true,
+  host: {
+    '(pointerover)': 'onOver()',
+    '(pointerleave)': 'onLeave()',
+  }
 })
 export class TooltipDirective {
 
@@ -46,12 +50,10 @@ export class TooltipDirective {
     })
   }
 
-  @HostListener('pointerover')
   private onOver() {
     this.showTooltip();
   }
 
-  @HostListener('pointerleave')
   private onLeave() {
     this.closeTooltip();
   }

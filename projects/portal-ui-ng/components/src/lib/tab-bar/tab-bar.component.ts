@@ -1,5 +1,5 @@
 import { NgTemplateOutlet } from '@angular/common';
-import { AfterViewInit, Component, DestroyRef, ElementRef, HostBinding, Injector, NgZone, afterNextRender, contentChildren, effect, inject, input, output, signal, viewChildren } from '@angular/core';
+import { AfterViewInit, Component, DestroyRef, ElementRef, Injector, NgZone, afterNextRender, contentChildren, effect, inject, input, output, signal, viewChildren } from '@angular/core';
 import { HoverableDirective } from 'portal-ui-ng/base';
 import { TabDirective } from './tab.directive';
 
@@ -8,6 +8,8 @@ import { TabDirective } from './tab.directive';
   templateUrl: './tab-bar.component.html',
   host: {
     class: 'pui-tab-bar',
+    '[style.--pui-selected-tab-width.px]': 'hostSelectedTabWidth()',
+    '[style.--pui-selected-tab-x.px]': 'hostSelectedTabX()',
   },
   imports: [
     NgTemplateOutlet,
@@ -22,8 +24,8 @@ export class TabBarComponent implements AfterViewInit {
   currentTab = signal<string | null>(null);
   tabChange = output<string>();
 
-  @HostBinding('style.--pui-selected-tab-width.px') hostSelectedTabWidth?: number;
-  @HostBinding('style.--pui-selected-tab-x.px') hostSelectedTabX?: number;
+  private hostSelectedTabWidth = signal(0);
+  private hostSelectedTabX = signal(0);
 
   private resizeObserver?: ResizeObserver;
   private mutationObserver?: MutationObserver;
@@ -65,7 +67,7 @@ export class TabBarComponent implements AfterViewInit {
           tab = this.tabs().at(0);
         }
         this.update(tab)
-      }, { allowSignalWrites: true, injector: this.injector })
+      }, { injector: this.injector })
     }, { injector: this.injector })
   }
 
@@ -74,15 +76,15 @@ export class TabBarComponent implements AfterViewInit {
     const el = this.tabButtonsElement().find(el => el.nativeElement.id === currentTab.id())
     if (el?.nativeElement) {
       this.currentTab.set(currentTab.id())
-      this.hostSelectedTabWidth = el?.nativeElement.getBoundingClientRect().width;
-      this.hostSelectedTabX = el?.nativeElement.offsetLeft;
+      this.hostSelectedTabWidth.set(el!.nativeElement.getBoundingClientRect().width);
+      this.hostSelectedTabX.set(el!.nativeElement.offsetLeft);
     }
   }
 
   onTabClick(index: number, tab: TabDirective, tabElement: HTMLElement) {
     this.currentTab.set(tab.id())
-    this.hostSelectedTabWidth = tabElement.getBoundingClientRect().width;
-    this.hostSelectedTabX = tabElement.offsetLeft;
+    this.hostSelectedTabWidth.set(tabElement.getBoundingClientRect().width);
+    this.hostSelectedTabX.set(tabElement.offsetLeft);
     this.tabChange.emit(tab.id());
   }
 

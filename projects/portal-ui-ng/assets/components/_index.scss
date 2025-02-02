@@ -1,15 +1,15 @@
-@import './tab-bar.scss';
-@import './table.scss';
-@import './fieldset.scss';
-@import './array-field.scss';
-@import './breadcrumbs.scss';
-@import './time-display.scss';
-@import './toggle.scss';
-@import './tooltip.scss';
-@import './vertical-navigation-menu.scss';
-@import './autocomplete.scss';
-@import './calendar.scss';
-@import './error-overlay.scss';
+@use './tab-bar.scss';
+@use './table.scss';
+@use './fieldset.scss';
+@use './array-field.scss';
+@use './breadcrumbs.scss';
+@use './time-display.scss';
+@use './toggle.scss';
+@use './tooltip.scss';
+@use './vertical-navigation-menu.scss';
+@use './autocomplete.scss';
+@use './calendar.scss';
+@use './error-overlay.scss';
 
 .pui-linear-progress-display {
   @apply w-full flex items-center gap-1 overflow-hidden;

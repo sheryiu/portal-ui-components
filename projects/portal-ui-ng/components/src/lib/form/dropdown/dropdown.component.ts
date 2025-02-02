@@ -53,7 +53,7 @@ export class DropdownComponent<T> implements ControlValueAccessor, OnInit {
       if (this.value() != null && untracked(() => this.internalValue$$()) == null) {
         this.internalValue$$.set(this.value()!);
       }
-    }, { injector: this.injector, allowSignalWrites: true })
+    }, { injector: this.injector })
   }
 
   writeValue(obj: T | null): void {

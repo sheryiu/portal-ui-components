@@ -20,6 +20,7 @@ export function provideTheme(options: ThemeOptions = {
     },
     provideAppInitializer(() => {
       inject(ThemeService)
+      return of()
     })
   ])
 }

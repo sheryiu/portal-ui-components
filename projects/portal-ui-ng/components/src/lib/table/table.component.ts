@@ -1,5 +1,5 @@
 import { isPlatformBrowser } from '@angular/common';
-import { Component, DestroyRef, ElementRef, HostBinding, Injector, NgZone, PLATFORM_ID, afterNextRender, computed, contentChildren, effect, inject, input, signal } from '@angular/core';
+import { Component, DestroyRef, ElementRef, Injector, NgZone, PLATFORM_ID, afterNextRender, computed, contentChildren, effect, inject, input, signal } from '@angular/core';
 import { TableCellDefDirective } from './table-cell/table-cell-def.directive';
 import { TableHeaderCellDefDirective } from './table-header-cell/table-header-cell-def.directive';
 
@@ -9,6 +9,10 @@ import { TableHeaderCellDefDirective } from './table-header-cell/table-header-ce
   host: {
     role: 'table',
     class: 'pui-table @container/table',
+    '[class.pui-table--single]': 'hostSingleClass',
+    '[class.pui-table--multi]': 'hostMultiClass',
+    '[style.--pui-table-columns]': 'hostColumnWidths',
+    '[style.--pui-table-number-of-columns]': 'hostNumberOfColumns'
   },
   template: `<ng-content></ng-content>`
 })
@@ -47,10 +51,10 @@ export class TableComponent {
     return itemHeight[smallestKey];
   })
 
-  @HostBinding('class.pui-table--single') private hostSingleClass = false;
-  @HostBinding('class.pui-table--multi') private hostMultiClass = false;
-  @HostBinding('style.--pui-table-columns') private hostColumnWidths: string | undefined = undefined;
-  @HostBinding('style.--pui-table-number-of-columns') private hostNumberOfColumns: number | undefined = undefined;
+  private hostSingleClass = false;
+  private hostMultiClass = false;
+  private hostColumnWidths: string | undefined = undefined;
+  private hostNumberOfColumns: number | undefined = undefined;
 
   cellDefs = contentChildren(TableCellDefDirective);
   headerCellDefs = contentChildren(TableHeaderCellDefDirective);
@@ -90,7 +94,6 @@ export class TableComponent {
   ngAfterViewInit(): void {
     if (isPlatformBrowser(this.platformId)) {
       afterNextRender(() => {
-        // const rem = parseFloat(getComputedStyle(document.documentElement).fontSize);
         const ro = new ResizeObserver((entries) => {
           this.zone.run(() => {
             const { width } = entries[0].contentRect;

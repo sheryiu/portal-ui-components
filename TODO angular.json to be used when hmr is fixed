@@ -99,7 +99,10 @@
               "projects/demo/src/styles.scss",
               "node_modules/vanilla-calendar-pro/styles/index.css"
             ],
-            "scripts": []
+            "scripts": [],
+            "server": "projects/demo/src/main.server.ts",
+            "prerender": false,
+            "ssr": true
           },
           "configurations": {
             "production": {
@@ -138,8 +141,7 @@
               "buildTarget": "demo:build:production"
             },
             "development": {
-              "buildTarget": "demo:build:development",
-              "hmr": false
+              "buildTarget": "demo:build:development"
             }
           },
           "defaultConfiguration": "development"

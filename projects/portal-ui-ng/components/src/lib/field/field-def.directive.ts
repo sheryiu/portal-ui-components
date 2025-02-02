@@ -1,4 +1,4 @@
-import { booleanAttribute, computed, Directive, input, Input, TemplateRef, Type } from '@angular/core';
+import { booleanAttribute, computed, Directive, input, TemplateRef, Type } from '@angular/core';
 import { LiteralUnion } from 'portal-ui-ng';
 
 type SupportedTypes = 'string' | 'number' | 'date-time' | 'boolean' | 'array';
@@ -12,16 +12,16 @@ export class FieldDefDirective {
    */
   key = input.required<string>();
   base64Key = computed(() => btoa(this.key()))
-  @Input() label!: string;
-  @Input() description?: string | Type<unknown>;
-  @Input() fieldType!: LiteralUnion<SupportedTypes>;
-  @Input() fieldConfig?: {
-    enum?: (string | number)[],
-    'string'?: {},
-    'number'?: {},
-  }
-  @Input() defaultValue?: any;
+  readonly label = input.required<string>();
+  readonly description = input<string | Type<unknown>>();
+  readonly fieldType = input.required<LiteralUnion<SupportedTypes>>();
+  readonly fieldConfig = input<{
+    enum?: (string | number)[];
+    'string'?: {};
+    'number'?: {};
+  }>();
+  readonly defaultValue = input<any>();
   isNullable = input(true, { transform: booleanAttribute })
 
-  @Input() templateRef?: TemplateRef<unknown>;
+  readonly templateRef = input<TemplateRef<unknown>>();
 }

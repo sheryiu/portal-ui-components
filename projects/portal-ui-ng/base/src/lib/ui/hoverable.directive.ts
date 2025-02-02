@@ -1,15 +1,13 @@
-import { Directive, HostBinding, Input, booleanAttribute } from '@angular/core';
+import { Directive, booleanAttribute, input } from '@angular/core';
 
 @Directive({
   selector: '[puiHoverable]',
   standalone: true,
   host: {
-    class: 'pui-hoverable'
-  }
+    class: 'pui-hoverable',
+    '[attr.data-enabled]': 'hoverableEnabled()',
+  },
 })
 export class HoverableDirective {
-  @HostBinding('attr.data-enabled')
-  @Input({ transform: booleanAttribute })
-  hoverableEnabled = true;
-
+  readonly hoverableEnabled = input(true, { transform: booleanAttribute });
 }

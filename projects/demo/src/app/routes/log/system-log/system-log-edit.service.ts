@@ -57,7 +57,7 @@ export class SystemLogEditService implements EditableContentDataProvider<SystemL
   constructor() {
     effect(() => {
       this.data.set(structuredClone(this.rawData()?.find(v => v.id == this.id())))
-    }, { allowSignalWrites: true })
+    })
   }
 
   private updateState?: (state: { isDisabled?: boolean; isDirty?: boolean; }) => void;

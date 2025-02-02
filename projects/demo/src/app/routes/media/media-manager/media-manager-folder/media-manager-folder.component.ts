@@ -1,4 +1,4 @@
-import { Component, computed, effect, inject, input, signal } from '@angular/core';
+import { Component, computed, effect, inject, input, linkedSignal, signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { DividerComponent } from "portal-ui-ng/components";
 import { MediaDataService } from '../../../../data/media-data.service';
@@ -16,8 +16,7 @@ import { MediaManagerToolbarComponent } from "../media-manager-toolbar/media-man
 export class MediaManagerFolderComponent {
   private dataService = inject(MediaDataService)
   folderId = input<Media['belongsInFolderId']>()
-  // TODO change to linkedSignal after changing to angular 19
-  currentFolderId = signal<string | null>(null)
+  currentFolderId = linkedSignal(this.folderId)
   navigateWithRouter = input(true)
   viewMode = signal<'grid' | 'list'>('grid')
 
@@ -44,7 +43,7 @@ export class MediaManagerFolderComponent {
   constructor() {
     effect(() => {
       this.currentFolderId.set(this.folderId() ?? null)
-    }, { allowSignalWrites: true })
+    })
   }
 
   onNavigateTo(folder: Media | null) {

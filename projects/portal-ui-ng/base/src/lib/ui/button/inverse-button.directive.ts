@@ -1,14 +1,15 @@
-import { Directive, HostBinding, Input } from '@angular/core';
+import { Directive, input } from '@angular/core';
 
 @Directive({
   selector: '[puiInverseButton]',
   standalone: true,
   host: {
     class: 'pui-inverse-button',
+    '[attr.data-color]': 'color()',
   },
 })
 export class InverseButtonDirective {
-  @HostBinding('attr.data-color') @Input() color:
+  readonly color = input<
     | 'default'
     | 'primary'
     | 'accent'
@@ -30,5 +31,6 @@ export class InverseButtonDirective {
     | 'purple'
     | 'fuchsia'
     | 'pink'
-    | 'rose' = 'default';
+    | 'rose'
+  >('default');
 }

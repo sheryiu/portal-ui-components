@@ -1,10 +1,13 @@
-import { DestroyRef, Directive, ElementRef, HostListener, inject, InjectionToken, input, output, Renderer2, Type } from '@angular/core';
+import { DestroyRef, Directive, ElementRef, inject, InjectionToken, input, output, Renderer2, Type } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { PuiOverlayRef, PuiOverlayService } from 'portal-ui-ng/base';
 
 @Directive({
   selector: '[puiCalendarTrigger]',
-  standalone: true
+  standalone: true,
+  host: {
+    '(click)': 'openOverlay()'
+  }
 })
 export class CalendarTriggerDirective {
   private overlayComponent = inject(CALENDAR_OVERLAY_COMPONENT, { optional: true });
@@ -27,7 +30,6 @@ export class CalendarTriggerDirective {
     })
   }
 
-  @HostListener('click')
   openOverlay() {
     if (this.overlayRef) {
       this.overlayRef.close();

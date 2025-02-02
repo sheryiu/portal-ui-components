@@ -57,7 +57,7 @@ export class CustomerAddressEditService implements EditableContentDataProvider<A
           ?.savedAddresses
           .at(Number(this.index()))
       ))
-    }, { allowSignalWrites: true })
+    })
   }
 
   private updateState?: (state: { isDisabled?: boolean; isDirty?: boolean; }) => void;

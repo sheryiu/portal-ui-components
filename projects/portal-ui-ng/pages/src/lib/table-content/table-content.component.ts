@@ -76,7 +76,7 @@ export class TableContentComponent<T> implements OnInit, OnDestroy {
       if (this.dataProvider.filterValue) {
         this.filterFormControl.setValue(this.dataProvider.filterValue?.(), { emitEvent: false })
       }
-    }, { allowSignalWrites: true })
+    })
   }
 
   ngOnInit(): void {
