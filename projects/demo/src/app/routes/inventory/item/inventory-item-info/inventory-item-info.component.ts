@@ -3,7 +3,7 @@ import { toSignal } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { isNonNull } from 'portal-ui-ng';
 import { ButtonModule, HoverableDirective } from 'portal-ui-ng/base';
-import { DividerComponent, TableModule, TimeDisplayComponent } from 'portal-ui-ng/components';
+import { DividerComponent, ModalDialogService, RemoveConfirmComponent, TableModule, TimeDisplayComponent } from 'portal-ui-ng/components';
 import { ACTION_DRAWER_LAYOUT_DATA_PROVIDER, ActionDrawerOverlayService, LayoutControlDirective, TABLE_CONTENT_DATA_PROVIDER } from 'portal-ui-ng/pages';
 import { map } from 'rxjs';
 import { CustomerDataService } from '../../../../data/customer-data.service';
@@ -36,6 +36,7 @@ export class InventoryItemInfoComponent {
   private inventoryShelfService = inject(InventoryShelfDataService)
   private route = inject(ActivatedRoute)
   private actionDrawer = inject(ActionDrawerOverlayService)
+  private modalDialog = inject(ModalDialogService)
   private list = toSignal(this.dataService.getList())
   private customerList = toSignal(this.customerDataService.getList())
   private inventoryShelfList = toSignal(this.inventoryShelfService.getList())
@@ -97,5 +98,26 @@ export class InventoryItemInfoComponent {
         }
       }
     )
+  }
+  onRemoveClick() {
+    const ref = this.modalDialog.open({
+      title: 'Remove Inventory Item',
+      detailsComponent: RemoveConfirmComponent,
+      onDetailsComponentAttached: (remove) => {
+        remove.setInput('stringToCheck', 'Inventory Item')
+        remove.instance.matches$.subscribe((m) => {
+          // TODO remove
+        })
+      },
+      actions: [{
+        label: 'Cancel',
+        onClick: () => {
+          ref.close()
+        }
+      }, {
+        color: 'red',
+        label: 'Confirm',
+      }]
+    })
   }
 }

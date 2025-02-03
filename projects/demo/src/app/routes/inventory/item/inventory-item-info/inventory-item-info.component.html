@@ -1,4 +1,4 @@
-<div class="@container grow">
+<div class="@container grow flex flex-col gap-8">
   <main class="pui-card rounded-4 p-8 flex flex-col gap-8">
     <div class="grid @screen-md:grid-cols-3 gap-8">
       <!-- status card -->
@@ -97,6 +97,28 @@
       </pui-table>
     }
   </main>
+  @if (isEditing()) {
+    <main class="pui-card rounded-4 p-8 flex flex-col gap-8">
+      <h2>Admin</h2>
+      <div class="flex flex-col gap-4">
+        <div class="flex flex-row items-center gap-8">
+          <div class="flex flex-col grow">
+            <span class="text-base font-medium">Mark as Expired</span>
+            <span class="text-sm dark:text-neutral-300">Set the status to expired, preventing any future modifications</span>
+          </div>
+          <button puiBorderedButton color="red" class="rounded-full px-4 py-2">Confirm</button>
+        </div>
+        <pui-divider></pui-divider>
+        <div class="flex flex-row items-center gap-8">
+          <div class="flex flex-col grow">
+            <span class="text-base font-medium">Remove Inventory Item</span>
+            <span class="text-sm dark:text-neutral-300">This action cannot be undone</span>
+          </div>
+          <button puiFilledButton color="red" class="rounded-full px-4 py-2" (click)="onRemoveClick()">Remove</button>
+        </div>
+      </div>
+    </main>
+  }
 </div>
 @if (showEditButton()) {
   @if (isEditing()) {

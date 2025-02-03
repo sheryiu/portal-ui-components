@@ -1,0 +1,42 @@
+.pui-modal-dialog-backdrop {
+  @apply bg-black/10 dark:bg-black/20 backdrop-blur-sm z-[1000];
+}
+.pui-modal-dialog {
+  @apply border shadow-lg bg-neutral-100 dark:bg-neutral-900 rounded-8 max-h-50vh max-w-95vw sm:min-w-120 sm:max-w-80vw xl:max-w-screen-lg;
+  .pui-modal-dialog__contents {
+    @apply grid px-8 py-8;
+    grid-template-columns: max-content 1fr;
+    grid-template-areas: "icon title"
+                         "placeholder details"
+                         "actions actions";
+  }
+  .pui-modal-dialog__icon {
+    grid-area: icon;
+    @apply icon-10 m-3 me-5 text-primary-600 dark:text-primary-500;
+  }
+  .pui-modal-dialog__title {
+    grid-area: title;
+    @apply pe-6 pb-2 self-center text-primary-800 dark:text-primary-200;
+  }
+  .pui-modal-dialog__details {
+    grid-area: details;
+    @apply pt-2 pb-8 text-neutral-950 dark:text-neutral-50;
+  }
+  .pui-modal-dialog__actions {
+    grid-area: actions;
+    @apply flex gap-4 justify-between;
+    > button {
+      @apply max-w-[50%] rounded-full px-6 py-3 font-medium;
+    }
+  }
+}
+
+.pui-remove-confirm {
+  @apply flex flex-col text-md/6;
+  .pui-input-field {
+    @apply mt-2;
+  }
+}
+.pui-remove-confirm__goal {
+  @apply font-mono text-neutral-700 dark:text-neutral-300;
+}

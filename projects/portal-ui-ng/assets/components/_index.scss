@@ -10,6 +10,7 @@
 @use './autocomplete.scss';
 @use './calendar.scss';
 @use './error-overlay.scss';
+@use './modal-dialog.scss';
 
 .pui-linear-progress-display {
   @apply w-full flex items-center gap-1 overflow-hidden;
@@ -48,37 +49,4 @@
 .pui-search-dropdown__suggestions {
   @apply flex flex-col overflow-auto;
   max-height: min(24rem, 80svh);
-}
-
-.pui-modal-dialog-backdrop {
-  @apply bg-black/10 dark:bg-black/20 backdrop-blur-sm z-[1000];
-}
-.pui-modal-dialog {
-  @apply border shadow-lg bg-neutral-100 dark:bg-neutral-900 rounded-2 max-h-50vh max-w-95vw sm:max-w-80vw xl:max-w-screen-lg;
-  .pui-modal-dialog__contents {
-    @apply grid px-4 py-2;
-    grid-template-columns: max-content 1fr;
-    grid-template-areas: "icon title"
-                         "placeholder details"
-                         "actions actions";
-  }
-  .pui-modal-dialog__icon {
-    grid-area: icon;
-    @apply icon-10 m-3 me-5 text-primary-600 dark:text-primary-500;
-  }
-  .pui-modal-dialog__title {
-    grid-area: title;
-    @apply pe-6 py-2 self-center text-primary-800 dark:text-primary-200;
-  }
-  .pui-modal-dialog__details {
-    grid-area: details;
-    @apply pb-3 text-primary-950 dark:text-primary-50;
-  }
-  .pui-modal-dialog__actions {
-    grid-area: actions;
-    @apply flex gap-4 justify-end py-2;
-    > button {
-      @apply grow max-w-[50%] rounded-1 px-2 py-2 font-medium;
-    }
-  }
 }
