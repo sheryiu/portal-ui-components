@@ -1,6 +1,8 @@
-import { Component, signal } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Component, inject, signal } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
 import { ButtonModule } from 'portal-ui-ng/base';
+import { debounceTime, filter } from 'rxjs';
 
 @Component({
   selector: 'pui-root-sidenav',
@@ -12,7 +14,18 @@ import { ButtonModule } from 'portal-ui-ng/base';
   styles: ``
 })
 export class RootSidenavComponent {
+  private router = inject(Router, { optional: true })
   isSidenavVisible = signal(false)
+
+  constructor() {
+    this.router?.events.pipe(
+      filter(e => e instanceof NavigationEnd),
+      debounceTime(150),
+      takeUntilDestroyed(),
+    ).subscribe(() => {
+      this.isSidenavVisible.set(false)
+    })
+  }
 
   toggleSidenav(value?: boolean) {
     this.isSidenavVisible.update((old) => value == null ? !old : value)
