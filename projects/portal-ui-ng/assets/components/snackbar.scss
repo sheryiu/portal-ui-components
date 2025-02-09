@@ -1,0 +1,35 @@
+.pui-snackbar {
+  @apply max-w-90vw min-w-80 w-screen-md rounded-2 relative overflow-hidden;
+  @apply pui-card--overlay px-4 py-2 md:px-6 md:py-2;
+  @apply dark:bg-neutral-200/70;
+  @apply border dark:border-primary-700;
+  @apply flex flex-row items-center gap-2 md:gap-3;
+}
+
+.pui-snackbar__icon {
+  @apply icon-6 font-variation-weight-light flex-none dark:text-primary-700;
+  @apply max-lg:hidden;
+}
+
+.pui-snackbar__message {
+  @apply grow text-md font-medium dark:text-neutral-900;
+}
+
+.pui-snackbar__close {
+  @apply flex-none rounded-full p-2 dark:text-primary-700;
+  --color-hover: 0 0 0;
+  i {
+    @apply icon-4 font-variation-weight-bold;
+  }
+}
+
+.pui-snackbar--error {
+  @apply dark:bg-red-50/70;
+  @apply dark:border-red-700;
+  .pui-snackbar__icon {
+    @apply dark:text-red-600;
+  }
+  .pui-snackbar__close {
+    @apply dark:text-red-600;
+  }
+}

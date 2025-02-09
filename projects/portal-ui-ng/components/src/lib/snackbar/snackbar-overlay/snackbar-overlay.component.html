@@ -1,0 +1,11 @@
+<div
+  class="pui-snackbar"
+>
+  @if (icon()) {
+    <i class="pui-snackbar__icon">{{ icon() }}</i>
+  }
+  <span class="pui-snackbar__message" [innerHTML]="message()"></span>
+  <button class="pui-snackbar__close" puiBaseButton (click)="onCloseClick()" [puiTooltip]="'Close'">
+    <i>close</i>
+  </button>
+</div>

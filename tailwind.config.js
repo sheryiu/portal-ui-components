@@ -46,7 +46,7 @@ module.exports = {
           h1: {
             "font-size": "1.75rem",
             "line-height": "2.25rem",
-            "letter-spacing": "-0.025rem",
+            "letter-spacing": "0.05rem",
             "font-family": theme("fontFamily.display"),
             "font-weight": "700",
             "text-overflow": "ellipsis",
@@ -57,7 +57,7 @@ module.exports = {
           h2: {
             "font-size": "1.75rem",
             "line-height": "2.25rem",
-            "letter-spacing": "-0.025rem",
+            "letter-spacing": "-0.05rem",
             "font-family": theme("fontFamily.display"),
             "font-weight": "500",
             "text-overflow": "ellipsis",

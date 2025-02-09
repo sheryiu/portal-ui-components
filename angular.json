@@ -138,8 +138,7 @@
               "buildTarget": "demo:build:production"
             },
             "development": {
-              "buildTarget": "demo:build:development",
-              "hmr": false
+              "buildTarget": "demo:build:development"
             }
           },
           "defaultConfiguration": "development"

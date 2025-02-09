@@ -105,7 +105,7 @@ export class InventoryItemInfoComponent {
       detailsComponent: RemoveConfirmComponent,
       onDetailsComponentAttached: (remove) => {
         remove.setInput('stringToCheck', 'Inventory Item')
-        remove.instance.matches$.subscribe((m) => {
+        remove.instance.matchChanged.subscribe((m) => {
           // TODO remove
         })
       },

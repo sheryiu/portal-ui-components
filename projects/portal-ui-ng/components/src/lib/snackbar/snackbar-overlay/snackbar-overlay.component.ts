@@ -3,18 +3,20 @@ import { ApplicationRef, Component, inject, NgZone, signal } from '@angular/core
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ButtonModule, OVERLAY_DATA, PuiOverlayRef } from 'portal-ui-ng/base';
 import { first, switchMap, timer } from 'rxjs';
-import { ErrorOverlayData, ErrorOverlayDuration } from '../error-overlay';
+import { TooltipDirective } from '../../tooltip/tooltip.directive';
+import { SnackbarData, SnackbarDuration } from '../snackbar-data';
 
 @Component({
-  selector: 'pui-error-overlay',
+  selector: 'pui-snackbar-overlay',
   imports: [
-    ButtonModule
+    ButtonModule,
+    TooltipDirective
   ],
-  templateUrl: './error-overlay.component.html',
+  templateUrl: './snackbar-overlay.component.html',
   styles: ``
 })
-export class ErrorOverlayComponent {
-  private data = inject(OVERLAY_DATA) as ErrorOverlayData;
+export class SnackbarOverlayComponent {
+  private data = inject(OVERLAY_DATA) as SnackbarData;
   private ref = inject(PuiOverlayRef)
   private applicationRef = inject(ApplicationRef)
   private zone = inject(NgZone)
@@ -24,7 +26,7 @@ export class ErrorOverlayComponent {
   icon = signal(this.data.icon)
 
   constructor() {
-    if (!(this.data.duration == ErrorOverlayDuration.INFINITE || this.document.visibilityState == 'hidden')) {
+    if (!(this.data.duration == SnackbarDuration.INFINITE || this.document.visibilityState == 'hidden')) {
       this.applicationRef.isStable.pipe(
         first(stable => stable),
         switchMap(() => timer(10_000)),

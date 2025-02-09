@@ -1,6 +1,6 @@
 import { CdkPortalOutlet, ComponentPortal, PortalModule } from '@angular/cdk/portal';
 import { NgClass, NgComponentOutlet } from '@angular/common';
-import { AfterViewInit, Component, ComponentRef, Type, ViewChild, inject } from '@angular/core';
+import { AfterViewInit, Component, ComponentRef, Signal, Type, inject, isSignal, signal, viewChild } from '@angular/core';
 import { ButtonModule, HoverableDirective, OVERLAY_DATA } from 'portal-ui-ng/base';
 
 export type ModalDialogData<C = undefined> = {
@@ -12,8 +12,8 @@ export type ModalDialogData<C = undefined> = {
   detailsHtml?: string;
   detailsComponent?: Type<C>;
   actions?: {
-    label: string;
-    disabled?: boolean;
+    label: string | Signal<string>;
+    disabled?: boolean | Signal<boolean>;
     color?:
       | 'primary'
       | 'accent'
@@ -35,7 +35,9 @@ export type ModalDialogData<C = undefined> = {
       | 'purple'
       | 'fuchsia'
       | 'pink'
-      | 'rose';
+      | 'rose'
+      | null
+      | undefined;
     onClick?: (event: MouseEvent) => void;
   }[];
   onDetailsComponentAttached?: (componentRef: ComponentRef<C>) => void;
@@ -56,12 +58,19 @@ export type ModalDialogData<C = undefined> = {
 export class ModalDialogComponent<C = undefined> implements AfterViewInit {
   data = inject(OVERLAY_DATA) as ModalDialogData<C>;
   detailsPortal = this.data.detailsComponent ? new ComponentPortal(this.data.detailsComponent) : null;
-  @ViewChild('portalOutlet') private detailsOutlet!: CdkPortalOutlet;
+  private detailsOutlet: Signal<CdkPortalOutlet> = viewChild.required('portalOutlet');
+
+  actions = (this.data.actions ?? []).map(action => ({
+    label: isSignal(action.label) ? action.label : signal(action.label),
+    disabled: isSignal(action.disabled) ? action.disabled : signal(action.disabled),
+    color: action.color,
+    onClick: action.onClick,
+  }))
 
   ngAfterViewInit(): void {
     if (this.detailsOutlet && this.detailsPortal) {
       setTimeout(() => {
-        const ref = this.detailsOutlet.attach(this.detailsPortal);
+        const ref = this.detailsOutlet().attach(this.detailsPortal);
         this.data.onDetailsComponentAttached?.(ref);
       })
     }

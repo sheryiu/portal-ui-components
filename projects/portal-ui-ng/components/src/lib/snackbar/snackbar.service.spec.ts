@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { ErrorOverlayService } from './error-overlay.service';
+import { SnackbarService } from './snackbar.service';
 
-describe('ErrorOverlayService', () => {
-  let service: ErrorOverlayService;
+describe('SnackbarService', () => {
+  let service: SnackbarService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(ErrorOverlayService);
+    service = TestBed.inject(SnackbarService);
   });
 
   it('should be created', () => {

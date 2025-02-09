@@ -1,4 +1,4 @@
-<div class="pui-modal-dialog" [ngClass]="data.dialogClass">
+<div class="pui-modal-dialog" [ngClass]="data.dialogClass" [attr.data-mode]="data.actions?.length! > 0 ? 'dialog' : 'modal'">
   <div class="pui-modal-dialog__contents">
     @if (data.icon) {
       <i class="pui-modal-dialog__icon">{{ data.icon }}</i>
@@ -8,7 +8,6 @@
       </div>
     }
     <h2 class="pui-modal-dialog__title">{{ data.title }}</h2>
-    <div><!-- placeholder --></div>
     @if (data.details) {
       <div class="pui-modal-dialog__details">
         <p>{{ data.details }}</p>
@@ -21,29 +20,29 @@
         <ng-container cdkPortalOutlet #portalOutlet="cdkPortalOutlet"></ng-container>
       </div>
     }
-    @if (data.actions && data.actions.length > 0) {
+    @if (actions.length > 0) {
       <div class="pui-modal-dialog__actions">
-        @for (action of data.actions; track $index) {
+        @for (action of actions; track $index) {
           @if (action.color == null) {
             <button
               type="button"
               puiBaseButton
-              [disabled]="!!action.disabled"
-              [hoverableEnabled]="!action.disabled"
+              [disabled]="!!action.disabled()"
+              [hoverableEnabled]="!action.disabled()"
               (click)="action.onClick?.($event)"
             >
-              {{ action.label }}
+              {{ action.label() }}
             </button>
           } @else {
             <button
               type="button"
               puiFilledButton
+              [disabled]="!!action.disabled()"
+              [hoverableEnabled]="!action.disabled()"
               [color]="action.color"
-              [disabled]="!!action.disabled"
-              [hoverableEnabled]="!action.disabled"
               (click)="action.onClick?.($event)"
             >
-              {{ action.label }}
+              {{ action.label() }}
             </button>
           }
         }

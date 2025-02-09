@@ -1,10 +1,10 @@
 import { inject, Injectable, signal } from '@angular/core';
-import { ErrorOverlayDuration, ErrorOverlayService } from 'portal-ui-ng/components';
+import { SnackbarDuration, SnackbarService } from 'portal-ui-ng/components';
 import { ColumnConfig, TableContentDataProvider } from 'portal-ui-ng/pages';
 
 @Injectable()
 export class SalaryTableService implements TableContentDataProvider<any> {
-  private errorOverlay = inject(ErrorOverlayService)
+  private snackbar = inject(SnackbarService)
 
   data = signal<any[]>([]);
   columnsConfig = signal<ColumnConfig[]>([
@@ -25,10 +25,10 @@ export class SalaryTableService implements TableContentDataProvider<any> {
   }
 
   onInit(): void {
-    this.errorOverlay.showError(
+    this.snackbar.openError(
       'Error: Unauthorized access. You do not have the necessary permissions to view this resource.<br/>Please contact your administrator.',
       {
-        duration: ErrorOverlayDuration.INFINITE,
+        duration: SnackbarDuration.INFINITE,
       }
     )
   }

@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ErrorOverlayComponent } from './error-overlay.component';
+import { SnackbarOverlayComponent } from './snackbar-overlay.component';
 
-describe('ErrorOverlayComponent', () => {
-  let component: ErrorOverlayComponent;
-  let fixture: ComponentFixture<ErrorOverlayComponent>;
+describe('SnackbarOverlayComponent', () => {
+  let component: SnackbarOverlayComponent;
+  let fixture: ComponentFixture<SnackbarOverlayComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ErrorOverlayComponent]
+      imports: [SnackbarOverlayComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(ErrorOverlayComponent);
+    fixture = TestBed.createComponent(SnackbarOverlayComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
