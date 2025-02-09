@@ -1,1 +1,0 @@
-import{ua as r}from"./chunk-IQCA3Y3N.js";import"./chunk-I76RA5B3.js";import{a as e}from"./chunk-EQDQRRRY.js";var o=[{path:"",data:e({},r({title:"Inventory"})),children:[{path:"item",loadChildren:()=>import("./chunk-6JREPM5P.js").then(t=>t.ROUTES)},{path:"shelf",loadChildren:()=>import("./chunk-AVBVVL2O.js").then(t=>t.ROUTES)}]}];export{o as ROUTES};
