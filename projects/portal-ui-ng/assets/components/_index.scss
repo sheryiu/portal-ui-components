@@ -11,6 +11,7 @@
 @use './calendar.scss';
 @use './snackbar.scss';
 @use './modal-dialog.scss';
+@use './loading-panel.scss';
 
 .pui-linear-progress-display {
   @apply w-full flex items-center gap-1 overflow-hidden;

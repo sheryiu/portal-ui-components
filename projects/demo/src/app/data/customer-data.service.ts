@@ -1,6 +1,6 @@
 import { ApplicationRef, inject, Injectable } from '@angular/core';
 import { faker } from '@faker-js/faker';
-import { BehaviorSubject, delay, first } from 'rxjs';
+import { BehaviorSubject, delay, first, timer } from 'rxjs';
 import { Address, Customer } from './user.types';
 
 @Injectable({
@@ -10,6 +10,8 @@ export class CustomerDataService {
 
   private appRef = inject(ApplicationRef);
   private list = new BehaviorSubject<Customer[]>([]);
+  private isLoading = new BehaviorSubject<boolean>(false)
+  isLoading$ = this.isLoading.asObservable();
 
   createMockAddress(): Customer['address'] {
     return {
@@ -51,9 +53,11 @@ export class CustomerDataService {
         return this.createMock();
       })
       .sort((a, b) => b.registeredSince.getTime() - a.registeredSince.getTime()))
+    this.isLoading.next(false)
   }
 
   getList() {
+    this.isLoading.next(true)
     this.appRef.isStable.pipe(
       first(stable => stable),
       delay(1000),
@@ -61,6 +65,14 @@ export class CustomerDataService {
       this.initialize();
     })
     return this.list;
+  }
+
+  refresh() {
+    this.isLoading.next(true)
+    timer(1000).subscribe(() => {
+      this.isInitialized = false;
+      this.initialize()
+    })
   }
 
   save(data: Customer) {

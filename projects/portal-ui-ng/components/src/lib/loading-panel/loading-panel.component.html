@@ -1,0 +1,17 @@
+<div class="pui-loading-panel">
+  <div class="pui-loading-panel__description">
+    <span class="pui-loading-panel__description-loading">
+      Loading
+      <span class="pui-loading-panel__dot">.</span>
+      <span class="pui-loading-panel__dot">.</span>
+      <span class="pui-loading-panel__dot">.</span>
+    </span>
+    @if (isStuck()) {
+      <ng-content select=".pui-loading-panel__stuck"></ng-content>
+    }
+  </div>
+  <div class="pui-loading-panel__icon">
+    <i>cloud</i>
+    <i>desktop_windows</i>
+  </div>
+</div>

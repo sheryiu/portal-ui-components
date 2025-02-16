@@ -7,7 +7,7 @@
     // no need to use container query to change the styling
     @apply lg:pui-card lg:rounded-4 lg:p-8;
     > div {
-      @apply flex flex-col gap-6;
+      @apply flex flex-col gap-6 relative;
     }
   }
 
@@ -44,4 +44,8 @@
     }
     @apply @screen-xs/fieldset:w-fit @screen-xs/fieldset:max-w-fit;
   }
+}
+
+.pui-table-content__content-wrapper {
+  @apply relative;
 }

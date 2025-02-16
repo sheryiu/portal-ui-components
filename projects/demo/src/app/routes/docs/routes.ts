@@ -1,10 +1,32 @@
 import { Routes } from '@angular/router';
 import { VERTICAL_LAYOUT_DATA_PROVIDER, VerticalLayoutComponent } from 'portal-ui-ng/pages';
+import { CrudSchematicsDocsService } from './crud-schematics/crud-schematics-docs.service';
+import { LoadingPanelDocsService } from './loading-panel/loading-panel-docs.service';
 import { ModalDialogDocsService } from './modal-dialog/modal-dialog-docs.service';
 import { RootSidenavDocsService } from './root-sidenav/root-sidenav-docs.service';
 import { SnackbarDocsService } from './snackbar/snackbar-docs.service';
 
 export const ROUTES: Routes = [
+  {
+    path: 'loading-panel',
+    component: VerticalLayoutComponent,
+    providers: [
+      {
+        provide: VERTICAL_LAYOUT_DATA_PROVIDER,
+        useClass: LoadingPanelDocsService,
+      }
+    ],
+    children: [
+      {
+        path: 'demo',
+        loadComponent: () => import('./loading-panel/loading-panel-demo/loading-panel-demo.component').then(c => c.LoadingPanelDemoComponent),
+      },
+      {
+        path: '**',
+        redirectTo: 'demo'
+      }
+    ]
+  },
   {
     path: 'modal-dialog',
     component: VerticalLayoutComponent,
@@ -62,6 +84,26 @@ export const ROUTES: Routes = [
       {
         path: '**',
         redirectTo: 'demo'
+      }
+    ]
+  },
+  {
+    path: 'crud-schematics',
+    component: VerticalLayoutComponent,
+    providers: [
+      {
+        provide: VERTICAL_LAYOUT_DATA_PROVIDER,
+        useClass: CrudSchematicsDocsService,
+      }
+    ],
+    children: [
+      {
+        path: 'code',
+        loadComponent: () => import('./crud-schematics/crud-schematics-code/crud-schematics-code.component').then(c => c.CrudSchematicsCodeComponent),
+      },
+      {
+        path: '**',
+        redirectTo: 'code'
       }
     ]
   }

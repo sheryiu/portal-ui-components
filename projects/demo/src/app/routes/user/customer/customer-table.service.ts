@@ -16,6 +16,7 @@ export class CustomerTableService implements TableContentDataProvider<Customer> 
   configuration = {
     useVirtualScroll: true,
   };
+  isLoading = toSignal(this.dataService.isLoading$, { initialValue: true })
   data = computed(() => (this.rawData() ?? [])
     .filter(this.filterFn())
     .toSorted(this.sortFn())
@@ -108,6 +109,10 @@ export class CustomerTableService implements TableContentDataProvider<Customer> 
             ]
           }
         )
+        break;
+      }
+      case 'refresh': {
+        this.dataService.refresh()
         break;
       }
     }

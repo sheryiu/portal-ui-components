@@ -1,7 +1,7 @@
 .pui-snackbar {
   @apply max-w-90vw min-w-80 w-screen-md rounded-2 relative overflow-hidden;
   @apply pui-card--overlay px-4 py-2 md:px-6 md:py-2;
-  @apply dark:bg-neutral-200/70;
+  @apply dark:bg-neutral-200;
   @apply border dark:border-primary-700;
   @apply flex flex-row items-center gap-2 md:gap-3;
 }
@@ -24,7 +24,7 @@
 }
 
 .pui-snackbar--error {
-  @apply dark:bg-red-50/70;
+  @apply dark:bg-red-100;
   @apply dark:border-red-700;
   .pui-snackbar__icon {
     @apply dark:text-red-600;

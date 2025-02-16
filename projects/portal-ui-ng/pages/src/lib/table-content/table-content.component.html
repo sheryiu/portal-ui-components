@@ -19,84 +19,91 @@
       </pui-fieldset>
     }
 
-    <pui-table
-      [itemHeight]="48"
-      [columns]="columnsToDisplay()"
-      [selectionMode]="selectionMode()"
-    >
+    <div class="pui-table-content__content-wrapper">
+      @if (isLoading()) {
+        <pui-loading-panel @loading></pui-loading-panel>
+      } @else {
+        <pui-table
+          @loading
+          [itemHeight]="48"
+          [columns]="columnsToDisplay()"
+          [selectionMode]="selectionMode()"
+        >
 
-      @for (config of columnConfig(); track config.key) {
-        <pui-table-header-cell
-          *puiTableHeaderCellDef="config.key"
-          [rightAligned]="config.isAlignEnd ?? false"
-          [sortedAsc]="config.isSortedAsc ?? false"
-          [sortedDesc]="config.isSortedDesc ?? false"
-          (cellClick)="onHeaderClick(config.key, $event)"
-        >{{ config.label }}</pui-table-header-cell>
-        <pui-table-cell *puiTableCellDef="config.key; let item" [rightAligned]="config.isAlignEnd ?? false">
-          @if (config.fieldConfiguration) {
-            @switch (config.fieldConfiguration.type) {
-              @case ('date-time') {
-                <pui-time-display
-                  [mode]="config.fieldConfiguration.format == 'timeAgo' ? 'timeAgo' : 'normal'"
-                  [format]="config.fieldConfiguration.format"
-                  [date]="item[config.key]"
-                ></pui-time-display>
-                @if (config.fieldConfiguration.format == 'timeAgo') {
-                  &nbsp;ago
+          @for (config of columnConfig(); track config.key) {
+            <pui-table-header-cell
+              *puiTableHeaderCellDef="config.key"
+              [rightAligned]="config.isAlignEnd ?? false"
+              [sortedAsc]="config.isSortedAsc ?? false"
+              [sortedDesc]="config.isSortedDesc ?? false"
+              (cellClick)="onHeaderClick(config.key, $event)"
+            >{{ config.label }}</pui-table-header-cell>
+            <pui-table-cell *puiTableCellDef="config.key; let item" [rightAligned]="config.isAlignEnd ?? false">
+              @if (config.fieldConfiguration) {
+                @switch (config.fieldConfiguration.type) {
+                  @case ('date-time') {
+                    <pui-time-display
+                      [mode]="config.fieldConfiguration.format == 'timeAgo' ? 'timeAgo' : 'normal'"
+                      [format]="config.fieldConfiguration.format"
+                      [date]="item[config.key]"
+                    ></pui-time-display>
+                    @if (config.fieldConfiguration.format == 'timeAgo') {
+                      &nbsp;ago
+                    }
+                  }
+                  @case ('boolean') {
+                    @let value = item | lodashGet: config.path ?? config.key;
+                    <i
+                      class="pui-table-cell__boolean-content"
+                      [class.pui-table-cell__boolean-content--true]="value === true"
+                    >{{ value === true ? 'check' : value === false ? 'close' : '' }}</i>
+                  }
+                  @default {
+                    <span>{{ item | lodashGet: config.path ?? config.key }}</span>
+                  }
                 }
-              }
-              @case ('boolean') {
-                @let value = item | lodashGet: config.path ?? config.key;
-                <i
-                  class="pui-table-cell__boolean-content"
-                  [class.pui-table-cell__boolean-content--true]="value === true"
-                >{{ value === true ? 'check' : value === false ? 'close' : '' }}</i>
-              }
-              @default {
+              } @else {
                 <span>{{ item | lodashGet: config.path ?? config.key }}</span>
               }
-            }
-          } @else {
-            <span>{{ item | lodashGet: config.path ?? config.key }}</span>
+            </pui-table-cell>
           }
-        </pui-table-cell>
-      }
 
-      <pui-table-body>
-        <pui-table-header-row></pui-table-header-row>
-        @if (configuration?.useVirtualScroll) {
-          @if (isBrowser) {
-            <!-- TODO item height -->
-            <cdk-virtual-scroll-viewport
-              [style.height.px]="data().length * 48"
-              itemSize="48"
-              scrollWindow
-            >
-              <pui-table-row
-                *cdkVirtualFor="let item of data(); trackBy: trackingFn; templateCacheSize: 0"
-                puiHoverable
-                [item]="item"
-                [route]="item[ROUTE_TO_DETAIL]"
-                [style.height.px]="48"
-                [selected]="item | isInSet: selectedItems(): cmpFn"
-                (click)="onRowClick(item)"
-              ></pui-table-row>
-            </cdk-virtual-scroll-viewport>
-          }
-        } @else {
-          @for (item of data(); track $index) {
-            <pui-table-row
-              puiHoverable
-              [item]="item"
-              [route]="item[ROUTE_TO_DETAIL]"
-              [selected]="item | isInSet: selectedItems(): cmpFn"
-              (click)="onRowClick(item)"
-            ></pui-table-row>
-          }
-        }
-      </pui-table-body>
-    </pui-table>
+          <pui-table-body>
+            <pui-table-header-row></pui-table-header-row>
+            @if (configuration?.useVirtualScroll) {
+              @if (isBrowser) {
+                <!-- TODO item height -->
+                <cdk-virtual-scroll-viewport
+                  [style.height.px]="data().length * 48"
+                  itemSize="48"
+                  scrollWindow
+                >
+                  <pui-table-row
+                    *cdkVirtualFor="let item of data(); trackBy: trackingFn; templateCacheSize: 0"
+                    puiHoverable
+                    [item]="item"
+                    [route]="item[ROUTE_TO_DETAIL]"
+                    [style.height.px]="48"
+                    [selected]="item | isInSet: selectedItems(): cmpFn"
+                    (click)="onRowClick(item)"
+                  ></pui-table-row>
+                </cdk-virtual-scroll-viewport>
+              }
+            } @else {
+              @for (item of data(); track $index) {
+                <pui-table-row
+                  puiHoverable
+                  [item]="item"
+                  [route]="item[ROUTE_TO_DETAIL]"
+                  [selected]="item | isInSet: selectedItems(): cmpFn"
+                  (click)="onRowClick(item)"
+                ></pui-table-row>
+              }
+            }
+          </pui-table-body>
+        </pui-table>
+      }
+    </div>
   </div>
 </main>
 

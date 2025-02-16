@@ -1,3 +1,4 @@
+import { animate, style, transition, trigger } from '@angular/animations';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { isPlatformBrowser } from '@angular/common';
 import { Component, computed, effect, inject, OnDestroy, OnInit, PLATFORM_ID } from '@angular/core';
@@ -6,7 +7,7 @@ import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { IsInSetPipe, LodashGetPipe } from 'portal-ui-ng';
 import { HoverableDirective } from 'portal-ui-ng/base';
-import { FieldModule, TableModule, TimeDisplayComponent } from 'portal-ui-ng/components';
+import { FieldModule, LoadingPanelComponent, TableModule, TimeDisplayComponent } from 'portal-ui-ng/components';
 import { combineLatest } from 'rxjs';
 import { flatten } from '../field-configuration';
 import { LayoutControlDirective } from '../layout/layout-control.directive';
@@ -23,12 +24,25 @@ import { TABLE_CONTENT_DATA_PROVIDER, TABLE_CONTENT_DEFAULT_CONTROLS, TableConte
     ScrollingModule,
     FieldModule,
     IsInSetPipe,
+    LoadingPanelComponent
   ],
   templateUrl: './table-content.component.html',
   styles: ``,
   host: {
     class: 'pui-table-content'
-  }
+  },
+  animations: [
+    trigger('loading', [
+      transition(':leave', [
+        style({ opacity: 1, transform: 'translateY(0)', position: 'absolute', width: '100%' }),
+        animate('250ms ease-in-out', style({ transform: 'translateY(-1rem)', opacity: 0 }))
+      ]),
+      transition(':enter', [
+        style({ opacity: 0, transform: 'translateY(1rem)', position: 'absolute', width: '100%' }),
+        animate('250ms ease-in-out', style({ transform: 'translateY(0)', opacity: 1 }))
+      ])
+    ]),
+  ]
 })
 export class TableContentComponent<T> implements OnInit, OnDestroy {
   private route = inject(ActivatedRoute);
@@ -38,6 +52,9 @@ export class TableContentComponent<T> implements OnInit, OnDestroy {
   protected readonly ROUTE_TO_DETAIL = Symbol();
   protected configuration = this.dataProvider.configuration;
 
+  protected isLoading = computed(() => {
+    return this.dataProvider.isLoading?.() ?? false;
+  })
   protected data = computed(() => {
     const data = this.dataProvider.data();
     const routeToDetail = this.dataProvider.routeToDetail;

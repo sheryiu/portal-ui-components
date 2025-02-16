@@ -21,6 +21,8 @@ export interface TableContentDataProvider<T> {
   onParamsChange?(params: Params, queryParams: Params): void;
   onInit?(): void;
   onDestroy?(): void;
+  // loading
+  isLoading?: Signal<boolean>;
   // controls
   controlsConfig?: Signal<ReadonlyArray<LayoutControlConfig>>;
   onControlClick?(key: string, event: MouseEvent): void;
