@@ -57,6 +57,7 @@ export class CustomerDataService {
   }
 
   getList() {
+    if (this.isLoading.value == true || this.list.value.length > 0) return this.list;
     this.isLoading.next(true)
     this.appRef.isStable.pipe(
       first(stable => stable),
@@ -68,6 +69,7 @@ export class CustomerDataService {
   }
 
   refresh() {
+    if (this.isLoading.value == true) return;
     this.isLoading.next(true)
     timer(1000).subscribe(() => {
       this.isInitialized = false;

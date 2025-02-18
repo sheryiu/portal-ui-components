@@ -9,13 +9,6 @@ module.exports = {
     require('./projects/portal-ui-ng/assets/tailwind-preset'),
   ],
   theme: {
-    fontSize: {
-      sm: ["0.8125rem", "1rem"],
-      base: ["0.875rem", "1.125rem"],
-      md: ["1rem", "1.25rem"],
-      xl: ["1.25rem", "1.625rem"],
-      '2xl': ["1.75rem", "2.25rem"],
-    },
     extend: {
       fontFamily: {
         sans: ["Nunito", ...defaultTheme.fontFamily.sans],

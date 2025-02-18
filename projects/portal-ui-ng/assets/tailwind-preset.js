@@ -1,3 +1,5 @@
+const defaultTheme = require("tailwindcss/defaultTheme");
+
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   theme: {
@@ -14,6 +16,16 @@ module.exports = {
       '8': '2rem',
     },
     extend: {
+      fontSize: {
+        sm: ["0.75rem", "1rem"],
+        base: ["0.875rem", "1.125rem"],
+        md: ["1rem", "1.25rem"],
+        xl: ["1.25rem", "1.625rem"],
+        '2xl': ["1.75rem", "2.25rem"],
+      },
+      fontFamily: {
+        display: [...defaultTheme.fontFamily.sans],
+      },
       zIndex: {
         100: '100',
       },

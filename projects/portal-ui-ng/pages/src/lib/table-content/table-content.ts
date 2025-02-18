@@ -40,6 +40,8 @@ export interface TableContentDataProvider<T> {
   filterConfig?: Signal<ObjectFieldConfiguration>;
   filterValue?: Signal<any>;
   onFilterChange?(value: any): void;
+  // TODO
+  // onScrolledToEnd?(): void;
 }
 
 export const TABLE_CONTENT_DEFAULT_CONTROLS: ReadonlyArray<LayoutControlConfig> = [

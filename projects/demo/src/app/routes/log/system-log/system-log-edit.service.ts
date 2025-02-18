@@ -1,6 +1,7 @@
 import { effect, inject, Injectable, signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { Params } from '@angular/router';
+import { cloneDeep } from 'lodash-es';
 import { EDITABLE_CONTENT_DEFAULT_CONTROLS, EditableContentDataProvider, ObjectFieldConfiguration } from 'portal-ui-ng/pages';
 import { SystemLog, SystemLogLevel } from '../../../data/log.types';
 import { SystemLogDataService } from '../../../data/system-log-data.service';
@@ -56,7 +57,7 @@ export class SystemLogEditService implements EditableContentDataProvider<SystemL
 
   constructor() {
     effect(() => {
-      this.data.set(structuredClone(this.rawData()?.find(v => v.id == this.id())))
+      this.data.set(cloneDeep(this.rawData()?.find(v => v.id == this.id())))
     })
   }
 
@@ -74,7 +75,7 @@ export class SystemLogEditService implements EditableContentDataProvider<SystemL
   onControlClick(key: string, event: MouseEvent): void {
     switch (key) {
       case 'refresh': {
-        this.data.set(structuredClone(this.rawData()?.find(v => v.id == this.id())))
+        this.data.set(cloneDeep(this.rawData()?.find(v => v.id == this.id())))
         break;
       }
     }

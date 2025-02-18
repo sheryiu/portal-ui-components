@@ -2,13 +2,13 @@ import { animate, style, transition, trigger } from '@angular/animations';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { isPlatformBrowser } from '@angular/common';
 import { Component, computed, effect, inject, OnDestroy, OnInit, PLATFORM_ID } from '@angular/core';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
 import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { IsInSetPipe, LodashGetPipe } from 'portal-ui-ng';
 import { HoverableDirective } from 'portal-ui-ng/base';
 import { FieldModule, LoadingPanelComponent, TableModule, TimeDisplayComponent } from 'portal-ui-ng/components';
-import { combineLatest } from 'rxjs';
+import { combineLatest, map, timer } from 'rxjs';
 import { flatten } from '../field-configuration';
 import { LayoutControlDirective } from '../layout/layout-control.directive';
 import { TABLE_CONTENT_DATA_PROVIDER, TABLE_CONTENT_DEFAULT_CONTROLS, TableContentDataProvider } from './table-content';
@@ -35,7 +35,7 @@ import { TABLE_CONTENT_DATA_PROVIDER, TABLE_CONTENT_DEFAULT_CONTROLS, TableConte
     trigger('loading', [
       transition(':leave', [
         style({ opacity: 1, transform: 'translateY(0)', position: 'absolute', width: '100%' }),
-        animate('250ms ease-in-out', style({ transform: 'translateY(-1rem)', opacity: 0 }))
+        animate('250ms ease-in-out', style({ transform: 'translateY(1rem)', opacity: 0 }))
       ]),
       transition(':enter', [
         style({ opacity: 0, transform: 'translateY(1rem)', position: 'absolute', width: '100%' }),
@@ -81,6 +81,8 @@ export class TableContentComponent<T> implements OnInit, OnDestroy {
     return flatten(config, {}, '', config.description ? `${config.description} / ` : '')
   })
   protected filterFormControl = inject(FormBuilder).nonNullable.control({} as any)
+
+  protected isInitial = toSignal(timer(100).pipe(map(() => false)), { initialValue: true })
 
   constructor() {
     combineLatest([

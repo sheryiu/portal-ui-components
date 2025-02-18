@@ -1,6 +1,7 @@
 import { computed, effect, inject, Injectable, signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { Params } from '@angular/router';
+import { cloneDeep } from 'lodash-es';
 import { EDITABLE_CONTENT_DEFAULT_CONTROLS, EDITABLE_CONTENT_DIRTY_CONTROLS, EditableContentDataProvider, ObjectFieldConfiguration } from 'portal-ui-ng/pages';
 import { EmployeeDataService } from '../../../data/employee-data.service';
 import { Employee, EmployeeDepartment, EmployeePosition, EmployeeStatus } from '../../../data/user.types';
@@ -61,7 +62,7 @@ export class EmployeeEditService implements EditableContentDataProvider<Employee
 
   constructor() {
     effect(() => {
-      this.data.set(structuredClone(this.list()?.find(v => v.id == this.id())))
+      this.data.set(cloneDeep(this.list()?.find(v => v.id == this.id())))
     })
   }
 
@@ -80,7 +81,7 @@ export class EmployeeEditService implements EditableContentDataProvider<Employee
     switch (key) {
       case 'refresh':
       case 'cancel': {
-        this.data.set(structuredClone(this.list()?.find(v => v.id == this.id())))
+        this.data.set(cloneDeep(this.list()?.find(v => v.id == this.id())))
         this.updateState!({ isDirty: false })
         break;
       }

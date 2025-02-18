@@ -24,6 +24,14 @@ const <%= uppercase(underscore(name)) %>_DETAIL_CHILDREN: Routes = [
   }
 ]
 
+const <%= uppercase(underscore(name)) %>_DETAIL_BREADCRUMB = breadcrumb({
+  titleFn: (route) => {
+    return route.params.pipe(
+      map(params => params['id'])
+    )
+  }
+})
+
 export const ROUTES: Routes = [
   {
     path: '',
@@ -36,13 +44,7 @@ export const ROUTES: Routes = [
         path: 'detail/:id',
         component: VerticalLayoutComponent,
         data: {
-          ...breadcrumb({
-            titleFn: (route) => {
-              return route.params.pipe(
-                map(params => params['id'])
-              )
-            }
-          })
+          ...<%= uppercase(underscore(name)) %>_DETAIL_BREADCRUMB,
         },
         providers: [{
           provide: VERTICAL_LAYOUT_DATA_PROVIDER,
@@ -67,13 +69,7 @@ export const ROUTES: Routes = [
             outlet: 'peek',
             component: VerticalLayoutComponent,
             data: {
-              ...breadcrumb({
-                titleFn: (route) => {
-                  return route.params.pipe(
-                    map(params => params['id'])
-                  )
-                }
-              })
+              ...<%= uppercase(underscore(name)) %>_DETAIL_BREADCRUMB,
             },
             providers: [{
               provide: VERTICAL_LAYOUT_DATA_PROVIDER,

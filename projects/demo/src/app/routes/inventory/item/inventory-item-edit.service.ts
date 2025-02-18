@@ -1,6 +1,7 @@
 import { computed, effect, inject, Injectable, signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { Params } from '@angular/router';
+import { cloneDeep } from 'lodash-es';
 import { EDITABLE_CONTENT_DEFAULT_CONTROLS, EDITABLE_CONTENT_DIRTY_CONTROLS, EditableContentDataProvider, ObjectFieldConfiguration } from 'portal-ui-ng/pages';
 import { InventoryItemDataService } from '../../../data/inventory-item-data.service';
 import { InventoryItem, InventoryItemContentType, InventoryItemStatus } from '../../../data/inventory.types';
@@ -85,7 +86,7 @@ export class InventoryItemEditService implements EditableContentDataProvider<Inv
 
   constructor() {
     effect(() => {
-      this.data.set(structuredClone(this.list()?.find(v => v.id == this.id())))
+      this.data.set(cloneDeep(this.list()?.find(v => v.id == this.id())))
     })
   }
 
@@ -104,7 +105,7 @@ export class InventoryItemEditService implements EditableContentDataProvider<Inv
     switch (key) {
       case 'refresh':
       case 'cancel': {
-        this.data.set(structuredClone(this.list()?.find(v => v.id == this.id())))
+        this.data.set(cloneDeep(this.list()?.find(v => v.id == this.id())))
         this.updateState!({ isDirty: false })
         break;
       }

@@ -1,6 +1,7 @@
 import { computed, effect, inject, Injectable, signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { Params } from '@angular/router';
+import { cloneDeep } from 'lodash-es';
 import { EDITABLE_CONTENT_DEFAULT_CONTROLS, EDITABLE_CONTENT_DIRTY_CONTROLS, EditableContentDataProvider, ObjectFieldConfiguration } from 'portal-ui-ng/pages';
 import { AccessControlDataService } from '../../../data/access-control-data.service';
 import { AccessControl } from '../../../data/user.types';
@@ -126,7 +127,7 @@ export class AccessControlEditService implements EditableContentDataProvider<Acc
 
   constructor() {
     effect(() => {
-      this.data.set(structuredClone(this.list()?.find(v => v.id == this.id())))
+      this.data.set(cloneDeep(this.list()?.find(v => v.id == this.id())))
     })
   }
 
@@ -144,7 +145,7 @@ export class AccessControlEditService implements EditableContentDataProvider<Acc
     switch (key) {
       case 'refresh':
       case 'cancel': {
-        this.data.set(structuredClone(this.list()?.find(v => v.id == this.id())))
+        this.data.set(cloneDeep(this.list()?.find(v => v.id == this.id())))
         this.updateState!({ isDirty: false })
         break;
       }

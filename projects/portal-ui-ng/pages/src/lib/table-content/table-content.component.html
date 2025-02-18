@@ -21,10 +21,11 @@
 
     <div class="pui-table-content__content-wrapper">
       @if (isLoading()) {
-        <pui-loading-panel @loading></pui-loading-panel>
+        <pui-loading-panel @loading [@.disabled]="isInitial()"></pui-loading-panel>
       } @else {
         <pui-table
           @loading
+          [@.disabled]="isInitial()"
           [itemHeight]="48"
           [columns]="columnsToDisplay()"
           [selectionMode]="selectionMode()"

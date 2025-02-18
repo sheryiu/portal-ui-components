@@ -40,7 +40,7 @@
   @apply icon-5;
 }
 .pui-vertical-navigation-menu__item__label {
-  @apply font-light truncate;
+  @apply font-light truncate self-stretch;
   &:not(:first-child) {
     @apply ps-2;
   }

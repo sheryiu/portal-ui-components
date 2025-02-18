@@ -2,7 +2,7 @@ import { NgClass, NgTemplateOutlet } from '@angular/common';
 import { Component, contentChildren, effect, forwardRef, inject, Injector, output } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ControlValueAccessor, FormBuilder, FormsModule, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
-import { get, set } from 'lodash-es';
+import { cloneDeep, get, set } from 'lodash-es';
 import { HoverableDirective, InputFieldComponent } from 'portal-ui-ng/base';
 import { Subject } from 'rxjs';
 import { AutocompleteModule } from '../../autocomplete';
@@ -90,7 +90,7 @@ export class FieldsetComponent<T extends { [key: string | number | symbol]: any 
   }
 
   handleInput() {
-    let newValue: any = structuredClone(this.currentValue);
+    let newValue: any = cloneDeep(this.currentValue);
     if (newValue == null) newValue = {};
     const formValue = this.formControl.getRawValue();
     for (const key in formValue) {
@@ -138,7 +138,7 @@ export class FieldsetComponent<T extends { [key: string | number | symbol]: any 
   //#region ControlValueAccessor
   private currentValue: T | null | undefined;
   writeValue(obj: T | null | undefined): void {
-    this.currentValue = structuredClone(obj);
+    this.currentValue = cloneDeep(obj);
     if (this.currentValue == null) {
       this.formControl.reset();
     } else {

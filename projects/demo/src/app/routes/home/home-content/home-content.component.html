@@ -14,6 +14,7 @@ module.exports = &lbrace;
 &nbsp;&nbsp;&nbsp;&nbsp;"./src/**/*.&lbrace;html,ts&rbrace;",
 &nbsp;&nbsp;],
 &nbsp;&nbsp;darkMode: "class",
+&nbsp;&nbsp;safelist: ['dark'],
 &nbsp;&nbsp;presets: [
 &nbsp;&nbsp;&nbsp;&nbsp;require('portal-ui-ng/assets/tailwind-preset.js'),
 &nbsp;&nbsp;],
@@ -29,11 +30,9 @@ module.exports = &lbrace;
     <blockquote class="border rounded-4 overflow-auto p-4 whitespace-pre font-mono font-light text-base/6 dark:text-neutral-200">/* You can add global styles to this file, and also import other style files */
 &commat;use '&commat;angular/cdk/overlay-prebuilt.css';
 &commat;use '&commat;angular/cdk/text-field-prebuilt.css';
-
 &commat;use 'portal-ui-ng/assets/base';
 &commat;use 'portal-ui-ng/assets/components';
 &commat;use 'portal-ui-ng/assets/pages';
-
 &commat;tailwind base;
 &commat;tailwind components;
 &commat;tailwind utilities;
@@ -44,7 +43,6 @@ import &lbrace; provideClientHydration, withEventReplay &rbrace; from '&commat;a
 import &lbrace; provideRouter &rbrace; from '&commat;angular/router';
 import &lbrace; providePlatformDetector, provideTheme &rbrace; from 'portal-ui-ng';
 import &lbrace; routes &rbrace; from './app.routes';
-
 export const appConfig: ApplicationConfig = &lbrace;
 &nbsp;&nbsp;providers: [
 &nbsp;&nbsp;&nbsp;&nbsp;provideZoneChangeDetection(&lbrace; eventCoalescing: true &rbrace;),
