@@ -17,14 +17,16 @@ export class CalendarTriggerDirective {
   private destroyRef = inject(DestroyRef)
 
   date = input<string | Date | null | undefined>();
-  dateChange = output<Date>();
+  dateChange = output<Date | null>();
   private overlayRef?: PuiOverlayRef;
   private dateElement?: HTMLInputElement;
 
   constructor() {
     this.destroyRef.onDestroy(() => {
-      this.dateElement?.remove();
-      this.dateElement = undefined;
+      try {
+        this.dateElement?.remove();
+        this.dateElement = undefined;
+      } catch (e) {}
       this.overlayRef?.close();
       this.overlayRef = undefined;
     })
@@ -77,10 +79,14 @@ export class CalendarTriggerDirective {
         this.dateElement.focus();
         this.dateElement.showPicker();
         this.dateElement.addEventListener('input', () => {
-          this.dateChange.emit(new Date(this.dateElement!.valueAsNumber + new Date().getTimezoneOffset() * 60_000))
+          if (isNaN(this.dateElement!.valueAsNumber)) {
+            this.dateChange.emit(null)
+          } else {
+            this.dateChange.emit(new Date(this.dateElement!.valueAsNumber + new Date().getTimezoneOffset() * 60_000))
+          }
         })
         this.dateElement.addEventListener('blur', () => {
-          this.dateElement!.remove()
+          this.dateElement?.remove()
         })
       }
     }

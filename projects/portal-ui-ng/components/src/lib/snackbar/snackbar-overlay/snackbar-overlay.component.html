@@ -4,7 +4,12 @@
   @if (icon()) {
     <i class="pui-snackbar__icon">{{ icon() }}</i>
   }
-  <span class="pui-snackbar__message" [innerHTML]="message()"></span>
+  <span
+    class="pui-snackbar__message"
+    [attr.data-truncated]="isTruncated()"
+    [innerHTML]="message()"
+    (click)="toggleTruncated()"
+  ></span>
   <button class="pui-snackbar__close" puiBaseButton (click)="onCloseClick()" [puiTooltip]="'Close'">
     <i>close</i>
   </button>

@@ -6,6 +6,7 @@ import { EDITABLE_CONTENT_DEFAULT_CONTROLS, EDITABLE_CONTENT_DIRTY_CONTROLS, Edi
 export class <%= classify(name) %>EditService implements EditableContentDataProvider<<%= classify(name) %>> {
   private id = signal<string | undefined>(undefined);
   private isDirty = signal(false);
+  private isDisabled = signal(false);
   private updatedValue = signal<any>(undefined);
 
   data = signal<<%= classify(name) %> | undefined>(
@@ -19,8 +20,8 @@ export class <%= classify(name) %>EditService implements EditableContentDataProv
     }
   });
   controlsConfig = computed(() => {
-    if (this.isDirty()) return EDITABLE_CONTENT_DIRTY_CONTROLS;
-    else return EDITABLE_CONTENT_DEFAULT_CONTROLS;
+    if (this.isDirty()) return EDITABLE_CONTENT_DIRTY_CONTROLS.map(btn => ({ ...btn, isDisabled: this.isDisabled() }));
+    else return EDITABLE_CONTENT_DEFAULT_CONTROLS.map(btn => ({ ...btn, isDisabled: this.isDisabled() }));
   });
 
   private updateState?: (state: { isDisabled?: boolean; isDirty?: boolean; }) => void;
@@ -30,6 +31,7 @@ export class <%= classify(name) %>EditService implements EditableContentDataProv
 
   onStateChange(state: { isValid?: boolean; isDisabled?: boolean; isDirty?: boolean; }): void {
     this.isDirty.update(isDirty => state.isDirty ?? isDirty)
+    this.isDisabled.update(isDisabled => state.isDisabled ?? isDisabled)
   }
   onValueChange(value: any): void {
     this.updatedValue.set(value)
@@ -41,7 +43,7 @@ export class <%= classify(name) %>EditService implements EditableContentDataProv
         break;
       }
       case 'cancel': {
-        // TODO on refresh click
+        // TODO on cancel click
         this.updateState!({ isDirty: false });
         break;
       }

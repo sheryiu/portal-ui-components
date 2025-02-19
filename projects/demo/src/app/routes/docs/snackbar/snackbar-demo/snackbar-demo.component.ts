@@ -1,4 +1,5 @@
 import { Component, inject } from '@angular/core';
+import { faker } from '@faker-js/faker';
 import { ButtonModule } from 'portal-ui-ng/base';
 import { SnackbarDuration, SnackbarService } from 'portal-ui-ng/components';
 
@@ -24,7 +25,7 @@ export class SnackbarDemoComponent {
 
   openSnackbarWithIcon() {
     this.snackbar.open(
-      'Lorem Ipsum',
+      faker.lorem.paragraphs(500),
       {
         icon: 'home',
         duration: SnackbarDuration.INFINITE

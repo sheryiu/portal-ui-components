@@ -26,6 +26,7 @@
               <button
                 puiHoverable
                 (click)="onSetNotNull(fieldDef)"
+                [disabled]="isDisabled"
                 role="button"
                 type="button"
                 class="pui-fieldset__null__add"
@@ -47,6 +48,7 @@
                 role="button"
                 (click)="onSetNull(fieldDef)"
                 class="pui-fieldset__input__remove"
+                [disabled]="isDisabled"
               >
                 <i>close</i>
               </button>
@@ -139,6 +141,7 @@
                   role="button"
                   (click)="onSetNull(fieldDef)"
                   class="pui-fieldset__input__remove"
+                  [disabled]="isDisabled"
                 >
                   <i>close</i>
                 </button>

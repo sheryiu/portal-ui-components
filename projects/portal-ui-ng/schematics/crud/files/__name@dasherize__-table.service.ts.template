@@ -12,6 +12,7 @@ export class <%= classify(name) %>TableService implements TableContentDataProvid
   configuration = {
     useVirtualScroll: true,
   };
+  isLoading = signal(false);
   data = computed(() => {
     const rawData = this.rawData();
     return rawData

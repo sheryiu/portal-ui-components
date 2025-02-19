@@ -13,6 +13,9 @@
 
 .pui-snackbar__message {
   @apply grow text-md font-medium dark:text-neutral-900;
+  &[data-truncated=true] {
+    @apply line-clamp-4;
+  }
 }
 
 .pui-snackbar__close {

@@ -44,6 +44,14 @@ export interface TableContentDataProvider<T> {
   // onScrolledToEnd?(): void;
 }
 
+export const TABLE_CONTENT_REFRESH_ONLY_CONTROLS: ReadonlyArray<LayoutControlConfig> = [
+  {
+    id: 'refresh',
+    label: 'Refresh',
+    icon: 'refresh',
+    mode: 'low-emphasis'
+  }
+]
 export const TABLE_CONTENT_DEFAULT_CONTROLS: ReadonlyArray<LayoutControlConfig> = [
   {
     id: 'refresh',

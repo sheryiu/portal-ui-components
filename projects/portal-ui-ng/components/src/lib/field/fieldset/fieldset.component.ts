@@ -1,5 +1,5 @@
 import { NgClass, NgTemplateOutlet } from '@angular/common';
-import { Component, contentChildren, effect, forwardRef, inject, Injector, output } from '@angular/core';
+import { Component, contentChildren, effect, forwardRef, inject, output } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ControlValueAccessor, FormBuilder, FormsModule, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
 import { cloneDeep, get, set } from 'lodash-es';
@@ -37,7 +37,6 @@ import { FieldDefDirective } from '../field-def.directive';
 export class FieldsetComponent<T extends { [key: string | number | symbol]: any }> implements ControlValueAccessor {
   fieldDefs = contentChildren(FieldDefDirective, { descendants: true });
 
-  private injector = inject(Injector)
   private formBuilder = inject(FormBuilder);
   formControl = this.formBuilder.record({});
   valueUpdated$ = new Subject<void>();
@@ -50,28 +49,26 @@ export class FieldsetComponent<T extends { [key: string | number | symbol]: any 
       this.handleInput();
     })
     effect(() => {
-      this.fieldDefs().map(fieldDef => {
-        try {
-          fieldDef.key()
-        } catch (e) {
-          return;
-        }
-        if (this.formControl.contains(fieldDef.base64Key())) return;
-        this.formControl.addControl(fieldDef.base64Key(), this.formBuilder.control({
-          disabled: this.isDisabled,
-          value: this.formControlValueForField(fieldDef)
-        }));
-      })
-      Object.keys(this.formControl.controls).map(name => {
-        if (this.fieldDefs().some(f => f.base64Key() === name)) return;
-        this.formControl.removeControl(name);
+      const defs = this.fieldDefs();
+      setTimeout(() => {
+        this.fieldDefs().map(fieldDef => {
+          if (this.formControl.contains(fieldDef.base64Key())) return;
+          this.formControl.addControl(fieldDef.base64Key(), this.formBuilder.control({
+            disabled: this.isDisabled,
+            value: this.formControlValueForField(fieldDef)
+          }));
+        })
+        Object.keys(this.formControl.controls).map(name => {
+          if (this.fieldDefs().some(f => f.base64Key() === name)) return;
+          this.formControl.removeControl(name);
+        })
       })
     })
   }
 
   private formControlValueForField(fieldDef: FieldDefDirective) {
     let value: any = get(this.currentValue, fieldDef.key())
-    if (fieldDef.fieldType() === 'date-time' && value && value instanceof Date) {
+    if (fieldDef.fieldType() === 'date-time' && value && value instanceof Date && !isNaN(value.getTime())) {
       return value.toISOString();
     }
     return value;
@@ -129,9 +126,9 @@ export class FieldsetComponent<T extends { [key: string | number | symbol]: any 
     this.handleInput();
   }
 
-  protected onDateChange(fieldDef: FieldDefDirective, value: Date) {
+  protected onDateChange(fieldDef: FieldDefDirective, value: Date | null) {
     if (!this.formControl.contains(fieldDef.base64Key())) return;
-    this.formControl.get(fieldDef.base64Key())?.setValue(value.toISOString());
+    this.formControl.get(fieldDef.base64Key())?.setValue(value ? value.toISOString() : null);
     this.handleInput();
   }
 

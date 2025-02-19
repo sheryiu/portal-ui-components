@@ -72,8 +72,8 @@ export class AutocompleteTriggerDirective<D> {
         positionStrategy: this.overlay.position()
           .flexibleConnectedTo(this.elementRef.nativeElement)
           .withPositions([
-            { overlayX: 'start', overlayY: 'top', originX: 'start', originY: 'bottom', offsetY: 16 },
-            { overlayX: 'start', overlayY: 'bottom', originX: 'start', originY: 'top', offsetY: -16 },
+            { overlayX: 'start', overlayY: 'top', originX: 'start', originY: 'bottom', offsetY: 8 },
+            { overlayX: 'start', overlayY: 'bottom', originX: 'start', originY: 'top', offsetY: -8 },
           ])
           .withPush(false)
           .withViewportMargin(8),

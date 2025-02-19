@@ -47,8 +47,9 @@
   @apply py-1 ps-1;
 }
 .pui-fieldset__input--boolean__remarks {
+  @apply flex items-center h-full;
   @apply text-sm text-neutral-800 dark:text-neutral-200 cursor-pointer;
-  @apply ps-3 pe-3 grow break-anywhere;
+  @apply ps-3 pe-3 grow break-anywhere truncate;
 }
 
 .pui-fieldset__null {

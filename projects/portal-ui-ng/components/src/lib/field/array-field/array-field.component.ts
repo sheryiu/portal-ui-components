@@ -1,4 +1,4 @@
-import { Component, effect, inject, input, output } from '@angular/core';
+import { Component, DestroyRef, effect, inject, input, output } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ControlContainer, FormBuilder, FormControl, FormRecord, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HoverableDirective, InputFieldComponent } from 'portal-ui-ng/base';
@@ -19,6 +19,7 @@ import { FieldDefDirective } from '../field-def.directive';
   }
 })
 export class ArrayFieldComponent {
+  private destroyRef = inject(DestroyRef)
   def = input.required<FieldDefDirective>()
   formRecord = inject(ControlContainer).control as FormRecord<FormControl<unknown>>;
   valueChange = output();
@@ -30,12 +31,15 @@ export class ArrayFieldComponent {
       const value = this.formRecord.controls[this.def().base64Key()].getRawValue();
       this.arrayLengthControl.setValue(Array.isArray(value) ? value.length : 0);
     })
-    this.formRecord.events.pipe(
-      takeUntilDestroyed()
-    ).subscribe(() => {
-      const value = this.formRecord.controls[this.def().base64Key()].getRawValue();
-      this.arrayLengthControl.setValue(Array.isArray(value) ? value.length : 0);
-    })
+    const ref = effect(() => {
+      this.formRecord.events.pipe(
+        takeUntilDestroyed(this.destroyRef)
+      ).subscribe(() => {
+        const value = this.formRecord.controls[this.def().base64Key()].getRawValue();
+        this.arrayLengthControl.setValue(Array.isArray(value) ? value.length : 0);
+      })
+    }, { manualCleanup: true })
+    this.destroyRef.onDestroy(() => ref.destroy())
   }
 
   handleInput() {

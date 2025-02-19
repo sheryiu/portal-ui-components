@@ -24,6 +24,7 @@ export class SnackbarErrorComponent {
 
   message = signal(typeof this.data.message == 'string' ? this.data.message : `${this.data.message.name}: ${this.data.message.message}`)
   icon = signal(this.data.icon)
+  isTruncated = signal(true)
 
   constructor() {
     if (!(this.data.duration == SnackbarDuration.INFINITE || this.document.visibilityState == 'hidden')) {
@@ -41,5 +42,9 @@ export class SnackbarErrorComponent {
 
   onCloseClick() {
     this.ref.close();
+  }
+
+  toggleTruncated() {
+    this.isTruncated.update(t => !t)
   }
 }

@@ -24,6 +24,7 @@ export class SnackbarOverlayComponent {
 
   message = signal(this.data.message)
   icon = signal(this.data.icon)
+  isTruncated = signal(true)
 
   constructor() {
     if (!(this.data.duration == SnackbarDuration.INFINITE || this.document.visibilityState == 'hidden')) {
@@ -41,5 +42,9 @@ export class SnackbarOverlayComponent {
 
   onCloseClick() {
     this.ref.close();
+  }
+
+  toggleTruncated() {
+    this.isTruncated.update(t => !t)
   }
 }

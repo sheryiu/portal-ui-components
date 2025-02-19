@@ -5,7 +5,7 @@
       puiBaseButton
       role="option"
       (click)="selectValue(item[0])"
-      [attr.data-selected]="selectedOption === options"
+      [attr.data-selected]="selectedOption() === options"
     >
       <div>
         <ng-container

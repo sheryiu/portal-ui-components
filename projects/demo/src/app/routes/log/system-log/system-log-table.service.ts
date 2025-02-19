@@ -79,6 +79,10 @@ export class SystemLogTableService implements TableContentDataProvider<SystemLog
       message: {
         type: 'string',
         description: 'Message',
+      },
+      after: {
+        type: 'date-time',
+        description: 'After'
       }
     }
   })
@@ -86,6 +90,7 @@ export class SystemLogTableService implements TableContentDataProvider<SystemLog
     id?: string;
     level?: SystemLogLevel;
     message?: string;
+    after?: Date;
   }>({})
 
   private sortFn = computed<(a: SystemLog, b: SystemLog) => number>(() => {
@@ -96,6 +101,7 @@ export class SystemLogTableService implements TableContentDataProvider<SystemLog
       id: (item, key, value) => !!value && item.id == value,
       message: (item, key, value) => !!value && item.message.includes(value),
       level: (item, key, value) => !!value && item.level == value,
+      after: (item, key, value) => !!value && item.timestamp > value,
     })
   })
 

@@ -1,6 +1,6 @@
 import { A11yModule } from '@angular/cdk/a11y';
 import { NgTemplateOutlet } from '@angular/common';
-import { Component, DestroyRef, ElementRef, NgZone, TemplateRef, afterNextRender, effect, inject, viewChildren } from '@angular/core';
+import { Component, DestroyRef, ElementRef, NgZone, TemplateRef, afterNextRender, computed, inject, signal, viewChildren } from '@angular/core';
 import { ButtonModule, OVERLAY_DATA } from 'portal-ui-ng/base';
 
 export type AutocompleteOverlayData<D> = {
@@ -25,9 +25,14 @@ export class AutocompleteOverlayComponent<D> {
   private destroyRef = inject(DestroyRef);
   protected data = inject(OVERLAY_DATA) as AutocompleteOverlayData<D>;
   private options = viewChildren<ElementRef<HTMLButtonElement>>('options');
-  protected selectedOption?: HTMLButtonElement;
 
   protected items = this.data.items.map(item => [item, this.data.valueFn(item)] as const);
+  private selectedIndex = signal(this.items.findIndex(([_, v]) => v == this.data.selectedValue))
+  protected selectedOption = computed(() => {
+    const i = this.selectedIndex();
+    return this.options().at(i == -1 ? 0 : i)?.nativeElement;
+  });
+
 
   constructor() {
     const keydown = (event: KeyboardEvent) => {
@@ -37,7 +42,7 @@ export class AutocompleteOverlayComponent<D> {
         } else if (event.key == 'ArrowUp') {
           this.prevOption();
         } else if (event.key == 'Enter') {
-          this.selectedOption?.click();
+          this.selectedOption()?.click();
         }
       })
     }
@@ -45,11 +50,6 @@ export class AutocompleteOverlayComponent<D> {
       window.addEventListener('keydown', keydown)
     })
     this.destroyRef.onDestroy(() => window.removeEventListener('keydown', keydown))
-    const ref = effect(() => {
-      const i = this.items.findIndex(([_, v]) => v == this.data.selectedValue)
-      this.selectedOption = this.options().at(i == -1 ? 0 : i)?.nativeElement;
-    }, { manualCleanup: true })
-    this.destroyRef.onDestroy(() => ref.destroy())
   }
 
   protected selectValue(value: D) {
@@ -57,20 +57,20 @@ export class AutocompleteOverlayComponent<D> {
   }
 
   private prevOption() {
-    if (!this.selectedOption) return;
-    const at = this.options().findIndex(el => el.nativeElement === this.selectedOption);
+    if (!this.selectedOption()) return;
+    const at = this.options().findIndex(el => el.nativeElement === this.selectedOption());
     if (at - 1 >= 0) {
-      this.selectedOption = this.options().at(at - 1)?.nativeElement;
-      this.selectedOption?.scrollIntoView({ block: 'center' })
+      this.selectedIndex.set(at - 1);
+      this.selectedOption()?.scrollIntoView({ block: 'center' })
     }
   }
 
   private nextOption() {
-    if (!this.selectedOption) return;
-    const at = this.options().findIndex(el => el.nativeElement === this.selectedOption);
+    if (!this.selectedOption()) return;
+    const at = this.options().findIndex(el => el.nativeElement === this.selectedOption());
     if (at + 1 < this.options().length) {
-      this.selectedOption = this.options().at(at + 1)?.nativeElement;
-      this.selectedOption?.scrollIntoView({ block: 'center' })
+      this.selectedIndex.set(at + 1);
+      this.selectedOption()?.scrollIntoView({ block: 'center' })
     }
   }
 

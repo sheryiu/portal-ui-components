@@ -7,11 +7,15 @@ import { distinctUntilChanged, map, MonoTypeOperatorFunction, of, switchMap, tim
  * @returns
  */
 export function loadingDebounce(dueTime: number = 800): MonoTypeOperatorFunction<boolean> {
+  let isFirstEmission = true;
   return args$ => args$.pipe(
     distinctUntilChanged(),
-    switchMap(isLoading => isLoading
-      ? of(isLoading)
-      : timer(dueTime).pipe(map(() => isLoading))
-    )
+    switchMap(isLoading => {
+      if (isFirstEmission || isLoading) {
+        isFirstEmission = false;
+        return of(isLoading)
+      }
+      return timer(dueTime).pipe(map(() => isLoading))
+    })
   )
 }
