@@ -58,6 +58,21 @@
             <p class="text-neutral-700 dark:text-neutral-300 text-sm font-light">Enable this account to login and access system resources</p>
           </label>
         </div>
+        <pui-divider></pui-divider>
+        <div class="flex flex-row items-center gap-4">
+          <label class="flex flex-col gap-1 grow" for="isEnabled">
+            <p class="text-base font-medium">Access Level</p>
+          </label>
+          <pui-dropdown class="min-w-40">
+            <div *puiDropdownTrigger="let value">{{ value }}</div>
+            <pui-base-dropdown-overlay *puiDropdownOverlay #dropdown>
+              <button puiBaseButton (click)="dropdown.selectValue('administrator')">Administrator</button>
+              <button puiBaseButton (click)="dropdown.selectValue('manager')">Manager</button>
+              <button puiBaseButton (click)="dropdown.selectValue('employee')">Employee</button>
+              <button puiBaseButton (click)="dropdown.selectValue('temp')">Temporary Member</button>
+            </pui-base-dropdown-overlay>
+          </pui-dropdown>
+        </div>
         <div class="flex flex-col gap-2">
           <!-- header -->
           <div class="flex flex-row justify-end items-center px-6 gap-4">

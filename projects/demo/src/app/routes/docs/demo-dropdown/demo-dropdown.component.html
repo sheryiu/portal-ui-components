@@ -12,11 +12,11 @@
             <p>Normal:</p>
             <pui-dropdown [formControl]="formControl1">
               <div *puiDropdownTrigger="let value" [class.text-secondary]="!value">{{ !!value ? value : 'Pick a fruit' }}</div>
-              <pui-base-dropdown *puiDropdownOverlay #dropdown>
+              <pui-base-dropdown-overlay *puiDropdownOverlay #dropdown>
                 @for (item of filtered(); track $index) {
                   <button puiHoverable class="flex-none justify-start text-start py-2 px-4 border-b last:border-b-0" (click)="dropdown.selectValue(item)">{{ item }}</button>
                 }
-              </pui-base-dropdown>
+              </pui-base-dropdown-overlay>
             </pui-dropdown>
             <p>Value: {{ formControl1.value }}</p>
           </div>

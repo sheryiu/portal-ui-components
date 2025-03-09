@@ -1,8 +1,9 @@
 import { NgTemplateOutlet } from '@angular/common';
-import { Component, ContentChild, DestroyRef, Directive, ElementRef, Injector, OnInit, TemplateRef, booleanAttribute, computed, effect, forwardRef, inject, input, output, signal, untracked } from '@angular/core';
+import { Component, DestroyRef, Directive, ElementRef, Injector, TemplateRef, booleanAttribute, computed, contentChild, forwardRef, inject, input, linkedSignal, output, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { HoverableDirective, PuiOverlayRef, PuiOverlayService } from 'portal-ui-ng/base';
+import { DropdownOverlayData } from './dropdown-overlay/dropdown-overlay.component';
 
 @Directive({
   selector: '[puiDropdownTrigger]'
@@ -33,13 +34,13 @@ export class DropdownOverlayDirective {
     }
   ]
 })
-export class DropdownComponent<T> implements ControlValueAccessor, OnInit {
-  @ContentChild(DropdownTriggerDirective) trigger?: DropdownTriggerDirective;
-  @ContentChild(DropdownOverlayDirective) private dropdownOverlay?: DropdownOverlayDirective;
+export class DropdownComponent<T> implements ControlValueAccessor {
+  protected trigger = contentChild(DropdownTriggerDirective);
+  private dropdownOverlay = contentChild(DropdownOverlayDirective);
   private injector = inject(Injector);
 
   value = input<T | null>(null);
-  internalValue$$ = signal<T | null>(null);
+  internalValue$$ = linkedSignal(() => this.value())
   valueChange = output<T | null>();
   disabled = input(false, { transform: booleanAttribute });
   private _disabled$$ = signal<boolean>(false);
@@ -47,14 +48,6 @@ export class DropdownComponent<T> implements ControlValueAccessor, OnInit {
 
   onChange?: (val: T | null) => void;
   onTouched?: () => void;
-
-  ngOnInit(): void {
-    effect(() => {
-      if (this.value() != null && untracked(() => this.internalValue$$()) == null) {
-        this.internalValue$$.set(this.value()!);
-      }
-    }, { injector: this.injector })
-  }
 
   writeValue(obj: T | null): void {
     this.internalValue$$.set(obj);
@@ -78,10 +71,14 @@ export class DropdownComponent<T> implements ControlValueAccessor, OnInit {
       this.overlayRef.close();
       return;
     }
-    if (!this.dropdownOverlay?.templateRef) return;
+    const templateRef = this.dropdownOverlay()?.templateRef;
+    if (!templateRef) return;
     this.overlayRef = this.overlay.open(
-      this.dropdownOverlay.templateRef,
+      templateRef,
       {
+        data: {
+          selectedValue: this.internalValue$$,
+        } satisfies DropdownOverlayData<T>,
         positionStrategy: this.overlay.position()
           .flexibleConnectedTo(this.elementRef.nativeElement)
           .withPositions([

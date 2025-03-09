@@ -11,6 +11,7 @@
 @use './calendar.scss';
 @use './snackbar.scss';
 @use './modal-dialog.scss';
+@use './dropdown.scss';
 @use './loading-panel.scss';
 
 .pui-linear-progress-display {
@@ -21,33 +22,4 @@
   > div {
     @apply w-full border-t;
   }
-}
-
-.pui-dropdown {
-  @apply w-full min-h-8 px-2 py-1.5;
-  @apply justify-between items-center text-start gap-0.5 rounded-1;
-  @apply bg-neutral-50 dark:bg-neutral-950 border transition-all;
-  > div {
-    @apply break-anywhere grow h-full;
-  }
-  > i {
-    @apply icon-4 text-secondary;
-  }
-  &:disabled {
-    @apply bg-black/5 dark:bg-white/5 border-transparent dark:border-transparent text-secondary pointer-events-none;
-  }
-}
-.pui-dropdown-overlay {
-  @apply flex flex-col items-stretch;
-  @apply bg-neutral-200 dark:bg-neutral-800 border rounded-1;
-}
-.pui-search-dropdown__search {
-  @apply px-2 py-2;
-  i {
-    @apply icon-4 mx-2 text-primary-800 dark:text-primary-200;
-  }
-}
-.pui-search-dropdown__suggestions {
-  @apply flex flex-col overflow-auto;
-  max-height: min(24rem, 80svh);
 }

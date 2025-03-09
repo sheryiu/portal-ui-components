@@ -6,9 +6,16 @@
   [disabled]="disabled$$()"
   [hoverableEnabled]="!disabled$$()"
 >
-  @if (trigger && trigger.templateRef) {
+  @let templateRef = trigger()?.templateRef;
+  @if (templateRef) {
     <div>
-      <ng-container [ngTemplateOutlet]="trigger.templateRef" [ngTemplateOutletContext]="{ $implicit: internalValue$$(), disabled: disabled$$() }"></ng-container>
+      <ng-container
+        [ngTemplateOutlet]="templateRef"
+        [ngTemplateOutletContext]="{
+          $implicit: internalValue$$(),
+          disabled: disabled$$(),
+        }"
+      ></ng-container>
     </div>
   } @else {
     <div>{{ internalValue$$() }}</div>
