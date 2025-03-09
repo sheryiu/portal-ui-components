@@ -1,7 +1,7 @@
 import { NgComponentOutlet, NgTemplateOutlet } from '@angular/common';
 import { Component, computed, inject } from '@angular/core';
 import { ButtonModule, PuiOverlayRef } from 'portal-ui-ng/base';
-import { BreadcrumbsComponent } from 'portal-ui-ng/components';
+import { BreadcrumbsComponent, TooltipDirective } from 'portal-ui-ng/components';
 import { LayoutService } from '../layout/layout.service';
 import { ACTION_DRAWER_LAYOUT_DATA_PROVIDER } from './action-drawer-layout';
 
@@ -12,6 +12,7 @@ import { ACTION_DRAWER_LAYOUT_DATA_PROVIDER } from './action-drawer-layout';
     NgComponentOutlet,
     NgTemplateOutlet,
     ButtonModule,
+    TooltipDirective,
   ],
   providers: [
     LayoutService,

@@ -1,3 +1,4 @@
+import { animate, animation, style } from '@angular/animations';
 import { Component, DestroyRef, effect, inject, input, numberAttribute, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { timer } from 'rxjs';
@@ -28,3 +29,12 @@ export class LoadingPanelComponent {
     })
   }
 }
+
+export const LOADING_PANEL_LEAVING = animation([
+  style({ opacity: 1, transform: 'translateY(0)', position: 'absolute', width: '100%' }),
+  animate('250ms ease-in-out', style({ transform: 'translateY(1rem)', opacity: 0 })),
+])
+export const LOADING_PANEL_ENTERING = animation([
+  style({ opacity: 0, transform: 'translateY(1rem)', position: 'absolute', width: '100%' }),
+  animate('250ms ease-in-out', style({ transform: 'translateY(0)', opacity: 1 })),
+])

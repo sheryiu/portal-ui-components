@@ -20,7 +20,7 @@ export class ActionDrawerOverlayService {
       width: '480px',
     }
   ) {
-    this.overlay.open(ActionDrawerLayoutComponent, {
+    return this.overlay.open(ActionDrawerLayoutComponent, {
       positionStrategy: this.overlay.position().global().right('0').centerVertically(),
       maxWidth: '90vw',
       width: config.width ?? '480px',

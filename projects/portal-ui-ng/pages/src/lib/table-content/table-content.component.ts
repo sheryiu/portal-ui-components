@@ -1,4 +1,4 @@
-import { animate, style, transition, trigger } from '@angular/animations';
+import { transition, trigger, useAnimation } from '@angular/animations';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { isPlatformBrowser } from '@angular/common';
 import { Component, computed, effect, inject, OnDestroy, OnInit, PLATFORM_ID } from '@angular/core';
@@ -7,7 +7,7 @@ import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { IsInSetPipe, LodashGetPipe } from 'portal-ui-ng';
 import { HoverableDirective } from 'portal-ui-ng/base';
-import { FieldModule, LoadingPanelComponent, TableModule, TimeDisplayComponent } from 'portal-ui-ng/components';
+import { FieldModule, LOADING_PANEL_ENTERING, LOADING_PANEL_LEAVING, LoadingPanelComponent, TableModule, TimeDisplayComponent } from 'portal-ui-ng/components';
 import { combineLatest, map, timer } from 'rxjs';
 import { flatten } from '../field-configuration';
 import { LayoutControlDirective } from '../layout/layout-control.directive';
@@ -33,14 +33,8 @@ import { TABLE_CONTENT_DATA_PROVIDER, TABLE_CONTENT_DEFAULT_CONTROLS, TableConte
   },
   animations: [
     trigger('loading', [
-      transition(':leave', [
-        style({ opacity: 1, transform: 'translateY(0)', position: 'absolute', width: '100%' }),
-        animate('250ms ease-in-out', style({ transform: 'translateY(1rem)', opacity: 0 }))
-      ]),
-      transition(':enter', [
-        style({ opacity: 0, transform: 'translateY(1rem)', position: 'absolute', width: '100%' }),
-        animate('250ms ease-in-out', style({ transform: 'translateY(0)', opacity: 1 }))
-      ])
+      transition(':enter', useAnimation(LOADING_PANEL_ENTERING)),
+      transition(':leave', useAnimation(LOADING_PANEL_LEAVING))
     ]),
   ]
 })

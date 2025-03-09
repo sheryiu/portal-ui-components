@@ -20,6 +20,8 @@ export class PuiOverlayRef {
       takeUntil(this.afterClosed$),
     ).subscribe((v) => {
       if (v instanceof MouseEvent) {
+        // ignore clicks from other overlays
+        if (v.target instanceof Element && (v.target as Element).closest('.cdk-overlay-container') != null) return;
         // ignore clicks from cdk backdrop as the event is handled by closeOnBackdropClick()
         if (v.target instanceof Element && (v.target as Element).closest('.cdk-overlay-backdrop') != null) return;
         this.close();

@@ -34,6 +34,7 @@
           [disabled]="control.isDisabled"
           [hoverableEnabled]="!control.isDisabled"
           (click)="layoutService.controlOnClick(control.id, $event)"
+          [puiTooltip]="control.label"
         >
           @if (control.icon) {
             <i>{{ control.icon }}</i>

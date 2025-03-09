@@ -4,5 +4,5 @@
 
 // prevents the cursor from exiting the source target when the tooltip appears
 .pui-tooltip-overlay {
-  @apply pointer-events-none;
+  pointer-events: none !important;
 }

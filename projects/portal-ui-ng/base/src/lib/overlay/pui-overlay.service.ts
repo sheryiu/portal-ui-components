@@ -9,7 +9,6 @@ import { PuiOverlayRef } from './pui-overlay-ref';
   providedIn: 'root'
 })
 export class PuiOverlayService {
-
   private overlay = inject(Overlay);
 
   position = () => this.overlay.position();
