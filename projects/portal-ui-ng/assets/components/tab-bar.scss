@@ -15,4 +15,7 @@
       @apply dark:text-accent-50;
     }
   }
+  &[data-disabled=true] {
+    @apply before:opacity-50;
+  }
 }

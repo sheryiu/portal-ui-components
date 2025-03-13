@@ -1,5 +1,5 @@
 import { NgTemplateOutlet } from '@angular/common';
-import { AfterViewInit, Component, DestroyRef, ElementRef, Injector, NgZone, afterNextRender, contentChildren, effect, inject, input, output, signal, viewChildren } from '@angular/core';
+import { AfterViewInit, Component, DestroyRef, ElementRef, Injector, NgZone, afterNextRender, booleanAttribute, contentChildren, effect, inject, input, linkedSignal, output, signal, viewChildren } from '@angular/core';
 import { HoverableDirective } from 'portal-ui-ng/base';
 import { TabDirective } from './tab.directive';
 
@@ -21,7 +21,9 @@ export class TabBarComponent implements AfterViewInit {
   tabs = contentChildren(TabDirective);
   private tabButtonsElement = viewChildren<ElementRef<HTMLElement>>('tabButton');
   inputCurrentTab = input<string | null>(null, { alias: 'currentTab' });
+  inputDisabled = input(false, { transform: booleanAttribute, alias: 'disabled' })
   currentTab = signal<string | null>(null);
+  protected disabled = linkedSignal(() => this.inputDisabled())
   tabChange = output<string>();
 
   private hostSelectedTabWidth = signal(0);

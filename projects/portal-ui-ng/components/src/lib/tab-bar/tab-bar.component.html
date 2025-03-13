@@ -1,4 +1,8 @@
-<div class="pui-tab-bar-tabs">
+<div
+  class="pui-tab-bar-tabs"
+  [attr.data-disabled]="disabled()"
+  [attr.data-currentTab]="currentTab()"
+>
   @for (tab of tabs(); track tab.id()) {
     <button
       [id]="tab.id()"
@@ -7,6 +11,8 @@
       [attr.data-active]="currentTab() === tab.id()"
       puiHoverable
       (click)="onTabClick($index, tab, tabButton)"
+      [disabled]="disabled()"
+      [hoverableEnabled]="!disabled()"
     >
       <ng-container [ngTemplateOutlet]="tab.templateRef"></ng-container>
     </button>

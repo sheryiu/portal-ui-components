@@ -46,7 +46,6 @@ export class TimeAgoPipe implements PipeTransform {
 }
 
 function getTimeout(diff: number) {
-  console.log(diff)
   if (diff < 60_000) return 0.5 * 60_000;
   if (diff < 60 * 60_000) return 0.5 * 1 * 60_000;
   if (diff < 24 * 60 * 60_000) return 0.5 * 60 * 60_000;

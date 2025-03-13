@@ -1,5 +1,8 @@
 <div
   class="pui-snackbar pui-snackbar--error"
+  puiHoverable
+  tabindex="-1"
+  (click)="hasInteracted.set(true)"
 >
   @if (icon()) {
     <i class="pui-snackbar__icon">{{ icon() }}</i>

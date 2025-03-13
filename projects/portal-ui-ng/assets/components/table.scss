@@ -45,6 +45,9 @@
     .pui-table--single & {
       @apply ml-6;
     }
+    .pui-table--multi & {
+      @apply ml-6;
+    }
   }
 }
 

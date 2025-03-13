@@ -51,8 +51,8 @@ export class EmployeeCalendarMonthlyComponent {
     const end = endOfWeek(endOfMonth(selectedTime), { weekStartsOn: 0 });
     return eachDayOfInterval({ start, end }).map(date => ({
       date,
-      isLastMonth: (getMonth(date) < getMonth(selectedTime)) ? true : (getYear(date) < getYear(date)),
-      isNextMonth: (getMonth(date) > getMonth(selectedTime)) ? true : (getYear(date) > getYear(date)),
+      isLastMonth: (getMonth(date) < getMonth(selectedTime)) ? true : (getYear(date) < getYear(selectedTime)),
+      isNextMonth: (getMonth(date) > getMonth(selectedTime)) ? true : (getYear(date) > getYear(selectedTime)),
       isStartOfMonth: getDate(date) == 1,
       isToday: isSameDay(date, today),
       isWeekend: isWeekend(date)

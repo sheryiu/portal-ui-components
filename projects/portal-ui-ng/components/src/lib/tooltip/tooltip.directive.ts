@@ -48,6 +48,9 @@ export class TooltipDirective {
         this.showTooltip();
       }
     })
+    this.destroyRef.onDestroy(() => {
+      this.closeTooltip()
+    })
   }
 
   private onOver() {
