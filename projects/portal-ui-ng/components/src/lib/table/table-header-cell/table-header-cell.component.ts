@@ -1,5 +1,5 @@
 import { isPlatformBrowser } from '@angular/common';
-import { Component, ElementRef, PLATFORM_ID, Renderer2, booleanAttribute, effect, inject, input, output } from '@angular/core';
+import { Component, ElementRef, PLATFORM_ID, Renderer2, booleanAttribute, computed, effect, inject, input, output } from '@angular/core';
 import { HoverableDirective } from 'portal-ui-ng/base';
 import { TableHeaderCellDefDirective } from './table-header-cell-def.directive';
 
@@ -19,6 +19,7 @@ export class TableHeaderCellComponent {
   private isBrowser = isPlatformBrowser(inject(PLATFORM_ID));
   private tableCellDef = inject(TableHeaderCellDefDirective);
 
+  columnName = computed(() => this.tableCellDef.columnName())
   rightAligned = input(false, { transform: booleanAttribute })
   sortedAsc = input(false, { transform: booleanAttribute })
   sortedDesc = input(false, { transform: booleanAttribute })

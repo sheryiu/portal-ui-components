@@ -59,10 +59,20 @@
 
 .pui-table-header-row {
   @apply grid grid-cols-subgrid h-12 mb-1;
+  @apply relative;
   grid-column-start: 1;
   grid-column-end: span var(--pui-table-number-of-columns);
   .pui-table--single & {
     @apply ml-6;
+  }
+}
+
+.pui-table-header-row__resize-handle {
+  @apply absolute h-full w-1 cursor-ew-resize z-10;
+  left: anchor(right);
+  @apply before:pointer-events-none before:-top-0.5 before:-bottom-0.5 before:-left-px before:-right-px before:absolute before:bg-transparent before:rounded-1 before:transition-colors;
+  &:active, &:hover {
+    @apply before:bg-primary-600;
   }
 }
 
@@ -82,10 +92,27 @@
   }
 }
 
+.pui-table-header-cell--empty {
+  @apply rounded-1 border-b;
+  @apply border-primary-100 dark:border-neutral-900;
+  @apply bg-primary-300 dark:bg-neutral-700;
+  @apply text-primary-950 dark:text-neutral-200;
+  box-shadow: inset 0px 1px 3px -1px rgb(0 0 0 / 0.2);
+  :is(.dark &) {
+    box-shadow: inset 0px 1px 3px -1px rgb(255 255 255 / 0.05);
+  }
+  &:first-child {
+    @apply rounded-tl-2;
+  }
+  &:last-child {
+    @apply rounded-tr-2;
+  }
+}
+
 .pui-table-header-cell {
-  @apply contents;
+  @apply flex size-full;
   > button {
-    @apply flex justify-start px-4;
+    @apply flex justify-start px-4 size-full;
     @apply rounded-1 border-b;
     @apply border-primary-100 dark:border-neutral-900;
     @apply bg-primary-300 dark:bg-neutral-700;

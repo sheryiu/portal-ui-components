@@ -1,7 +1,6 @@
 import { NgTemplateOutlet } from '@angular/common';
 import { Component, computed, inject, input, output } from '@angular/core';
 import { IsActiveMatchOptions, NavigationBehaviorOptions, RouterLink, RouterLinkActive, UrlCreationOptions } from '@angular/router';
-import { isNonNull } from 'portal-ui-ng';
 import { TableComponent } from './table.component';
 
 @Component({
@@ -33,7 +32,11 @@ import { TableComponent } from './table.component';
     (click)="rowClick.emit($event)"
   >
     @for (def of cells(); track def.columnName) {
-      <ng-container [ngTemplateOutlet]="def.templateRef" [ngTemplateOutletContext]="{ $implicit: item() }"></ng-container>
+      @if (def.templateRef == null) {
+        <div></div>
+      } @else {
+        <ng-container [ngTemplateOutlet]="def.templateRef" [ngTemplateOutletContext]="{ $implicit: item() }"></ng-container>
+      }
     }
   </a>
   `
@@ -55,11 +58,13 @@ export class TableRowComponent<T> {
     const cellDefs = this.table.cellDefs();
     return columns
       .map(columnName => cellDefs.find(def => def.columnName() == columnName))
-      .filter(isNonNull)
-      .map(def => ({
+      .map((def, i) => def ? ({
         columnName: def.columnName(),
         templateRef: def.templateRef,
-      }))
+      }) : {
+        columnName: `__empty_${ i }`,
+        templateRef: null,
+      })
   })
 
 }

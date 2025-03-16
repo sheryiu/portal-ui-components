@@ -49,11 +49,27 @@ module.exports = plugin(
             "flex": "none",
           };
         },
+        'inline-icon': (value) => {
+          return {
+            display: "inline-flex",
+            "align-items": "center",
+            "justify-content": "center",
+            width: theme("spacing." + value),
+            height: theme("spacing." + value),
+            "font-size": theme("spacing." + value),
+            "line-height": "1",
+            "font-style": "normal",
+            "font-family": "'Material Symbols Rounded'",
+            "font-weight": "400",
+            "user-select": "none",
+            "flex": "none",
+          };
+        },
       },
       {
         type: "length",
         values: { 3: 3, 4: 4, 5: 5, 6: 6, 8: 8, 10: 10, 12: 12, 16: 16, 20: 20, 24: 24 },
-      }
+      },
     );
     matchUtilities(
       {
