@@ -52,6 +52,9 @@ export class CustomerInfoComponent implements TableContentDataProvider<Inventory
   data = computed(() => {
     return this.inventoryItems().slice(0, 5)
   })
+  configuration = {
+    id: 'customer-info-table',
+  }
   columnsConfig = signal<ColumnConfig[]>([
     {
       key: 'netWeight',

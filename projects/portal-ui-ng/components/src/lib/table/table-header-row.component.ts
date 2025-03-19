@@ -71,7 +71,7 @@ export class TableHeaderRowComponent {
     const previous = (event.currentTarget as HTMLElement).previousElementSibling
     if (previous) {
       const newSize = previous.getBoundingClientRect().width + this.resizeHandleDX()
-      this.table.columnResized(newSize, columnName, index);
+      this.table.onColumnResized(newSize, columnName, index);
     }
     (event.currentTarget as HTMLElement).releasePointerCapture(event.pointerId)
   }

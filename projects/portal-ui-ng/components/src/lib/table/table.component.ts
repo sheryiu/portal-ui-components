@@ -1,5 +1,7 @@
 import { isPlatformBrowser } from '@angular/common';
-import { Component, DestroyRef, ElementRef, Injector, NgZone, PLATFORM_ID, afterNextRender, booleanAttribute, computed, contentChildren, inject, input, linkedSignal, signal } from '@angular/core';
+import { Component, DestroyRef, ElementRef, Injector, NgZone, PLATFORM_ID, afterNextRender, booleanAttribute, computed, contentChildren, effect, inject, input, linkedSignal, output, signal } from '@angular/core';
+import { isEqual } from 'lodash-es';
+import { STORAGE } from 'portal-ui-ng';
 import { TableCellDefDirective } from './table-cell/table-cell-def.directive';
 import { TableHeaderCellDefDirective } from './table-header-cell/table-header-cell-def.directive';
 
@@ -17,41 +19,57 @@ import { TableHeaderCellDefDirective } from './table-header-cell/table-header-ce
   template: `<ng-content></ng-content>`
 })
 export class TableComponent {
+  id = input<string>();
   itemHeight = input.required<Record<'default' | number, number> | number>();
   /**
    * when using Record<number, string[]>, the number represents the minimum width that the display columns will become active
    */
-  columns = input.required<Record<'default' | number, string[]> | string[]>();
-  columnWidths = input<Record<'default' | number, string[]> | string[]>();
+  inputColumns = input.required<Record<'default' | number, string[]> | string[]>({ alias: 'columns' });
+  inputColumnWidths = input<Record<'default' | number, string[]> | string[]>(undefined, { alias: 'columnWidths' });
   selectionMode = input<'single' | 'multi' | null>(null)
   resizable = input(true, { transform: booleanAttribute })
+  columnResized = output<{ resizedKey: 'default' | number; newColumnWidths: string[] }>()
   private componentWidth = signal<number | undefined>(undefined);
 
-  activeColumns = linkedSignal(() => {
+  private columns = linkedSignal(() => {
+    const columns = this.inputColumns();
+    if (columns == null) return { 'default': [] as string[] };
+    if (Array.isArray(columns)) return { 'default': columns };
+    return columns;
+  })
+  private activeColumnsKey = computed(() => {
     const componentWidth = this.componentWidth();
-    if (componentWidth == null) return undefined;
+    if (componentWidth == null) return 'default';
     const columns = this.columns();
-    if (Array.isArray(columns)) return columns;
     const keys = (Object.keys(columns) as (number | "default")[])
       .filter(key => key != 'default')
       .sort((a, b) =>  b - a);
     const smallestKey = keys.find(key => key <= componentWidth) ?? 'default';
-    if (!(smallestKey in columns)) return undefined;
-    return columns[smallestKey];
+    return smallestKey;
   })
-  activeColumnWidths = linkedSignal(() => {
+  activeColumns = linkedSignal(() => this.columns()[this.activeColumnsKey()])
+
+  private storedResizedColumnWidths = signal<Record<'default' | number, string[]> | null>(null)
+  private columnWidths = linkedSignal(() => {
+    const columnWidths = this.inputColumnWidths();
+    const stored = this.storedResizedColumnWidths();
+    if (stored != null) return stored;
+    if (columnWidths == null) return { 'default': [] as string[] };
+    if (Array.isArray(columnWidths)) return { 'default': columnWidths };
+    return columnWidths;
+  })
+  private activeColumnWidthsKey = computed(() => {
     const componentWidth = this.componentWidth();
-    if (componentWidth == null) return undefined;
+    if (componentWidth == null) return 'default';
     const columnWidths = this.columnWidths();
-    if (Array.isArray(columnWidths)) return columnWidths;
-    if (columnWidths == null) return undefined;
     const keys = (Object.keys(columnWidths) as (number | "default")[])
       .filter(key => key != 'default')
       .sort((a, b) =>  b - a);
     const smallestKey = keys.find(key => key <= componentWidth) ?? 'default';
-    if (!(smallestKey in columnWidths)) return undefined;
-    return columnWidths[smallestKey];
+    return smallestKey;
   })
+  activeColumnWidths = linkedSignal(() => this.columnWidths()[this.activeColumnWidthsKey()])
+
   activeItemHeight = computed(() => {
     const componentWidth = this.componentWidth();
     if (componentWidth == null) return undefined;
@@ -67,12 +85,8 @@ export class TableComponent {
 
   private hostSingleClass = computed(() => this.selectionMode() == 'single');
   private hostMultiClass = computed(() => this.selectionMode() == 'multi');
-  private hostColumnWidths = computed(() => {
-    return this.activeColumnWidths()?.join(' ')
-  })
-  private hostNumberOfColumns = computed(() => {
-    return this.activeColumnWidths()?.length;
-  })
+  private hostColumnWidths = computed(() => this.activeColumnWidths().join(' '))
+  private hostNumberOfColumns = computed(() => this.activeColumns().length)
 
   cellDefs = contentChildren(TableCellDefDirective);
   headerCellDefs = contentChildren(TableHeaderCellDefDirective);
@@ -82,6 +96,24 @@ export class TableComponent {
   private zone = inject(NgZone);
   private injector = inject(Injector);
   private destroyRef = inject(DestroyRef);
+  private storage = inject(STORAGE, { optional: true })
+
+  constructor() {
+    effect(() => {
+      const id = this.id();
+      const inputColumnWidths = this.inputColumnWidths();
+      if (id != null && inputColumnWidths != null && this.storage != null) {
+        if (this.storage.getItem(`pui-table.${ id }`)) {
+          const { key, resized } = JSON.parse(this.storage.getItem(`pui-table.${ id }`)!)
+          if (isEqual(key, inputColumnWidths)) {
+            this.storedResizedColumnWidths.set(resized);
+          } else {
+            this.storage.removeItem(`pui-table.${ id }`)
+          }
+        }
+      }
+    })
+  }
 
   ngAfterViewInit(): void {
     if (isPlatformBrowser(this.platformId)) {
@@ -100,23 +132,38 @@ export class TableComponent {
     }
   }
 
-  public columnResized(newSize: number, columnName: string, index: number) {
-    this.activeColumnWidths.update(columnWidths => {
-      if (!columnWidths) return columnWidths;
-      if (columnWidths.length < index) {
-        const newWidths = [] as string[];
+  public onColumnResized(newSize: number, columnName: string, index: number) {
+    const size = Math.max(newSize, 48);
+    const activeKey = this.activeColumnWidthsKey();
+    this.columnWidths.update(columnWidths => {
+      const active = columnWidths[activeKey];
+      let newWidths = [] as string[];
+      if (active.length < index) {
         for (let i = 0; i < index; i++) {
-          if (columnWidths[i]) newWidths[i] = columnWidths[i];
+          if (active[i]) newWidths[i] = active[i];
           else newWidths[i] = 'minmax(0, 1fr)';
         }
-        newWidths[index] = `${ newSize }px`;
-        return newWidths;
+        newWidths[index] = `${ size }px`;
+      } else {
+        newWidths = [...active];
+        newWidths[index] = `${ size }px`;
       }
-      const newWidths = [...columnWidths];
-      newWidths[index] = `${ newSize }px`;
-      return newWidths;
+      return {
+        ...columnWidths,
+        [activeKey]: newWidths,
+      }
     })
-    // TODO update the input columnWidths as well
-    // the activeColumnWidths will get reset when resize
+    this.columnResized.emit({
+      resizedKey: activeKey,
+      newColumnWidths: this.columnWidths()[activeKey],
+    })
+    const id = this.id();
+    const inputColumnWidths = this.inputColumnWidths();
+    if (id != null && inputColumnWidths != null && this.storage != null) {
+      this.storage.setItem(`pui-table.${ id }`, JSON.stringify({
+        key: inputColumnWidths,
+        resized: this.columnWidths(),
+      }))
+    }
   }
 }

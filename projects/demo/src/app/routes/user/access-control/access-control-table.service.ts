@@ -12,7 +12,10 @@ export class AccessControlTableService implements TableContentDataProvider<Acces
   private rawData = toSignal(this.dataService.getList())
   private employeeList = toSignal(this.employeeDataService.getList())
 
-  configuration = { useVirtualScroll: true };
+  configuration = {
+    id: 'access-control-table',
+    useVirtualScroll: true
+  };
   data = computed(() => {
     const rawData = this.rawData()
     const employeeData = this.employeeList()

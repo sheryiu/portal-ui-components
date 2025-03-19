@@ -13,6 +13,7 @@ export class MediaTableService implements TableContentDataProvider<Media> {
   private rawData = toSignal(this.dataService.getList())
 
   configuration = {
+    id: 'media-table',
     useVirtualScroll: true,
   };
   data = computed(() => {

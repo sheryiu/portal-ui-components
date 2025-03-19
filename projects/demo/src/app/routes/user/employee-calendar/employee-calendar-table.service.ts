@@ -13,6 +13,7 @@ export class EmployeeCalendarTableService implements TableContentDataProvider<Em
   private employeeList = toSignal(this.employeeDataService.getList());
 
   configuration = {
+    id: 'employee-calendar-table',
     useVirtualScroll: true,
   }
   data = computed(() => {

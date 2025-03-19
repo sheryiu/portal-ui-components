@@ -13,6 +13,7 @@ export class EmployeeTableService implements TableContentDataProvider<Employee> 
   private rawData = toSignal(this.dataService.getList())
 
   configuration = {
+    id: 'employee-table',
     useVirtualScroll: true,
   }
   data = computed(() => (this.rawData() ?? [])

@@ -10,6 +10,7 @@ export class InventoryShelfTableService implements TableContentDataProvider<Inve
   private rawData = toSignal(this.dataService.getList())
 
   configuration = {
+    id: 'inventory-shelf-table',
     useVirtualScroll: true,
   };
   data = computed(() => (this.rawData() ?? [])

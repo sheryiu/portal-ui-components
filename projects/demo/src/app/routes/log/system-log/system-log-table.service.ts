@@ -18,6 +18,7 @@ export class SystemLogTableService implements TableContentDataProvider<SystemLog
   private employeeData = toSignal(this.employeeDataService.getList())
 
   configuration = {
+    id: 'system-log-table',
     useVirtualScroll: true,
   };
   data = computed(() => {

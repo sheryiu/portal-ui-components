@@ -12,6 +12,7 @@ export class InventoryItemTableService implements TableContentDataProvider<Inven
   private rawData = toSignal(this.dataService.getList())
 
   configuration = {
+    id: 'inventory-item-table',
     useVirtualScroll: true,
   };
   data = computed(() => (this.rawData() ?? [])

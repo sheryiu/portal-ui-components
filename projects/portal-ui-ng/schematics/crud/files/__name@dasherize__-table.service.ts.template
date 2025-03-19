@@ -10,6 +10,7 @@ export class <%= classify(name) %>TableService implements TableContentDataProvid
   ]);
 
   configuration = {
+    id: '<%= dasherize(name) >-table',
     useVirtualScroll: true,
   };
   isLoading = signal(false);

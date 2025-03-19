@@ -26,6 +26,7 @@
         <pui-table
           @loading
           [@.disabled]="isInitial()"
+          [id]="configuration?.id"
           [itemHeight]="48"
           [columns]="columnsToDisplay()"
           [selectionMode]="selectionMode()"

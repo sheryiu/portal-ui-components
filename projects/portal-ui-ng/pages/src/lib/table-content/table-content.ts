@@ -16,6 +16,7 @@ export type ColumnConfig = {
 
 export interface TableContentDataProvider<T> {
   readonly configuration?: {
+    id?: string;
     useVirtualScroll?: boolean;
   };
   onParamsChange?(params: Params, queryParams: Params): void;

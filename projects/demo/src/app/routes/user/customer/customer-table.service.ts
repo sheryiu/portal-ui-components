@@ -14,6 +14,7 @@ export class CustomerTableService implements TableContentDataProvider<Customer> 
   private rawData = toSignal(this.dataService.getList())
 
   configuration = {
+    id: 'customer-table',
     useVirtualScroll: true,
   };
   isLoading = toSignal(this.dataService.isLoading$, { initialValue: true })
