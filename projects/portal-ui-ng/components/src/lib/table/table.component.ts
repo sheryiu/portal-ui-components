@@ -68,7 +68,14 @@ export class TableComponent {
     const smallestKey = keys.find(key => key <= componentWidth) ?? 'default';
     return smallestKey;
   })
-  activeColumnWidths = linkedSignal(() => this.columnWidths()[this.activeColumnWidthsKey()])
+  private activeColumnWidths = linkedSignal(() => this.columnWidths()[this.activeColumnWidthsKey()]);
+  visibleColumnWidths = computed(() => {
+    const columns = this.activeColumns()
+    const widths = this.activeColumnWidths()
+    const visible = widths.slice(0, columns.length)
+    if (visible.length == columns.length) return visible.toSpliced(visible.length - 1, 1, 'minmax(80px, 1fr)');
+    return visible.toSpliced(visible.length, 0, ...Array(columns.length - visible.length).fill('minmax(80px, 1fr)'));
+  })
 
   activeItemHeight = computed(() => {
     const componentWidth = this.componentWidth();
@@ -85,7 +92,7 @@ export class TableComponent {
 
   private hostSingleClass = computed(() => this.selectionMode() == 'single');
   private hostMultiClass = computed(() => this.selectionMode() == 'multi');
-  private hostColumnWidths = computed(() => this.activeColumnWidths().join(' '))
+  private hostColumnWidths = computed(() => this.visibleColumnWidths().join(' '))
   private hostNumberOfColumns = computed(() => this.activeColumns().length)
 
   cellDefs = contentChildren(TableCellDefDirective);
@@ -133,7 +140,7 @@ export class TableComponent {
   }
 
   public onColumnResized(newSize: number, columnName: string, index: number) {
-    const size = Math.max(newSize, 48);
+    const size = Math.max(newSize, 80);
     const activeKey = this.activeColumnWidthsKey();
     this.columnWidths.update(columnWidths => {
       const active = columnWidths[activeKey];
@@ -141,13 +148,12 @@ export class TableComponent {
       if (active.length < index) {
         for (let i = 0; i < index; i++) {
           if (active[i]) newWidths[i] = active[i];
-          else newWidths[i] = 'minmax(0, 1fr)';
+          else newWidths[i] = 'minmax(80px, 1fr)';
         }
-        newWidths[index] = `${ size }px`;
       } else {
         newWidths = [...active];
-        newWidths[index] = `${ size }px`;
       }
+      newWidths[index] = `minmax(auto, ${ size }px)`;
       return {
         ...columnWidths,
         [activeKey]: newWidths,
