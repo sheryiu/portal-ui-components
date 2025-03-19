@@ -1,0 +1,1 @@
+import"./chunk-EQDQRRRY.js";var n=[{path:"",loadComponent:()=>import("./chunk-BOYJLTQI.js").then(o=>o.HomeComponent),children:[{path:"",loadComponent:()=>import("./chunk-SFOUSMK3.js").then(o=>o.HomeContentComponent)}]}];export{n as ROUTES};
