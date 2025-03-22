@@ -2,6 +2,7 @@
 @use "./input-field.scss";
 @use "./scrollbar.scss";
 @use "./hoverable.scss";
+@use "./content-visibility-detector.scss";
 
 .dark {
   --color-hover: 255 255 255;

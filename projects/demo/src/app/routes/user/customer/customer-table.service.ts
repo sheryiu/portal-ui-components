@@ -118,4 +118,8 @@ export class CustomerTableService implements TableContentDataProvider<Customer> 
       }
     }
   }
+
+  onScrolledToBottom(): void {
+    this.dataService.loadMore();
+  }
 }

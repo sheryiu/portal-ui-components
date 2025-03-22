@@ -47,7 +47,7 @@ export class CustomerDataService {
   private initialize() {
     if (this.isInitialized) return;
     this.isInitialized = true;
-    this.list.next(Array(300)
+    this.list.next(Array(2)
       .fill(0)
       .map(() => {
         return this.createMock();
@@ -61,7 +61,7 @@ export class CustomerDataService {
     this.isLoading.next(true)
     this.appRef.isStable.pipe(
       first(stable => stable),
-      delay(1000),
+      delay(500),
     ).subscribe(() => {
       this.initialize();
     })
@@ -75,6 +75,12 @@ export class CustomerDataService {
       this.isInitialized = false;
       this.initialize()
     })
+  }
+
+  loadMore() {
+    this.list.next(this.list.value.concat(
+      ...Array(2).fill(0).map(() => this.createMock())
+    ))
   }
 
   save(data: Customer) {

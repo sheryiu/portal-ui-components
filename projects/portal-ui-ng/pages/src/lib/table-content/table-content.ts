@@ -41,8 +41,9 @@ export interface TableContentDataProvider<T> {
   filterConfig?: Signal<ObjectFieldConfiguration>;
   filterValue?: Signal<any>;
   onFilterChange?(value: any): void;
-  // TODO
-  // onScrolledToEnd?(): void;
+  // scroll
+  onScrolledToTop?(): void;
+  onScrolledToBottom?(): void;
 }
 
 export const TABLE_CONTENT_REFRESH_ONLY_CONTROLS: ReadonlyArray<LayoutControlConfig> = [

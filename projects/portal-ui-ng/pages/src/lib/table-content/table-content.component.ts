@@ -1,14 +1,14 @@
 import { transition, trigger, useAnimation } from '@angular/animations';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { isPlatformBrowser } from '@angular/common';
-import { Component, computed, effect, inject, OnDestroy, OnInit, PLATFORM_ID } from '@angular/core';
-import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
+import { Component, computed, effect, inject, OnDestroy, OnInit, PLATFORM_ID, signal, untracked } from '@angular/core';
+import { takeUntilDestroyed, toObservable, toSignal } from '@angular/core/rxjs-interop';
 import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { IsInSetPipe, LodashGetPipe } from 'portal-ui-ng';
-import { HoverableDirective } from 'portal-ui-ng/base';
+import { ContentVisibilityDetectorDirective, HoverableDirective } from 'portal-ui-ng/base';
 import { FieldModule, LOADING_PANEL_ENTERING, LOADING_PANEL_LEAVING, LoadingPanelComponent, TableModule, TimeDisplayComponent } from 'portal-ui-ng/components';
-import { combineLatest, map, timer } from 'rxjs';
+import { combineLatest, debounceTime, map, timer } from 'rxjs';
 import { flatten } from '../field-configuration';
 import { LayoutControlDirective } from '../layout/layout-control.directive';
 import { TABLE_CONTENT_DATA_PROVIDER, TABLE_CONTENT_DEFAULT_CONTROLS, TableContentDataProvider } from './table-content';
@@ -24,7 +24,8 @@ import { TABLE_CONTENT_DATA_PROVIDER, TABLE_CONTENT_DEFAULT_CONTROLS, TableConte
     ScrollingModule,
     FieldModule,
     IsInSetPipe,
-    LoadingPanelComponent
+    LoadingPanelComponent,
+    ContentVisibilityDetectorDirective,
   ],
   templateUrl: './table-content.component.html',
   styles: ``,
@@ -77,6 +78,8 @@ export class TableContentComponent<T> implements OnInit, OnDestroy {
   protected filterFormControl = inject(FormBuilder).nonNullable.control({} as any)
 
   protected isInitial = toSignal(timer(100).pipe(map(() => false)), { initialValue: true })
+  protected scrolledToTop = signal<boolean>(false)
+  protected scrolledToBottom = signal<boolean>(false)
 
   constructor() {
     combineLatest([
@@ -88,6 +91,29 @@ export class TableContentComponent<T> implements OnInit, OnDestroy {
     effect(() => {
       if (this.dataProvider.filterValue) {
         this.filterFormControl.setValue(this.dataProvider.filterValue?.(), { emitEvent: false })
+      }
+    })
+    if (this.dataProvider.onScrolledToTop) {
+      effect(() => {
+        if (this.isLoading()) return;
+        if (this.scrolledToTop()) untracked(() => this.dataProvider.onScrolledToTop!())
+      })
+    }
+    if (this.dataProvider.onScrolledToBottom) {
+      effect(() => {
+        if (this.isLoading()) return;
+        if (this.scrolledToBottom()) untracked(() => this.dataProvider.onScrolledToBottom!())
+      })
+    }
+    toObservable(this.data).pipe(
+      debounceTime(100),
+      takeUntilDestroyed()
+    ).subscribe(() => {
+      if (this.scrolledToTop()) {
+        this.dataProvider.onScrolledToTop?.()
+      }
+      if (this.scrolledToBottom()) {
+        this.dataProvider.onScrolledToBottom?.()
       }
     })
   }
@@ -114,6 +140,14 @@ export class TableContentComponent<T> implements OnInit, OnDestroy {
 
   protected onFilterValueChange(value: any) {
     this.dataProvider.onFilterChange?.(value)
+  }
+
+  protected onScrolled(position: 'top' | 'bottom', skipped: boolean) {
+    if (position == 'top') {
+      this.scrolledToTop.set(!skipped)
+    } else {
+      this.scrolledToBottom.set(!skipped)
+    }
   }
 
   protected trackingFn(i: number, item: T) {

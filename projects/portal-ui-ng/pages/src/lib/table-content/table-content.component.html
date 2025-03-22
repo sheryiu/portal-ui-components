@@ -48,30 +48,31 @@
                     <pui-time-display
                       [mode]="config.fieldConfiguration.format == 'timeAgo' ? 'timeAgo' : 'normal'"
                       [format]="config.fieldConfiguration.format"
-                      [date]="item[config.key]"
+                      [date]="item | lodashGet: (config.path ?? config.key)"
                     ></pui-time-display>
                     @if (config.fieldConfiguration.format == 'timeAgo') {
                       &nbsp;ago
                     }
                   }
                   @case ('boolean') {
-                    @let value = item | lodashGet: config.path ?? config.key;
+                    @let value = item | lodashGet: (config.path ?? config.key);
                     <i
                       class="pui-table-cell__boolean-content"
                       [class.pui-table-cell__boolean-content--true]="value === true"
                     >{{ value === true ? 'check' : value === false ? 'close' : '' }}</i>
                   }
                   @default {
-                    <span>{{ item | lodashGet: config.path ?? config.key }}</span>
+                    <span>{{ item | lodashGet: (config.path ?? config.key) }}</span>
                   }
                 }
               } @else {
-                <span>{{ item | lodashGet: config.path ?? config.key }}</span>
+                <span>{{ item | lodashGet: (config.path ?? config.key) }}</span>
               }
             </pui-table-cell>
           }
 
           <pui-table-body>
+            <div puiContentVisibilityDetector (skippedChanged)="scrolledToTop.set(!$event)"></div>
             <pui-table-header-row></pui-table-header-row>
             @if (configuration?.useVirtualScroll) {
               @if (isBrowser) {
@@ -103,6 +104,7 @@
                 ></pui-table-row>
               }
             }
+            <div puiContentVisibilityDetector (skippedChanged)="scrolledToBottom.set(!$event)"></div>
           </pui-table-body>
         </pui-table>
       }
