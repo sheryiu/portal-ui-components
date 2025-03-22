@@ -8,43 +8,28 @@
       <ng-container [ngComponentOutlet]="configuration.content" [ngComponentOutletInputs]="contentInputs()"></ng-container>
     }
   </div>
-  <div class="pui-action-drawer-layout__controls">
+  <div class="pui-action-drawer-layout__toolbar">
     @for (control of controls(); track control.id) {
-      @if (control.id == mostEmphasizedControlId()) {
-        <button
-          puiFilledButton
-          color="accent"
-          class="pui-action-drawer-layout__controls__most-emphasized"
-          [disabled]="control.isDisabled"
-          [hoverableEnabled]="!control.isDisabled"
-          (click)="layoutService.controlOnClick(control.id, $event)"
-        >
-          @if (control.icon) {
-            <i>{{ control.icon }}</i>
-          } @else if (control.iconTemplateRef) {
-            <ng-container [ngTemplateOutlet]="control.iconTemplateRef"></ng-container>
-          }
-          <span>{{ control.label }}</span>
-        </button>
-      } @else if (control.icon || control.iconTemplateRef) {
-        <button
-          puiBorderedButton
-          color="accent"
-          class="pui-action-drawer-layout__controls__normal"
-          [disabled]="control.isDisabled"
-          [hoverableEnabled]="!control.isDisabled"
-          (click)="layoutService.controlOnClick(control.id, $event)"
-          [puiTooltip]="control.label"
-        >
-          @if (control.icon) {
-            <i>{{ control.icon }}</i>
-          } @else if (control.iconTemplateRef) {
-            <ng-container [ngTemplateOutlet]="control.iconTemplateRef"></ng-container>
-          }
-        </button>
-      } @else {
-        <!-- TODO -->
-      }
+      <button
+        puiFilledButton
+        color="accent"
+        [ngClass]="{
+          'pui-action-drawer-layout__toolbar__most-emphasized': control.id == mostEmphasizedControlId(),
+          'pui-action-drawer-layout__toolbar__normal':  control.id != mostEmphasizedControlId() && (control.icon || control.iconTemplateRef),
+        }"
+        [disabled]="control.isDisabled"
+        [hoverableEnabled]="!control.isDisabled"
+        (click)="layoutService.controlOnClick(control.id, $event)"
+        [puiTooltip]="control.label"
+        [puiTooltipPosition]="'top'"
+      >
+        @if (control.icon) {
+          <i>{{ control.icon }}</i>
+        } @else if (control.iconTemplateRef) {
+          <ng-container [ngTemplateOutlet]="control.iconTemplateRef"></ng-container>
+        }
+        <span>{{ control.label }}</span>
+      </button>
     }
   </div>
 </div>

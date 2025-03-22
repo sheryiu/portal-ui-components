@@ -12,43 +12,31 @@
           }
         </pui-tab-bar>
       }
-      <div class="spacer"></div>
-      @for (control of controls(); track control.id) {
-        @if (control.id == mostEmphasizedControlId()) {
-          <button
-            puiFilledButton
-            color="accent"
-            class="pui-vertical-layout__controls__most-emphasized"
-            [disabled]="control.isDisabled"
-            [hoverableEnabled]="!control.isDisabled"
-            (click)="layoutService.controlOnClick(control.id, $event)"
-          >
-            @if (control.icon) {
-              <i>{{ control.icon }}</i>
-            } @else if (control.iconTemplateRef) {
-              <ng-container [ngTemplateOutlet]="control.iconTemplateRef"></ng-container>
-            }
-            <span>{{ control.label }}</span>
-          </button>
-        } @else if (control.icon || control.iconTemplateRef) {
-          <button
-            puiBorderedButton
-            color="accent"
-            class="pui-vertical-layout__controls__normal"
-            [disabled]="control.isDisabled"
-            [hoverableEnabled]="!control.isDisabled"
-            (click)="layoutService.controlOnClick(control.id, $event)"
-            [puiTooltip]="control.label"
-          >
-            @if (control.icon) {
-              <i>{{ control.icon }}</i>
-            } @else if (control.iconTemplateRef) {
-              <ng-container [ngTemplateOutlet]="control.iconTemplateRef"></ng-container>
-            }
-          </button>
-        } @else {
-          <!-- TODO -->
-        }
+      @if (controls().length > 0) {
+        <div class="spacer"></div>
+        <div class="pui-vertical-layout__toolbar">
+          @for (control of controls(); track control.id) {
+            <button
+              puiFilledButton
+              color="accent"
+              [ngClass]="{
+                'pui-vertical-layout__toolbar__most-emphasized': control.id == mostEmphasizedControlId(),
+                'pui-vertical-layout__toolbar__normal':  control.id != mostEmphasizedControlId() && (control.icon || control.iconTemplateRef),
+              }"
+              [puiTooltip]="control.label"
+              [disabled]="control.isDisabled"
+              [hoverableEnabled]="!control.isDisabled"
+              (click)="layoutService.controlOnClick(control.id, $event)"
+            >
+              @if (control.icon) {
+                <i>{{ control.icon }}</i>
+              } @else if (control.iconTemplateRef) {
+                <ng-container [ngTemplateOutlet]="control.iconTemplateRef"></ng-container>
+              }
+              <span>{{ control.label }}</span>
+            </button>
+          }
+        </div>
       }
     </header>
   }

@@ -26,12 +26,12 @@
   @apply overflow-hidden;
 }
 
-.pui-action-drawer-layout__controls {
+.pui-action-drawer-layout__toolbar {
   @apply flex items-center justify-end gap-3;
   @apply min-h-12;
 }
 
-.pui-action-drawer-layout__controls__most-emphasized {
+.pui-action-drawer-layout__toolbar__most-emphasized {
   @apply rounded-full h-12 gap-1.5 px-6;
   > i {
     @apply icon-5;
@@ -41,10 +41,16 @@
   }
 }
 
-.pui-action-drawer-layout__controls__normal {
+.pui-action-drawer-layout__toolbar__normal {
   @apply rounded-full size-12;
+  &.pui-filled-button[data-color=accent] {
+    @apply dark:bg-transparent shadow-none;
+  }
   > i {
     @apply icon-5;
+  }
+  > span {
+    @apply hidden;
   }
 }
 

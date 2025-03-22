@@ -24,14 +24,19 @@
 }
 
 .pui-vertical-layout__controls {
-  @apply flex items-center gap-2;
-  @apply min-h-12;
+  @apply flex flex-col lg:flex-row lg:items-center gap-4;
   .spacer {
-    @apply grow shrink-0 basis-auto;
+    @apply hidden lg:block grow shrink-0 basis-auto;
   }
 }
 
-.pui-vertical-layout__controls__most-emphasized {
+.pui-vertical-layout__toolbar {
+  @apply flex items-center gap-2;
+  @apply absolute top-16 right-4;
+  @apply lg:static;
+}
+
+.pui-vertical-layout__toolbar__most-emphasized {
   @apply rounded-full h-10 gap-1 px-4;
   > i {
     @apply icon-5;
@@ -41,9 +46,15 @@
   }
 }
 
-.pui-vertical-layout__controls__normal {
+.pui-vertical-layout__toolbar__normal {
   @apply rounded-full size-10;
+  &.pui-filled-button[data-color=accent] {
+    @apply dark:bg-transparent shadow-none;
+  }
   > i {
     @apply icon-5;
+  }
+  > span {
+    @apply hidden;
   }
 }

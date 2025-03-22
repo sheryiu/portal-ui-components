@@ -1,4 +1,4 @@
-import { NgTemplateOutlet } from '@angular/common';
+import { NgClass, NgTemplateOutlet } from '@angular/common';
 import { Component, computed, inject, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, NavigationEnd, Router, RouterLink, RouterOutlet } from '@angular/router';
@@ -21,6 +21,7 @@ import { VERTICAL_LAYOUT_DATA_PROVIDER } from './vertical-layout';
     NgTemplateOutlet,
     PeekableAddonComponent,
     TooltipDirective,
+    NgClass,
   ],
   providers: [LayoutService],
   templateUrl: './vertical-layout.component.html',

@@ -1,5 +1,5 @@
 .pui-snackbar {
-  @apply max-w-90vw min-w-80 w-screen-md rounded-8 relative overflow-hidden;
+  @apply max-w-90vw min-w-80 w-screen-md rounded-4 lg:rounded-8 relative overflow-hidden;
   @apply pui-card--overlay px-4 py-2 md:px-6 md:py-2;
   @apply dark:bg-neutral-700;
   @apply border dark:border-neutral-600;
