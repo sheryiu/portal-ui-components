@@ -1,5 +1,5 @@
 import { NgTemplateOutlet } from '@angular/common';
-import { AfterViewInit, Component, DestroyRef, ElementRef, Injector, NgZone, afterNextRender, booleanAttribute, contentChildren, effect, inject, input, linkedSignal, output, signal, viewChildren } from '@angular/core';
+import { AfterViewInit, Component, DestroyRef, ElementRef, Injector, NgZone, afterNextRender, booleanAttribute, contentChildren, effect, inject, input, linkedSignal, output, signal, untracked, viewChildren } from '@angular/core';
 import { HoverableDirective } from 'portal-ui-ng/base';
 import { TabDirective } from './tab.directive';
 
@@ -22,9 +22,10 @@ export class TabBarComponent implements AfterViewInit {
   private tabButtonsElement = viewChildren<ElementRef<HTMLElement>>('tabButton');
   inputCurrentTab = input<string | null>(null, { alias: 'currentTab' });
   inputDisabled = input(false, { transform: booleanAttribute, alias: 'disabled' })
-  currentTab = signal<string | null>(null);
-  protected disabled = linkedSignal(() => this.inputDisabled())
   tabChange = output<string>();
+
+  protected currentTab = linkedSignal<string | null>(() => this.inputCurrentTab())
+  protected disabled = linkedSignal(() => this.inputDisabled())
 
   private hostSelectedTabWidth = signal(0);
   private hostSelectedTabX = signal(0);
@@ -46,38 +47,39 @@ export class TabBarComponent implements AfterViewInit {
     afterNextRender(() => {
       this.resizeObserver = new ResizeObserver(entries => {
         this.zone.run(() => {
-          if (this.currentTab() != null) {
-            this.update(this.tabs().find(t => t.id() === this.currentTab()!));
+          const currentTab = this.currentTab();
+          if (currentTab != null) {
+            this.updateStyle(this.tabs().find(t => t.id() === currentTab));
           }
         })
       })
       this.mutationObserver = new MutationObserver(entries => {
         this.zone.run(() => {
-          if (this.currentTab() != null) {
-            this.update(this.tabs().find(t => t.id() === this.currentTab()!));
+          const currentTab = this.currentTab();
+          if (currentTab != null) {
+            this.updateStyle(this.tabs().find(t => t.id() === currentTab));
           }
         })
       })
       this.resizeObserver.observe(this.elementRef.nativeElement);
       this.mutationObserver.observe(this.elementRef.nativeElement, { subtree: true, childList: true });
-      this.currentTab.set(this.inputCurrentTab())
       effect(() => {
         let tab: TabDirective | undefined;
-        if (this.currentTab() != null) {
-          tab = this.tabs().find(t => t.id() === this.currentTab());
+        const input = this.inputCurrentTab();
+        if (input != null) {
+          tab = this.tabs().find(t => untracked(() => t.id()) === input);
         } else {
           tab = this.tabs().at(0);
         }
-        this.update(tab)
+        untracked(() => this.updateStyle(tab))
       }, { injector: this.injector })
     }, { injector: this.injector })
   }
 
-  private update(currentTab: TabDirective | undefined) {
+  private updateStyle(currentTab: TabDirective | undefined) {
     if (currentTab == null) return;
     const el = this.tabButtonsElement().find(el => el.nativeElement.id === currentTab.id())
     if (el?.nativeElement) {
-      this.currentTab.set(currentTab.id())
       this.hostSelectedTabWidth.set(el!.nativeElement.getBoundingClientRect().width);
       this.hostSelectedTabX.set(el!.nativeElement.offsetLeft);
     }

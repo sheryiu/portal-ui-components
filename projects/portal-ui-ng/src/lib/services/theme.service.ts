@@ -5,6 +5,7 @@ import { Subject, defer, filter, fromEvent, iif, map, merge, of, shareReplay, st
 
 export type ThemeOptions = {
   localStorageKey: string;
+  forcesMode?: 'dark' | 'light' | 'system';
 }
 
 export const THEME_OPTIONS = new InjectionToken<ThemeOptions>('theme service options');
@@ -48,6 +49,7 @@ export class ThemeService {
             map(() => format(window.localStorage.getItem(this.options.localStorageKey))),
           ),
         ).pipe(
+          map(preference => this.options.forcesMode ?? preference),
           shareReplay(1),
         )
         const systemIsDark$ = fromEvent<MediaQueryListEvent>(window.matchMedia('(prefers-color-scheme: dark)'), 'change')
