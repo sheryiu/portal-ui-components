@@ -1,4 +1,4 @@
-import { Component, booleanAttribute, forwardRef, input, linkedSignal, output, signal } from '@angular/core';
+import { Component, booleanAttribute, forwardRef, input, linkedSignal, output } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { uniqueId } from 'lodash-es';
 import { HoverableDirective } from 'portal-ui-ng/base';
@@ -23,10 +23,11 @@ export class ToggleComponent implements ControlValueAccessor {
   /** the id must be passed in as [id]="" instead of id="" */
   id = input<string>(`toggle-${uniqueId()}`)
   inputToggled = input(false, { alias: 'toggled', transform: booleanAttribute })
+  disabled = input(false, { transform: booleanAttribute })
   valueChange = output<boolean>();
 
   isChecked = linkedSignal(() => this.inputToggled());
-  isDisabled = signal<boolean>(false);
+  isDisabled = linkedSignal<boolean>(() => this.disabled());
 
   onChange?: (val: boolean) => void;
   onTouched?: () => void;

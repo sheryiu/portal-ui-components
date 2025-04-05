@@ -6,11 +6,15 @@
   &.pui-toggle--checked {
     @apply bg-green-300 dark:bg-green-700;
   }
+  &:focus-visible .pui-toggle__trigger {
+    @apply outline-primary-500;
+  }
 }
 .pui-toggle__trigger {
   @apply bg-neutral-300 dark:bg-neutral-700;
-  @apply rounded-[0.875rem] absolute top-0 bottom-0 left-0 transition-[left] z-0;
+  @apply rounded-[0.875rem] absolute top-0 bottom-0 left-0 transition-all z-0;
   @apply flex justify-center items-center;
+  @apply outline-none;
   width: calc(50% + 0.5rem);
   i {
     @apply icon-5;

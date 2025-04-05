@@ -37,7 +37,7 @@
 
 .pui-root-sidenav__content {
   @apply px-4 min-h-full;
-  @apply lg:ml-80 lg:px-8 lg:h-full;
+  @apply lg:ml-80 lg:h-full;
   @apply max-lg:translate-y-2 max-lg:transition-transform max-lg:duration-300;
   /** the background */
   @apply max-lg:relative;
