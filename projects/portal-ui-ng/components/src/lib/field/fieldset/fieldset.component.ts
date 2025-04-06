@@ -86,7 +86,8 @@ export class FieldsetComponent<T extends { [key: string | number | symbol]: any 
     }
   }
 
-  handleInput() {
+  handleInput(event?: Event) {
+    if (event instanceof InputEvent && event.isComposing) return;
     let newValue: any = cloneDeep(this.currentValue);
     if (newValue == null) newValue = {};
     const formValue = this.formControl.getRawValue();

@@ -61,7 +61,8 @@
                       type="text"
                       [name]="fieldDef.base64Key()"
                       [formControlName]="fieldDef.base64Key()"
-                      (input)="handleInput()"
+                      (input)="handleInput($event)"
+                      (compositionend)="handleInput($event)"
                       puiAutocompleteTrigger
                       [autocompleteEnabled]="fieldDef.fieldConfig()?.enum != null"
                       [autocompleteValues]="fieldDef.fieldConfig()?.enum ?? []"
@@ -77,7 +78,7 @@
                       type="number"
                       [name]="fieldDef.base64Key()"
                       [formControlName]="fieldDef.base64Key()"
-                      (input)="handleInput()"
+                      (input)="handleInput($event)"
                       puiAutocompleteTrigger
                       [autocompleteEnabled]="fieldDef.fieldConfig()?.enum != null"
                       [autocompleteValues]="fieldDef.fieldConfig()?.enum ?? []"
@@ -106,7 +107,7 @@
                       type="text"
                       [name]="fieldDef.base64Key()"
                       [formControlName]="fieldDef.base64Key()"
-                      (input)="handleInput()"
+                      (input)="handleInput($event)"
                     />
                   </pui-input-field>
                 }
