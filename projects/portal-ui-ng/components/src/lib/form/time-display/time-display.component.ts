@@ -21,5 +21,5 @@ export class TimeDisplayComponent {
    */
   format = input<string>()
 
-  protected isInvalid = computed(() => isNaN(this.date()?.getTime()!))
+  protected isInvalid = computed(() => this.date() instanceof Date ? isNaN(this.date()?.getTime()!) : true)
 }

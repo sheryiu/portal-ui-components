@@ -50,6 +50,13 @@
     @apply hover:bg-primary-600 hover:text-primary-50;
   }
 
+  [data-vc-theme=dark] .vc-date[data-vc-date-selected][data-vc-date-selected=middle] .vc-date__btn,
+  [data-vc-theme=dark] .vc-date[data-vc-date-selected][data-vc-date-selected=middle][data-vc-date-weekend] .vc-date__btn,
+  [data-vc-theme=dark] .vc-date[data-vc-date-selected][data-vc-date-selected=middle][data-vc-date-today][data-vc-date-weekend] .vc-date__btn {
+    @apply bg-primary-900 text-primary-50;
+    @apply hover:bg-primary-800 hover:text-primary-50;
+  }
+
   [data-vc-theme=dark] .vc-date[data-vc-date-selected][data-vc-date-month=prev] .vc-date__btn,
   [data-vc-theme=dark] .vc-date[data-vc-date-selected][data-vc-date-month=next] .vc-date__btn,
   [data-vc-theme=dark] .vc-date[data-vc-date-selected][data-vc-date-weekend][data-vc-date-month=prev] .vc-date__btn,
@@ -58,6 +65,16 @@
   [data-vc-theme=dark] .vc-date[data-vc-date-selected][data-vc-date-today][data-vc-date-weekend][data-vc-date-month=next] .vc-date__btn {
     @apply bg-primary-900 text-primary-200 border border-primary-700;
     @apply hover:bg-hover;
+  }
+
+  [data-vc-theme=dark] .vc-date[data-vc-date-selected][data-vc-date-selected=middle][data-vc-date-month=prev] .vc-date__btn,
+  [data-vc-theme=dark] .vc-date[data-vc-date-selected][data-vc-date-selected=middle][data-vc-date-weekend][data-vc-date-month=prev] .vc-date__btn,
+  [data-vc-theme=dark] .vc-date[data-vc-date-selected][data-vc-date-selected=middle][data-vc-date-today][data-vc-date-weekend][data-vc-date-month=prev] .vc-date__btn,
+  [data-vc-theme=dark] .vc-date[data-vc-date-selected][data-vc-date-selected=middle][data-vc-date-month=next] .vc-date__btn,
+  [data-vc-theme=dark] .vc-date[data-vc-date-selected][data-vc-date-selected=middle][data-vc-date-weekend][data-vc-date-month=next] .vc-date__btn,
+  [data-vc-theme=dark] .vc-date[data-vc-date-selected][data-vc-date-selected=middle][data-vc-date-today][data-vc-date-weekend][data-vc-date-month=next] .vc-date__btn {
+    @apply bg-primary-950 text-primary-50;
+    @apply hover:bg-primary-800 hover:text-primary-50;
   }
 
   [data-vc-theme=dark] .vc-time__hour input, [data-vc-theme=dark] .vc-time__minute input {
