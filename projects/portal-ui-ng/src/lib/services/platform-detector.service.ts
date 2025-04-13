@@ -30,7 +30,7 @@ export class PlatformDetectorService {
   constructor() {
     if (this.platform.isBrowser) {
       this.document.documentElement.dataset['os'] =
-        this.platform.SAFARI
+        this.platform.SAFARI || navigator.userAgent?.toLowerCase().includes('Mac OS X'.toLowerCase())
           ? 'mac'
           : this.platform.ANDROID
           ? 'android'

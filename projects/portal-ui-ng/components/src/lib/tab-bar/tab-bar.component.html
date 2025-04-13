@@ -2,6 +2,7 @@
   class="pui-tab-bar-tabs"
   [attr.data-disabled]="disabled()"
   [attr.data-currentTab]="currentTab()"
+  (click)="onTouched?.()"
 >
   @for (tab of tabs(); track tab.id()) {
     <button

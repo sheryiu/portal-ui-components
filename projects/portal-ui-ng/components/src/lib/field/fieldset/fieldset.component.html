@@ -42,16 +42,18 @@
                   valueUpdated$: valueUpdated$,
                 }"
               ></ng-container>
-              <button
-                puiHoverable
-                type="button"
-                role="button"
-                (click)="onSetNull(fieldDef)"
-                class="pui-fieldset__input__remove"
-                [disabled]="isDisabled"
-              >
-                <i>close</i>
-              </button>
+              @if (fieldDef.isNullable()) {
+                <button
+                  puiHoverable
+                  type="button"
+                  role="button"
+                  (click)="onSetNull(fieldDef)"
+                  class="pui-fieldset__input__remove"
+                  [disabled]="isDisabled"
+                >
+                  <i>close</i>
+                </button>
+              }
             } @else {
               @switch (fieldDef.fieldType()) {
                 @case ("string") {

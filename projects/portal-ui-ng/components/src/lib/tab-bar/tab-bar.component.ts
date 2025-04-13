@@ -1,5 +1,6 @@
 import { NgTemplateOutlet } from '@angular/common';
-import { AfterViewInit, Component, DestroyRef, ElementRef, Injector, NgZone, afterNextRender, booleanAttribute, contentChildren, effect, inject, input, linkedSignal, output, signal, untracked, viewChildren } from '@angular/core';
+import { AfterViewInit, Component, DestroyRef, ElementRef, Injector, NgZone, afterNextRender, booleanAttribute, contentChildren, effect, forwardRef, inject, input, linkedSignal, output, signal, untracked, viewChildren } from '@angular/core';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { HoverableDirective } from 'portal-ui-ng/base';
 import { TabDirective } from './tab.directive';
 
@@ -14,15 +15,25 @@ import { TabDirective } from './tab.directive';
   imports: [
     NgTemplateOutlet,
     HoverableDirective,
+  ],
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => TabBarComponent),
+      multi: true,
+    }
   ]
 })
-export class TabBarComponent implements AfterViewInit {
+export class TabBarComponent implements AfterViewInit, ControlValueAccessor {
   private elementRef = inject(ElementRef) as ElementRef<HTMLElement>;
   tabs = contentChildren(TabDirective);
   private tabButtonsElement = viewChildren<ElementRef<HTMLElement>>('tabButton');
   inputCurrentTab = input<string | null>(null, { alias: 'currentTab' });
   inputDisabled = input(false, { transform: booleanAttribute, alias: 'disabled' })
   tabChange = output<string>();
+
+  onChange?: (val: string) => void;
+  onTouched?: () => void;
 
   protected currentTab = linkedSignal<string | null>(() => this.inputCurrentTab())
   protected disabled = linkedSignal(() => this.inputDisabled())
@@ -41,6 +52,19 @@ export class TabBarComponent implements AfterViewInit {
       this.resizeObserver?.disconnect();
       this.mutationObserver?.disconnect();
     })
+  }
+
+  writeValue(obj: any): void {
+    this.currentTab.set(String(obj));
+  }
+  registerOnChange(fn: any): void {
+    this.onChange = fn;
+  }
+  registerOnTouched(fn: any): void {
+    this.onTouched = fn;
+  }
+  setDisabledState(isDisabled: boolean): void {
+    this.disabled.set(isDisabled);
   }
 
   ngAfterViewInit(): void {
@@ -89,6 +113,7 @@ export class TabBarComponent implements AfterViewInit {
     this.currentTab.set(tab.id())
     this.hostSelectedTabWidth.set(tabElement.getBoundingClientRect().width);
     this.hostSelectedTabX.set(tabElement.offsetLeft);
+    this.onChange?.(tab.id())
     this.tabChange.emit(tab.id());
   }
 
