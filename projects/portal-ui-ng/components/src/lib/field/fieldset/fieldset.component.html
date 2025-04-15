@@ -105,10 +105,12 @@
                       <i>calendar_month</i>
                     </button>
                     <pui-time-display
-                      format="yyyy-MM-dd HH:mm:ss"
+                      [format]="fieldDef.fieldConfig()?.['date-time']?.format ?? 'yyyy-MM-dd HH:mm:ss'"
                       [date]="$any(formControl.controls[fieldDef.base64Key()].value)"
                       (click)="trigger.click()"
-                    ></pui-time-display>
+                    >
+                      <span>--</span>
+                    </pui-time-display>
                   </pui-input-field>
                 }
                 @case ("boolean") {

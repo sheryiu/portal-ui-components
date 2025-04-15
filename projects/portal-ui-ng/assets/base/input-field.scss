@@ -28,6 +28,6 @@
     @apply outline outline-primary-500;
   }
   &:has(:disabled) {
-    @apply bg-black/5 dark:bg-white/5 border-transparent dark:border-transparent text-secondary pointer-events-none;
+    @apply bg-black/5 dark:bg-white/5 border-transparent dark:border-transparent dark:text-neutral-300 pointer-events-none;
   }
 }

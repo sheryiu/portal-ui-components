@@ -21,6 +21,9 @@ export class FieldDefDirective {
     enum?: (string | number)[];
     'string'?: {};
     'number'?: {};
+    'date-time'?: {
+      format?: LiteralUnion<'timeAgo', string>
+    };
   }>();
   readonly defaultValue = input<any>();
   isNullable = input(true, { transform: booleanAttribute })

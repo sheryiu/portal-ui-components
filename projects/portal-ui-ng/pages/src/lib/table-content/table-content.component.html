@@ -36,12 +36,13 @@
           @for (config of columnConfig(); track config.key) {
             <pui-table-header-cell
               *puiTableHeaderCellDef="config.key"
+              [centerAligned]="config.isAlignCenter ?? false"
               [rightAligned]="config.isAlignEnd ?? false"
               [sortedAsc]="config.isSortedAsc ?? false"
               [sortedDesc]="config.isSortedDesc ?? false"
               (cellClick)="onHeaderClick(config.key, $event)"
             >{{ config.label }}</pui-table-header-cell>
-            <pui-table-cell *puiTableCellDef="config.key; let item" [rightAligned]="config.isAlignEnd ?? false">
+            <pui-table-cell *puiTableCellDef="config.key; let item" [centerAligned]="config.isAlignCenter ?? false" [rightAligned]="config.isAlignEnd ?? false">
               @if (config.fieldConfiguration) {
                 @switch (config.fieldConfiguration.type) {
                   @case ('date-time') {
@@ -49,7 +50,9 @@
                       [mode]="config.fieldConfiguration.format == 'timeAgo' ? 'timeAgo' : 'normal'"
                       [format]="config.fieldConfiguration.format"
                       [date]="item | lodashGet: (config.path ?? config.key)"
-                    ></pui-time-display>
+                    >
+                      <span>--</span>
+                    </pui-time-display>
                     @if (config.fieldConfiguration.format == 'timeAgo') {
                       &nbsp;ago
                     }

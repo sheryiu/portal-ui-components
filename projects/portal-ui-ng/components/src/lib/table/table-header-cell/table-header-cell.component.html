@@ -1,6 +1,8 @@
 <button
   puiHoverable
+  [attr.data-justify-center]="centerAligned()"
   [attr.data-justify-end]="rightAligned()"
+  [attr.data-sorted]="sortedAsc() || sortedDesc()"
   (click)="cellClick.emit($event)"
   [style.anchor-name]="'--' + columnName()"
 >

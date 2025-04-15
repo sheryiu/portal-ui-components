@@ -12,6 +12,8 @@
               ? { enum: control.fieldConfiguration.enum }
               : control.fieldConfiguration.type == 'number'
               ? { enum: control.fieldConfiguration.enum }
+              : control.fieldConfiguration.type == 'date-time'
+              ? { 'date-time': { format: control.fieldConfiguration.format } }
               : {}"
           ></pui-field-def>
         }

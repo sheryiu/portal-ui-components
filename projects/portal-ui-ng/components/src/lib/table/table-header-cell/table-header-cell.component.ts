@@ -20,6 +20,7 @@ export class TableHeaderCellComponent {
   private tableCellDef = inject(TableHeaderCellDefDirective);
 
   columnName = computed(() => this.tableCellDef.columnName())
+  centerAligned = input(false, { transform: booleanAttribute })
   rightAligned = input(false, { transform: booleanAttribute })
   sortedAsc = input(false, { transform: booleanAttribute })
   sortedDesc = input(false, { transform: booleanAttribute })

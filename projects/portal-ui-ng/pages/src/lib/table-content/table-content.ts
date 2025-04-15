@@ -8,6 +8,7 @@ export type ColumnConfig = {
   key: string;
   /** @default path - equals to key */
   path?: string;
+  isAlignCenter?: boolean;
   isAlignEnd?: boolean;
   isSortedAsc?: boolean;
   isSortedDesc?: boolean;

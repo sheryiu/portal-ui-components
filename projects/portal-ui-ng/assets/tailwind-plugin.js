@@ -113,12 +113,6 @@ module.exports = plugin(
         "background-color": "rgb(var(--color-hover, 0 0 0) / var(--color-hover-opacity, 0.1))",
       }
     });
-    // text-secondary
-    addUtilities({
-      '.text-secondary': {
-        "color": "rgb(var(--color-secondary, 150 150 150))",
-      }
-    });
     // spacer
     addUtilities({
       '.spacer': {
@@ -136,12 +130,10 @@ module.exports = plugin(
       ':root': {
         '--color-hover': '0 0 0',
         '--color-hover-opacity': '0.1',
-        '--color-secondary': '120 120 120',
       },
       '.dark': {
         '--color-hover': '255 255 255',
         '--color-hover-opacity': '0.07',
-        '--color-secondary': '173 173 173',
         'color-scheme': 'dark',
       }
     })

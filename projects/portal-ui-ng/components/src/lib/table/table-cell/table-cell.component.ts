@@ -9,6 +9,7 @@ import { TableCellDefDirective } from './table-cell-def.directive';
   host: {
     class: 'pui-table-cell',
     role: 'cell',
+    '[attr.data-justify-center]': 'centerAligned()',
     '[attr.data-justify-end]': 'rightAligned()'
   },
   template: `<ng-content></ng-content>`
@@ -18,6 +19,7 @@ export class TableCellComponent {
   private isBrowser = isPlatformBrowser(inject(PLATFORM_ID));
   private tableCellDef = inject(TableCellDefDirective);
 
+  readonly centerAligned = input(false, { transform: booleanAttribute });
   readonly rightAligned = input(false, { transform: booleanAttribute });
 
   constructor() {

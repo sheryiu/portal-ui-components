@@ -38,7 +38,8 @@ export class AccessControlTableService implements TableContentDataProvider<Acces
     label: 'Enabled',
     fieldConfiguration: {
       type: 'boolean'
-    }
+    },
+    isAlignCenter: true
   }]);
   columnsToDisplay = signal<string[] | Record<number | 'default', string[]>>(['userNumber', 'employeeName', 'isEnabled']);
   filterConfig = signal<ObjectFieldConfiguration>({

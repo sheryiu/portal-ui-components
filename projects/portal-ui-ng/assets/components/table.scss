@@ -80,7 +80,7 @@
 }
 
 .pui-table-footer-row {
-  @apply grid grid-cols-1 items-center text-secondary uppercase h-12;
+  @apply grid grid-cols-1 items-center dark:text-neutral-300 uppercase h-12;
   grid-column-start: 1;
   grid-column-end: span var(--pui-table-number-of-columns);
 }
@@ -90,6 +90,9 @@
   /** please add truncate on the element inside the table cell */
   @apply px-4 py-2 flex items-center;
   @apply text-base;
+  &[data-justify-center=true] {
+    @apply justify-center;
+  }
   &[data-justify-end=true] {
     @apply justify-end;
   }
@@ -99,7 +102,7 @@
   @apply rounded-1 border-b;
   @apply border-primary-100 dark:border-neutral-900;
   @apply bg-primary-300 dark:bg-neutral-700;
-  @apply text-primary-950 dark:text-neutral-200;
+  @apply text-primary-950 dark:text-neutral-300;
   box-shadow: inset 0px 1px 3px -1px rgb(0 0 0 / 0.2);
   :is(.dark &) {
     box-shadow: inset 0px 1px 3px -1px rgb(255 255 255 / 0.05);
@@ -119,10 +122,13 @@
     @apply rounded-1 border-b;
     @apply border-primary-100 dark:border-neutral-900;
     @apply bg-primary-300 dark:bg-neutral-700;
-    @apply text-primary-950 dark:text-neutral-200;
+    @apply text-primary-950 dark:text-neutral-300;
     box-shadow: inset 0px 1px 3px -1px rgb(0 0 0 / 0.2);
     :is(.dark &) {
       box-shadow: inset 0px 1px 3px -1px rgb(255 255 255 / 0.05);
+    }
+    &[data-justify-center=true] {
+      @apply justify-center;
     }
     &[data-justify-end=true] {
       @apply justify-end;
@@ -140,8 +146,17 @@
 }
 .pui-table-header-cell__gap {
   @apply grow basis-2;
+  [data-justify-center=true] & {
+    @apply grow-0 shrink-0 basis-2;
+  }
   [data-justify-end=true] & {
     @apply grow-0 shrink-0 basis-2;
+  }
+  [data-justify-center=true][data-sorted=false] & {
+    @apply basis-0;
+  }
+  [data-justify-end=true][data-sorted=false] & {
+    @apply basis-0;
   }
 }
 .pui-table-header-cell__state {

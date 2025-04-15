@@ -97,7 +97,8 @@ export class CustomerEditService implements EditableContentDataProvider<Customer
       },
       registeredSince: {
         type: 'date-time',
-        description: 'Registered Since'
+        description: 'Registered Since',
+        format: 'yyyy MMMM dd'
       }
     }
   });
