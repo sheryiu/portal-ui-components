@@ -7,6 +7,7 @@ import { HoverableDirective, InputFieldComponent } from 'portal-ui-ng/base';
 import { Subject } from 'rxjs';
 import { AutocompleteModule } from '../../autocomplete';
 import { CalendarTriggerDirective } from '../../calendar-trigger';
+import { TimeDisplayComponent } from "../../form/time-display/time-display.component";
 import { ToggleComponent } from '../../form/toggle';
 import { ArrayFieldComponent } from '../array-field/array-field.component';
 import { FieldDefDirective } from '../field-def.directive';
@@ -25,6 +26,7 @@ import { FieldDefDirective } from '../field-def.directive';
     ArrayFieldComponent,
     HoverableDirective,
     ToggleComponent,
+    TimeDisplayComponent
   ],
   providers: [
     {
@@ -68,8 +70,11 @@ export class FieldsetComponent<T extends { [key: string | number | symbol]: any 
 
   private formControlValueForField(fieldDef: FieldDefDirective) {
     let value: any = get(this.currentValue, fieldDef.key())
-    if (fieldDef.fieldType() === 'date-time' && value && value instanceof Date && !isNaN(value.getTime())) {
-      return value.toISOString();
+    if (fieldDef.fieldType() === 'date-time' && value) {
+      if (value instanceof Date && !isNaN(value.getTime())) return value;
+      if (typeof value == 'string' && !isNaN(new Date(value).getTime())) return new Date(value);
+      if (typeof value == 'number' && !isNaN(new Date(value).getTime())) return new Date(value);
+      return null;
     }
     return value;
   }
@@ -78,7 +83,7 @@ export class FieldsetComponent<T extends { [key: string | number | symbol]: any 
     switch (fieldDef.fieldType()) {
       case 'string': return '';
       case 'number': return 0;
-      case 'date-time': return new Date().toISOString();
+      case 'date-time': return new Date();
       case 'boolean': return false;
       case 'array': return [];
       // TODO
@@ -129,7 +134,7 @@ export class FieldsetComponent<T extends { [key: string | number | symbol]: any 
 
   protected onDateChange(fieldDef: FieldDefDirective, value: Date | null) {
     if (!this.formControl.contains(fieldDef.base64Key())) return;
-    this.formControl.get(fieldDef.base64Key())?.setValue(value ? value.toISOString() : null);
+    this.formControl.get(fieldDef.base64Key())?.setValue((value instanceof Date && !isNaN(value.getTime())) ? value : null);
     this.handleInput();
   }
 

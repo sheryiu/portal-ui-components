@@ -14,12 +14,40 @@ import { TimeAgoPipe } from 'portal-ui-ng';
   }
 })
 export class TimeDisplayComponent {
-  date = input.required<Date | null | undefined>()
+  _date = input.required<Date | string | number | null | undefined>({ alias: 'date' })
   mode = input<'normal' | 'timeAgo'>('normal')
   /**
    * Only applicable when mode = 'normal'
    */
   format = input<string>()
 
-  protected isInvalid = computed(() => this.date() instanceof Date ? isNaN(this.date()?.getTime()!) : true)
+  date = computed(() => {
+    const date = this._date();
+    if (date instanceof Date) {
+      if (isNaN(date.getTime())) return null;
+      return date;
+    }
+    if (typeof date == 'string') {
+      if (isNaN(new Date(date).getTime())) return null;
+      return new Date(date);
+    }
+    if (typeof date == 'number') {
+      if (isNaN(new Date(date).getTime())) return null;
+      return new Date(date);
+    }
+    return null
+  })
+  protected isInvalid = computed(() => {
+    const date = this._date();
+    if (date instanceof Date) {
+      return isNaN(date.getTime())
+    }
+    if (typeof date == 'string') {
+      return isNaN(new Date(date).getTime())
+    }
+    if (typeof date == 'number') {
+      return isNaN(new Date(date).getTime())
+    }
+    return true;
+  })
 }

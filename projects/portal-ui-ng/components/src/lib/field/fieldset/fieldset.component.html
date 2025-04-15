@@ -92,6 +92,7 @@
                 @case ("date-time") {
                   <pui-input-field>
                     <button
+                      #trigger
                       puiHoverable
                       puiCalendarTrigger
                       role="button"
@@ -103,14 +104,11 @@
                     >
                       <i>calendar_month</i>
                     </button>
-                    <input
-                      #dateTimeInput
-                      [id]="fieldDef.base64Key()"
-                      type="text"
-                      [name]="fieldDef.base64Key()"
-                      [formControlName]="fieldDef.base64Key()"
-                      (input)="handleInput($event)"
-                    />
+                    <pui-time-display
+                      format="yyyy-MM-dd HH:mm:ss"
+                      [date]="$any(formControl.controls[fieldDef.base64Key()].value)"
+                      (click)="trigger.click()"
+                    ></pui-time-display>
                   </pui-input-field>
                 }
                 @case ("boolean") {

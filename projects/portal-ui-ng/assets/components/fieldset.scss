@@ -42,6 +42,9 @@
       @apply icon-4;
     }
   }
+  > .pui-time-display {
+    @apply grow h-full flex items-center;
+  }
 }
 .pui-fieldset__input--boolean .pui-input-field {
   @apply py-1 ps-1;

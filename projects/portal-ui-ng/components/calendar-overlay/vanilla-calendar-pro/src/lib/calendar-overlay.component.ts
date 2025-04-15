@@ -49,7 +49,7 @@ export class CalendarOverlayComponent {
   }
 
   private onChange() {
-    this.data.onDateChange(new Date(`${this.calendar.context.selectedDates[0]} ${this.calendar.context.selectedTime}`)) // this gets converted to the selectedTime in local timezone
+    this.data.onDateChange(this.calendar.context.selectedDates.length > 0 ? new Date(`${this.calendar.context.selectedDates[0]} ${this.calendar.context.selectedTime}`) : null) // this gets converted to the selectedTime in local timezone
   }
 }
 

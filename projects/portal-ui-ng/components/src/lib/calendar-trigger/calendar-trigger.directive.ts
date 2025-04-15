@@ -16,7 +16,7 @@ export class CalendarTriggerDirective {
   private renderer = inject(Renderer2);
   private destroyRef = inject(DestroyRef)
 
-  date = input<string | Date | null | undefined>();
+  date = input<string | Date | number | null | undefined>();
   dateChange = output<Date | null>();
   private overlayRef?: PuiOverlayRef;
   private dateElement?: HTMLInputElement;
@@ -97,5 +97,5 @@ export class CalendarTriggerDirective {
 export const CALENDAR_OVERLAY_COMPONENT = new InjectionToken<() => Type<unknown>>('calendar overlay')
 export type CalendarOverlayData = {
   date: Date | null | undefined;
-  onDateChange: (date: Date) => void;
+  onDateChange: (date: Date | null) => void;
 }
