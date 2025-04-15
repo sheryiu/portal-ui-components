@@ -13,6 +13,11 @@ export class MediaListService implements VerticalLayoutDataProvider {
     {
       label: 'Raw',
       route: ['raw']
-    }
+    },
+    {
+      label: 'Local',
+      route: ['local'],
+      hidden: true
+    },
   ]);
 }

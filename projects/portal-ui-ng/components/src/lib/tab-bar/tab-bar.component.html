@@ -5,18 +5,20 @@
   (click)="onTouched?.()"
 >
   @for (tab of tabs(); track tab.id()) {
-    <button
-      [id]="tab.id()"
-      #tabButton
-      type="button"
-      [attr.data-active]="currentTab() === tab.id()"
-      puiHoverable
-      (click)="onTabClick($index, tab, tabButton)"
-      [disabled]="disabled()"
-      [hoverableEnabled]="!disabled()"
-    >
-      <ng-container [ngTemplateOutlet]="tab.templateRef"></ng-container>
-    </button>
+    @if (!tab.hidden()) {
+      <button
+        [id]="tab.id()"
+        #tabButton
+        type="button"
+        [attr.data-active]="currentTab() === tab.id()"
+        puiHoverable
+        (click)="onTabClick($index, tab, tabButton)"
+        [disabled]="disabled()"
+        [hoverableEnabled]="!disabled()"
+      >
+        <ng-container [ngTemplateOutlet]="tab.templateRef"></ng-container>
+      </button>
+    }
   }
 </div>
 <!-- FIX: https://github.com/angular/angular/issues/50543#issuecomment-1572900259 -->

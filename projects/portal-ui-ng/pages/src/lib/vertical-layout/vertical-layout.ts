@@ -4,6 +4,7 @@ import { Params } from '@angular/router';
 export type TabConfig = {
   label: string;
   route: any[];
+  hidden?: boolean;
 }
 
 export interface VerticalLayoutDataProvider {
