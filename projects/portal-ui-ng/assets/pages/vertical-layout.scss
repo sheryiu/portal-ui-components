@@ -28,6 +28,9 @@
   .spacer {
     @apply hidden lg:block grow shrink-0 basis-auto;
   }
+  .pui-tab-bar-tabs {
+    @apply flex-wrap;
+  }
 }
 
 .pui-vertical-layout__toolbar {

@@ -13,13 +13,8 @@
 @use './modal-dialog.scss';
 @use './dropdown.scss';
 @use './loading-panel.scss';
+@use './divider.scss';
 
 .pui-linear-progress-display {
   @apply w-full flex items-center gap-1 overflow-hidden;
-}
-
-.pui-divider {
-  > div {
-    @apply w-full border-t;
-  }
 }

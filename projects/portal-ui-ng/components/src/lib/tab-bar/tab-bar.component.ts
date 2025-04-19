@@ -10,7 +10,9 @@ import { TabDirective } from './tab.directive';
   host: {
     class: 'pui-tab-bar',
     '[style.--pui-selected-tab-width.px]': 'hostSelectedTabWidth()',
+    '[style.--pui-selected-tab-height.px]': 'hostSelectedTabHeight()',
     '[style.--pui-selected-tab-x.px]': 'hostSelectedTabX()',
+    '[style.--pui-selected-tab-y.px]': 'hostSelectedTabY()',
   },
   imports: [
     NgTemplateOutlet,
@@ -39,7 +41,9 @@ export class TabBarComponent implements AfterViewInit, ControlValueAccessor {
   protected disabled = linkedSignal(() => this.inputDisabled())
 
   private hostSelectedTabWidth = signal(0);
+  private hostSelectedTabHeight = signal(0);
   private hostSelectedTabX = signal(0);
+  private hostSelectedTabY = signal(0);
 
   private resizeObserver?: ResizeObserver;
   private mutationObserver?: MutationObserver;
@@ -105,14 +109,18 @@ export class TabBarComponent implements AfterViewInit, ControlValueAccessor {
     const el = this.tabButtonsElement().find(el => el.nativeElement.id === currentTab.id())
     if (el?.nativeElement) {
       this.hostSelectedTabWidth.set(el!.nativeElement.getBoundingClientRect().width);
+      this.hostSelectedTabHeight.set(el!.nativeElement.getBoundingClientRect().height);
       this.hostSelectedTabX.set(el!.nativeElement.offsetLeft);
+      this.hostSelectedTabY.set(el!.nativeElement.offsetTop);
     }
   }
 
   onTabClick(index: number, tab: TabDirective, tabElement: HTMLElement) {
     this.currentTab.set(tab.id())
     this.hostSelectedTabWidth.set(tabElement.getBoundingClientRect().width);
+    this.hostSelectedTabHeight.set(tabElement.getBoundingClientRect().height);
     this.hostSelectedTabX.set(tabElement.offsetLeft);
+    this.hostSelectedTabY.set(tabElement.offsetTop);
     this.onChange?.(tab.id())
     this.tabChange.emit(tab.id());
   }
