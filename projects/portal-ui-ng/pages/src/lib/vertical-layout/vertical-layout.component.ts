@@ -1,11 +1,12 @@
-import { NgClass, NgTemplateOutlet } from '@angular/common';
-import { Component, computed, inject, signal } from '@angular/core';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { animate, style, transition, trigger } from '@angular/animations';
+import { DOCUMENT, NgClass, NgTemplateOutlet } from '@angular/common';
+import { Component, computed, effect, inject, signal } from '@angular/core';
+import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, NavigationEnd, Router, RouterLink, RouterOutlet } from '@angular/router';
 import { filterNonNull } from 'portal-ui-ng';
-import { ButtonModule } from 'portal-ui-ng/base';
+import { ButtonModule, TypedTemplateDirective } from 'portal-ui-ng/base';
 import { BreadcrumbsComponent, TabBarModule, TooltipDirective } from 'portal-ui-ng/components';
-import { combineLatest, filter, startWith } from 'rxjs';
+import { combineLatest, filter, fromEvent, map, pairwise, startWith } from 'rxjs';
 import { LayoutService } from '../layout/layout.service';
 import { PeekableAddonComponent } from "../peekable-addon/peekable-addon.component";
 import { VERTICAL_LAYOUT_DATA_PROVIDER } from './vertical-layout';
@@ -22,6 +23,20 @@ import { VERTICAL_LAYOUT_DATA_PROVIDER } from './vertical-layout';
     PeekableAddonComponent,
     TooltipDirective,
     NgClass,
+    TypedTemplateDirective,
+    NgTemplateOutlet
+  ],
+  animations: [
+    trigger('floatingHeader', [
+      transition(':enter', [
+        style({ transform: 'translate(0, -100%)' }),
+        animate('200ms ease-in-out', style({ transform: 'translate(0, 0)' }))
+      ]),
+      transition(':leave', [
+        style({ transform: 'translate(0, 0)' }),
+        animate('200ms ease-in-out', style({ transform: 'translate(0, -100%)' }))
+      ])
+    ])
   ],
   providers: [LayoutService],
   templateUrl: './vertical-layout.component.html',
@@ -35,12 +50,20 @@ export class VerticalLayoutComponent {
   protected layoutService = inject(LayoutService, { self: true });
   private router = inject(Router);
   private route = inject(ActivatedRoute);
+  private document = inject(DOCUMENT)
 
-  activeTab = signal<string | null>(null)
-  protected heading = computed(() => this.dataProvider.heading());
-  protected tabs = computed(() => this.dataProvider.tabs());
-  protected controls = this.layoutService.controls;
-  protected mostEmphasizedControlId = this.layoutService.mostEmphasizedControlId;
+  readonly activeTab = signal<string | null>(null)
+  protected readonly heading = computed(() => this.dataProvider.heading());
+  protected readonly tabs = computed(() => this.dataProvider.tabs());
+  protected readonly controls = this.layoutService.controls;
+  protected readonly mostEmphasizedControlId = this.layoutService.mostEmphasizedControlId;
+  protected readonly scrollState = toSignal(fromEvent(this.document, 'scroll').pipe(
+    map(event => (event.currentTarget as Document).scrollingElement?.scrollTop),
+    filterNonNull(),
+    pairwise(),
+    map(([prev, curr]) => ({ direction: (curr - prev) > 0 ? 'down' : 'up', currentTop: curr })),
+    takeUntilDestroyed(),
+  ))
 
   constructor() {
     combineLatest([
@@ -72,6 +95,7 @@ export class VerticalLayoutComponent {
           .join('/')
       }
     })
+    effect(() => console.log(this.scrollState()))
   }
 
   onTabChanged(event: string) {

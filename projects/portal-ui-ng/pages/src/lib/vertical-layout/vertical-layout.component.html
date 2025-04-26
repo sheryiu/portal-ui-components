@@ -1,45 +1,64 @@
 <div class="@container/layout">
-  <header class="pui-vertical-layout__heading">
-    <pui-breadcrumbs></pui-breadcrumbs>
-    <h1>{{ heading() }}</h1>
-  </header>
-  @if (tabs().length > 0 || controls().length > 0) {
-    <header class="pui-vertical-layout__controls">
-      @if (tabs().length > 0) {
-        <pui-tab-bar class="pui-vertical-layout__tabs" [currentTab]="activeTab()" (tabChange)="onTabChanged($event)">
-          @for (tab of tabs(); track tab.label) {
-            <a *puiTab="tab.label; hidden: tab.hidden ?? false" [routerLink]="tab.route">{{ tab.label }}</a>
-          }
-        </pui-tab-bar>
-      }
-      @if (controls().length > 0) {
-        <div class="spacer"></div>
-        <div class="pui-vertical-layout__toolbar">
-          @for (control of controls(); track control.id) {
-            <button
-              puiFilledButton
-              color="accent"
-              [ngClass]="{
-                'pui-vertical-layout__toolbar__most-emphasized': control.id == mostEmphasizedControlId(),
-                'pui-vertical-layout__toolbar__normal':  control.id != mostEmphasizedControlId() && (control.icon || control.iconTemplateRef),
-              }"
-              [puiTooltip]="control.label"
-              [disabled]="control.isDisabled"
-              [hoverableEnabled]="!control.isDisabled"
-              (click)="layoutService.controlOnClick(control.id, $event)"
-            >
-              @if (control.icon) {
-                <i>{{ control.icon }}</i>
-              } @else if (control.iconTemplateRef) {
-                <ng-container [ngTemplateOutlet]="control.iconTemplateRef"></ng-container>
-              }
-              <span>{{ control.label }}</span>
-            </button>
-          }
-        </div>
-      }
+  <div>
+    <header class="pui-vertical-layout__heading">
+      <div class="pui-vertical-layout__navigation">
+        <pui-breadcrumbs></pui-breadcrumbs>
+        <h1>{{ heading() }}</h1>
+      </div>
     </header>
-  }
-  <router-outlet></router-outlet>
-  <pui-peekable-addon></pui-peekable-addon>
+    @if (scrollState()?.direction == 'up' && scrollState()?.currentTop! > 160) {
+      <header class="pui-vertical-layout__heading pui-vertical-layout__heading--floating" @floatingHeader>
+        <div class="pui-vertical-layout__navigation">
+          <pui-breadcrumbs></pui-breadcrumbs>
+          <h1>{{ heading() }}</h1>
+        </div>
+        <ng-container [ngTemplateOutlet]="controlsTemplate"></ng-container>
+      </header>
+    }
+    @if (tabs().length > 0 || controls().length > 0) {
+      <header class="pui-vertical-layout__controls">
+        @if (tabs().length > 0) {
+          <pui-tab-bar class="pui-vertical-layout__tabs" [currentTab]="activeTab()" (tabChange)="onTabChanged($event)">
+            @for (tab of tabs(); track tab.label) {
+              <a *puiTab="tab.label; hidden: tab.hidden ?? false" [routerLink]="tab.route">{{ tab.label }}</a>
+            }
+          </pui-tab-bar>
+        }
+        @if (controls().length > 0) {
+          <div class="spacer"></div>
+        }
+        <ng-container [ngTemplateOutlet]="controlsTemplate"></ng-container>
+      </header>
+    }
+    <router-outlet></router-outlet>
+    <pui-peekable-addon></pui-peekable-addon>
+  </div>
 </div>
+
+<ng-template #controlsTemplate>
+  @if (controls().length > 0) {
+    <div class="pui-vertical-layout__toolbar">
+      @for (control of controls(); track control.id) {
+        <button
+          puiFilledButton
+          color="accent"
+          [ngClass]="{
+            'pui-vertical-layout__toolbar__most-emphasized': control.id == mostEmphasizedControlId(),
+            'pui-vertical-layout__toolbar__normal':  control.id != mostEmphasizedControlId() && (control.icon || control.iconTemplateRef),
+          }"
+          [puiTooltip]="control.label"
+          [disabled]="control.isDisabled"
+          [hoverableEnabled]="!control.isDisabled"
+          (click)="layoutService.controlOnClick(control.id, $event)"
+        >
+          @if (control.icon) {
+            <i>{{ control.icon }}</i>
+          } @else if (control.iconTemplateRef) {
+            <ng-container [ngTemplateOutlet]="control.iconTemplateRef"></ng-container>
+          }
+          <span>{{ control.label }}</span>
+        </button>
+      }
+    </div>
+  }
+</ng-template>
