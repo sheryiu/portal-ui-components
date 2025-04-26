@@ -6,7 +6,7 @@
         <h1>{{ heading() }}</h1>
       </div>
     </header>
-    @if (scrollState()?.direction == 'up' && scrollState()?.currentTop! > 160) {
+    @if (scrollState()?.direction == 'up' && scrollState()?.currentTop! > 240) {
       <header class="pui-vertical-layout__heading pui-vertical-layout__heading--floating" @floatingHeader>
         <div class="pui-vertical-layout__navigation">
           <pui-breadcrumbs></pui-breadcrumbs>
@@ -41,7 +41,7 @@
       @for (control of controls(); track control.id) {
         <button
           puiFilledButton
-          color="accent"
+          [color]="control.color ?? 'accent'"
           [ngClass]="{
             'pui-vertical-layout__toolbar__most-emphasized': control.id == mostEmphasizedControlId(),
             'pui-vertical-layout__toolbar__normal':  control.id != mostEmphasizedControlId() && (control.icon || control.iconTemplateRef),

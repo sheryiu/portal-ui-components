@@ -1,6 +1,6 @@
 import { animate, style, transition, trigger } from '@angular/animations';
 import { DOCUMENT, NgClass, NgTemplateOutlet } from '@angular/common';
-import { Component, computed, effect, inject, signal } from '@angular/core';
+import { Component, computed, inject, signal } from '@angular/core';
 import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, NavigationEnd, Router, RouterLink, RouterOutlet } from '@angular/router';
 import { filterNonNull } from 'portal-ui-ng';
@@ -95,7 +95,6 @@ export class VerticalLayoutComponent {
           .join('/')
       }
     })
-    effect(() => console.log(this.scrollState()))
   }
 
   onTabChanged(event: string) {

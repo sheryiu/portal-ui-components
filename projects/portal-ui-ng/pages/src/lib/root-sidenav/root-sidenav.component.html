@@ -24,6 +24,7 @@
   <div
     class="pui-root-sidenav__content"
     [attr.data-sidenav]="isSidenavVisible() ? 'visible' : 'hidden'"
+    (click)="onContentClick($event)"
   >
     <router-outlet></router-outlet>
   </div>

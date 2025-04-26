@@ -1,4 +1,5 @@
 import { computed, Injectable, signal, TemplateRef } from '@angular/core';
+import { FilledButtonDirective } from 'portal-ui-ng/base';
 
 export type LayoutControlMode = 'auto' | 'low-emphasis';
 export type LayoutControlConfig = {
@@ -9,6 +10,7 @@ export type LayoutControlConfig = {
   mode?: LayoutControlMode;
   icon?: string;
   iconTemplateRef?: TemplateRef<unknown>;
+  color?: ReturnType<FilledButtonDirective['color']>;
 }
 
 @Injectable()

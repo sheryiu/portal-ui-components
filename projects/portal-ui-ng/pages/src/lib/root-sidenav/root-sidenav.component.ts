@@ -20,7 +20,7 @@ export class RootSidenavComponent {
   constructor() {
     this.router?.events.pipe(
       filter(e => e instanceof NavigationEnd),
-      debounceTime(150),
+      debounceTime(50),
       takeUntilDestroyed(),
     ).subscribe(() => {
       this.isSidenavVisible.set(false)
@@ -29,5 +29,11 @@ export class RootSidenavComponent {
 
   toggleSidenav(value?: boolean) {
     this.isSidenavVisible.update((old) => value == null ? !old : value)
+  }
+
+  onContentClick(event: Event) {
+    if (event.target == event.currentTarget) {
+      this.isSidenavVisible.set(false)
+    }
   }
 }
