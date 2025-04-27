@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-import { breadcrumb } from 'portal-ui-ng/components';
+import { breadcrumb, preventDirtyLeave } from 'portal-ui-ng/components';
 import { EDITABLE_CONTENT_DATA_PROVIDER, EditableContentComponent, PEEKABLE_ADDON_DATA_PROVIDER, TABLE_CONTENT_DATA_PROVIDER, TableContentComponent, VERTICAL_LAYOUT_DATA_PROVIDER, VerticalLayoutComponent } from 'portal-ui-ng/pages';
 import { map, switchMap } from 'rxjs';
 import { CustomerDataService } from '../../../data/customer-data.service';
@@ -35,6 +35,7 @@ const CUSTOMER_DETAIL_CHILDREN: Routes = [
   {
     path: 'raw',
     component: EditableContentComponent,
+    canDeactivate: [preventDirtyLeave],
     providers: [
       {
         provide: EDITABLE_CONTENT_DATA_PROVIDER,

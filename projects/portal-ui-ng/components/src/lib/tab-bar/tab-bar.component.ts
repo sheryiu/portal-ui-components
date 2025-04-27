@@ -37,7 +37,10 @@ export class TabBarComponent implements AfterViewInit, ControlValueAccessor {
   onChange?: (val: string) => void;
   onTouched?: () => void;
 
-  protected currentTab = linkedSignal<string | null>(() => this.inputCurrentTab())
+  // the String casting is for vertical layout
+  protected currentTab = linkedSignal<string | null>(() => {
+    return String(this.inputCurrentTab())
+  })
   protected disabled = linkedSignal(() => this.inputDisabled())
 
   private hostSelectedTabWidth = signal(0);
@@ -93,7 +96,7 @@ export class TabBarComponent implements AfterViewInit, ControlValueAccessor {
       this.mutationObserver.observe(this.elementRef.nativeElement, { subtree: true, childList: true });
       effect(() => {
         let tab: TabDirective | undefined;
-        const input = this.inputCurrentTab();
+        const input = String(this.inputCurrentTab());
         if (input != null) {
           tab = this.tabs().find(t => untracked(() => t.id()) === input);
         } else {

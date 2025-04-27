@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-import { breadcrumb } from 'portal-ui-ng/components';
+import { breadcrumb, preventDirtyLeave } from 'portal-ui-ng/components';
 import { EDITABLE_CONTENT_DATA_PROVIDER, EditableContentComponent, TABLE_CONTENT_DATA_PROVIDER, TableContentComponent, VERTICAL_LAYOUT_DATA_PROVIDER, VerticalLayoutComponent } from 'portal-ui-ng/pages';
 import { map, switchMap } from 'rxjs';
 import { EmployeeCalendarEventDataService } from '../../../data/employee-calendar-event-data.service';
@@ -36,6 +36,7 @@ export const ROUTES: Routes = [
       children: [{
         path: 'raw',
         component: EditableContentComponent,
+        canDeactivate: [preventDirtyLeave],
         providers: [{
           provide: EDITABLE_CONTENT_DATA_PROVIDER,
           useClass: EmployeeCalendarEditService,

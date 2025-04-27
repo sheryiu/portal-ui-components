@@ -1,8 +1,8 @@
-import { Component, computed, effect, inject, untracked } from '@angular/core';
+import { Component, computed, effect, inject, signal, untracked } from '@angular/core';
 import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
 import { FormControl, ValueChangeEvent } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { FieldModule } from 'portal-ui-ng/components';
+import { FieldModule, PreventDirtyLeaveComponent } from 'portal-ui-ng/components';
 import { combineLatest, filter, map } from 'rxjs';
 import { flatten } from '../field-configuration';
 import { LayoutControlDirective } from '../layout/layout-control.directive';
@@ -20,7 +20,7 @@ import { EDITABLE_CONTENT_DATA_PROVIDER, EDITABLE_CONTENT_DEFAULT_CONTROLS, Edit
     class: 'pui-editable-content',
   }
 })
-export class EditableContentComponent<T extends { [key: string | number | symbol]: any }> {
+export class EditableContentComponent<T extends { [key: string | number | symbol]: any }> implements PreventDirtyLeaveComponent {
   private route = inject(ActivatedRoute);
   private dataProvider = inject(EDITABLE_CONTENT_DATA_PROVIDER) as EditableContentDataProvider<T>
 
@@ -40,6 +40,8 @@ export class EditableContentComponent<T extends { [key: string | number | symbol
     return this.dataProvider.controlsConfig?.() ?? EDITABLE_CONTENT_DEFAULT_CONTROLS;
   })
 
+  isDirty = signal(true)
+
   constructor() {
     effect(() => {
       const data = this.data();
@@ -58,6 +60,7 @@ export class EditableContentComponent<T extends { [key: string | number | symbol
     this.formControl.events.pipe(
       takeUntilDestroyed(),
     ).subscribe(() => {
+      this.isDirty.set(this.formControl.dirty)
       this.dataProvider.onStateChange?.({
         isValid: this.formControl.valid,
         isDisabled: this.formControl.disabled,

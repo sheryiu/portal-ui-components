@@ -2,7 +2,7 @@ import { animate, style, transition, trigger } from '@angular/animations';
 import { DOCUMENT, NgClass, NgTemplateOutlet } from '@angular/common';
 import { Component, computed, inject, signal } from '@angular/core';
 import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
-import { ActivatedRoute, NavigationEnd, Router, RouterLink, RouterOutlet } from '@angular/router';
+import { ActivatedRoute, NavigationCancel, NavigationEnd, Router, RouterLink, RouterOutlet } from '@angular/router';
 import { filterNonNull } from 'portal-ui-ng';
 import { ButtonModule, TypedTemplateDirective } from 'portal-ui-ng/base';
 import { BreadcrumbsComponent, TabBarModule, TooltipDirective } from 'portal-ui-ng/components';
@@ -73,7 +73,7 @@ export class VerticalLayoutComponent {
       takeUntilDestroyed(),
     ).subscribe(([p, qp]) => this.dataProvider.onParamsChange?.(p, qp))
     this.router.events.pipe(
-      filter(e => e instanceof NavigationEnd),
+      filter(e => e instanceof NavigationEnd || e instanceof NavigationCancel),
       startWith(this.router.lastSuccessfulNavigation?.finalUrl),
       filterNonNull(),
       takeUntilDestroyed(),
@@ -85,7 +85,8 @@ export class VerticalLayoutComponent {
         return this.router.isActive(urlTree, { paths: 'subset', queryParams: 'subset', fragment: 'ignored', matrixParams: 'ignored' })
       })
       if (!activeTab) return;
-      this.activeTab.set(activeTab.label)
+      // assign a empty property so the input signal will update
+      this.activeTab.set(Object.assign(activeTab.label, { [Symbol()]: null }))
       const route = this.route.routeConfig?.children?.find(child => child.path == '**');
       if (route) {
         route.redirectTo = activeTab.route

@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-import { breadcrumb } from 'portal-ui-ng/components';
+import { breadcrumb, preventDirtyLeave } from 'portal-ui-ng/components';
 import { EDITABLE_CONTENT_DATA_PROVIDER, EditableContentComponent, TABLE_CONTENT_DATA_PROVIDER, TableContentComponent, VERTICAL_LAYOUT_DATA_PROVIDER, VerticalLayoutComponent } from 'portal-ui-ng/pages';
 import { map, switchMap } from 'rxjs';
 import { AccessControlDataService } from '../../../data/access-control-data.service';
@@ -40,6 +40,7 @@ export const ROUTES: Routes = [
         }, {
           path: 'raw',
           component: EditableContentComponent,
+          canDeactivate: [preventDirtyLeave],
           providers: [{
             provide: EDITABLE_CONTENT_DATA_PROVIDER,
             useClass: AccessControlEditService,
