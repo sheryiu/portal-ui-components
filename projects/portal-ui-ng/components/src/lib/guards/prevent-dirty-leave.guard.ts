@@ -19,7 +19,7 @@ export const preventDirtyLeave: CanDeactivateFn<unknown> = (component: unknown, 
               onClick: () => {
                 subscriber.next(false)
                 subscriber.complete();
-                ref.close();
+                ref.dispose()
               }
             },
             {
@@ -28,7 +28,7 @@ export const preventDirtyLeave: CanDeactivateFn<unknown> = (component: unknown, 
               onClick: () => {
                 subscriber.next(true)
                 subscriber.complete();
-                ref.close();
+                ref.dispose()
               }
             },
           ]
@@ -37,7 +37,7 @@ export const preventDirtyLeave: CanDeactivateFn<unknown> = (component: unknown, 
           disposeOnNavigation: true,
         })
         return () => {
-          ref.close()
+          ref.dispose()
         }
       })
     }

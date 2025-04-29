@@ -27,10 +27,10 @@
 }
 
 .pui-vertical-layout__heading--floating {
-  @apply fixed top-0 z-50 -ms-4 @screen-sm/layout:-ms-8 w-[100cqw];
+  @apply fixed top-0 z-50 -ms-4 pt-6 @screen-sm/layout:-ms-8 w-[100cqw];
   @apply flex flex-row gap-12;
   @apply px-6 @screen-sm/layout:px-10 pb-4 @screen-sm/layout:pb-6;
-  @apply bg-gradient-to-b dark:from-neutral-700 dark:to-neutral-800 dark:to-90% border-b dark:border-primary-950 shadow-lg;
+  @apply bg-gradient-to-b dark:from-neutral-700 dark:to-neutral-800 dark:to-90% border-b dark:border-neutral-950 shadow-lg;
 }
 
 .pui-vertical-layout__navigation {

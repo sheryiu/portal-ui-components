@@ -17,6 +17,7 @@
 .pui-peekable-addon:has(.pui-peekable-addon__content > :nth-child(2)) {
   // @apply -translate-x-0;
   @apply bg-gradient-to-l from-90% dark:from-neutral-950/95 dark:to-neutral-950/0;
+  @apply z-[1000];
 }
 
 .pui-peekable-addon__nav {
