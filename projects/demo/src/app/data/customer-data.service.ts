@@ -47,7 +47,7 @@ export class CustomerDataService {
   private initialize() {
     if (this.isInitialized) return;
     this.isInitialized = true;
-    this.list.next(Array(2)
+    this.list.next(Array(20)
       .fill(0)
       .map(() => {
         return this.createMock();

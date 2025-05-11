@@ -95,8 +95,24 @@
       </div>
     </div>
     <!-- additional details -->
-    <div class="pui-card rounded-4 p-8 overflow-hidden">
-      <h3 class="flex-none">Detailed information</h3>
+    <div class="pui-card rounded-4 py-8 gap-6 overflow-hidden flex flex-col">
+      <h3 class="flex-none px-4 @screen-lg/layout:px-8">Detailed information</h3>
+      <pui-form-display>
+        <pui-form-field>
+          <i puiFormFieldIcon>person</i>
+          <span puiFormFieldTitle>Username</span>
+          <span puiFormFieldContent>{{
+            customer()?.username ?? "----"
+          }}</span>
+        </pui-form-field>
+        <pui-form-field>
+          <i puiFormFieldIcon>phone</i>
+          <span puiFormFieldTitle>Phone number</span>
+          <span puiFormFieldContent>{{
+            customer()?.phone ?? "----"
+          }}</span>
+        </pui-form-field>
+      </pui-form-display>
       <div class="flex flex-col pt-6 gap-4">
         <div class="flex flex-row items-center gap-2">
           <i

@@ -1,0 +1,27 @@
+.pui-form-display {
+  @apply flex flex-col gap-4;
+  @apply px-0 @screen-lg/layout:px-8;
+}
+
+.pui-form-field {
+  @apply flex flex-row items-center gap-2;
+}
+
+.pui-form-field__icon {
+  @apply icon-6 font-variation-weight-light text-neutral-700 dark:text-neutral-300;
+  i {
+    @apply not-italic;
+  }
+}
+
+.pui-form-field__main {
+  @apply flex flex-col gap-1;
+}
+
+.pui-form-field__title {
+  @apply text-sm text-neutral-700 dark:text-neutral-300;
+}
+
+.pui-form-field__content {
+  @apply text-base break-anywhere;
+}
