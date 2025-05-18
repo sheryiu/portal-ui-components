@@ -4,11 +4,15 @@
   <div class="flex flex-col gap-6 pt-6">
     <h3>1. Install from NPM</h3>
     <blockquote class="border rounded-4 overflow-auto p-4 whitespace-pre font-mono font-light text-base/6 dark:text-neutral-200">npm i portal-ui-ng&commat;&Hat;0.1.7
+npm install &commat;angular/animations &commat;angular/cdk
 npm install -D tailwindcss&commat;3 postcss autoprefixer &commat;tailwindcss/container-queries
 npx tailwindcss init
     </blockquote>
     <h3>2. Update tailwind.config.js</h3>
-    <blockquote class="border rounded-4 overflow-auto p-4 whitespace-pre font-mono font-light text-base/6 dark:text-neutral-200">/** &commat;type &lbrace;import('tailwindcss').Config&rbrace; */
+    <blockquote class="border rounded-4 overflow-auto p-4 whitespace-pre font-mono font-light text-base/6 dark:text-neutral-200">const plugin = require("tailwindcss/plugin");
+const defaultTheme = require("tailwindcss/defaultTheme");
+
+/** &commat;type &lbrace;import('tailwindcss').Config&rbrace; */
 module.exports = &lbrace;
 &nbsp;&nbsp;content: [
 &nbsp;&nbsp;&nbsp;&nbsp;"./src/**/*.&lbrace;html,ts&rbrace;",
@@ -40,6 +44,7 @@ module.exports = &lbrace;
     <h3>4. Update app.config.ts</h3>
     <blockquote class="border rounded-4 overflow-auto p-4 whitespace-pre font-mono font-light text-base/6 dark:text-neutral-200">import &lbrace; ApplicationConfig, provideZoneChangeDetection &rbrace; from '&commat;angular/core';
 import &lbrace; provideClientHydration, withEventReplay &rbrace; from '&commat;angular/platform-browser';
+import &lbrace; provideAnimations &rbrace; from '&commat;angular/platform-browser/animations';
 import &lbrace; provideRouter &rbrace; from '&commat;angular/router';
 import &lbrace; provideLocalStorage, providePlatformDetector, provideTheme &rbrace; from 'portal-ui-ng';
 import &lbrace; routes &rbrace; from './app.routes';
@@ -48,11 +53,16 @@ export const appConfig: ApplicationConfig = &lbrace;
 &nbsp;&nbsp;&nbsp;&nbsp;provideZoneChangeDetection(&lbrace; eventCoalescing: true &rbrace;),
 &nbsp;&nbsp;&nbsp;&nbsp;provideRouter(routes),
 &nbsp;&nbsp;&nbsp;&nbsp;provideClientHydration(withEventReplay()),
+&nbsp;&nbsp;&nbsp;&nbsp;provideAnimations(),
 &nbsp;&nbsp;&nbsp;&nbsp;provideTheme(),
 &nbsp;&nbsp;&nbsp;&nbsp;providePlatformDetector(),
 &nbsp;&nbsp;&nbsp;&nbsp;provideLocalStorage(),
 &nbsp;&nbsp;]
 &rbrace;;
+    </blockquote>
+    <h3>5. Update index.html</h3>
+    <blockquote class="border rounded-4 overflow-auto p-4 whitespace-pre font-mono font-light text-base/6 dark:text-neutral-200">&lt;!-- add this line to HEAD --&gt;
+&lt;link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD&commat;20..48,100..700,0..1,-50..200"/&gt;
     </blockquote>
   </div>
 </div>
