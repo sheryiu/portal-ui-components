@@ -1,6 +1,8 @@
-import{Db as e,Eb as t,Wb as n,fb as u}from"./chunk-SJLNDPFN.js";import"./chunk-EQDQRRRY.js";var s=(()=>{class i{static{this.\u0275fac=function(o){return new(o||i)}}static{this.\u0275cmp=u({type:i,selectors:[["demo-home-content"]],decls:22,vars:0,consts:[[1,"pui-card","rounded-4","px-8","pt-4","pb-12"],[1,"flex","flex-col","gap-6","pt-6"],[1,"border","rounded-4","overflow-auto","p-4","whitespace-pre","font-mono","font-light","text-base/6","dark:text-neutral-200"]],template:function(o,a){o&1&&(e(0,"div",0)(1,"h1"),n(2,"Home"),t(),e(3,"h2"),n(4,"Installation guide"),t(),e(5,"div",1)(6,"h3"),n(7,"1. Install from NPM"),t(),e(8,"blockquote",2),n(9,`npm i portal-ui-ng@^0.1.7
+import{Db as e,Eb as t,Wb as n,fb as r}from"./chunk-SJLNDPFN.js";import"./chunk-EQDQRRRY.js";var s=(()=>{class i{static{this.\u0275fac=function(o){return new(o||i)}}static{this.\u0275cmp=r({type:i,selectors:[["demo-home-content"]],decls:26,vars:0,consts:[[1,"pui-card","rounded-4","px-8","pt-4","pb-12"],[1,"flex","flex-col","gap-6","pt-6"],[1,"border","rounded-4","overflow-auto","p-4","whitespace-pre","font-mono","font-light","text-base/6","dark:text-neutral-200"]],template:function(o,a){o&1&&(e(0,"div",0)(1,"h1"),n(2,"Home"),t(),e(3,"h2"),n(4,"Installation guide"),t(),e(5,"div",1)(6,"h3"),n(7,"1. Install from NPM"),t(),e(8,"blockquote",2),n(9,`npm i portal-ui-ng@^0.1.7
+npm install @angular/animations @angular/cdk
 npm install -D tailwindcss@3 postcss autoprefixer @tailwindcss/container-queries
-npx tailwindcss init `),t(),e(10,"h3"),n(11,"2. Update tailwind.config.js"),t(),e(12,"blockquote",2),n(13,`/** @type {import('tailwindcss').Config} */
+npx tailwindcss init `),t(),e(10,"h3"),n(11,"2. Update tailwind.config.js"),t(),e(12,"blockquote",2),n(13,`const plugin = require("tailwindcss/plugin");
+const defaultTheme = require("tailwindcss/defaultTheme"); /** @type {import('tailwindcss').Config} */
 module.exports = {
 \xA0\xA0content: [
 \xA0\xA0\xA0\xA0"./src/**/*.{html,ts}",
@@ -26,6 +28,7 @@ module.exports = {
 @tailwind components;
 @tailwind utilities; `),t(),e(18,"h3"),n(19,"4. Update app.config.ts"),t(),e(20,"blockquote",2),n(21,`import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
 import { provideClientHydration, withEventReplay } from '@angular/platform-browser';
+import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideRouter } from '@angular/router';
 import { provideLocalStorage, providePlatformDetector, provideTheme } from 'portal-ui-ng';
 import { routes } from './app.routes';
@@ -34,8 +37,10 @@ export const appConfig: ApplicationConfig = {
 \xA0\xA0\xA0\xA0provideZoneChangeDetection({ eventCoalescing: true }),
 \xA0\xA0\xA0\xA0provideRouter(routes),
 \xA0\xA0\xA0\xA0provideClientHydration(withEventReplay()),
+\xA0\xA0\xA0\xA0provideAnimations(),
 \xA0\xA0\xA0\xA0provideTheme(),
 \xA0\xA0\xA0\xA0providePlatformDetector(),
 \xA0\xA0\xA0\xA0provideLocalStorage(),
 \xA0\xA0]
-}; `),t()()())},encapsulation:2})}}return i})();export{s as HomeContentComponent};
+}; `),t(),e(22,"h3"),n(23,"5. Update index.html"),t(),e(24,"blockquote",2),n(25,`<!-- add this line to HEAD -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"/> `),t()()())},encapsulation:2})}}return i})();export{s as HomeContentComponent};
