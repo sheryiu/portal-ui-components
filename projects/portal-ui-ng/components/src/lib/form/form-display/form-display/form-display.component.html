@@ -1,7 +1,7 @@
 <div class="pui-form-display">
   @for (field of fields(); track field) {
     <ng-container [ngTemplateOutlet]="field.templateRef()"></ng-container>
-    @if (!$last) {
+    @if (!$last && !field.hideDivider()) {
       <pui-divider></pui-divider>
     }
   }

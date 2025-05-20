@@ -103,113 +103,93 @@
           color="primary"
           class="px-4 py-2 gap-1 rounded-full justify-center items-center"
           puiTooltip="Edit"
-          (click)="onProfilePicEdit()"
+          (click)="onInfoEdit()"
         >
           <i class="icon-5 font-variation-weight-extra-light">edit</i>
           <span class="font-medium text-base">Edit</span>
         </button>
       </div>
-      <pui-form-display>
-        <pui-form-field>
+      <pui-form-display class="-mx-8 @screen-md/layout:mx-0">
+        <pui-form-field hideDivider>
           <i puiFormFieldIcon>person</i>
+          <span puiFormFieldTitle>Fullname</span>
+          @if (isInfoEditing()) {
+            <pui-input-field puiFormFieldContent>
+              <input [value]="customer()?.name">
+            </pui-input-field>
+          } @else {
+            <span puiFormFieldContent>{{
+              customer()?.name ?? "----"
+            }}</span>
+          }
+        </pui-form-field>
+        <pui-form-field padStart="1" hideDivider>
           <span puiFormFieldTitle>Username</span>
+          @if (isInfoEditing()) {
+            <pui-input-field puiFormFieldContent>
+              <input [value]="customer()?.username">
+            </pui-input-field>
+          } @else {
+            <span puiFormFieldContent>{{
+              customer()?.username ?? "----"
+            }}</span>
+          }
+        </pui-form-field>
+        <pui-form-field padStart="1">
+          <i puiFormFieldIcon>face</i>
+          <span puiFormFieldTitle>Profile icon</span>
           <span puiFormFieldContent>{{
-            customer()?.username ?? "----"
+            customer()?.profile?.icon ?? "----"
           }}</span>
         </pui-form-field>
         <pui-form-field>
           <i puiFormFieldIcon>phone</i>
           <span puiFormFieldTitle>Phone number</span>
-          <span puiFormFieldContent>{{
-            customer()?.phone ?? "----"
-          }}</span>
-        </pui-form-field>
-      </pui-form-display>
-      <!-- <div class="flex flex-col pt-6 gap-4">
-        <div class="flex flex-row items-center gap-2">
-          <i
-            class="icon-6 font-variation-weight-light text-neutral-800 dark:text-neutral-200"
-            >person</i
-          >
-          <div class="flex flex-col gap-1">
-            <span class="text-sm text-neutral-800 dark:text-neutral-200"
-              >Fullname</span
-            >
-            <span class="text-base">{{ customer()?.name ?? "----" }}</span>
-          </div>
-        </div>
-        <pui-divider></pui-divider>
-        <div class="flex flex-row items-center gap-2">
-          <i
-            class="icon-6 font-variation-weight-light text-neutral-800 dark:text-neutral-200"
-            >person</i
-          >
-          <div class="flex flex-col gap-1">
-            <span class="text-sm text-neutral-800 dark:text-neutral-200"
-              >Username</span
-            >
-            <span class="text-base break-anywhere">{{
-              customer()?.username ?? "----"
-            }}</span>
-          </div>
-        </div>
-        <pui-divider></pui-divider>
-        <div class="flex flex-row items-center gap-2">
-          <i
-            class="icon-6 font-variation-weight-light text-neutral-800 dark:text-neutral-200"
-            >phone</i
-          >
-          <div class="flex flex-col gap-1">
-            <span class="text-sm text-neutral-800 dark:text-neutral-200"
-              >Phone number</span
-            >
-            <span class="text-base break-anywhere">{{
+          <span puiFormFieldDescription>With country code (ie. +123)</span>
+          @if (isInfoEditing()) {
+            <pui-input-field puiFormFieldContent>
+              <input [value]="customer()?.phone" type="tel">
+            </pui-input-field>
+          } @else {
+            <span puiFormFieldContent>{{
               customer()?.phone ?? "----"
             }}</span>
-          </div>
-        </div>
-        <pui-divider></pui-divider>
-        <div class="flex flex-row items-center gap-2">
-          <i
-            class="icon-6 font-variation-weight-light text-neutral-800 dark:text-neutral-200"
-            >email</i
-          >
-          <div class="flex flex-col gap-1">
-            <span class="text-sm text-neutral-800 dark:text-neutral-200"
-              >Email address</span
-            >
-            <span class="text-base break-anywhere">{{
+          }
+        </pui-form-field>
+        <pui-form-field>
+          <i puiFormFieldIcon>email</i>
+          <span puiFormFieldTitle>Email address</span>
+          @if (isInfoEditing()) {
+            <pui-input-field puiFormFieldContent>
+              <input [value]="customer()?.email" type="email">
+            </pui-input-field>
+          } @else {
+            <span puiFormFieldContent>{{
               customer()?.email ?? "----"
             }}</span>
-          </div>
-        </div>
-        <pui-divider></pui-divider>
-        <div class="flex flex-row items-center gap-2">
-          <i
-            class="icon-6 font-variation-weight-light text-neutral-800 dark:text-neutral-200"
-            >location_on</i
-          >
-          <div class="flex flex-col gap-1">
-            <span class="text-sm text-neutral-800 dark:text-neutral-200"
-              >Main address</span
+          }
+        </pui-form-field>
+        <pui-form-field>
+          <i puiFormFieldIcon>location_on</i>
+          <span puiFormFieldTitle>Main address</span>
+          <div puiFormFieldContent class="flex flex-col gap-1 px-2">
+            <span class="text-base">{{ customer()?.address?.line1 }}</span>
+            <span class="text-base">{{ customer()?.address?.line2 }}</span>
+            <span class="text-base"
+              >{{ customer()?.address?.city }},
+              {{ customer()?.address?.state }}</span
             >
-            @if (customer()?.address) {
-              <span class="text-base">{{ customer()?.address?.line1 }}</span>
-              <span class="text-base">{{ customer()?.address?.line2 }}</span>
-              <span class="text-base"
-                >{{ customer()?.address?.city }},
-                {{ customer()?.address?.state }}</span
-              >
-              <span class="text-base"
-                >{{ customer()?.address?.country }}
-                {{ customer()?.address?.postalCode }}</span
-              >
-            } @else {
-              <span class="text-base">----</span>
-            }
+            <span class="text-base"
+              >{{ customer()?.address?.country }}
+              {{ customer()?.address?.postalCode }}</span
+            >
           </div>
-        </div>
-      </div> -->
+        </pui-form-field>
+        <pui-form-field>
+          <span puiFormFieldTitle>Registered since</span>
+          <pui-time-display puiFormFieldContent format="MMM dd, YYYY HH:mm" [date]="customer()?.registeredSince" class="px-2"></pui-time-display>
+        </pui-form-field>
+      </pui-form-display>
     </div>
   </div>
 </main>

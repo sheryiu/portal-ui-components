@@ -2,8 +2,8 @@ import { NgClass } from '@angular/common';
 import { Component, computed, forwardRef, inject, signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { ActivatedRoute } from '@angular/router';
-import { ButtonModule } from 'portal-ui-ng/base';
-import { DividerComponent, FormDisplayModule, TimeDisplayComponent, TooltipDirective } from 'portal-ui-ng/components';
+import { ButtonModule, InputFieldComponent } from 'portal-ui-ng/base';
+import { FormDisplayModule, TimeDisplayComponent, TooltipDirective } from 'portal-ui-ng/components';
 import { ActionDrawerOverlayService, ColumnConfig, TABLE_CONTENT_DATA_PROVIDER, TableContentComponent, TableContentDataProvider } from 'portal-ui-ng/pages';
 import { map } from 'rxjs';
 import { CustomerDataService } from '../../../../data/customer-data.service';
@@ -13,7 +13,7 @@ import { MediaManagerPickerService } from '../../../media/media-manager/media-ma
 
 @Component({
   selector: 'demo-customer-info',
-  imports: [TimeDisplayComponent, DividerComponent, TableContentComponent, ButtonModule, NgClass, TooltipDirective, FormDisplayModule],
+  imports: [TimeDisplayComponent, TableContentComponent, ButtonModule, NgClass, TooltipDirective, FormDisplayModule, InputFieldComponent],
   templateUrl: './customer-info.component.html',
   styles: `
   ::ng-deep demo-customer-info .pui-table-content main {
@@ -102,7 +102,13 @@ export class CustomerInfoComponent implements TableContentDataProvider<Inventory
   }
   controlsConfig = signal([])
 
+  isInfoEditing = signal(false)
+
   onProfilePicEdit() {
     this.actionDrawer.open(MediaManagerPickerService)
+  }
+
+  onInfoEdit() {
+    this.isInfoEditing.update(v => !v)
   }
 }

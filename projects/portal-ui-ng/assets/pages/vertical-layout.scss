@@ -31,6 +31,10 @@
   @apply flex flex-row gap-12;
   @apply px-6 @screen-sm/layout:px-10 pb-4 @screen-sm/layout:pb-6;
   @apply bg-gradient-to-b dark:from-neutral-700 dark:to-neutral-800 dark:to-90% border-b dark:border-neutral-950 shadow-lg;
+
+  .pui-peekable-addon__content & {
+    @apply pt-18;
+  }
 }
 
 .pui-vertical-layout__navigation {
@@ -49,7 +53,7 @@
 
 .pui-vertical-layout__toolbar {
   @apply flex items-center gap-2;
-  @apply absolute top-16 right-4;
+  @apply absolute bottom-4 right-4;
   @apply lg:static;
 }
 

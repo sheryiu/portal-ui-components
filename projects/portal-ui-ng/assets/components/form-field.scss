@@ -4,23 +4,42 @@
 
 .pui-form-field {
   @apply flex flex-row items-center gap-2;
+  @apply mx-8 @screen-md/layout:mx-0;
+  &:has(:focus, :focus-within, :focus-visible, :active) {
+    .pui-form-field__icon {
+      @apply font-variation-fill text-primary-700 dark:text-primary-300;
+    }
+  }
+  padding-inline-start: calc(var(--pui-pad-start) * 2rem);
 }
 
 .pui-form-field__icon {
-  @apply icon-6 font-variation-weight-light text-neutral-700 dark:text-neutral-300;
+  @apply empty:hidden;
+  @apply icon-6 flex-none font-variation-weight-light text-neutral-700 dark:text-neutral-300;
   i {
     @apply not-italic;
   }
 }
 
 .pui-form-field__main {
-  @apply flex flex-col gap-1;
+  @apply flex flex-col gap-0.5 grow;
 }
 
 .pui-form-field__title {
-  @apply text-sm text-neutral-700 dark:text-neutral-300;
+  @apply text-base font-medium text-neutral-700 dark:text-neutral-300 px-2;
+  &:has(+ .pui-form-field__description:empty) {
+    @apply pb-1;
+  }
+}
+
+.pui-form-field__description {
+  @apply empty:hidden;
+  @apply text-sm text-neutral-700 dark:text-neutral-300 px-2 pb-1;
 }
 
 .pui-form-field__content {
   @apply text-base break-anywhere;
+  > span {
+    @apply px-2;
+  }
 }

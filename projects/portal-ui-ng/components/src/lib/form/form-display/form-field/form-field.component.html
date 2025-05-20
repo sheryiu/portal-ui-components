@@ -1,11 +1,14 @@
 <ng-template>
-  <div class="pui-form-field">
+  <div class="pui-form-field" [style.--pui-pad-start]="padStart()">
     <div class="pui-form-field__icon">
       <ng-content select="[puiFormFieldIcon]"></ng-content>
     </div>
     <div class="pui-form-field__main">
       <div class="pui-form-field__title">
         <ng-content select="[puiFormFieldTitle]"></ng-content>
+      </div>
+      <div class="pui-form-field__description">
+        <ng-content select="[puiFormFieldDescription]"></ng-content>
       </div>
       <div class="pui-form-field__content">
         <ng-content select="[puiFormFieldContent]"></ng-content>
