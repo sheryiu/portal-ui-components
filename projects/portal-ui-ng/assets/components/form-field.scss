@@ -4,7 +4,7 @@
 
 .pui-form-field {
   @apply flex flex-row items-center gap-2;
-  @apply mx-8 @screen-md/layout:mx-0;
+  @apply mx-8;
   &:has(:focus, :focus-within, :focus-visible, :active) {
     .pui-form-field__icon {
       @apply font-variation-fill text-primary-700 dark:text-primary-300;
@@ -26,7 +26,7 @@
 }
 
 .pui-form-field__title {
-  @apply text-base font-medium text-neutral-700 dark:text-neutral-300 px-2;
+  @apply text-base font-medium px-2;
   &:has(+ .pui-form-field__description:empty) {
     @apply pb-1;
   }

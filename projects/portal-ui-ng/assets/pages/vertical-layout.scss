@@ -42,9 +42,9 @@
 }
 
 .pui-vertical-layout__controls {
-  @apply flex flex-col lg:flex-row lg:items-center gap-4;
+  @apply flex flex-row items-center gap-4;
   .spacer {
-    @apply hidden lg:block grow shrink-0 basis-auto;
+    @apply grow shrink-0 basis-auto;
   }
   .pui-tab-bar-tabs {
     @apply flex-wrap;
@@ -53,8 +53,9 @@
 
 .pui-vertical-layout__toolbar {
   @apply flex items-center gap-2;
-  @apply absolute bottom-4 right-4;
-  @apply lg:static;
+  .pui-vertical-layout__heading--floating & {
+    @apply absolute bottom-4 right-4;
+  }
 }
 
 .pui-vertical-layout__toolbar__most-emphasized {

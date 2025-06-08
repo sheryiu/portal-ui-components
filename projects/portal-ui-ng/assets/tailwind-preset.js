@@ -39,7 +39,8 @@ module.exports = {
         'screen-md': theme('screens.md'),
         'screen-lg': theme('screens.lg'),
         'screen-xl': theme('screens.xl'),
-        'screen-2xl': theme('screens.2xl')
+        'screen-2xl': theme('screens.2xl'),
+        'screen-3xl': theme('screens.3xl')
       }),
       spacing: ({ theme }) => ({
         ...Array(20)

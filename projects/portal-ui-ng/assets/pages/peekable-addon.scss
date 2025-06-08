@@ -4,7 +4,7 @@
   // transition-duration: 125ms;
   // transition-timing-function: ease-in-out;
   @apply fixed top-0 end-0 bottom-0;
-  @apply w-60vw min-w-96 max-w-200;
+  @apply w-60vw min-w-96 max-w-160 3xl:max-w-200;
   @apply overflow-x-auto;
   @apply flex flex-col;
 }
@@ -16,15 +16,16 @@
 
 .pui-peekable-addon:has(.pui-peekable-addon__content > :nth-child(2)) {
   // @apply -translate-x-0;
-  @apply bg-gradient-to-l from-90% dark:from-neutral-950/95 dark:to-neutral-950/0;
+  @apply dark:bg-neutral-900 border;
+  @apply rounded-s-4;
   @apply z-[1000];
 }
 
 .pui-peekable-addon__nav {
-  @apply sticky top-2;
-  @apply ms-[10%] me-8 my-2 p-2 z-100 h-12;
+  @apply sticky top-0;
+  @apply mb-2 p-2 z-100 h-12;
   @apply flex flex-row;
-  @apply pui-card rounded-2;
+  @apply pui-card rounded-4;
   .spacer {
     @apply grow shrink-0 basis-auto;
   }
@@ -38,5 +39,5 @@
 }
 
 .pui-peekable-addon__content {
-  @apply ps-[10%] pe-8 -mt-4;
+  @apply -mt-4;
 }
