@@ -7,6 +7,7 @@ export * from './lib/form';
 export * from './lib/guards';
 export * from './lib/loading-panel';
 export * from './lib/modal-dialog';
+export * from './lib/section-card';
 export * from './lib/snackbar';
 export * from './lib/tab-bar';
 export * from './lib/table';

@@ -8,7 +8,7 @@
   }
   > div > div {
     @apply relative;
-    @apply flex flex-col min-h-full gap-6 pb-8 px-4 @screen-sm/layout:px-8;
+    @apply flex flex-col min-h-full gap-6 pb-8 @screen-sm/layout:px-8;
   }
   router-outlet {
     @apply hidden;
@@ -16,7 +16,8 @@
 }
 
 .pui-vertical-layout__heading {
-  @apply pt-12 px-2;
+  @apply pt-12 px-6;
+  @apply @screen-sm/layout:px-2;
   @apply flex flex-col;
   h1 {
     @apply pt-1;
@@ -27,7 +28,7 @@
 }
 
 .pui-vertical-layout__heading--floating {
-  @apply fixed top-0 z-50 -ms-4 pt-6 @screen-sm/layout:-ms-8 w-[100cqw];
+  @apply fixed top-0 z-50 pt-6 @screen-sm/layout:-ms-8 w-[100cqw];
   @apply flex flex-row gap-12;
   @apply px-6 @screen-sm/layout:px-10 pb-4 @screen-sm/layout:pb-6;
   @apply bg-gradient-to-b dark:from-neutral-700 dark:to-neutral-800 dark:to-90% border-b dark:border-neutral-950 shadow-lg;
@@ -42,7 +43,7 @@
 }
 
 .pui-vertical-layout__controls {
-  @apply flex flex-row items-center gap-4;
+  @apply flex flex-row items-center gap-4 px-4 @screen-sm/layout:px-0;
   .spacer {
     @apply grow shrink-0 basis-auto;
   }

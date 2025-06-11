@@ -15,6 +15,7 @@
 @use './loading-panel.scss';
 @use './divider.scss';
 @use './form-field.scss';
+@use './section-card.scss';
 
 .pui-linear-progress-display {
   @apply w-full flex items-center gap-1 overflow-hidden;

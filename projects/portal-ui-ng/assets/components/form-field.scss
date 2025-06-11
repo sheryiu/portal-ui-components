@@ -4,7 +4,7 @@
 
 .pui-form-field {
   @apply flex flex-row items-center gap-2;
-  @apply mx-8;
+  @apply mx-4 @screen-sm/layout:mx-8;
   &:has(:focus, :focus-within, :focus-visible, :active) {
     .pui-form-field__icon {
       @apply font-variation-fill text-primary-700 dark:text-primary-300;

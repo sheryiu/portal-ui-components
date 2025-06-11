@@ -1,6 +1,6 @@
 .pui-loading-panel {
   @apply flex flex-row items-center justify-between;
-  @apply rounded-4 px-12 py-4 shadow-lg dark:bg-primary-700 min-h-28;
+  @apply @screen-sm/layout:rounded-4 px-12 py-4 shadow-lg dark:bg-primary-700 min-h-28;
 }
 
 .pui-loading-panel__description {
