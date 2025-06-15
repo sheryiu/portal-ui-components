@@ -27,8 +27,14 @@
 
 .pui-form-field__title {
   @apply text-base font-medium px-2;
+  &:empty {
+    @apply hidden;
+  }
   &:has(+ .pui-form-field__description:empty) {
     @apply pb-1;
+  }
+  &:has(+ .pui-form-field__description:empty + .pui-form-field__content:empty) {
+    @apply pb-0;
   }
 }
 
