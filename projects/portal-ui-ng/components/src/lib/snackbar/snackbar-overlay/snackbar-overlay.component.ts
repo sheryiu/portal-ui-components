@@ -1,5 +1,5 @@
-import { DOCUMENT } from '@angular/common';
-import { ApplicationRef, Component, inject, NgZone, signal } from '@angular/core';
+
+import { ApplicationRef, Component, inject, NgZone, signal, DOCUMENT } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ButtonModule, HoverableDirective, OVERLAY_DATA, PuiOverlayRef } from 'portal-ui-ng/base';
 import { first, switchMap, timer } from 'rxjs';

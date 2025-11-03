@@ -1,6 +1,6 @@
 import { Platform } from '@angular/cdk/platform';
-import { DOCUMENT } from '@angular/common';
-import { inject, Injectable, makeEnvironmentProviders, provideAppInitializer } from '@angular/core';
+
+import { inject, Injectable, makeEnvironmentProviders, provideAppInitializer, DOCUMENT } from '@angular/core';
 import { of } from 'rxjs';
 
 /**

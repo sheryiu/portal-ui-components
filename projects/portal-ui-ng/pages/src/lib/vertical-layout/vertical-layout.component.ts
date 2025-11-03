@@ -1,6 +1,6 @@
 import { animate, style, transition, trigger } from '@angular/animations';
-import { DOCUMENT, NgClass, NgTemplateOutlet } from '@angular/common';
-import { Component, computed, ElementRef, inject, signal, viewChild } from '@angular/core';
+import { NgClass, NgTemplateOutlet } from '@angular/common';
+import { Component, computed, ElementRef, inject, signal, viewChild, DOCUMENT } from '@angular/core';
 import { takeUntilDestroyed, toObservable, toSignal } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, NavigationCancel, NavigationEnd, Router, RouterLink, RouterOutlet } from '@angular/router';
 import { filterNonNull } from 'portal-ui-ng';
