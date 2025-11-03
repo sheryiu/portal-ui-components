@@ -1,4 +1,4 @@
-@use './peekable-addon.scss';
+@use './peekable-addon.css';
 
 .pui-vertical-layout {
   @apply contents;

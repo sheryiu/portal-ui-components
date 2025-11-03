@@ -1,4 +1,4 @@
-@use './layout-control.scss';
+@use './layout-control.css';
 
 .pui-table-content {
   @apply contents;

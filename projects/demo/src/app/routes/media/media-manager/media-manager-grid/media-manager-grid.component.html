@@ -18,9 +18,9 @@
     @for (file of files(); track file.id) {
       <button class="basis-[240px] grow shrink-0 overflow-hidden rounded-2 bg-hover items-start flex-col" puiBaseButton>
         @if (file.thumbnail != null) {
-          <img [src]="file.thumbnail" class="aspect-[21/9] @screen-sm:aspect-video w-full object-cover bg-hover">
+          <img [src]="file.thumbnail" class="aspect-21/9 @screen-sm:aspect-video w-full object-cover bg-hover">
         } @else {
-          <div class="aspect-[21/9] @screen-sm:aspect-video w-full bg-hover flex justify-center items-center">
+          <div class="aspect-21/9 @screen-sm:aspect-video w-full bg-hover flex justify-center items-center">
             <i class="icon-12 font-variation-weight-bold font-variation-fill dark:text-primary-600">files</i>
           </div>
         }

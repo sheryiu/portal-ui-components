@@ -1,6 +1,6 @@
 <div class="@container grow flex flex-col">
   <main class="pui-card rounded-4 h-full grow overflow-hidden flex flex-col">
-    <div class="rounded-t-4 px-8 pt-6 pb-12 bg-gradient-to-br from-primary-800/20 to-primary-900/20">
+    <div class="rounded-t-4 px-8 pt-6 pb-12 bg-linear-to-br from-primary-800/20 to-primary-900/20">
       <span class="text-xl font-display">{{ selectedTime() | date: 'MMMM yyyy' }}</span>
     </div>
     <div class="grow -mt-6 bg-neutral-800 rounded-t-4 border-t grid grid-cols-7" [ngClass]="{ 'grid-rows-[min-content_repeat(6,1fr)]': daysWithData().length > 35, 'grid-rows-[min-content_repeat(5,1fr)]': daysWithData().length <= 35 }">

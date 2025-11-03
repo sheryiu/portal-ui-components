@@ -118,8 +118,8 @@ module.exports = {
       }),
     },
   },
-  plugins: [
-    require('@tailwindcss/container-queries'),
-    require('./tailwind-plugin'),
-  ]
+  // plugins: [
+  //   require('@tailwindcss/container-queries'),
+  //   require('./tailwind-plugin'),
+  // ]
 }
