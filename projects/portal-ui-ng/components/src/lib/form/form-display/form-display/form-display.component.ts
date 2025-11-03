@@ -13,5 +13,5 @@ import { FormFieldComponent } from '../form-field/form-field.component';
   styles: ``
 })
 export class FormDisplayComponent {
-  fields = contentChildren(FormFieldComponent)
+  fields = contentChildren(FormFieldComponent, { descendants: true })
 }
