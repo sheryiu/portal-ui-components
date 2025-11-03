@@ -1,0 +1,21 @@
+.pui-tab-bar {
+  @apply block;
+}
+.pui-tab-bar-tabs {
+  @apply rounded-6 pui-card flex gap-2 p-2 relative w-fit;
+  &:has(> button[data-active=true]) {
+    @apply before:transition-all before:absolute before:top-2 before:bottom-2 before:rounded-full;
+    @apply before:left-[--pui-selected-tab-x] before:top-[--pui-selected-tab-y] before:w-[--pui-selected-tab-width] before:h-[--pui-selected-tab-height];
+    @apply dark:before:bg-accent-700;
+  }
+  > button {
+    @apply h-8 rounded-full px-4 py-2 truncate;
+    @apply text-base;
+    &[data-active=true] {
+      @apply dark:text-accent-50;
+    }
+  }
+  &[data-disabled=true] {
+    @apply before:opacity-50;
+  }
+}

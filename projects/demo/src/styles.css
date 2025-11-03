@@ -1,0 +1,23 @@
+@use '@angular/cdk/overlay-prebuilt.css';
+@use '@angular/cdk/text-field-prebuilt.css';
+
+@use '../../portal-ui-ng/assets/base';
+@use '../../portal-ui-ng/assets/components';
+@use '../../portal-ui-ng/assets/pages';
+
+@tailwind base;
+@tailwind components;
+
+@tailwind utilities;
+
+.error-dialog {
+  .pui-modal-dialog__icon {
+    @apply text-red-700 dark:text-red-500;
+  }
+  .pui-modal-dialog__title {
+    @apply text-red-800 dark:text-red-300;
+  }
+  .pui-modal-dialog__details {
+    @apply text-red-950 dark:text-red-50;
+  }
+}

@@ -1,0 +1,12 @@
+@use "./button";
+@use "./input-field.css";
+@use "./scrollbar.css";
+@use "./hoverable.css";
+@use "./content-visibility-detector.css";
+
+.pui-overlay-container {
+  @apply contents;
+  > div {
+    @apply size-full;
+  }
+}

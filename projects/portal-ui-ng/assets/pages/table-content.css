@@ -1,0 +1,51 @@
+@use './layout-control.scss';
+
+.pui-table-content {
+  @apply contents;
+  > main {
+    @apply p-2 w-full h-full grow;
+    // no need to use container query to change the styling
+    @apply lg:pui-card lg:rounded-4 lg:p-8;
+    > div {
+      @apply flex flex-col gap-6 relative;
+    }
+  }
+
+  .pui-table-cell > * {
+    @apply truncate;
+  }
+
+  .pui-table-cell__boolean-content {
+    @apply icon-5;
+    @apply text-red-500 dark:text-red-500;
+    &.pui-table-cell__boolean-content--true {
+      @apply text-green-600 dark:text-green-400;
+    }
+  }
+
+  .pui-fieldset {
+    max-width: unset;
+    @apply flex flex-col flex-wrap gap-x-4 gap-y-2;
+    @apply @screen-xs/fieldset:flex-row @screen-lg/fieldset:gap-x-8;
+  }
+  .pui-fieldset__field {
+    @apply flex-row basis-auto;
+    @apply @screen-xs/fieldset:basis-58 @screen-lg/fieldset:basis-72;
+  }
+  .pui-fieldset__input {
+    @apply shrink grow;
+  }
+  .pui-fieldset__label {
+    @apply ps-0 pe-4;
+    width: 30%;
+    max-width: 45%;
+    > label {
+      @apply truncate;
+    }
+    @apply @screen-xs/fieldset:w-fit @screen-xs/fieldset:max-w-fit;
+  }
+}
+
+.pui-table-content__content-wrapper {
+  @apply relative;
+}
