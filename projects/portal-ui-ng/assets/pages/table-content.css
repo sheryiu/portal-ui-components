@@ -1,6 +1,6 @@
-@use './layout-control.css';
+@import './layout-control.css';
 
-.pui-table-content {
+@utility pui-table-content {
   @apply contents;
   > main {
     @apply p-2 w-full h-full grow;
@@ -46,6 +46,6 @@
   }
 }
 
-.pui-table-content__content-wrapper {
+@utility pui-table-content__content-wrapper {
   @apply relative;
 }

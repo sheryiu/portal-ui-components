@@ -1,11 +1,11 @@
-.pui-modal-dialog-backdrop {
+@utility pui-modal-dialog-backdrop {
   @apply bg-black/10 dark:bg-black/20 backdrop-blur-sm z-[1000];
 }
-.pui-modal-dialog {
-  @apply border shadow-lg bg-neutral-100 dark:bg-neutral-900 rounded-8 max-h-80vh sm:max-h-70vh lg:max-h-60vh overflow-auto;
+@utility pui-modal-dialog {
+  @apply border shadow-lg bg-neutral-100 dark:bg-neutral-900 rounded-8 max-h-[80svh] sm:max-h-[70svh] lg:max-h-[60svh] overflow-auto;
 
-  @apply data-[mode=dialog]:max-w-95vw data-[mode=dialog]:sm:min-w-120 data-[mode=dialog]:sm:max-w-80vw data-[mode=dialog]:xl:max-w-screen-lg;
-  @apply data-[mode=modal]:w-96 data-[mode=modal]:max-w-80vw data-[mode=modal]:sm:max-w-96;
+  @apply data-[mode=dialog]:max-w-[95svw] data-[mode=dialog]:sm:min-w-120 data-[mode=dialog]:sm:max-w-[80svw] data-[mode=dialog]:xl:max-w-screen-lg;
+  @apply data-[mode=modal]:w-96 data-[mode=modal]:max-w-[80svw] data-[mode=modal]:sm:max-w-96;
 
   &[data-mode=dialog] .pui-modal-dialog__contents {
     @apply grid px-8 py-8 gap-y-4;
@@ -53,12 +53,12 @@
   }
 }
 
-.pui-remove-confirm {
+@utility pui-remove-confirm {
   @apply flex flex-col text-md/6;
   .pui-input-field {
     @apply mt-2;
   }
 }
-.pui-remove-confirm__goal {
+@utility pui-remove-confirm__goal {
   @apply font-mono text-neutral-700 dark:text-neutral-300;
 }

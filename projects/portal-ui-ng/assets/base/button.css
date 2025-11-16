@@ -1,4 +1,140 @@
-.pui-base-button, .pui-bordered-button, .pui-inverse-button {
+@utility pui-base-button {
+  @apply text-base;
+  @apply transition-colors;
+  @apply disabled:bg-black/15 disabled:dark:bg-white/15 disabled:opacity-70;
+  &[data-color=default] {
+    /** EMPTY */
+  }
+  &[data-color=primary] {
+    @apply text-primary-600 dark:text-primary-400;
+  }
+  &[data-color=accent] {
+    @apply text-accent-600 dark:text-accent-400;
+  }
+  &[data-color=gray], &[data-color=grey] {
+    @apply text-gray-600 dark:text-gray-400;
+  }
+  &[data-color=red] {
+    @apply text-red-600 dark:text-red-400;
+  }
+  &[data-color=orange] {
+    @apply text-orange-600 dark:text-orange-400;
+  }
+  &[data-color=amber] {
+    @apply text-amber-600 dark:text-amber-400;
+  }
+  &[data-color=yellow] {
+    @apply text-yellow-600 dark:text-yellow-400;
+  }
+  &[data-color=lime] {
+    @apply text-lime-600 dark:text-lime-400;
+  }
+  &[data-color=green] {
+    @apply text-green-600 dark:text-green-400;
+  }
+  &[data-color=emerald] {
+    @apply text-emerald-600 dark:text-emerald-400;
+  }
+  &[data-color=teal] {
+    @apply text-teal-600 dark:text-teal-400;
+  }
+  &[data-color=cyan] {
+    @apply text-cyan-600 dark:text-cyan-400;
+  }
+  &[data-color=sky] {
+    @apply text-sky-600 dark:text-sky-400;
+  }
+  &[data-color=blue] {
+    @apply text-blue-600 dark:text-blue-400;
+  }
+  &[data-color=indigo] {
+    @apply text-indigo-600 dark:text-indigo-400;
+  }
+  &[data-color=violet] {
+    @apply text-violet-600 dark:text-violet-400;
+  }
+  &[data-color=purple] {
+    @apply text-purple-600 dark:text-purple-400;
+  }
+  &[data-color=fuchsia] {
+    @apply text-fuchsia-600 dark:text-fuchsia-400;
+  }
+  &[data-color=pink] {
+    @apply text-pink-600 dark:text-pink-400;
+  }
+  &[data-color=rose] {
+    @apply text-rose-600 dark:text-rose-400;
+  }
+}
+@utility pui-bordered-button {
+  @apply text-base;
+  @apply transition-colors;
+  @apply disabled:bg-black/15 disabled:dark:bg-white/15 disabled:opacity-70;
+  &[data-color=default] {
+    /** EMPTY */
+  }
+  &[data-color=primary] {
+    @apply text-primary-600 dark:text-primary-400;
+  }
+  &[data-color=accent] {
+    @apply text-accent-600 dark:text-accent-400;
+  }
+  &[data-color=gray], &[data-color=grey] {
+    @apply text-gray-600 dark:text-gray-400;
+  }
+  &[data-color=red] {
+    @apply text-red-600 dark:text-red-400;
+  }
+  &[data-color=orange] {
+    @apply text-orange-600 dark:text-orange-400;
+  }
+  &[data-color=amber] {
+    @apply text-amber-600 dark:text-amber-400;
+  }
+  &[data-color=yellow] {
+    @apply text-yellow-600 dark:text-yellow-400;
+  }
+  &[data-color=lime] {
+    @apply text-lime-600 dark:text-lime-400;
+  }
+  &[data-color=green] {
+    @apply text-green-600 dark:text-green-400;
+  }
+  &[data-color=emerald] {
+    @apply text-emerald-600 dark:text-emerald-400;
+  }
+  &[data-color=teal] {
+    @apply text-teal-600 dark:text-teal-400;
+  }
+  &[data-color=cyan] {
+    @apply text-cyan-600 dark:text-cyan-400;
+  }
+  &[data-color=sky] {
+    @apply text-sky-600 dark:text-sky-400;
+  }
+  &[data-color=blue] {
+    @apply text-blue-600 dark:text-blue-400;
+  }
+  &[data-color=indigo] {
+    @apply text-indigo-600 dark:text-indigo-400;
+  }
+  &[data-color=violet] {
+    @apply text-violet-600 dark:text-violet-400;
+  }
+  &[data-color=purple] {
+    @apply text-purple-600 dark:text-purple-400;
+  }
+  &[data-color=fuchsia] {
+    @apply text-fuchsia-600 dark:text-fuchsia-400;
+  }
+  &[data-color=pink] {
+    @apply text-pink-600 dark:text-pink-400;
+  }
+  &[data-color=rose] {
+    @apply text-rose-600 dark:text-rose-400;
+  }
+}
+@utility pui-inverse-button {
   @apply text-base;
   @apply transition-colors;
   @apply disabled:bg-black/15 disabled:dark:bg-white/15 disabled:opacity-70;
@@ -67,11 +203,11 @@
   }
 }
 
-.pui-bordered-button {
+@utility pui-bordered-button {
   @apply border enabled:hover:border-current enabled:focus-visible:border-current enabled:focus-within:border-current;
 }
 
-.pui-filled-button {
+@utility pui-filled-button {
   @apply text-base;
   @apply transition-colors;
   @apply disabled:bg-black/15 disabled:dark:bg-white/10 disabled:opacity-70;
@@ -94,7 +230,7 @@
     @apply bg-black dark:bg-white;
     @apply text-white dark:text-black;
     &.pui-hoverable {
-      @apply enabled:hover:after:bg-white/15 enabled:hover:after:dark:bg-black/10;
+      @apply enabled:hover:after:bg-hover/15 enabled:hover:after:dark:bg-hover-dark/10;
     }
   }
   &[data-color=gray], &[data-color=grey] {
@@ -171,9 +307,10 @@
   }
 }
 
-.pui-inverse-button {
+@utility pui-inverse-button {
   @apply flex items-center justify-center relative;
-  @apply focus-visible:bg-hover;
+  @apply hover:enabled:bg-hover/10 dark:hover:enabled:bg-hover-dark/7;
+  @apply focus-visible:enabled:bg-hover/10 dark:focus-visible:enabled:bg-hover-dark/7;
   @apply enabled:outline-2 enabled:outline-offset-2 enabled:outline-transparent;
   @apply enabled:focus-visible:outline enabled:focus-visible:outline-primary-500;
   &[data-color=default] {

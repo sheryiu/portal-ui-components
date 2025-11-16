@@ -1,9 +1,9 @@
-.pui-section-card {
+@utility pui-section-card {
   @apply flex flex-col gap-3;
   @apply @screen-sm/layout:pui-card @screen-sm/layout:rounded-4 @screen-sm/layout:py-4;
 }
 
-.pui-section-card__header {
+@utility pui-section-card__header {
   @apply dark:text-neutral-100 bg-neutral-700/50 ps-6 pe-4 py-3 border-y;
   @apply @screen-sm/layout:dark:text-neutral-300 @screen-sm/layout:bg-transparent;
   @apply @screen-sm/layout:pt-2 @screen-sm/layout:pb-0 @screen-sm/layout:ps-10 @screen-sm/layout:pe-8;

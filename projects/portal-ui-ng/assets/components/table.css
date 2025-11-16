@@ -1,18 +1,19 @@
-.\@container\/table {
+/*  TODO check */
+/* .\@container\/table {
   container-type: inline-size;
   container-name: table;
-}
+} */
 
-.pui-table {
+@utility pui-table {
   @apply block size-full;
 }
 
-.pui-table-body {
+@utility pui-table-body {
   @apply grid gap-x-1 auto-cols-fr;
   grid-template-columns: var(--pui-table-columns)
 }
 
-.pui-table-row {
+@utility pui-table-row {
   @apply grid grid-cols-subgrid relative;
   grid-column-start: 1;
   grid-column-end: span var(--pui-table-number-of-columns);
@@ -33,14 +34,16 @@
     @apply text-primary-600 dark:text-primary-400;
   }
   &.pui-table-row--selected {
-    @apply bg-hover;
+    @apply hover:bg-hover/10 dark:hover:bg-hover-dark/7;
+    @apply focus-visible:bg-hover/10 dark:focus-visible:bg-hover-dark/7;
   }
   > a {
     @apply grid grid-cols-subgrid relative border-b;
     grid-column-start: 1;
     grid-column-end: span var(--pui-table-number-of-columns);
     &[data-active=true] {
-      @apply bg-hover;
+      @apply hover:bg-hover/10 dark:hover:bg-hover-dark/7;
+      @apply focus-visible:bg-hover/10 dark:focus-visible:bg-hover-dark/7;
     }
     .pui-table--single & {
       @apply ml-6;
@@ -51,13 +54,13 @@
   }
 }
 
-.pui-table-row:last-child {
-  > a {
+@utility pui-table-row {
+  &:last-child > a {
     @apply border-b-0;
   }
 }
 
-.pui-table-header-row {
+@utility pui-table-header-row {
   @apply grid grid-cols-subgrid h-12 mb-1;
   @apply relative;
   grid-column-start: 1;
@@ -70,7 +73,7 @@
   }
 }
 
-.pui-table-header-row__resize-handle {
+@utility pui-table-header-row__resize-handle {
   @apply absolute h-full w-1 cursor-ew-resize z-10;
   left: anchor(right);
   @apply before:pointer-events-none before:-top-0.5 before:-bottom-0.5 before:-left-px before:-right-px before:absolute before:bg-transparent before:rounded-1 before:transition-colors;
@@ -79,13 +82,13 @@
   }
 }
 
-.pui-table-footer-row {
+@utility pui-table-footer-row {
   @apply grid grid-cols-1 items-center dark:text-neutral-300 uppercase h-12;
   grid-column-start: 1;
   grid-column-end: span var(--pui-table-number-of-columns);
 }
 
-.pui-table-cell {
+@utility pui-table-cell {
   /** truncate and line-clamp-1 will not work */
   /** please add truncate on the element inside the table cell */
   @apply px-4 py-2 flex items-center;
@@ -98,7 +101,7 @@
   }
 }
 
-.pui-table-header-cell--empty {
+@utility pui-table-header-cell--empty {
   @apply rounded-1 border-b;
   @apply border-primary-100 dark:border-neutral-900;
   @apply bg-primary-300 dark:bg-neutral-700;
@@ -115,7 +118,7 @@
   }
 }
 
-.pui-table-header-cell {
+@utility pui-table-header-cell {
   @apply flex size-full;
   > button {
     @apply flex justify-start px-4 size-full;
@@ -141,10 +144,10 @@
     @apply rounded-tr-2;
   }
 }
-.pui-table-header-cell__label {
+@utility pui-table-header-cell__label {
   @apply truncate text-sm whitespace-nowrap font-bold;
 }
-.pui-table-header-cell__gap {
+@utility pui-table-header-cell__gap {
   @apply grow basis-2;
   [data-justify-center=true] & {
     @apply grow-0 shrink-0 basis-2;
@@ -159,7 +162,7 @@
     @apply basis-0;
   }
 }
-.pui-table-header-cell__state {
+@utility pui-table-header-cell__state {
   i.pui-table-header-cell__sort {
     &[data-descending=true]::after {
       @apply icon-5 font-variation-weight-light text-primary-800 dark:text-primary-400;
@@ -173,7 +176,7 @@
   }
 }
 
-.pui-table .cdk-virtual-scroll-viewport {
+@utility cdk-virtual-scroll-viewport {
   display: grid !important;
   @apply w-full overflow-hidden;
   @apply grid-cols-subgrid;
@@ -193,3 +196,5 @@
     display: none;
   }
 }
+
+@source inline("cdk-virtual-scroll-viewport");

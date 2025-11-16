@@ -1,8 +1,8 @@
-.pui-form-display {
+@utility pui-form-display {
   @apply flex flex-col gap-4;
 }
 
-.pui-form-field {
+@utility pui-form-field {
   @apply flex flex-row items-center gap-2;
   @apply mx-4 @screen-sm/layout:mx-8;
   &:has(:focus, :focus-within, :focus-visible, :active) {
@@ -13,7 +13,7 @@
   padding-inline-start: calc(var(--pui-pad-start) * 2rem);
 }
 
-.pui-form-field__icon {
+@utility pui-form-field__icon {
   @apply empty:hidden;
   @apply icon-6 flex-none font-variation-weight-light text-neutral-700 dark:text-neutral-300;
   i {
@@ -21,11 +21,11 @@
   }
 }
 
-.pui-form-field__main {
+@utility pui-form-field__main {
   @apply flex flex-col gap-0.5 grow;
 }
 
-.pui-form-field__title {
+@utility pui-form-field__title {
   @apply text-base font-medium px-2;
   &:empty {
     @apply hidden;
@@ -38,13 +38,13 @@
   }
 }
 
-.pui-form-field__description {
+@utility pui-form-field__description {
   @apply empty:hidden;
   @apply text-sm text-neutral-700 dark:text-neutral-300 px-2 pb-1;
 }
 
-.pui-form-field__content {
-  @apply text-base break-anywhere;
+@utility pui-form-field__content {
+  @apply text-base wrap-anywhere;
   > span {
     @apply px-2;
   }

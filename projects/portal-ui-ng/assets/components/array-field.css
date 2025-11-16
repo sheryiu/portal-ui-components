@@ -1,4 +1,4 @@
-.pui-array-field {
+@utility pui-array-field {
   @apply pe-4;
   @apply rounded-[1.25rem];
   > div {
@@ -6,17 +6,17 @@
   }
 }
 
-.pui-array-field__icon {
+@utility pui-array-field__icon {
   @apply self-center icon-5 me-1 text-primary-600 dark:text-primary-400;
 }
 
-.pui-array-field__label {
+@utility pui-array-field__label {
   @apply text-neutral-800 dark:text-neutral-300;
   @apply text-sm truncate font-light;
   @apply pe-2 self-center;
 }
 
-.pui-array-field__length-control {
+@utility pui-array-field__length-control {
   &:first-of-type {
     @apply rounded-s-[1.25rem] rounded-e-none border-y border-s ps-3 pe-2;
   }
@@ -28,7 +28,7 @@
   }
 }
 
-.pui-array-field__length-field {
+@utility pui-array-field__length-field {
   @apply basis-20 shrink rounded-none;
   flex-grow: 0 !important;
 }

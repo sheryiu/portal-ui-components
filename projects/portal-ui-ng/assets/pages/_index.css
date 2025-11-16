@@ -1,5 +1,5 @@
-@use './vertical-layout.css';
-@use './table-content.css';
-@use './editable-content.css';
-@use './action-drawer-layout.css';
-@use './root-sidenav.css';
+@import './vertical-layout.css';
+@import './table-content.css';
+@import './editable-content.css';
+@import './action-drawer-layout.css';
+@import './root-sidenav.css';

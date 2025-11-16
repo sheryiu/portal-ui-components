@@ -28,7 +28,7 @@
             [routerLink]="employee != null ? ['/user', 'employee', 'detail', employee.id] : null"
           >
             <div class="flex flex-col items-center gap-2">
-              <h2 class="w-full text-center break-anywhere whitespace-normal">{{ employee.name }}</h2>
+              <h2 class="w-full text-center wrap-anywhere whitespace-normal">{{ employee.name }}</h2>
               <p class="text-sm text-center">
                 <span class="text-neutral-700 dark:text-neutral-300">{{ employee.department }}</span>
                 <span> / </span>

@@ -1,10 +1,10 @@
-.pui-dropdown {
+@utility pui-dropdown {
   @apply rounded-[1.25rem] min-h-9;
   @apply w-full ps-4 pe-3;
   @apply border;
   @apply flex justify-start items-center text-start gap-4;
   > div {
-    @apply break-anywhere grow h-full;
+    @apply wrap-anywhere grow h-full;
   }
   > i {
     @apply icon-4 dark:text-neutral-300;
@@ -14,13 +14,13 @@
   }
 }
 
-.pui-dropdown-overlay {
+@utility pui-dropdown-overlay {
   @apply flex flex-col items-stretch;
   @apply bg-neutral-200 dark:bg-neutral-800 border rounded-3;
 }
 
-.pui-base-dropdown-overlay {
-  @apply flex flex-col overflow-auto max-h-40vh;
+@utility pui-base-dropdown-overlay {
+  @apply flex flex-col overflow-auto max-h-[40svh];
   button {
     @apply text-start justify-start;
     @apply px-4 py-2;

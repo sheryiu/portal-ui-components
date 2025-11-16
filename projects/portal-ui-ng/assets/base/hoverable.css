@@ -1,10 +1,11 @@
-.pui-hoverable {
+@utility pui-hoverable {
   @apply flex items-center justify-center relative overflow-hidden transition-all;
   &[data-enabled=true], &:enabled {
     @apply cursor-pointer;
     @apply after:absolute after:inset-0 after:transition-colors;
     @apply after:touch-none after:pointer-events-none;
-    @apply hover:after:bg-hover focus-visible:after:bg-hover;
+    @apply hover:after:bg-hover/10 focus-visible:after:bg-hover/10;
+    @apply dark:hover:after:bg-hover-dark/7 dark:focus-visible:after:bg-hover-dark/7;
     @apply outline-2 outline-offset-2 outline-transparent;
     &:focus-visible {
       @apply outline outline-primary-500;

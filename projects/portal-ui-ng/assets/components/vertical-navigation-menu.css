@@ -1,9 +1,9 @@
-.pui-vertical-navigation-menu {
+@utility pui-vertical-navigation-menu {
   > div {
     @apply flex flex-col gap-1 overflow-y-auto px-4 py-3 relative;
     &::after {
       @apply absolute rounded-5 pointer-events-none -z-10 h-10;
-      @apply bg-primary-200 dark:bg-primary-800;
+      @apply bg-primary-200;
       content: '';
       position-anchor: --navigation-menu-active;
       position-visibility: anchors-visible;
@@ -17,9 +17,15 @@
   .pui-divider {
     @apply px-3;
   }
+
+  @variant dark {
+    > div::after {
+      @apply bg-primary-800;
+    }
+  }
 }
 
-.pui-vertical-navigation-menu__item {
+@utility pui-vertical-navigation-menu__item {
   @apply flex-none text-start items-center justify-start ps-4 pe-3 py-2.5 h-10 rounded-full;
   .spacer {
     @apply grow shrink-0 basis-auto;
@@ -29,17 +35,17 @@
   }
 }
 
-.pui-vertical-navigation-menu__item--opened {
+@utility pui-vertical-navigation-menu__item--opened {
   @apply text-primary-700 dark:text-primary-300;
 }
-.pui-vertical-navigation-menu__item--active {
+@utility pui-vertical-navigation-menu__item--active {
   anchor-name: --navigation-menu-active;
 }
 
-.pui-vertical-navigation-menu__item__icon {
+@utility pui-vertical-navigation-menu__item__icon {
   @apply icon-5;
 }
-.pui-vertical-navigation-menu__item__label {
+@utility pui-vertical-navigation-menu__item__label {
   @apply font-light truncate self-stretch;
   &:not(:first-child) {
     @apply ps-2;
@@ -48,7 +54,7 @@
     @apply font-medium;
   }
 }
-.pui-vertical-navigation-menu__item__indicator {
+@utility pui-vertical-navigation-menu__item__indicator {
   @apply icon-4 text-neutral-800 dark:text-neutral-300 transition;
   :is(.pui-vertical-navigation-menu__item--opened > &) {
     @apply rotate-180;
@@ -59,14 +65,14 @@
   }
 }
 
-.pui-vertical-navigation-menu__group {
+@utility pui-vertical-navigation-menu__group {
   @apply flex flex-col gap-1 my-0 relative transition-all;
   @apply before:absolute before:inset-0  before:rounded-[1.375rem] before:transition-all;
   &[aria-disabled=true] {
     @apply before:hidden;
   }
   &:has(> .pui-vertical-navigation-menu__item--opened) {
-    @apply my-2;;
+    @apply my-2;
     @apply before:pui-card--subtle before:-inset-1;
   }
   &:has(> .pui-vertical-navigation-menu__item--opened) > .pui-vertical-navigation-menu__group__children > * {
@@ -74,7 +80,7 @@
   }
 }
 
-.pui-vertical-navigation-menu__group__children {
+@utility pui-vertical-navigation-menu__group__children {
   @apply h-0 pb-0.5 overflow-hidden hidden;
   .pui-vertical-navigation-menu__item--opened + & {
     @apply h-auto flex flex-col gap-1;

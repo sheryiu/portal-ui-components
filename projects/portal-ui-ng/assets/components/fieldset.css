@@ -1,17 +1,17 @@
-.\@container\/fieldset {
+/* TODO .\@container\/fieldset {
   container-type: inline-size;
   container-name: fieldset;
-}
-.pui-fieldset {
+} */
+@utility pui-fieldset {
   @apply flex flex-col gap-y-4;
   @apply max-w-screen-lg;
 }
 
-.pui-fieldset__field {
+@utility pui-fieldset__field {
   @apply flex flex-col gap-y-1 flex-none;
 }
 
-.pui-fieldset__label {
+@utility pui-fieldset__label {
   @apply flex justify-between items-center;
   @apply px-4 py-1 gap-1;
   @apply text-base font-light text-neutral-800 dark:text-neutral-300;
@@ -21,7 +21,7 @@
   }
 }
 
-.pui-fieldset__input {
+@utility pui-fieldset__input {
   @apply flex justify-between items-start gap-2;
   @apply min-h-9;
   > * {
@@ -33,29 +33,31 @@
       @apply icon-4;
     }
   }
-}
-.pui-fieldset__input .pui-input-field {
-  @apply self-stretch grow text-base;
-  > button {
-    @apply self-stretch px-3 text-neutral-800 dark:text-neutral-300;
-    i {
-      @apply icon-4;
+  .pui-input-field {
+    @apply self-stretch grow text-base;
+    > button {
+      @apply self-stretch px-3 text-neutral-800 dark:text-neutral-300;
+      i {
+        @apply icon-4;
+      }
+    }
+    > .pui-time-display {
+      @apply grow h-full flex items-center;
     }
   }
-  > .pui-time-display {
-    @apply grow h-full flex items-center;
+}
+@utility pui-fieldset__input--boolean {
+  .pui-input-field {
+    @apply py-1 ps-1;
   }
 }
-.pui-fieldset__input--boolean .pui-input-field {
-  @apply py-1 ps-1;
-}
-.pui-fieldset__input--boolean__remarks {
+@utility pui-fieldset__input--boolean__remarks {
   @apply flex items-center h-full;
   @apply text-sm text-neutral-800 dark:text-neutral-300 cursor-pointer;
-  @apply ps-3 pe-3 grow break-anywhere truncate;
+  @apply ps-3 pe-3 grow wrap-anywhere truncate;
 }
 
-.pui-fieldset__null {
+@utility pui-fieldset__null {
   @apply self-stretch grow flex items-center;
   @apply px-4;
   @apply rounded-[1.25rem] border;
@@ -65,10 +67,13 @@
   }
 }
 
-.pui-fieldset__input__remove, .pui-fieldset__null__add {
+@utility pui-fieldset__input__remove {
+  @apply self-stretch;
+}
+@utility pui-fieldset__null__add {
   @apply self-stretch;
 }
 
-.pui-fieldset__enum-value {
-  @apply break-anywhere;
+@utility pui-fieldset__enum-value {
+  @apply wrap-anywhere;
 }

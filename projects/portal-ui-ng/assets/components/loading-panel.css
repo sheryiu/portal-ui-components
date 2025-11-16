@@ -1,21 +1,21 @@
-.pui-loading-panel {
+@utility pui-loading-panel {
   @apply flex flex-row items-center justify-between;
   @apply @screen-sm/layout:rounded-4 px-12 py-4 shadow-lg dark:bg-primary-700 min-h-28;
 }
 
-.pui-loading-panel__description {
+@utility pui-loading-panel__description {
   @apply flex flex-col gap-1;
 }
 
-.pui-loading-panel__description-loading {
+@utility pui-loading-panel__description-loading {
   @apply text-xl font-black font-display;
 }
 
-.pui-loading-panel__stuck {
+@utility pui-loading-panel__stuck {
   @apply text-base font-medium;
 }
 
-.pui-loading-panel__icon {
+@utility pui-loading-panel__icon {
   @apply relative size-12;
   &::before {
     content: '';
@@ -23,20 +23,20 @@
     transform: rotate3d(1, 1, 1, 32deg) translate(10px, -3.5px) scaleY(0.9);
     animation: puiLoadingPanelOpacity 600ms ease-in-out infinite alternate both;
   }
-}
-.pui-loading-panel__icon > i {
-  @apply absolute first:font-variation-fill;
-  @apply first:top-1 first:left-0 first:icon-6;
-  &:first-child {
-    animation: puiLoadingPanelOpacity 1200ms ease-in-out infinite alternate both;
-  }
-  @apply last:bottom-1 last:right-0 last:icon-8;
-  &:last-child {
-    animation: puiLoadingPanelOpacity 1200ms ease-in-out infinite alternate-reverse both;
+  > i {
+    @apply absolute first:font-variation-fill;
+    @apply first:top-1 first:left-0 first:icon-6;
+    &:first-child {
+      animation: puiLoadingPanelOpacity 1200ms ease-in-out infinite alternate both;
+    }
+    @apply last:bottom-1 last:right-0 last:icon-8;
+    &:last-child {
+      animation: puiLoadingPanelOpacity 1200ms ease-in-out infinite alternate-reverse both;
+    }
   }
 }
 
-.pui-loading-panel__dot {
+@utility pui-loading-panel__dot {
   &:first-of-type {
     animation: puiLoadingPanelDot1 2000ms linear infinite;
   }

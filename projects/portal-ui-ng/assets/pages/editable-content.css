@@ -1,6 +1,6 @@
-@use './layout-control.css';
+@import './layout-control.css';
 
-.pui-editable-content {
+@utility pui-editable-content {
   @apply contents;
   > main {
     @apply pb-4 w-full h-full grow;

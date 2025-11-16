@@ -1,6 +1,6 @@
-@use './peekable-addon.css';
+@import './peekable-addon.css';
 
-.pui-vertical-layout {
+@utility pui-vertical-layout {
   @apply contents;
   > div {
     container-type: inline-size;
@@ -15,7 +15,7 @@
   }
 }
 
-.pui-vertical-layout__heading {
+@utility pui-vertical-layout__heading {
   @apply pt-12 px-6;
   @apply @screen-sm/layout:px-2;
   @apply flex flex-col;
@@ -27,7 +27,7 @@
   }
 }
 
-.pui-vertical-layout__heading--floating {
+@utility pui-vertical-layout__heading--floating {
   @apply fixed top-0 z-50 pt-6 @screen-sm/layout:-ms-8 w-[100cqw];
   @apply flex flex-row gap-12;
   @apply px-6 @screen-sm/layout:px-10 pb-4 @screen-sm/layout:pb-6;
@@ -38,11 +38,11 @@
   }
 }
 
-.pui-vertical-layout__navigation {
+@utility pui-vertical-layout__navigation {
   @apply grow;
 }
 
-.pui-vertical-layout__controls {
+@utility pui-vertical-layout__controls {
   @apply flex flex-row items-center gap-4 px-4 @screen-sm/layout:px-0;
   .spacer {
     @apply grow shrink-0 basis-auto;
@@ -52,14 +52,14 @@
   }
 }
 
-.pui-vertical-layout__toolbar {
+@utility pui-vertical-layout__toolbar {
   @apply flex items-center gap-2;
   .pui-vertical-layout__heading--floating & {
     @apply absolute bottom-4 right-4;
   }
 }
 
-.pui-vertical-layout__toolbar__most-emphasized {
+@utility pui-vertical-layout__toolbar__most-emphasized {
   @apply rounded-full h-10 gap-1 px-4;
   > i {
     @apply icon-5;
@@ -69,7 +69,7 @@
   }
 }
 
-.pui-vertical-layout__toolbar__normal {
+@utility pui-vertical-layout__toolbar__normal {
   @apply rounded-full size-10;
   &.pui-filled-button[data-color=accent] {
     @apply dark:bg-transparent shadow-none;

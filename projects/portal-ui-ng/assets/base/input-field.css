@@ -1,4 +1,4 @@
-.pui-input-field {
+@utility pui-input-field {
   @apply flex rounded-[1.25rem] border transition-all;
   @apply pui-card--subtle;
   &[data-borderless=true] {
@@ -10,13 +10,13 @@
     @apply bg-transparent outline-none;
     @apply outline-2 outline-offset-2 outline-transparent;
     &:not(:first-child) {
-      @apply ps-2; // makes the gap between any content before the field not so large
+      @apply ps-2; /* makes the gap between any content before the field not so large */
     }
   }
   &:has(> textarea) {
     @apply py-1.5;
     &:not(:first-child) > textarea {
-      @apply ps-2; // makes the gap between any content before the field not so large
+      @apply ps-2; /* makes the gap between any content before the field not so large */
     }
   }
   > textarea {

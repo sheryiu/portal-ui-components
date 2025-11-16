@@ -1,27 +1,23 @@
-.pui-peekable-addon {
+@utility pui-peekable-addon {
   /** transition doesn't look good */
-  // @apply transition-transform;
-  // transition-duration: 125ms;
-  // transition-timing-function: ease-in-out;
+  /* @apply transition-transform;
+   transition-duration: 125ms;
+   transition-timing-function: ease-in-out; */
   @apply fixed top-0 end-0 bottom-0;
-  @apply w-60vw min-w-96 max-w-160 3xl:max-w-200;
+  @apply w-[60dvw] min-w-96 max-w-160 3xl:max-w-200;
   @apply overflow-x-auto;
   @apply flex flex-col;
+  &:not(:has(.pui-peekable-addon__content > :nth-child(2))) {
+    @apply hidden;
+  }
+  &:has(.pui-peekable-addon__content > :nth-child(2)) {
+    @apply dark:bg-neutral-900 border;
+    @apply rounded-s-4;
+    @apply z-[1000];
+  }
 }
 
-.pui-peekable-addon:not(:has(.pui-peekable-addon__content > :nth-child(2))) {
-  // @apply translate-x-full;
-  @apply hidden;
-}
-
-.pui-peekable-addon:has(.pui-peekable-addon__content > :nth-child(2)) {
-  // @apply -translate-x-0;
-  @apply dark:bg-neutral-900 border;
-  @apply rounded-s-4;
-  @apply z-[1000];
-}
-
-.pui-peekable-addon__nav {
+@utility pui-peekable-addon__nav {
   @apply sticky top-0;
   @apply mb-2 p-2 z-100 h-12;
   @apply flex flex-row;
@@ -31,13 +27,13 @@
   }
 }
 
-.pui-peekable-addon__nav-button {
+@utility pui-peekable-addon__nav-button {
   @apply p-2 rounded-2;
   i {
     @apply icon-4 font-variation-weight-light text-neutral-800 dark:text-neutral-300;
   }
 }
 
-.pui-peekable-addon__content {
+@utility pui-peekable-addon__content {
   @apply -mt-4;
 }

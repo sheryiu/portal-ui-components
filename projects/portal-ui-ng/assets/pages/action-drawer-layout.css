@@ -1,4 +1,4 @@
-.pui-action-drawer-layout {
+@utility pui-action-drawer-layout {
   @apply contents;
   > div {
     @apply w-full h-dvh overflow-y-auto;
@@ -11,7 +11,7 @@
   }
 }
 
-.pui-action-drawer-layout__heading {
+@utility pui-action-drawer-layout__heading {
   @apply pt-20 px-4;
   @apply flex flex-col;
   h1 {
@@ -22,16 +22,16 @@
   }
 }
 
-.pui-action-drawer-layout__content {
+@utility pui-action-drawer-layout__content {
   @apply overflow-hidden;
 }
 
-.pui-action-drawer-layout__toolbar {
+@utility pui-action-drawer-layout__toolbar {
   @apply flex items-center justify-end gap-3;
   @apply min-h-12;
 }
 
-.pui-action-drawer-layout__toolbar__most-emphasized {
+@utility pui-action-drawer-layout__toolbar__most-emphasized {
   @apply rounded-full h-12 gap-1.5 px-6;
   > i {
     @apply icon-5;
@@ -41,9 +41,9 @@
   }
 }
 
-.pui-action-drawer-layout__toolbar__normal {
+@utility pui-action-drawer-layout__toolbar__normal {
   @apply rounded-full size-12;
-  &.pui-filled-button[data-color=accent] {
+  & .pui-filled-button[data-color=accent] {
     @apply dark:bg-transparent shadow-none;
   }
   > i {
@@ -54,13 +54,15 @@
   }
 }
 
-.pui-action-drawer-backdrop {
+@utility pui-action-drawer-backdrop {
   @apply bg-gradient-to-l;
   @apply dark:from-neutral-950/95 dark:to-neutral-950/50 from-30%;
   @apply sm:dark:from-neutral-950/95 sm:dark:to-neutral-950/10 sm:from-30%;
   @apply backdrop-blur-lg sm:backdrop-blur-sm;
 }
 
-.pui-action-drawer-layout :where(.pui-editable-content, .pui-table-content) > main {
-  @apply overflow-y-auto;
+@utility pui-action-drawer-layout {
+  :where(.pui-editable-content, .pui-table-content) > main {
+    @apply overflow-y-auto;
+  }
 }

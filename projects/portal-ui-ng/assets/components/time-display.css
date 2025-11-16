@@ -1,7 +1,6 @@
-.pui-time-display {
+@utility pui-time-display {
   @apply inline;
-}
-
-.pui-time-display:empty {
-  @apply before:content-['_---_'] before:dark:text-neutral-300;
+  &:empty {
+    @apply before:content-['_---_'] before:dark:text-neutral-300;
+  }
 }

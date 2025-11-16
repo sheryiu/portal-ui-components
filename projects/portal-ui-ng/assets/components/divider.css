@@ -1,4 +1,4 @@
-.pui-divider {
+@utility pui-divider {
   > div[data-vertical=false] {
     @apply w-full border-t;
   }
