@@ -75,7 +75,7 @@ export class AutocompleteTriggerDirective<D> {
             { overlayX: 'start', overlayY: 'top', originX: 'start', originY: 'bottom', offsetY: 8 },
             { overlayX: 'start', overlayY: 'bottom', originX: 'start', originY: 'top', offsetY: -8 },
           ])
-          .withPush(false)
+          .withPush(true)
           .withViewportMargin(8),
         scrollStrategy: this.overlay.scrollStrategies.reposition(),
         minWidth: this.overlayConfig()?.minWidth ?? '20svw',

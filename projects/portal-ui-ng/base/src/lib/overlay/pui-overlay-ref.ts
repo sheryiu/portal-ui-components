@@ -11,9 +11,9 @@ export class PuiOverlayRef {
       : [stayOpenedOnOutsideClicksContainedIn]
     concat(
       // TODO check if the timer delay can be removed
-      timer(100),
+      timer(150),
       overlayRef.outsidePointerEvents().pipe(
-        (ignore.length == 0) ? tap() : filter(e => e.target instanceof Element && !ignore.some(i => i.contains(e.target as Element))),
+        (ignore.length == 0) ? tap() : filter(e => e.currentTarget instanceof Element && !ignore.some(i => i.contains(e.currentTarget as Element))),
         take(1)
       ),
     ).pipe(
@@ -21,9 +21,9 @@ export class PuiOverlayRef {
     ).subscribe((v) => {
       if (v instanceof MouseEvent) {
         // ignore clicks from other overlays
-        if (v.target instanceof Element && (v.target as Element).closest('.cdk-overlay-container') != null) return;
+        if (v.currentTarget instanceof Element && (v.currentTarget as Element).closest('.cdk-overlay-container') != null) return;
         // ignore clicks from cdk backdrop as the event is handled by closeOnBackdropClick()
-        if (v.target instanceof Element && (v.target as Element).closest('.cdk-overlay-backdrop') != null) return;
+        if (v.currentTarget instanceof Element && (v.currentTarget as Element).closest('.cdk-overlay-backdrop') != null) return;
         this.close();
       }
     })
