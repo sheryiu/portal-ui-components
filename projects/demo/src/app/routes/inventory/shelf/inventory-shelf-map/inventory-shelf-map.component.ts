@@ -4,7 +4,6 @@ import { Component } from '@angular/core';
   selector: 'demo-inventory-shelf-map',
   imports: [],
   templateUrl: './inventory-shelf-map.component.html',
-  styles: ``
 })
 export class InventoryShelfMapComponent {
 

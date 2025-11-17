@@ -13,7 +13,6 @@ export type TooltipData = {
   host: {
     class: 'pui-tooltip',
   },
-  styles: ``,
   imports: [
     NgComponentOutlet
   ]

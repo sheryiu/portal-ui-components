@@ -8,7 +8,6 @@ import { Media, MediaType } from '../../../../data/media.types';
   selector: 'demo-media-manager-list',
   imports: [TableModule, HoverableDirective, DecimalPipe, TimeDisplayComponent],
   templateUrl: './media-manager-list.component.html',
-  styles: ``
 })
 export class MediaManagerListComponent {
   media = input.required<Media[]>()

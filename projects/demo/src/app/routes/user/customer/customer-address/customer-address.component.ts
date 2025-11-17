@@ -18,7 +18,6 @@ import { CustomerDataService } from '../../../../data/customer-data.service';
     RouterOutlet,
   ],
   templateUrl: './customer-address.component.html',
-  styles: ``,
   host: {
     class: 'contents'
   }

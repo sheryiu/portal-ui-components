@@ -34,16 +34,16 @@
     @apply text-primary-600 dark:text-primary-400;
   }
   &.pui-table-row--selected {
-    @apply hover:bg-hover/10 dark:hover:bg-hover-dark/7;
-    @apply focus-visible:bg-hover/10 dark:focus-visible:bg-hover-dark/7;
+    @apply hover:bg-hover dark:hover:bg-hover-dark;
+    @apply focus-visible:bg-hover dark:focus-visible:bg-hover-dark;
   }
   > a {
     @apply grid grid-cols-subgrid relative border-b;
     grid-column-start: 1;
     grid-column-end: span var(--pui-table-number-of-columns);
     &[data-active=true] {
-      @apply hover:bg-hover/10 dark:hover:bg-hover-dark/7;
-      @apply focus-visible:bg-hover/10 dark:focus-visible:bg-hover-dark/7;
+      @apply hover:bg-hover dark:hover:bg-hover-dark;
+      @apply focus-visible:bg-hover dark:focus-visible:bg-hover-dark;
     }
     .pui-table--single & {
       @apply ml-6;
@@ -164,14 +164,20 @@
 }
 @utility pui-table-header-cell__state {
   i.pui-table-header-cell__sort {
+    &::after {
+      @apply icon-5 font-variation-weight-light text-primary-800;
+    }
     &[data-descending=true]::after {
-      @apply icon-5 font-variation-weight-light text-primary-800 dark:text-primary-400;
       content: 'sort';
     }
     &[data-ascending=true]::after {
-      @apply icon-5 font-variation-weight-light text-primary-800 dark:text-primary-400;
       content: 'sort';
       @apply rotate-180 -scale-x-100;
+    }
+  }
+  @variant dark {
+    i.pui-table-header-cell__sort::after {
+      @apply text-primary-400;
     }
   }
 }
@@ -182,7 +188,7 @@
   @apply grid-cols-subgrid;
   grid-column-start: 1;
   grid-column-end: span var(--pui-table-number-of-columns);
-  grid-auto-rows: 3rem; // TODO item height
+  grid-auto-rows: 3rem; /* TODO item height */
   contain: unset !important;
   .cdk-virtual-scroll-content-wrapper {
     display: grid !important;

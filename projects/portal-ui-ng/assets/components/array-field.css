@@ -1,6 +1,6 @@
 @utility pui-array-field {
   @apply pe-4;
-  @apply rounded-[1.25rem];
+  @apply rounded-5;
   > div {
     @apply flex flex-row items-stretch;
   }
@@ -18,10 +18,10 @@
 
 @utility pui-array-field__length-control {
   &:first-of-type {
-    @apply rounded-s-[1.25rem] rounded-e-none border-y border-s ps-3 pe-2;
+    @apply rounded-s-5 rounded-e-none border-y border-s ps-3 pe-2;
   }
   &:last-of-type {
-    @apply rounded-e-[1.25rem] rounded-s-none border-y border-e ps-2 pe-3;
+    @apply rounded-e-5 rounded-s-none border-y border-e ps-2 pe-3;
   }
   > i {
     @apply icon-4;

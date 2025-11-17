@@ -16,7 +16,6 @@ import { PEEKABLE_ADDON_DATA_PROVIDER } from './peekable-addon';
     TooltipDirective,
   ],
   templateUrl: './peekable-addon.component.html',
-  styles: ``,
   host: {
     class: 'pui-peekable-addon',
   }

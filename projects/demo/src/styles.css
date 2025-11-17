@@ -4,6 +4,7 @@
 @import '@angular/cdk/overlay-prebuilt.css';
 @import '@angular/cdk/text-field-prebuilt.css';
 
+@import '../../../node_modules/vanilla-calendar-pro/styles/index.css' layer(utilities);
 @import '../../portal-ui-ng/assets/base/_index.css';
 @import '../../portal-ui-ng/assets/components/_index.css';
 @import '../../portal-ui-ng/assets/pages/_index.css';

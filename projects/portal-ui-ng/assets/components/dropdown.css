@@ -1,5 +1,5 @@
 @utility pui-dropdown {
-  @apply rounded-[1.25rem] min-h-9;
+  @apply rounded-5 min-h-9;
   @apply w-full ps-4 pe-3;
   @apply border;
   @apply flex justify-start items-center text-start gap-4;

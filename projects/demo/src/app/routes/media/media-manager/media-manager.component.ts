@@ -9,7 +9,6 @@ import { MediaManagerFolderComponent } from "./media-manager-folder/media-manage
   selector: 'demo-media-manager',
   imports: [MediaManagerFolderComponent, LayoutControlDirective],
   templateUrl: './media-manager.component.html',
-  styles: ``
 })
 export class MediaManagerComponent {
   private route = inject(ActivatedRoute);

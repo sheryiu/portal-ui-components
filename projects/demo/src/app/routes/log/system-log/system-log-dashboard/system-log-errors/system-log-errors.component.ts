@@ -13,7 +13,6 @@ import { SystemLog } from '../../../../../data/log.types';
     HoverableDirective
   ],
   templateUrl: './system-log-errors.component.html',
-  styles: ``
 })
 export class SystemLogErrorsComponent {
   private screenWidth = inject(ScreenWidthDetectorService)

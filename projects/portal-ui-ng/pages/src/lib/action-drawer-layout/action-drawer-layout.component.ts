@@ -19,7 +19,6 @@ import { ACTION_DRAWER_LAYOUT_DATA_PROVIDER } from './action-drawer-layout';
     LayoutService,
   ],
   templateUrl: './action-drawer-layout.component.html',
-  styles: ``,
   host: {
     class: 'pui-action-drawer-layout',
   }

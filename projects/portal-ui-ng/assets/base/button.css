@@ -230,7 +230,7 @@
     @apply bg-black dark:bg-white;
     @apply text-white dark:text-black;
     &.pui-hoverable {
-      @apply enabled:hover:after:bg-hover/15 enabled:hover:after:dark:bg-hover-dark/10;
+      @apply enabled:hover:after:bg-black/15 enabled:hover:after:dark:bg-white/10;
     }
   }
   &[data-color=gray], &[data-color=grey] {
@@ -309,8 +309,8 @@
 
 @utility pui-inverse-button {
   @apply flex items-center justify-center relative;
-  @apply hover:enabled:bg-hover/10 dark:hover:enabled:bg-hover-dark/7;
-  @apply focus-visible:enabled:bg-hover/10 dark:focus-visible:enabled:bg-hover-dark/7;
+  @apply hover:enabled:bg-hover dark:hover:enabled:bg-hover-dark;
+  @apply focus-visible:enabled:bg-hover dark:focus-visible:enabled:bg-hover-dark;
   @apply enabled:outline-2 enabled:outline-offset-2 enabled:outline-transparent;
   @apply enabled:focus-visible:outline enabled:focus-visible:outline-primary-500;
   &[data-color=default] {

@@ -1,5 +1,5 @@
 
-import { ApplicationRef, Component, inject, NgZone, signal, DOCUMENT } from '@angular/core';
+import { ApplicationRef, Component, DOCUMENT, inject, NgZone, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ButtonModule, HoverableDirective, OVERLAY_DATA, PuiOverlayRef } from 'portal-ui-ng/base';
 import { first, switchMap, timer } from 'rxjs';
@@ -14,7 +14,6 @@ import { SnackbarData, SnackbarDuration } from '../snackbar-data';
     TooltipDirective
   ],
   templateUrl: './snackbar-overlay.component.html',
-  styles: ``
 })
 export class SnackbarOverlayComponent {
   private data = inject(OVERLAY_DATA) as SnackbarData;

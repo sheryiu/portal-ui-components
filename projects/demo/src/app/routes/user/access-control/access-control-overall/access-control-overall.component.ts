@@ -31,7 +31,6 @@ import { EmployeeStatus } from '../../../../data/user.types';
     BaseDropdownOverlayComponent
   ],
   templateUrl: './access-control-overall.component.html',
-  styles: ``,
   host: {
     class: 'contents'
   }

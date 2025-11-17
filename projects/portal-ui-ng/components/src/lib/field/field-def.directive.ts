@@ -17,6 +17,21 @@ export class FieldDefDirective {
   readonly label = input.required<string>();
   readonly description = input<string | Type<unknown>>();
   readonly fieldType = input.required<LiteralUnion<SupportedTypes>>();
+  fieldTypeClassName = computed(() => {
+    switch (this.fieldType()) {
+      case 'boolean':
+        return 'pui-fieldset__input--boolean';
+      case 'number':
+        return 'pui-fieldset__input--number';
+      case 'date-time':
+        return 'pui-fieldset__input--date-time';
+      case 'array':
+        return 'pui-fieldset__input--array';
+      case 'string':
+      default:
+        return 'pui-fieldset__input--string';
+    }
+  })
   readonly fieldConfig = input<{
     enum?: (string | number)[];
     'string'?: {};

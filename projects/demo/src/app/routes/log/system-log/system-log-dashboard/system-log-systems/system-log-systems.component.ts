@@ -7,7 +7,6 @@ import { SystemLog } from '../../../../../data/log.types';
   selector: 'demo-system-log-systems',
   imports: [],
   templateUrl: './system-log-systems.component.html',
-  styles: ``
 })
 export class SystemLogSystemsComponent {
   private injector = inject(Injector)

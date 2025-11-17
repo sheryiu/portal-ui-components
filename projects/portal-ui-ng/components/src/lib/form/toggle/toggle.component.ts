@@ -9,7 +9,6 @@ import { HoverableDirective } from 'portal-ui-ng/base';
     HoverableDirective,
   ],
   templateUrl: './toggle.component.html',
-  styles: ``,
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,

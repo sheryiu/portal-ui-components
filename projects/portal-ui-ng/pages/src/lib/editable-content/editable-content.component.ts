@@ -15,7 +15,6 @@ import { EDITABLE_CONTENT_DATA_PROVIDER, EDITABLE_CONTENT_DEFAULT_CONTROLS, Edit
     LayoutControlDirective,
   ],
   templateUrl: './editable-content.component.html',
-  styles: ``,
   host: {
     class: 'pui-editable-content',
   }

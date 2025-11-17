@@ -11,7 +11,8 @@
       "schematics": {
         "@schematics/angular:component": {
           "prefix": "pui",
-          "inlineStyle": true
+          "inlineStyle": true,
+          "style": "none"
         },
         "@schematics/angular:directive": {
           "prefix": "pui"
@@ -96,8 +97,7 @@
               "projects/demo/src/manifest.webmanifest"
             ],
             "styles": [
-              "projects/demo/src/styles.css",
-              "node_modules/vanilla-calendar-pro/styles/index.css"
+              "projects/demo/src/styles.css"
             ],
             "scripts": []
           },

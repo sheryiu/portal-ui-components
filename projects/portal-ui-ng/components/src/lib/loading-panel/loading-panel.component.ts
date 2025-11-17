@@ -7,7 +7,6 @@ import { timer } from 'rxjs';
   selector: 'pui-loading-panel',
   imports: [],
   templateUrl: './loading-panel.component.html',
-  styles: ``
 })
 export class LoadingPanelComponent {
   private destroyRef = inject(DestroyRef)

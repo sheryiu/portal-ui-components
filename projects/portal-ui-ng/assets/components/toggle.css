@@ -8,6 +8,9 @@
   &:focus-visible .pui-toggle__trigger {
     @apply outline-primary-500;
   }
+  input[type=checkbox]:enabled + & {
+    @apply cursor-pointer;
+  }
 }
 @utility pui-toggle__trigger {
   @apply bg-neutral-300 dark:bg-neutral-700;

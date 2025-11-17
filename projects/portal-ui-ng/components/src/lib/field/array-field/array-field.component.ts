@@ -13,7 +13,6 @@ import { FieldDefDirective } from '../field-def.directive';
     InputFieldComponent,
     HoverableDirective,
   ],
-  styles: ``,
   host: {
     class: 'pui-array-field'
   }

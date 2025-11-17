@@ -11,7 +11,6 @@ import { debounceTime, filter } from 'rxjs';
     RouterOutlet,
   ],
   templateUrl: './root-sidenav.component.html',
-  styles: ``
 })
 export class RootSidenavComponent {
   private router = inject(Router, { optional: true })

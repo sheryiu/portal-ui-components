@@ -5,7 +5,7 @@
   > button {
     @apply flex-none text-start min-h-8 rounded-2 border border-transparent;
     &[data-selected=true] {
-      @apply enabled:bg-hover/10 dark:enabled:bg-hover-dark/7 dark:border-primary-600;
+      @apply enabled:bg-hover dark:enabled:bg-hover-dark dark:border-primary-600;
     }
     > div {
       @apply grow px-2 py-1;

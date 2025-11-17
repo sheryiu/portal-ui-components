@@ -4,7 +4,6 @@ import { Component } from '@angular/core';
   selector: 'demo-root-sidenav-code',
   imports: [],
   templateUrl: './root-sidenav-code.component.html',
-  styles: ``
 })
 export class RootSidenavCodeComponent {
 

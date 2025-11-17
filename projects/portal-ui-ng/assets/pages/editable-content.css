@@ -4,7 +4,12 @@
   @apply contents;
   > main {
     @apply pb-4 w-full h-full grow;
-    // no need to use container query to change the styling
-    @apply lg:pui-card lg:rounded-4 lg:p-8;
+  }
+
+  @variant lg {
+    > main {
+      /* no need to use container query to change the styling */
+      @apply pui-card rounded-4 p-8;
+    }
   }
 }

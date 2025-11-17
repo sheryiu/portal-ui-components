@@ -68,13 +68,13 @@
   --color-neutral-900: rgb(23 23 23);
   --color-neutral-950: rgb(10 10 10);
 
-  --color-hover: #000;
-  --color-hover--opacity: 10%;
-  --color-hover-dark: #fff;
-  --color-hover-dark--opacity: 7%;
+  --color-hover: rgb(0 0 0 / .1);
+  --color-hover-dark: rgb(255 255 255 / .07);
 }
 
 @custom-variant dark (&:where(.dark, .dark *));
+@custom-variant enabled (&:where(:enabled, [data-enabled="true"]));
+@custom-variant disabled (&:where(:disabled, [data-enabled="false"]));
 
 @import "./button.css";
 @import "./input-field.css";
@@ -90,8 +90,6 @@
 }
 
 @utility dark {
-  --color-hover: #fff;
-  --color-hover--opacity: 10%;
   color-scheme: dark;
 }
 
@@ -157,7 +155,7 @@
 
 @utility pui-card--subtle {
   background: hsl(0deg 0% 75% / .05);
-  box-shadow: inset rgb(255 255 255 / .03) 0 0 4px, rgb(0 0 0 / .1) 4px 2px 3p;
+  box-shadow: inset rgb(255 255 255 / .03) 0 0 4px, rgb(0 0 0 / .1) 4px 2px 3px;
 }
 
 @utility pui-card--overlay {
@@ -166,7 +164,7 @@
   box-shadow: inset rgb(255 255 255 / .03) 0 0 4px, rgb(0 0 0 / .1) 12px 12px 6px;
 }
 
-@utility pui-overlay-backdrop {
+@utility pui-overlay-container {
   @apply contents;
   > div {
     @apply size-full;

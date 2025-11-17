@@ -7,7 +7,6 @@ import { Calendar } from 'vanilla-calendar-pro';
   selector: 'demo-system-log-calendar',
   imports: [],
   templateUrl: './system-log-calendar.component.html',
-  styles: ``
 })
 export class SystemLogCalendarComponent {
   private destroyRef = inject(DestroyRef)

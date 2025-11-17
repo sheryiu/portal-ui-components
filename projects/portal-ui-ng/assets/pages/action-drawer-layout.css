@@ -43,7 +43,7 @@
 
 @utility pui-action-drawer-layout__toolbar__normal {
   @apply rounded-full size-12;
-  & .pui-filled-button[data-color=accent] {
+  &.pui-filled-button[data-color=accent] {
     @apply dark:bg-transparent shadow-none;
   }
   > i {
