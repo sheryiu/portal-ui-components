@@ -37,11 +37,7 @@
         "test": {
           "builder": "@angular/build:karma",
           "options": {
-            "tsConfig": "projects/portal-ui-ng/tsconfig.spec.json",
-            "polyfills": [
-              "zone.js",
-              "zone.js/testing"
-            ]
+            "tsConfig": "projects/portal-ui-ng/tsconfig.spec.json"
           }
         }
       }
@@ -86,9 +82,6 @@
             "outputPath": "dist/demo",
             "index": "projects/demo/src/index.html",
             "browser": "projects/demo/src/main.ts",
-            "polyfills": [
-              "zone.js"
-            ],
             "tsConfig": "projects/demo/tsconfig.app.json",
             "inlineStyleLanguage": "css",
             "assets": [

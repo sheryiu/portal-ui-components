@@ -1,5 +1,5 @@
 import { provideHttpClient, withFetch } from '@angular/common/http';
-import { ApplicationConfig, isDevMode } from '@angular/core';
+import { ApplicationConfig, isDevMode, provideZonelessChangeDetection } from '@angular/core';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { NoPreloading, PreloadAllModules, provideRouter, withInMemoryScrolling, withPreloading, withRouterConfig } from '@angular/router';
 import { provideServiceWorker } from '@angular/service-worker';
@@ -10,11 +10,10 @@ import { routes } from './app.routes';
 
 export const appConfig: ApplicationConfig = {
   providers: [
+    provideZonelessChangeDetection(),
     provideTheme(),
     providePlatformDetector(),
     provideHttpClient(withFetch()),
-    // don't use provideAnimationsAsync, will cause dialog animation to act strange as it first loads the module
-    // provideAnimationsAsync(),
     provideAnimations(),
     provideRouter(
       routes,
@@ -23,9 +22,7 @@ export const appConfig: ApplicationConfig = {
         paramsInheritanceStrategy: 'always',
       }),
       withInMemoryScrolling({ scrollPositionRestoration: 'disabled' }),
-      // withViewTransitions(),
     ),
-    // provideClientHydration(),
     provideServiceWorker('ngsw-worker.js', {
       enabled: !isDevMode(),
       registrationStrategy: 'registerImmediately',

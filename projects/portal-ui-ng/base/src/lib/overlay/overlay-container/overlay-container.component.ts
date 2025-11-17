@@ -6,7 +6,7 @@ import {
   trigger,
 } from '@angular/animations';
 import { NgComponentOutlet, NgTemplateOutlet } from '@angular/common';
-import { Component, Injector, TemplateRef, inject } from '@angular/core';
+import { Component, Injector, TemplateRef, inject, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { OVERLAY_CONFIG, OVERLAY_CONTENT, OVERLAY_DATA } from '../overlay';
 import { PuiOverlayRef } from '../pui-overlay-ref';
@@ -90,11 +90,11 @@ export class OverlayContainerComponent {
   component = !(this.content instanceof TemplateRef) ? this.content : null;
 
   overlayRef = inject(PuiOverlayRef);
-  showing = false;
+  showing = signal(false);
 
   constructor() {
-    this.overlayRef.afterOpened$.subscribe(() => (this.showing = true));
-    this.overlayRef._close$.subscribe(() => (this.showing = false));
+    this.overlayRef.afterOpened$.subscribe(() => (this.showing.set(true)));
+    this.overlayRef._close$.subscribe(() => (this.showing.set(false)));
     if (this.config.animation === null) {
       this.overlayRef._close$.pipe(takeUntilDestroyed()).subscribe(() => {
         this.overlayRef.afterClosed$.next();

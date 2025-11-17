@@ -53,11 +53,11 @@ export class TooltipDirective {
     })
   }
 
-  private onOver() {
+  onOver() {
     this.showTooltip();
   }
 
-  private onLeave() {
+  onLeave() {
     this.closeTooltip();
   }
 
