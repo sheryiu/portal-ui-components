@@ -1,8 +1,0 @@
-.pui-divider {
-  > div[data-vertical=false] {
-    @apply w-full border-t;
-  }
-  > div[data-vertical=true] {
-    @apply h-full border-l;
-  }
-}

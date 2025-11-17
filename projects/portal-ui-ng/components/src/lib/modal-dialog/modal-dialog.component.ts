@@ -53,7 +53,6 @@ export type ModalDialogData<C = undefined> = {
     ButtonModule,
   ],
   templateUrl: './modal-dialog.component.html',
-  styles: ``
 })
 export class ModalDialogComponent<C = undefined> implements AfterViewInit {
   data = inject(OVERLAY_DATA) as ModalDialogData<C>;

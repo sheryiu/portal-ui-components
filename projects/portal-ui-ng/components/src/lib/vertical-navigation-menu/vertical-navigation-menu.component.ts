@@ -22,7 +22,6 @@ import { VERTICAL_NAVIGATION_MENU_CHILD } from './vertical-navigation-menu';
     IsInSetPipe,
   ],
   templateUrl: './vertical-navigation-menu.component.html',
-  styles: ``,
   host: {
     class: 'pui-vertical-navigation-menu'
   }

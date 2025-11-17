@@ -12,7 +12,6 @@ import { EmployeeCalendarEvent } from '../../../../../data/user.types';
     RouterLink,
   ],
   templateUrl: './calendar-events.component.html',
-  styles: ``,
   host: {
     class: 'contents'
   }

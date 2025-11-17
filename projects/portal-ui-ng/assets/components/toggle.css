@@ -1,0 +1,31 @@
+@utility pui-toggle {
+  @apply rounded-full outline-none;
+  @apply flex items-center gap-2 p-1 h-7 relative transition-colors;
+  @apply bg-red-300 dark:bg-red-900;
+  &.pui-toggle--checked {
+    @apply bg-green-300 dark:bg-green-700;
+  }
+  &:focus-visible .pui-toggle__trigger {
+    @apply outline-primary-500;
+  }
+  input[type=checkbox]:enabled + & {
+    @apply cursor-pointer;
+  }
+}
+@utility pui-toggle__trigger {
+  @apply bg-neutral-300 dark:bg-neutral-700;
+  @apply rounded-[0.875rem] absolute top-0 bottom-0 left-0 transition-all z-0;
+  @apply flex justify-center items-center;
+  @apply outline-none;
+  width: calc(50% + 0.5rem);
+  i {
+    @apply icon-5;
+  }
+  .pui-toggle--checked > & {
+    left: calc(50% - 0.5rem);
+  }
+}
+@utility pui-toggle__indicator {
+  width: 1.5rem;
+  @apply px-1 uppercase text-center select-none grow shrink-0;
+}

@@ -1,5 +1,5 @@
-import { DOCUMENT, isPlatformBrowser } from '@angular/common';
-import { inject, Injectable, InjectionToken, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
+import { inject, Injectable, InjectionToken, PLATFORM_ID, DOCUMENT } from '@angular/core';
 
 export type ScreenWidthDetectorOptions = {
   sm?: number;

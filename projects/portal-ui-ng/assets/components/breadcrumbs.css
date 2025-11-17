@@ -1,0 +1,12 @@
+@utility pui-breadcrumbs {
+  @apply flex gap-0.5 items-center;
+  > a {
+    @apply px-2.5 py-1 rounded-1 justify-start;
+    > span {
+      @apply truncate;
+    }
+  }
+  > i {
+    @apply icon-4 text-primary-800 dark:text-primary-50;
+  }
+}

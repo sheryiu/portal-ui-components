@@ -13,7 +13,7 @@
         </div>
         <div
           class="pui-fieldset__input"
-          [ngClass]="'pui-fieldset__input--' + fieldDef.fieldType()"
+          [ngClass]="fieldDef.fieldTypeClassName()"
         >
           @if (formControl.controls[fieldDef.base64Key()]) {
             @if (

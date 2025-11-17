@@ -16,10 +16,10 @@ import { MediaManagerPickerService } from '../../../media/media-manager/media-ma
   imports: [TimeDisplayComponent, TableContentComponent, ButtonModule, NgClass, TooltipDirective, FormDisplayModule, InputFieldComponent],
   templateUrl: './customer-info.component.html',
   styles: `
-  ::ng-deep demo-customer-info .pui-table-content main {
-    @apply bg-transparent backdrop-filter-none shadow-none;
-    @apply px-0;
-  }
+    @reference "tailwindcss";
+    ::ng-deep demo-customer-info .pui-table-content main {
+      @apply bg-transparent backdrop-filter-none shadow-none px-0;
+    }
   `,
   host: {
     class: 'contents'

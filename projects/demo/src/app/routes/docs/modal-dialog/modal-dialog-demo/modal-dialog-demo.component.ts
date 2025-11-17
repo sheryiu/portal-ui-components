@@ -10,7 +10,6 @@ import { CustomContentComponent } from './custom-content/custom-content.componen
     DividerComponent
   ],
   templateUrl: './modal-dialog-demo.component.html',
-  styles: ``
 })
 export class ModalDialogDemoComponent {
   private modalDialog = inject(ModalDialogService)

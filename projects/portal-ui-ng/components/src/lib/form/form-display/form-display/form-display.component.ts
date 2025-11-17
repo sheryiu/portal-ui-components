@@ -10,7 +10,6 @@ import { FormFieldComponent } from '../form-field/form-field.component';
     DividerComponent
   ],
   templateUrl: './form-display.component.html',
-  styles: ``
 })
 export class FormDisplayComponent {
   fields = contentChildren(FormFieldComponent, { descendants: true })

@@ -6,7 +6,6 @@ import { DividerComponent, LoadingPanelComponent } from "portal-ui-ng/components
   selector: 'demo-loading-panel-demo',
   imports: [LoadingPanelComponent, ButtonModule, DividerComponent],
   templateUrl: './loading-panel-demo.component.html',
-  styles: ``
 })
 export class LoadingPanelDemoComponent {
 

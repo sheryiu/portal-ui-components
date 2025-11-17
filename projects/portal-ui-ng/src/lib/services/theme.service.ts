@@ -1,5 +1,5 @@
-import { DOCUMENT, isPlatformBrowser } from '@angular/common';
-import { Injectable, InjectionToken, PLATFORM_ID, inject, makeEnvironmentProviders, provideAppInitializer } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
+import { Injectable, InjectionToken, PLATFORM_ID, inject, makeEnvironmentProviders, provideAppInitializer, DOCUMENT } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Subject, defer, filter, fromEvent, iif, map, merge, of, shareReplay, startWith, switchMap, tap } from 'rxjs';
 

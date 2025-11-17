@@ -28,7 +28,7 @@
             [routerLink]="employee != null ? ['/user', 'employee', 'detail', employee.id] : null"
           >
             <div class="flex flex-col items-center gap-2">
-              <h2 class="w-full text-center break-anywhere whitespace-normal">{{ employee.name }}</h2>
+              <h2 class="w-full text-center wrap-anywhere whitespace-normal">{{ employee.name }}</h2>
               <p class="text-sm text-center">
                 <span class="text-neutral-700 dark:text-neutral-300">{{ employee.department }}</span>
                 <span> / </span>
@@ -91,7 +91,7 @@
           </div>
           <!-- customer -->
           <div
-            class="relative rounded-4 before:absolute before:inset-0 before:pui-card--subtle before:rounded-4 before:transparency-mask-to-r before:-z-10 justify-start"
+            class="relative rounded-4 before:absolute before:inset-0 before:pui-card--subtle before:rounded-4 before:-z-10 justify-start"
             puiHoverable
             tabindex="0"
             (click)="onToggleAll('customer')"
@@ -107,7 +107,7 @@
           </div>
           <!-- employee -->
           <div
-            class="relative rounded-4 before:absolute before:inset-0 before:pui-card--subtle before:rounded-4 before:transparency-mask-to-r before:-z-10 justify-start"
+            class="relative rounded-4 before:absolute before:inset-0 before:pui-card--subtle before:rounded-4 before:-z-10 justify-start"
             puiHoverable
             tabindex="0"
             (click)="onToggleAll('employee')"
@@ -123,7 +123,7 @@
           </div>
           <!-- inventoryItem -->
           <div
-            class="relative rounded-4 before:absolute before:inset-0 before:pui-card--subtle before:rounded-4 before:transparency-mask-to-r before:-z-10 justify-start"
+            class="relative rounded-4 before:absolute before:inset-0 before:pui-card--subtle before:rounded-4 before:-z-10 justify-start"
             puiHoverable
             tabindex="0"
             (click)="onToggleAll('inventoryItem')"
@@ -142,7 +142,7 @@
         <h2>Conditions</h2>
         <!-- location -->
         <div
-          class="relative rounded-4 before:absolute before:inset-0 before:pui-card--subtle before:rounded-4 before:transparency-mask-to-r before:-z-10 justify-start"
+          class="relative rounded-4 before:absolute before:inset-0 before:pui-card--subtle before:rounded-4 before:-z-10 justify-start"
         >
           <div class="flex flex-col px-6 py-4 gap-4 grow" formGroupName="location">
             <div class="flex flex-row items-center gap-4">

@@ -10,6 +10,7 @@ import { Media } from '../../../../data/media.types';
   imports: [TabBarModule, TooltipDirective, ButtonModule, RouterLink, NgClass],
   templateUrl: './media-manager-toolbar.component.html',
   styles: `
+  @reference "../../../../../styles.css";
   :host ::ng-deep pui-tab-bar .pui-tab-bar-tabs {
     @apply pui-card--subtle;
   }

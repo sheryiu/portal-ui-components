@@ -25,7 +25,6 @@ import { CustomerPickerService } from '../../../user/customer/customer-picker.se
     ButtonModule,
   ],
   templateUrl: './inventory-item-info.component.html',
-  styles: ``,
   host: {
     class: 'contents'
   }

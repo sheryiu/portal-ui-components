@@ -1,0 +1,67 @@
+@utility pui-loading-panel {
+  @apply flex flex-row items-center justify-between;
+  @apply @screen-sm/layout:rounded-4 px-12 py-4 shadow-lg dark:bg-primary-700 min-h-28;
+}
+
+@utility pui-loading-panel__description {
+  @apply flex flex-col gap-1;
+}
+
+@utility pui-loading-panel__description-loading {
+  @apply text-xl font-black font-display;
+}
+
+@utility pui-loading-panel__stuck {
+  @apply text-base font-medium;
+}
+
+@utility pui-loading-panel__icon {
+  @apply relative size-12;
+  &::before {
+    content: '';
+    @apply absolute rounded-full size-3/5 border-2 border-white border-l-transparent border-b-transparent border-r-transparent;
+    transform: rotate3d(1, 1, 1, 32deg) translate(10px, -3.5px) scaleY(0.9);
+    animation: puiLoadingPanelOpacity 600ms ease-in-out infinite alternate both;
+  }
+  > i {
+    @apply absolute first:font-variation-fill;
+    @apply first:top-1 first:left-0 first:icon-6;
+    &:first-child {
+      animation: puiLoadingPanelOpacity 1200ms ease-in-out infinite alternate both;
+    }
+    @apply last:bottom-1 last:right-0 last:icon-8;
+    &:last-child {
+      animation: puiLoadingPanelOpacity 1200ms ease-in-out infinite alternate-reverse both;
+    }
+  }
+}
+
+@utility pui-loading-panel__dot {
+  &:first-of-type {
+    animation: puiLoadingPanelDot1 2000ms linear infinite;
+  }
+  &:nth-of-type(2) {
+    animation: puiLoadingPanelDot2 2000ms linear infinite;
+  }
+  &:nth-of-type(3) {
+    animation: puiLoadingPanelDot3 2000ms linear infinite;
+  }
+}
+
+@keyframes puiLoadingPanelOpacity {
+  0%, 20% { opacity: 0.4; }
+  80%, 100% { opacity: 1; }
+}
+
+@keyframes puiLoadingPanelDot1 {
+  0%, 25% { opacity: 0; }
+  26% { opacity: 1; }
+}
+@keyframes puiLoadingPanelDot2 {
+  0%, 50% { opacity: 0; }
+  51% { opacity: 1; }
+}
+@keyframes puiLoadingPanelDot3 {
+  0%, 75% { opacity: 0; }
+  76% { opacity: 1; }
+}

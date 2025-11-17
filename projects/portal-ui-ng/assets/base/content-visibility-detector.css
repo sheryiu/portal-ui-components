@@ -1,0 +1,4 @@
+@utility pui-content-visibility-detector {
+  content-visibility: auto;
+  @apply w-full h-px;
+}

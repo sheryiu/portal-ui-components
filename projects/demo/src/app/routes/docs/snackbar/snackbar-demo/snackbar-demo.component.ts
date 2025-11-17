@@ -9,7 +9,6 @@ import { SnackbarDuration, SnackbarService } from 'portal-ui-ng/components';
     ButtonModule
   ],
   templateUrl: './snackbar-demo.component.html',
-  styles: ``
 })
 export class SnackbarDemoComponent {
   private snackbar = inject(SnackbarService)

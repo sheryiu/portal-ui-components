@@ -11,7 +11,6 @@ import { MediaManagerToolbarComponent } from "../media-manager-toolbar/media-man
   selector: 'demo-media-manager-folder',
   imports: [MediaManagerToolbarComponent, DividerComponent, MediaManagerGridComponent, MediaManagerListComponent],
   templateUrl: './media-manager-folder.component.html',
-  styles: ``
 })
 export class MediaManagerFolderComponent {
   private dataService = inject(MediaDataService)

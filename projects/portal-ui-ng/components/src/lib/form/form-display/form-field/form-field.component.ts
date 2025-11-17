@@ -5,7 +5,6 @@ import { uniqueId } from 'lodash-es';
   selector: 'pui-form-field',
   imports: [],
   templateUrl: './form-field.component.html',
-  styles: ``
 })
 export class FormFieldComponent {
   id = input<string>(uniqueId())

@@ -21,7 +21,6 @@ import { CalendarEventsComponent } from './calendar-events/calendar-events.compo
     SlicePipe,
   ],
   templateUrl: './employee-calendar-monthly.component.html',
-  styles: ``,
   host: {
     class: 'contents'
   }

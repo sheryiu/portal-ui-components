@@ -6,7 +6,6 @@ import { DropdownOverlay, DropdownOverlayData } from '../dropdown-overlay.compon
   selector: 'pui-base-dropdown-overlay',
   imports: [],
   templateUrl: './base-dropdown-overlay.component.html',
-  styles: ``,
 })
 export class BaseDropdownOverlayComponent<T> extends DropdownOverlay {
   private overlayRef = inject(PuiOverlayRef);

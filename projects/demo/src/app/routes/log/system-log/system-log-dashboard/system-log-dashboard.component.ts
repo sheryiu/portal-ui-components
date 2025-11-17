@@ -27,7 +27,6 @@ import { SystemLogSystemsComponent } from "./system-log-systems/system-log-syste
     SystemLogSystemsComponent
   ],
   templateUrl: './system-log-dashboard.component.html',
-  styles: ``
 })
 export class SystemLogDashboardComponent {
   private dataService = inject(SystemLogDataService)

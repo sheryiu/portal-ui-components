@@ -16,7 +16,6 @@ const CHART_ORDER: string[] = ['Errors', 'Warnings', 'Infos', 'Debugs']
     NgClass
   ],
   templateUrl: './system-log-chart.component.html',
-  styles: ``
 })
 export class SystemLogChartComponent {
   private injector = inject(Injector)

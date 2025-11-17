@@ -1,0 +1,172 @@
+@theme {
+  --radius-1: 0.25rem;
+  --radius-2: 0.5rem;
+  --radius-3: 0.75rem;
+  --radius-4: 1rem;
+  --radius-5: 1.25rem;
+  --radius-6: 1.5rem;
+  --radius-7: 1.75rem;
+  --radius-8: 2rem;
+
+  --text-sm: 0.75rem;
+  --text-sm--line-height: 1rem;
+  --text-base: 0.875rem;
+  --text-base--line-height: 1.125rem;
+  --text-md: 1rem;
+  --text-md--line-height: 1.25rem;
+  --text-xl: 1.25rem;
+  --text-xl--line-height: 1.625rem;
+  --text-2xl: 1.75rem;
+  --text-2xl--line-height: 2.25rem;
+
+  --font-display: var(--font-sans);
+
+  --breakpoint-xs: 30rem; /* 480px */
+  --breakpoint-3xl: 120rem; /* 1920px */
+
+  --container-screen-xs: 30rem;
+  --container-screen-sm: 40rem;
+  --container-screen-md: 48rem;
+  --container-screen-lg: 64rem;
+  --container-screen-xl: 80rem;
+  --container-screen-2xl: 96rem;
+  --container-screen-3xl: 120rem;
+
+  --color-primary-50: rgb(223 231 220);
+  --color-primary-100: rgb(207 233 197);
+  --color-primary-200: rgb(183 222 167);
+  --color-primary-300: rgb(158 211 138);
+  --color-primary-400: rgb(134 199 108);
+  --color-primary-500: rgb(110 188 79);
+  --color-primary-600: rgb(91 164 62);
+  --color-primary-700: rgb(68 123 47);
+  --color-primary-800: rgb(46 83 31);
+  --color-primary-900: rgb(23 42 16);
+  --color-primary-950: rgb(8 15 6);
+
+  --color-accent-50: rgb(239 246 255);
+  --color-accent-100: rgb(219 234 254);
+  --color-accent-200: rgb(191 219 254);
+  --color-accent-300: rgb(147 197 253);
+  --color-accent-400: rgb(96 165 250);
+  --color-accent-500: rgb(59 130 246);
+  --color-accent-600: rgb(37 99 235);
+  --color-accent-700: rgb(29 78 216);
+  --color-accent-800: rgb(30 64 175);
+  --color-accent-900: rgb(30 58 138);
+  --color-accent-950: rgb(23 37 84);
+
+  --color-neutral-50: rgb(250 250 250);
+  --color-neutral-100: rgb(245 245 245);
+  --color-neutral-200: rgb(229 229 229);
+  --color-neutral-300: rgb(212 212 212);
+  --color-neutral-400: rgb(163 163 163);
+  --color-neutral-500: rgb(115 115 115);
+  --color-neutral-600: rgb(82 82 82);
+  --color-neutral-700: rgb(64 64 64);
+  --color-neutral-800: rgb(38 38 38);
+  --color-neutral-900: rgb(23 23 23);
+  --color-neutral-950: rgb(10 10 10);
+
+  --color-hover: rgb(0 0 0 / .1);
+  --color-hover-dark: rgb(255 255 255 / .07);
+}
+
+@custom-variant dark (&:where(.dark, .dark *));
+@custom-variant enabled (&:where(:enabled, [data-enabled="true"]));
+@custom-variant disabled (&:where(:disabled, [data-enabled="false"]));
+
+@import "./button.css";
+@import "./input-field.css";
+@import "./scrollbar.css";
+@import "./hoverable.css";
+@import "./content-visibility-detector.css";
+
+@layer base {
+  *, *::before, *::after {
+    @apply border-black/10;
+    @apply dark:border-white/10;
+  }
+}
+
+@utility dark {
+  color-scheme: dark;
+}
+
+@utility spacer {
+  flex: 1 0 auto;
+}
+
+@utility icon-* {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: calc(var(--spacing) * --value(integer));
+  height: calc(var(--spacing) * --value(integer));
+  font-size: calc(var(--spacing) * --value(integer));
+  width: calc(var(--spacing) * --value([integer]));
+  height: calc(var(--spacing) * --value([integer]));
+  font-size: calc(var(--spacing) * --value([integer]));
+  line-height: 1;
+  font-style: normal;
+  font-family: "Material Symbols Rounded";
+  font-weight: 400;
+  user-select: none;
+  flex: none;
+}
+
+@utility inline-icon-* {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: calc(var(--spacing) * --value(integer));
+  height: calc(var(--spacing) * --value(integer));
+  font-size: calc(var(--spacing) * --value(integer));
+  width: calc(var(--spacing) * --value([integer]));
+  height: calc(var(--spacing) * --value([integer]));
+  font-size: calc(var(--spacing) * --value([integer]));
+  line-height: 1;
+  font-style: normal;
+  font-family: "Material Symbols Rounded";
+  font-weight: 400;
+  user-select: none;
+  flex: none;
+}
+
+@utility font-variation-weight-* {
+  --font-variation-weight: "wght" --value(--font-weight-*);
+  font-variation-settings: var(--font-variation-weight, "wght" 400), var(--font-variation-fill, "FILL" 0);
+}
+
+@utility font-variation-fill {
+  --font-variation-fill: "FILL" 1;
+  font-variation-settings: var(--font-variation-weight, "wght" 400), var(--font-variation-fill, "FILL" 0);
+}
+
+@utility gutter-stable {
+  scrollbar-gutter: stable;
+}
+
+@utility pui-card {
+  backdrop-filter: blur(6px);
+  background: hsl(0deg 0% 75% / .05);
+  box-shadow: inset rgb(255 255 255 / .03) 0 0 4px, rgb(0 0 0 / .1) 12px 12px 6px;
+}
+
+@utility pui-card--subtle {
+  background: hsl(0deg 0% 75% / .05);
+  box-shadow: inset rgb(255 255 255 / .03) 0 0 4px, rgb(0 0 0 / .1) 4px 2px 3px;
+}
+
+@utility pui-card--overlay {
+  backdrop-filter: blur(16px);
+  background: hsl(0deg 0% 15% / .7);
+  box-shadow: inset rgb(255 255 255 / .03) 0 0 4px, rgb(0 0 0 / .1) 12px 12px 6px;
+}
+
+@utility pui-overlay-container {
+  @apply contents;
+  > div {
+    @apply size-full;
+  }
+}

@@ -7,7 +7,6 @@ import { Media, MediaType } from '../../../../data/media.types';
   selector: 'demo-media-manager-grid',
   imports: [ButtonModule, RouterLink],
   templateUrl: './media-manager-grid.component.html',
-  styles: ``
 })
 export class MediaManagerGridComponent {
   media = input.required<Media[]>()

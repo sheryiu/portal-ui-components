@@ -53,7 +53,7 @@
       <div class="flex flex-col items-center gap-2">
         <div
           class="p-4 rounded-full bg-neutral-500 shadow-md shadow-neutral-500 transition-colors relative"
-          [style.--color-neutral-500]="customer()?.profile?.color"
+          [style.--color-neutral-500]="'rgb(' + customer()?.profile?.color + ')'"
         >
           <i class="icon-10 font-variation-fill">{{
             customer()?.profile?.icon
@@ -62,7 +62,7 @@
             <i class="icon-5 font-variation-weight-extra-light">edit</i>
           </button>
         </div>
-        <h2 class="w-full text-center break-anywhere whitespace-normal">
+        <h2 class="w-full text-center wrap-anywhere whitespace-normal">
           {{ customer()?.username ?? "---" }}
         </h2>
         <span
@@ -187,7 +187,7 @@
         </pui-form-field>
         <pui-form-field>
           <span puiFormFieldTitle>Registered since</span>
-          <pui-time-display puiFormFieldContent format="MMM dd, YYYY HH:mm" [date]="customer()?.registeredSince" class="px-2"></pui-time-display>
+          <pui-time-display puiFormFieldContent format="MMM dd, yyyy HH:mm" [date]="customer()?.registeredSince" class="px-2"></pui-time-display>
         </pui-form-field>
       </pui-form-display>
     </div>

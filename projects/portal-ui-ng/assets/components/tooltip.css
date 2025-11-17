@@ -1,0 +1,7 @@
+@utility pui-tooltip {
+  @apply block bg-neutral-300 dark:bg-neutral-700 border px-2 py-1 rounded-1 overflow-hidden shadow-md text-sm;
+}
+
+@utility pui-tooltip-overlay {
+  pointer-events: none !important;
+}

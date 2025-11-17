@@ -3,6 +3,9 @@ import { LayoutControlConfig, LayoutControlMode, LayoutService } from './layout.
 
 @Directive({
   selector: 'pui-layout-control',
+  host: {
+    class: 'pui-layout-control'
+  },
   standalone: true
 })
 export class LayoutControlDirective {

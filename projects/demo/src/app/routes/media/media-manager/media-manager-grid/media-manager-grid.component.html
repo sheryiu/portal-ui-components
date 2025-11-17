@@ -5,7 +5,7 @@
     }
     @for (folder of folders(); track folder.id) {
       <a
-        class="basis-[240px] grow shrink-0 overflow-hidden rounded-2 bg-hover justify-start py-3 px-6 gap-3"
+        class="basis-[240px] grow shrink-0 overflow-hidden rounded-2 bg-hover dark:bg-hover-dark justify-start py-3 px-6 gap-3"
         puiBaseButton
         [routerLink]="navigateWithRouter() ? ['../', folder.id] : null"
         (click)="navigateWithRouter() ? {} : navigateTo.emit(folder)"
@@ -16,11 +16,11 @@
     }
     <h3 class="pt-2 col-span-full">Files</h3>
     @for (file of files(); track file.id) {
-      <button class="basis-[240px] grow shrink-0 overflow-hidden rounded-2 bg-hover items-start flex-col" puiBaseButton>
+      <button class="basis-[240px] grow shrink-0 overflow-hidden rounded-2 bg-hover dark:bg-hover-dark items-start flex-col" puiBaseButton>
         @if (file.thumbnail != null) {
-          <img [src]="file.thumbnail" class="aspect-[21/9] @screen-sm:aspect-video w-full object-cover bg-hover">
+          <img [src]="file.thumbnail" class="aspect-21/9 @screen-sm:aspect-video w-full object-cover bg-hover dark:bg-hover-dark">
         } @else {
-          <div class="aspect-[21/9] @screen-sm:aspect-video w-full bg-hover flex justify-center items-center">
+          <div class="aspect-21/9 @screen-sm:aspect-video w-full bg-hover dark:bg-hover-dark flex justify-center items-center">
             <i class="icon-12 font-variation-weight-bold font-variation-fill dark:text-primary-600">files</i>
           </div>
         }

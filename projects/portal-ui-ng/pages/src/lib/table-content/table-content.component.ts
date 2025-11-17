@@ -28,7 +28,6 @@ import { TABLE_CONTENT_DATA_PROVIDER, TABLE_CONTENT_DEFAULT_CONTROLS, TableConte
     ContentVisibilityDetectorDirective,
   ],
   templateUrl: './table-content.component.html',
-  styles: ``,
   host: {
     class: 'pui-table-content'
   },

@@ -1,0 +1,43 @@
+@utility pui-hoverable {
+  @apply flex items-center justify-center relative overflow-hidden transition-all;
+
+  @variant disabled {
+    @apply outline-none;
+  }
+
+  @variant enabled {
+    @apply cursor-pointer;
+    @apply outline-2 outline-offset-2 outline-transparent;
+    @variant after {
+      @apply absolute inset-0 transition-colors;
+      @apply touch-none pointer-events-none;
+    }
+
+    @variant hover {
+      @variant after {
+        @apply bg-hover;
+      }
+    }
+    @variant focus-visible {
+      @apply outline outline-primary-500;
+      @variant after {
+        @apply bg-hover;
+      }
+    }
+  }
+
+  @variant dark {
+    @variant enabled {
+      @variant hover {
+        @variant after {
+          @apply bg-hover-dark;
+        }
+      }
+      @variant focus-visible {
+        @variant after {
+          @apply bg-hover-dark;
+        }
+      }
+    }
+  }
+}

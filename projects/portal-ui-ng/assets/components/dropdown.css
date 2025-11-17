@@ -1,0 +1,28 @@
+@utility pui-dropdown {
+  @apply rounded-5 min-h-9;
+  @apply w-full ps-4 pe-3;
+  @apply border;
+  @apply flex justify-start items-center text-start gap-4;
+  > div {
+    @apply wrap-anywhere grow h-full;
+  }
+  > i {
+    @apply icon-4 dark:text-neutral-300;
+  }
+  &:disabled {
+    @apply bg-black/5 dark:bg-white/5 border-transparent dark:border-transparent dark:text-neutral-300 pointer-events-none;
+  }
+}
+
+@utility pui-dropdown-overlay {
+  @apply flex flex-col items-stretch;
+  @apply bg-neutral-200 dark:bg-neutral-800 border rounded-3;
+}
+
+@utility pui-base-dropdown-overlay {
+  @apply flex flex-col overflow-auto max-h-[40svh];
+  button {
+    @apply text-start justify-start;
+    @apply px-4 py-2;
+  }
+}

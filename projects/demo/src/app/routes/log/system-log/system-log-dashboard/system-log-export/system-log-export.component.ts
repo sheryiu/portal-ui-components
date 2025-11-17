@@ -11,7 +11,6 @@ import { DividerComponent, TimeDisplayComponent, ToggleComponent } from 'portal-
     ToggleComponent,
   ],
   templateUrl: './system-log-export.component.html',
-  styles: ``
 })
 export class SystemLogExportComponent {
   startDate = input.required<Date>()

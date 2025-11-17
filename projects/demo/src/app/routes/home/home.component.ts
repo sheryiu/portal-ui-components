@@ -7,7 +7,6 @@ import { TabConfig, VERTICAL_LAYOUT_DATA_PROVIDER, VerticalLayoutComponent, Vert
     VerticalLayoutComponent,
   ],
   templateUrl: './home.component.html',
-  styles: ``,
   providers: [
     {
       provide: VERTICAL_LAYOUT_DATA_PROVIDER,
