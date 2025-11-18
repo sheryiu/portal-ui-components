@@ -1,6 +1,6 @@
 {
   "name": "portal-ui-components",
-  "version": "0.1.30",
+  "version": "0.2.0-alpha.1",
   "scripts": {
     "ng": "ng",
     "lib:build": "ng build portal-ui-ng",
