@@ -1,6 +1,4 @@
-import { Component, DestroyRef, effect, inject, input, output } from '@angular/core';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { ControlContainer, FormBuilder, FormControl, FormRecord, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { Component, input, linkedSignal, output } from '@angular/core';
 import { HoverableDirective, InputFieldComponent } from 'portal-ui-ng/base';
 import { FieldDefDirective } from '../field-def.directive';
 
@@ -8,8 +6,6 @@ import { FieldDefDirective } from '../field-def.directive';
   selector: 'pui-array-field',
   templateUrl: './array-field.component.html',
   imports: [
-    FormsModule,
-    ReactiveFormsModule,
     InputFieldComponent,
     HoverableDirective,
   ],
@@ -18,55 +14,36 @@ import { FieldDefDirective } from '../field-def.directive';
   }
 })
 export class ArrayFieldComponent {
-  private destroyRef = inject(DestroyRef)
   def = input.required<FieldDefDirective>()
-  formRecord = inject(ControlContainer).control as FormRecord<FormControl<unknown>>;
-  valueChange = output();
+  inputLength = input<number>(undefined, { alias: 'length' });
+  length = linkedSignal(() => this.inputLength())
+  valueChange = output<number>();
+  isDisabled = input<boolean>(false, { alias: 'disabled' });
 
-  arrayLengthControl = inject(FormBuilder).nonNullable.control(0);
-
-  constructor() {
-    effect(() => {
-      const value = this.formRecord.controls[this.def().base64Key()].getRawValue();
-      this.arrayLengthControl.setValue(Array.isArray(value) ? value.length : 0);
-    })
-    const ref = effect(() => {
-      this.formRecord.events.pipe(
-        takeUntilDestroyed(this.destroyRef)
-      ).subscribe(() => {
-        const value = this.formRecord.controls[this.def().base64Key()].getRawValue();
-        this.arrayLengthControl.setValue(Array.isArray(value) ? value.length : 0);
-      })
-    }, { manualCleanup: true })
-    this.destroyRef.onDestroy(() => ref.destroy())
-  }
-
-  handleInput() {
-    const currValue = this.formRecord.controls[this.def().base64Key()].getRawValue();
-    if (!Array.isArray(currValue)) {
-      console.warn(`Value of ${ this.def().key() } is not an array: ${ JSON.stringify(currValue) }`)
-      return;
+  handleInput(event: Event) {
+    if (event.currentTarget instanceof HTMLInputElement && event.currentTarget.type == 'number') {
+      const newL = event.currentTarget.valueAsNumber;
+      if (isNaN(newL) || newL < 0 || newL % 1 != 0) {
+        return;
+      }
+      this.length.set(newL);
+      this.valueChange.emit(newL);
     }
-    if (this.arrayLengthControl.value < 0) return;
-    let newValue = currValue;
-    while (newValue.length < this.arrayLengthControl.value) {
-      newValue = newValue.toSpliced(newValue.length, 0, null);
-    }
-    while (newValue.length > this.arrayLengthControl.value) {
-      newValue = newValue.toSpliced(newValue.length - 1, 1);
-    }
-    this.formRecord.controls[this.def().base64Key()].setValue(newValue)
-    this.valueChange.emit();
   }
 
   onMinusClick() {
-    if (this.arrayLengthControl.value <= 0) return;
-    this.arrayLengthControl.setValue(this.arrayLengthControl.value - 1);
-    this.handleInput();
+    this.length.update(l => l == null ? undefined : l > 0 ? l - 1 : l);
+    const newL = this.length();
+    if (newL != null) {
+      this.valueChange.emit(newL);
+    }
   }
 
   onAddClick() {
-    this.arrayLengthControl.setValue(this.arrayLengthControl.value + 1);
-    this.handleInput();
+    this.length.update(l => l == null ? undefined : l + 1);
+    const newL = this.length();
+    if (newL != null) {
+      this.valueChange.emit(newL);
+    }
   }
 }

@@ -66,7 +66,7 @@ export class CustomerAddressEditService implements EditableContentDataProvider<A
     this.updateState = fn;
   }
 
-  onStateChange(state: { isValid?: boolean; isDisabled?: boolean; isDirty?: boolean; }): void {
+  onStateChange(state: { isDirty?: boolean; }): void {
     this.isDirty.update(curr => state.isDirty ?? curr)
   }
   onValueChange(value: Address): void {

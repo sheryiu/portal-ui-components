@@ -1,5 +1,6 @@
 import { ApplicationRef, inject, Injectable } from '@angular/core';
 import { faker } from '@faker-js/faker';
+import { merge } from 'lodash-es';
 import { BehaviorSubject, delay, first } from 'rxjs';
 import { Media, MediaType } from './media.types';
 
@@ -56,7 +57,7 @@ export class MediaDataService {
     return this.list;
   }
 
-  save(data: Media) {
-    this.list.next(this.list.value.map(oldValue => oldValue.id == data.id ? data : oldValue))
+  save(id: string, data: Media) {
+    this.list.next(this.list.value.map(oldValue => oldValue.id == id ? merge(oldValue, data) : oldValue))
   }
 }

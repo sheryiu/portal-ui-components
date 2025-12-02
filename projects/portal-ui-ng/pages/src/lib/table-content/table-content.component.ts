@@ -1,9 +1,8 @@
 import { transition, trigger, useAnimation } from '@angular/animations';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { isPlatformBrowser } from '@angular/common';
-import { Component, computed, effect, inject, OnDestroy, OnInit, PLATFORM_ID, signal, untracked } from '@angular/core';
+import { Component, computed, effect, inject, linkedSignal, OnDestroy, OnInit, PLATFORM_ID, signal, untracked } from '@angular/core';
 import { takeUntilDestroyed, toObservable, toSignal } from '@angular/core/rxjs-interop';
-import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { IsInSetPipe, LodashGetPipe } from 'portal-ui-ng';
 import { ContentVisibilityDetectorDirective, HoverableDirective } from 'portal-ui-ng/base';
@@ -74,7 +73,8 @@ export class TableContentComponent<T> implements OnInit, OnDestroy {
     if (!config) return [];
     return flatten(config, {}, '', config.description ? `${config.description} / ` : '')
   })
-  protected filterFormControl = inject(FormBuilder).nonNullable.control({} as any)
+
+  protected filterValue = linkedSignal(() => this.dataProvider.filterValue?.())
 
   protected isInitial = toSignal(timer(100).pipe(map(() => false)), { initialValue: true })
   protected scrolledToTop = signal<boolean>(false)
@@ -87,11 +87,6 @@ export class TableContentComponent<T> implements OnInit, OnDestroy {
     ]).pipe(
       takeUntilDestroyed(),
     ).subscribe(([p, qp]) => this.dataProvider.onParamsChange?.(p, qp))
-    effect(() => {
-      if (this.dataProvider.filterValue) {
-        this.filterFormControl.setValue(this.dataProvider.filterValue?.(), { emitEvent: false })
-      }
-    })
     if (this.dataProvider.onScrolledToTop) {
       effect(() => {
         if (this.isLoading()) return;
@@ -138,6 +133,7 @@ export class TableContentComponent<T> implements OnInit, OnDestroy {
   }
 
   protected onFilterValueChange(value: any) {
+    this.filterValue.set(value)
     this.dataProvider.onFilterChange?.(value)
   }
 

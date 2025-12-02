@@ -1,5 +1,6 @@
 import { ApplicationRef, inject, Injectable } from '@angular/core';
 import { faker } from '@faker-js/faker';
+import { merge } from 'lodash-es';
 import { BehaviorSubject, delay, first } from 'rxjs';
 import { EmployeeDataService } from './employee-data.service';
 import { AccessControl, Employee, EmployeeStatus } from './user.types';
@@ -77,7 +78,7 @@ export class AccessControlDataService {
     return this.list;
   }
 
-  save(data: AccessControl) {
-    this.list.next(this.list.value.map(oldValue => oldValue.id == data.id ? data : oldValue))
+  save(id: string, data: AccessControl) {
+    this.list.next(this.list.value.map(oldValue => oldValue.id == id ? merge(oldValue, data) : oldValue))
   }
 }

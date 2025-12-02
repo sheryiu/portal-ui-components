@@ -32,7 +32,8 @@ export class AutocompleteTriggerDirective<D> {
   valueFn = input<(v: D) => string>(String, { alias: 'autocompleteValueFn' })
   autocompleteChange = output<D>()
 
-  private hostAutocomplete?: string;
+  /** @internal */
+  hostAutocomplete?: string;
 
   private overlayRef?: PuiOverlayRef;
 
@@ -54,7 +55,8 @@ export class AutocompleteTriggerDirective<D> {
     })
   }
 
-  private hostClick() {
+  /** @internal */
+  hostClick() {
     this.openOverlay();
   }
 

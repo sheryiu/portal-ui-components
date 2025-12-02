@@ -2,7 +2,7 @@
   <div>
     @let filterConfig = flattenFilterDef();
     @if (filterConfig.length > 0) {
-      <pui-fieldset [formControl]="filterFormControl" (valueChange)="onFilterValueChange($event)">
+      <pui-fieldset [value]="filterValue()" (valueChange)="onFilterValueChange($event)">
         @for (control of flattenFilterDef(); track control.key) {
           <pui-field-def
             [key]="control.key"

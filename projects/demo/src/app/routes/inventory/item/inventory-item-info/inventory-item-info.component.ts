@@ -69,7 +69,7 @@ export class InventoryItemInfoComponent {
     })
   }
   onSaveClick() {
-    this.dataService.save({
+    this.dataService.save(this.id()!, {
       ...this.inventoryItem()!,
       belongsTo: this.updatedValues().customer?.id ?? this.inventoryItem()!.belongsTo,
     })

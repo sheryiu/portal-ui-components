@@ -1,9 +1,6 @@
 <div class="@container/fieldset">
   <div
     class="pui-fieldset"
-    (click)="onTouched?.()"
-    [formGroup]="formControl"
-    #ngForm="ngForm"
   >
     <!-- use $index to track, or else the ordering could mess up if fieldDefs get updated -->
     @for (fieldDef of fieldDefs(); track $index) {
@@ -15,140 +12,141 @@
           class="pui-fieldset__input"
           [ngClass]="fieldDef.fieldTypeClassName()"
         >
-          @if (formControl.controls[fieldDef.base64Key()]) {
-            @if (
-              formControl.controls[fieldDef.base64Key()].value == null &&
-              fieldDef.isNullable()
-            ) {
-              <div class="pui-fieldset__null">
-                <span>null</span>
-              </div>
+          @let fieldValue = formValue() | lodashGet: fieldDef.key();
+          @if (
+            fieldValue == null &&
+            fieldDef.isNullable()
+          ) {
+            <div class="pui-fieldset__null">
+              <span>null</span>
+            </div>
+            <button
+              puiHoverable
+              (click)="onSetNotNull(fieldDef)"
+              [disabled]="isDisabled()"
+              role="button"
+              type="button"
+              class="pui-fieldset__null__add"
+            >
+              <i>edit</i>
+            </button>
+          } @else if (fieldDef.templateRef()) {
+            <ng-container
+              [ngTemplateOutlet]="fieldDef.templateRef()!"
+              [ngTemplateOutletContext]="{
+                key: fieldDef.base64Key()
+              }"
+            ></ng-container>
+            @if (fieldDef.isNullable()) {
               <button
                 puiHoverable
-                (click)="onSetNotNull(fieldDef)"
-                [disabled]="isDisabled"
-                role="button"
                 type="button"
-                class="pui-fieldset__null__add"
+                role="button"
+                (click)="onSetNull(fieldDef)"
+                class="pui-fieldset__input__remove"
+                [disabled]="isDisabled()"
               >
-                <i>edit</i>
+                <i>close</i>
               </button>
-            } @else if (fieldDef.templateRef()) {
-              <ng-container
-                [ngTemplateOutlet]="fieldDef.templateRef()!"
-                [ngTemplateOutletContext]="{
-                  key: fieldDef.base64Key(),
-                  formGroup: formControl,
-                  valueUpdated$: valueUpdated$,
-                }"
-              ></ng-container>
-              @if (fieldDef.isNullable()) {
-                <button
-                  puiHoverable
-                  type="button"
-                  role="button"
-                  (click)="onSetNull(fieldDef)"
-                  class="pui-fieldset__input__remove"
-                  [disabled]="isDisabled"
-                >
-                  <i>close</i>
-                </button>
+            }
+          } @else {
+            @switch (fieldDef.fieldType()) {
+              @case ("string") {
+                <pui-input-field>
+                  <input
+                    [id]="fieldDef.base64Key()"
+                    type="text"
+                    [disabled]="isDisabled()"
+                    [name]="fieldDef.base64Key()"
+                    [value]="fieldValue ?? null"
+                    (input)="handleInput(fieldDef, $event)"
+                    (compositionend)="handleInput(fieldDef, $event)"
+                    puiAutocompleteTrigger
+                    [autocompleteEnabled]="fieldDef.fieldConfig()?.enum != null"
+                    [autocompleteValues]="fieldDef.fieldConfig()?.enum ?? []"
+                    [autocompleteTemplateRef]="enumAutocomplete"
+                    (autocompleteChange)="onAutocomplete(fieldDef, $event)"
+                  />
+                </pui-input-field>
               }
-            } @else {
-              @switch (fieldDef.fieldType()) {
-                @case ("string") {
-                  <pui-input-field>
-                    <input
-                      [id]="fieldDef.base64Key()"
-                      type="text"
-                      [name]="fieldDef.base64Key()"
-                      [formControlName]="fieldDef.base64Key()"
-                      (input)="handleInput($event)"
-                      (compositionend)="handleInput($event)"
-                      puiAutocompleteTrigger
-                      [autocompleteEnabled]="fieldDef.fieldConfig()?.enum != null"
-                      [autocompleteValues]="fieldDef.fieldConfig()?.enum ?? []"
-                      [autocompleteTemplateRef]="enumAutocomplete"
-                      (autocompleteChange)="onAutocomplete(fieldDef, $event)"
-                    />
-                  </pui-input-field>
-                }
-                @case ("number") {
-                  <pui-input-field>
-                    <input
-                      [id]="fieldDef.base64Key()"
-                      type="number"
-                      [name]="fieldDef.base64Key()"
-                      [formControlName]="fieldDef.base64Key()"
-                      (input)="handleInput($event)"
-                      puiAutocompleteTrigger
-                      [autocompleteEnabled]="fieldDef.fieldConfig()?.enum != null"
-                      [autocompleteValues]="fieldDef.fieldConfig()?.enum ?? []"
-                      [autocompleteTemplateRef]="enumAutocomplete"
-                      (autocompleteChange)="onAutocomplete(fieldDef, $event)"
-                    />
-                  </pui-input-field>
-                }
-                @case ("date-time") {
-                  <pui-input-field>
-                    <button
-                      #trigger
-                      puiHoverable
-                      puiCalendarTrigger
-                      role="button"
-                      type="button"
-                      [date]="
-                        $any(formControl.controls[fieldDef.base64Key()].value)
-                      "
-                      (dateChange)="onDateChange(fieldDef, $event)"
-                    >
-                      <i>calendar_month</i>
-                    </button>
-                    <pui-time-display
-                      [format]="fieldDef.fieldConfig()?.['date-time']?.format ?? 'yyyy-MM-dd HH:mm:ss'"
-                      [date]="$any(formControl.controls[fieldDef.base64Key()].value)"
-                      (click)="trigger.click()"
-                    >
-                      <span>--</span>
-                    </pui-time-display>
-                  </pui-input-field>
-                }
-                @case ("boolean") {
-                  <pui-input-field>
-                    <pui-toggle
-                      [id]="fieldDef.base64Key()"
-                      [formControlName]="fieldDef.base64Key()"
-                      (valueChange)="handleInput()"
-                    ></pui-toggle>
-                    <label
-                      [htmlFor]="fieldDef.base64Key()"
-                      class="pui-fieldset__input--boolean__remarks"
-                      >{{ fieldDef.label() }}</label
-                    >
-                  </pui-input-field>
-                }
-                @case ("array") {
-                  <pui-array-field
-                    [def]="fieldDef"
-                    (valueChange)="handleInput()"
-                  ></pui-array-field>
-                }
-                @default {
-                  <div>Unsupported Type</div>
-                }
+              @case ("number") {
+                <pui-input-field>
+                  <input
+                    [id]="fieldDef.base64Key()"
+                    type="number"
+                    [disabled]="isDisabled()"
+                    [name]="fieldDef.base64Key()"
+                    [value]="fieldValue ?? null"
+                    (input)="handleInput(fieldDef, $event)"
+                    puiAutocompleteTrigger
+                    [autocompleteEnabled]="fieldDef.fieldConfig()?.enum != null"
+                    [autocompleteValues]="fieldDef.fieldConfig()?.enum ?? []"
+                    [autocompleteTemplateRef]="enumAutocomplete"
+                    (autocompleteChange)="onAutocomplete(fieldDef, $event)"
+                  />
+                </pui-input-field>
               }
-              @if (fieldDef.isNullable()) {
-                <button
-                  puiHoverable
-                  type="button"
-                  role="button"
-                  (click)="onSetNull(fieldDef)"
-                  class="pui-fieldset__input__remove"
-                  [disabled]="isDisabled"
-                >
-                  <i>close</i>
-                </button>
+              @case ("date-time") {
+                <pui-input-field>
+                  <button
+                    [disabled]="isDisabled()"
+                    #trigger
+                    puiHoverable
+                    puiCalendarTrigger
+                    role="button"
+                    type="button"
+                    [date]="fieldValue ?? null"
+                    (dateChange)="handleInput(fieldDef, $event)"
+                  >
+                    <i>calendar_month</i>
+                  </button>
+                  <pui-time-display
+                    [format]="fieldDef.fieldConfig()?.['date-time']?.format ?? 'yyyy-MM-dd HH:mm:ss'"
+                    [date]="fieldValue"
+                    (click)="trigger.click()"
+                  >
+                    <span>--</span>
+                  </pui-time-display>
+                </pui-input-field>
               }
+              @case ("boolean") {
+                <pui-input-field>
+                  <pui-toggle
+                    [id]="fieldDef.base64Key()"
+                    [disabled]="isDisabled()"
+                    [toggled]="!!fieldValue"
+                    (valueChange)="handleInput(fieldDef, $event)"
+                  ></pui-toggle>
+                  <label
+                    [htmlFor]="fieldDef.base64Key()"
+                    class="pui-fieldset__input--boolean__remarks"
+                    >{{ fieldDef.label() }}</label
+                  >
+                </pui-input-field>
+              }
+              @case ("array") {
+                <pui-array-field
+                  [def]="fieldDef"
+                  [length]="fieldValue?.length ?? null"
+                  (valueChange)="handleInput(fieldDef, $event)"
+                  [disabled]="isDisabled()"
+                ></pui-array-field>
+              }
+              @default {
+                <div>Unsupported Type</div>
+              }
+            }
+            @if (fieldDef.isNullable()) {
+              <button
+                puiHoverable
+                type="button"
+                role="button"
+                (click)="onSetNull(fieldDef)"
+                class="pui-fieldset__input__remove"
+                [disabled]="isDisabled()"
+              >
+                <i>close</i>
+              </button>
             }
           }
         </div>

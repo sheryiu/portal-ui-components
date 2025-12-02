@@ -29,7 +29,7 @@ export class MediaEditService implements EditableContentDataProvider<Media> {
     this.updateState = fn;
   }
 
-  onStateChange(state: { isValid?: boolean; isDisabled?: boolean; isDirty?: boolean; }): void {
+  onStateChange(state: { isDirty?: boolean; }): void {
     this.isDirty.update(isDirty => state.isDirty ?? isDirty)
   }
   onValueChange(value: any): void {

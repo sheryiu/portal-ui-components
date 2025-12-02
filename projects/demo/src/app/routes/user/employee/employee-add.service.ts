@@ -11,6 +11,7 @@ export class EmployeeAddService implements ActionDrawerLayoutDataProvider, Edita
 
   configuration = {
     content: EditableContentComponent,
+    isEnterToSubmit: true,
   }
 
   // EditableContentDataProvider

@@ -1,10 +1,8 @@
 import { NgClass, NgTemplateOutlet } from '@angular/common';
-import { Component, contentChildren, effect, forwardRef, inject, output } from '@angular/core';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { ControlValueAccessor, FormBuilder, FormsModule, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
+import { Component, contentChildren, input, linkedSignal, output } from '@angular/core';
 import { cloneDeep, get, set } from 'lodash-es';
+import { LodashGetPipe } from 'portal-ui-ng';
 import { HoverableDirective, InputFieldComponent } from 'portal-ui-ng/base';
-import { Subject } from 'rxjs';
 import { AutocompleteModule } from '../../autocomplete';
 import { CalendarTriggerDirective } from '../../calendar-trigger';
 import { TimeDisplayComponent } from "../../form/time-display/time-display.component";
@@ -16,8 +14,6 @@ import { FieldDefDirective } from '../field-def.directive';
   selector: 'pui-fieldset',
   templateUrl: './fieldset.component.html',
   imports: [
-    FormsModule,
-    ReactiveFormsModule,
     NgClass,
     NgTemplateOutlet,
     InputFieldComponent,
@@ -26,58 +22,35 @@ import { FieldDefDirective } from '../field-def.directive';
     ArrayFieldComponent,
     HoverableDirective,
     ToggleComponent,
-    TimeDisplayComponent
-  ],
-  providers: [
-    {
-      provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => FieldsetComponent),
-      multi: true,
-    },
+    TimeDisplayComponent,
+    LodashGetPipe
   ]
 })
-export class FieldsetComponent<T extends { [key: string | number | symbol]: any }> implements ControlValueAccessor {
+export class FieldsetComponent<T extends { [key: string | number | symbol]: any }> {
   fieldDefs = contentChildren(FieldDefDirective, { descendants: true });
 
-  private formBuilder = inject(FormBuilder);
-  formControl = this.formBuilder.record({});
-  valueUpdated$ = new Subject<void>();
-  valueChange = output<T>();
+  inputValue = input<T | null | undefined>(undefined, { alias: 'value' });
+  isDisabled = input<boolean>(false, { alias: 'disabled' });
 
-  constructor() {
-    this.valueUpdated$.pipe(
-      takeUntilDestroyed(),
-    ).subscribe(() => {
-      this.handleInput();
-    })
-    effect(() => {
-      const defs = this.fieldDefs();
-      setTimeout(() => {
-        this.fieldDefs().map(fieldDef => {
-          if (this.formControl.contains(fieldDef.base64Key())) return;
-          this.formControl.addControl(fieldDef.base64Key(), this.formBuilder.control({
-            disabled: this.isDisabled,
-            value: this.formControlValueForField(fieldDef)
-          }));
-        })
-        Object.keys(this.formControl.controls).map(name => {
-          if (this.fieldDefs().some(f => f.base64Key() === name)) return;
-          this.formControl.removeControl(name);
-        })
-      })
-    })
-  }
-
-  private formControlValueForField(fieldDef: FieldDefDirective) {
-    let value: any = get(this.currentValue, fieldDef.key())
-    if (fieldDef.fieldType() === 'date-time' && value) {
-      if (value instanceof Date && !isNaN(value.getTime())) return value;
-      if (typeof value == 'string' && !isNaN(new Date(value).getTime())) return new Date(value);
-      if (typeof value == 'number' && !isNaN(new Date(value).getTime())) return new Date(value);
-      return null;
+  /** @internal */
+  formValue = linkedSignal({
+    source: () => {
+      return [this.fieldDefs(), this.inputValue()] as const;
+    },
+    computation: (source, prev: { source: readonly [ReadonlyArray<FieldDefDirective>, T | null | undefined], value: Record<string, any> } | undefined) => {
+      const newValue = {} as T;
+      const [fieldDefs, value] = source;
+      for (const fieldDef of fieldDefs) {
+        const key = fieldDef.key();
+        const valueOfField = get(value, key);
+        set(newValue, key, valueOfField)
+      }
+      console.debug('fieldset component new value computed', newValue)
+      return newValue;
     }
-    return value;
-  }
+  })
+
+  valueChange = output<T | null | undefined>();
 
   private defaultValueForType(fieldDef: FieldDefDirective) {
     switch (fieldDef.fieldType()) {
@@ -86,82 +59,78 @@ export class FieldsetComponent<T extends { [key: string | number | symbol]: any 
       case 'date-time': return new Date();
       case 'boolean': return false;
       case 'array': return [];
-      // TODO
-      default: return '';
     }
+    throw new Error(`Unsupported field type: ${ fieldDef.fieldType() }`);
   }
 
-  handleInput(event?: Event) {
+  handleInput(fieldDef: FieldDefDirective, event: any) {
     if (event instanceof InputEvent && event.isComposing) return;
-    let newValue: any = cloneDeep(this.currentValue);
-    if (newValue == null) newValue = {};
-    const formValue = this.formControl.getRawValue();
-    for (const key in formValue) {
-      if (typeof formValue[key] == 'undefined') continue;
-      // only ignore undefined
-      // null values should be taken into account
-      const fieldDef = this.fieldDefs().find(f => f.base64Key() == key);
-      if (!fieldDef) continue;
-      let fieldValue = formValue[key];
-      try {
-        if (fieldDef.fieldType() == 'date-time' && typeof fieldValue == 'string') fieldValue = new Date(fieldValue)
-      } catch (e) {
-        console.warn(`String cannot be parsed as a date (value: ${ fieldValue })`, e)
-      }
-      set(newValue, fieldDef.key(), fieldValue)
+    let newValue = (cloneDeep(this.formValue()) as T | null | undefined) ?? {} as T;
+    const key = fieldDef.key();
+    switch (fieldDef.fieldType()) {
+      case 'string':
+        const inputElement = event?.currentTarget;
+        if (inputElement instanceof HTMLInputElement) {
+          set(newValue, key, inputElement.value);
+        }
+        break;
+      case 'number':
+        const numberInputElement = event?.currentTarget;
+        if (numberInputElement instanceof HTMLInputElement && numberInputElement.type == 'number') {
+          set(newValue, key, numberInputElement.valueAsNumber);
+        }
+        break;
+      case 'boolean':
+        if (typeof event == 'boolean') {
+          set(newValue, key, event);
+        }
+        break;
+      case 'date-time':
+        if (event instanceof Date || event === null) {
+          set(newValue, key, event);
+        }
+        break;
+      case 'array':
+        if (typeof event == 'number' && event >= 0) {
+          const currentArray = get(newValue, key) as any;
+          if (Array.isArray(currentArray)) {
+            console.log(currentArray, event)
+            if (event > currentArray.length) {
+              const newArray = currentArray.toSpliced(currentArray.length, 0, ...Array(event - currentArray.length).fill(null));
+              set(newValue, key, newArray);
+            } else if (event < currentArray.length) {
+              const newArray = currentArray.toSpliced(event, currentArray.length - event);
+              set(newValue, key, newArray);
+            }
+          } else if (currentArray == null) {
+            set(newValue, key, Array(event).fill(null));
+          } else {
+            console.error(`Value of path(${ key }) is not an array:`, currentArray);
+          }
+        }
+        break;
     }
-    this.onChange?.(newValue);
     this.valueChange.emit(newValue);
   }
 
   protected onSetNotNull(fieldDef: FieldDefDirective) {
-    if (!this.formControl.contains(fieldDef.base64Key())) return;
-    this.formControl.get(fieldDef.base64Key())?.setValue(fieldDef.defaultValue() ?? this.defaultValueForType(fieldDef));
-    this.handleInput();
+    let newValue = (cloneDeep(this.formValue()) as T | null | undefined) ?? {} as T;
+    const key = fieldDef.key();
+    set(newValue, key, fieldDef.defaultValue() ?? this.defaultValueForType(fieldDef));
+    this.valueChange.emit(newValue);
   }
 
   protected onSetNull(fieldDef: FieldDefDirective) {
-    if (!this.formControl.contains(fieldDef.base64Key())) return;
-    this.formControl.get(fieldDef.base64Key())?.setValue(null);
-    this.handleInput();
+    let newValue = (cloneDeep(this.formValue()) as T | null | undefined) ?? {} as T;
+    const key = fieldDef.key();
+    set(newValue, key, null);
+    this.valueChange.emit(newValue);
   }
 
-  protected onAutocomplete(fieldDef: FieldDefDirective, value: string | number) {
-    if (!this.formControl.contains(fieldDef.base64Key())) return;
-    this.formControl.get(fieldDef.base64Key())?.setValue(value);
-    this.handleInput();
+  protected onAutocomplete(fieldDef: FieldDefDirective, autocompleteValue: string | number) {
+    let newValue = (cloneDeep(this.formValue()) as T | null | undefined) ?? {} as T;
+    const key = fieldDef.key();
+    set(newValue, key, autocompleteValue);
+    this.valueChange.emit(newValue);
   }
-
-  protected onDateChange(fieldDef: FieldDefDirective, value: Date | null) {
-    if (!this.formControl.contains(fieldDef.base64Key())) return;
-    this.formControl.get(fieldDef.base64Key())?.setValue((value instanceof Date && !isNaN(value.getTime())) ? value : null);
-    this.handleInput();
-  }
-
-  //#region ControlValueAccessor
-  private currentValue: T | null | undefined;
-  writeValue(obj: T | null | undefined): void {
-    this.currentValue = cloneDeep(obj);
-    if (this.currentValue == null) {
-      this.formControl.reset();
-    } else {
-      this.fieldDefs()?.forEach(fieldDef => {
-        this.formControl.get(fieldDef.base64Key())?.setValue(this.formControlValueForField(fieldDef));
-      })
-    }
-  }
-  protected onChange?: (val: T) => void;
-  registerOnChange(fn: any): void {
-    this.onChange = fn;
-  }
-  protected onTouched?: () => void;
-  registerOnTouched(fn: any): void {
-    this.onTouched = fn;
-  }
-  protected isDisabled: boolean = false;
-  setDisabledState?(isDisabled: boolean): void {
-    this.isDisabled = isDisabled;
-    this.isDisabled ? this.formControl.disable() : this.formControl.enable();
-  }
-  //#endregion
 }

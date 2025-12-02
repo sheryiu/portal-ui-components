@@ -9,6 +9,7 @@ export class EmployeeAdvanceFilterService implements ActionDrawerLayoutDataProvi
 
   configuration = {
     content: EditableContentComponent,
+    isEnterToSubmit: true,
   }
 
   // ActionDrawerLayoutDataProvider

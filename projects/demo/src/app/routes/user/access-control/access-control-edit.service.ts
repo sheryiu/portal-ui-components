@@ -32,7 +32,7 @@ const Permission: ObjectFieldConfiguration = {
 export class AccessControlEditService implements EditableContentDataProvider<AccessControl> {
   private dataService = inject(AccessControlDataService)
   private list = toSignal(this.dataService.getList())
-    private id = signal<string | undefined>(undefined)
+  private id = signal<string | undefined>(undefined)
 
   data = signal<AccessControl | undefined>(undefined);
   fieldConfiguration = signal<ObjectFieldConfiguration>({
@@ -135,7 +135,7 @@ export class AccessControlEditService implements EditableContentDataProvider<Acc
   registerUpdateState(fn: (state: { isDisabled?: boolean; isDirty?: boolean; }) => void): void {
     this.updateState = fn;
   }
-  onStateChange(state: { isValid?: boolean; isDisabled?: boolean; isDirty?: boolean; }): void {
+  onStateChange(state: { isDirty?: boolean; }): void {
     this.isDirty.update(curr => state.isDirty ?? curr)
   }
   onValueChange(value: AccessControl): void {
@@ -152,7 +152,7 @@ export class AccessControlEditService implements EditableContentDataProvider<Acc
       case 'save': {
         const updatedValue = this.updatedValue()
         if (updatedValue) {
-          this.dataService.save(updatedValue)
+          this.dataService.save(this.id()!, updatedValue)
           this.updateState!({ isDirty: false })
         }
         break;

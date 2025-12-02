@@ -1,5 +1,6 @@
 import { ApplicationRef, inject, Injectable } from '@angular/core';
 import { faker } from '@faker-js/faker';
+import { merge } from 'lodash-es';
 import { BehaviorSubject, combineLatest, delay, first } from 'rxjs';
 import { CustomerDataService } from './customer-data.service';
 import { InventoryShelfDataService } from './inventory-shelf-data.service';
@@ -70,8 +71,8 @@ export class InventoryItemDataService {
     return this.list;
   }
 
-  save(data: InventoryItem) {
-    this.list.next(this.list.value.map(oldValue => oldValue.id == data.id ? data : oldValue))
+  save(id: string, data: InventoryItem) {
+    this.list.next(this.list.value.map(oldValue => oldValue.id == id ? merge(oldValue, data) : oldValue))
   }
 
   add(data: InventoryItem) {

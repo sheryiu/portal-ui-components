@@ -120,7 +120,7 @@ export class CustomerEditService implements EditableContentDataProvider<Customer
     this.updateState = fn;
   }
 
-  onStateChange(state: { isValid?: boolean; isDisabled?: boolean; isDirty?: boolean; }): void {
+  onStateChange(state: { isDirty?: boolean; }): void {
     this.isDirty.update(curr => state.isDirty ?? curr)
   }
   onValueChange(value: Customer): void {
@@ -137,7 +137,8 @@ export class CustomerEditService implements EditableContentDataProvider<Customer
       case 'save': {
         const updatedValue = this.updatedValue()
         if (updatedValue) {
-          this.dataService.save(updatedValue)
+          console.log(updatedValue)
+          this.dataService.save(this.id()!, updatedValue)
           this.updateState!({ isDirty: false })
         }
         break;

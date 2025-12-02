@@ -1,8 +1,7 @@
 <main>
   @if (flattenedControls().length > 0) {
-    <!-- TODO add onsubmit function -->
-    <form>
-      <pui-fieldset [formControl]="formControl">
+    <form (submit)="onSubmit($event)">
+      <pui-fieldset [value]="data()" (valueChange)="onValueChange($event)" [disabled]="disabled()">
         @for (control of flattenedControls(); track control.key) {
           <pui-field-def
             [key]="control.key"
@@ -18,6 +17,7 @@
           ></pui-field-def>
         }
       </pui-fieldset>
+      <button type="submit" hidden></button>
     </form>
   }
 </main>

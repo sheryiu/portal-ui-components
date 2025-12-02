@@ -80,7 +80,7 @@ export class InventoryShelfEditService implements EditableContentDataProvider<In
     this.updateState = fn;
   }
 
-  onStateChange(state: { isValid?: boolean; isDisabled?: boolean; isDirty?: boolean; }): void {
+  onStateChange(state: { isDirty?: boolean; }): void {
     this.isDirty.update(curr => state.isDirty ?? curr)
   }
   onValueChange(value: InventoryShelf): void {
@@ -97,7 +97,7 @@ export class InventoryShelfEditService implements EditableContentDataProvider<In
       case 'save': {
         const updatedValue = this.updatedValue()
         if (updatedValue) {
-          this.dataService.save(updatedValue)
+          this.dataService.save(this.id()!, updatedValue)
           this.updateState!({ isDirty: false })
         }
         break;

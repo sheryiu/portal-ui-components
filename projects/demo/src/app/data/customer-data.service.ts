@@ -1,5 +1,6 @@
 import { ApplicationRef, inject, Injectable } from '@angular/core';
 import { faker } from '@faker-js/faker';
+import { merge } from 'lodash-es';
 import { BehaviorSubject, delay, first, timer } from 'rxjs';
 import { Address, Customer } from './user.types';
 
@@ -83,8 +84,8 @@ export class CustomerDataService {
     ))
   }
 
-  save(data: Customer) {
-    this.list.next(this.list.value.map(oldValue => oldValue.id == data.id ? data : oldValue))
+  save(id: string, data: Customer) {
+    this.list.next(this.list.value.map(oldValue => oldValue.id == id ? merge(oldValue, data) : oldValue))
   }
 
   updateAddress(id: string, index: number, address: Address) {

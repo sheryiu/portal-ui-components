@@ -66,7 +66,7 @@ export class SystemLogEditService implements EditableContentDataProvider<SystemL
     this.updateState = fn;
   }
 
-  onStateChange(state: { isValid?: boolean; isDisabled?: boolean; isDirty?: boolean; }): void {
+  onStateChange(state: { isDirty?: boolean; }): void {
     this.isDirty.update(isDirty => state.isDirty ?? isDirty)
   }
   onValueChange(value: any): void {

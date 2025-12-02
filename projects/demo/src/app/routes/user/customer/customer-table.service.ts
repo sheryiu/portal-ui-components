@@ -80,7 +80,7 @@ export class CustomerTableService implements TableContentDataProvider<Customer> 
   private filterFn = computed<(item: Customer) => boolean>(() => {
     return computeFilterFunction(this.filterValue(), {
       'id': (item, key, value) => !!value && item.id.toLowerCase().includes(value.toLowerCase()),
-      'name': (item, key, value) => !!value && (item.username.toLowerCase().includes(value.toLowerCase()) || item.name.toLowerCase().includes(value.toLowerCase()))
+      'name': (item, key, value) => !!value && (item.username?.toLowerCase().includes(value.toLowerCase()) || item.name?.toLowerCase().includes(value.toLowerCase()))
     })
   })
 

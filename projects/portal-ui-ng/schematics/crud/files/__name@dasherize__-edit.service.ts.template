@@ -29,9 +29,8 @@ export class <%= classify(name) %>EditService implements EditableContentDataProv
     this.updateState = fn;
   }
 
-  onStateChange(state: { isValid?: boolean; isDisabled?: boolean; isDirty?: boolean; }): void {
+  onStateChange(state: { isDirty?: boolean; }): void {
     this.isDirty.update(isDirty => state.isDirty ?? isDirty)
-    this.isDisabled.update(isDisabled => state.isDisabled ?? isDisabled)
   }
   onValueChange(value: any): void {
     this.updatedValue.set(value)

@@ -20,7 +20,7 @@
   @apply @screen-sm/layout:px-2;
   @apply flex flex-col;
   h1 {
-    @apply pt-1;
+    @apply pt-1 truncate;
   }
   .pui-breadcrumbs {
     @apply -ms-2.5;

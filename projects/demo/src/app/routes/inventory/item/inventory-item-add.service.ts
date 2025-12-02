@@ -11,6 +11,7 @@ export class InventoryItemAddService implements ActionDrawerLayoutDataProvider, 
 
   configuration = {
     content: EditableContentComponent,
+    isEnterToSubmit: true,
   };
 
   // EditableContentDataProvider

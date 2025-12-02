@@ -55,6 +55,7 @@ export class PuiOverlayRef {
     this.overlayRef.keydownEvents().pipe(
       takeUntil(this.afterClosed$),
     ).subscribe(event => {
+      if (event.isComposing) return;
       // use this to check if event target is inside overlay
       // !this.overlayRef.overlayElement.contains(event.target as HTMLElement)
       if (event.type == 'keydown' && event.key == 'Escape'

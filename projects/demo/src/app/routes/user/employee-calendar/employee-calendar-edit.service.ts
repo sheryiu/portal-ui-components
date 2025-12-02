@@ -61,7 +61,7 @@ export class EmployeeCalendarEditService implements EditableContentDataProvider<
     this.updateState = fn;
   }
 
-  onStateChange(state: { isValid?: boolean; isDisabled?: boolean; isDirty?: boolean; }): void {
+  onStateChange(state: { isDirty?: boolean; }): void {
     this.isDirty.update(curr => state.isDirty ?? curr)
   }
   onValueChange(value: EmployeeCalendarEvent): void {
@@ -78,7 +78,7 @@ export class EmployeeCalendarEditService implements EditableContentDataProvider<
       case 'save': {
         const updatedValue = this.updatedValue()
         if (updatedValue) {
-          this.dataService.save(updatedValue)
+          this.dataService.save(this.id()!, updatedValue)
           this.updateState!({ isDirty: false })
         }
         break;

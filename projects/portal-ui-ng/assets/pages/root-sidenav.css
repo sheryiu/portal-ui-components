@@ -1,6 +1,7 @@
 @utility pui-root-sidenav {
   @apply fixed inset-0 bg-gradient-to-b from-primary-900 to-primary-800 z-0 flex flex-col;
-  @apply lg:w-80 lg:border-r lg:bg-none;
+  @apply lg:w-64 lg:border-r lg:bg-none;
+  @apply xl:w-80;
 }
 
 @utility pui-root-sidenav__header {
@@ -37,7 +38,8 @@
 
 @utility pui-root-sidenav__content {
   @apply min-h-full;
-  @apply lg:ml-80 lg:h-full;
+  @apply lg:ml-64 lg:h-full;
+  @apply xl:ml-80;
   @apply max-lg:transition-[left] max-lg:duration-[250ms];
   /** the background */
   @apply max-lg:relative;

@@ -4,20 +4,21 @@ import { ObjectFieldConfiguration } from '../field-configuration';
 import { LayoutControlConfig } from '../layout/layout.service';
 
 export interface EditableContentDataProvider<T> {
+  configuration?: { isEnterToSubmit?: boolean };
   onParamsChange?(params: Params, queryParams: Params): void;
   // data
   data: Signal<T | null | undefined>;
   fieldConfiguration: Signal<ObjectFieldConfiguration>;
+  // dataProvider can call the `fn` to update editableContentComponent
   registerUpdateState?(fn: (state: { isDisabled?: boolean; isDirty?: boolean }) => void): void;
+  // editableContentComponent calls this when dirty changes
   onStateChange?(state: {
-    isValid?: boolean;
-    isDisabled?: boolean;
     isDirty?: boolean;
   }): void;
   onValueChange?(value: any): void;
   // controls
   controlsConfig?: Signal<ReadonlyArray<LayoutControlConfig>>;
-  onControlClick?(key: string, event: MouseEvent): void;
+  onControlClick?(key: string, event: Event): void;
 }
 
 export const EDITABLE_CONTENT_DEFAULT_CONTROLS: ReadonlyArray<LayoutControlConfig> = [

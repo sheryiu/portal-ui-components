@@ -6,16 +6,18 @@
     type="button"
     (click)="onMinusClick()"
     puiHoverable
+    [disabled]="isDisabled()"
   >
     <i>remove</i>
   </button>
   <pui-input-field class="pui-array-field__length-field">
     <input
       type="number"
-      [formControl]="arrayLengthControl"
-      (input)="handleInput()"
+      [value]="length()"
+      (input)="handleInput($event)"
       min="0"
       step="1"
+      [disabled]="isDisabled()"
     />
   </pui-input-field>
   <button
@@ -23,6 +25,7 @@
     type="button"
     (click)="onAddClick()"
     puiHoverable
+    [disabled]="isDisabled()"
   >
     <i>add</i>
   </button>
