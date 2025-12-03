@@ -1,4 +1,4 @@
-import { contentChildren, Directive, forwardRef } from '@angular/core';
+import { contentChildren, Directive, forwardRef, input } from '@angular/core';
 import { VERTICAL_NAVIGATION_MENU_CHILD, VerticalNavigationMenuChild } from './vertical-navigation-menu';
 
 @Directive({
@@ -14,5 +14,6 @@ import { VERTICAL_NAVIGATION_MENU_CHILD, VerticalNavigationMenuChild } from './v
 export class MenuGroupDirective extends VerticalNavigationMenuChild {
   type = 'group' as const;
   children = contentChildren(VERTICAL_NAVIGATION_MENU_CHILD)
+  isAlwaysExpanded = input<boolean>(false);
 
 }

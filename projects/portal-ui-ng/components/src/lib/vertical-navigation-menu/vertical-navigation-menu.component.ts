@@ -58,7 +58,9 @@ export class VerticalNavigationMenuComponent {
     this.destroyRef.onDestroy(() => ref())
   }
 
-  protected toggleGroup(element: HTMLElement) {
+  protected toggleGroup(isDisabled: boolean, isAlwaysExpanded: boolean, element: HTMLElement) {
+    if (isDisabled) return;
+    if (isAlwaysExpanded && this.openedChildren().has(element)) return;
     this.openedChildren.update(set => {
       const clone = new Set(set);
       if (set.has(element)) {

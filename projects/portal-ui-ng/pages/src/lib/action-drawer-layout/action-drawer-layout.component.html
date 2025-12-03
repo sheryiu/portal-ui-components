@@ -12,7 +12,7 @@
     @for (control of controls(); track control.id) {
       <button
         puiFilledButton
-        color="accent"
+        [color]="control.color ?? 'accent'"
         [ngClass]="{
           'pui-action-drawer-layout__toolbar__most-emphasized': control.id == mostEmphasizedControlId(),
           'pui-action-drawer-layout__toolbar__normal':  control.id != mostEmphasizedControlId() && (control.icon || control.iconTemplateRef),

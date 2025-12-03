@@ -1,4 +1,5 @@
 import { booleanAttribute, DestroyRef, Directive, effect, inject, input, output, TemplateRef } from '@angular/core';
+import { FilledButtonDirective } from 'portal-ui-ng/base';
 import { LayoutControlConfig, LayoutControlMode, LayoutService } from './layout.service';
 
 @Directive({
@@ -20,6 +21,7 @@ export class LayoutControlDirective {
   iconTemplateRef = input<TemplateRef<unknown>>();
   disabled = input(false, { transform: booleanAttribute })
   mode = input<LayoutControlMode | undefined>(undefined)
+  color = input<ReturnType<FilledButtonDirective['color']>>()
   click = output<MouseEvent>();
 
   constructor() {
@@ -34,6 +36,7 @@ export class LayoutControlDirective {
       const iconTemplateRef = this.iconTemplateRef();
       const mode = this.mode();
       const weight = this.weight();
+      const color = this.color();
       const config = {
         id,
         label,
@@ -42,6 +45,7 @@ export class LayoutControlDirective {
         iconTemplateRef,
         weight,
         mode,
+        color,
       }
       if (!updateFn) {
         const register = this.layoutService!.registerControl(config, {

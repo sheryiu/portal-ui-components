@@ -46,6 +46,7 @@
   @apply icon-5;
 }
 @utility pui-vertical-navigation-menu__item__label {
+  margin-top: 0.15em;
   @apply font-light truncate self-stretch;
   &:not(:first-child) {
     @apply ps-2;
