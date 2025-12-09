@@ -4,7 +4,7 @@ import { Component, computed, DOCUMENT, ElementRef, inject, signal, viewChild } 
 import { takeUntilDestroyed, toObservable, toSignal } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, NavigationCancel, NavigationEnd, Router, RouterLink, RouterOutlet } from '@angular/router';
 import { filterNonNull } from 'portal-ui-ng';
-import { ButtonModule, TypedTemplateDirective } from 'portal-ui-ng/base';
+import { ButtonModule } from 'portal-ui-ng/base';
 import { BreadcrumbsComponent, TabBarModule, TooltipDirective } from 'portal-ui-ng/components';
 import { combineLatest, filter, fromEvent, map, pairwise, startWith, switchMap } from 'rxjs';
 import { LayoutService } from '../layout/layout.service';
@@ -23,7 +23,6 @@ import { VERTICAL_LAYOUT_DATA_PROVIDER } from './vertical-layout';
     PeekableAddonComponent,
     TooltipDirective,
     NgClass,
-    TypedTemplateDirective,
     NgTemplateOutlet
   ],
   animations: [

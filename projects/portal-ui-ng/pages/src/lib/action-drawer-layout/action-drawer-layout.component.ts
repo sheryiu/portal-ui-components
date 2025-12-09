@@ -1,3 +1,4 @@
+import { A11yModule } from '@angular/cdk/a11y';
 import { NgClass, NgComponentOutlet, NgTemplateOutlet } from '@angular/common';
 import { Component, computed, inject } from '@angular/core';
 import { ButtonModule, PuiOverlayRef } from 'portal-ui-ng/base';
@@ -13,7 +14,8 @@ import { ACTION_DRAWER_LAYOUT_DATA_PROVIDER } from './action-drawer-layout';
     NgTemplateOutlet,
     ButtonModule,
     TooltipDirective,
-    NgClass
+    NgClass,
+    A11yModule
   ],
   providers: [
     LayoutService,

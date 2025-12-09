@@ -16,6 +16,10 @@ export class ActionDrawerOverlayService {
       providers?: Array<Provider>;
       parent?: Injector;
       overlayData?: D;
+      /**
+       * Use `ref.overlayRef.backdropClick()` or `ref.overlayRef.keydownEvents()` to detect close intent
+       */
+      manualClose?: boolean;
     } = {
       width: '480px',
     }
@@ -27,9 +31,9 @@ export class ActionDrawerOverlayService {
       height: '100%',
       hasBackdrop: true,
       backdropClass: 'pui-action-drawer-backdrop',
-      closeOnBackdropClick: true,
-      disposeOnNavigation: true,
-      closeOnEscapeKeydown: true,
+      closeOnBackdropClick: (config.manualClose === true) ? false : true,
+      disposeOnNavigation: (config.manualClose === true) ? false : true,
+      closeOnEscapeKeydown: (config.manualClose === true) ? false : true,
       animation: 'slideInEnd',
       data: config.overlayData,
       parentInjector: Injector.create({

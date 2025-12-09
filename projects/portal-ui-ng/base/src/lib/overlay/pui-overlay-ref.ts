@@ -2,7 +2,11 @@ import { OverlayRef } from '@angular/cdk/overlay';
 import { ReplaySubject, concat, filter, take, takeUntil, tap, timer } from 'rxjs';
 
 export class PuiOverlayRef {
-  constructor(public overlayRef: OverlayRef, stayOpenedOnOutsideClicks?: boolean, stayOpenedOnOutsideClicksContainedIn?: Element | Element[]) {
+  constructor(
+    public overlayRef: OverlayRef,
+    stayOpenedOnOutsideClicks?: boolean,
+    stayOpenedOnOutsideClicksContainedIn?: Element | Element[]
+  ) {
     if (stayOpenedOnOutsideClicks == true) return;
     const ignore = stayOpenedOnOutsideClicksContainedIn == null
       ? []
@@ -58,10 +62,7 @@ export class PuiOverlayRef {
       if (event.isComposing) return;
       // use this to check if event target is inside overlay
       // !this.overlayRef.overlayElement.contains(event.target as HTMLElement)
-      if (event.type == 'keydown' && event.key == 'Escape'
-        // TODO
-        //  && [HTMLInputElement, HTMLTextAreaElement].every(type => !(event.target instanceof type)) && (event.target as HTMLElement).contentEditable !== 'true'
-        ) {
+      if (event.type == 'keydown' && event.key == 'Escape') {
         this.close();
       }
     })

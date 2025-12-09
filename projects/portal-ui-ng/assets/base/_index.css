@@ -161,7 +161,7 @@
 @utility pui-card--overlay {
   backdrop-filter: blur(16px);
   background: hsl(0deg 0% 15% / .7);
-  box-shadow: inset rgb(255 255 255 / .03) 0 0 4px, rgb(0 0 0 / .1) 12px 12px 6px;
+  box-shadow: inset rgb(255 255 255 / .05) 0 0 4px, rgb(0 0 0 / .15) 7px 5px 6px;
 }
 
 @utility pui-overlay-container {

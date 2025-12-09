@@ -43,7 +43,7 @@
 }
 
 @utility pui-vertical-navigation-menu__item__icon {
-  @apply icon-5;
+  @apply icon-5 font-variation-weight-light;
 }
 @utility pui-vertical-navigation-menu__item__label {
   margin-top: 0.15em;

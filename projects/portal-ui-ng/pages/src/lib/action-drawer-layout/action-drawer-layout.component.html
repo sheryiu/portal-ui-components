@@ -3,7 +3,7 @@
     <pui-breadcrumbs></pui-breadcrumbs>
     <h1>{{ heading() }}</h1>
   </header>
-  <div class="pui-action-drawer-layout__content">
+  <div class="pui-action-drawer-layout__content" cdkTrapFocus cdkTrapFocusAutoCapture>
     @if (configuration && configuration.content) {
       <ng-container [ngComponentOutlet]="configuration.content" [ngComponentOutletInputs]="contentInputs()"></ng-container>
     }
