@@ -14,7 +14,7 @@
     @apply dark:bg-neutral-900 border;
     @apply rounded-s-4;
     @apply z-1000;
-    @apply shadow-[0_35px_35px_black] shadow-black/30;
+    @apply shadow-[0_35px_35px_black] dark:shadow-black/30;
   }
 }
 
