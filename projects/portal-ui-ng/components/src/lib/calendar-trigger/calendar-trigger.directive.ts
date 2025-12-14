@@ -1,4 +1,4 @@
-import { DestroyRef, Directive, ElementRef, inject, InjectionToken, input, output, Renderer2, Type } from '@angular/core';
+import { booleanAttribute, DestroyRef, Directive, ElementRef, inject, InjectionToken, input, output, Renderer2, Type } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { PuiOverlayRef, PuiOverlayService } from 'portal-ui-ng/base';
 
@@ -17,6 +17,7 @@ export class CalendarTriggerDirective {
   private destroyRef = inject(DestroyRef)
 
   date = input<string | Date | number | null | undefined>();
+  dateOnly = input(false, { transform: booleanAttribute })
   dateChange = output<Date | null>();
   private overlayRef?: PuiOverlayRef;
   private dateElement?: HTMLInputElement;
@@ -56,6 +57,7 @@ export class CalendarTriggerDirective {
           disposeOnNavigation: true,
           data: {
             date: this.date() ? new Date(this.date()!) : null,
+            dateOnly: this.dateOnly(),
             onDateChange: (date: Date) => this.dateChange.emit(date),
           } as CalendarOverlayData
         }
@@ -68,7 +70,7 @@ export class CalendarTriggerDirective {
     } else {
       if (this.elementRef.nativeElement.parentElement) {
         this.dateElement = this.renderer.createElement('input') as HTMLInputElement;
-        this.dateElement.type = 'datetime-local';
+        this.dateElement.type = this.dateOnly() ? 'date' : 'datetime-local';
         this.elementRef.nativeElement.insertAdjacentElement('afterend', this.dateElement);
         this.dateElement.style.width = '0px';
         this.dateElement.style.height = '0px';
@@ -97,5 +99,6 @@ export class CalendarTriggerDirective {
 export const CALENDAR_OVERLAY_COMPONENT = new InjectionToken<() => Type<unknown>>('calendar overlay')
 export type CalendarOverlayData = {
   date: Date | null | undefined;
+  dateOnly: boolean;
   onDateChange: (date: Date | null) => void;
 }

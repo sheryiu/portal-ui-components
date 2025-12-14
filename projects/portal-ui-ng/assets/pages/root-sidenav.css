@@ -40,14 +40,14 @@
   @apply min-h-full;
   @apply lg:ml-64 lg:h-full;
   @apply xl:ml-80;
-  @apply max-lg:transition-[left] max-lg:duration-[250ms];
+  @apply max-lg:transition-[left] max-lg:duration-250;
   /** the background */
   @apply max-lg:relative;
-  @apply max-lg:before:absolute max-lg:before:z-0 max-lg:before:inset-0 max-lg:before:rounded-t-4 max-lg:before:bg-neutral-900 max-lg:before:shadow-[-4px_-3px_5px_rgb(0_0_0_/_0.2)];
-  @apply max-lg:after:absolute max-lg:after:z-[1000] max-lg:after:inset-0 max-lg:after:transition-[backdrop-filter] max-lg:after:pointer-events-none;
+  @apply max-lg:before:absolute max-lg:before:z-0 max-lg:before:inset-0 max-lg:before:rounded-t-4 max-lg:before:bg-neutral-900 max-lg:before:shadow-[-4px_-3px_5px_rgb(0_0_0/0.2)];
+  @apply max-lg:after:absolute max-lg:after:z-1000 max-lg:after:inset-0 max-lg:after:transition-[backdrop-filter] max-lg:after:pointer-events-none;
 
   &[data-sidenav=visible] {
-    @apply max-lg:left-[30rem];
+    @apply max-lg:left-120;
     @apply max-[600px]:left-[80%];
     @apply max-lg:after:rounded-t-4 max-lg:after:bg-black/5 max-lg:after:backdrop-blur-[2px] max-lg:after:pointer-events-auto;
   }

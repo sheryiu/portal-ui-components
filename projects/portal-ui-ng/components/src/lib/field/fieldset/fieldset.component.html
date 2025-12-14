@@ -96,6 +96,7 @@
                     role="button"
                     type="button"
                     [date]="fieldValue ?? null"
+                    [dateOnly]="true"
                     (dateChange)="handleInput(fieldDef, $event)"
                   >
                     <i>calendar_month</i>

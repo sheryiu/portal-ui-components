@@ -1,5 +1,5 @@
 @utility pui-modal-dialog-backdrop {
-  @apply bg-black/10 dark:bg-black/20 backdrop-blur-sm z-[1000];
+  @apply bg-black/10 dark:bg-black/20 backdrop-blur-sm z-1000;
 }
 @utility pui-modal-dialog {
   @apply border shadow-lg bg-neutral-100 dark:bg-neutral-900 rounded-8 max-h-[80svh] sm:max-h-[70svh] lg:max-h-[60svh] overflow-auto;

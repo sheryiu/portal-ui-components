@@ -31,7 +31,7 @@ export class CalendarOverlayComponent {
           selectedTime: date ? `${String(date.getHours()).padStart(2, '0')}:${String(date.getMinutes()).padStart(2, '0')}` : undefined,
           enableJumpToSelectedDate: true,
           firstWeekday: 0,
-          selectionTimeMode: 24,
+          selectionTimeMode: this.data.dateOnly ? false : 24,
           onChangeTime: (self, event) => {
             this.onChange()
           },
@@ -49,7 +49,11 @@ export class CalendarOverlayComponent {
   }
 
   private onChange() {
-    this.data.onDateChange(this.calendar.context.selectedDates.length > 0 ? new Date(`${this.calendar.context.selectedDates[0]} ${this.calendar.context.selectedTime}`) : null) // this gets converted to the selectedTime in local timezone
+    if (this.data.dateOnly) {
+      this.data.onDateChange(this.calendar.context.selectedDates.length > 0 ? new Date(`${this.calendar.context.selectedDates[0]} 00:00:00`) : null) // this gets converted to the selectedTime in local timezone
+    } else {
+      this.data.onDateChange(this.calendar.context.selectedDates.length > 0 ? new Date(`${this.calendar.context.selectedDates[0]} ${this.calendar.context.selectedTime}`) : null) // this gets converted to the selectedTime in local timezone
+    }
   }
 }
 
