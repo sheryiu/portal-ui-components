@@ -45,7 +45,6 @@ export class FieldsetComponent<T extends { [key: string | number | symbol]: any 
         const valueOfField = get(value, key);
         set(newValue, key, valueOfField)
       }
-      console.debug('fieldset component new value computed', newValue)
       return newValue;
     }
   })

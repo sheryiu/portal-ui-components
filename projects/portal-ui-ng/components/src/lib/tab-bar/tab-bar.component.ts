@@ -43,10 +43,10 @@ export class TabBarComponent implements AfterViewInit, ControlValueAccessor {
   })
   protected disabled = linkedSignal(() => this.inputDisabled())
 
-  private hostSelectedTabWidth = signal(0);
-  private hostSelectedTabHeight = signal(0);
-  private hostSelectedTabX = signal(0);
-  private hostSelectedTabY = signal(0);
+  hostSelectedTabWidth = signal(0);
+  hostSelectedTabHeight = signal(0);
+  hostSelectedTabX = signal(0);
+  hostSelectedTabY = signal(0);
 
   private resizeObserver?: ResizeObserver;
   private mutationObserver?: MutationObserver;

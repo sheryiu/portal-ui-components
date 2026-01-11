@@ -19,7 +19,7 @@ function createHost(tree: Tree): workspaces.WorkspaceHost {
       if (!data) {
         throw new SchematicsException('File not found.');
       }
-      return virtualFs.fileBufferToString(data);
+      return virtualFs.fileBufferToString(new Uint8Array(data).buffer);
     },
     async writeFile(path: string, data: string): Promise<void> {
       return tree.overwrite(path, data);

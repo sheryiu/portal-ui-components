@@ -90,10 +90,10 @@ export class TableComponent {
     return itemHeight[smallestKey];
   })
 
-  private hostSingleClass = computed(() => this.selectionMode() == 'single');
-  private hostMultiClass = computed(() => this.selectionMode() == 'multi');
-  private hostColumnWidths = computed(() => this.visibleColumnWidths().join(' '))
-  private hostNumberOfColumns = computed(() => this.activeColumns().length)
+  hostSingleClass = computed(() => this.selectionMode() == 'single');
+  hostMultiClass = computed(() => this.selectionMode() == 'multi');
+  hostColumnWidths = computed(() => this.visibleColumnWidths().join(' '))
+  hostNumberOfColumns = computed(() => this.activeColumns().length)
 
   cellDefs = contentChildren(TableCellDefDirective);
   headerCellDefs = contentChildren(TableHeaderCellDefDirective);

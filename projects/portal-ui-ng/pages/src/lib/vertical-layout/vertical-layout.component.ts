@@ -78,7 +78,7 @@ export class VerticalLayoutComponent {
     ).subscribe(([p, qp]) => this.dataProvider.onParamsChange?.(p, qp))
     this.router.events.pipe(
       filter(e => e instanceof NavigationEnd || e instanceof NavigationCancel),
-      startWith(this.router.lastSuccessfulNavigation?.finalUrl),
+      startWith(this.router.lastSuccessfulNavigation()?.finalUrl),
       filterNonNull(),
       takeUntilDestroyed(),
     ).subscribe(() => {
