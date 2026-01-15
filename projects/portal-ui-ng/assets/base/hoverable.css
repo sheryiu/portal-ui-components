@@ -1,5 +1,5 @@
 @utility pui-hoverable {
-  @apply flex items-center justify-center relative overflow-hidden transition-all;
+  @apply flex items-center justify-center relative overflow-hidden transition-all outline-transparent;
 
   @variant disabled {
     @apply outline-none;
@@ -7,7 +7,7 @@
 
   @variant enabled {
     @apply cursor-pointer;
-    @apply outline-2 outline-offset-2 outline-transparent;
+    @apply outline-2 outline-offset-2;
     @variant after {
       @apply absolute inset-0 transition-colors;
       @apply touch-none pointer-events-none;

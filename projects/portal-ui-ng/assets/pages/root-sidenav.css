@@ -1,5 +1,5 @@
 @utility pui-root-sidenav {
-  @apply fixed inset-0 bg-gradient-to-b from-primary-900 to-primary-800 z-0 flex flex-col;
+  @apply fixed inset-0 bg-linear-to-b from-primary-900 to-primary-800 z-0 flex flex-col;
   @apply lg:w-64 lg:border-r lg:bg-none;
   @apply xl:w-80;
 }

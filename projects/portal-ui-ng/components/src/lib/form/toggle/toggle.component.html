@@ -1,6 +1,7 @@
 <input
   [id]="id()"
-  hidden
+  tabindex="0"
+  class="pui-toggle__checkbox"
   type="checkbox"
   [checked]="isChecked()"
   (change)="handleInput($event)"
@@ -13,6 +14,7 @@
   role="button"
   type="button"
   [class.pui-toggle--checked]="isChecked()"
+  tabindex="-1"
 >
   <div
     puiHoverable

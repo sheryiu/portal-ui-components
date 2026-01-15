@@ -30,11 +30,11 @@
 @utility pui-vertical-layout__heading--floating {
   @apply fixed top-0 z-50 pt-6 @screen-sm/layout:-ms-8 w-[100cqw];
   @apply flex flex-row gap-12;
-  @apply pt-12 px-14;
+  @apply pt-12 px-6;
   @apply @screen-sm/layout:px-10;
   @apply pb-4;
   @apply @screen-sm/layout:pb-6;
-  @apply bg-gradient-to-b dark:from-neutral-700 dark:to-neutral-800 dark:to-90% border-b dark:border-neutral-950 shadow-lg;
+  @apply bg-linear-to-b dark:from-neutral-700 dark:to-neutral-800 dark:to-90% border-b dark:border-neutral-950 shadow-lg;
 
   .pui-peekable-addon__content & {
     @apply pt-18;
@@ -58,6 +58,9 @@
   }
   .pui-tab-bar-tabs {
     @apply flex-wrap;
+  }
+  .pui-vertical-layout__tabs__tab {
+    @apply px-4 py-2 -mx-4 -my-2;
   }
 }
 

@@ -1,15 +1,15 @@
 @utility pui-toggle {
   @apply rounded-full outline-none;
   @apply flex items-center gap-2 p-1 h-7 relative transition-colors;
-  @apply bg-red-300 dark:bg-red-900;
+  @apply bg-red-300 dark:bg-red-900 outline-primary-500;
   &.pui-toggle--checked {
     @apply bg-green-300 dark:bg-green-700;
   }
-  &:focus-visible .pui-toggle__trigger {
-    @apply outline-primary-500;
-  }
   input[type=checkbox]:enabled + & {
     @apply cursor-pointer;
+  }
+  input[type=checkbox]:focus + & {
+    @apply outline outline-offset-2 outline-solid;
   }
 }
 @utility pui-toggle__trigger {
@@ -28,4 +28,7 @@
 @utility pui-toggle__indicator {
   width: 1.5rem;
   @apply px-1 uppercase text-center select-none grow shrink-0;
+}
+@utility pui-toggle__checkbox {
+  @apply absolute w-0 h-0 opacity-0;
 }

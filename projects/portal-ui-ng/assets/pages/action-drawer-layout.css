@@ -55,7 +55,7 @@
 }
 
 @utility pui-action-drawer-backdrop {
-  @apply bg-gradient-to-l;
+  @apply bg-linear-to-l;
   @apply dark:from-neutral-950/95 dark:to-neutral-950/50 from-30%;
   @apply sm:dark:from-neutral-950/95 sm:dark:to-neutral-950/10 sm:from-30%;
   @apply backdrop-blur-lg sm:backdrop-blur-sm;

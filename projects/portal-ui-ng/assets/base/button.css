@@ -1,7 +1,7 @@
 @utility pui-base-button {
   @apply text-base;
   @apply transition-colors;
-  @apply disabled:bg-black/15 disabled:dark:bg-white/15 disabled:opacity-70;
+  @apply disabled:bg-black/15 disabled:dark:bg-white/15 disabled:opacity-50;
   &[data-color=default] {
     /** EMPTY */
   }
