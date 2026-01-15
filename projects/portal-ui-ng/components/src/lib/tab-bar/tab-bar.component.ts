@@ -37,9 +37,10 @@ export class TabBarComponent implements AfterViewInit, ControlValueAccessor {
   onChange?: (val: string) => void;
   onTouched?: () => void;
 
-  // the String casting is for vertical layout
   protected currentTab = linkedSignal<string | null>(() => {
-    return String(this.inputCurrentTab())
+    return this.inputCurrentTab()
+  }, {
+    equal: () => false
   })
   protected disabled = linkedSignal(() => this.inputDisabled())
 

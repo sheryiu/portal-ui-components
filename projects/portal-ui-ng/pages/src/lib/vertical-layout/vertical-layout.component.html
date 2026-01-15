@@ -19,8 +19,8 @@
       <header class="pui-vertical-layout__controls">
         @if (tabs().length > 0) {
           <pui-tab-bar class="pui-vertical-layout__tabs" [currentTab]="activeTab()" (tabChange)="onTabChanged($event)">
-            @for (tab of tabs(); track tab.label) {
-              <a *puiTab="tab.label; hidden: tab.hidden ?? false" [routerLink]="tab.route">{{ tab.label }}</a>
+            @for (tab of tabs(); track tab.__routeAsString) {
+              <a *puiTab="tab.__routeAsString; hidden: tab.hidden ?? false" [routerLink]="tab.route">{{ tab.label }}</a>
             }
           </pui-tab-bar>
         }

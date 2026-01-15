@@ -54,7 +54,12 @@ export class VerticalLayoutComponent {
   private containerDiv = viewChild('container', { read: ElementRef })
   readonly activeTab = signal<string | null>(null)
   protected readonly heading = computed(() => this.dataProvider.heading());
-  protected readonly tabs = computed(() => this.dataProvider.tabs());
+  protected readonly tabs = computed(() =>
+    this.dataProvider.tabs().map(tab => ({
+      ...tab,
+      __routeAsString: tab.route.map(part => String(part)).join('/')
+    }))
+);
   protected readonly controls = this.layoutService.controls;
   protected readonly mostEmphasizedControlId = this.layoutService.mostEmphasizedControlId;
   protected readonly scrollState = toSignal(
@@ -89,8 +94,7 @@ export class VerticalLayoutComponent {
         return this.router.isActive(urlTree, { paths: 'subset', queryParams: 'subset', fragment: 'ignored', matrixParams: 'ignored' })
       })
       if (!activeTab) return;
-      // assign a empty property so the input signal will update
-      this.activeTab.set(Object.assign(activeTab.label, { [Symbol()]: null }))
+      this.activeTab.set(activeTab.__routeAsString);
       const route = this.route.routeConfig?.children?.find(child => child.path == '**');
       if (route) {
         route.redirectTo = activeTab.route
