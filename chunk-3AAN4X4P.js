@@ -1,1 +1,0 @@
-import"./chunk-C6Q5SG76.js";var n=[{path:"",loadComponent:()=>import("./chunk-DP4AHKAS.js").then(o=>o.HomeComponent),children:[{path:"",loadComponent:()=>import("./chunk-33XBH754.js").then(o=>o.HomeContentComponent)}]}];export{n as ROUTES};
