@@ -37,7 +37,7 @@ export class TabBarComponent implements AfterViewInit, ControlValueAccessor {
   onChange?: (val: string) => void;
   onTouched?: () => void;
 
-  protected currentTab = linkedSignal<string | null>(() => {
+  protected currentTab = linkedSignal<string | null | undefined>(() => {
     return this.inputCurrentTab()
   }, {
     equal: () => false

@@ -8,6 +8,7 @@ import { Directive, input } from '@angular/core';
     '[attr.data-color]': 'color()',
   },
 })
+// TODO not using hoverableDirective, may cause some problems
 export class InverseButtonDirective {
   readonly color = input<
     | 'default'

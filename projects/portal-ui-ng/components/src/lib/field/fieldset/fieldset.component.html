@@ -118,6 +118,7 @@
                     [toggled]="!!fieldValue"
                     (valueChange)="handleInput(fieldDef, $event)"
                   ></pui-toggle>
+                  <!-- TODO use fieldDef.description() in the future -->
                   <label
                     [htmlFor]="fieldDef.base64Key()"
                     class="pui-fieldset__input--boolean__remarks"

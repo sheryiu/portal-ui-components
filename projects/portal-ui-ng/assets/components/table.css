@@ -34,16 +34,14 @@
     @apply text-primary-600 dark:text-primary-400;
   }
   &.pui-table-row--selected {
-    @apply hover:bg-hover dark:hover:bg-hover-dark;
-    @apply focus-visible:bg-hover dark:focus-visible:bg-hover-dark;
+    @apply bg-hover dark:bg-hover-dark;
   }
   > a {
     @apply grid grid-cols-subgrid relative border-b;
     grid-column-start: 1;
     grid-column-end: span var(--pui-table-number-of-columns);
     &[data-active=true] {
-      @apply hover:bg-hover dark:hover:bg-hover-dark;
-      @apply focus-visible:bg-hover dark:focus-visible:bg-hover-dark;
+      @apply bg-hover dark:bg-hover-dark;
     }
     .pui-table--single & {
       @apply ml-6;

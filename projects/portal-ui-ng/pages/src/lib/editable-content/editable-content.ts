@@ -9,9 +9,9 @@ export interface EditableContentDataProvider<T> {
   // data
   data: Signal<T | null | undefined>;
   fieldConfiguration: Signal<ObjectFieldConfiguration>;
-  // dataProvider can call the `fn` to update editableContentComponent
+  /** dataProvider can call the `fn` to update `editableContentComponent` */
   registerUpdateState?(fn: (state: { isDisabled?: boolean; isDirty?: boolean }) => void): void;
-  // editableContentComponent calls this when dirty changes
+  /** `editableContentComponent` calls this method when dirty changes */
   onStateChange?(state: {
     isDirty?: boolean;
   }): void;

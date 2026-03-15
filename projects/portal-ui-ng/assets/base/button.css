@@ -1,6 +1,7 @@
 @utility pui-base-button {
   @apply text-base;
   @apply transition-colors;
+  @apply enabled:cursor-pointer;
   @apply disabled:bg-black/15 disabled:dark:bg-white/15 disabled:opacity-50;
   &[data-color=default] {
     /** EMPTY */
@@ -69,6 +70,7 @@
 @utility pui-bordered-button {
   @apply text-base;
   @apply transition-colors;
+  @apply enabled:cursor-pointer;
   @apply disabled:bg-black/15 disabled:dark:bg-white/15 disabled:opacity-70;
   &[data-color=default] {
     /** EMPTY */
@@ -137,6 +139,7 @@
 @utility pui-inverse-button {
   @apply text-base;
   @apply transition-colors;
+  @apply enabled:cursor-pointer;
   @apply disabled:bg-black/15 disabled:dark:bg-white/15 disabled:opacity-70;
   &[data-color=default] {
     /** EMPTY */
@@ -210,6 +213,7 @@
 @utility pui-filled-button {
   @apply text-base;
   @apply transition-colors;
+  @apply enabled:cursor-pointer;
   @apply disabled:bg-black/15 disabled:dark:bg-white/10 disabled:opacity-70;
   :is(.dark &) {
     box-shadow: inset 0px 2px 6px -4px rgb(255 255 255 / 0.1);
