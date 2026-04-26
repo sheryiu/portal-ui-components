@@ -196,7 +196,7 @@
     position: relative !important;
     contain: unset !important;
   }
-  .cdk-virtual-scroll-spacer {
+  :where(.pui-table) & .cdk-virtual-scroll-spacer {
     display: none;
   }
 }

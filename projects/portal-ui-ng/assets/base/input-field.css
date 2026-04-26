@@ -27,7 +27,7 @@
   &:has(:focus-visible:enabled) {
     @apply outline outline-primary-500;
   }
-  &:has(:disabled) {
-    @apply bg-black/5 dark:bg-white/5 border-transparent dark:border-transparent dark:text-neutral-300 pointer-events-none;
+  &:has(:disabled), &.pui-input-field--disabled {
+    @apply bg-black/5 dark:bg-white/5 border-transparent dark:border-transparent dark:text-neutral-300;
   }
 }
