@@ -19,6 +19,10 @@ import &lbrace; provideLocalStorage, providePlatformDetector, provideTheme &rbra
 export const appConfig: ApplicationConfig = &lbrace;
 &nbsp;&nbsp;providers: [
 &nbsp;&nbsp;&nbsp;&nbsp;<i class="dark:text-neutral-400">... your existing providers</i>
+&nbsp;&nbsp;&nbsp;&nbsp;provideRouter(
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;YOUR_ROUTES,
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;withRouterConfig(&lbrace; paramsInheritanceStrategy: 'always' &rbrace;),
+&nbsp;&nbsp;&nbsp;&nbsp;),
 &nbsp;&nbsp;&nbsp;&nbsp;provideAnimations(),
 &nbsp;&nbsp;&nbsp;&nbsp;provideTheme(),
 &nbsp;&nbsp;&nbsp;&nbsp;providePlatformDetector(),
