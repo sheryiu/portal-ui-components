@@ -48,6 +48,22 @@
   }
 }
 
+@utility pui-loading-panel--enter {
+  animation: puiLoadingPanelEnter 250ms ease-in-out forwards;
+}
+@keyframes puiLoadingPanelEnter {
+  0% { opacity: 0; transform: translateY(1rem); position: absolute; width: 100%; }
+  100% { opacity: 1; transform: translateY(0); position: absolute; width: 100%; }
+}
+
+@utility pui-loading-panel--leave {
+  animation: puiLoadingPanelLeave 250ms ease-in-out forwards;
+}
+@keyframes puiLoadingPanelLeave {
+  0% { opacity: 1; transform: translateY(0); position: absolute; width: 100%; }
+  100% { opacity: 0; transform: translateY(1rem); position: absolute; width: 100%; }
+}
+
 @keyframes puiLoadingPanelOpacity {
   0%, 20% { opacity: 0.4; }
   80%, 100% { opacity: 1; }
