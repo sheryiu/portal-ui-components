@@ -85,6 +85,7 @@
 @import "./scrollbar.css";
 @import "./hoverable.css";
 @import "./content-visibility-detector.css";
+@import "./overlay.css";
 
 @layer base {
   *, *::before, *::after {

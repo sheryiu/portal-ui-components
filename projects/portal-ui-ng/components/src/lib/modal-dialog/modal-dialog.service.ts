@@ -12,7 +12,7 @@ export class ModalDialogService {
   open<C, D>(dialogData: ModalDialogData<C>, overlayConfig?: Omit<PuiOverlayConfig<D>, 'data' | 'backdropClass'>) {
     const ref = this.overlay.open<ModalDialogComponent, ModalDialogData<C>>(
       ModalDialogComponent,
-      {
+      Object.assign({
         positionStrategy: this.overlay.position().global()
           .centerHorizontally()
           .centerVertically(),
@@ -21,8 +21,10 @@ export class ModalDialogService {
         backdropClass: 'pui-modal-dialog-backdrop',
         data: dialogData,
         closeOnBackdropClick: true,
-        ...(overlayConfig ?? {}),
-      }
+        animateEnter: 'pui-overlay__enter',
+        animateLeave: 'pui-overlay__leave',
+        leaveAnimationName: 'overlayLeave',
+      }, overlayConfig) as PuiOverlayConfig<ModalDialogData<C>>
     )
     return ref;
   }

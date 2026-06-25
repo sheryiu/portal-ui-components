@@ -1,11 +1,20 @@
 import { OverlayConfig } from '@angular/cdk/overlay';
 import { InjectionToken, Injector, TemplateRef, Type, ViewContainerRef } from '@angular/core';
 
+type OverlayAnimationConfig = {
+  animateEnter: string;
+  animateLeave: string;
+  /** name of the @keyframe used in animateLeave */
+  leaveAnimationName: string;
+} | {
+  animateEnter?: never;
+  animateLeave?: never;
+  leaveAnimationName?: never;
+};
+
 export type PuiOverlayConfig<D> = OverlayConfig & {
   /** backdrop transition doesn't change with this value, please manually modify it */
-  // TODO add options to tune duration, distance etc..
   // TODO make backdrop gently disappear
-  animation?: 'default' | 'slideInEnd' | null;
   parentInjector?: Injector | undefined;
   viewContainerRef?: ViewContainerRef | null | undefined;
   data?: D;
@@ -17,7 +26,7 @@ export type PuiOverlayConfig<D> = OverlayConfig & {
    * @see stayOpenedOnOutsideClicks
    */
   stayOpenedOnOutsideClicksContainedIn?: Element | Element[];
-}
+} & OverlayAnimationConfig;
 
 export const OVERLAY_DATA = new InjectionToken('overlay data');
 export const OVERLAY_CONFIG = new InjectionToken<PuiOverlayConfig<unknown>>('overlay config');

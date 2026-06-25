@@ -82,6 +82,9 @@ export class TooltipDirective {
         scrollStrategy: this.overlay.scrollStrategies.reposition(),
         disposeOnNavigation: true,
         panelClass: 'pui-tooltip-overlay',
+        animateEnter: 'pui-overlay__enter',
+        animateLeave: 'pui-overlay__leave',
+        leaveAnimationName: 'overlayLeave',
         data: {
           message: this.tooltip(),
           component: this.component(),

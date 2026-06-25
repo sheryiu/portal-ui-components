@@ -1,10 +1,3 @@
-import {
-  AnimationEvent,
-  animate,
-  style,
-  transition,
-  trigger,
-} from '@angular/animations';
 import { NgComponentOutlet, NgTemplateOutlet } from '@angular/common';
 import { Component, Injector, TemplateRef, inject, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
@@ -18,68 +11,6 @@ import { PuiOverlayRef } from '../pui-overlay-ref';
   host: {
     class: 'pui-overlay-container',
   },
-  animations: [
-    trigger('appear', [
-      transition(':enter', [
-        style({
-          opacity: 0,
-          scale: 0.95,
-          translate: '0 -1rem',
-        }),
-        animate(
-          '75ms ease-out',
-          style({
-            opacity: 1,
-            scale: 1,
-            translate: '0 0',
-          }),
-        ),
-      ]),
-      transition(':leave', [
-        style({
-          opacity: 1,
-          scale: 1,
-          translate: '0 0',
-        }),
-        animate(
-          '75ms ease-out',
-          style({
-            opacity: 0,
-            scale: 0.95,
-            translate: '0 -1rem',
-          }),
-        ),
-      ]),
-    ]),
-    trigger('appearSlideInEnd', [
-      transition(':enter', [
-        style({
-          opacity: 0,
-          translate: '4rem 0',
-        }),
-        animate(
-          '125ms ease-in-out',
-          style({
-            opacity: 1,
-            translate: '0 0',
-          }),
-        ),
-      ]),
-      transition(':leave', [
-        style({
-          opacity: 1,
-          translate: '0 0',
-        }),
-        animate(
-          '125ms ease-in-out',
-          style({
-            opacity: 0,
-            translate: '4rem 0',
-          }),
-        ),
-      ]),
-    ]),
-  ],
 })
 export class OverlayContainerComponent {
   private content = inject(OVERLAY_CONTENT);
@@ -95,7 +26,7 @@ export class OverlayContainerComponent {
   constructor() {
     this.overlayRef.afterOpened$.subscribe(() => (this.showing.set(true)));
     this.overlayRef._close$.subscribe(() => (this.showing.set(false)));
-    if (this.config.animation === null) {
+    if (this.config.animateEnter == null) {
       this.overlayRef._close$.pipe(takeUntilDestroyed()).subscribe(() => {
         this.overlayRef.afterClosed$.next();
         this.overlayRef.dispose();
@@ -103,9 +34,10 @@ export class OverlayContainerComponent {
     }
   }
 
-  onAnimationEnd(event: AnimationEvent) {
-    if (event.toState === null) return;
-    this.overlayRef.afterClosed$.next();
-    this.overlayRef.dispose();
+  animationEnded(event: AnimationEvent) {
+    if (event.animationName === this.config.leaveAnimationName) {
+      this.overlayRef.afterClosed$.next();
+      this.overlayRef.dispose();
+    }
   }
 }

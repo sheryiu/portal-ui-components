@@ -70,3 +70,33 @@
     @apply overflow-y-auto;
   }
 }
+
+@utility pui-action-drawer__slide-in-end-enter {
+  animation: slideInEndEnter 125ms ease-in-out both;
+}
+
+@utility pui-action-drawer__slide-in-end-leave {
+  animation: slideInEndLeave 125ms ease-in-out both;
+}
+
+@keyframes slideInEndEnter {
+  from {
+    opacity: 0;
+    transform: translate(4rem, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate(0, 0);
+  }
+}
+
+@keyframes slideInEndLeave {
+  from {
+    opacity: 1;
+    transform: translate(0, 0);
+  }
+  to {
+    opacity: 0;
+    transform: translate(4rem, 0);
+  }
+}
