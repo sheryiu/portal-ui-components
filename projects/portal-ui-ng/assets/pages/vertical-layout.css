@@ -47,6 +47,32 @@
   }
 }
 
+@utility pui-vertical-layout__heading--floating-enter {
+  animation: puiVerticalLayoutFloatingEnter 150ms ease-in-out both;
+}
+
+@utility pui-vertical-layout__heading--floating-leave {
+  animation: puiVerticalLayoutFloatingLeave 150ms ease-in-out both;
+}
+
+@keyframes puiVerticalLayoutFloatingEnter {
+  from {
+    transform: translate(0, -100%);
+  }
+  to {
+    transform: translate(0, 0);
+  }
+}
+
+@keyframes puiVerticalLayoutFloatingLeave {
+  from {
+    transform: translate(0, 0);
+  }
+  to {
+    transform: translate(0, -100%);
+  }
+}
+
 @utility pui-vertical-layout__navigation {
   @apply grow;
 }

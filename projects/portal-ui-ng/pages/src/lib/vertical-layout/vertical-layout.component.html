@@ -7,7 +7,11 @@
       </div>
     </header>
     @if (scrollState()?.direction == 'up' && scrollState()?.currentTop! > 240) {
-      <header class="pui-vertical-layout__heading--floating" @floatingHeader>
+      <header
+        class="pui-vertical-layout__heading--floating"
+        animate.enter="pui-vertical-layout__heading--floating-enter"
+        animate.leave="pui-vertical-layout__heading--floating-leave"
+      >
         <div class="pui-vertical-layout__navigation">
           <pui-breadcrumbs></pui-breadcrumbs>
           <h1>{{ heading() }}</h1>

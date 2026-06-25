@@ -1,4 +1,3 @@
-import { animate, style, transition, trigger } from '@angular/animations';
 import { NgTemplateOutlet } from '@angular/common';
 import { Component, computed, DOCUMENT, ElementRef, inject, signal, viewChild } from '@angular/core';
 import { takeUntilDestroyed, toObservable, toSignal } from '@angular/core/rxjs-interop';
@@ -23,18 +22,6 @@ import { VERTICAL_LAYOUT_DATA_PROVIDER } from './vertical-layout';
     PeekableAddonComponent,
     TooltipDirective,
     NgTemplateOutlet
-  ],
-  animations: [
-    trigger('floatingHeader', [
-      transition(':enter', [
-        style({ transform: 'translate(0, -100%)' }),
-        animate('150ms ease-in-out', style({ transform: 'translate(0, 0)' }))
-      ]),
-      transition(':leave', [
-        style({ transform: 'translate(0, 0)' }),
-        animate('150ms ease-in-out', style({ transform: 'translate(0, -100%)' }))
-      ])
-    ])
   ],
   providers: [LayoutService],
   templateUrl: './vertical-layout.component.html',
