@@ -1,5 +1,5 @@
 import { animate, style, transition, trigger } from '@angular/animations';
-import { NgClass, NgTemplateOutlet } from '@angular/common';
+import { NgTemplateOutlet } from '@angular/common';
 import { Component, computed, DOCUMENT, ElementRef, inject, signal, viewChild } from '@angular/core';
 import { takeUntilDestroyed, toObservable, toSignal } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, NavigationCancel, NavigationEnd, Router, RouterLink, RouterOutlet } from '@angular/router';
@@ -22,7 +22,6 @@ import { VERTICAL_LAYOUT_DATA_PROVIDER } from './vertical-layout';
     NgTemplateOutlet,
     PeekableAddonComponent,
     TooltipDirective,
-    NgClass,
     NgTemplateOutlet
   ],
   animations: [
@@ -59,7 +58,7 @@ export class VerticalLayoutComponent {
       ...tab,
       __routeAsString: tab.route.map(part => String(part)).join('/')
     }))
-);
+  );
   protected readonly controls = this.layoutService.controls;
   protected readonly mostEmphasizedControlId = this.layoutService.mostEmphasizedControlId;
   protected readonly scrollState = toSignal(

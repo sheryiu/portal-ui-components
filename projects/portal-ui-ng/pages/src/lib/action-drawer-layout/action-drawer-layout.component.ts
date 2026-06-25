@@ -1,5 +1,5 @@
 import { A11yModule } from '@angular/cdk/a11y';
-import { NgClass, NgComponentOutlet, NgTemplateOutlet } from '@angular/common';
+import { NgComponentOutlet, NgTemplateOutlet } from '@angular/common';
 import { Component, computed, inject } from '@angular/core';
 import { ButtonModule, PuiOverlayRef } from 'portal-ui-ng/base';
 import { BreadcrumbsComponent, TooltipDirective } from 'portal-ui-ng/components';
@@ -14,7 +14,6 @@ import { ACTION_DRAWER_LAYOUT_DATA_PROVIDER } from './action-drawer-layout';
     NgTemplateOutlet,
     ButtonModule,
     TooltipDirective,
-    NgClass,
     A11yModule
   ],
   providers: [

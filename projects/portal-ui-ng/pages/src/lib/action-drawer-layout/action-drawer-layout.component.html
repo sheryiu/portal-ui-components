@@ -13,10 +13,9 @@
       <button
         puiFilledButton
         [color]="control.color ?? 'accent'"
-        [ngClass]="{
-          'pui-action-drawer-layout__toolbar__most-emphasized': control.id == mostEmphasizedControlId(),
-          'pui-action-drawer-layout__toolbar__normal':  control.id != mostEmphasizedControlId() && (control.icon || control.iconTemplateRef),
-        }"
+        [class.pui-action-drawer-layout__toolbar__most-emphasized]="control.id == mostEmphasizedControlId()"
+        [class.pui-action-drawer-layout__toolbar__normal]="control.id != mostEmphasizedControlId() && (control.icon || control.iconTemplateRef)"
+        [class.pui-action-drawer-layout__toolbar__reverse]="control.reverse"
         [disabled]="control.isDisabled"
         [hoverableEnabled]="!control.isDisabled"
         (click)="layoutService.controlOnClick(control.id, $event)"

@@ -42,10 +42,9 @@
         <button
           puiFilledButton
           [color]="control.color ?? 'accent'"
-          [ngClass]="{
-            'pui-vertical-layout__toolbar__most-emphasized': control.id == mostEmphasizedControlId(),
-            'pui-vertical-layout__toolbar__normal':  control.id != mostEmphasizedControlId() && (control.icon || control.iconTemplateRef),
-          }"
+          [class.pui-vertical-layout__toolbar__most-emphasized]="control.id == mostEmphasizedControlId()"
+          [class.pui-vertical-layout__toolbar__normal]="control.id != mostEmphasizedControlId() && (control.icon || control.iconTemplateRef)"
+          [class.pui-vertical-layout__toolbar__reverse]="control.reverse"
           [puiTooltip]="control.label"
           [disabled]="control.isDisabled"
           [hoverableEnabled]="!control.isDisabled"

@@ -22,6 +22,8 @@ export class LayoutControlDirective {
   disabled = input(false, { transform: booleanAttribute })
   mode = input<LayoutControlMode | undefined>(undefined)
   color = input<ReturnType<FilledButtonDirective['color']>>()
+  /** @description reverse the order of the label and the icon */
+  reverse = input(false, { transform: booleanAttribute })
   click = output<MouseEvent>();
 
   constructor() {
@@ -37,6 +39,7 @@ export class LayoutControlDirective {
       const mode = this.mode();
       const weight = this.weight();
       const color = this.color();
+      const reverse = this.reverse();
       const config = {
         id,
         label,
@@ -46,6 +49,7 @@ export class LayoutControlDirective {
         weight,
         mode,
         color,
+        reverse,
       }
       if (!updateFn) {
         const register = this.layoutService!.registerControl(config, {

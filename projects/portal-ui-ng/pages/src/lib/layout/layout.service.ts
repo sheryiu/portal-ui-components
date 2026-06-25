@@ -11,6 +11,7 @@ export type LayoutControlConfig = {
   icon?: string;
   iconTemplateRef?: TemplateRef<unknown>;
   color?: ReturnType<FilledButtonDirective['color']>;
+  reverse?: boolean;
 }
 
 @Injectable()

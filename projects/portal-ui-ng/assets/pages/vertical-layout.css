@@ -82,6 +82,10 @@
   }
 }
 
+@utility pui-vertical-layout__toolbar__reverse {
+  @apply flex-row-reverse;
+}
+
 @utility pui-vertical-layout__toolbar__normal {
   @apply rounded-full size-10;
   &.pui-filled-button[data-color=accent] {
