@@ -8,6 +8,8 @@
   --radius-7: 1.75rem;
   --radius-8: 2rem;
 
+  --text-xs: 0.625rem;
+  --text-xs--line-height: 0.875rem;
   --text-sm: 0.75rem;
   --text-sm--line-height: 1rem;
   --text-base: 0.875rem;
@@ -70,6 +72,8 @@
 
   --color-hover: rgb(0 0 0 / .1);
   --color-hover-dark: rgb(255 255 255 / .07);
+
+  --icon-font: "Material Symbols Rounded";
 }
 
 @custom-variant dark (&:where(.dark, .dark *));
@@ -101,15 +105,15 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: calc(var(--spacing) * --value(integer));
-  height: calc(var(--spacing) * --value(integer));
-  font-size: calc(var(--spacing) * --value(integer));
+  width: --spacing(--value(integer));
+  height: --spacing(--value(integer));
+  font-size: --spacing(--value(integer));
   width: calc(var(--spacing) * --value([integer]));
   height: calc(var(--spacing) * --value([integer]));
   font-size: calc(var(--spacing) * --value([integer]));
   line-height: 1;
   font-style: normal;
-  font-family: "Material Symbols Rounded";
+  font-family: var(--icon-font, "Material Symbols Rounded");
   font-weight: 400;
   user-select: none;
   flex: none;
@@ -119,15 +123,15 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: calc(var(--spacing) * --value(integer));
-  height: calc(var(--spacing) * --value(integer));
-  font-size: calc(var(--spacing) * --value(integer));
+  width: --spacing(--value(integer));
+  height: --spacing(--value(integer));
+  font-size: --spacing(--value(integer));
   width: calc(var(--spacing) * --value([integer]));
   height: calc(var(--spacing) * --value([integer]));
   font-size: calc(var(--spacing) * --value([integer]));
   line-height: 1;
   font-style: normal;
-  font-family: "Material Symbols Rounded";
+  font-family: var(--icon-font, "Material Symbols Rounded");
   font-weight: 400;
   user-select: none;
   flex: none;
