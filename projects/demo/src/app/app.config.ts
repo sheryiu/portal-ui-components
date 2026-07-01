@@ -3,6 +3,7 @@ import { ApplicationConfig, isDevMode, provideZonelessChangeDetection } from '@a
 import { NoPreloading, PreloadAllModules, provideRouter, withInMemoryScrolling, withPreloading, withRouterConfig } from '@angular/router';
 import { provideServiceWorker } from '@angular/service-worker';
 import { provideLocalStorage, providePlatformDetector, provideTheme } from 'portal-ui-ng';
+import { provideDateFnsTimeDisplayFormatter } from 'portal-ui-ng/components';
 import { provideVanillaCalendarProCalendarOverlay } from 'portal-ui-ng/components/calendar-overlay/vanilla-calendar-pro';
 import { provideHumanizeDurationTimeAgo } from 'portal-ui-ng/components/time-ago/humanize-duration';
 import { routes } from './app.routes';
@@ -28,5 +29,6 @@ export const appConfig: ApplicationConfig = {
     provideHumanizeDurationTimeAgo(),
     provideVanillaCalendarProCalendarOverlay(),
     provideLocalStorage(),
+    provideDateFnsTimeDisplayFormatter(),
   ]
 };
