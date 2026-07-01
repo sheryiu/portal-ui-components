@@ -35,6 +35,13 @@ export class PuiOverlayRef {
   }
   close() {
     this._close$.next();
+    // HACK: forces the overlay to close after 1 second if the animation got stuck or the event didn't fire
+    timer(1_000).pipe(
+      takeUntil(this.afterClosed$),
+    ).subscribe(() => {
+      this.afterClosed$.next();
+      this.dispose();
+    })
   }
   dispose() {
     this.overlayRef.dispose();
