@@ -23,7 +23,6 @@ export class ModalDialogService {
         closeOnBackdropClick: true,
         animateEnter: 'pui-overlay__enter',
         animateLeave: 'pui-overlay__leave',
-        leaveAnimationName: 'overlayLeave',
       }, overlayConfig) as PuiOverlayConfig<ModalDialogData<C>>
     )
     return ref;

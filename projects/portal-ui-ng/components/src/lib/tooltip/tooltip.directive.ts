@@ -84,7 +84,6 @@ export class TooltipDirective {
         panelClass: 'pui-tooltip-overlay',
         animateEnter: 'pui-overlay__enter',
         animateLeave: 'pui-overlay__leave',
-        leaveAnimationName: 'overlayLeave',
         data: {
           message: this.tooltip(),
           component: this.component(),

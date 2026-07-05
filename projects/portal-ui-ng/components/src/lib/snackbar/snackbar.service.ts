@@ -31,7 +31,6 @@ export class SnackbarService {
         hasBackdrop: false,
         animateEnter: 'pui-overlay__enter',
         animateLeave: 'pui-overlay__leave',
-        leaveAnimationName: 'overlayLeave',
         data: {
           message: message,
           icon: config.icon,
@@ -64,7 +63,6 @@ export class SnackbarService {
         hasBackdrop: false,
         animateEnter: 'pui-overlay__enter',
         animateLeave: 'pui-overlay__leave',
-        leaveAnimationName: 'overlayLeave',
         data: {
           message: message,
           icon: config.icon ?? 'error',

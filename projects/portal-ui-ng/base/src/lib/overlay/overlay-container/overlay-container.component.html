@@ -1,6 +1,6 @@
-@if (showing()) {
-  @if (config.animateEnter || config.animateLeave) {
-    <div [animate.enter]="config.animateEnter" [animate.leave]="config.animateLeave" (animationend)="animationEnded($event)">
+@if (config.animateEnter || config.animateLeave) {
+  @if (showing()) {
+    <div [animate.enter]="config.animateEnter" [animate.leave]="config.animateLeave" (animate.leave)="animationEnded($event)">
       @if (component) {
         <ng-container [ngComponentOutlet]="component"></ng-container>
       } @else if (templateRef) {
@@ -11,7 +11,9 @@
         ></ng-container>
       }
     </div>
-  } @else {
+  }
+} @else {
+  @if (showing()) {
     <div>
       @if (component) {
         <ng-container [ngComponentOutlet]="component"></ng-container>

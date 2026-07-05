@@ -36,7 +36,6 @@ export class ActionDrawerOverlayService {
       closeOnEscapeKeydown: (config.manualClose === true) ? false : true,
       animateEnter: 'pui-action-drawer__slide-in-end-enter',
       animateLeave: 'pui-action-drawer__slide-in-end-leave',
-      leaveAnimationName: 'slideInEndLeave',
       data: config.overlayData,
       parentInjector: Injector.create({
         providers: [

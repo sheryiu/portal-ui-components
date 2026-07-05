@@ -1,33 +1,22 @@
 @utility pui-overlay__enter {
-	animation: overlayEnter 75ms ease-out both;
+  opacity: 1;
+  scale: 1;
+  translate: 0 0;
+  @starting-style {
+		opacity: 0;
+		scale: 0.95;
+		translate: 0 -1rem;
+  }
+  transition-property: opacity, scale, translate;
+  transition-duration: 75ms;
+  transition-timing-function: ease-out;
 }
 
 @utility pui-overlay__leave {
-	animation: overlayLeave 75ms ease-out both;
-}
-
-@keyframes overlayEnter {
-	from {
-		opacity: 0;
-		scale: 0.95;
-		translate: 0 -1rem;
-	}
-	to {
-		opacity: 1;
-		scale: 1;
-		translate: 0 0;
-	}
-}
-
-@keyframes overlayLeave {
-	from {
-		opacity: 1;
-		scale: 1;
-		translate: 0 0;
-	}
-	to {
-		opacity: 0;
-		scale: 0.95;
-		translate: 0 -1rem;
-	}
+  opacity: 0;
+  scale: 0.95;
+  translate: 0 -1rem;
+  transition-property: opacity, scale, translate;
+  transition-duration: 75ms;
+  transition-timing-function: ease-out;
 }

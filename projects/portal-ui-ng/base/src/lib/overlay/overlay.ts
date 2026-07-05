@@ -4,12 +4,9 @@ import { InjectionToken, Injector, TemplateRef, Type, ViewContainerRef } from '@
 type OverlayAnimationConfig = {
   animateEnter: string;
   animateLeave: string;
-  /** name of the @keyframe used in animateLeave */
-  leaveAnimationName: string;
 } | {
   animateEnter?: never;
   animateLeave?: never;
-  leaveAnimationName?: never;
 };
 
 export type PuiOverlayConfig<D> = OverlayConfig & {

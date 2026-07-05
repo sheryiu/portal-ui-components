@@ -1,5 +1,5 @@
 import { NgComponentOutlet, NgTemplateOutlet } from '@angular/common';
-import { Component, Injector, TemplateRef, inject, signal } from '@angular/core';
+import { AnimationCallbackEvent, Component, Injector, TemplateRef, inject, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { OVERLAY_CONFIG, OVERLAY_CONTENT, OVERLAY_DATA } from '../overlay';
 import { PuiOverlayRef } from '../pui-overlay-ref';
@@ -26,7 +26,7 @@ export class OverlayContainerComponent {
   constructor() {
     this.overlayRef.afterOpened$.subscribe(() => (this.showing.set(true)));
     this.overlayRef._close$.subscribe(() => (this.showing.set(false)));
-    if (this.config.animateEnter == null) {
+    if (this.config.animateLeave == null) {
       this.overlayRef._close$.pipe(takeUntilDestroyed()).subscribe(() => {
         this.overlayRef.afterClosed$.next();
         this.overlayRef.dispose();
@@ -34,10 +34,14 @@ export class OverlayContainerComponent {
     }
   }
 
-  animationEnded(event: AnimationEvent) {
-    if (event.animationName === this.config.leaveAnimationName) {
+  animationEnded(event: AnimationCallbackEvent) {
+    const duration = event.target.computedStyleMap().get('transition-duration') as { value: number; unit: string } | undefined;
+    let durationMs = duration?.unit == 's' ? duration.value * 1000 : duration?.value;
+    if (durationMs == null || durationMs <= 0) durationMs = 100;
+    setTimeout(() => {
       this.overlayRef.afterClosed$.next();
       this.overlayRef.dispose();
-    }
+      event.animationComplete();
+    }, durationMs);
   }
 }
