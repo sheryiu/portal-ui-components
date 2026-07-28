@@ -1,7 +1,7 @@
 import { CdkPortalOutlet, ComponentPortal, PortalModule } from '@angular/cdk/portal';
 import { NgClass, NgComponentOutlet } from '@angular/common';
 import { AfterViewInit, Component, ComponentRef, Signal, Type, inject, isSignal, signal, viewChild } from '@angular/core';
-import { ButtonModule, HoverableDirective, OVERLAY_DATA } from 'portal-ui-ng/base';
+import { ButtonModule, HoverableDirective, OVERLAY_DATA, PuiOverlayRef } from 'portal-ui-ng/base';
 
 export type ModalDialogData<C = undefined> = {
   dialogClass?: string;
@@ -38,7 +38,7 @@ export type ModalDialogData<C = undefined> = {
       | 'rose'
       | null
       | undefined;
-    onClick?: (event: MouseEvent) => void;
+    onClick?: (event: MouseEvent, overlayRef: PuiOverlayRef) => void;
   }[];
   onDetailsComponentAttached?: (componentRef: ComponentRef<C>) => void;
 }
@@ -55,6 +55,7 @@ export type ModalDialogData<C = undefined> = {
   templateUrl: './modal-dialog.component.html',
 })
 export class ModalDialogComponent<C = undefined> implements AfterViewInit {
+  overlayRef = inject(PuiOverlayRef);
   data = inject(OVERLAY_DATA) as ModalDialogData<C>;
   detailsPortal = this.data.detailsComponent ? new ComponentPortal(this.data.detailsComponent) : null;
   private detailsOutlet: Signal<CdkPortalOutlet> = viewChild.required('portalOutlet');

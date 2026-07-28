@@ -29,7 +29,7 @@
               puiBaseButton
               [disabled]="!!action.disabled()"
               [hoverableEnabled]="!action.disabled()"
-              (click)="action.onClick?.($event)"
+              (click)="action.onClick?.($event, overlayRef)"
             >
               {{ action.label() }}
             </button>
@@ -40,7 +40,7 @@
               [disabled]="!!action.disabled()"
               [hoverableEnabled]="!action.disabled()"
               [color]="action.color"
-              (click)="action.onClick?.($event)"
+              (click)="action.onClick?.($event, overlayRef)"
             >
               {{ action.label() }}
             </button>
