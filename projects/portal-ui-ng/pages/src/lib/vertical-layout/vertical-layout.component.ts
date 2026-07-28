@@ -1,13 +1,44 @@
 import { NgTemplateOutlet } from '@angular/common';
-import { Component, computed, DOCUMENT, ElementRef, inject, signal, viewChild } from '@angular/core';
-import { takeUntilDestroyed, toObservable, toSignal } from '@angular/core/rxjs-interop';
-import { ActivatedRoute, NavigationCancel, NavigationEnd, Router, RouterLink, RouterOutlet } from '@angular/router';
+import {
+  Component,
+  computed,
+  DOCUMENT,
+  ElementRef,
+  inject,
+  signal,
+  viewChild
+} from '@angular/core';
+import {
+  takeUntilDestroyed,
+  toObservable,
+  toSignal,
+} from '@angular/core/rxjs-interop';
+import {
+  ActivatedRoute,
+  NavigationCancel,
+  NavigationEnd,
+  Router,
+  RouterLink,
+  RouterOutlet,
+} from '@angular/router';
 import { filterNonNull } from 'portal-ui-ng';
 import { ButtonModule } from 'portal-ui-ng/base';
-import { BreadcrumbsComponent, TabBarModule, TooltipDirective } from 'portal-ui-ng/components';
-import { combineLatest, filter, fromEvent, map, pairwise, startWith, switchMap } from 'rxjs';
+import {
+  BreadcrumbsComponent,
+  TabBarModule,
+  TooltipDirective,
+} from 'portal-ui-ng/components';
+import {
+  combineLatest,
+  filter,
+  fromEvent,
+  map,
+  pairwise,
+  startWith,
+  switchMap,
+} from 'rxjs';
 import { LayoutService } from '../layout/layout.service';
-import { PeekableAddonComponent } from "../peekable-addon/peekable-addon.component";
+import { PeekableAddonComponent } from '../peekable-addon/peekable-addon.component';
 import { VERTICAL_LAYOUT_DATA_PROVIDER } from './vertical-layout';
 
 @Component({
@@ -21,81 +52,103 @@ import { VERTICAL_LAYOUT_DATA_PROVIDER } from './vertical-layout';
     NgTemplateOutlet,
     PeekableAddonComponent,
     TooltipDirective,
-    NgTemplateOutlet
+    NgTemplateOutlet,
   ],
   providers: [LayoutService],
   templateUrl: './vertical-layout.component.html',
   host: {
-    class: 'pui-vertical-layout'
-  }
+    class: 'pui-vertical-layout',
+  },
 })
 // TODO fixed header doesn't work when in peekable addon
 export class VerticalLayoutComponent {
-  private dataProvider = inject(VERTICAL_LAYOUT_DATA_PROVIDER)
+  private dataProvider = inject(VERTICAL_LAYOUT_DATA_PROVIDER);
   protected layoutService = inject(LayoutService, { self: true });
   private router = inject(Router);
   private route = inject(ActivatedRoute);
-  private document = inject(DOCUMENT)
+  private document = inject(DOCUMENT);
 
-  private containerDiv = viewChild('container', { read: ElementRef })
-  readonly activeTab = signal<string | null>(null)
+  private containerDiv = viewChild('container', { read: ElementRef });
+  readonly activeTab = signal<string | null>(null);
   protected readonly heading = computed(() => this.dataProvider.heading());
   protected readonly tabs = computed(() =>
-    this.dataProvider.tabs().map(tab => ({
+    this.dataProvider.tabs().map((tab) => ({
       ...tab,
-      __routeAsString: tab.route.map(part => String(part)).join('/')
-    }))
+      __routeAsString: tab.route.map((part) => String(part)).join('/'),
+    })),
   );
   protected readonly controls = this.layoutService.controls;
-  protected readonly mostEmphasizedControlId = this.layoutService.mostEmphasizedControlId;
+  protected readonly mostEmphasizedControlId =
+    this.layoutService.mostEmphasizedControlId;
   protected readonly scrollState = toSignal(
     toObservable(this.containerDiv).pipe(
-      map(ref => (ref?.nativeElement as HTMLElement)?.closest('.pui-peekable-addon') ?? this.document),
-      switchMap(target => fromEvent(target, 'scroll')),
-      map(event => event.currentTarget instanceof Document ? event.currentTarget.scrollingElement?.scrollTop : (event.currentTarget as HTMLElement).scrollTop),
+      map(
+        (ref) =>
+          (ref?.nativeElement as HTMLElement)?.closest('.pui-peekable-addon') ??
+          this.document,
+      ),
+      switchMap((target) => fromEvent(target, 'scroll')),
+      map((event) =>
+        event.currentTarget instanceof Document
+          ? event.currentTarget.scrollingElement?.scrollTop
+          : (event.currentTarget as HTMLElement).scrollTop,
+      ),
       filterNonNull(),
       pairwise(),
-      map(([prev, curr]) => ({ direction: (curr - prev) > 0 ? 'down' : 'up', currentTop: curr })),
+      map(([prev, curr]) => ({
+        direction: curr - prev > 0 ? 'down' : 'up',
+        currentTop: curr,
+      })),
       takeUntilDestroyed(),
-    )
-  )
+    ),
+  );
 
   constructor() {
-    combineLatest([
-      this.route.params,
-      this.route.queryParams,
-    ]).pipe(
-      takeUntilDestroyed(),
-    ).subscribe(([p, qp]) => this.dataProvider.onParamsChange?.(p, qp))
-    this.router.events.pipe(
-      filter(e => e instanceof NavigationEnd || e instanceof NavigationCancel),
-      startWith(this.router.lastSuccessfulNavigation()?.finalUrl),
-      filterNonNull(),
-      takeUntilDestroyed(),
-    ).subscribe(() => {
-      const tabs = this.tabs();
-      if (!tabs) return;
-      const activeTab = tabs.find(tab => {
-        const urlTree = this.router.createUrlTree(tab.route, { relativeTo: this.route })
-        return this.router.isActive(urlTree, { paths: 'subset', queryParams: 'subset', fragment: 'ignored', matrixParams: 'ignored' })
-      })
-      if (!activeTab) return;
-      this.activeTab.set(activeTab.__routeAsString);
-      const route = this.route.routeConfig?.children?.find(child => child.path == '**');
-      if (route) {
-        route.redirectTo = activeTab.route
-          .map(part => String(part)
-            .replaceAll('..%2F', '')
-            .replaceAll('.%2F', ''))
-          .join('/')
-      }
-    })
+    combineLatest([this.route.params, this.route.queryParams])
+      .pipe(takeUntilDestroyed())
+      .subscribe(([p, qp]) => this.dataProvider.onParamsChange?.(p, qp));
+    this.router.events
+      .pipe(
+        filter(
+          (e) => e instanceof NavigationEnd || e instanceof NavigationCancel,
+        ),
+        startWith(this.router.lastSuccessfulNavigation()?.finalUrl),
+        filterNonNull(),
+        takeUntilDestroyed(),
+      )
+      .subscribe(() => {
+        const tabs = this.tabs();
+        if (!tabs) return;
+        const activeTab = tabs.find((tab) => {
+          const urlTree = this.router.createUrlTree(tab.route, {
+            relativeTo: this.route,
+          });
+          return this.router.isActive(urlTree, {
+            paths: 'subset',
+            queryParams: 'subset',
+            fragment: 'ignored',
+            matrixParams: 'ignored',
+          });
+        });
+        if (!activeTab) return;
+        this.activeTab.set(activeTab.__routeAsString);
+        const route = this.route.routeConfig?.children?.find(
+          (child) => child.path == '**',
+        );
+        if (route) {
+          route.redirectTo = activeTab.route
+            .map((part) =>
+              String(part).replaceAll('..%2F', '').replaceAll('.%2F', ''),
+            )
+            .join('/');
+        }
+      });
   }
 
   onTabChanged(event: string) {
-    const tab = this.tabs()?.find(tab => tab.label == event)
+    const tab = this.tabs()?.find((tab) => tab.label == event);
     if (tab) {
-      this.router.navigate(tab.route, { relativeTo: this.route })
+      this.router.navigate(tab.route, { relativeTo: this.route });
     }
   }
 }

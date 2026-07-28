@@ -1,5 +1,14 @@
 import { isPlatformBrowser } from '@angular/common';
-import { booleanAttribute, Component, effect, ElementRef, inject, input, PLATFORM_ID, Renderer2 } from '@angular/core';
+import {
+  booleanAttribute,
+  Component,
+  effect,
+  ElementRef,
+  inject,
+  input,
+  PLATFORM_ID,
+  Renderer2
+} from '@angular/core';
 import { camelCase } from 'lodash-es';
 import { TableCellDefDirective } from './table-cell-def.directive';
 
@@ -10,9 +19,9 @@ import { TableCellDefDirective } from './table-cell-def.directive';
     class: 'pui-table-cell',
     role: 'cell',
     '[attr.data-justify-center]': 'centerAligned()',
-    '[attr.data-justify-end]': 'rightAligned()'
+    '[attr.data-justify-end]': 'rightAligned()',
   },
-  template: `<ng-content></ng-content>`
+  template: `<ng-content></ng-content>`,
 })
 export class TableCellComponent {
   private renderer = inject(Renderer2);
@@ -26,8 +35,11 @@ export class TableCellComponent {
     const elRef = inject(ElementRef) as ElementRef<HTMLElement>;
     if (this.isBrowser && elRef.nativeElement) {
       effect(() => {
-        this.renderer.addClass(elRef.nativeElement, `pui-table-column-${ camelCase(this.tableCellDef.columnName()) }`)
-      })
+        this.renderer.addClass(
+          elRef.nativeElement,
+          `pui-table-column-${camelCase(this.tableCellDef.columnName())}`,
+        );
+      });
     }
   }
 }

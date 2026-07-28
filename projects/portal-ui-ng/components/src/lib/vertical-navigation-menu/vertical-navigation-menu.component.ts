@@ -1,5 +1,15 @@
 import { Location, NgClass, NgTemplateOutlet } from '@angular/common';
-import { afterNextRender, Component, contentChildren, DestroyRef, ElementRef, inject, Injector, signal, viewChildren } from '@angular/core';
+import {
+  afterNextRender,
+  Component,
+  contentChildren,
+  DestroyRef,
+  ElementRef,
+  inject,
+  Injector,
+  signal,
+  viewChildren
+} from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { IsInSetPipe } from 'portal-ui-ng';
 import { ButtonModule, TypedTemplateDirective } from 'portal-ui-ng/base';
@@ -23,45 +33,56 @@ import { VERTICAL_NAVIGATION_MENU_CHILD } from './vertical-navigation-menu';
   ],
   templateUrl: './vertical-navigation-menu.component.html',
   host: {
-    class: 'pui-vertical-navigation-menu'
-  }
+    class: 'pui-vertical-navigation-menu',
+  },
 })
 export class VerticalNavigationMenuComponent {
-  private location = inject(Location)
-  private destroyRef = inject(DestroyRef)
-  private injector = inject(Injector)
+  private location = inject(Location);
+  private destroyRef = inject(DestroyRef);
+  private injector = inject(Injector);
 
   protected typeForGroup!: {
     children: (MenuItemDirective | MenuGroupDirective | MenuDividerDirective)[];
-  }
+  };
   protected typeForChild!: {
     child: MenuItemDirective | MenuGroupDirective | MenuDividerDirective;
   };
-  protected children = contentChildren(VERTICAL_NAVIGATION_MENU_CHILD)
-  private groupElements = viewChildren('groupEl', { read: ElementRef })
+  protected children = contentChildren(VERTICAL_NAVIGATION_MENU_CHILD);
+  private groupElements = viewChildren('groupEl', { read: ElementRef });
 
-  protected openedChildren = signal(new Set<HTMLElement>())
+  protected openedChildren = signal(new Set<HTMLElement>());
 
   constructor() {
     const ref = this.location.onUrlChange(() => {
-      afterNextRender(() => {
-        this.groupElements().forEach(el => {
-          const hasActiveChild = !!(el.nativeElement as HTMLElement).nextElementSibling?.querySelector('.pui-vertical-navigation-menu__item--active')
-          if (hasActiveChild) {
-            this.openedChildren.update(set => {
-              return new Set(set).add(el.nativeElement)
-            })
-          }
-        })
-      }, { injector: this.injector })
-    })
-    this.destroyRef.onDestroy(() => ref())
+      afterNextRender(
+        () => {
+          this.groupElements().forEach((el) => {
+            const hasActiveChild = !!(
+              el.nativeElement as HTMLElement
+            ).nextElementSibling?.querySelector(
+              '.pui-vertical-navigation-menu__item--active',
+            );
+            if (hasActiveChild) {
+              this.openedChildren.update((set) => {
+                return new Set(set).add(el.nativeElement);
+              });
+            }
+          });
+        },
+        { injector: this.injector },
+      );
+    });
+    this.destroyRef.onDestroy(() => ref());
   }
 
-  protected toggleGroup(isDisabled: boolean, isAlwaysExpanded: boolean, element: HTMLElement) {
+  protected toggleGroup(
+    isDisabled: boolean,
+    isAlwaysExpanded: boolean,
+    element: HTMLElement,
+  ) {
     if (isDisabled) return;
     if (isAlwaysExpanded && this.openedChildren().has(element)) return;
-    this.openedChildren.update(set => {
+    this.openedChildren.update((set) => {
       const clone = new Set(set);
       if (set.has(element)) {
         clone.delete(element);
@@ -69,6 +90,6 @@ export class VerticalNavigationMenuComponent {
         clone.add(element);
       }
       return clone;
-    })
+    });
   }
 }

@@ -1,9 +1,7 @@
 <main class="@container grow">
   <div class="grid @screen-md:grid-cols-3 gap-8">
     <!-- overall card -->
-    <div
-      class="pui-card rounded-4 p-8 overflow-hidden @screen-md:col-span-2"
-    >
+    <div class="pui-card rounded-4 p-8 overflow-hidden @screen-md:col-span-2">
       <div
         class="flex flex-col sm:flex-row gap-4 items-stretch h-full overflow-x-auto"
       >
@@ -24,7 +22,9 @@
               awaitingPaymentsCount() == 0,
           }"
         >
-          <h3 class="dark:text-emerald-200 flex-none">Awaiting<br />Payments</h3>
+          <h3 class="dark:text-emerald-200 flex-none">
+            Awaiting<br />Payments
+          </h3>
           <div class="spacer"></div>
           <span class="text-2xl font-bold self-end text-end tabular-nums">{{
             awaitingPaymentsCount()
@@ -38,9 +38,7 @@
               repackageCount() == 0,
           }"
         >
-          <h3 class="dark:text-amber-200 flex-none">
-            Repackage<br />Requests
-          </h3>
+          <h3 class="dark:text-amber-200 flex-none">Repackage<br />Requests</h3>
           <div class="spacer"></div>
           <span class="text-2xl font-bold self-end text-end tabular-nums">{{
             repackageCount()
@@ -53,12 +51,19 @@
       <div class="flex flex-col items-center gap-2">
         <div
           class="p-4 rounded-full bg-neutral-500 shadow-md shadow-neutral-500 transition-colors relative"
-          [style.--color-neutral-500]="'rgb(' + customer()?.profile?.color + ')'"
+          [style.--color-neutral-500]="
+            'rgb(' + customer()?.profile?.color + ')'
+          "
         >
           <i class="icon-10 font-variation-fill">{{
             customer()?.profile?.icon
           }}</i>
-          <button puiBaseButton class="absolute size-8 rounded-full dark:bg-neutral-600 shadow-md -bottom-2 -right-2 justify-center items-center" puiTooltip="Edit" (click)="onProfilePicEdit()">
+          <button
+            puiBaseButton
+            class="absolute size-8 rounded-full dark:bg-neutral-600 shadow-md -bottom-2 -right-2 justify-center items-center"
+            puiTooltip="Edit"
+            (click)="onProfilePicEdit()"
+          >
             <i class="icon-5 font-variation-weight-extra-light">edit</i>
           </button>
         </div>
@@ -72,7 +77,7 @@
         <span class="text-base text-center"
           >Joined since
           <pui-time-display
-            [date]="customer()?.registeredSince"
+            [date]="$safeNavigationMigration(customer()?.registeredSince)"
             [format]="'dd MMM yyyy'"
           ></pui-time-display
         ></span>
@@ -95,7 +100,9 @@
       </div>
     </div>
     <!-- additional details -->
-    <div class="pui-card rounded-4 py-8 gap-6 overflow-hidden flex flex-col px-8">
+    <div
+      class="pui-card rounded-4 py-8 gap-6 overflow-hidden flex flex-col px-8"
+    >
       <div class="flex items-center justify-between">
         <h3 class="flex-none">Detailed information</h3>
         <button
@@ -115,19 +122,17 @@
           <span puiFormFieldTitle>Fullname</span>
           @if (isInfoEditing()) {
             <pui-input-field puiFormFieldContent>
-              <input [value]="customer()?.name">
+              <input [value]="$safeNavigationMigration(customer()?.name)" />
             </pui-input-field>
           } @else {
-            <span puiFormFieldContent>{{
-              customer()?.name ?? "----"
-            }}</span>
+            <span puiFormFieldContent>{{ customer()?.name ?? "----" }}</span>
           }
         </pui-form-field>
         <pui-form-field padStart="1" hideDivider>
           <span puiFormFieldTitle>Username</span>
           @if (isInfoEditing()) {
             <pui-input-field puiFormFieldContent>
-              <input [value]="customer()?.username">
+              <input [value]="$safeNavigationMigration(customer()?.username)" />
             </pui-input-field>
           } @else {
             <span puiFormFieldContent>{{
@@ -148,12 +153,13 @@
           <span puiFormFieldDescription>With country code (ie. +123)</span>
           @if (isInfoEditing()) {
             <pui-input-field puiFormFieldContent>
-              <input [value]="customer()?.phone" type="tel">
+              <input
+                [value]="$safeNavigationMigration(customer()?.phone)"
+                type="tel"
+              />
             </pui-input-field>
           } @else {
-            <span puiFormFieldContent>{{
-              customer()?.phone ?? "----"
-            }}</span>
+            <span puiFormFieldContent>{{ customer()?.phone ?? "----" }}</span>
           }
         </pui-form-field>
         <pui-form-field>
@@ -161,12 +167,13 @@
           <span puiFormFieldTitle>Email address</span>
           @if (isInfoEditing()) {
             <pui-input-field puiFormFieldContent>
-              <input [value]="customer()?.email" type="email">
+              <input
+                [value]="$safeNavigationMigration(customer()?.email)"
+                type="email"
+              />
             </pui-input-field>
           } @else {
-            <span puiFormFieldContent>{{
-              customer()?.email ?? "----"
-            }}</span>
+            <span puiFormFieldContent>{{ customer()?.email ?? "----" }}</span>
           }
         </pui-form-field>
         <pui-form-field>
@@ -187,7 +194,12 @@
         </pui-form-field>
         <pui-form-field>
           <span puiFormFieldTitle>Registered since</span>
-          <pui-time-display puiFormFieldContent format="MMM dd, yyyy HH:mm" [date]="customer()?.registeredSince" class="px-2"></pui-time-display>
+          <pui-time-display
+            puiFormFieldContent
+            format="MMM dd, yyyy HH:mm"
+            [date]="$safeNavigationMigration(customer()?.registeredSince)"
+            class="px-2"
+          ></pui-time-display>
         </pui-form-field>
       </pui-form-display>
     </div>

@@ -2,17 +2,22 @@
   <div>
     @let filterConfig = flattenFilterDef();
     @if (filterConfig.length > 0) {
-      <pui-fieldset [value]="filterValue()" (valueChange)="onFilterValueChange($event)">
+      <pui-fieldset
+        [value]="filterValue()"
+        (valueChange)="onFilterValueChange($event)"
+      >
         @for (control of flattenFilterDef(); track control.key) {
           <pui-field-def
             [key]="control.key"
             [fieldType]="control.fieldConfiguration.type"
             [label]="control.fieldConfiguration.description ?? control.key"
-            [fieldConfig]="control.fieldConfiguration.type == 'string'
-              ? { enum: control.fieldConfiguration.enum }
-              : control.fieldConfiguration.type == 'number'
-              ? { enum: control.fieldConfiguration.enum }
-              : {}"
+            [fieldConfig]="
+              control.fieldConfiguration.type == 'string'
+                ? { enum: control.fieldConfiguration.enum }
+                : control.fieldConfiguration.type == 'number'
+                  ? { enum: control.fieldConfiguration.enum }
+                  : {}
+            "
             [isNullable]="false"
           ></pui-field-def>
         }
@@ -29,13 +34,12 @@
         <pui-table
           animate.enter="pui-loading-panel--enter"
           animate.leave="pui-loading-panel--leave"
-          [id]="configuration?.id"
+          [id]="$safeNavigationMigration(configuration?.id)"
           [itemHeight]="48"
           [columns]="columnsToDisplay()"
           [columnWidths]="[]"
           [selectionMode]="selectionMode()"
         >
-
           @for (config of columnConfig(); track config.key) {
             <pui-table-header-cell
               *puiTableHeaderCellDef="config.key"
@@ -44,41 +48,64 @@
               [sortedAsc]="config.isSortedAsc ?? false"
               [sortedDesc]="config.isSortedDesc ?? false"
               (cellClick)="onHeaderClick(config.key, $event)"
-            >{{ config.label }}</pui-table-header-cell>
-            <pui-table-cell *puiTableCellDef="config.key; let item" [centerAligned]="config.isAlignCenter ?? false" [rightAligned]="config.isAlignEnd ?? false">
+              >{{ config.label }}</pui-table-header-cell
+            >
+            <pui-table-cell
+              *puiTableCellDef="config.key; let item"
+              [centerAligned]="config.isAlignCenter ?? false"
+              [rightAligned]="config.isAlignEnd ?? false"
+            >
               @if (config.fieldConfiguration) {
                 @switch (config.fieldConfiguration.type) {
-                  @case ('date-time') {
+                  @case ("date-time") {
                     <pui-time-display
-                      [mode]="config.fieldConfiguration.format == 'timeAgo' ? 'timeAgo' : 'normal'"
+                      [mode]="
+                        config.fieldConfiguration.format == 'timeAgo'
+                          ? 'timeAgo'
+                          : 'normal'
+                      "
                       [format]="config.fieldConfiguration.format"
-                      [date]="item | lodashGet: (config.path ?? config.key)"
+                      [date]="item | lodashGet: config.path ?? config.key"
                     >
                       <span>--</span>
                     </pui-time-display>
-                    @if (config.fieldConfiguration.format == 'timeAgo') {
+                    @if (config.fieldConfiguration.format == "timeAgo") {
                       &nbsp;ago
                     }
                   }
-                  @case ('boolean') {
-                    @let value = item | lodashGet: (config.path ?? config.key);
+                  @case ("boolean") {
+                    @let value = item | lodashGet: config.path ?? config.key;
                     <i
                       class="pui-table-cell__boolean-content"
-                      [class.pui-table-cell__boolean-content--true]="value === true"
-                    >{{ value === true ? 'check' : value === false ? 'close' : '' }}</i>
+                      [class.pui-table-cell__boolean-content--true]="
+                        value === true
+                      "
+                      >{{
+                        value === true
+                          ? "check"
+                          : value === false
+                            ? "close"
+                            : ""
+                      }}</i
+                    >
                   }
                   @default {
-                    <span>{{ item | lodashGet: (config.path ?? config.key) }}</span>
+                    <span>{{
+                      item | lodashGet: config.path ?? config.key
+                    }}</span>
                   }
                 }
               } @else {
-                <span>{{ item | lodashGet: (config.path ?? config.key) }}</span>
+                <span>{{ item | lodashGet: config.path ?? config.key }}</span>
               }
             </pui-table-cell>
           }
 
           <pui-table-body>
-            <div puiContentVisibilityDetector (skippedChanged)="scrolledToTop.set(!$event)"></div>
+            <div
+              puiContentVisibilityDetector
+              (skippedChanged)="scrolledToTop.set(!$event)"
+            ></div>
             <pui-table-header-row></pui-table-header-row>
             @if (configuration?.useVirtualScroll) {
               @if (isBrowser) {
@@ -89,12 +116,16 @@
                   scrollWindow
                 >
                   <pui-table-row
-                    *cdkVirtualFor="let item of data(); trackBy: trackingFn; templateCacheSize: 0"
+                    *cdkVirtualFor="
+                      let item of data();
+                      trackBy: trackingFn;
+                      templateCacheSize: 0
+                    "
                     puiHoverable
                     [item]="item"
                     [route]="item[ROUTE_TO_DETAIL]"
                     [style.height.px]="48"
-                    [selected]="item | isInSet: selectedItems(): cmpFn"
+                    [selected]="item | isInSet: selectedItems() : cmpFn"
                     (click)="onRowClick(item)"
                   ></pui-table-row>
                 </cdk-virtual-scroll-viewport>
@@ -105,12 +136,15 @@
                   puiHoverable
                   [item]="item"
                   [route]="item[ROUTE_TO_DETAIL]"
-                  [selected]="item | isInSet: selectedItems(): cmpFn"
+                  [selected]="item | isInSet: selectedItems() : cmpFn"
                   (click)="onRowClick(item)"
                 ></pui-table-row>
               }
             }
-            <div puiContentVisibilityDetector (skippedChanged)="scrolledToBottom.set(!$event)"></div>
+            <div
+              puiContentVisibilityDetector
+              (skippedChanged)="scrolledToBottom.set(!$event)"
+            ></div>
           </pui-table-body>
         </pui-table>
       }

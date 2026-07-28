@@ -1,5 +1,15 @@
 import { isPlatformBrowser } from '@angular/common';
-import { Component, DestroyRef, effect, ElementRef, inject, input, PLATFORM_ID, Signal, viewChild } from '@angular/core';
+import {
+  Component,
+  DestroyRef,
+  effect,
+  ElementRef,
+  inject,
+  input,
+  PLATFORM_ID,
+  Signal,
+  viewChild
+} from '@angular/core';
 import { eachDayOfInterval } from 'date-fns';
 import { Calendar } from 'vanilla-calendar-pro';
 
@@ -9,34 +19,46 @@ import { Calendar } from 'vanilla-calendar-pro';
   templateUrl: './system-log-calendar.component.html',
 })
 export class SystemLogCalendarComponent {
-  private destroyRef = inject(DestroyRef)
-  private isBrowser = isPlatformBrowser(inject(PLATFORM_ID))
-  startDate = input.required<Date>()
-  endDate = input.required<Date>()
+  private destroyRef = inject(DestroyRef);
+  private isBrowser = isPlatformBrowser(inject(PLATFORM_ID));
+  startDate = input.required<Date>();
+  endDate = input.required<Date>();
   private calendar!: Calendar;
-  private calendarDiv: Signal<ElementRef<HTMLDivElement>> = viewChild.required('calendar', { read: ElementRef })
+  private calendarDiv: Signal<ElementRef<HTMLDivElement>> = viewChild.required(
+    'calendar',
+    { read: ElementRef },
+  );
 
   constructor() {
     if (this.isBrowser) {
-      const ref = effect(() => {
-        const div = this.calendarDiv();
-        if (div.nativeElement) {
-          this.calendar = new Calendar(div.nativeElement, {
-            type: 'default',
-            firstWeekday: 0,
-            selectedDates: eachDayOfInterval({ start: this.startDate(), end: this.endDate() }),
-            disableAllDates: true,
-            enableDates: eachDayOfInterval({ start: this.startDate(), end: this.endDate() }),
-            enableDateToggle: false,
-          })
-          this.calendar.init()
-          ref.destroy()
-        }
-      }, { manualCleanup: true })
+      const ref = effect(
+        () => {
+          const div = this.calendarDiv();
+          if (div.nativeElement) {
+            this.calendar = new Calendar(div.nativeElement, {
+              type: 'default',
+              firstWeekday: 0,
+              selectedDates: eachDayOfInterval({
+                start: this.startDate(),
+                end: this.endDate(),
+              }),
+              disableAllDates: true,
+              enableDates: eachDayOfInterval({
+                start: this.startDate(),
+                end: this.endDate(),
+              }),
+              enableDateToggle: false,
+            });
+            this.calendar.init();
+            ref.destroy();
+          }
+        },
+        { manualCleanup: true },
+      );
       this.destroyRef.onDestroy(() => {
-        this.calendar.destroy()
-        ref.destroy()
-      })
+        this.calendar.destroy();
+        ref.destroy();
+      });
     }
   }
 }

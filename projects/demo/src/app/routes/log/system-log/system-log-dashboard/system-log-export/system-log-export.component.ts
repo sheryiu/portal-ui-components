@@ -1,6 +1,10 @@
 import { Component, input } from '@angular/core';
 import { ButtonModule } from 'portal-ui-ng/base';
-import { DividerComponent, TimeDisplayComponent, ToggleComponent } from 'portal-ui-ng/components';
+import {
+  DividerComponent,
+  TimeDisplayComponent,
+  ToggleComponent,
+} from 'portal-ui-ng/components';
 
 @Component({
   selector: 'demo-system-log-export',
@@ -13,7 +17,6 @@ import { DividerComponent, TimeDisplayComponent, ToggleComponent } from 'portal-
   templateUrl: './system-log-export.component.html',
 })
 export class SystemLogExportComponent {
-  startDate = input.required<Date>()
-  endDate = input.required<Date>()
-
+  startDate = input.required<Date>();
+  endDate = input.required<Date>();
 }

@@ -5,6 +5,4 @@ import { Component } from '@angular/core';
   imports: [],
   templateUrl: './inventory-shelf-map.component.html',
 })
-export class InventoryShelfMapComponent {
-
-}
+export class InventoryShelfMapComponent {}

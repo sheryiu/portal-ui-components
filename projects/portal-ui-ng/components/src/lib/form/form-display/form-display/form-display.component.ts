@@ -1,16 +1,16 @@
 import { NgTemplateOutlet } from '@angular/common';
-import { Component, contentChildren } from '@angular/core';
+import {
+  Component,
+  contentChildren
+} from '@angular/core';
 import { DividerComponent } from '../../../divider';
 import { FormFieldComponent } from '../form-field/form-field.component';
 
 @Component({
   selector: 'pui-form-display',
-  imports: [
-    NgTemplateOutlet,
-    DividerComponent
-  ],
+  imports: [NgTemplateOutlet, DividerComponent],
   templateUrl: './form-display.component.html',
 })
 export class FormDisplayComponent {
-  fields = contentChildren(FormFieldComponent, { descendants: true })
+  fields = contentChildren(FormFieldComponent, { descendants: true });
 }

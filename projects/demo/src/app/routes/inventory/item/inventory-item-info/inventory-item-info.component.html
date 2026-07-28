@@ -2,26 +2,44 @@
   <main class="pui-card rounded-4 p-8 flex flex-col gap-8">
     <div class="grid @screen-md:grid-cols-3 gap-8">
       <!-- status card -->
-      <div class="pui-card--subtle rounded-4 px-8 py-4 overflow-hidden flex flex-col justify-center">
+      <div
+        class="pui-card--subtle rounded-4 px-8 py-4 overflow-hidden flex flex-col justify-center"
+      >
         <h4 class="text-neutral-700 dark:text-neutral-300">Status</h4>
-        <p class="text-md">{{ inventoryItem()?.status ?? '--' }}</p>
+        <p class="text-md">{{ inventoryItem()?.status ?? "--" }}</p>
       </div>
       <!-- customer card -->
       <a
         class="pui-card--subtle rounded-4 px-8 py-4 overflow-hidden justify-start text-start"
         puiHoverable
         [hoverableEnabled]="!isEditing() && customer() != null"
-        [routerLink]="(!isEditing() && !!customer()) ? ['/user', 'customer', 'detail', customer()?.id] : null"
+        [routerLink]="
+          !isEditing() && !!customer()
+            ? [
+                '/user',
+                'customer',
+                'detail',
+                customer()?.id,
+              ]
+            : null
+        "
       >
         <div class="flex flex-row gap-2 justify-start items-center w-full">
           <i class="icon-6 text-neutral-700 dark:text-neutral-300">person</i>
           <div class="flex flex-col">
             <h4 class="text-neutral-700 dark:text-neutral-300">Customer</h4>
-            <p class="text-md">{{ updatedValues().customer?.name ?? customer()?.name ?? '--' }}</p>
+            <p class="text-md">
+              {{ updatedValues().customer?.name ?? customer()?.name ?? "--" }}
+            </p>
           </div>
           @if (isEditing()) {
             <div class="spacer"></div>
-            <button puiBorderedButton color="primary" class="rounded-full px-4 py-2" (click)="onUpdateCustomerClick()">
+            <button
+              puiBorderedButton
+              color="primary"
+              class="rounded-full px-4 py-2"
+              (click)="onUpdateCustomerClick()"
+            >
               <span>Update</span>
             </button>
           }
@@ -32,30 +50,78 @@
         class="pui-card--subtle rounded-4 px-8 py-4 overflow-hidden justify-start"
         puiHoverable
         [hoverableEnabled]="!isEditing() && shelf() != null"
-        [routerLink]="(!isEditing() && !!shelf()) ? ['/inventory', 'shelf', 'detail', shelf()?.id] : null"
+        [routerLink]="
+          !isEditing() && !!shelf()
+            ? [
+                '/inventory',
+                'shelf',
+                'detail',
+                shelf()?.id,
+              ]
+            : null
+        "
       >
         <div class="flex flex-row gap-2 justify-start items-center">
           <i class="icon-6 text-neutral-700 dark:text-neutral-300">shelves</i>
           <div class="flex flex-col">
             <h4 class="text-neutral-700 dark:text-neutral-300">Shelf</h4>
-            <p class="text-md uppercase">{{ shelf() ? (shelf()?.location?.aisle! + shelf()?.location?.row + ' - ' + shelf()?.location?.layer) : '--' }}</p>
+            <p class="text-md uppercase">
+              {{
+                shelf()
+                  ? shelf()?.location?.aisle! +
+                    shelf()?.location?.row +
+                    " - " +
+                    shelf()?.location?.layer
+                  : "--"
+              }}
+            </p>
           </div>
         </div>
       </a>
     </div>
-    <div class="grid items-center grid-cols-[min-content_minmax(80px,1fr)] gap-x-4 gap-y-3">
-      <span class="col-start-1 text-base font-medium whitespace-nowrap text-neutral-700 dark:text-neutral-300">ID</span>
-      <span class="col-start-2 text-md">{{ inventoryItem()?.id ?? '---' }}</span>
-      <span class="col-start-1 text-base font-medium whitespace-nowrap text-neutral-700 dark:text-neutral-300">Arrived at</span>
+    <div
+      class="grid items-center grid-cols-[min-content_minmax(80px,1fr)] gap-x-4 gap-y-3"
+    >
+      <span
+        class="col-start-1 text-base font-medium whitespace-nowrap text-neutral-700 dark:text-neutral-300"
+        >ID</span
+      >
+      <span class="col-start-2 text-md">{{
+        inventoryItem()?.id ?? "---"
+      }}</span>
+      <span
+        class="col-start-1 text-base font-medium whitespace-nowrap text-neutral-700 dark:text-neutral-300"
+        >Arrived at</span
+      >
       <span class="col-start-2 text-md">
-        <pui-time-display [date]="inventoryItem()?.arrivedAt" [format]="'yyyy-MM-dd HH:mm'"></pui-time-display>
-        (<pui-time-display [date]="inventoryItem()?.arrivedAt" [mode]="'timeAgo'"></pui-time-display> ago )
+        <pui-time-display
+          [date]="$safeNavigationMigration(inventoryItem()?.arrivedAt)"
+          [format]="'yyyy-MM-dd HH:mm'"
+        ></pui-time-display>
+        (<pui-time-display
+          [date]="$safeNavigationMigration(inventoryItem()?.arrivedAt)"
+          [mode]="'timeAgo'"
+        ></pui-time-display>
+        ago )
       </span>
-      <span class="col-start-1 text-base font-medium whitespace-nowrap text-neutral-700 dark:text-neutral-300">Net weight</span>
-      <span class="col-start-2 text-md">{{ inventoryItem()?.netWeight ?? '---' }} g</span>
-      <span class="col-start-1 text-base font-medium whitespace-nowrap text-neutral-700 dark:text-neutral-300">Gross weight</span>
-      <span class="col-start-2 text-md">{{ inventoryItem()?.grossWeight ?? '---' }} g</span>
-      <span class="col-start-1 text-base font-medium whitespace-nowrap text-neutral-700 dark:text-neutral-300">Fragile</span>
+      <span
+        class="col-start-1 text-base font-medium whitespace-nowrap text-neutral-700 dark:text-neutral-300"
+        >Net weight</span
+      >
+      <span class="col-start-2 text-md"
+        >{{ inventoryItem()?.netWeight ?? "---" }} g</span
+      >
+      <span
+        class="col-start-1 text-base font-medium whitespace-nowrap text-neutral-700 dark:text-neutral-300"
+        >Gross weight</span
+      >
+      <span class="col-start-2 text-md"
+        >{{ inventoryItem()?.grossWeight ?? "---" }} g</span
+      >
+      <span
+        class="col-start-1 text-base font-medium whitespace-nowrap text-neutral-700 dark:text-neutral-300"
+        >Fragile</span
+      >
       @if (inventoryItem()?.isContainFragile === true) {
         <i class="icon-5 text-green-600 dark:text-green-400">check</i>
       } @else if (inventoryItem()?.isContainFragile === false) {
@@ -67,11 +133,22 @@
     @if (inventoryItem()) {
       <pui-divider></pui-divider>
       <h2>Contents</h2>
-      <pui-table [itemHeight]="48" [columns]="['description', 'isbn', 'quantity', 'totalPrice']">
-        <pui-table-header-cell *puiTableHeaderCellDef="'description'">Item</pui-table-header-cell>
-        <pui-table-header-cell *puiTableHeaderCellDef="'isbn'">ISBN</pui-table-header-cell>
-        <pui-table-header-cell *puiTableHeaderCellDef="'quantity'">Quantity</pui-table-header-cell>
-        <pui-table-header-cell *puiTableHeaderCellDef="'totalPrice'">Total Price</pui-table-header-cell>
+      <pui-table
+        [itemHeight]="48"
+        [columns]="['description', 'isbn', 'quantity', 'totalPrice']"
+      >
+        <pui-table-header-cell *puiTableHeaderCellDef="'description'"
+          >Item</pui-table-header-cell
+        >
+        <pui-table-header-cell *puiTableHeaderCellDef="'isbn'"
+          >ISBN</pui-table-header-cell
+        >
+        <pui-table-header-cell *puiTableHeaderCellDef="'quantity'"
+          >Quantity</pui-table-header-cell
+        >
+        <pui-table-header-cell *puiTableHeaderCellDef="'totalPrice'"
+          >Total Price</pui-table-header-cell
+        >
 
         <pui-table-cell *puiTableCellDef="'description'; let item">
           <span class="truncate">{{ item.description }}</span>
@@ -82,16 +159,17 @@
         <pui-table-cell *puiTableCellDef="'quantity'; let item">
           x <span class="truncate">{{ item.quantity }}</span>
         </pui-table-cell>
-        <pui-table-cell *puiTableCellDef="'totalPrice'; let item" class="tabular-nums">
+        <pui-table-cell
+          *puiTableCellDef="'totalPrice'; let item"
+          class="tabular-nums"
+        >
           $ <span class="truncate">{{ item.totalPrice }}</span>
         </pui-table-cell>
 
         <pui-table-body>
           <pui-table-header-row></pui-table-header-row>
           @for (item of inventoryItem()!.contents; track item.id) {
-            <pui-table-row
-              [item]="item"
-            ></pui-table-row>
+            <pui-table-row [item]="item"></pui-table-row>
           }
         </pui-table-body>
       </pui-table>
@@ -104,17 +182,31 @@
         <div class="flex flex-row items-center gap-8">
           <div class="flex flex-col grow">
             <span class="text-base font-medium">Mark as Expired</span>
-            <span class="text-sm dark:text-neutral-300">Set the status to expired, preventing any future modifications</span>
+            <span class="text-sm dark:text-neutral-300"
+              >Set the status to expired, preventing any future
+              modifications</span
+            >
           </div>
-          <button puiBorderedButton color="red" class="rounded-full px-4 py-2">Confirm</button>
+          <button puiBorderedButton color="red" class="rounded-full px-4 py-2">
+            Confirm
+          </button>
         </div>
         <pui-divider></pui-divider>
         <div class="flex flex-row items-center gap-8">
           <div class="flex flex-col grow">
             <span class="text-base font-medium">Remove Inventory Item</span>
-            <span class="text-sm dark:text-neutral-300">This action cannot be undone</span>
+            <span class="text-sm dark:text-neutral-300"
+              >This action cannot be undone</span
+            >
           </div>
-          <button puiFilledButton color="red" class="rounded-full px-4 py-2" (click)="onRemoveClick()">Remove</button>
+          <button
+            puiFilledButton
+            color="red"
+            class="rounded-full px-4 py-2"
+            (click)="onRemoveClick()"
+          >
+            Remove
+          </button>
         </div>
       </div>
     </main>

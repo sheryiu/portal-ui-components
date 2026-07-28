@@ -1,12 +1,14 @@
-import { Component, input, output } from '@angular/core';
+import {
+  Component,
+  input,
+  output
+} from '@angular/core';
 import { InputFieldComponent } from 'portal-ui-ng/base';
 
 @Component({
   selector: 'pui-remove-confirm',
-  imports: [
-    InputFieldComponent,
-  ],
-  templateUrl: './remove-confirm.component.html'
+  imports: [InputFieldComponent],
+  templateUrl: './remove-confirm.component.html',
 })
 export class RemoveConfirmComponent {
   readonly stringToCheck = input.required<string>();

@@ -1,7 +1,26 @@
-import { CdkPortalOutlet, ComponentPortal, PortalModule } from '@angular/cdk/portal';
+import {
+  CdkPortalOutlet,
+  ComponentPortal,
+  PortalModule,
+} from '@angular/cdk/portal';
 import { NgClass, NgComponentOutlet } from '@angular/common';
-import { AfterViewInit, Component, ComponentRef, Signal, Type, inject, isSignal, signal, viewChild } from '@angular/core';
-import { ButtonModule, HoverableDirective, OVERLAY_DATA, PuiOverlayRef } from 'portal-ui-ng/base';
+import {
+  AfterViewInit,
+  Component,
+  ComponentRef,
+  Signal,
+  Type,
+  inject,
+  isSignal,
+  signal,
+  viewChild
+} from '@angular/core';
+import {
+  ButtonModule,
+  HoverableDirective,
+  OVERLAY_DATA,
+  PuiOverlayRef,
+} from 'portal-ui-ng/base';
 
 export type ModalDialogData<C = undefined> = {
   dialogClass?: string;
@@ -41,7 +60,7 @@ export type ModalDialogData<C = undefined> = {
     onClick?: (event: MouseEvent, overlayRef: PuiOverlayRef) => void;
   }[];
   onDetailsComponentAttached?: (componentRef: ComponentRef<C>) => void;
-}
+};
 
 @Component({
   selector: 'pui-modal-dialog',
@@ -57,23 +76,27 @@ export type ModalDialogData<C = undefined> = {
 export class ModalDialogComponent<C = undefined> implements AfterViewInit {
   overlayRef = inject(PuiOverlayRef);
   data = inject(OVERLAY_DATA) as ModalDialogData<C>;
-  detailsPortal = this.data.detailsComponent ? new ComponentPortal(this.data.detailsComponent) : null;
-  private detailsOutlet: Signal<CdkPortalOutlet> = viewChild.required('portalOutlet');
+  detailsPortal = this.data.detailsComponent
+    ? new ComponentPortal(this.data.detailsComponent)
+    : null;
+  private detailsOutlet: Signal<CdkPortalOutlet> =
+    viewChild.required('portalOutlet');
 
-  actions = (this.data.actions ?? []).map(action => ({
+  actions = (this.data.actions ?? []).map((action) => ({
     label: isSignal(action.label) ? action.label : signal(action.label),
-    disabled: isSignal(action.disabled) ? action.disabled : signal(action.disabled),
+    disabled: isSignal(action.disabled)
+      ? action.disabled
+      : signal(action.disabled),
     color: action.color,
     onClick: action.onClick,
-  }))
+  }));
 
   ngAfterViewInit(): void {
     if (this.detailsOutlet && this.detailsPortal) {
       setTimeout(() => {
         const ref = this.detailsOutlet().attach(this.detailsPortal);
         this.data.onDetailsComponentAttached?.(ref);
-      })
+      });
     }
   }
-
 }
