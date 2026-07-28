@@ -58,8 +58,8 @@ export class TableComponent {
 
   private columns = linkedSignal(() => {
     const columns = this.inputColumns();
-    if (columns == null) return { default: [] as string[] };
-    if (Array.isArray(columns)) return { default: columns };
+    if (columns == null) return { default: [] as string[] } as Record<'default' | number, string[]>;
+    if (Array.isArray(columns)) return { default: columns } as Record<'default' | number, string[]>;
     return columns;
   });
   private activeColumnsKey = computed(() => {

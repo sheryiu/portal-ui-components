@@ -95,11 +95,11 @@
       >
       <span class="col-start-2 text-md">
         <pui-time-display
-          [date]="$safeNavigationMigration(inventoryItem()?.arrivedAt)"
+          [date]="inventoryItem()?.arrivedAt"
           [format]="'yyyy-MM-dd HH:mm'"
         ></pui-time-display>
         (<pui-time-display
-          [date]="$safeNavigationMigration(inventoryItem()?.arrivedAt)"
+          [date]="inventoryItem()?.arrivedAt"
           [mode]="'timeAgo'"
         ></pui-time-display>
         ago )

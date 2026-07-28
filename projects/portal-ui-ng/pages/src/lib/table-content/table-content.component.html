@@ -34,7 +34,7 @@
         <pui-table
           animate.enter="pui-loading-panel--enter"
           animate.leave="pui-loading-panel--leave"
-          [id]="$safeNavigationMigration(configuration?.id)"
+          [id]="(configuration?.id)"
           [itemHeight]="48"
           [columns]="columnsToDisplay()"
           [columnWidths]="[]"

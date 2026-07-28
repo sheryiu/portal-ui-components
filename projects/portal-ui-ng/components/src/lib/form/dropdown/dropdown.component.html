@@ -6,7 +6,7 @@
   [disabled]="disabled$$()"
   [hoverableEnabled]="!disabled$$()"
 >
-  @let templateRef = $safeNavigationMigration(trigger()?.templateRef);
+  @let templateRef = trigger()?.templateRef;
   @if (templateRef) {
     <div>
       <ng-container

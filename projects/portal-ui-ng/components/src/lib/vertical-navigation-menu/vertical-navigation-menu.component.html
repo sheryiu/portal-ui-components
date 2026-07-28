@@ -31,20 +31,20 @@
                 groupEl | isInSet: openedChildren(),
               'pui-vertical-navigation-menu__item--active': active.isActive,
             }"
-            [state]="$safeNavigationMigration(options?.state)"
+            [state]="(options?.state)"
             [skipLocationChange]="
-              $safeNavigationMigration(options?.skipLocationChange)
+              (options?.skipLocationChange)
             "
-            [queryParams]="$safeNavigationMigration(options?.queryParams)"
+            [queryParams]="(options?.queryParams)"
             [queryParamsHandling]="
-              $safeNavigationMigration(options?.queryParamsHandling)
+              (options?.queryParamsHandling)
             "
-            [fragment]="$safeNavigationMigration(options?.fragment)"
+            [fragment]="(options?.fragment)"
             [preserveFragment]="
-              $safeNavigationMigration(options?.preserveFragment)
+              (options?.preserveFragment)
             "
-            [relativeTo]="$safeNavigationMigration(options?.relativeTo)"
-            [replaceUrl]="$safeNavigationMigration(options?.replaceUrl)"
+            [relativeTo]="(options?.relativeTo)"
+            [replaceUrl]="(options?.replaceUrl)"
             (click)="
               toggleGroup(child.disabled(), child.isAlwaysExpanded(), groupEl);
               child.click.emit($event)
@@ -109,20 +109,20 @@
           [ngClass]="{
             'pui-vertical-navigation-menu__item--active': active.isActive,
           }"
-          [state]="$safeNavigationMigration(options?.state)"
+          [state]="(options?.state)"
           [skipLocationChange]="
-            $safeNavigationMigration(options?.skipLocationChange)
+            (options?.skipLocationChange)
           "
-          [queryParams]="$safeNavigationMigration(options?.queryParams)"
+          [queryParams]="(options?.queryParams)"
           [queryParamsHandling]="
-            $safeNavigationMigration(options?.queryParamsHandling)
+            (options?.queryParamsHandling)
           "
-          [fragment]="$safeNavigationMigration(options?.fragment)"
+          [fragment]="(options?.fragment)"
           [preserveFragment]="
-            $safeNavigationMigration(options?.preserveFragment)
+            (options?.preserveFragment)
           "
-          [relativeTo]="$safeNavigationMigration(options?.relativeTo)"
-          [replaceUrl]="$safeNavigationMigration(options?.replaceUrl)"
+          [relativeTo]="(options?.relativeTo)"
+          [replaceUrl]="(options?.replaceUrl)"
           [ariaDisabled]="child.disabled()"
           [hoverableEnabled]="!child.disabled()"
         >

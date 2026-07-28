@@ -28,18 +28,18 @@ import { TableComponent } from './table.component';
     @let routerLinkActiveOptions = activeOptions();
     <a
       [routerLink]="route()"
-      [state]="$safeNavigationMigration(options?.state)"
+      [state]="(options?.state)"
       [skipLocationChange]="
-        $safeNavigationMigration(options?.skipLocationChange)
+        (options?.skipLocationChange)
       "
-      [queryParams]="$safeNavigationMigration(options?.queryParams)"
+      [queryParams]="(options?.queryParams)"
       [queryParamsHandling]="
-        $safeNavigationMigration(options?.queryParamsHandling)
+        (options?.queryParamsHandling)
       "
-      [fragment]="$safeNavigationMigration(options?.fragment)"
-      [preserveFragment]="$safeNavigationMigration(options?.preserveFragment)"
+      [fragment]="(options?.fragment)"
+      [preserveFragment]="(options?.preserveFragment)"
       [relativeTo]="options?.relativeTo ?? undefined"
-      [replaceUrl]="$safeNavigationMigration(options?.replaceUrl)"
+      [replaceUrl]="(options?.replaceUrl)"
       routerLinkActive
       #active="routerLinkActive"
       [routerLinkActiveOptions]="routerLinkActiveOptions ?? { exact: false }"

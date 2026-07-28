@@ -77,7 +77,7 @@
         <span class="text-base text-center"
           >Joined since
           <pui-time-display
-            [date]="$safeNavigationMigration(customer()?.registeredSince)"
+            [date]="customer()?.registeredSince"
             [format]="'dd MMM yyyy'"
           ></pui-time-display
         ></span>
@@ -122,7 +122,7 @@
           <span puiFormFieldTitle>Fullname</span>
           @if (isInfoEditing()) {
             <pui-input-field puiFormFieldContent>
-              <input [value]="$safeNavigationMigration(customer()?.name)" />
+              <input [value]="customer()?.name" />
             </pui-input-field>
           } @else {
             <span puiFormFieldContent>{{ customer()?.name ?? "----" }}</span>
@@ -132,7 +132,7 @@
           <span puiFormFieldTitle>Username</span>
           @if (isInfoEditing()) {
             <pui-input-field puiFormFieldContent>
-              <input [value]="$safeNavigationMigration(customer()?.username)" />
+              <input [value]="customer()?.username" />
             </pui-input-field>
           } @else {
             <span puiFormFieldContent>{{
@@ -154,7 +154,7 @@
           @if (isInfoEditing()) {
             <pui-input-field puiFormFieldContent>
               <input
-                [value]="$safeNavigationMigration(customer()?.phone)"
+                [value]="customer()?.phone"
                 type="tel"
               />
             </pui-input-field>
@@ -168,7 +168,7 @@
           @if (isInfoEditing()) {
             <pui-input-field puiFormFieldContent>
               <input
-                [value]="$safeNavigationMigration(customer()?.email)"
+                [value]="customer()?.email"
                 type="email"
               />
             </pui-input-field>
@@ -197,7 +197,7 @@
           <pui-time-display
             puiFormFieldContent
             format="MMM dd, yyyy HH:mm"
-            [date]="$safeNavigationMigration(customer()?.registeredSince)"
+            [date]="customer()?.registeredSince"
             class="px-2"
           ></pui-time-display>
         </pui-form-field>
