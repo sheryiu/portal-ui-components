@@ -1,0 +1,1 @@
+var o=[{path:"system-log",loadChildren:()=>import('./chunk-aUzds4Tw.js').then(function(n){return n.c}).then(t=>t.ROUTES)}];export{o as ROUTES};

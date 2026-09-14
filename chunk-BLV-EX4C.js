@@ -1,0 +1,1 @@
+import {r as r$1,w as w6}from'./main-KVQ3QDFX.js';var o=[{path:"",data:r$1({},w6({title:"Inventory"})),children:[{path:"item",loadChildren:()=>import('./chunk-G2FB5gCl.js').then(t=>t.ROUTES)},{path:"shelf",loadChildren:()=>import('./chunk-BTEKoGoO.js').then(t=>t.ROUTES)}]}];export{o as ROUTES};
