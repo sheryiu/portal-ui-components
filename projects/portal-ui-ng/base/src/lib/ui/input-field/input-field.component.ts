@@ -1,4 +1,8 @@
-import { Component, booleanAttribute, input } from '@angular/core';
+import {
+  Component,
+  booleanAttribute,
+  input
+} from '@angular/core';
 import { HoverableDirective } from '../hoverable.directive';
 
 @Component({
@@ -7,11 +11,11 @@ import { HoverableDirective } from '../hoverable.directive';
   template: `<ng-content></ng-content>`,
   host: {
     class: 'pui-input-field',
-    '[attr.data-borderless]': 'borderless()'
+    '[attr.data-borderless]': 'borderless()',
   },
   hostDirectives: [
-    { directive: HoverableDirective, inputs: ['hoverableEnabled'] }
-  ]
+    { directive: HoverableDirective, inputs: ['hoverableEnabled'] },
+  ],
 })
 export class InputFieldComponent {
   borderless = input(false, { transform: booleanAttribute });

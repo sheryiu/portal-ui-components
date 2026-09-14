@@ -1,6 +1,9 @@
 import { Component, inject } from '@angular/core';
 import { OVERLAY_DATA, PuiOverlayRef } from 'portal-ui-ng/base';
-import { DropdownOverlay, DropdownOverlayData } from '../dropdown-overlay.component';
+import {
+  DropdownOverlay,
+  DropdownOverlayData,
+} from '../dropdown-overlay.component';
 
 @Component({
   selector: 'pui-base-dropdown-overlay',

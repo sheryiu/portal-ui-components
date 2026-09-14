@@ -6,15 +6,11 @@ import { EmployeeCalendarEvent } from '../../../../../data/user.types';
 
 @Component({
   selector: 'demo-calendar-events',
-  imports: [
-    BaseButtonDirective,
-    DatePipe,
-    RouterLink,
-  ],
+  imports: [BaseButtonDirective, DatePipe, RouterLink],
   templateUrl: './calendar-events.component.html',
   host: {
-    class: 'contents'
-  }
+    class: 'contents',
+  },
 })
 export class CalendarEventsComponent {
   events = input.required<EmployeeCalendarEvent[]>();

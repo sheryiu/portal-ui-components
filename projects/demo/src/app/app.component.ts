@@ -1,7 +1,14 @@
 import { Component } from '@angular/core';
 import { faker } from '@faker-js/faker';
 import { ButtonModule } from 'portal-ui-ng/base';
-import { DividerComponent, MenuDividerDirective, MenuGroupDirective, MenuItemDirective, TooltipDirective, VerticalNavigationMenuComponent } from 'portal-ui-ng/components';
+import {
+  DividerComponent,
+  MenuDividerDirective,
+  MenuGroupDirective,
+  MenuItemDirective,
+  TooltipDirective,
+  VerticalNavigationMenuComponent,
+} from 'portal-ui-ng/components';
 import { RootSidenavComponent } from 'portal-ui-ng/pages';
 
 @Component({
@@ -16,10 +23,10 @@ import { RootSidenavComponent } from 'portal-ui-ng/pages';
     MenuDividerDirective,
     RootSidenavComponent,
   ],
-  templateUrl: './app.component.html'
+  templateUrl: './app.component.html',
 })
 export class AppComponent {
   constructor() {
-    faker.seed(2887)
+    faker.seed(2887);
   }
 }

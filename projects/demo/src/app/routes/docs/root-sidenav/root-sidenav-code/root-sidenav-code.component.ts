@@ -5,6 +5,4 @@ import { Component } from '@angular/core';
   imports: [],
   templateUrl: './root-sidenav-code.component.html',
 })
-export class RootSidenavCodeComponent {
-
-}
+export class RootSidenavCodeComponent {}

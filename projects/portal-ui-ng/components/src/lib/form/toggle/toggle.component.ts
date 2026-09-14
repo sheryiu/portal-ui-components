@@ -1,28 +1,36 @@
-import { Component, booleanAttribute, forwardRef, input, linkedSignal, output } from '@angular/core';
+import {
+  Component,
+  booleanAttribute,
+  forwardRef,
+  input,
+  linkedSignal,
+  output
+} from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { uniqueId } from 'lodash-es';
 import { HoverableDirective } from 'portal-ui-ng/base';
 
 @Component({
   selector: 'pui-toggle',
-  imports: [
-    HoverableDirective,
-  ],
+  imports: [HoverableDirective],
   templateUrl: './toggle.component.html',
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
       useExisting: forwardRef(() => ToggleComponent),
       multi: true,
-    }
-  ]
+    },
+  ],
 })
+// TODO update to use the new signal base form controls
 export class ToggleComponent implements ControlValueAccessor {
-
   /** the id must be passed in as [id]="" instead of id="" */
-  id = input<string>(`toggle-${uniqueId()}`)
-  inputToggled = input(false, { alias: 'toggled', transform: booleanAttribute })
-  disabled = input(false, { transform: booleanAttribute })
+  id = input<string>(`toggle-${uniqueId()}`);
+  inputToggled = input(false, {
+    alias: 'toggled',
+    transform: booleanAttribute,
+  });
+  disabled = input(false, { transform: booleanAttribute });
   valueChange = output<boolean>();
 
   isChecked = linkedSignal(() => this.inputToggled());
@@ -35,7 +43,7 @@ export class ToggleComponent implements ControlValueAccessor {
     const target = event.currentTarget as HTMLInputElement;
     this.isChecked.set(target.checked);
     this.onChange?.(this.isChecked());
-    this.valueChange.emit(this.isChecked())
+    this.valueChange.emit(this.isChecked());
   }
 
   writeValue(obj: any): void {
@@ -50,5 +58,4 @@ export class ToggleComponent implements ControlValueAccessor {
   setDisabledState?(isDisabled: boolean): void {
     this.isDisabled.set(isDisabled);
   }
-
 }

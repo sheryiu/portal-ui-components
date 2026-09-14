@@ -1,11 +1,29 @@
 import { NgClass } from '@angular/common';
-import { Component, computed, effect, inject, untracked } from '@angular/core';
+import {
+  Component,
+  computed,
+  effect,
+  inject,
+  untracked
+} from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { matchFormArrayLength } from 'portal-ui-ng';
-import { ButtonModule, HoverableDirective, InputFieldComponent } from 'portal-ui-ng/base';
-import { BaseDropdownOverlayComponent, DividerComponent, DropdownComponent, DropdownOverlayDirective, DropdownTriggerDirective, ToggleComponent, TooltipDirective } from 'portal-ui-ng/components';
+import {
+  ButtonModule,
+  HoverableDirective,
+  InputFieldComponent,
+} from 'portal-ui-ng/base';
+import {
+  BaseDropdownOverlayComponent,
+  DividerComponent,
+  DropdownComponent,
+  DropdownOverlayDirective,
+  DropdownTriggerDirective,
+  ToggleComponent,
+  TooltipDirective,
+} from 'portal-ui-ng/components';
 import { map } from 'rxjs';
 import { AccessControlDataService } from '../../../../data/access-control-data.service';
 import { EmployeeDataService } from '../../../../data/employee-data.service';
@@ -28,27 +46,29 @@ import { EmployeeStatus } from '../../../../data/user.types';
     DropdownComponent,
     DropdownTriggerDirective,
     DropdownOverlayDirective,
-    BaseDropdownOverlayComponent
+    BaseDropdownOverlayComponent,
   ],
   templateUrl: './access-control-overall.component.html',
   host: {
-    class: 'contents'
-  }
+    class: 'contents',
+  },
 })
 export class AccessControlOverallComponent {
-  private dataService = inject(AccessControlDataService)
-  private employeeDataService = inject(EmployeeDataService)
-  private route = inject(ActivatedRoute)
-  private list = toSignal(this.dataService.getList())
-  private employeeList = toSignal(this.employeeDataService.getList())
-  private id = toSignal(this.route.params.pipe(map(p => p['id'])))
+  private dataService = inject(AccessControlDataService);
+  private employeeDataService = inject(EmployeeDataService);
+  private route = inject(ActivatedRoute);
+  private list = toSignal(this.dataService.getList());
+  private employeeList = toSignal(this.employeeDataService.getList());
+  private id = toSignal(this.route.params.pipe(map((p) => p['id'])));
 
   accessControl = computed(() => {
-    return this.list()?.find(a => a.id == this.id());
-  })
+    return this.list()?.find((a) => a.id == this.id());
+  });
   employee = computed(() => {
-    return this.employeeList()?.find(e => e.id == this.accessControl()?.employeeId)
-  })
+    return this.employeeList()?.find(
+      (e) => e.id == this.accessControl()?.employeeId,
+    );
+  });
 
   employeeStatus = EmployeeStatus;
 
@@ -76,16 +96,22 @@ export class AccessControlOverallComponent {
       isEnabled: [false],
       allowedIps: inject(FormBuilder).nonNullable.array([] as string[]),
       countries: inject(FormBuilder).nonNullable.array([] as string[]),
-    })
-  })
+    }),
+  });
 
   constructor() {
     effect(() => {
       const value = this.accessControl();
       if (!value) return;
       untracked(() => {
-        matchFormArrayLength(this.formGroup.controls.location.controls.allowedIps, value.conditions.location.allowedIps.length)
-        matchFormArrayLength(this.formGroup.controls.location.controls.countries, value.conditions.location.countries.length)
+        matchFormArrayLength(
+          this.formGroup.controls.location.controls.allowedIps,
+          value.conditions.location.allowedIps.length,
+        );
+        matchFormArrayLength(
+          this.formGroup.controls.location.controls.countries,
+          value.conditions.location.countries.length,
+        );
         this.formGroup.setValue({
           isEnabled: value.isEnabled,
           customer: {
@@ -110,29 +136,29 @@ export class AccessControlOverallComponent {
             isEnabled: value.conditions.location.isEnabled,
             allowedIps: value.conditions.location.allowedIps,
             countries: value.conditions.location.countries,
-          }
-        })
-      })
-    })
+          },
+        });
+      });
+    });
   }
 
   onToggleAll(groupName: 'customer' | 'employee' | 'inventoryItem') {
     const v = (this.formGroup.getRawValue() as any)[groupName];
-    const isAllOn = Object.values(v).every(bool => bool == true)
+    const isAllOn = Object.values(v).every((bool) => bool == true);
     if (isAllOn) {
       this.formGroup.get(groupName)?.setValue({
         canCreate: false,
         canRead: false,
         canUpdate: false,
         canDelete: false,
-      })
+      });
     } else {
       this.formGroup.get(groupName)?.setValue({
         canCreate: true,
         canRead: true,
         canUpdate: true,
         canDelete: true,
-      })
+      });
     }
   }
 }

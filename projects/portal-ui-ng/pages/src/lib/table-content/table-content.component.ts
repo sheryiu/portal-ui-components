@@ -1,15 +1,38 @@
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { isPlatformBrowser } from '@angular/common';
-import { Component, computed, effect, inject, linkedSignal, OnDestroy, OnInit, PLATFORM_ID, signal, untracked } from '@angular/core';
+import {
+  Component,
+  computed,
+  effect,
+  inject,
+  linkedSignal,
+  OnDestroy,
+  OnInit,
+  PLATFORM_ID,
+  signal,
+  untracked
+} from '@angular/core';
 import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop';
 import { ActivatedRoute } from '@angular/router';
 import { IsInSetPipe, LodashGetPipe } from 'portal-ui-ng';
-import { ContentVisibilityDetectorDirective, HoverableDirective } from 'portal-ui-ng/base';
-import { FieldModule, LoadingPanelComponent, TableModule, TimeDisplayComponent } from 'portal-ui-ng/components';
+import {
+  ContentVisibilityDetectorDirective,
+  HoverableDirective,
+} from 'portal-ui-ng/base';
+import {
+  FieldModule,
+  LoadingPanelComponent,
+  TableModule,
+  TimeDisplayComponent,
+} from 'portal-ui-ng/components';
 import { combineLatest, debounceTime } from 'rxjs';
 import { flatten } from '../field-configuration';
 import { LayoutControlDirective } from '../layout/layout-control.directive';
-import { TABLE_CONTENT_DATA_PROVIDER, TABLE_CONTENT_DEFAULT_CONTROLS, TableContentDataProvider } from './table-content';
+import {
+  TABLE_CONTENT_DATA_PROVIDER,
+  TABLE_CONTENT_DEFAULT_CONTROLS,
+  TableContentDataProvider,
+} from './table-content';
 
 @Component({
   selector: 'pui-table-content',
@@ -27,81 +50,92 @@ import { TABLE_CONTENT_DATA_PROVIDER, TABLE_CONTENT_DEFAULT_CONTROLS, TableConte
   ],
   templateUrl: './table-content.component.html',
   host: {
-    class: 'pui-table-content'
+    class: 'pui-table-content',
   },
 })
 export class TableContentComponent<T> implements OnInit, OnDestroy {
   private route = inject(ActivatedRoute);
-  private dataProvider = inject(TABLE_CONTENT_DATA_PROVIDER) as (TableContentDataProvider<T>)
-  protected isBrowser = isPlatformBrowser(inject(PLATFORM_ID))
+  private dataProvider = inject(
+    TABLE_CONTENT_DATA_PROVIDER,
+  ) as TableContentDataProvider<T>;
+  protected isBrowser = isPlatformBrowser(inject(PLATFORM_ID));
 
   protected readonly ROUTE_TO_DETAIL = Symbol();
   protected configuration = this.dataProvider.configuration;
 
   protected isLoading = computed(() => {
     return this.dataProvider.isLoading?.() ?? false;
-  })
+  });
   protected data = computed(() => {
     const data = this.dataProvider.data();
     const routeToDetail = this.dataProvider.routeToDetail;
-    return data?.map(item => Object.assign({}, item, { [this.ROUTE_TO_DETAIL]: routeToDetail?.bind(this.dataProvider)?.(item) }))
-  })
+    return data?.map((item) =>
+      Object.assign({}, item, {
+        [this.ROUTE_TO_DETAIL]: routeToDetail?.bind(this.dataProvider)?.(item),
+      }),
+    );
+  });
   protected columnConfig = computed(() => {
     return this.dataProvider.columnsConfig();
-  })
+  });
   protected columnsToDisplay = computed(() => {
     return this.dataProvider.columnsToDisplay();
-  })
+  });
   protected selectionMode = computed(() => {
     return this.dataProvider.selectionMode?.() ?? null;
-  })
+  });
   protected selectedItems = computed(() => {
     return this.dataProvider.selectedItems?.() ?? new Set();
-  })
+  });
   protected controlsConfig = computed(() => {
-    return this.dataProvider.controlsConfig?.() ?? TABLE_CONTENT_DEFAULT_CONTROLS
-  })
+    return (
+      this.dataProvider.controlsConfig?.() ?? TABLE_CONTENT_DEFAULT_CONTROLS
+    );
+  });
   protected flattenFilterDef = computed(() => {
     const config = this.dataProvider.filterConfig?.();
     if (!config) return [];
-    return flatten(config, {}, '', config.description ? `${config.description} / ` : '')
-  })
+    return flatten(
+      config,
+      {},
+      '',
+      config.description ? `${config.description} / ` : '',
+    );
+  });
 
-  protected filterValue = linkedSignal(() => this.dataProvider.filterValue?.())
+  protected filterValue = linkedSignal(() => this.dataProvider.filterValue?.());
 
-  protected scrolledToTop = signal<boolean>(false)
-  protected scrolledToBottom = signal<boolean>(false)
+  protected scrolledToTop = signal<boolean>(false);
+  protected scrolledToBottom = signal<boolean>(false);
 
   constructor() {
-    combineLatest([
-      this.route.params,
-      this.route.queryParams,
-    ]).pipe(
-      takeUntilDestroyed(),
-    ).subscribe(([p, qp]) => this.dataProvider.onParamsChange?.(p, qp))
+    combineLatest([this.route.params, this.route.queryParams])
+      .pipe(takeUntilDestroyed())
+      .subscribe(([p, qp]) => this.dataProvider.onParamsChange?.(p, qp));
     if (this.dataProvider.onScrolledToTop) {
       effect(() => {
         if (this.isLoading()) return;
-        if (this.scrolledToTop()) untracked(() => this.dataProvider.onScrolledToTop!())
-      })
+        if (this.scrolledToTop())
+          untracked(() => this.dataProvider.onScrolledToTop!());
+      });
     }
     if (this.dataProvider.onScrolledToBottom) {
       effect(() => {
         if (this.isLoading()) return;
-        if (this.scrolledToBottom()) untracked(() => this.dataProvider.onScrolledToBottom!())
-      })
+        if (this.scrolledToBottom())
+          untracked(() => this.dataProvider.onScrolledToBottom!());
+      });
     }
-    toObservable(this.data).pipe(
-      debounceTime(100),
-      takeUntilDestroyed()
-    ).subscribe(() => {
-      if (this.scrolledToTop()) {
-        this.dataProvider.onScrolledToTop?.()
-      }
-      if (this.scrolledToBottom()) {
-        this.dataProvider.onScrolledToBottom?.()
-      }
-    })
+    toObservable(this.data)
+      .pipe(debounceTime(100), takeUntilDestroyed())
+      .subscribe(() => {
+        if (this.scrolledToTop()) {
+          this.dataProvider.onScrolledToTop?.();
+        }
+        if (this.scrolledToBottom()) {
+          this.dataProvider.onScrolledToBottom?.();
+        }
+      });
   }
 
   ngOnInit(): void {
@@ -113,27 +147,27 @@ export class TableContentComponent<T> implements OnInit, OnDestroy {
   }
 
   protected onRowClick(item: T) {
-    this.dataProvider.onTableRowClick?.(item)
+    this.dataProvider.onTableRowClick?.(item);
   }
 
   protected onHeaderClick(columnKey: string, event: MouseEvent) {
-    this.dataProvider.onHeaderCellClick?.(columnKey, event)
+    this.dataProvider.onHeaderCellClick?.(columnKey, event);
   }
 
   protected onControlClick(id: string, event: MouseEvent) {
-    this.dataProvider.onControlClick?.(id, event)
+    this.dataProvider.onControlClick?.(id, event);
   }
 
   protected onFilterValueChange(value: any) {
-    this.filterValue.set(value)
-    this.dataProvider.onFilterChange?.(value)
+    this.filterValue.set(value);
+    this.dataProvider.onFilterChange?.(value);
   }
 
   protected onScrolled(position: 'top' | 'bottom', skipped: boolean) {
     if (position == 'top') {
-      this.scrolledToTop.set(!skipped)
+      this.scrolledToTop.set(!skipped);
     } else {
-      this.scrolledToBottom.set(!skipped)
+      this.scrolledToBottom.set(!skipped);
     }
   }
 
