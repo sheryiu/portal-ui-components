@@ -77,8 +77,8 @@
 }
 
 @custom-variant dark (&:where(.dark, .dark *));
-@custom-variant enabled (&:where(:enabled, [data-enabled="true"]));
-@custom-variant disabled (&:where(:disabled, [data-enabled="false"]));
+@custom-variant enabled (&:where(:enabled, [data-hoverable-enabled="true"]));
+@custom-variant disabled (&:where(:disabled, [data-hoverable-enabled="false"]));
 
 @import "./button.css";
 @import "./input-field.css";
