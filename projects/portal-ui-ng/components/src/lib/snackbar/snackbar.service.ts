@@ -22,7 +22,7 @@ export class SnackbarService {
       SnackbarOverlayComponent,
       {
         positionStrategy: this.overlay.position().global()
-          .top('4rem')
+          .top('5.5rem') // top spacing + height of breadcrumbs
           .centerHorizontally(),
         scrollStrategy: this.overlay.scrollStrategies.noop(),
         stayOpenedOnOutsideClicks: true,
@@ -54,7 +54,7 @@ export class SnackbarService {
       SnackbarErrorComponent,
       {
         positionStrategy: this.overlay.position().global()
-          .top('4rem')
+          .top('5.5rem') // top spacing + height of breadcrumbs
           .centerHorizontally(),
         scrollStrategy: this.overlay.scrollStrategies.noop(),
         stayOpenedOnOutsideClicks: true,
