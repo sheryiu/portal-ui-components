@@ -1,1 +1,0 @@
-var n=[{path:"",loadComponent:()=>import('./chunk-BScWscLJ.js').then(o=>o.HomeComponent),children:[{path:"",loadComponent:()=>import('./chunk-CKSEDM94.js').then(o=>o.HomeContentComponent)}]}];export{n as ROUTES};
