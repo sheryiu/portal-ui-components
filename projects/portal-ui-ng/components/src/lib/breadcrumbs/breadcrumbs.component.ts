@@ -56,16 +56,18 @@ export class BreadcrumbsComponent {
             if (tempTooltip && !isObservable(tempTooltip))
               tempTooltip = of(tempTooltip);
             return combineLatest([tempTitle, tempTooltip ?? of(null)]).pipe(
-              map(([title, tooltip]) => ({ ...b, title, tooltip })),
+              map(([title, tooltip]) => ({ ...b, title, tooltip, disabled: b.disabled ?? false })),
             );
           } else {
             return of({
-              ...(b as {
-                route: ActivatedRoute;
-                title: string;
-                tooltip?: string | null;
-                id: Symbol;
-              }),
+              ...b,
+              disabled: b.disabled ?? false,
+            } as {
+              route: ActivatedRoute;
+              title: string;
+              tooltip?: string | null;
+              id: Symbol;
+              disabled: boolean;
             });
           }
         }),

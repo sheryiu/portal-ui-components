@@ -10,6 +10,7 @@
       @for (visibleDay of daysWithData(); track $index) {
         <div
           puiHoverable
+          [hoverableEnabled]="true"
           class="flex flex-col items-center justify-start gap-1.5 relative min-h-32"
           [ngClass]="{
             'border-b': $index < $count - 7,

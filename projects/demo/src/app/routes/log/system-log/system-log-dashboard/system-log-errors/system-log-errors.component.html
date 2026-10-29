@@ -26,7 +26,7 @@
 
     <pui-table-body>
       @for (log of processed(); track log.id) {
-        <pui-table-row [item]="log" [route]="log.__route" puiHoverable></pui-table-row>
+        <pui-table-row [item]="log" [route]="log.__route" puiHoverable [hoverableEnabled]="true"></pui-table-row>
       }
     </pui-table-body>
   </pui-table>

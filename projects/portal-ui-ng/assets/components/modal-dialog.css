@@ -36,7 +36,7 @@
   }
   &[data-mode=dialog] {
     .pui-modal-dialog__icon {
-      @apply icon-12 me-4;
+      @apply icon-10 me-4;
     }
   }
   &[data-mode=modal] {

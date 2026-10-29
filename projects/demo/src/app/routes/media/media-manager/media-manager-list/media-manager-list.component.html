@@ -47,10 +47,11 @@
     <pui-table-header-row></pui-table-header-row>
     @for (media of processed(); track media.id) {
       <pui-table-row
-      [item]="media"
-      puiHoverable
-      [route]="navigateWithRouter() ? ['../', media.id] : undefined"
-      (rowClick)="navigateWithRouter() ? {} : navigateTo.emit(media)"
+        [item]="media"
+        puiHoverable
+        [hoverableEnabled]="true"
+        [route]="navigateWithRouter() ? ['../', media.id] : undefined"
+        (rowClick)="navigateWithRouter() ? {} : navigateTo.emit(media)"
       ></pui-table-row>
     }
   </pui-table-body>

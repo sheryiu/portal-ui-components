@@ -18,6 +18,7 @@
 >
   <div
     puiHoverable
+    [hoverableEnabled]="!isDisabled()"
     class="pui-toggle__trigger"
   >
     <i>{{ isChecked() ? 'check' : 'close' }}</i>

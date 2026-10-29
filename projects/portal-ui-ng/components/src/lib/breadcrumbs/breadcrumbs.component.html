@@ -1,6 +1,7 @@
 @for (breadcrumb of breadcrumbs$ | async; track breadcrumb.id) {
   <a
     puiHoverable
+    [hoverableEnabled]="!breadcrumb.disabled"
     [routerLink]="['./']"
     [relativeTo]="breadcrumb.route"
     >

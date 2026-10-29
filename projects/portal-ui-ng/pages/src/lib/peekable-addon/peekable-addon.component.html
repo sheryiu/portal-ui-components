@@ -4,6 +4,7 @@
       class="pui-peekable-addon__nav-button"
       puiBaseButton
       puiTooltip="View in full"
+      [hoverableEnabled]="true"
       [routerLink]="routeToFullContent()"
     >
       <i>open_in_full</i>
@@ -14,6 +15,7 @@
     class="pui-peekable-addon__nav-button"
     puiBaseButton
     puiTooltip="Close peek window"
+    [hoverableEnabled]="true"
     [routerLink]="[{ outlets: { peek: [] } }]"
   >
     <i>close</i>

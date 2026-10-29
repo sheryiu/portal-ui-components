@@ -5,6 +5,7 @@
         @for (parent of parentFolders(); track parent?.id) {
           <a
             puiBaseButton
+            [hoverableEnabled]="true"
             class="rounded-1 px-4 py-2 @screen-sm:px-2 gap-2 items-center flex-none rounded-aaa"
             [ngClass]="{ 'bg-hover dark:bg-hover-dark': $first }"
             [routerLink]="navigateWithRouter() ? ['../', parent?.id ?? null] : null"

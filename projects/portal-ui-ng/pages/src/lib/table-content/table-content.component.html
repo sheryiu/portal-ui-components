@@ -122,6 +122,7 @@
                       templateCacheSize: 0
                     "
                     puiHoverable
+                    [hoverableEnabled]="true"
                     [item]="item"
                     [route]="item[ROUTE_TO_DETAIL]"
                     [style.height.px]="48"
@@ -134,6 +135,7 @@
               @for (item of data(); track $index) {
                 <pui-table-row
                   puiHoverable
+                  [hoverableEnabled]="true"
                   [item]="item"
                   [route]="item[ROUTE_TO_DETAIL]"
                   [selected]="item | isInSet: selectedItems() : cmpFn"
